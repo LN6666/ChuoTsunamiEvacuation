@@ -14,3 +14,6 @@
 *.pdb
 *.mdb
 .DS_Store
+
+.vscode/
+*.slnx
