@@ -19,3 +19,7 @@
 *.slnx
 
 review_reports/
+
+# Generated PLATEAU imported scenes
+Assets/Scenes/Chuo_BaseMap.unity
+Assets/Scenes/Chuo_BaseMap.unity.meta
