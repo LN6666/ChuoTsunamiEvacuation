@@ -1,17 +1,49 @@
+import logging
 import os
 import subprocess
-from pathlib import Path
+import sys
+import time
 from datetime import datetime
-from openai import OpenAI
+from pathlib import Path
+from typing import Sequence
+
+from openai import (
+    APIConnectionError,
+    APIStatusError,
+    APITimeoutError,
+    AuthenticationError,
+    OpenAI,
+    RateLimitError,
+)
 
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
 REPORT_DIR = PROJECT_ROOT / "review_reports"
+LOG_DIR = PROJECT_ROOT / "logs"
+
+MODEL_NAME = os.environ.get("DEEPSEEK_REVIEW_MODEL", "deepseek-v4-pro")
+TEMPERATURE = float(os.environ.get("DEEPSEEK_REVIEW_TEMPERATURE", "0.2"))
+BASE_URL = os.environ.get("DEEPSEEK_API_BASE_URL", "https://api.deepseek.com")
+MAX_RETRIES = int(os.environ.get("DEEPSEEK_REVIEW_MAX_RETRIES", "2"))
 
 
-def run_command(command: list[str]) -> str:
+def setup_logging() -> None:
+    LOG_DIR.mkdir(exist_ok=True)
+    log_path = LOG_DIR / "deepseek_review.log"
+
+    logging.basicConfig(
+        level=logging.INFO,
+        format="%(asctime)s [%(levelname)s] %(message)s",
+        handlers=[
+            logging.FileHandler(log_path, encoding="utf-8"),
+            logging.StreamHandler(sys.stdout),
+        ],
+    )
+
+
+def run_command(command: Sequence[str]) -> str:
     result = subprocess.run(
-        command,
+        list(command),
         cwd=PROJECT_ROOT,
         text=True,
         capture_output=True,
@@ -20,24 +52,39 @@ def run_command(command: list[str]) -> str:
     )
 
     if result.returncode != 0:
+        stderr_preview = (result.stderr or "").strip()[:1000]
+        stdout_preview = (result.stdout or "").strip()[:1000]
+
         raise RuntimeError(
-            f"Command failed: {' '.join(command)}\n\nSTDOUT:\n{result.stdout}\n\nSTDERR:\n{result.stderr}"
+            "Command failed: "
+            + " ".join(command)
+            + "\nSTDOUT preview:\n"
+            + stdout_preview
+            + "\nSTDERR preview:\n"
+            + stderr_preview
         )
 
     return result.stdout
 
 
+def ensure_git_repository() -> None:
+    git_dir = PROJECT_ROOT / ".git"
+    if not git_dir.exists():
+        raise RuntimeError(
+            f"This script must be run inside a Git project. "
+            f"Expected .git directory at: {git_dir}"
+        )
+
+
 def get_git_diff() -> str:
-    """
-    Review staged changes first.
-    If there are no staged changes, review unstaged changes.
-    """
     staged_diff = run_command(["git", "diff", "--cached"])
     if staged_diff.strip():
+        logging.info("Review target: staged git diff.")
         return staged_diff
 
     unstaged_diff = run_command(["git", "diff"])
     if unstaged_diff.strip():
+        logging.info("Review target: unstaged git diff.")
         return unstaged_diff
 
     return ""
@@ -128,29 +175,69 @@ def call_deepseek(prompt: str) -> str:
 
     client = OpenAI(
         api_key=api_key,
-        base_url="https://api.deepseek.com",
+        base_url=BASE_URL,
     )
 
-    response = client.chat.completions.create(
-        model="deepseek-v4-pro",
-        messages=[
-            {
-                "role": "system",
-                "content": (
-                    "You are a careful Unity C# code reviewer. "
-                    "Be concise, specific, and practical. "
-                    "Do not rewrite the entire project."
-                ),
-            },
-            {
-                "role": "user",
-                "content": prompt,
-            },
-        ],
-        temperature=0.2,
-    )
+    last_error: Exception | None = None
 
-    return response.choices[0].message.content or ""
+    for attempt in range(1, MAX_RETRIES + 2):
+        try:
+            logging.info(
+                "Calling DeepSeek review model. model=%s attempt=%s",
+                MODEL_NAME,
+                attempt,
+            )
+
+            response = client.chat.completions.create(
+                model=MODEL_NAME,
+                messages=[
+                    {
+                        "role": "system",
+                        "content": (
+                            "You are a careful Unity C# code reviewer. "
+                            "Be concise, specific, and practical. "
+                            "Do not rewrite the entire project."
+                        ),
+                    },
+                    {
+                        "role": "user",
+                        "content": prompt,
+                    },
+                ],
+                temperature=TEMPERATURE,
+            )
+
+            return response.choices[0].message.content or ""
+
+        except (APIConnectionError, APITimeoutError, RateLimitError) as exc:
+            last_error = exc
+            logging.warning(
+                "Transient DeepSeek API error on attempt %s: %s",
+                attempt,
+                type(exc).__name__,
+            )
+
+            if attempt <= MAX_RETRIES:
+                time.sleep(2 * attempt)
+                continue
+
+            raise RuntimeError(
+                f"DeepSeek API request failed after retries: {type(exc).__name__}"
+            ) from exc
+
+        except AuthenticationError as exc:
+            raise RuntimeError(
+                "DeepSeek authentication failed. "
+                "Please check DEEPSEEK_API_KEY."
+            ) from exc
+
+        except APIStatusError as exc:
+            status_code = getattr(exc, "status_code", "unknown")
+            raise RuntimeError(
+                f"DeepSeek API returned an error status: {status_code}"
+            ) from exc
+
+    raise RuntimeError("DeepSeek API request failed.") from last_error
 
 
 def save_review_report(review_text: str) -> Path:
@@ -164,22 +251,41 @@ def save_review_report(review_text: str) -> Path:
     return report_path
 
 
-def main() -> None:
-    diff_text = get_git_diff()
+def main() -> int:
+    setup_logging()
 
-    if not diff_text.strip():
-        print("No staged or unstaged git diff found. Nothing to review.")
-        print("Tip: Make some code changes first, or run git add <file> to stage changes.")
-        return
+    try:
+        ensure_git_repository()
 
-    prompt = build_review_prompt(diff_text)
-    review_text = call_deepseek(prompt)
-    report_path = save_review_report(review_text)
+        diff_text = get_git_diff()
 
-    print(review_text)
-    print()
-    print(f"Review saved to: {report_path}")
+        if not diff_text.strip():
+            logging.info("No staged or unstaged git diff found. Nothing to review.")
+            print("No staged or unstaged git diff found. Nothing to review.")
+            print("Tip: Make code changes first, or run git add <file> to stage changes.")
+            return 0
+
+        prompt = build_review_prompt(diff_text)
+        review_text = call_deepseek(prompt)
+        report_path = save_review_report(review_text)
+
+        print(review_text)
+        print()
+        print(f"Review saved to: {report_path}")
+
+        logging.info("Review saved to: %s", report_path)
+        return 0
+
+    except Exception as exc:
+        logging.exception("DeepSeek review failed.")
+        print()
+        print("DeepSeek review failed.")
+        print(f"Reason: {exc}")
+        print()
+        print("Detailed error log:")
+        print(LOG_DIR / "deepseek_review.log")
+        return 1
 
 
 if __name__ == "__main__":
-    main()
+    raise SystemExit(main())
