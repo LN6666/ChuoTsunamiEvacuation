@@ -25,3 +25,10 @@ Assets/Scenes/Chuo_BaseMap.unity
 Assets/Scenes/Chuo_BaseMap.unity.meta
 
 logs/
+
+logs/
+
+# Python cache files
+__pycache__/
+**/__pycache__/
+*.py[cod]
