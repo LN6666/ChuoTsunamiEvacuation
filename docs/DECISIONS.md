@@ -1,0 +1,151 @@
+﻿# Technical Decisions
+
+This document records important technical and design decisions.
+
+---
+
+## Decision 001: Use Unity as the main development platform
+
+Date: 2026-05-12
+
+Decision:
+Use Unity as the main platform for the evacuation simulation game.
+
+Reason:
+Unity supports 3D interaction, player movement, triggers, UI, scene management, and gameplay logic. It is more suitable than a pure GIS tool for building an interactive serious game.
+
+---
+
+## Decision 002: Use PLATEAU CityGML as the 3D city model source
+
+Date: 2026-05-12
+
+Decision:
+Use Project PLATEAU 3D city model data for Tokyo's Chuo City.
+
+Reason:
+PLATEAU provides official 3D urban model data, including buildings and related geographic datasets. It is suitable for creating a realistic urban base map.
+
+---
+
+## Decision 003: Use Buildings / LOD1 for the first base map
+
+Date: 2026-05-12
+
+Decision:
+The first import uses only Buildings / bldg / LOD1.
+
+Reason:
+LOD1 is sufficient to show building massing and urban layout. It is lighter than LOD2 and more stable for the first Unity import.
+
+Out of scope for first import:
+- LOD2
+- textures
+- road models
+- bridges
+- water
+- underground areas
+- vegetation
+- city furniture
+- disaster risk layers
+
+---
+
+## Decision 004: Do not commit generated PLATEAU scene files to GitHub
+
+Date: 2026-05-12
+
+Decision:
+The generated Chuo_BaseMap.unity scene file is kept locally and ignored by Git.
+
+Reason:
+The generated Unity scene is about 567MB. It is too large for normal GitHub usage and may cause repository bloat.
+
+Policy:
+- Store generated scene locally on the cloud desktop data disk.
+- Commit only code, documentation, project settings, and small configuration files.
+- Record import steps in docs/plateau_import_log_2026-05-12.md.
+
+---
+
+## Decision 005: Represent tsunami as a risk boundary, not fluid simulation
+
+Date: 2026-05-12
+
+Decision:
+The tsunami is represented as a moving risk boundary or risk wall.
+
+Reason:
+Physically accurate fluid simulation is outside the project scope. The project focuses on evacuation decisions under shrinking safe space.
+
+Implication:
+The wall represents danger progression, not exact water dynamics.
+
+---
+
+## Decision 006: Use Codex as the main coding agent
+
+Date: 2026-05-12
+
+Decision:
+Use Codex CLI as the main coding agent.
+
+Reason:
+Codex can read the Unity project, create C# scripts, modify files, and help fix compile errors.
+
+Constraint:
+Codex must follow AGENTS.md and must not modify unrelated files.
+
+---
+
+## Decision 007: Use DeepSeek V4 Pro API for code review
+
+Date: 2026-05-12
+
+Decision:
+Use DeepSeek V4 Pro API as a code review tool through tools/deepseek_review.py.
+
+Reason:
+DeepSeek is suitable for long-context review of git diff, architecture, Unity lifecycle problems, and maintainability issues.
+
+Constraint:
+DeepSeek does not directly modify files. It only produces review reports.
+
+---
+
+## Decision 008: Use Markdown as the project coordination layer
+
+Date: 2026-05-12
+
+Decision:
+Use Markdown documents to coordinate project planning, agent prompts, architecture, data schema, review workflow, and progress.
+
+Reason:
+Agent-based development requires explicit instructions, boundaries, and review criteria. Markdown provides a stable shared reference for the human developer, Codex, DeepSeek, and future presentation materials.
+
+---
+
+## Decision 009: Apply grill-me before implementing core systems
+
+Date: 2026-05-12
+
+Decision:
+Before implementing core systems, run a grill-me design check.
+
+Reason:
+The project involves many ambiguous decisions, such as tsunami behavior, shelter validity, failure conditions, and player interaction. Grill-me helps expose hidden assumptions before code generation.
+
+---
+
+## Decision 010: First playable version should prioritize a vertical slice
+
+Date: 2026-05-12
+
+Decision:
+The first coding milestone should implement a minimal playable evacuation loop.
+
+Reason:
+A small playable loop is more valuable than many disconnected systems.
+
+First loop:
+Player moves → tsunami risk approaches → player enters shelter → climb simulation → success or failure.
