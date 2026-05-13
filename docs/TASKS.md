@@ -118,3 +118,21 @@ Before each milestone:
 5. Test in Unity.
 6. Run DeepSeek review.
 7. Commit and push.
+
+---
+
+## Current Testing Policy
+
+Until the real street-placement system is implemented, first playable systems should be tested on an isolated debug platform.
+
+The test platform should support:
+
+- third-person movement testing
+- sprint testing
+- mouse orbit camera testing
+- shelter entry testing
+- climb simulation testing
+- tsunami risk wall testing
+- risk zone failure testing
+
+Do not require the first playable loop to identify real streets from the current Buildings / LOD1 model.

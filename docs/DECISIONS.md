@@ -243,3 +243,40 @@ Examples:
 
 Reason:
 This makes the tsunami warning feel unexpected and makes the evacuation decision more realistic.
+
+---
+
+## Decision 016: Use GTA / mobile-style third-person camera as the target camera model
+
+Date: 2026-05-13
+
+Decision:
+The project should use a GTA-like or mobile-style third-person camera as the long-term camera model.
+
+Reason:
+The player needs to understand their position in the city, nearby shelter entrances, buildings, and approaching tsunami risk. A third-person orbit camera gives better spatial awareness than a first-person camera.
+
+Design implications:
+
+- Mouse orbit is the primary camera control.
+- Q / E camera rotation is only a debug fallback.
+- The player remains visible on screen.
+- Movement is camera-relative.
+- The camera can rotate around the player even when the player is not moving.
+
+---
+
+## Decision 017: Use isolated debug platform before real street placement
+
+Date: 2026-05-13
+
+Decision:
+The first playable prototype should be tested on an isolated debug platform, not directly inside the imported PLATEAU building area.
+
+Reason:
+The current PLATEAU import uses Buildings / LOD1 only. It does not provide enough information to reliably distinguish streets, sidewalks, walkable ground, and building interiors.
+
+Implication:
+The imported PLATEAU city model is used as background and context during early gameplay testing.
+
+The real street-based version should be implemented later, after road data, spawn point logic, walkable areas, and collision strategy are prepared.

@@ -203,3 +203,60 @@ Anti-camping rule:
 If the player is already waiting inside a shelter entrance trigger before the tsunami warning, that shelter may be blocked for the current round. The player must find another shelter.
 
 This prevents the player from exploiting prior knowledge by camping near a safe building before the disaster begins.
+
+---
+
+## Updated Camera Rule: GTA / Mobile-Style Third-Person Camera
+
+The main camera design should follow a GTA-like or mobile third-person camera model.
+
+Primary camera behavior:
+
+- The player character should remain visible on screen.
+- The camera should stay behind and above the player.
+- Mouse movement should orbit the camera around the player.
+- Horizontal camera rotation should be continuous and not limited to a narrow angle.
+- Vertical camera pitch should be clamped to a usable range.
+- The player should be able to stop moving and still rotate the camera to look around.
+- Player movement should be relative to the current camera direction.
+- W / A / S / D should move the player relative to the camera's forward and right directions.
+- The player body should rotate toward the actual movement direction.
+
+Q / E camera rotation may exist only as a debug fallback for cloud desktop testing.
+It should not be treated as the main camera interaction method.
+
+The intended experience is closer to GTA-style and mobile third-person games:
+movement and camera control are related but not locked together.
+
+---
+
+## Updated Test Scene Rule: Isolated Debug Platform
+
+The first playable gameplay loop should be tested on an isolated debug platform instead of inside the imported PLATEAU building area.
+
+Reason:
+
+The current imported PLATEAU model contains Buildings / LOD1 only.
+It does not yet provide enough information to reliably determine:
+
+- streets
+- sidewalks
+- walkable ground
+- safe spawn points
+- building interiors
+- road surfaces
+- pedestrian paths
+
+Therefore, the first playable prototype should not attempt to infer whether a point is a street or a building interior.
+
+Policy for the current phase:
+
+- PLATEAU buildings are used as visual background and urban context.
+- Player movement, tsunami wall, risk zone, shelter entrance, and climb simulation are tested on a separate debug platform.
+- The platform should be placed away from or above PLATEAU building geometry.
+- The platform should include enough open space for movement, sprinting, camera rotation, shelter entry, and risk testing.
+- Boundary walls or guard rails may be used to prevent the player from leaving the test area.
+
+Later phase:
+
+After the core gameplay loop is stable, the project may introduce road data, spawn point selection, walkable area detection, and collision rules to move gameplay back into the real Chuo City street environment.
