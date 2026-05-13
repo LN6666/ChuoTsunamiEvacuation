@@ -142,3 +142,8 @@ Generated review reports and logs must not be committed.
 Ignored folders:
 - review_reports/
 - logs/
+
+## Review Standard
+
+All DeepSeek reviews must follow docs/REVIEW_STANDARD.md.
+
