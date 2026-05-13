@@ -32,3 +32,10 @@ logs/
 __pycache__/
 **/__pycache__/
 *.py[cod]
+
+Assets/Scenes/Chuo_BaseMap_before_auto_setup.unity
+Assets/Scenes/Chuo_BaseMap_before_auto_setup.unity.meta
+
+# Unity recovery files
+Assets/_Recovery/
+Assets/_Recovery.meta

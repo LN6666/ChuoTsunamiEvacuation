@@ -184,3 +184,50 @@ The human developer must decide:
 Codex should receive only focused, selected fix tasks.
 
 Do not send the entire raw review report to Codex unless necessary.
+
+---
+
+### Review 2026-05-14-02
+
+Source report:
+
+D:\UnityProjects\ChuoTsunamiEvacuation\review_reports\deepseek_review_20260514_032100.md
+
+Context:
+
+DeepSeek V4 Pro max-thinking review for the first playable evacuation prototype.
+
+Unity Play testing confirmed:
+- WASD / arrow-key movement works
+- Shift sprint works
+- mouse-based third-person camera control works
+- E shelter entry works
+- climb simulation works
+- T starts tsunami test
+- tsunami risk can trigger failure
+- tsunami reaching the active shelter entrance during climb can trigger failure
+
+Overall verdict:
+
+Safe to commit
+
+### Action Items
+
+| ID | Priority | Status | Target File | Issue | Required Fix |
+|---|---|---|---|---|---|
+| R-002 | Medium | Deferred | Assets/Scripts/Shelter/ShelterEntranceTrigger.cs | Missing shelter reference could be clearer if setup is broken. | Add null warning in Awake and Update before TryEnterShelter in a future cleanup pass. |
+| R-003 | Low | Deferred | Assets/Scripts/Player/SimplePlayerController.cs | fallbackTranslateIfControllerStuck is useful for debugging but can bypass collision. | Add a production-warning comment or revise after movement system stabilizes. |
+| R-004 | Low | Deferred | Assets/Scripts/Core/EvacuationGameManager.cs | Public state-changing methods could use clearer summary comments. | Add XML summary comments in a later documentation cleanup. |
+| R-005 | Low | Deferred | Assets/Scripts/UI/GameUIManager.cs | Uses legacy UnityEngine.UI.Text instead of TextMeshPro. | Accept for prototype; consider migration after gameplay stabilizes. |
+
+### Decision
+
+No immediate Codex fix is required before this commit.
+
+Reason:
+
+- No critical issues were found.
+- Unity Play testing confirmed the first playable loop works.
+- The remaining issues are maintainability or future cleanup items.
+- The prototype should be committed now as a stable milestone.
+
