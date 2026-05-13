@@ -149,3 +149,46 @@ A small playable loop is more valuable than many disconnected systems.
 
 First loop:
 Player moves → tsunami risk approaches → player enters shelter → climb simulation → success or failure.
+
+---
+
+## Decision 011: Shelter entry is not immediate safety
+
+Date: 2026-05-13
+
+Decision:
+Pressing E near a shelter starts the shelter entry / climb process, but it does not immediately guarantee safety.
+
+The player becomes safe only after the climb simulation is completed.
+
+Reason:
+In a real tsunami evacuation situation, simply reaching a building entrance is not enough. If the tsunami reaches the player or the building entrance before the evacuee reaches a safe upper floor, the evacuation should be considered a failure.
+
+Implication:
+During Climbing state, failure can still happen.
+
+Failure can be triggered by:
+- tsunami risk reaching the player
+- tsunami risk reaching the active shelter entrance
+- countdown reaching zero before climb completion
+
+---
+
+## Decision 012: Future gameplay camera should be third-person
+
+Date: 2026-05-13
+
+Decision:
+The project should move toward a third-person camera and movement system.
+
+Reason:
+The game is about urban evacuation behavior. A third-person camera makes it easier to understand the player's position, nearby buildings, risk boundaries, and shelter entrances.
+
+Implication:
+The first prototype may still use simple capsule objects, but the camera and movement system should be designed to support third-person gameplay.
+
+The camera should:
+- follow behind and above the player
+- allow mouse-controlled view rotation
+- keep the player visible
+- avoid pure first-person camera behavior

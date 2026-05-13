@@ -141,3 +141,37 @@ Codex should not modify unrelated files.
 The first implementation should not depend on PLATEAU-specific APIs.
 
 The system should work with manually placed GameObjects in the Unity scene.
+
+---
+
+## Updated Gameplay Rule: Shelter Entry Is Not Immediate Safety
+
+Pressing E near a shelter entrance does not mean the player is immediately safe.
+
+The player is considered safe only after the climb simulation is completed.
+
+During the climb / shelter entry process, the player remains vulnerable.
+
+Failure should be triggered if:
+
+- the tsunami risk boundary reaches the player before climb completion
+- the tsunami risk boundary reaches the active shelter entrance before climb completion
+- the countdown reaches zero before success
+
+This rule is used because, in a real tsunami evacuation situation, entering a building entrance is not enough. The evacuee must reach a safe upper floor before the tsunami risk arrives.
+
+## Updated Camera Rule: Future Gameplay Is Third-Person
+
+The future game should use a third-person camera.
+
+The first prototype may use simple capsule-based controls, but the movement and camera design should be compatible with a third-person evacuation game.
+
+Expected direction:
+
+- the player is visible on screen
+- the camera follows behind and above the player
+- movement is relative to the camera direction when possible
+- mouse movement controls the camera around the player
+- the camera should not behave like a pure first-person camera
+
+The first playable prototype should prioritize clear testing over polished animation.
