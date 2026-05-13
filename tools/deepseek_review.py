@@ -23,6 +23,8 @@ LOG_DIR = PROJECT_ROOT / "logs"
 
 MODEL_NAME = os.environ.get("DEEPSEEK_REVIEW_MODEL", "deepseek-v4-pro")
 TEMPERATURE = float(os.environ.get("DEEPSEEK_REVIEW_TEMPERATURE", "0.2"))
+REASONING_EFFORT = os.environ.get("DEEPSEEK_REVIEW_REASONING_EFFORT", "max")
+THINKING_TYPE = os.environ.get("DEEPSEEK_REVIEW_THINKING", "enabled")
 BASE_URL = os.environ.get("DEEPSEEK_API_BASE_URL", "https://api.deepseek.com")
 MAX_RETRIES = int(os.environ.get("DEEPSEEK_REVIEW_MAX_RETRIES", "2"))
 
@@ -183,8 +185,10 @@ def call_deepseek(prompt: str) -> str:
     for attempt in range(1, MAX_RETRIES + 2):
         try:
             logging.info(
-                "Calling DeepSeek review model. model=%s attempt=%s",
+                "Calling DeepSeek review model. model=%s reasoning_effort=%s thinking=%s attempt=%s",
                 MODEL_NAME,
+                REASONING_EFFORT,
+                THINKING_TYPE,
                 attempt,
             )
 
@@ -205,6 +209,8 @@ def call_deepseek(prompt: str) -> str:
                     },
                 ],
                 temperature=TEMPERATURE,
+                reasoning_effort=REASONING_EFFORT,
+                extra_body={"thinking": {"type": THINKING_TYPE}},
             )
 
             return response.choices[0].message.content or ""
