@@ -192,3 +192,54 @@ The camera should:
 - allow mouse-controlled view rotation
 - keep the player visible
 - avoid pure first-person camera behavior
+
+---
+
+## Decision 013: Tsunami countdown starts only after warning
+
+Date: 2026-05-13
+
+Decision:
+The evacuation countdown should not start at the beginning of the game. It should start only after the tsunami warning is triggered.
+
+Prototype:
+The T key can manually trigger the tsunami warning for testing.
+
+Future version:
+The warning should occur after a random delay.
+
+Reason:
+In reality, the disaster situation is unexpected. The player should not begin the game already in a countdown state.
+
+---
+
+## Decision 014: Add future anti-camping rule
+
+Date: 2026-05-13
+
+Decision:
+If the player waits inside a shelter entrance trigger before the tsunami warning, that shelter may be marked as camped and blocked for the current round.
+
+Reason:
+Without this rule, the player can exploit prior knowledge by waiting at a known safe building before the tsunami warning starts.
+
+Implication:
+The player must react to the disaster and search for a usable shelter, rather than simply waiting near a known shelter.
+
+---
+
+## Decision 015: Add future ordinary pedestrian phase
+
+Date: 2026-05-13
+
+Decision:
+Future versions should include an ordinary pedestrian phase before the tsunami warning.
+
+Examples:
+- walking to a station
+- going to an office
+- going to a convenience store
+- following a normal route
+
+Reason:
+This makes the tsunami warning feel unexpected and makes the evacuation decision more realistic.

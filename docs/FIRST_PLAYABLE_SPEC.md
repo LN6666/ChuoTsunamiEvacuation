@@ -175,3 +175,31 @@ Expected direction:
 - the camera should not behave like a pure first-person camera
 
 The first playable prototype should prioritize clear testing over polished animation.
+
+---
+
+## Future Rule: Random Warning and Anti-Camping
+
+The future game should include an unexpected tsunami warning phase.
+
+The game should begin in a PreEvent state where the player behaves like an ordinary pedestrian. The tsunami warning should later occur randomly, or by debug key T in the prototype.
+
+Before the warning:
+
+- the evacuation countdown should not decrease
+- the tsunami risk wall should not move
+- shelter status should not be fully revealed
+- standing near a known shelter should not guarantee success
+
+After the warning:
+
+- the evacuation countdown starts
+- the tsunami risk wall starts moving
+- shelter status may be revealed or randomized
+- the player must find a usable shelter and complete the climb process
+
+Anti-camping rule:
+
+If the player is already waiting inside a shelter entrance trigger before the tsunami warning, that shelter may be blocked for the current round. The player must find another shelter.
+
+This prevents the player from exploiting prior knowledge by camping near a safe building before the disaster begins.
