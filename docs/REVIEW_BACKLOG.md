@@ -187,6 +187,43 @@ Do not send the entire raw review report to Codex unless necessary.
 
 ---
 
+### Review 2026-05-15-02
+
+Source report:
+
+review_reports/deepseek_review_20260515_*.md
+
+Context:
+
+DeepSeek V4 Pro review for Milestone 2-03 - Unity Test Automation Foundation.
+
+Unity testing confirmed:
+- EditMode tests ran successfully.
+- PlayMode smoke tests ran successfully.
+
+Overall verdict:
+
+No A-level blocking issues. Non-blocking risks deferred.
+
+### Action Items
+
+| ID | Priority | Status | Target File | Issue | Required Fix |
+|---|---|---|---|---|---|
+| M2-03-B01 | Medium | Deferred | Assets/Tests/EditMode/AntiCampingConfigTests.cs / Assets/Tests/EditMode/ShelterDataLoaderTests.cs | Current tests verify normal config loading and defaults, but do not explicitly test missing anti_camping_config.json or missing test_shelters.json. Risk is low because files exist in normal setup, but future test rounds should cover accidental deletion/fallback behavior. | Add missing-file/fallback EditMode tests for AntiCampingConfig and ShelterDataLoader in a future test coverage pass. |
+| M2-03-B02 | Medium | Deferred | Assets/Tests/PlayMode/EvacuationSmokePlayModeTests.cs / Assets/Scripts/Core/EvacuationGameManager.cs | Current PlayMode tests instantiate EvacuationGameManager on an empty GameObject. This is acceptable now, but future milestones may add heavier Awake initialization or required scene references. | Watch smoke test sensitivity to future EvacuationGameManager Awake/init changes; add a minimal fixture setup if needed. |
+
+### Decision
+
+No immediate Codex fix is required before this commit.
+
+Reason:
+
+- The review found no A-level blockers.
+- Unity EditMode and PlayMode test runs passed.
+- The issues are future test coverage and test fixture robustness improvements.
+
+---
+
 ### Review 2026-05-15-01
 
 Source report:

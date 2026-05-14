@@ -77,24 +77,56 @@ public static class GameConfigLoader
 
     public static TsunamiEventConfig LoadTsunamiEventConfig()
     {
-        TsunamiEventConfig config = new TsunamiEventConfig();
-        LoadJsonInto(config, TsunamiEventConfigFileName, "tsunami event config");
+        return LoadTsunamiEventConfigFromPath(GetDataPath(TsunamiEventConfigFileName));
+    }
+
+    public static TsunamiEventConfig LoadTsunamiEventConfigFromPath(string path)
+    {
+        TsunamiEventConfig config = CreateDefaultTsunamiEventConfig();
+        LoadJsonInto(config, path, "tsunami event config");
         config.Sanitize();
         return config;
     }
 
     public static AntiCampingConfig LoadAntiCampingConfig()
     {
-        AntiCampingConfig config = new AntiCampingConfig();
-        LoadJsonInto(config, AntiCampingConfigFileName, "anti-camping config");
+        return LoadAntiCampingConfigFromPath(GetDataPath(AntiCampingConfigFileName));
+    }
+
+    public static AntiCampingConfig LoadAntiCampingConfigFromPath(string path)
+    {
+        AntiCampingConfig config = CreateDefaultAntiCampingConfig();
+        LoadJsonInto(config, path, "anti-camping config");
         config.Sanitize();
         return config;
     }
 
-    private static void LoadJsonInto(object target, string fileName, string label)
+    public static TsunamiEventConfig CreateDefaultTsunamiEventConfig()
     {
-        string path = GetDataPath(fileName);
+        return new TsunamiEventConfig
+        {
+            manualStartEnabled = true,
+            randomStartEnabled = false,
+            randomStartMinSeconds = 30f,
+            randomStartMaxSeconds = 90f,
+            evacuationCountdownSeconds = 60f,
+            wallMoveDurationSeconds = 60f,
+            warningMessage = "Tsunami warning issued. Evacuate to a safe building."
+        };
+    }
 
+    public static AntiCampingConfig CreateDefaultAntiCampingConfig()
+    {
+        return new AntiCampingConfig
+        {
+            antiCampingEnabled = false,
+            preWarningCampingThresholdSeconds = 10f,
+            blockCampedShelterForRound = true
+        };
+    }
+
+    private static void LoadJsonInto(object target, string path, string label)
+    {
         if (!File.Exists(path))
         {
             Debug.LogWarning($"Missing {label} at {path}. Safe defaults will be used.");

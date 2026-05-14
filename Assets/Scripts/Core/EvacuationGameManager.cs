@@ -427,16 +427,7 @@ public class EvacuationGameManager : MonoBehaviour
 
     private static GameConfigLoader.TsunamiEventConfig CreateDefaultTsunamiEventConfig()
     {
-        return new GameConfigLoader.TsunamiEventConfig
-        {
-            manualStartEnabled = true,
-            randomStartEnabled = false,
-            randomStartMinSeconds = 30f,
-            randomStartMaxSeconds = 90f,
-            evacuationCountdownSeconds = 60f,
-            wallMoveDurationSeconds = 60f,
-            warningMessage = "Tsunami warning issued. Evacuate to a safe building."
-        };
+        return GameConfigLoader.CreateDefaultTsunamiEventConfig();
     }
 
     private void ScheduleRandomStartIfEnabled()

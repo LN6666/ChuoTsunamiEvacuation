@@ -1,5 +1,37 @@
 ---
 
+## 2026-05-15 | Milestone 2-03 Test Automation Foundation Added
+
+### Completed
+
+Added a lightweight Unity test foundation for Milestone 2-03.
+
+Added EditMode tests for:
+
+- tsunami event config loading and safe defaults
+- invalid and partial tsunami config sanitization
+- test shelter data loading
+- unknown shelterId preservation behavior
+- anti-camping config defaults
+
+Added PlayMode smoke tests for:
+
+- minimal EvacuationGameManager startup without PLATEAU scene dependencies
+- PreEvent startup state
+- manual start method reaching Playing state
+- missing tsunami config fallback helper in Play Mode
+
+Added tooling and docs:
+
+- tools/run_unity_tests.ps1
+- docs/UNITY_TESTING_WORKFLOW.md
+
+### Scope
+
+This milestone is testing/tooling only. It does not automate full gameplay QA yet.
+
+---
+
 ## 2026-05-15 | Milestone 2-01 Completed
 
 ### Completed

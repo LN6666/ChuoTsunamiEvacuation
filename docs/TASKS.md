@@ -103,6 +103,23 @@ Tasks:
 - Move runtime data loading away from Application.dataPath before builds.
 - Add editor validation support.
 
+### Milestone 2-03: Unity Test Automation Foundation
+
+Status: Done
+
+Completed:
+
+- Added EditMode tests for config/data loaders.
+- Added PlayMode smoke tests that avoid Chuo_BaseMap.unity and PLATEAU data.
+- Added PowerShell test runner.
+- Added Unity testing workflow documentation.
+- EditMode tests were executed successfully.
+- PlayMode smoke tests were executed successfully.
+
+Remaining:
+
+- Record any DeepSeek review items in REVIEW_BACKLOG.md.
+
 Acceptance Criteria:
 
 - First playable behavior remains testable on the isolated debug platform. Done for 2-01.
