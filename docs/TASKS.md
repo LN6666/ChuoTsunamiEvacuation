@@ -95,11 +95,31 @@ Completed:
 - Unity Play testing completed.
 - DeepSeek review found no A-level blocking issues after fixes.
 
+### Milestone 2-02: Scenarioized Gameplay Rules 1.0
+
+Status: Done
+
+Completed:
+
+- Added Assets/Data/scenario_presets.json.
+- Added default, normal_success, random_warning, blocked_shelter, anti_camping, and late_failure scenarios.
+- Added ScenarioPresetLoader.
+- Added scenario-related EditMode tests.
+- Added runtime assembly asmdefs needed by tests.
+- Formalized random warning validation.
+- Added soft-lock prevention when manualStartEnabled=false and randomStartEnabled=false.
+- Formalized anti-camping behavior.
+- Enhanced ResultPanel evacuation review text.
+- Manual Unity scenario tests passed for default, random_warning, blocked_shelter, anti_camping, and late_failure.
+- EditMode tests passed.
+- PlayMode tests passed.
+- DeepSeek review found no A-level blockers.
+- Follow-up cleanup removed UTF-8 BOM from scenario_presets.json.
+
 ### Remaining Milestone 2 Work
 
 Tasks:
 
-- Decide B-level start-mode fallback behavior if both manual and random start are disabled.
 - Move runtime data loading away from Application.dataPath before builds.
 - Add editor validation support.
 

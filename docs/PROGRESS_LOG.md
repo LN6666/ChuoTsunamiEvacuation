@@ -1,5 +1,61 @@
 ---
 
+## 2026-05-15 | Milestone 2-02 Scenarioized Gameplay Rules Completed
+
+### Completed
+
+Milestone 2-02 - Scenarioized Gameplay Rules 1.0 was implemented, Unity-tested, reviewed, and cleaned up.
+
+Added scenario data and loading:
+
+- Assets/Data/scenario_presets.json
+- default scenario
+- normal_success scenario
+- random_warning scenario
+- blocked_shelter scenario
+- anti_camping scenario
+- late_failure scenario
+- ScenarioPresetLoader
+
+Formalized gameplay rules:
+
+- Random warning min/max validation.
+- Soft-lock prevention when manualStartEnabled=false and randomStartEnabled=false.
+- Anti-camping behavior and round reset behavior.
+- Scenario overrides applied in memory without rewriting base JSON config files.
+
+Improved result explanation:
+
+- ResultPanel evacuation review text now groups outcome, shelter, timing, risk, camping, scenario, and next-step advice.
+
+Added test support:
+
+- Scenario-related EditMode tests.
+- Runtime assembly asmdefs needed by EditMode and PlayMode tests.
+
+### Verified Behavior
+
+Manual Unity scenario tests passed for:
+
+- default
+- random_warning
+- blocked_shelter
+- anti_camping
+- late_failure
+
+Automated tests:
+
+- EditMode tests passed.
+- PlayMode tests passed.
+
+### Review
+
+DeepSeek review found no A-level blockers.
+
+Follow-up cleanup removed the UTF-8 BOM from scenario_presets.json.
+
+---
+
 ## 2026-05-15 | Milestone 2-03 Test Automation Foundation Added
 
 ### Completed
