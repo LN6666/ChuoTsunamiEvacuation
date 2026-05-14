@@ -1,7 +1,44 @@
+---
+
+## 2026-05-14 | Planning Updated for Milestone 2
+
+### Current Completed State
+
+The first playable prototype is complete, Unity-tested, DeepSeek V4 Pro max-thinking reviewed, and pushed to GitHub.
+
+Completed first playable features:
+
+- Third-person player movement
+- WASD / arrow-key movement
+- Shift sprint
+- Mouse-based third-person camera control
+- E shelter entry
+- Climb simulation
+- T starts tsunami test
+- Tsunami risk failure
+- Failure during climb if tsunami reaches the active shelter entrance
+- Isolated debug platform
+- DeepSeek max review workflow
+
+### Next Milestone
+
+Milestone 2: Rules and Dataization 1.0
+
+Focus:
+
+- Tsunami event config
+- Shelter config data
+- Countdown starts only after tsunami warning
+- Manual T start remains for debug
+- Future random tsunami warning config
+- Anti-camping config
+- Result metrics
+- Data loaders
+- Editor validation support
 
 ---
 
-## 2026-05-14ÅbFirst Playable Prototype Verified
+## 2026-05-14 | First Playable Prototype Verified
 
 ### Completed
 
@@ -40,11 +77,16 @@ The project has moved from environment setup and PLATEAU import into a working f
 
 ### Next Phase
 
-Next development phase may focus on:
+Next development phase is Milestone 2: Rules and Dataization 1.0.
 
-- refining third-person camera feel
-- improving UI clarity
-- adding random tsunami warning timing
-- implementing anti-camping rules
-- preparing shelter data schema and CSV / JSON loading
-- connecting gameplay logic to more realistic Chuo City locations
+The milestone should focus on:
+
+- tsunami event config
+- shelter config data
+- countdown starts only after tsunami warning
+- manual T start remains for debug
+- future random tsunami warning config
+- anti-camping config
+- result metrics
+- data loaders
+- editor validation support

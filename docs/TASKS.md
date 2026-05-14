@@ -2,10 +2,13 @@
 
 ## Current Phase
 
-The project has completed environment setup and PLATEAU SDK installation.
-Chuo City Buildings / LOD1 have been imported locally into Unity.
+The project has completed environment setup, PLATEAU SDK installation, local Chuo City Buildings / LOD1 import, and the first playable prototype.
 
-The next phase is to build the first playable evacuation loop.
+The first playable prototype has been Unity-tested, DeepSeek V4 Pro max-thinking reviewed, committed, and pushed to GitHub.
+
+Current next milestone:
+
+Milestone 2: Rules and Dataization 1.0
 
 ## Milestone 0: Environment Setup
 
@@ -23,7 +26,7 @@ Status: Done
 
 ## Milestone 1: Project Documentation
 
-Status: In progress
+Status: Done
 
 Tasks:
 
@@ -35,42 +38,67 @@ Tasks:
 - Create DECISIONS.md
 - Create CODE_REVIEW_WORKFLOW.md
 
-## Milestone 2: First Playable Core
+## Completed Milestone: First Playable Prototype
 
-Status: Not started
+Status: Done
 
 Goal:
-Create the first playable evacuation loop.
+Create and verify the first playable evacuation loop.
 
-Scripts to create:
+Completed features:
 
-- Assets/Scripts/Core/EvacuationGameManager.cs
-- Assets/Scripts/Player/SimplePlayerController.cs
-- Assets/Scripts/UI/GameUIManager.cs
-- Assets/Scripts/Tsunami/TsunamiCountdownManager.cs
-- Assets/Scripts/Tsunami/MovingTsunamiWall.cs
-- Assets/Scripts/Tsunami/RiskZone.cs
-- Assets/Scripts/Shelter/BuildingShelter.cs
-- Assets/Scripts/Shelter/ShelterEntranceTrigger.cs
-- Assets/Scripts/Shelter/ClimbSimulation.cs
-- Assets/Scripts/Result/ResultPanelController.cs
+- Third-person player movement
+- WASD / arrow-key movement
+- Shift sprint
+- Mouse-based third-person camera control
+- E shelter entry
+- Climb simulation
+- T starts tsunami test
+- Tsunami risk failure
+- Failure during climb if tsunami reaches the active shelter entrance
+- Isolated debug platform
+- DeepSeek V4 Pro max-thinking review workflow
 
 Acceptance Criteria:
 
-- Player can move in the scene.
-- A countdown is visible.
-- A tsunami risk wall can move.
-- A test shelter can be entered by pressing E.
-- Climb simulation can complete.
-- Success and failure states are shown.
-- Code compiles without Unity Console errors.
+- Unity Play test verifies movement, camera, shelter entry, climb, success, and failure.
+- Countdown starts only after tsunami warning is triggered.
+- Manual T tsunami warning start works for debugging.
+- First playable test setup runs away from PLATEAU building geometry.
+- DeepSeek review result is safe to commit.
 
-## Milestone 3: Shelter Data
+## Milestone 2: Rules and Dataization 1.0
+
+Status: Next
+
+Goal:
+Move prototype rules and manually configured values into small, validated data/config structures while preserving the current first playable behavior.
+
+Tasks:
+
+- Define tsunami event config.
+- Keep manual T warning start for debug.
+- Ensure countdown starts only after tsunami warning.
+- Add future random tsunami warning delay config.
+- Define shelter config data.
+- Define anti-camping config.
+- Define result metrics.
+- Add data loaders.
+- Add editor validation support.
+
+Acceptance Criteria:
+
+- First playable behavior remains testable on the isolated debug platform.
+- Tsunami timing, shelter rules, anti-camping settings, and result metrics are represented as data/config.
+- Data loading validates required fields and logs clear errors.
+- Editor validation can detect missing or invalid milestone data.
+
+## Milestone 3: Chuo Data Integration
 
 Status: Not started
 
 Goal:
-Prepare a simple shelter data structure.
+Connect the dataized gameplay loop to a small, controlled Chuo City shelter dataset without relying on inferred streets from Buildings / LOD1.
 
 Tasks:
 
@@ -79,19 +107,19 @@ Tasks:
 - Add DataLoader.
 - Connect shelter data to BuildingShelter components.
 
-## Milestone 4: Risk Zone System
+## Milestone 4: Risk Zone Data
 
 Status: Not started
 
 Goal:
-Make tsunami risk areas interactive.
+Move risk zone setup into data-backed test configuration.
 
 Tasks:
 
-- Define risk zone trigger logic.
-- Add player failure detection.
-- Add warning messages.
-- Connect risk zones to GameManager.
+- Define risk zone data fields.
+- Load test risk zones from data.
+- Validate warning messages and failure rules.
+- Connect risk zone data to GameManager-facing runtime objects.
 
 ## Milestone 5: Result Review
 

@@ -4,6 +4,16 @@
 
 This project uses Unity as the main interaction engine and PLATEAU as the 3D city model source.
 
+Current completed state:
+- The first playable prototype is complete and Unity-tested.
+- The prototype runs on an isolated debug platform while PLATEAU geometry is used as background/context.
+- Tsunami warning currently starts manually with T for debug.
+- Countdown and tsunami movement begin only after the warning event.
+
+Current next milestone:
+- Milestone 2: Rules and Dataization 1.0
+- Focus: tsunami event config, shelter config data, anti-camping config, result metrics, data loaders, and editor validation support.
+
 The architecture is divided into several simple systems:
 
 - Core Game Flow
@@ -24,6 +34,7 @@ Responsibility:
 - start and stop gameplay
 - handle success and failure
 - coordinate timer, shelter, risk, and result systems
+- keep PreEvent, evacuation, climbing, success, and failure state transitions explicit
 
 It should not:
 - directly control player movement
@@ -53,6 +64,7 @@ Responsibility:
 - manage remaining time
 - notify GameManager when time is over
 - expose remaining time to UI
+- remain idle before the tsunami warning starts
 
 ### MovingTsunamiWall
 
@@ -60,6 +72,7 @@ Responsibility:
 - move risk boundary from start point to end point
 - provide visual risk movement
 - optionally trigger risk activation events
+- remain idle before the tsunami warning starts
 
 ### RiskZone
 
@@ -127,7 +140,27 @@ Responsibility:
 - convert data into runtime structures
 - avoid hardcoded data inside gameplay scripts
 
-The first version may use manually placed test shelters before full data loading is implemented.
+Milestone 2 data loading should focus on:
+
+- tsunami event config
+- shelter config data
+- future random warning timing config
+- anti-camping config
+- result metric definitions
+
+The first playable prototype may continue to use manually placed test objects while these config structures are introduced.
+
+### Editor Validation
+
+Responsibility:
+- check required config files and fields
+- report invalid values before Play mode testing
+- detect missing shelter IDs, invalid timing values, and missing debug-start config
+
+It should not:
+- modify PLATEAU imported scene files
+- modify raw PLATEAU data
+- infer streets or walkable areas from Buildings / LOD1 geometry
 
 ## PLATEAU Integration
 
@@ -138,6 +171,7 @@ Current policy:
 - Generated large scene files are not committed to GitHub.
 - Raw PLATEAU data is not committed to GitHub.
 - PLATEAU-specific logic should remain isolated.
+- Current gameplay-loop testing uses an isolated platform away from PLATEAU building geometry.
 
 ## Agent Workflow
 
