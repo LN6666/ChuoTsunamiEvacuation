@@ -6,13 +6,15 @@ This project uses Unity as the main interaction engine and PLATEAU as the 3D cit
 
 Current completed state:
 - The first playable prototype is complete and Unity-tested.
+- Milestone 2-01 - Data-Driven Rules Integration is complete and Unity-tested.
 - The prototype runs on an isolated debug platform while PLATEAU geometry is used as background/context.
 - Tsunami warning currently starts manually with T for debug.
 - Countdown and tsunami movement begin only after the warning event.
+- Tsunami timing, test shelter rules, anti-camping settings, and result metrics are data-driven.
 
-Current next milestone:
+Current milestone:
 - Milestone 2: Rules and Dataization 1.0
-- Focus: tsunami event config, shelter config data, anti-camping config, result metrics, data loaders, and editor validation support.
+- Remaining focus: editor validation support and future build-safe data loading.
 
 The architecture is divided into several simple systems:
 
@@ -71,7 +73,10 @@ Responsibility:
 Responsibility:
 - move risk boundary from start point to end point
 - provide visual risk movement
-- optionally trigger risk activation events
+- keep visible wall contact as backup trigger detection
+- run tsunami risk-front / flooded-side failure checks during active movement
+- report player failure when the risk front passes the player
+- report shelter failure when the risk front passes the active shelter entrance during climb
 - remain idle before the tsunami warning starts
 
 ### RiskZone
@@ -88,7 +93,8 @@ Responsibility:
 Responsibility:
 - store shelter properties
 - validate whether shelter can be used
-- expose shelter rank, climb time, and failure reason
+- expose shelter rank, entry delay, climb time, crowding delay, and failure reason
+- accept matching test shelter data without overwriting Inspector values when data is missing
 
 ### ShelterEntranceTrigger
 
@@ -102,7 +108,7 @@ Responsibility:
 
 Responsibility:
 - simulate going to a safe floor
-- wait for climb time
+- wait for total entry + climb + crowding time
 - notify GameManager when completed
 
 ## UI System
@@ -129,16 +135,34 @@ Responsibility:
 - show selected shelter
 - show elapsed time
 - show reason for failure
+- show explainable ResultMetrics fields for prototype review
 - support PBL presentation and reflection
 
 ## Data Loading System
 
-### DataLoader
+### GameConfigLoader
 
 Responsibility:
-- read CSV / JSON / GeoJSON data
-- convert data into runtime structures
-- avoid hardcoded data inside gameplay scripts
+- load tsunami_event_config.json
+- load anti_camping_config.json
+- provide safe defaults and warnings when configs are missing or invalid
+
+Current limitation:
+- uses Application.dataPath + "/Data/..." for the Editor-stage prototype
+- should later migrate to StreamingAssets or another build-safe path
+
+### ShelterDataLoader
+
+Responsibility:
+- load test_shelters.json
+- provide lookup by shelterId
+- preserve scene/Inspector shelter values when shelterId is missing or unknown
+
+### ResultMetrics
+
+Responsibility:
+- store explainable result data such as selected shelter, timing, risk arrival, delays, and camping flags
+- keep result data separate from UI text formatting
 
 Milestone 2 data loading should focus on:
 
@@ -148,7 +172,7 @@ Milestone 2 data loading should focus on:
 - anti-camping config
 - result metric definitions
 
-The first playable prototype may continue to use manually placed test objects while these config structures are introduced.
+Milestone 2-01 introduced these config structures while keeping manually placed test objects.
 
 ### Editor Validation
 

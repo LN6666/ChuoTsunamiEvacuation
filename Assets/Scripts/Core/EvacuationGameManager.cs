@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class EvacuationGameManager : MonoBehaviour
@@ -31,10 +32,19 @@ public class EvacuationGameManager : MonoBehaviour
     private ShelterEntranceTrigger activeShelterEntrance;
     private float gameStartTime;
     private string lastFailureReason;
+    private GameConfigLoader.TsunamiEventConfig tsunamiEventConfig;
+    private GameConfigLoader.AntiCampingConfig antiCampingConfig;
+    private ResultMetrics resultMetrics;
+    private bool randomStartScheduled;
+    private float randomStartTime;
+    private readonly HashSet<string> campedShelterIds = new HashSet<string>();
+    private ShelterEntranceTrigger campingTrackedEntrance;
+    private float campingTrackedSeconds;
 
     public GameState CurrentState => currentState;
     public bool IsGameplayActive => currentState == GameState.Playing || currentState == GameState.Climbing;
     public bool IsClimbing => currentState == GameState.Climbing;
+    public ShelterEntranceTrigger ActiveShelterEntrance => activeShelterEntrance;
 
     private void Awake()
     {
@@ -54,8 +64,26 @@ public class EvacuationGameManager : MonoBehaviour
 
     private void Update()
     {
-        if (currentState == GameState.PreEvent && Input.GetKeyDown(eventStartKey))
+        if (currentState != GameState.PreEvent)
         {
+            return;
+        }
+
+        if (Input.GetKeyDown(eventStartKey))
+        {
+            if (tsunamiEventConfig == null || tsunamiEventConfig.manualStartEnabled)
+            {
+                StartEvacuationEvent();
+            }
+            else
+            {
+                Debug.LogWarning("Manual tsunami start was ignored because manualStartEnabled is false in tsunami_event_config.json.");
+            }
+        }
+
+        if (randomStartScheduled && Time.time >= randomStartTime)
+        {
+            Debug.Log("Random tsunami warning start triggered by tsunami_event_config.json.");
             StartEvacuationEvent();
         }
     }
@@ -68,12 +96,18 @@ public class EvacuationGameManager : MonoBehaviour
         }
 
         currentState = GameState.PreEvent;
+        LoadMilestoneConfig();
         gameStartTime = 0f;
         selectedShelter = null;
         activeShelterEntrance = null;
         lastFailureReason = string.Empty;
+        resultMetrics = CreateBaseResultMetrics();
+        randomStartScheduled = false;
+        campingTrackedEntrance = null;
+        campingTrackedSeconds = 0f;
+        campedShelterIds.Clear();
 
-        Debug.Log("Game starts in PreEvent state. Press T to start the tsunami warning event.");
+        Debug.Log(GetStartupLogMessage());
         SetPlayerControlEnabled(true, currentState);
         gameUIManager?.ShowWarning(preEventMessage);
         gameUIManager?.HideClimbProgress();
@@ -83,6 +117,7 @@ public class EvacuationGameManager : MonoBehaviour
         countdownManager?.PrepareWaiting();
         tsunamiWall?.ResetToStart();
         tsunamiWall?.StopMovement();
+        ScheduleRandomStartIfEnabled();
     }
 
     public void StartEvacuationEvent()
@@ -94,10 +129,19 @@ public class EvacuationGameManager : MonoBehaviour
 
         currentState = GameState.Playing;
         gameStartTime = Time.time;
+        randomStartScheduled = false;
+
+        if (resultMetrics == null)
+        {
+            resultMetrics = CreateBaseResultMetrics();
+        }
+
+        resultMetrics.warningStartTime = Time.time;
+        resultMetrics.evacuationCountdownSeconds = GetEvacuationCountdownSeconds();
 
         Debug.Log("Tsunami warning event starts.");
         SetPlayerControlEnabled(true, currentState);
-        gameUIManager?.ShowWarning(startMessage);
+        gameUIManager?.ShowWarning(GetWarningMessage());
         countdownManager?.StartCountdown();
         tsunamiWall?.StartMovement();
     }
@@ -136,8 +180,21 @@ public class EvacuationGameManager : MonoBehaviour
             return;
         }
 
+        ApplyShelterConfig(shelter);
         selectedShelter = shelter;
         activeShelterEntrance = shelterEntrance;
+        CaptureShelterMetrics(shelter);
+
+        if (IsShelterBlockedByCamping(shelter))
+        {
+            if (resultMetrics != null)
+            {
+                resultMetrics.wasShelterBlockedByCampingRule = true;
+            }
+
+            TriggerFailure("This shelter was blocked because the player camped near it before the tsunami warning.");
+            return;
+        }
 
         if (!shelter.CanUse(out string failureReason))
         {
@@ -147,6 +204,11 @@ public class EvacuationGameManager : MonoBehaviour
 
         currentState = GameState.Climbing;
         Debug.Log($"Climb starts at shelter: {shelter.ShelterName}.");
+        if (resultMetrics != null)
+        {
+            resultMetrics.climbStartTime = Time.time;
+        }
+
         SetPlayerControlEnabled(false, currentState);
         gameUIManager?.HideInteractionPrompt();
         gameUIManager?.ShowWarning("Entering shelter. Climb to a safe floor.");
@@ -173,6 +235,11 @@ public class EvacuationGameManager : MonoBehaviour
             return;
         }
 
+        if (resultMetrics != null)
+        {
+            resultMetrics.tsunamiArrivalTime = Time.time;
+        }
+
         TriggerFailure(string.IsNullOrWhiteSpace(reason) ? "Tsunami risk reached the player." : reason);
     }
 
@@ -184,6 +251,11 @@ public class EvacuationGameManager : MonoBehaviour
         }
 
         Debug.Log("Failure triggered during climb because risk reached shelter.");
+        if (resultMetrics != null)
+        {
+            resultMetrics.tsunamiArrivalTime = Time.time;
+        }
+
         TriggerFailure("The tsunami risk reached the shelter entrance before you reached a safe floor.");
     }
 
@@ -207,6 +279,15 @@ public class EvacuationGameManager : MonoBehaviour
         selectedShelter = shelter != null ? shelter : selectedShelter;
         currentState = GameState.Succeeded;
         activeShelterEntrance = null;
+        CaptureShelterMetrics(selectedShelter);
+        if (resultMetrics != null)
+        {
+            resultMetrics.success = true;
+            resultMetrics.failureReason = "Reached a safe floor before the risk boundary arrived.";
+            resultMetrics.climbCompleteTime = Time.time;
+            resultMetrics.resultTime = Time.time;
+        }
+
         Debug.Log("Climb completes.");
         Debug.Log("Success triggered.");
         SetPlayerControlEnabled(false, currentState);
@@ -215,10 +296,17 @@ public class EvacuationGameManager : MonoBehaviour
         gameUIManager?.HideInteractionPrompt();
         gameUIManager?.HideClimbProgress();
 
-        resultPanelController?.ShowSuccess(
-            GetShelterName(),
-            GetElapsedTime(),
-            "Reached a safe floor before the risk boundary arrived.");
+        if (resultMetrics != null)
+        {
+            resultPanelController?.Show(resultMetrics);
+        }
+        else
+        {
+            resultPanelController?.ShowSuccess(
+                GetShelterName(),
+                GetElapsedTime(),
+                "Reached a safe floor before the risk boundary arrived.");
+        }
     }
 
     public void TriggerFailure(string reason)
@@ -231,6 +319,14 @@ public class EvacuationGameManager : MonoBehaviour
         currentState = GameState.Failed;
         lastFailureReason = string.IsNullOrWhiteSpace(reason) ? "Evacuation failed." : reason;
         activeShelterEntrance = null;
+        CaptureShelterMetrics(selectedShelter);
+        if (resultMetrics != null)
+        {
+            resultMetrics.success = false;
+            resultMetrics.failureReason = lastFailureReason;
+            resultMetrics.resultTime = Time.time;
+        }
+
         Debug.Log($"Failure triggered: {lastFailureReason}");
 
         SetPlayerControlEnabled(false, currentState);
@@ -240,7 +336,199 @@ public class EvacuationGameManager : MonoBehaviour
         gameUIManager?.HideInteractionPrompt();
         gameUIManager?.HideClimbProgress();
 
-        resultPanelController?.ShowFailure(GetShelterName(), GetElapsedTime(), lastFailureReason);
+        if (resultMetrics != null)
+        {
+            resultPanelController?.Show(resultMetrics);
+        }
+        else
+        {
+            resultPanelController?.ShowFailure(GetShelterName(), GetElapsedTime(), lastFailureReason);
+        }
+    }
+
+    public void ApplyShelterConfig(BuildingShelter shelter)
+    {
+        if (shelter == null)
+        {
+            return;
+        }
+
+        ShelterDataLoader.ShelterData shelterData = ShelterDataLoader.GetShelterOrDefault(shelter.ShelterId);
+        shelter.ApplyShelterData(shelterData);
+    }
+
+    public void UpdateShelterEntranceProximity(ShelterEntranceTrigger shelterEntrance, float deltaTime)
+    {
+        if (currentState != GameState.PreEvent ||
+            antiCampingConfig == null ||
+            !antiCampingConfig.antiCampingEnabled ||
+            shelterEntrance == null)
+        {
+            return;
+        }
+
+        BuildingShelter shelter = shelterEntrance.Shelter;
+        if (shelter == null)
+        {
+            return;
+        }
+
+        ApplyShelterConfig(shelter);
+
+        if (campingTrackedEntrance != shelterEntrance)
+        {
+            campingTrackedEntrance = shelterEntrance;
+            campingTrackedSeconds = 0f;
+        }
+
+        campingTrackedSeconds += Mathf.Max(0f, deltaTime);
+
+        if (campingTrackedSeconds < antiCampingConfig.preWarningCampingThresholdSeconds)
+        {
+            return;
+        }
+
+        if (campedShelterIds.Add(shelter.ShelterId))
+        {
+            if (resultMetrics != null)
+            {
+                resultMetrics.wasCampingDetected = true;
+            }
+
+            Debug.LogWarning(
+                $"Anti-camping detected pre-warning camping near shelter '{shelter.ShelterId}' for " +
+                $"{campingTrackedSeconds:0.#} seconds.");
+        }
+    }
+
+    public void HandleShelterEntranceExit(ShelterEntranceTrigger shelterEntrance)
+    {
+        if (campingTrackedEntrance == shelterEntrance)
+        {
+            campingTrackedEntrance = null;
+            campingTrackedSeconds = 0f;
+        }
+    }
+
+    private void LoadMilestoneConfig()
+    {
+        tsunamiEventConfig = GameConfigLoader.LoadTsunamiEventConfig();
+        if (tsunamiEventConfig == null)
+        {
+            Debug.LogWarning("Tsunami event config failed to load. Using hard-coded safe defaults.");
+            tsunamiEventConfig = CreateDefaultTsunamiEventConfig();
+        }
+
+        antiCampingConfig = GameConfigLoader.LoadAntiCampingConfig();
+
+        countdownManager?.SetCountdownSeconds(tsunamiEventConfig.evacuationCountdownSeconds);
+        tsunamiWall?.SetDurationSeconds(tsunamiEventConfig.wallMoveDurationSeconds);
+    }
+
+    private static GameConfigLoader.TsunamiEventConfig CreateDefaultTsunamiEventConfig()
+    {
+        return new GameConfigLoader.TsunamiEventConfig
+        {
+            manualStartEnabled = true,
+            randomStartEnabled = false,
+            randomStartMinSeconds = 30f,
+            randomStartMaxSeconds = 90f,
+            evacuationCountdownSeconds = 60f,
+            wallMoveDurationSeconds = 60f,
+            warningMessage = "Tsunami warning issued. Evacuate to a safe building."
+        };
+    }
+
+    private void ScheduleRandomStartIfEnabled()
+    {
+        if (tsunamiEventConfig == null || !tsunamiEventConfig.randomStartEnabled)
+        {
+            return;
+        }
+
+        float delay = UnityEngine.Random.Range(
+            tsunamiEventConfig.randomStartMinSeconds,
+            tsunamiEventConfig.randomStartMaxSeconds);
+        randomStartTime = Time.time + delay;
+        randomStartScheduled = true;
+        Debug.Log($"Random tsunami warning start scheduled in {delay:0.#} seconds.");
+    }
+
+    private string GetStartupLogMessage()
+    {
+        bool manualEnabled = tsunamiEventConfig == null || tsunamiEventConfig.manualStartEnabled;
+        bool randomEnabled = tsunamiEventConfig != null && tsunamiEventConfig.randomStartEnabled;
+
+        if (manualEnabled && randomEnabled)
+        {
+            return $"Game starts in PreEvent state. Press {eventStartKey} to start the tsunami warning event, or wait for the configured random warning.";
+        }
+
+        if (manualEnabled)
+        {
+            return $"Game starts in PreEvent state. Press {eventStartKey} to start the tsunami warning event.";
+        }
+
+        if (randomEnabled)
+        {
+            return "Game starts in PreEvent state. Waiting for the configured random tsunami warning event.";
+        }
+
+        return "Game starts in PreEvent state. No tsunami warning start mode is enabled in config.";
+    }
+
+    private string GetWarningMessage()
+    {
+        if (tsunamiEventConfig != null && !string.IsNullOrWhiteSpace(tsunamiEventConfig.warningMessage))
+        {
+            return tsunamiEventConfig.warningMessage;
+        }
+
+        return startMessage;
+    }
+
+    private float GetEvacuationCountdownSeconds()
+    {
+        return tsunamiEventConfig != null ? tsunamiEventConfig.evacuationCountdownSeconds : 60f;
+    }
+
+    private bool IsShelterBlockedByCamping(BuildingShelter shelter)
+    {
+        if (shelter == null ||
+            antiCampingConfig == null ||
+            !antiCampingConfig.antiCampingEnabled ||
+            !antiCampingConfig.blockCampedShelterForRound)
+        {
+            return false;
+        }
+
+        return campedShelterIds.Contains(shelter.ShelterId);
+    }
+
+    private ResultMetrics CreateBaseResultMetrics()
+    {
+        return new ResultMetrics
+        {
+            evacuationCountdownSeconds = GetEvacuationCountdownSeconds()
+        };
+    }
+
+    private void CaptureShelterMetrics(BuildingShelter shelter)
+    {
+        if (resultMetrics == null || shelter == null)
+        {
+            return;
+        }
+
+        resultMetrics.selectedShelterId = shelter.ShelterId;
+        resultMetrics.selectedShelterName = shelter.ShelterName;
+        resultMetrics.shelterRank = shelter.ShelterRank;
+        resultMetrics.isOfficialShelter = shelter.IsOfficialShelter;
+        resultMetrics.shelterEntryTime = resultMetrics.shelterEntryTime <= 0f ? Time.time : resultMetrics.shelterEntryTime;
+        resultMetrics.entryDelaySeconds = shelter.EntryDelaySeconds;
+        resultMetrics.climbTimeSeconds = shelter.ClimbTimeSeconds;
+        resultMetrics.crowdingDelaySeconds = shelter.CrowdingDelaySeconds;
+        resultMetrics.wasCampingDetected = resultMetrics.wasCampingDetected || campedShelterIds.Contains(shelter.ShelterId);
     }
 
     private void SetPlayerControlEnabled(bool isEnabled, GameState reasonState)

@@ -6,7 +6,7 @@ This document defines the data structures used by the ChuoTsunamiEvacuation proj
 
 The first playable prototype uses manually placed test objects in Unity.
 
-Milestone 2: Rules and Dataization 1.0 should move tsunami event timing, shelter rules, anti-camping settings, result metrics, and editor validation inputs into small CSV / JSON config files.
+Milestone 2-01 moved tsunami event timing, test shelter rules, anti-camping settings, and result metrics into small JSON config/data files.
 
 ## Data Folder
 
@@ -28,6 +28,10 @@ Suggested file:
 
 Assets/Data/chuo_shelters.csv
 
+Milestone 2-01 test file:
+
+Assets/Data/test_shelters.json
+
 ### Fields
 
 | Field | Type | Description |
@@ -47,7 +51,23 @@ Assets/Data/chuo_shelters.csv
 | failure_reason | string | Reason shown when shelter cannot be used |
 | note | string | Additional notes |
 
-Milestone 2 should support a small test shelter config first. Full Chuo City shelter integration can remain a later milestone.
+Milestone 2-01 supports a small test shelter config first. Full Chuo City shelter integration remains a later milestone.
+
+### test_shelters.json Fields
+
+| Field | Type | Description |
+|---|---|---|
+| shelterId | string | ID used to bind scene shelter objects to JSON data |
+| shelterName | string | Display name |
+| shelterRank | string | Game rank: S, A, B, C, D |
+| isOfficialShelter | bool | Whether this is an official shelter |
+| canEnter | bool | Whether the player can enter |
+| entryDelaySeconds | float | Delay before/while entering shelter |
+| climbTimeSeconds | float | Time required to reach a safe floor |
+| crowdingDelaySeconds | float | Extra delay caused by crowding |
+| failureReason | string | Reason shown when entry is blocked |
+
+If a shelterId is missing or unknown, the loader preserves existing scene/Inspector values and logs a warning.
 
 ### Shelter Rank
 
@@ -132,7 +152,7 @@ Assets/Data/tsunami_boundary_config.json
 
 ## Tsunami Event Config
 
-Suggested file:
+Implemented file:
 
 Assets/Data/tsunami_event_config.json
 
@@ -140,21 +160,26 @@ Assets/Data/tsunami_event_config.json
 
 | Field | Type | Description |
 |---|---|---|
-| countdown_seconds | float | Evacuation countdown duration after warning starts |
-| manual_start_key | string | Debug key, currently T |
-| manual_start_enabled | bool | Whether manual debug start is enabled |
-| random_warning_enabled | bool | Whether future random warning timing is enabled |
-| random_warning_min_seconds | float | Minimum future random warning delay |
-| random_warning_max_seconds | float | Maximum future random warning delay |
-| warning_message | string | UI message shown when warning starts |
+| manualStartEnabled | bool | Whether manual T debug start is enabled |
+| randomStartEnabled | bool | Whether random warning timing is enabled |
+| randomStartMinSeconds | float | Minimum random warning delay |
+| randomStartMaxSeconds | float | Maximum random warning delay |
+| evacuationCountdownSeconds | float | Evacuation countdown duration after warning starts |
+| wallMoveDurationSeconds | float | Time required for the visual wall/front to move |
+| warningMessage | string | UI message shown when warning starts |
 
-The current prototype should keep manual T start for debugging. Countdown must not decrease before the tsunami warning starts.
+Default behavior:
+- manualStartEnabled is true
+- randomStartEnabled is false
+- countdown starts only after warning
+
+If tsunami_event_config.json is missing or invalid, gameplay uses hard-coded safe defaults and logs a warning.
 
 ---
 
 ## Anti-Camping Config
 
-Suggested file:
+Implemented file:
 
 Assets/Data/anti_camping_config.json
 
@@ -162,13 +187,11 @@ Assets/Data/anti_camping_config.json
 
 | Field | Type | Description |
 |---|---|---|
-| enabled | bool | Whether anti-camping rules are active |
-| pre_warning_entrance_grace_seconds | float | Time allowed near a shelter before warning |
-| reveal_shelter_status_after_warning | bool | Whether shelter usability is hidden before warning |
-| randomize_shelter_availability | bool | Whether shelter availability may change after warning |
-| camping_failure_reason | string | Result text for anti-camping failure or denial |
+| antiCampingEnabled | bool | Whether anti-camping rules are active |
+| preWarningCampingThresholdSeconds | float | Time allowed near the same shelter before warning |
+| blockCampedShelterForRound | bool | Whether a camped shelter is blocked after warning starts |
 
-Milestone 2 may define and validate this config before fully enforcing all future anti-camping behavior.
+antiCampingEnabled is false by default.
 
 ---
 
@@ -188,6 +211,11 @@ Suggested runtime/export fields:
 | failure_reason | string | Failure reason shown to player |
 | reached_by_risk | bool | Whether player was reached by tsunami risk |
 | active_shelter_reached_by_risk | bool | Whether active shelter entrance was reached during climb |
+| entry_delay_seconds | float | Shelter entry delay used for result explanation |
+| climb_time_seconds | float | Shelter climb time used for result explanation |
+| crowding_delay_seconds | float | Crowding delay used for result explanation |
+| was_camping_detected | bool | Whether pre-warning camping was detected |
+| was_shelter_blocked_by_camping_rule | bool | Whether shelter was blocked by anti-camping config |
 
 Result metrics should be collected by gameplay/result systems, not by UI text components.
 
@@ -219,6 +247,10 @@ DataLoader scripts should:
 - keep data parsing separate from gameplay logic
 
 Gameplay scripts should not parse CSV / JSON directly.
+
+Current Milestone 2-01 runtime loading uses Application.dataPath + "/Data/..." for the Editor-stage prototype.
+
+Before player builds, data loading should move to StreamingAssets or another build-safe loading path.
 
 ---
 

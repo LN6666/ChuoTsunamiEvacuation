@@ -24,7 +24,9 @@ public class ClimbSimulation : MonoBehaviour
         }
 
         activeGameManager = gameManager;
-        Debug.Log("Climb starts.");
+        Debug.Log(
+            $"Climb starts. Entry delay: {shelter.EntryDelaySeconds:0.#}s, " +
+            $"climb time: {shelter.ClimbTimeSeconds:0.#}s, crowding delay: {shelter.CrowdingDelaySeconds:0.#}s.");
         activeClimb = StartCoroutine(ClimbRoutine(shelter));
     }
 
@@ -42,7 +44,7 @@ public class ClimbSimulation : MonoBehaviour
 
     private IEnumerator ClimbRoutine(BuildingShelter shelter)
     {
-        float duration = shelter.ClimbTimeSeconds;
+        float duration = shelter.TotalEvacuationDelaySeconds;
         float elapsed = 0f;
 
         activeGameManager?.HandleClimbProgress(0f);

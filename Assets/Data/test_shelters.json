@@ -1,0 +1,26 @@
+{
+  "shelters": [
+    {
+      "shelterId": "test_shelter_001",
+      "shelterName": "Test Shelter",
+      "shelterRank": "S",
+      "isOfficialShelter": true,
+      "canEnter": true,
+      "entryDelaySeconds": 0,
+      "climbTimeSeconds": 10,
+      "crowdingDelaySeconds": 0,
+      "failureReason": "This shelter is not available."
+    },
+    {
+      "shelterId": "test_shelter_blocked",
+      "shelterName": "Blocked Test Shelter",
+      "shelterRank": "C",
+      "isOfficialShelter": false,
+      "canEnter": false,
+      "entryDelaySeconds": 0,
+      "climbTimeSeconds": 12,
+      "crowdingDelaySeconds": 3,
+      "failureReason": "This test shelter is blocked after the earthquake."
+    }
+  ]
+}

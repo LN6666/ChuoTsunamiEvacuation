@@ -280,3 +280,24 @@ Implication:
 The imported PLATEAU city model is used as background and context during early gameplay testing.
 
 The real street-based version should be implemented later, after road data, spawn point logic, walkable areas, and collision strategy are prepared.
+
+---
+
+## Decision 018: Separate visible tsunami wall from gameplay failure logic
+
+Date: 2026-05-15
+
+Decision:
+The visible tsunami wall is visual feedback and backup trigger detection.
+
+Gameplay failure is based on tsunami risk-front / flooded-side logic, not only collision with the finite visible wall.
+
+Reason:
+Unity testing showed that the player could walk around the finite visible wall and avoid failure even after the tsunami front had logically passed their position.
+
+Implication:
+- The moving wall still provides clear visual feedback.
+- Existing trigger/contact failure remains as an additional safety mechanism.
+- Player failure occurs when the moving risk front passes the player's projected position.
+- Shelter-climbing failure occurs when the moving risk front passes the active shelter entrance before climb completion.
+- This remains a simplified risk-boundary model, not a fluid simulation.

@@ -166,7 +166,7 @@ After fixing:
 
 ## Active Reviews
 
-No active review items yet.
+No active blocking review items.
 
 ---
 
@@ -184,6 +184,55 @@ The human developer must decide:
 Codex should receive only focused, selected fix tasks.
 
 Do not send the entire raw review report to Codex unless necessary.
+
+---
+
+### Review 2026-05-15-01
+
+Source report:
+
+review_reports/deepseek_review_20260515_*.md
+
+Context:
+
+DeepSeek V4 Pro review for Milestone 2-01 - Data-Driven Rules Integration after Unity testing and stabilization fixes.
+
+Unity Play testing confirmed:
+- manual T tsunami start works
+- countdown starts only after warning
+- random warning works when enabled
+- shelter JSON can block entry and show failureReason
+- climbTimeSeconds and crowdingDelaySeconds affect climb duration
+- anti-camping detection and blocking work when enabled
+- anti-camping is disabled by default
+- missing tsunami config uses safe defaults
+- unknown shelterId preserves in-scene shelter values
+- ResultPanel is readable
+- tsunami risk-front failure catches player bypassing the visible wall
+- active shelter entrance fails during climb if the risk front passes it
+- MarkSceneDirty no longer errors in Play Mode
+
+Overall verdict:
+
+No A-level blocking issues after fixes. Ready to commit after documenting B/C items.
+
+### Action Items
+
+| ID | Priority | Status | Target File | Issue | Required Fix |
+|---|---|---|---|---|---|
+| M2-01-B01 | Medium | Deferred | Assets/Scripts/Core/EvacuationGameManager.cs / Assets/Data/tsunami_event_config.json | If both manualStartEnabled and randomStartEnabled are false, the game can stay in PreEvent with no start path. | Later mitigation: warning, fallback to manual, or explicit disabled-event mode. |
+| M2-01-B02 | Medium | Deferred | Assets/Scripts/Data/GameConfigLoader.cs / Assets/Scripts/Data/ShelterDataLoader.cs | Runtime loading uses Application.dataPath + "/Data/...". This is acceptable for the Editor prototype but not build-safe. | Later migrate to StreamingAssets or another build-safe loading path. |
+| M2-01-C01 | Low | Deferred | Assets/Scripts/Result/ResultPanelController.cs | If ResultPanel detail text grows much longer, fixed text areas may become cramped again. | Consider a simple ScrollView in a future UI pass. |
+
+### Decision
+
+No immediate Codex fix is required before this commit for the B/C items.
+
+Reason:
+
+- A-level blockers were fixed.
+- Unity testing confirmed the Milestone 2-01 gameplay loop.
+- Remaining issues are deferred design/tooling polish for later Milestone 2 tasks.
 
 ---
 

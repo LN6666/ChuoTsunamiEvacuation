@@ -9,6 +9,7 @@ public class TsunamiCountdownManager : MonoBehaviour
     private float remainingSeconds;
     private bool isRunning;
 
+    public float CountdownSeconds => countdownSeconds;
     public float RemainingSeconds => remainingSeconds;
 
     private void Awake()
@@ -52,5 +53,15 @@ public class TsunamiCountdownManager : MonoBehaviour
         remainingSeconds = countdownSeconds;
         isRunning = false;
         gameUIManager?.SetCountdownWaiting();
+    }
+
+    public void SetCountdownSeconds(float seconds)
+    {
+        countdownSeconds = Mathf.Max(0.1f, seconds);
+
+        if (!isRunning)
+        {
+            remainingSeconds = countdownSeconds;
+        }
     }
 }

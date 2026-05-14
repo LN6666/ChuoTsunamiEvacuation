@@ -1,3 +1,4 @@
+import argparse
 import logging
 import os
 import subprocess
@@ -27,6 +28,18 @@ REASONING_EFFORT = os.environ.get("DEEPSEEK_REVIEW_REASONING_EFFORT", "max")
 THINKING_TYPE = os.environ.get("DEEPSEEK_REVIEW_THINKING", "enabled")
 BASE_URL = os.environ.get("DEEPSEEK_API_BASE_URL", "https://api.deepseek.com")
 MAX_RETRIES = int(os.environ.get("DEEPSEEK_REVIEW_MAX_RETRIES", "2"))
+
+
+def parse_args() -> argparse.Namespace:
+    parser = argparse.ArgumentParser(
+        description="Run a DeepSeek review over the current staged or unstaged git diff."
+    )
+    parser.add_argument(
+        "--prompt-file",
+        type=Path,
+        help="Optional UTF-8 text file to use as the main DeepSeek review prompt.",
+    )
+    return parser.parse_args()
 
 
 def setup_logging() -> None:
@@ -165,6 +178,24 @@ Git diff to review:
 """
 
 
+def build_review_prompt_from_file(prompt_file: Path, diff_text: str) -> str:
+    prompt_path = prompt_file.expanduser()
+    if not prompt_path.is_absolute():
+        prompt_path = Path.cwd() / prompt_path
+
+    prompt_text = prompt_path.read_text(encoding="utf-8")
+    logging.info("Using custom DeepSeek review prompt file: %s", prompt_path)
+
+    return f"""{prompt_text.rstrip()}
+
+Git diff to review:
+
+----- DIFF START -----
+{diff_text}
+----- DIFF END -----
+"""
+
+
 def call_deepseek(prompt: str) -> str:
     api_key = os.environ.get("DEEPSEEK_API_KEY")
 
@@ -258,6 +289,7 @@ def save_review_report(review_text: str) -> Path:
 
 
 def main() -> int:
+    args = parse_args()
     setup_logging()
 
     try:
@@ -271,7 +303,11 @@ def main() -> int:
             print("Tip: Make code changes first, or run git add <file> to stage changes.")
             return 0
 
-        prompt = build_review_prompt(diff_text)
+        if args.prompt_file is not None:
+            prompt = build_review_prompt_from_file(args.prompt_file, diff_text)
+        else:
+            prompt = build_review_prompt(diff_text)
+
         review_text = call_deepseek(prompt)
         report_path = save_review_report(review_text)
 

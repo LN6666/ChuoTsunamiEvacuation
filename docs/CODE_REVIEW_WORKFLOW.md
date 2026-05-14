@@ -80,6 +80,12 @@ The script reviews staged changes first.
 
 If no staged diff exists, it reviews unstaged changes.
 
+For milestone-specific review instructions, pass a UTF-8 prompt file:
+
+python tools/deepseek_review.py --prompt-file .\deepseek_review_prompt_m2_01.txt
+
+The custom prompt is used as the main review instruction, and the script still appends the current staged or unstaged git diff.
+
 Review reports are saved to:
 
 review_reports/
@@ -87,6 +93,10 @@ review_reports/
 This folder is ignored by Git.
 
 ## Review Result Policy
+
+For Milestone 2-01, the second DeepSeek review found no A-level blocking issues after stabilization fixes.
+
+Deferred B/C items should be recorded in docs/REVIEW_BACKLOG.md before commit.
 
 If DeepSeek says "Safe to commit":
 - run Unity once more

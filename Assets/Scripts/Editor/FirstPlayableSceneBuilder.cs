@@ -16,6 +16,14 @@ public static class FirstPlayableSceneBuilder
     [MenuItem(MenuPath)]
     public static void BuildFirstPlayableTestSetup()
     {
+#if UNITY_EDITOR
+        if (Application.isPlaying)
+        {
+            Debug.LogWarning("First playable setup cannot run during Play Mode. Exit Play Mode, then run Tools > Chuo Evacuation > Build First Playable Test Setup.");
+            return;
+        }
+#endif
+
         Scene activeScene = SceneManager.GetActiveScene();
         if (!activeScene.IsValid())
         {
@@ -79,10 +87,10 @@ public static class FirstPlayableSceneBuilder
         Slider climbProgressSlider = CreateSlider("ClimbProgressSlider", uiRoot.transform, new Vector2(20f, -440f), new Vector2(320f, 18f));
 
         GameObject resultPanel = CreateResultPanel(canvas.transform);
-        Text resultTitleText = CreatePanelText("ResultTitleText", resultPanel.transform, "Result", new Vector2(0f, 95f), new Vector2(540f, 42f), TextAnchor.MiddleCenter, 30);
-        Text resultShelterText = CreatePanelText("ResultShelterText", resultPanel.transform, "Shelter:", new Vector2(0f, 35f), new Vector2(540f, 36f), TextAnchor.MiddleLeft, 20);
-        Text resultElapsedTimeText = CreatePanelText("ResultElapsedTimeText", resultPanel.transform, "Elapsed Time:", new Vector2(0f, -10f), new Vector2(540f, 36f), TextAnchor.MiddleLeft, 20);
-        Text resultReasonText = CreatePanelText("ResultReasonText", resultPanel.transform, "Reason:", new Vector2(0f, -70f), new Vector2(540f, 70f), TextAnchor.UpperLeft, 18);
+        Text resultTitleText = CreatePanelText("ResultTitleText", resultPanel.transform, "Result", new Vector2(0f, 165f), new Vector2(700f, 38f), TextAnchor.MiddleCenter, 26);
+        Text resultShelterText = CreatePanelText("ResultShelterText", resultPanel.transform, "Shelter:", new Vector2(0f, 110f), new Vector2(700f, 54f), TextAnchor.MiddleLeft, 16);
+        Text resultElapsedTimeText = CreatePanelText("ResultElapsedTimeText", resultPanel.transform, "Elapsed Time:", new Vector2(0f, 68f), new Vector2(700f, 30f), TextAnchor.MiddleLeft, 16);
+        Text resultReasonText = CreatePanelText("ResultReasonText", resultPanel.transform, "Reason:", new Vector2(0f, -45f), new Vector2(700f, 190f), TextAnchor.UpperLeft, 15);
         resultPanel.SetActive(false);
 
         AssignPlayer(player, player.transform.Find("CameraPivot"), player.GetComponentInChildren<Camera>().transform);
@@ -96,7 +104,12 @@ public static class FirstPlayableSceneBuilder
         AssignResultPanel(resultPanelController, resultPanel, resultTitleText, resultShelterText, resultElapsedTimeText, resultReasonText);
 
         Selection.activeGameObject = root;
-        EditorSceneManager.MarkSceneDirty(activeScene);
+#if UNITY_EDITOR
+        if (!Application.isPlaying)
+        {
+            EditorSceneManager.MarkSceneDirty(activeScene);
+        }
+#endif
 
         Debug.Log(
             "Built first playable test setup. Created GameplayTestRoot, TestGround, third-person Player with CameraPivot and Main Camera, GameManager, TsunamiWall, TsunamiStart, TsunamiEnd, RiskZone, TestShelter, ShelterEntrance, Canvas, UIRoot, ResultPanel, and EventSystem. " +
@@ -235,8 +248,11 @@ public static class FirstPlayableSceneBuilder
         textComponent.fontSize = fontSize;
         textComponent.alignment = alignment;
         textComponent.color = Color.white;
+        textComponent.resizeTextForBestFit = true;
+        textComponent.resizeTextMinSize = 11;
+        textComponent.resizeTextMaxSize = fontSize;
         textComponent.horizontalOverflow = HorizontalWrapMode.Wrap;
-        textComponent.verticalOverflow = VerticalWrapMode.Overflow;
+        textComponent.verticalOverflow = VerticalWrapMode.Truncate;
         return textComponent;
     }
 
@@ -285,7 +301,7 @@ public static class FirstPlayableSceneBuilder
         rectTransform.anchorMax = new Vector2(0.5f, 0.5f);
         rectTransform.pivot = new Vector2(0.5f, 0.5f);
         rectTransform.anchoredPosition = Vector2.zero;
-        rectTransform.sizeDelta = new Vector2(600f, 300f);
+        rectTransform.sizeDelta = new Vector2(760f, 420f);
 
         Image image = panel.AddComponent<Image>();
         image.color = new Color(0f, 0f, 0f, 0.78f);
@@ -479,7 +495,9 @@ public static class FirstPlayableSceneBuilder
         SetBool(shelter, "isOfficialShelter", true);
         SetBool(shelter, "canEnter", true);
         SetString(shelter, "postEarthquakeStatus", "usable");
+        SetFloat(shelter, "entryDelaySeconds", 0f);
         SetFloat(shelter, "climbTimeSeconds", 10f);
+        SetFloat(shelter, "crowdingDelaySeconds", 0f);
         SetString(shelter, "failureReason", "This shelter is not available.");
     }
 

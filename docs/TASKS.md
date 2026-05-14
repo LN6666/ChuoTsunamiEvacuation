@@ -6,7 +6,7 @@ The project has completed environment setup, PLATEAU SDK installation, local Chu
 
 The first playable prototype has been Unity-tested, DeepSeek V4 Pro max-thinking reviewed, committed, and pushed to GitHub.
 
-Current next milestone:
+Current milestone:
 
 Milestone 2: Rules and Dataization 1.0
 
@@ -69,28 +69,45 @@ Acceptance Criteria:
 
 ## Milestone 2: Rules and Dataization 1.0
 
-Status: Next
+Status: In progress
 
 Goal:
 Move prototype rules and manually configured values into small, validated data/config structures while preserving the current first playable behavior.
 
+### Milestone 2-01: Data-Driven Rules Integration
+
+Status: Done
+
+Completed:
+
+- Added tsunami_event_config.json.
+- Added test_shelters.json.
+- Added anti_camping_config.json.
+- Added GameConfigLoader.cs.
+- Added ShelterDataLoader.cs.
+- Added ResultMetrics.cs.
+- Tsunami warning, countdown, and wall duration are JSON-driven.
+- Shelter entry, climb time, crowding delay, and failure reason are JSON-driven.
+- Anti-camping detection and blocking are config-gated and disabled by default.
+- ResultPanel displays explainable result fields.
+- Visible tsunami wall remains visual feedback and backup trigger detection.
+- Gameplay failure uses tsunami risk-front / flooded-side logic.
+- Unity Play testing completed.
+- DeepSeek review found no A-level blocking issues after fixes.
+
+### Remaining Milestone 2 Work
+
 Tasks:
 
-- Define tsunami event config.
-- Keep manual T warning start for debug.
-- Ensure countdown starts only after tsunami warning.
-- Add future random tsunami warning delay config.
-- Define shelter config data.
-- Define anti-camping config.
-- Define result metrics.
-- Add data loaders.
+- Decide B-level start-mode fallback behavior if both manual and random start are disabled.
+- Move runtime data loading away from Application.dataPath before builds.
 - Add editor validation support.
 
 Acceptance Criteria:
 
-- First playable behavior remains testable on the isolated debug platform.
-- Tsunami timing, shelter rules, anti-camping settings, and result metrics are represented as data/config.
-- Data loading validates required fields and logs clear errors.
+- First playable behavior remains testable on the isolated debug platform. Done for 2-01.
+- Tsunami timing, shelter rules, anti-camping settings, and result metrics are represented as data/config. Done for 2-01.
+- Data loading validates required fields and logs clear errors. Partial; editor validation remains.
 - Editor validation can detect missing or invalid milestone data.
 
 ## Milestone 3: Chuo Data Integration

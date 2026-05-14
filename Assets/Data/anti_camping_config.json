@@ -1,0 +1,5 @@
+{
+  "antiCampingEnabled": false,
+  "preWarningCampingThresholdSeconds": 10,
+  "blockCampedShelterForRound": true
+}

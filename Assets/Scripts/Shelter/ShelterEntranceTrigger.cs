@@ -37,6 +37,11 @@ public class ShelterEntranceTrigger : MonoBehaviour
 
     private void Update()
     {
+        if (playerInRange)
+        {
+            gameManager?.UpdateShelterEntranceProximity(this, Time.deltaTime);
+        }
+
         if (!playerInRange || !Input.GetKeyDown(interactKey))
         {
             return;
@@ -62,6 +67,7 @@ public class ShelterEntranceTrigger : MonoBehaviour
 
         playerInRange = true;
         Debug.Log("Player enters ShelterEntrance.");
+        gameManager?.ApplyShelterConfig(shelter);
         gameUIManager?.ShowInteractionPrompt(shelter);
     }
 
@@ -73,6 +79,7 @@ public class ShelterEntranceTrigger : MonoBehaviour
         }
 
         playerInRange = false;
+        gameManager?.HandleShelterEntranceExit(this);
         gameUIManager?.HideInteractionPrompt();
     }
 }

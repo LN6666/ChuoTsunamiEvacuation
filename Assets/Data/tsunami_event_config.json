@@ -1,0 +1,9 @@
+{
+  "manualStartEnabled": true,
+  "randomStartEnabled": false,
+  "randomStartMinSeconds": 30,
+  "randomStartMaxSeconds": 90,
+  "evacuationCountdownSeconds": 60,
+  "wallMoveDurationSeconds": 60,
+  "warningMessage": "Tsunami warning issued. Evacuate to a safe building."
+}

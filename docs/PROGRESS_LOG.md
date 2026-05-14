@@ -1,5 +1,47 @@
 ---
 
+## 2026-05-15 | Milestone 2-01 Completed
+
+### Completed
+
+Milestone 2-01 - Data-Driven Rules Integration was implemented, Unity-tested, stabilized, and reviewed.
+
+Added data/config files:
+
+- Assets/Data/tsunami_event_config.json
+- Assets/Data/test_shelters.json
+- Assets/Data/anti_camping_config.json
+
+Added runtime/data scripts:
+
+- Assets/Scripts/Data/GameConfigLoader.cs
+- Assets/Scripts/Data/ShelterDataLoader.cs
+- Assets/Scripts/Result/ResultMetrics.cs
+
+### Verified Behavior
+
+- Manual T tsunami start works.
+- Countdown starts only after tsunami warning.
+- Random warning works when enabled.
+- test_shelter_001 canEnter=false blocks entry and shows failureReason.
+- climbTimeSeconds and crowdingDelaySeconds affect stair-climbing duration.
+- Anti-camping detection and blocking work when enabled.
+- Anti-camping is disabled by default.
+- Missing tsunami config falls back to safe defaults and logs a warning.
+- Missing or unknown shelterId preserves in-scene shelter values and logs a warning.
+- ResultPanel is readable after the overflow fix.
+- Walking around the finite visible tsunami wall now triggers failure when the tsunami risk front passes the player.
+- Shelter climbing fails if the tsunami risk front passes the active shelter entrance.
+- MarkSceneDirty Play Mode error was fixed.
+
+### Review
+
+Second DeepSeek V4 Pro review found no A-level blocking issues.
+
+Milestone 2-01 is ready to commit after documenting B/C review items.
+
+---
+
 ## 2026-05-14 | Planning Updated for Milestone 2
 
 ### Current Completed State
