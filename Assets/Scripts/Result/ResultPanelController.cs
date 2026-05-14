@@ -3,7 +3,7 @@ using UnityEngine.UI;
 
 public class ResultPanelController : MonoBehaviour
 {
-    private static readonly Vector2 MetricsPanelSize = new Vector2(760f, 420f);
+    private static readonly Vector2 MetricsPanelSize = new Vector2(840f, 540f);
 
     [SerializeField] private GameObject panelRoot;
     [SerializeField] private Text titleText;
@@ -111,10 +111,10 @@ public class ResultPanelController : MonoBehaviour
             panelRect.sizeDelta = MetricsPanelSize;
         }
 
-        ConfigurePanelText(titleText, new Vector2(0f, 165f), new Vector2(700f, 38f), TextAnchor.MiddleCenter, 26);
-        ConfigurePanelText(shelterText, new Vector2(0f, 110f), new Vector2(700f, 54f), TextAnchor.MiddleLeft, 16);
-        ConfigurePanelText(elapsedTimeText, new Vector2(0f, 68f), new Vector2(700f, 30f), TextAnchor.MiddleLeft, 16);
-        ConfigurePanelText(reasonText, new Vector2(0f, -45f), new Vector2(700f, 190f), TextAnchor.UpperLeft, 15);
+        ConfigurePanelText(titleText, new Vector2(0f, 220f), new Vector2(780f, 38f), TextAnchor.MiddleCenter, 26);
+        ConfigurePanelText(shelterText, new Vector2(0f, 168f), new Vector2(780f, 54f), TextAnchor.MiddleLeft, 16);
+        ConfigurePanelText(elapsedTimeText, new Vector2(0f, 126f), new Vector2(780f, 30f), TextAnchor.MiddleLeft, 16);
+        ConfigurePanelText(reasonText, new Vector2(0f, -70f), new Vector2(780f, 350f), TextAnchor.UpperLeft, 14);
     }
 
     private static void ConfigurePanelText(Text text, Vector2 anchoredPosition, Vector2 size, TextAnchor alignment, int fontSize)

@@ -34,6 +34,7 @@ public class EvacuationGameManager : MonoBehaviour
     private string lastFailureReason;
     private GameConfigLoader.TsunamiEventConfig tsunamiEventConfig;
     private GameConfigLoader.AntiCampingConfig antiCampingConfig;
+    private ScenarioPresetLoader.ActiveScenario activeScenario;
     private ResultMetrics resultMetrics;
     private bool randomStartScheduled;
     private float randomStartTime;
@@ -45,6 +46,7 @@ public class EvacuationGameManager : MonoBehaviour
     public bool IsGameplayActive => currentState == GameState.Playing || currentState == GameState.Climbing;
     public bool IsClimbing => currentState == GameState.Climbing;
     public ShelterEntranceTrigger ActiveShelterEntrance => activeShelterEntrance;
+    public string ActiveScenarioId => activeScenario != null ? activeScenario.activeScenarioId : ScenarioPresetLoader.DefaultScenarioId;
 
     private void Awake()
     {
@@ -130,6 +132,8 @@ public class EvacuationGameManager : MonoBehaviour
         currentState = GameState.Playing;
         gameStartTime = Time.time;
         randomStartScheduled = false;
+        campingTrackedEntrance = null;
+        campingTrackedSeconds = 0f;
 
         if (resultMetrics == null)
         {
@@ -192,6 +196,7 @@ public class EvacuationGameManager : MonoBehaviour
                 resultMetrics.wasShelterBlockedByCampingRule = true;
             }
 
+            Debug.LogWarning($"Anti-camping blocked shelter '{shelter.ShelterId}' for this round.");
             TriggerFailure("This shelter was blocked because the player camped near it before the tsunami warning.");
             return;
         }
@@ -420,9 +425,24 @@ public class EvacuationGameManager : MonoBehaviour
         }
 
         antiCampingConfig = GameConfigLoader.LoadAntiCampingConfig();
+        if (antiCampingConfig == null)
+        {
+            Debug.LogWarning("Anti-camping config failed to load. Using hard-coded safe defaults.");
+            antiCampingConfig = GameConfigLoader.CreateDefaultAntiCampingConfig();
+        }
+
+        activeScenario = ScenarioPresetLoader.LoadActiveScenario();
+        ScenarioPresetLoader.ApplyScenarioOverrides(activeScenario, tsunamiEventConfig, antiCampingConfig);
+        ShelterDataLoader.SetRuntimeOverrides(
+            ScenarioPresetLoader.GetShelterOverrides(activeScenario),
+            ActiveScenarioId);
 
         countdownManager?.SetCountdownSeconds(tsunamiEventConfig.evacuationCountdownSeconds);
         tsunamiWall?.SetDurationSeconds(tsunamiEventConfig.wallMoveDurationSeconds);
+
+        Debug.Log(
+            $"Active scenario: {ActiveScenarioId} - " +
+            $"{(activeScenario != null ? activeScenario.displayName : "Default")}.");
     }
 
     private static GameConfigLoader.TsunamiEventConfig CreateDefaultTsunamiEventConfig()
@@ -500,7 +520,9 @@ public class EvacuationGameManager : MonoBehaviour
     {
         return new ResultMetrics
         {
-            evacuationCountdownSeconds = GetEvacuationCountdownSeconds()
+            evacuationCountdownSeconds = GetEvacuationCountdownSeconds(),
+            activeScenarioId = ActiveScenarioId,
+            activeScenarioName = activeScenario != null ? activeScenario.displayName : "Default"
         };
     }
 

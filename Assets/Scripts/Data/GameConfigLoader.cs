@@ -20,8 +20,17 @@ public static class GameConfigLoader
 
         public void Sanitize()
         {
-            randomStartMinSeconds = Mathf.Max(0f, randomStartMinSeconds);
-            randomStartMaxSeconds = Mathf.Max(0f, randomStartMaxSeconds);
+            if (randomStartMinSeconds < 0f)
+            {
+                Debug.LogWarning($"{TsunamiEventConfigFileName} had negative randomStartMinSeconds. Clamping to 0 seconds.");
+                randomStartMinSeconds = 0f;
+            }
+
+            if (randomStartMaxSeconds < 0f)
+            {
+                Debug.LogWarning($"{TsunamiEventConfigFileName} had negative randomStartMaxSeconds. Clamping to 0 seconds.");
+                randomStartMaxSeconds = 0f;
+            }
 
             if (randomStartMaxSeconds < randomStartMinSeconds)
             {
@@ -53,7 +62,8 @@ public static class GameConfigLoader
             {
                 Debug.LogWarning(
                     $"{TsunamiEventConfigFileName} has both manualStartEnabled and randomStartEnabled disabled. " +
-                    "The tsunami warning will wait indefinitely until config is changed.");
+                    "Enabling manual debug start at runtime to avoid a soft-lock.");
+                manualStartEnabled = true;
             }
         }
     }

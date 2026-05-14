@@ -76,6 +76,73 @@ public class ConfigLoaderTests
         }
     }
 
+    [Test]
+    public void NegativeRandomStartValuesAreClampedToZero()
+    {
+        string path = CreateTempJson(
+            "{\"randomStartEnabled\":true,\"randomStartMinSeconds\":-5,\"randomStartMaxSeconds\":-1}");
+
+        try
+        {
+            LogAssert.Expect(LogType.Warning, new Regex("negative randomStartMinSeconds"));
+            LogAssert.Expect(LogType.Warning, new Regex("negative randomStartMaxSeconds"));
+
+            GameConfigLoader.TsunamiEventConfig config = GameConfigLoader.LoadTsunamiEventConfigFromPath(path);
+
+            Assert.NotNull(config);
+            Assert.AreEqual(0f, config.randomStartMinSeconds);
+            Assert.AreEqual(0f, config.randomStartMaxSeconds);
+        }
+        finally
+        {
+            DeleteTempFile(path);
+        }
+    }
+
+    [Test]
+    public void RandomStartMinGreaterThanMaxIsCorrected()
+    {
+        string path = CreateTempJson(
+            "{\"randomStartEnabled\":true,\"randomStartMinSeconds\":10,\"randomStartMaxSeconds\":2}");
+
+        try
+        {
+            LogAssert.Expect(LogType.Warning, new Regex("randomStartMaxSeconds lower than randomStartMinSeconds"));
+
+            GameConfigLoader.TsunamiEventConfig config = GameConfigLoader.LoadTsunamiEventConfigFromPath(path);
+
+            Assert.NotNull(config);
+            Assert.AreEqual(10f, config.randomStartMinSeconds);
+            Assert.AreEqual(10f, config.randomStartMaxSeconds);
+        }
+        finally
+        {
+            DeleteTempFile(path);
+        }
+    }
+
+    [Test]
+    public void DisabledManualAndRandomStartEnablesManualFallback()
+    {
+        string path = CreateTempJson(
+            "{\"manualStartEnabled\":false,\"randomStartEnabled\":false}");
+
+        try
+        {
+            LogAssert.Expect(LogType.Warning, new Regex("manualStartEnabled and randomStartEnabled disabled.*Enabling manual debug start"));
+
+            GameConfigLoader.TsunamiEventConfig config = GameConfigLoader.LoadTsunamiEventConfigFromPath(path);
+
+            Assert.NotNull(config);
+            Assert.IsTrue(config.manualStartEnabled);
+            Assert.IsFalse(config.randomStartEnabled);
+        }
+        finally
+        {
+            DeleteTempFile(path);
+        }
+    }
+
     private static void AssertSafeTsunamiDefaults(GameConfigLoader.TsunamiEventConfig config)
     {
         Assert.NotNull(config);

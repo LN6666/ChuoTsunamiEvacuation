@@ -8,7 +8,9 @@ public static class ShelterDataLoader
     private const string ShelterDataFileName = "test_shelters.json";
 
     private static readonly Dictionary<string, ShelterData> ShelterById = new Dictionary<string, ShelterData>();
+    private static readonly Dictionary<string, ShelterData> RuntimeShelterOverridesById = new Dictionary<string, ShelterData>();
     private static bool hasLoaded;
+    private static string runtimeOverrideSource = "scenario";
 
     [Serializable]
     private class ShelterDataList
@@ -96,6 +98,12 @@ public static class ShelterDataLoader
         if (ShelterById.TryGetValue(shelterId, out ShelterData foundData))
         {
             shelterData = foundData.Clone();
+
+            if (RuntimeShelterOverridesById.TryGetValue(shelterId, out ShelterData overrideData))
+            {
+                shelterData = overrideData.Clone();
+            }
+
             return true;
         }
 
@@ -109,6 +117,56 @@ public static class ShelterDataLoader
         hasLoaded = false;
         ShelterById.Clear();
         EnsureLoaded();
+    }
+
+    public static void ClearRuntimeOverrides()
+    {
+        RuntimeShelterOverridesById.Clear();
+        runtimeOverrideSource = "scenario";
+    }
+
+    public static void SetRuntimeOverrides(ShelterData[] shelterOverrides, string source)
+    {
+        ClearRuntimeOverrides();
+
+        if (shelterOverrides == null || shelterOverrides.Length == 0)
+        {
+            return;
+        }
+
+        EnsureLoaded();
+        runtimeOverrideSource = string.IsNullOrWhiteSpace(source) ? "scenario" : source;
+
+        foreach (ShelterData shelterOverride in shelterOverrides)
+        {
+            if (shelterOverride == null)
+            {
+                continue;
+            }
+
+            if (string.IsNullOrWhiteSpace(shelterOverride.shelterId))
+            {
+                Debug.LogWarning($"Scenario shelter override in '{runtimeOverrideSource}' was skipped because shelterId was empty.");
+                continue;
+            }
+
+            ShelterData overrideClone = shelterOverride.Clone();
+            overrideClone.Sanitize($"scenario '{runtimeOverrideSource}'");
+
+            if (!ShelterById.ContainsKey(overrideClone.shelterId))
+            {
+                Debug.LogWarning(
+                    $"Scenario shelter override '{overrideClone.shelterId}' from '{runtimeOverrideSource}' was skipped because it is not present in {ShelterDataFileName}.");
+                continue;
+            }
+
+            RuntimeShelterOverridesById[overrideClone.shelterId] = overrideClone;
+        }
+
+        if (RuntimeShelterOverridesById.Count > 0)
+        {
+            Debug.Log($"Applied {RuntimeShelterOverridesById.Count} shelter override(s) from scenario '{runtimeOverrideSource}'.");
+        }
     }
 
     private static void EnsureLoaded()

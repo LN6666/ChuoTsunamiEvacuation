@@ -187,6 +187,40 @@ Do not send the entire raw review report to Codex unless necessary.
 
 ---
 
+### Review 2026-05-15-03
+
+Source report:
+
+review_reports/deepseek_review_20260515_*.md
+
+Context:
+
+DeepSeek V4 Pro review for Milestone 2-02 - Scenarioized Gameplay Rules 1.0.
+
+Overall verdict:
+
+No A-level blocking issues. Non-blocking risks deferred.
+
+### Action Items
+
+| ID | Priority | Status | Target File | Issue | Required Fix |
+|---|---|---|---|---|---|
+| M2-02-B01 | Medium | Deferred | Assets/Data/scenario_presets.json | scenario_presets.json may contain a UTF-8 BOM. Manual editing in BOM-unaware tools may cause confusion. | Save scenario_presets.json as UTF-8 without BOM. |
+| M2-02-B02 | Medium | Deferred | Assets/Scripts/ChuoTsunamiEvacuation.Runtime.asmdef / Assets/Tests/EditMode/ChuoTsunamiEvacuation.EditModeTests.asmdef / Assets/Tests/PlayMode/ChuoTsunamiEvacuation.PlayModeTests.asmdef | EditMode and PlayMode test assemblies reference ChuoTsunamiEvacuation.Runtime. Future test-needed runtime scripts must stay inside the runtime assembly or tests may fail to compile. Risk is low, but maintainers should be aware of the assembly boundary. | Keep runtime scripts that tests need under the runtime assembly, or update asmdef references when adding new assembly boundaries. |
+| M2-02-B03 | Medium | Deferred | Assets/Scripts/Result/ResultPanelController.cs / Assets/Scripts/Result/ResultMetrics.cs | Current ResultPanel is readable, but very long scenario names or verbose failure reasons may still clip. This is acceptable for prototype/debug UI. | Revisit ResultPanel sizing or add a simple ScrollView if UI polish becomes a milestone. |
+
+### Decision
+
+No immediate Codex fix is required before this commit for the remaining B-level items.
+
+Reason:
+
+- The review found no A-level blockers.
+- The UTF-8 BOM cleanup was handled.
+- The assembly and ResultPanel items are maintainability/UI risks for future milestones.
+
+---
+
 ### Review 2026-05-15-02
 
 Source report:

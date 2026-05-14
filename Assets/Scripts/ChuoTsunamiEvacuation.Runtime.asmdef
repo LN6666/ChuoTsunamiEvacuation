@@ -1,9 +1,7 @@
 {
-    "name": "ChuoTsunamiEvacuation.PlayModeTests",
+    "name": "ChuoTsunamiEvacuation.Runtime",
     "rootNamespace": "",
-    "references": [
-        "ChuoTsunamiEvacuation.Runtime"
-    ],
+    "references": [],
     "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": false,
@@ -12,8 +10,5 @@
     "autoReferenced": true,
     "defineConstraints": [],
     "versionDefines": [],
-    "noEngineReferences": false,
-    "optionalUnityReferences": [
-        "TestAssemblies"
-    ]
+    "noEngineReferences": false
 }

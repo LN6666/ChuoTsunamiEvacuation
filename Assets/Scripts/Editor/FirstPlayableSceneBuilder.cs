@@ -87,10 +87,10 @@ public static class FirstPlayableSceneBuilder
         Slider climbProgressSlider = CreateSlider("ClimbProgressSlider", uiRoot.transform, new Vector2(20f, -440f), new Vector2(320f, 18f));
 
         GameObject resultPanel = CreateResultPanel(canvas.transform);
-        Text resultTitleText = CreatePanelText("ResultTitleText", resultPanel.transform, "Result", new Vector2(0f, 165f), new Vector2(700f, 38f), TextAnchor.MiddleCenter, 26);
-        Text resultShelterText = CreatePanelText("ResultShelterText", resultPanel.transform, "Shelter:", new Vector2(0f, 110f), new Vector2(700f, 54f), TextAnchor.MiddleLeft, 16);
-        Text resultElapsedTimeText = CreatePanelText("ResultElapsedTimeText", resultPanel.transform, "Elapsed Time:", new Vector2(0f, 68f), new Vector2(700f, 30f), TextAnchor.MiddleLeft, 16);
-        Text resultReasonText = CreatePanelText("ResultReasonText", resultPanel.transform, "Reason:", new Vector2(0f, -45f), new Vector2(700f, 190f), TextAnchor.UpperLeft, 15);
+        Text resultTitleText = CreatePanelText("ResultTitleText", resultPanel.transform, "Result", new Vector2(0f, 220f), new Vector2(780f, 38f), TextAnchor.MiddleCenter, 26);
+        Text resultShelterText = CreatePanelText("ResultShelterText", resultPanel.transform, "Shelter:", new Vector2(0f, 168f), new Vector2(780f, 54f), TextAnchor.MiddleLeft, 16);
+        Text resultElapsedTimeText = CreatePanelText("ResultElapsedTimeText", resultPanel.transform, "Elapsed Time:", new Vector2(0f, 126f), new Vector2(780f, 30f), TextAnchor.MiddleLeft, 16);
+        Text resultReasonText = CreatePanelText("ResultReasonText", resultPanel.transform, "Reason:", new Vector2(0f, -70f), new Vector2(780f, 350f), TextAnchor.UpperLeft, 14);
         resultPanel.SetActive(false);
 
         AssignPlayer(player, player.transform.Find("CameraPivot"), player.GetComponentInChildren<Camera>().transform);
@@ -301,7 +301,7 @@ public static class FirstPlayableSceneBuilder
         rectTransform.anchorMax = new Vector2(0.5f, 0.5f);
         rectTransform.pivot = new Vector2(0.5f, 0.5f);
         rectTransform.anchoredPosition = Vector2.zero;
-        rectTransform.sizeDelta = new Vector2(760f, 420f);
+        rectTransform.sizeDelta = new Vector2(840f, 540f);
 
         Image image = panel.AddComponent<Image>();
         image.color = new Color(0f, 0f, 0f, 0.78f);
