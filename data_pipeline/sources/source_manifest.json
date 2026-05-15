@@ -1,0 +1,24 @@
+{
+  "manifest_version": "p3-00",
+  "created_for": "Phase 3-00 Real Data Pipeline Scaffold",
+  "download_policy": {
+    "network_access_required": false,
+    "download_enabled": false,
+    "scraping_enabled": false,
+    "notes": "P3-00 uses only local synthetic sample data. Official Chuo Ward sources may be added in a later phase after source review."
+  },
+  "sources": [
+    {
+      "source_id": "sample_raw_shelters",
+      "name": "P3-00 Synthetic Sample Shelter CSV",
+      "description": "Local synthetic CSV used to test the shelter export and validation pipeline.",
+      "source_type": "local_sample_csv",
+      "file_path": "data_pipeline/samples/sample_raw_shelters.csv",
+      "official_status": "not_official",
+      "update_policy": "Manual updates only for pipeline testing. Do not treat records as official shelter data.",
+      "license_notes": "Synthetic placeholder data created for repository testing; no external license applies.",
+      "last_checked": "2026-05-15",
+      "notes": "Records use plausible Chuo Ward area names and coordinates for validation only. They are not official Chuo Ward facility records."
+    }
+  ]
+}

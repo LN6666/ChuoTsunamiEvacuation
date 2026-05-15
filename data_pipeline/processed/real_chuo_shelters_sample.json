@@ -1,0 +1,108 @@
+{
+  "dataset_id": "real_chuo_shelters_sample",
+  "generated_at": "2026-05-15T12:54:51Z",
+  "source_manifest": "data_pipeline/sources/source_manifest.json",
+  "coordinate_reference_system": "EPSG:4326",
+  "records": [
+    {
+      "id": "sample_chuo_harumi_001",
+      "name": "Harumi Sample Evacuation Building",
+      "type": "tsunami_evacuation_building",
+      "latitude": 35.6565,
+      "longitude": 139.7805,
+      "address": "Harumi area, Chuo City, Tokyo (synthetic sample)",
+      "capacity": 150,
+      "floors_available": 5,
+      "elevation_m": 3.2,
+      "source": "P3-00 synthetic sample",
+      "source_url": null,
+      "source_updated_at": "2026-05-15",
+      "notes": "Synthetic placeholder only; not official.",
+      "unity": {
+        "prefab_hint": "ShelterMarker",
+        "is_entry_enabled": true,
+        "estimated_stair_floors": 5
+      }
+    },
+    {
+      "id": "sample_chuo_kachidoki_002",
+      "name": "Kachidoki Sample Temporary Shelter",
+      "type": "temporary_shelter",
+      "latitude": 35.6582,
+      "longitude": 139.7768,
+      "address": "Kachidoki area, Chuo City, Tokyo (synthetic sample)",
+      "capacity": 80,
+      "floors_available": 3,
+      "elevation_m": 2.8,
+      "source": "P3-00 synthetic sample",
+      "source_url": null,
+      "source_updated_at": "2026-05-15",
+      "notes": "Synthetic placeholder only; not official.",
+      "unity": {
+        "prefab_hint": "ShelterMarker",
+        "is_entry_enabled": true,
+        "estimated_stair_floors": 3
+      }
+    },
+    {
+      "id": "sample_chuo_tsukishima_003",
+      "name": "Tsukishima Sample Welfare Shelter",
+      "type": "welfare_shelter",
+      "latitude": 35.6639,
+      "longitude": 139.784,
+      "address": "Tsukishima area, Chuo City, Tokyo (synthetic sample)",
+      "capacity": 40,
+      "floors_available": 4,
+      "elevation_m": 2.5,
+      "source": "P3-00 synthetic sample",
+      "source_url": null,
+      "source_updated_at": "2026-05-15",
+      "notes": "Synthetic placeholder only; not official.",
+      "unity": {
+        "prefab_hint": "ShelterMarker",
+        "is_entry_enabled": true,
+        "estimated_stair_floors": 4
+      }
+    },
+    {
+      "id": "sample_chuo_nihonbashi_004",
+      "name": "Nihonbashi Sample Evacuation Shelter",
+      "type": "evacuation_shelter",
+      "latitude": 35.684,
+      "longitude": 139.7763,
+      "address": "Nihonbashi area, Chuo City, Tokyo (synthetic sample)",
+      "capacity": 120,
+      "floors_available": 4,
+      "elevation_m": 4.1,
+      "source": "P3-00 synthetic sample",
+      "source_url": null,
+      "source_updated_at": "2026-05-15",
+      "notes": "Synthetic placeholder only; not official.",
+      "unity": {
+        "prefab_hint": "ShelterMarker",
+        "is_entry_enabled": true,
+        "estimated_stair_floors": 4
+      }
+    },
+    {
+      "id": "sample_chuo_ginza_005",
+      "name": "Ginza Sample Unknown Facility",
+      "type": "unknown",
+      "latitude": 35.6717,
+      "longitude": 139.765,
+      "address": "Ginza area, Chuo City, Tokyo (synthetic sample)",
+      "capacity": null,
+      "floors_available": 2,
+      "elevation_m": 3.0,
+      "source": "P3-00 synthetic sample",
+      "source_url": null,
+      "source_updated_at": "2026-05-15",
+      "notes": "Synthetic placeholder only; not official; capacity intentionally unknown.",
+      "unity": {
+        "prefab_hint": "ShelterMarker",
+        "is_entry_enabled": false,
+        "estimated_stair_floors": 2
+      }
+    }
+  ]
+}

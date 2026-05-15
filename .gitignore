@@ -40,3 +40,45 @@ Assets/Scenes/Chuo_BaseMap_before_auto_setup.unity.meta
 # Unity recovery files
 Assets/_Recovery/
 Assets/_Recovery.meta
+
+# Python virtual environment
+.venv/
+
+# Phase 3 data pipeline local/raw/generated working areas
+data_pipeline/raw/
+data_pipeline/intermediate/
+data_pipeline/downloads/
+data_pipeline/cache/
+data_pipeline/tmp/
+data_pipeline/test-results/
+
+# Phase 3 large GIS/source archives should stay local
+data_pipeline/**/*.gpkg
+data_pipeline/**/*.shp
+data_pipeline/**/*.dbf
+data_pipeline/**/*.shx
+data_pipeline/**/*.prj
+data_pipeline/**/*.cpg
+data_pipeline/**/*.geojson
+data_pipeline/**/*.citygml
+data_pipeline/**/*.gml
+data_pipeline/**/*.zip
+data_pipeline/**/*.7z
+data_pipeline/**/*.tar
+data_pipeline/**/*.tar.gz
+
+# Keep Phase 3 sample contract files tracked
+!data_pipeline/samples/sample_raw_shelters.csv
+!data_pipeline/processed/real_chuo_shelters_sample.json
+!data_pipeline/processed/real_chuo_shelters_sample.csv
+!data_pipeline/sources/source_manifest.json
+!data_pipeline/schemas/real_shelter_schema.json
+!data_pipeline/scripts/*.py
+!data_pipeline/tests/*.py
+!data_pipeline/run_pipeline.ps1
+
+# Local AI/code review outputs
+review_reports/
+
+# Local DeepSeek review prompts
+deepseek_review_prompt_*.txt

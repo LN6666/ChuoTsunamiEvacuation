@@ -1,5 +1,38 @@
 ---
 
+## 2026-05-15 | Phase 3-00 Real Data Pipeline Scaffold Completed
+
+### Completed
+
+Added the Phase 3 standalone real shelter data pipeline scaffold.
+
+Created:
+
+- data_pipeline source manifest
+- real shelter JSON Schema
+- synthetic sample shelter CSV
+- exporter for Unity-ready sample JSON/CSV
+- validator with JSON Schema and sanity checks
+- pytest coverage for schema, export, validation, IDs, Unity interface fields, and coordinate ranges
+- PowerShell one-command runner
+- Phase 3 pipeline, schema, and P2/P3/P4 interface documentation
+
+### Verified
+
+`.\data_pipeline\run_pipeline.ps1` passes:
+
+- export step
+- validation step
+- pytest suite
+
+### Scope Boundary
+
+Phase 3-00 does not modify Unity gameplay, Unity scenes, PLATEAU imported files, or existing `Assets/Data` gameplay JSON.
+
+PLATEAU building matching, real source ingestion, geocoding, and Unity integration remain future Phase 3/4 work.
+
+---
+
 ## 2026-05-15 | Milestone 2-02 Scenarioized Gameplay Rules Completed
 
 ### Completed
