@@ -116,6 +116,46 @@ Completed:
 - DeepSeek review found no A-level blockers.
 - Follow-up cleanup removed UTF-8 BOM from scenario_presets.json.
 
+### Milestone 2-04: Multi-Shelter Decision Gameplay 1.0
+
+Status: Implemented; requires Unity manual scenario test and DeepSeek review before commit.
+
+Goal:
+Upgrade the debug platform from a single-shelter loop into a multi-shelter decision field.
+
+Completed:
+
+- Expanded Assets/Data/test_shelters.json to five test shelter records.
+- Added Near Official Shelter, Far Fast Shelter, Crowded Candidate Shelter, Slow Safe Shelter, and Blocked Test Shelter.
+- Added real-data-ready optional shelter fields while keeping sourceType set to "test".
+- FirstPlayableSceneBuilder now generates multiple shelter markers and entrance triggers from test_shelters.json.
+- Shelter placement uses layoutPosition on the isolated debug platform.
+- Shelter info UI shows name, ID, rank, official/candidate status, enterability, entry delay, climb time, crowding delay, and blocked failure reason.
+- Scenario presets now make multi-shelter choices meaningful.
+- ResultPanel review advice now reflects selected shelter decision context.
+- Added/updated EditMode tests for multi-shelter data, scenarios, and generated setup.
+
+Manual Unity scenarios to test:
+
+- default
+- random_warning
+- blocked_shelter
+- anti_camping
+- late_failure
+
+Automated test commands:
+
+- .\tools\run_unity_tests.ps1 -Mode EditMode
+- .\tools\run_unity_tests.ps1 -Mode PlayMode
+
+Limitations:
+
+- Debug platform only.
+- No real Chuo facility import.
+- No PLATEAU building matching.
+- No real road or entrance navigation.
+- P4 should integrate P3 processed real shelter data later.
+
 ### Remaining Milestone 2 Work
 
 Tasks:

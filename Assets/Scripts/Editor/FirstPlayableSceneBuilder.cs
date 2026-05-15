@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Text;
 using UnityEditor;
 using UnityEditor.SceneManagement;
 using UnityEngine;
@@ -39,6 +40,9 @@ public static class FirstPlayableSceneBuilder
         Material tsunamiMaterial = CreateMaterial("Tsunami Wall Test Material", new Color(0f, 0.75f, 1f, 0.38f), true);
         Material riskMaterial = CreateMaterial("Risk Zone Test Material", new Color(1f, 0.05f, 0.02f, 0.28f), true);
         Material entranceMaterial = CreateMaterial("Shelter Entrance Test Material", new Color(0.1f, 1f, 0.25f, 0.85f), false);
+        Material officialShelterMaterial = CreateMaterial("Official Shelter Marker Material", new Color(0.05f, 0.65f, 1f, 0.9f), false);
+        Material candidateShelterMaterial = CreateMaterial("Candidate Shelter Marker Material", new Color(1f, 0.78f, 0.15f, 0.9f), false);
+        Material blockedShelterMaterial = CreateMaterial("Blocked Shelter Marker Material", new Color(1f, 0.18f, 0.12f, 0.9f), false);
 
         GameObject ground = CreatePrimitive("TestGround", PrimitiveType.Plane, root.transform, TestPosition(new Vector3(0f, 0f, 0f)), new Vector3(60f, 1f, 60f));
         SetMaterial(ground, groundMaterial);
@@ -65,13 +69,12 @@ public static class FirstPlayableSceneBuilder
         SetColliderTrigger(riskZoneObject, true);
         RiskZone riskZone = riskZoneObject.AddComponent<RiskZone>();
 
-        GameObject shelterObject = CreateEmpty("TestShelter", root.transform, TestPosition(new Vector3(15f, 0f, 0f)));
-        BuildingShelter shelter = shelterObject.AddComponent<BuildingShelter>();
-
-        GameObject entranceObject = CreatePrimitive("ShelterEntrance", PrimitiveType.Cube, shelterObject.transform, TestPosition(new Vector3(15f, 1f, 0f)), new Vector3(2f, 2f, 2f));
-        SetMaterial(entranceObject, entranceMaterial);
-        SetColliderTrigger(entranceObject, true);
-        ShelterEntranceTrigger shelterEntrance = entranceObject.AddComponent<ShelterEntranceTrigger>();
+        List<GeneratedShelter> generatedShelters = CreateShelterField(
+            root.transform,
+            officialShelterMaterial,
+            candidateShelterMaterial,
+            blockedShelterMaterial,
+            entranceMaterial);
 
         Canvas canvas = CreateCanvas();
         CreateEventSystem();
@@ -81,10 +84,10 @@ public static class FirstPlayableSceneBuilder
 
         Text countdownText = CreateText("CountdownText", uiRoot.transform, "Waiting", new Vector2(20f, -20f), new Vector2(260f, 40f), TextAnchor.MiddleLeft, 26);
         Text warningText = CreateText("WarningText", uiRoot.transform, GetInstructionText(), new Vector2(20f, -70f), new Vector2(860f, 130f), TextAnchor.UpperLeft, 19);
-        Text shelterText = CreateText("ShelterText", uiRoot.transform, string.Empty, new Vector2(20f, -215f), new Vector2(320f, 120f), TextAnchor.UpperLeft, 18);
-        Text interactionPromptText = CreateText("InteractionPromptText", uiRoot.transform, string.Empty, new Vector2(20f, -345f), new Vector2(320f, 36f), TextAnchor.MiddleLeft, 22);
-        Text climbProgressText = CreateText("ClimbProgressText", uiRoot.transform, string.Empty, new Vector2(20f, -395f), new Vector2(320f, 36f), TextAnchor.MiddleLeft, 20);
-        Slider climbProgressSlider = CreateSlider("ClimbProgressSlider", uiRoot.transform, new Vector2(20f, -440f), new Vector2(320f, 18f));
+        Text shelterText = CreateText("ShelterText", uiRoot.transform, string.Empty, new Vector2(20f, -215f), new Vector2(460f, 170f), TextAnchor.UpperLeft, 16);
+        Text interactionPromptText = CreateText("InteractionPromptText", uiRoot.transform, string.Empty, new Vector2(20f, -395f), new Vector2(420f, 36f), TextAnchor.MiddleLeft, 22);
+        Text climbProgressText = CreateText("ClimbProgressText", uiRoot.transform, string.Empty, new Vector2(20f, -445f), new Vector2(420f, 36f), TextAnchor.MiddleLeft, 20);
+        Slider climbProgressSlider = CreateSlider("ClimbProgressSlider", uiRoot.transform, new Vector2(20f, -490f), new Vector2(420f, 18f));
 
         GameObject resultPanel = CreateResultPanel(canvas.transform);
         Text resultTitleText = CreatePanelText("ResultTitleText", resultPanel.transform, "Result", new Vector2(0f, 220f), new Vector2(780f, 38f), TextAnchor.MiddleCenter, 26);
@@ -98,8 +101,11 @@ public static class FirstPlayableSceneBuilder
         AssignCountdown(countdownManager, gameManager, gameUIManager);
         AssignTsunamiWall(tsunamiWall, tsunamiStart.transform, tsunamiEnd.transform, gameManager);
         AssignRiskZone(riskZone, gameManager);
-        AssignShelter(shelter);
-        AssignShelterEntrance(shelterEntrance, shelter, gameManager, gameUIManager);
+        foreach (GeneratedShelter generatedShelter in generatedShelters)
+        {
+            AssignShelterEntrance(generatedShelter.Entrance, generatedShelter.Shelter, gameManager, gameUIManager);
+        }
+
         AssignGameUI(gameUIManager, countdownText, warningText, shelterText, interactionPromptText, climbProgressText, climbProgressSlider);
         AssignResultPanel(resultPanelController, resultPanel, resultTitleText, resultShelterText, resultElapsedTimeText, resultReasonText);
 
@@ -112,8 +118,9 @@ public static class FirstPlayableSceneBuilder
 #endif
 
         Debug.Log(
-            "Built first playable test setup. Created GameplayTestRoot, TestGround, third-person Player with CameraPivot and Main Camera, GameManager, TsunamiWall, TsunamiStart, TsunamiEnd, RiskZone, TestShelter, ShelterEntrance, Canvas, UIRoot, ResultPanel, and EventSystem. " +
-            $"Gameplay test objects are on an isolated elevated platform at {TestPlatformOrigin}; PLATEAU geometry is background only. Player local start is (0, 1, 0), shelter entrance local position is (15, 1, 0), risk zone is off to the side, and tsunami wall waits at local x=-40 until T is pressed. " +
+            "Built first playable test setup. Created GameplayTestRoot, TestGround, third-person Player with CameraPivot and Main Camera, GameManager, TsunamiWall, TsunamiStart, TsunamiEnd, RiskZone, multi-shelter field, Canvas, UIRoot, ResultPanel, and EventSystem. " +
+            $"Gameplay test objects are on an isolated elevated platform at {TestPlatformOrigin}; PLATEAU geometry is background only. Player local start is (0, 1, 0), generated shelter count is {generatedShelters.Count}, risk zone is off to the side, and tsunami wall waits at local x=-40 until T is pressed. " +
+            BuildShelterSummary(generatedShelters) + " " +
             "Existing scene objects named GameplayTestRoot, Canvas, and EventSystem were replaced; PLATEAU objects and assets were not modified.");
     }
 
@@ -162,6 +169,72 @@ public static class FirstPlayableSceneBuilder
         gameObject.transform.SetParent(parent);
         gameObject.transform.position = position;
         return gameObject;
+    }
+
+    private static List<GeneratedShelter> CreateShelterField(
+        Transform parent,
+        Material officialShelterMaterial,
+        Material candidateShelterMaterial,
+        Material blockedShelterMaterial,
+        Material entranceMaterial)
+    {
+        ShelterDataLoader.ClearRuntimeOverrides();
+        ShelterDataLoader.Reload();
+        ShelterDataLoader.ShelterData[] shelterDataList = ShelterDataLoader.GetAllShelters();
+
+        if (shelterDataList.Length == 0)
+        {
+            Debug.LogWarning("No test shelter data was loaded. Creating one fallback debug shelter.");
+            shelterDataList = new[] { CreateFallbackShelterData() };
+        }
+
+        var generatedShelters = new List<GeneratedShelter>();
+
+        foreach (ShelterDataLoader.ShelterData shelterData in shelterDataList)
+        {
+            if (shelterData == null)
+            {
+                continue;
+            }
+
+            Vector3 localPosition = shelterData.layoutPosition != null
+                ? shelterData.layoutPosition.ToVector3()
+                : Vector3.zero;
+
+            string safeId = MakeSafeObjectName(shelterData.shelterId);
+            GameObject shelterObject = CreateEmpty($"TestShelter_{safeId}", parent, TestPosition(localPosition));
+            BuildingShelter shelter = shelterObject.AddComponent<BuildingShelter>();
+            AssignShelter(shelter, shelterData);
+
+            GameObject markerObject = CreatePrimitive(
+                $"ShelterMarker_{safeId}",
+                PrimitiveType.Cube,
+                shelterObject.transform,
+                TestPosition(localPosition + new Vector3(0f, 0.25f, 0f)),
+                new Vector3(3f, 0.5f, 3f));
+            SetMaterial(markerObject, GetShelterMarkerMaterial(shelterData, officialShelterMaterial, candidateShelterMaterial, blockedShelterMaterial));
+            RemoveCollider(markerObject);
+
+            GameObject entranceObject = CreatePrimitive(
+                $"ShelterEntrance_{safeId}",
+                PrimitiveType.Cube,
+                shelterObject.transform,
+                TestPosition(localPosition + new Vector3(0f, 1f, 0f)),
+                new Vector3(2f, 2f, 2f));
+            SetMaterial(entranceObject, entranceMaterial);
+            SetColliderTrigger(entranceObject, true);
+            ShelterEntranceTrigger shelterEntrance = entranceObject.AddComponent<ShelterEntranceTrigger>();
+
+            generatedShelters.Add(new GeneratedShelter
+            {
+                Shelter = shelter,
+                Entrance = shelterEntrance,
+                Data = shelterData.Clone(),
+                LocalPosition = localPosition
+            });
+        }
+
+        return generatedShelters;
     }
 
     private static GameObject CreatePlayer(Transform parent, Material playerMaterial)
@@ -350,6 +423,15 @@ public static class FirstPlayableSceneBuilder
         }
     }
 
+    private static void RemoveCollider(GameObject gameObject)
+    {
+        Collider collider = gameObject.GetComponent<Collider>();
+        if (collider != null)
+        {
+            UnityEngine.Object.DestroyImmediate(collider);
+        }
+    }
+
     private static Vector3 TestPosition(Vector3 localPosition)
     {
         return TestPlatformOrigin + localPosition;
@@ -379,6 +461,80 @@ public static class FirstPlayableSceneBuilder
         {
             renderer.sharedMaterial = material;
         }
+    }
+
+    private static Material GetShelterMarkerMaterial(
+        ShelterDataLoader.ShelterData shelterData,
+        Material officialShelterMaterial,
+        Material candidateShelterMaterial,
+        Material blockedShelterMaterial)
+    {
+        if (shelterData != null && !shelterData.canEnter)
+        {
+            return blockedShelterMaterial;
+        }
+
+        if (shelterData != null && shelterData.isOfficialShelter)
+        {
+            return officialShelterMaterial;
+        }
+
+        return candidateShelterMaterial;
+    }
+
+    private static string BuildShelterSummary(List<GeneratedShelter> generatedShelters)
+    {
+        if (generatedShelters == null || generatedShelters.Count == 0)
+        {
+            return "Generated shelters: none.";
+        }
+
+        var builder = new StringBuilder("Generated shelters:");
+
+        foreach (GeneratedShelter generatedShelter in generatedShelters)
+        {
+            if (generatedShelter == null || generatedShelter.Data == null)
+            {
+                continue;
+            }
+
+            Vector3 position = generatedShelter.LocalPosition;
+            builder.Append(
+                $" {generatedShelter.Data.shelterId}@({position.x:0.#},{position.y:0.#},{position.z:0.#});");
+        }
+
+        return builder.ToString();
+    }
+
+    private static string MakeSafeObjectName(string value)
+    {
+        if (string.IsNullOrWhiteSpace(value))
+        {
+            return "unnamed";
+        }
+
+        return value.Replace(" ", "_").Replace("/", "_").Replace("\\", "_");
+    }
+
+    private static ShelterDataLoader.ShelterData CreateFallbackShelterData()
+    {
+        return new ShelterDataLoader.ShelterData
+        {
+            shelterId = "test_shelter_001",
+            shelterName = "Fallback Test Shelter",
+            shelterRank = "B",
+            isOfficialShelter = true,
+            canEnter = true,
+            entryDelaySeconds = 0f,
+            climbTimeSeconds = 10f,
+            crowdingDelaySeconds = 0f,
+            failureReason = "This shelter is not available.",
+            sourceType = "test",
+            facilityType = "debug_shelter",
+            layoutPosition = new ShelterDataLoader.LayoutPosition { x = 12f, y = 0f, z = 0f },
+            coordinateSystem = "debug_platform",
+            dataSource = "FirstPlayableSceneBuilder fallback"
+        };
     }
 
     private static Material CreateMaterial(string name, Color color, bool transparent)
@@ -487,18 +643,10 @@ public static class FirstPlayableSceneBuilder
         SetBool(riskZone, "failureOnEnter", true);
     }
 
-    private static void AssignShelter(BuildingShelter shelter)
+    private static void AssignShelter(BuildingShelter shelter, ShelterDataLoader.ShelterData shelterData)
     {
-        SetString(shelter, "shelterId", "test_shelter_001");
-        SetString(shelter, "shelterName", "Test Shelter");
-        SetString(shelter, "shelterRank", "S");
-        SetBool(shelter, "isOfficialShelter", true);
-        SetBool(shelter, "canEnter", true);
+        shelter.ApplyShelterData(shelterData);
         SetString(shelter, "postEarthquakeStatus", "usable");
-        SetFloat(shelter, "entryDelaySeconds", 0f);
-        SetFloat(shelter, "climbTimeSeconds", 10f);
-        SetFloat(shelter, "crowdingDelaySeconds", 0f);
-        SetString(shelter, "failureReason", "This shelter is not available.");
     }
 
     private static void AssignShelterEntrance(
@@ -599,6 +747,14 @@ public static class FirstPlayableSceneBuilder
             property.intValue = (int)value;
             serializedObject.ApplyModifiedPropertiesWithoutUndo();
         }
+    }
+
+    private class GeneratedShelter
+    {
+        public BuildingShelter Shelter;
+        public ShelterEntranceTrigger Entrance;
+        public ShelterDataLoader.ShelterData Data;
+        public Vector3 LocalPosition;
     }
 
 }

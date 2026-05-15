@@ -1,5 +1,49 @@
 ---
 
+## 2026-05-15 | Milestone 2-04 Multi-Shelter Decision Gameplay Implemented
+
+### Completed
+
+Implemented Milestone 2-04 - Multi-Shelter Decision Gameplay 1.0 for the debug platform prototype.
+
+Added multi-shelter decision data:
+
+- Expanded Assets/Data/test_shelters.json from a single normal shelter plus blocked shelter into five test records.
+- Added Near Official Shelter, Far Fast Shelter, Crowded Candidate Shelter, Slow Safe Shelter, and Blocked Test Shelter.
+- Extended test shelter records with real-data-ready optional fields such as sourceType, facilityType, layoutPosition, address, latitude, longitude, coordinateSystem, plateauBuildingId, safeFloor, capacity, source metadata, and notes.
+
+Updated generated debug setup:
+
+- FirstPlayableSceneBuilder now generates multiple shelter markers and entrance triggers from test_shelters.json.
+- Shelter placement uses each record's layoutPosition on the isolated debug platform.
+- PLATEAU geometry remains background/context only.
+
+Updated scenarios:
+
+- default uses the base multi-shelter fixture.
+- normal_success keeps clear successful shelter options.
+- random_warning starts the warning quickly while multiple shelters remain available.
+- blocked_shelter blocks the nearest obvious shelter while leaving alternatives usable.
+- anti_camping blocks only the shelter camped before warning.
+- late_failure makes the slow shelter risky while preserving faster alternatives.
+
+Updated result review:
+
+- ResultPanel advice now reflects selected shelter decisions, blocked shelter attempts, camping blocks, and late risk failure.
+
+Updated tests:
+
+- Added EditMode checks for multiple shelters, unique IDs, blocked/enterable/official/crowded coverage, layout positions, scenario references, and late_failure tradeoff data.
+- Added an EditMode smoke test for FirstPlayableSceneBuilder multi-shelter generation.
+
+### Scope
+
+This milestone remains a P2 debug-platform gameplay fixture.
+
+It does not import real Chuo facility data, read from P3 data_pipeline outputs, match PLATEAU buildings, infer real roads, or create real entrance navigation.
+
+---
+
 ## 2026-05-15 | Milestone 2-02 Scenarioized Gameplay Rules Completed
 
 ### Completed

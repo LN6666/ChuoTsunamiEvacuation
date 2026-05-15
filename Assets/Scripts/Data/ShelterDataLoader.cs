@@ -9,6 +9,7 @@ public static class ShelterDataLoader
 
     private static readonly Dictionary<string, ShelterData> ShelterById = new Dictionary<string, ShelterData>();
     private static readonly Dictionary<string, ShelterData> RuntimeShelterOverridesById = new Dictionary<string, ShelterData>();
+    private static readonly List<string> ShelterIdsInLoadOrder = new List<string>();
     private static bool hasLoaded;
     private static string runtimeOverrideSource = "scenario";
 
@@ -30,6 +31,21 @@ public static class ShelterDataLoader
         public float climbTimeSeconds = 10f;
         public float crowdingDelaySeconds;
         public string failureReason = "This shelter is not available.";
+        public string sourceType = "test";
+        public string facilityType = "debug_shelter";
+        public LayoutPosition layoutPosition = new LayoutPosition();
+        public string realFacilityName = string.Empty;
+        public string address = string.Empty;
+        public float latitude;
+        public float longitude;
+        public string coordinateSystem = "debug_platform";
+        public string plateauBuildingId = string.Empty;
+        public int safeFloor;
+        public int capacity;
+        public string dataSource = string.Empty;
+        public string sourceUrl = string.Empty;
+        public string sourceUpdatedAt = string.Empty;
+        public string notes = string.Empty;
 
         public ShelterData Clone()
         {
@@ -43,7 +59,22 @@ public static class ShelterDataLoader
                 entryDelaySeconds = entryDelaySeconds,
                 climbTimeSeconds = climbTimeSeconds,
                 crowdingDelaySeconds = crowdingDelaySeconds,
-                failureReason = failureReason
+                failureReason = failureReason,
+                sourceType = sourceType,
+                facilityType = facilityType,
+                layoutPosition = layoutPosition != null ? layoutPosition.Clone() : new LayoutPosition(),
+                realFacilityName = realFacilityName,
+                address = address,
+                latitude = latitude,
+                longitude = longitude,
+                coordinateSystem = coordinateSystem,
+                plateauBuildingId = plateauBuildingId,
+                safeFloor = safeFloor,
+                capacity = capacity,
+                dataSource = dataSource,
+                sourceUrl = sourceUrl,
+                sourceUpdatedAt = sourceUpdatedAt,
+                notes = notes
             };
         }
 
@@ -74,6 +105,76 @@ public static class ShelterDataLoader
             if (string.IsNullOrWhiteSpace(failureReason))
             {
                 failureReason = "This shelter is not available.";
+            }
+
+            if (string.IsNullOrWhiteSpace(sourceType))
+            {
+                sourceType = "test";
+            }
+
+            if (string.IsNullOrWhiteSpace(facilityType))
+            {
+                facilityType = "debug_shelter";
+            }
+
+            if (layoutPosition == null)
+            {
+                Debug.LogWarning($"{source} shelter {shelterId} had no layoutPosition. Using debug platform origin.");
+                layoutPosition = new LayoutPosition();
+            }
+
+            layoutPosition.Sanitize($"{source} shelter {shelterId}");
+
+            if (string.IsNullOrWhiteSpace(coordinateSystem))
+            {
+                coordinateSystem = "debug_platform";
+            }
+
+            safeFloor = Mathf.Max(0, safeFloor);
+            capacity = Mathf.Max(0, capacity);
+        }
+    }
+
+    [Serializable]
+    public class LayoutPosition
+    {
+        public float x;
+        public float y;
+        public float z;
+
+        public LayoutPosition Clone()
+        {
+            return new LayoutPosition
+            {
+                x = x,
+                y = y,
+                z = z
+            };
+        }
+
+        public Vector3 ToVector3()
+        {
+            return new Vector3(x, y, z);
+        }
+
+        public void Sanitize(string source)
+        {
+            if (float.IsNaN(x) || float.IsInfinity(x))
+            {
+                Debug.LogWarning($"{source} had an invalid layoutPosition.x. Using 0.");
+                x = 0f;
+            }
+
+            if (float.IsNaN(y) || float.IsInfinity(y))
+            {
+                Debug.LogWarning($"{source} had an invalid layoutPosition.y. Using 0.");
+                y = 0f;
+            }
+
+            if (float.IsNaN(z) || float.IsInfinity(z))
+            {
+                Debug.LogWarning($"{source} had an invalid layoutPosition.z. Using 0.");
+                z = 0f;
             }
         }
     }
@@ -112,10 +213,37 @@ public static class ShelterDataLoader
         return false;
     }
 
+    public static ShelterData[] GetAllShelters()
+    {
+        EnsureLoaded();
+
+        var shelters = new List<ShelterData>();
+
+        foreach (string shelterId in ShelterIdsInLoadOrder)
+        {
+            if (!ShelterById.TryGetValue(shelterId, out ShelterData shelterData))
+            {
+                continue;
+            }
+
+            ShelterData clone = shelterData.Clone();
+
+            if (RuntimeShelterOverridesById.TryGetValue(shelterId, out ShelterData overrideData))
+            {
+                clone = overrideData.Clone();
+            }
+
+            shelters.Add(clone);
+        }
+
+        return shelters.ToArray();
+    }
+
     public static void Reload()
     {
         hasLoaded = false;
         ShelterById.Clear();
+        ShelterIdsInLoadOrder.Clear();
         EnsureLoaded();
     }
 
@@ -178,6 +306,7 @@ public static class ShelterDataLoader
 
         hasLoaded = true;
         ShelterById.Clear();
+        ShelterIdsInLoadOrder.Clear();
 
         string path = Application.dataPath + "/Data/" + ShelterDataFileName;
 
@@ -221,12 +350,14 @@ public static class ShelterDataLoader
                 }
 
                 ShelterById.Add(shelterData.shelterId, shelterData.Clone());
+                ShelterIdsInLoadOrder.Add(shelterData.shelterId);
             }
         }
         catch (Exception exception)
         {
             Debug.LogWarning($"Could not load shelter data from {path}. Existing scene/Inspector shelter values will be preserved. {exception.Message}");
             ShelterById.Clear();
+            ShelterIdsInLoadOrder.Clear();
         }
     }
 }

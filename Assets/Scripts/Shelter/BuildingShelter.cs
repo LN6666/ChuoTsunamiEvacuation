@@ -13,6 +13,20 @@ public class BuildingShelter : MonoBehaviour
     [SerializeField] private float climbTimeSeconds = 12f;
     [SerializeField] private float crowdingDelaySeconds;
     [SerializeField] private string failureReason = "This building cannot be used as a shelter.";
+    [SerializeField] private string sourceType = "test";
+    [SerializeField] private string facilityType = "debug_shelter";
+    [SerializeField] private string realFacilityName;
+    [SerializeField] private string address;
+    [SerializeField] private float latitude;
+    [SerializeField] private float longitude;
+    [SerializeField] private string coordinateSystem = "debug_platform";
+    [SerializeField] private string plateauBuildingId;
+    [SerializeField] private int safeFloor;
+    [SerializeField] private int capacity;
+    [SerializeField] private string dataSource;
+    [SerializeField] private string sourceUrl;
+    [SerializeField] private string sourceUpdatedAt;
+    [SerializeField] private string notes;
 
     public string ShelterId => shelterId;
     public string ShelterName => string.IsNullOrWhiteSpace(shelterName) ? gameObject.name : shelterName;
@@ -25,6 +39,10 @@ public class BuildingShelter : MonoBehaviour
     public float CrowdingDelaySeconds => Mathf.Max(0f, crowdingDelaySeconds);
     public float TotalEvacuationDelaySeconds => Mathf.Max(0.1f, EntryDelaySeconds + ClimbTimeSeconds + CrowdingDelaySeconds);
     public string FailureReason => failureReason;
+    public string SourceType => sourceType;
+    public string FacilityType => facilityType;
+    public int SafeFloor => Mathf.Max(0, safeFloor);
+    public int Capacity => Mathf.Max(0, capacity);
 
     public void ApplyShelterData(ShelterDataLoader.ShelterData shelterData)
     {
@@ -44,6 +62,20 @@ public class BuildingShelter : MonoBehaviour
         failureReason = string.IsNullOrWhiteSpace(shelterData.failureReason)
             ? "This shelter is not available."
             : shelterData.failureReason;
+        sourceType = shelterData.sourceType;
+        facilityType = shelterData.facilityType;
+        realFacilityName = shelterData.realFacilityName;
+        address = shelterData.address;
+        latitude = shelterData.latitude;
+        longitude = shelterData.longitude;
+        coordinateSystem = shelterData.coordinateSystem;
+        plateauBuildingId = shelterData.plateauBuildingId;
+        safeFloor = Mathf.Max(0, shelterData.safeFloor);
+        capacity = Mathf.Max(0, shelterData.capacity);
+        dataSource = shelterData.dataSource;
+        sourceUrl = shelterData.sourceUrl;
+        sourceUpdatedAt = shelterData.sourceUpdatedAt;
+        notes = shelterData.notes;
     }
 
     public bool CanUse(out string reason)
@@ -68,6 +100,13 @@ public class BuildingShelter : MonoBehaviour
     {
         string officialText = isOfficialShelter ? "Official shelter" : "Candidate shelter";
         string enterText = canEnter ? "Enterable" : "Not enterable";
-        return $"{ShelterName}\nID: {shelterId}\nRank: {shelterRank}\n{officialText}\n{enterText}\nClimb: {ClimbTimeSeconds:0.#}s, Crowd: {CrowdingDelaySeconds:0.#}s";
+        string blockedText = canEnter ? string.Empty : $"\nReason: {FailureReason}";
+        return
+            $"{ShelterName}\n" +
+            $"ID: {shelterId}\n" +
+            $"Rank: {shelterRank} | {officialText}\n" +
+            $"{enterText}\n" +
+            $"Entry: {EntryDelaySeconds:0.#}s | Climb: {ClimbTimeSeconds:0.#}s | Crowd: {CrowdingDelaySeconds:0.#}s" +
+            blockedText;
     }
 }

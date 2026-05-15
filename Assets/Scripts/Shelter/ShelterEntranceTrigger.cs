@@ -40,6 +40,16 @@ public class ShelterEntranceTrigger : MonoBehaviour
         if (playerInRange)
         {
             gameManager?.UpdateShelterEntranceProximity(this, Time.deltaTime);
+
+            if (ShouldShowShelterPrompt())
+            {
+                gameManager?.ApplyShelterConfig(shelter);
+                gameUIManager?.ShowInteractionPrompt(shelter);
+            }
+            else
+            {
+                gameUIManager?.HideInteractionPrompt();
+            }
         }
 
         if (!playerInRange || !Input.GetKeyDown(interactKey))
@@ -67,8 +77,12 @@ public class ShelterEntranceTrigger : MonoBehaviour
 
         playerInRange = true;
         Debug.Log("Player enters ShelterEntrance.");
-        gameManager?.ApplyShelterConfig(shelter);
-        gameUIManager?.ShowInteractionPrompt(shelter);
+
+        if (ShouldShowShelterPrompt())
+        {
+            gameManager?.ApplyShelterConfig(shelter);
+            gameUIManager?.ShowInteractionPrompt(shelter);
+        }
     }
 
     private void OnTriggerExit(Collider other)
@@ -81,5 +95,16 @@ public class ShelterEntranceTrigger : MonoBehaviour
         playerInRange = false;
         gameManager?.HandleShelterEntranceExit(this);
         gameUIManager?.HideInteractionPrompt();
+    }
+
+    private bool ShouldShowShelterPrompt()
+    {
+        if (gameManager == null)
+        {
+            return true;
+        }
+
+        return gameManager.CurrentState == EvacuationGameManager.GameState.PreEvent ||
+            gameManager.CurrentState == EvacuationGameManager.GameState.Playing;
     }
 }

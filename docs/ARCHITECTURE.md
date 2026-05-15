@@ -7,10 +7,13 @@ This project uses Unity as the main interaction engine and PLATEAU as the 3D cit
 Current completed state:
 - The first playable prototype is complete and Unity-tested.
 - Milestone 2-01 - Data-Driven Rules Integration is complete and Unity-tested.
+- Milestone 2-02 - Scenarioized Gameplay Rules 1.0 is complete.
+- Milestone 2-03 - Unity Test Automation Foundation is complete.
+- Milestone 2-04 - Multi-Shelter Decision Gameplay 1.0 has been implemented for the debug platform.
 - The prototype runs on an isolated debug platform while PLATEAU geometry is used as background/context.
 - Tsunami warning currently starts manually with T for debug.
 - Countdown and tsunami movement begin only after the warning event.
-- Tsunami timing, test shelter rules, anti-camping settings, and result metrics are data-driven.
+- Tsunami timing, multi-shelter test rules, scenario presets, anti-camping settings, and result metrics are data-driven.
 
 Current milestone:
 - Milestone 2: Rules and Dataization 1.0
@@ -93,14 +96,15 @@ Responsibility:
 Responsibility:
 - store shelter properties
 - validate whether shelter can be used
-- expose shelter rank, entry delay, climb time, crowding delay, and failure reason
+- expose shelter rank, official/candidate status, entry delay, climb time, crowding delay, and failure reason
+- carry real-data-ready optional fields such as source type, facility type, safe floor, capacity, and future PLATEAU/facility identifiers
 - accept matching test shelter data without overwriting Inspector values when data is missing
 
 ### ShelterEntranceTrigger
 
 Responsibility:
 - detect player near entrance
-- show interaction prompt
+- show shelter decision information and interaction prompt
 - handle E key interaction
 - call BuildingShelter validation
 
@@ -156,23 +160,36 @@ Current limitation:
 Responsibility:
 - load test_shelters.json
 - provide lookup by shelterId
+- provide all loaded test shelters for debug-platform generation
+- apply scenario shelter overrides in memory only
 - preserve scene/Inspector shelter values when shelterId is missing or unknown
+
+### ScenarioPresetLoader
+
+Responsibility:
+- load scenario_presets.json
+- resolve the active scenario
+- apply tsunami, anti-camping, and shelter overrides in memory
+- fall back to default behavior for missing or unknown scenarios
+- avoid modifying base JSON files at runtime
 
 ### ResultMetrics
 
 Responsibility:
 - store explainable result data such as selected shelter, timing, risk arrival, delays, and camping flags
 - keep result data separate from UI text formatting
+- include active scenario identifiers for decision review
 
-Milestone 2 data loading should focus on:
+Milestone 2 data loading focuses on:
 
 - tsunami event config
-- shelter config data
+- multi-shelter test config data
 - future random warning timing config
 - anti-camping config
+- scenario presets
 - result metric definitions
 
-Milestone 2-01 introduced these config structures while keeping manually placed test objects.
+Milestone 2-04 keeps the data on the debug platform and does not consume P3 real-data pipeline outputs yet.
 
 ### Editor Validation
 
@@ -196,6 +213,7 @@ Current policy:
 - Raw PLATEAU data is not committed to GitHub.
 - PLATEAU-specific logic should remain isolated.
 - Current gameplay-loop testing uses an isolated platform away from PLATEAU building geometry.
+- P2-04 multi-shelter gameplay uses test shelters only; future P4 work should integrate P3 processed real shelter data.
 
 ## Agent Workflow
 

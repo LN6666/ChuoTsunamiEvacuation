@@ -8,6 +8,8 @@ The first playable prototype uses manually placed test objects in Unity.
 
 Milestone 2-01 moved tsunami event timing, test shelter rules, anti-camping settings, and result metrics into small JSON config/data files.
 
+Milestone 2-04 expanded the test shelter data into a multi-shelter decision fixture while keeping it separate from P3 real-data outputs.
+
 ## Data Folder
 
 Unity project data folder:
@@ -28,7 +30,7 @@ Suggested file:
 
 Assets/Data/chuo_shelters.csv
 
-Milestone 2-01 test file:
+Milestone 2 test file:
 
 Assets/Data/test_shelters.json
 
@@ -66,8 +68,51 @@ Milestone 2-01 supports a small test shelter config first. Full Chuo City shelte
 | climbTimeSeconds | float | Time required to reach a safe floor |
 | crowdingDelaySeconds | float | Extra delay caused by crowding |
 | failureReason | string | Reason shown when entry is blocked |
+| sourceType | string | Current P2 records use "test"; later real records can use a real-data source label |
+| facilityType | string | Debug or real facility type, such as debug_shelter |
+| layoutPosition | object | Debug platform placement with x, y, and z numeric components |
+| realFacilityName | string | Future real facility name, empty for current test data |
+| address | string | Future address field, empty for current test data |
+| latitude | float | Future WGS84 latitude, 0 for current test data |
+| longitude | float | Future WGS84 longitude, 0 for current test data |
+| coordinateSystem | string | Current P2 value is debug_platform |
+| plateauBuildingId | string | Future PLATEAU building match ID, empty for current test data |
+| safeFloor | int | Simplified safe-floor hint for future real-data integration |
+| capacity | int | Optional capacity hint |
+| dataSource | string | Source label or fixture note |
+| sourceUrl | string | Source URL, empty for current test data |
+| sourceUpdatedAt | string | Source update date, empty for current test data |
+| notes | string | Fixture or data notes |
 
 If a shelterId is missing or unknown, the loader preserves existing scene/Inspector values and logs a warning.
+
+### Current P2-04 Test Shelter Records
+
+The current debug fixture contains:
+
+- test_shelter_001: Near Official Shelter
+- test_shelter_far_fast: Far Fast Shelter
+- test_shelter_crowded_candidate: Crowded Candidate Shelter
+- test_shelter_slow_safe: Slow Safe Shelter
+- test_shelter_blocked: Blocked Test Shelter
+
+These records are intentionally not real Chuo facility data. They are decision-test fixtures for the isolated debug platform.
+
+### layoutPosition
+
+layoutPosition drives only debug platform placement.
+
+Example:
+
+```json
+"layoutPosition": {
+  "x": 8,
+  "y": 0,
+  "z": -8
+}
+```
+
+P3/P4 real shelter data should not rely on this debug placement field as a real coordinate system.
 
 ### Shelter Rank
 
@@ -192,6 +237,44 @@ Assets/Data/anti_camping_config.json
 | blockCampedShelterForRound | bool | Whether a camped shelter is blocked after warning starts |
 
 antiCampingEnabled is false by default.
+
+---
+
+## Scenario Presets
+
+Implemented file:
+
+Assets/Data/scenario_presets.json
+
+### Fields
+
+| Field | Type | Description |
+|---|---|---|
+| activeScenarioId | string | Active scenario for Editor-stage testing; should be "default" before commit unless intentionally testing another scenario |
+| presets | array | Named scenario presets |
+| scenarioId | string | Scenario identifier |
+| displayName | string | Human-readable scenario name |
+| description | string | Scenario purpose |
+| overrideTsunamiEventConfig | bool | Whether the scenario overrides tsunami timing in memory |
+| tsunamiEventConfig | object | Optional in-memory tsunami config override |
+| overrideAntiCampingConfig | bool | Whether the scenario overrides anti-camping config in memory |
+| antiCampingConfig | object | Optional in-memory anti-camping config override |
+| shelterOverrides | array | Optional in-memory shelter data overrides by shelterId |
+
+Scenario overrides are applied at runtime only. They must not rewrite base JSON config files.
+
+Current P2-04 scenarios:
+
+- default
+- normal_success
+- random_warning
+- blocked_shelter
+- anti_camping
+- late_failure
+
+Unknown scenario IDs fall back to default behavior with a warning.
+
+Unknown shelter IDs in scenario overrides are ignored with a warning and do not corrupt in-scene shelter values.
 
 ---
 

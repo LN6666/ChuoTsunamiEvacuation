@@ -110,17 +110,24 @@ public class ResultMetrics
     {
         if (success)
         {
-            return "Compare shelter timing and route risk in another scenario.";
+            return "Compare this shelter choice with the other scenario options.";
         }
 
         if (wasShelterBlockedByCampingRule)
         {
-            return "Start farther from known shelters or test a different evacuation choice.";
+            return "Avoid waiting at the same shelter before warning.";
+        }
+
+        string reason = string.IsNullOrWhiteSpace(failureReason) ? string.Empty : failureReason.ToLowerInvariant();
+
+        if (reason.Contains("blocked") || reason.Contains("unavailable") || reason.Contains("not available"))
+        {
+            return "Try another shelter when the nearest one is unavailable.";
         }
 
         if (tsunamiArrivalTime > 0f)
         {
-            return "Reduce delay, choose an earlier shelter, or test a slower tsunami scenario.";
+            return "Choose a faster or closer shelter under this scenario.";
         }
 
         return "Review shelter usability and entry timing before rerunning.";

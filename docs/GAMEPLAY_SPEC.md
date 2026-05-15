@@ -67,6 +67,22 @@ Each shelter may have:
 - climb time
 - failure reason
 
+## Multi-Shelter Decision Prototype
+
+Milestone 2-04 upgrades the debug-platform prototype from one shelter to several test shelter choices.
+
+The generated debug platform includes:
+
+- a near official shelter
+- a farther fast shelter
+- a crowded candidate shelter
+- a slow official shelter
+- an intentionally blocked shelter
+
+The goal is to make the player compare distance, rank, official status, enterability, climb time, crowding delay, and scenario effects before pressing E.
+
+The current fixture still uses test shelters only. It does not import real Chuo facility data, match PLATEAU buildings, infer roads, or detect real entrances.
+
 ## Success Conditions
 
 The player succeeds when:

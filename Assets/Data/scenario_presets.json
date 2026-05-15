@@ -4,7 +4,7 @@
                     {
                         "scenarioId":  "default",
                         "displayName":  "Default",
-                        "description":  "Use base JSON config files without scenario overrides.",
+                        "description":  "Use base multi-shelter JSON config without scenario overrides.",
                         "overrideTsunamiEventConfig":  false,
                         "overrideAntiCampingConfig":  false,
                         "shelterOverrides":  [
@@ -14,7 +14,7 @@
                     {
                         "scenarioId":  "normal_success",
                         "displayName":  "Normal Success",
-                        "description":  "Manual warning start, enterable test shelter, anti-camping disabled.",
+                        "description":  "Manual warning start with several enterable shelter options.",
                         "overrideTsunamiEventConfig":  true,
                         "tsunamiEventConfig":  {
                                                    "manualStartEnabled":  true,
@@ -23,7 +23,7 @@
                                                    "randomStartMaxSeconds":  90,
                                                    "evacuationCountdownSeconds":  60,
                                                    "wallMoveDurationSeconds":  60,
-                                                   "warningMessage":  "Tsunami warning issued. Evacuate to a safe building."
+                                                   "warningMessage":  "Tsunami warning issued. Compare the available shelters and evacuate."
                                                },
                         "overrideAntiCampingConfig":  true,
                         "antiCampingConfig":  {
@@ -34,12 +34,23 @@
                         "shelterOverrides":  [
                                                  {
                                                      "shelterId":  "test_shelter_001",
-                                                     "shelterName":  "Test Shelter",
+                                                     "shelterName":  "Near Official Shelter",
                                                      "shelterRank":  "S",
                                                      "isOfficialShelter":  true,
                                                      "canEnter":  true,
                                                      "entryDelaySeconds":  0,
                                                      "climbTimeSeconds":  10,
+                                                     "crowdingDelaySeconds":  0,
+                                                     "failureReason":  "This shelter is not available."
+                                                 },
+                                                 {
+                                                     "shelterId":  "test_shelter_far_fast",
+                                                     "shelterName":  "Far Fast Shelter",
+                                                     "shelterRank":  "A",
+                                                     "isOfficialShelter":  true,
+                                                     "canEnter":  true,
+                                                     "entryDelaySeconds":  0,
+                                                     "climbTimeSeconds":  5,
                                                      "crowdingDelaySeconds":  0,
                                                      "failureReason":  "This shelter is not available."
                                                  }
@@ -48,7 +59,7 @@
                     {
                         "scenarioId":  "random_warning",
                         "displayName":  "Random Warning",
-                        "description":  "Quick random warning for testing, with manual T start still enabled as fallback.",
+                        "description":  "Quick random warning for testing multi-shelter decisions under time pressure.",
                         "overrideTsunamiEventConfig":  true,
                         "tsunamiEventConfig":  {
                                                    "manualStartEnabled":  true,
@@ -57,9 +68,14 @@
                                                    "randomStartMaxSeconds":  4,
                                                    "evacuationCountdownSeconds":  60,
                                                    "wallMoveDurationSeconds":  60,
-                                                   "warningMessage":  "Random tsunami warning issued. Evacuate to a safe building."
+                                                   "warningMessage":  "Random tsunami warning issued. Choose a shelter quickly."
                                                },
-                        "overrideAntiCampingConfig":  false,
+                        "overrideAntiCampingConfig":  true,
+                        "antiCampingConfig":  {
+                                                  "antiCampingEnabled":  false,
+                                                  "preWarningCampingThresholdSeconds":  10,
+                                                  "blockCampedShelterForRound":  true
+                                              },
                         "shelterOverrides":  [
 
                                              ]
@@ -67,7 +83,7 @@
                     {
                         "scenarioId":  "blocked_shelter",
                         "displayName":  "Blocked Shelter",
-                        "description":  "The normal test shelter is unavailable and should show a clear failure reason.",
+                        "description":  "The nearest obvious shelter is blocked, but other shelters remain usable.",
                         "overrideTsunamiEventConfig":  true,
                         "tsunamiEventConfig":  {
                                                    "manualStartEnabled":  true,
@@ -76,27 +92,43 @@
                                                    "randomStartMaxSeconds":  90,
                                                    "evacuationCountdownSeconds":  60,
                                                    "wallMoveDurationSeconds":  60,
-                                                   "warningMessage":  "Tsunami warning issued. Check whether the shelter is usable."
+                                                   "warningMessage":  "Tsunami warning issued. The nearest shelter may not be usable."
                                                },
-                        "overrideAntiCampingConfig":  false,
+                        "overrideAntiCampingConfig":  true,
+                        "antiCampingConfig":  {
+                                                  "antiCampingEnabled":  false,
+                                                  "preWarningCampingThresholdSeconds":  10,
+                                                  "blockCampedShelterForRound":  true
+                                              },
                         "shelterOverrides":  [
                                                  {
                                                      "shelterId":  "test_shelter_001",
-                                                     "shelterName":  "Test Shelter",
+                                                     "shelterName":  "Near Official Shelter",
                                                      "shelterRank":  "S",
                                                      "isOfficialShelter":  true,
                                                      "canEnter":  false,
                                                      "entryDelaySeconds":  0,
-                                                     "climbTimeSeconds":  10,
+                                                     "climbTimeSeconds":  11,
+                                                     "crowdingDelaySeconds":  1,
+                                                     "failureReason":  "Scenario blocked_shelter: the nearest official shelter is unavailable after the earthquake."
+                                                 },
+                                                 {
+                                                     "shelterId":  "test_shelter_far_fast",
+                                                     "shelterName":  "Far Fast Shelter",
+                                                     "shelterRank":  "A",
+                                                     "isOfficialShelter":  true,
+                                                     "canEnter":  true,
+                                                     "entryDelaySeconds":  0,
+                                                     "climbTimeSeconds":  6,
                                                      "crowdingDelaySeconds":  0,
-                                                     "failureReason":  "Scenario blocked_shelter: this shelter is unavailable after the earthquake."
+                                                     "failureReason":  "This shelter is not available."
                                                  }
                                              ]
                     },
                     {
                         "scenarioId":  "anti_camping",
                         "displayName":  "Anti-Camping",
-                        "description":  "Quick anti-camping detection and blocking test.",
+                        "description":  "Quick anti-camping detection blocks only the shelter camped before warning.",
                         "overrideTsunamiEventConfig":  true,
                         "tsunamiEventConfig":  {
                                                    "manualStartEnabled":  true,
@@ -120,7 +152,7 @@
                     {
                         "scenarioId":  "late_failure",
                         "displayName":  "Late Failure",
-                        "description":  "Makes the tsunami front likely to pass the shelter entrance before climbing completes.",
+                        "description":  "Slow shelter is likely to fail before safe-floor completion; faster options create a tradeoff.",
                         "overrideTsunamiEventConfig":  true,
                         "tsunamiEventConfig":  {
                                                    "manualStartEnabled":  true,
@@ -128,19 +160,35 @@
                                                    "randomStartMinSeconds":  30,
                                                    "randomStartMaxSeconds":  90,
                                                    "evacuationCountdownSeconds":  60,
-                                                   "wallMoveDurationSeconds":  18,
-                                                   "warningMessage":  "Tsunami warning issued. This scenario tests failure during shelter entry."
+                                                   "wallMoveDurationSeconds":  20,
+                                                   "warningMessage":  "Tsunami warning issued. Slow shelter entry may fail before a safe floor is reached."
                                                },
-                        "overrideAntiCampingConfig":  false,
+                        "overrideAntiCampingConfig":  true,
+                        "antiCampingConfig":  {
+                                                  "antiCampingEnabled":  false,
+                                                  "preWarningCampingThresholdSeconds":  10,
+                                                  "blockCampedShelterForRound":  true
+                                              },
                         "shelterOverrides":  [
                                                  {
-                                                     "shelterId":  "test_shelter_001",
-                                                     "shelterName":  "Test Shelter",
-                                                     "shelterRank":  "S",
+                                                     "shelterId":  "test_shelter_slow_safe",
+                                                     "shelterName":  "Slow Safe Shelter",
+                                                     "shelterRank":  "A",
                                                      "isOfficialShelter":  true,
                                                      "canEnter":  true,
                                                      "entryDelaySeconds":  0,
-                                                     "climbTimeSeconds":  24,
+                                                     "climbTimeSeconds":  30,
+                                                     "crowdingDelaySeconds":  2,
+                                                     "failureReason":  "This shelter is not available."
+                                                 },
+                                                 {
+                                                     "shelterId":  "test_shelter_far_fast",
+                                                     "shelterName":  "Far Fast Shelter",
+                                                     "shelterRank":  "A",
+                                                     "isOfficialShelter":  true,
+                                                     "canEnter":  true,
+                                                     "entryDelaySeconds":  0,
+                                                     "climbTimeSeconds":  5,
                                                      "crowdingDelaySeconds":  0,
                                                      "failureReason":  "This shelter is not available."
                                                  }

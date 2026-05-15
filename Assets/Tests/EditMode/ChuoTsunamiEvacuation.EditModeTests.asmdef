@@ -2,7 +2,8 @@
     "name": "ChuoTsunamiEvacuation.EditModeTests",
     "rootNamespace": "",
     "references": [
-        "ChuoTsunamiEvacuation.Runtime"
+        "ChuoTsunamiEvacuation.Runtime",
+        "ChuoTsunamiEvacuation.Editor"
     ],
     "includePlatforms": [
         "Editor"

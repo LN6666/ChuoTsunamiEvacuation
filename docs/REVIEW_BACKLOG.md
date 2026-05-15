@@ -187,6 +187,41 @@ Do not send the entire raw review report to Codex unless necessary.
 
 ---
 
+### Review 2026-05-15-04
+
+Source report:
+
+review_reports/deepseek_review_20260515_*.md
+
+Context:
+
+DeepSeek V4 Pro review for Milestone 2-04 - Multi-Shelter Decision Gameplay 1.0.
+
+Overall verdict:
+
+No A-level blocking issues. Non-blocking risks deferred.
+
+### Action Items
+
+| ID | Priority | Status | Target File | Issue | Required Fix |
+|---|---|---|---|---|---|
+| M2-04-B01 | Medium | Deferred | Assets/Scripts/Data/ShelterDataLoader.cs | GetAllShelters currently iterates over ShelterIdsInLoadOrder from the base JSON. Current scenarios only override existing IDs, so this is safe now. If a future scenario introduces a brand-new shelter ID, it will not appear in the generated field unless loader behavior is extended. | If future scenarios need runtime-only shelters, extend GetAllShelters and scenario override handling to include safely validated new shelter IDs. |
+| M2-04-B02 | Medium | Deferred | Assets/Scripts/Editor/FirstPlayableSceneBuilder.cs | BuildFirstPlayableTestSetup creates marker materials for official/candidate/blocked shelters. This is harmless for the current small debug field, but repeated editor invocations may clutter editor material instances. | Cache, reuse, or clean up generated editor materials if setup generation becomes frequent or material clutter becomes visible. |
+| M2-04-B03 | Medium | Deferred | Assets/Tests/EditMode/ChuoTsunamiEvacuation.EditModeTests.asmdef | The EditMode test asmdef references ChuoTsunamiEvacuation.Editor. This is valid for EditMode tests. If future tests are moved to PlayMode assemblies, maintainers must avoid editor-only dependencies. | Keep editor-only references limited to EditMode tests; do not reference ChuoTsunamiEvacuation.Editor from PlayMode test assemblies. |
+| M2-04-B04 | Medium | Deferred | Assets/Scripts/Shelter/ShelterEntranceTrigger.cs | ShelterEntranceTrigger.Update calls gameManager?.ApplyShelterConfig(shelter) every frame while the player is inside the trigger. This is currently idempotent and harmless for the small debug-platform prototype, but it creates minor runtime overhead and slightly deviates from an event-driven trigger design. | Future optimization could apply shelter config only on trigger enter, shelter change, or state change. |
+
+### Decision
+
+No immediate Codex fix is required before this commit for the remaining B-level items.
+
+Reason:
+
+- The review found no A-level blockers.
+- Current scenarios only override existing shelter IDs.
+- Material lifecycle and test assembly boundaries are acceptable for the current debug-platform prototype.
+
+---
+
 ### Review 2026-05-15-03
 
 Source report:

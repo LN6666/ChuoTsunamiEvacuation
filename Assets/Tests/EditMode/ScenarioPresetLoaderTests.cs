@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Text.RegularExpressions;
 using NUnit.Framework;
@@ -114,6 +115,51 @@ public class ScenarioPresetLoaderTests
     }
 
     [Test]
+    public void ScenarioPresetsReferenceKnownShelterIds()
+    {
+        ScenarioPresetLoader.ScenarioPresetFile presetFile = ScenarioPresetLoader.LoadScenarioPresetFile();
+        var knownShelterIds = new HashSet<string>();
+
+        foreach (ShelterDataLoader.ShelterData shelter in ShelterDataLoader.GetAllShelters())
+        {
+            knownShelterIds.Add(shelter.shelterId);
+        }
+
+        foreach (ScenarioPresetLoader.ScenarioPreset preset in presetFile.presets)
+        {
+            if (preset == null || preset.shelterOverrides == null)
+            {
+                continue;
+            }
+
+            foreach (ShelterDataLoader.ShelterData shelterOverride in preset.shelterOverrides)
+            {
+                Assert.IsTrue(
+                    knownShelterIds.Contains(shelterOverride.shelterId),
+                    $"Scenario {preset.scenarioId} references unknown shelterId {shelterOverride.shelterId}");
+            }
+        }
+    }
+
+    [Test]
+    public void UnknownScenarioShelterOverrideIsIgnoredSafely()
+    {
+        LogAssert.Expect(LogType.Warning, new Regex("Scenario shelter override 'unknown_shelter_id'.*was skipped"));
+
+        ShelterDataLoader.SetRuntimeOverrides(
+            new[]
+            {
+                new ShelterDataLoader.ShelterData
+                {
+                    shelterId = "unknown_shelter_id",
+                    shelterName = "Unknown Shelter",
+                    canEnter = false
+                }
+            },
+            "test_unknown_override");
+    }
+
+    [Test]
     public void BlockedShelterScenarioOverridesKnownTestShelterInMemory()
     {
         ShelterDataLoader.Reload();
@@ -128,6 +174,25 @@ public class ScenarioPresetLoaderTests
         Assert.IsTrue(ShelterDataLoader.TryGetShelter("test_shelter_001", out ShelterDataLoader.ShelterData scenarioShelter));
         Assert.IsFalse(scenarioShelter.canEnter);
         Assert.IsTrue(scenarioShelter.failureReason.Contains("blocked_shelter"));
+    }
+
+    [Test]
+    public void LateFailureScenarioCreatesSlowShelterAndFastRiskTiming()
+    {
+        ScenarioPresetLoader.ActiveScenario activeScenario = ResolveScenarioFromProjectFile("late_failure");
+        GameConfigLoader.TsunamiEventConfig tsunamiConfig = GameConfigLoader.CreateDefaultTsunamiEventConfig();
+        GameConfigLoader.AntiCampingConfig antiCampingConfig = GameConfigLoader.CreateDefaultAntiCampingConfig();
+
+        ScenarioPresetLoader.ApplyScenarioOverrides(activeScenario, tsunamiConfig, antiCampingConfig);
+        ShelterDataLoader.SetRuntimeOverrides(
+            ScenarioPresetLoader.GetShelterOverrides(activeScenario),
+            activeScenario.activeScenarioId);
+
+        Assert.LessOrEqual(tsunamiConfig.wallMoveDurationSeconds, 25f);
+        Assert.IsTrue(ShelterDataLoader.TryGetShelter("test_shelter_slow_safe", out ShelterDataLoader.ShelterData slowShelter));
+        Assert.GreaterOrEqual(slowShelter.climbTimeSeconds + slowShelter.crowdingDelaySeconds, 30f);
+        Assert.IsTrue(ShelterDataLoader.TryGetShelter("test_shelter_far_fast", out ShelterDataLoader.ShelterData fastShelter));
+        Assert.LessOrEqual(fastShelter.climbTimeSeconds + fastShelter.crowdingDelaySeconds, 6f);
     }
 
     [Test]
