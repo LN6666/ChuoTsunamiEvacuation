@@ -6,6 +6,8 @@
 
 The P3-00 sample records are synthetic placeholders only. They are not official Chuo Ward shelter records.
 
+This schema covers shelter/facility records only. It does not define tsunami hazard polygons, inundation depth meshes, tsunami height grids, or disaster-risk areas. Those hazard data shapes should get a separate schema after official source formats are reviewed.
+
 ## Top-Level JSON Object
 
 | Field | Type | Required | Description |
@@ -68,3 +70,9 @@ The automated validator checks:
 - source metadata fields.
 
 Manual validation is still required for future official source authority, licensing, geocoding quality, and PLATEAU building matching.
+
+## Relationship To Source Candidates
+
+`data_pipeline/sources/source_candidates.json` lists possible future official and reference sources.
+
+Only `shelter_facility` sources should be transformed into this shelter schema. `tsunami_hazard` sources require a separate future hazard schema. `paper_or_secondary_reference` entries may be used for context or manual QA, but should not become primary shelter records.

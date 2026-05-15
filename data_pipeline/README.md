@@ -21,6 +21,12 @@ The generated sample outputs are:
 
 These files are pipeline contract examples. They are not official Chuo Ward shelter records.
 
+Phase 3-01 adds a planning-only source candidate registry:
+
+- `sources/source_candidates.json`
+
+The registry records future candidate sources for shelter/facility points and tsunami or water-hazard areas. It does not trigger downloads, scraping, GIS parsing, CityGML parsing, or Unity integration.
+
 ## What Phase 3-00 Does Not Do
 
 - No website scraping.
@@ -47,6 +53,7 @@ data_pipeline/
     export_unity_shelters.py
     validate_real_shelters.py
   sources/
+    source_candidates.json
     source_manifest.json
   processed/
     real_chuo_shelters_sample.json

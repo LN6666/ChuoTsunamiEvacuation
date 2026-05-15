@@ -1,5 +1,32 @@
 ---
 
+## 2026-05-15 | Phase 3-01 Official Source Registry and Hazard Planning Completed
+
+### Completed
+
+Added a planning-only source candidate registry for future official Chuo/Tokyo data ingestion.
+
+Covered source families:
+
+- shelter / evacuation facility data
+- tsunami and water-hazard area/depth data
+- paper or secondary references for manual review only
+
+Added pytest coverage for:
+
+- registry JSON validity
+- required candidate metadata fields
+- allowed source families
+- scraping policy
+- secondary-reference official-status restrictions
+- planning policy flags that block download, scraping, CityGML parsing, and Unity integration
+
+### Scope Boundary
+
+Phase 3-01 does not download datasets, scrape websites, parse GIS files, parse CityGML, modify Unity, integrate with `Assets/Data`, or modify PLATEAU imported files.
+
+---
+
 ## 2026-05-15 | Phase 3-00 Real Data Pipeline Scaffold Completed
 
 ### Completed

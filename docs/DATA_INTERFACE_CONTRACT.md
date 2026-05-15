@@ -26,6 +26,12 @@ P3 does not modify Unity scenes, Unity scripts, Unity project settings, PLATEAU 
 
 P3-00 uses synthetic sample data only. The outputs are contract examples, not official Chuo Ward shelter records.
 
+P3-01 adds source planning metadata in:
+
+- `data_pipeline/sources/source_candidates.json`
+
+This registry is not a Unity input. It is a review queue for future official shelter/facility sources, hazard sources, and secondary references.
+
 ## P4 Future Unity Integration Layer
 
 P4 may later copy, transform, or load approved P3 outputs into Unity-facing data files. P4 is responsible for deciding:
@@ -59,6 +65,26 @@ Future Unity integration can expect P3 processed records to include:
 
 P4 should not assume that P3-00 records already have Unity world positions or PLATEAU building IDs.
 
+## Future Hazard Interface
+
+Hazard data is separate from shelter/facility point data.
+
+Future P3 hazard outputs may represent:
+
+- inundation areas
+- inundation depth zones
+- tsunami height or water-level assumptions
+- affected zones
+- disaster-risk areas
+
+P4 must not treat hazard polygons or meshes as shelter records. A future hazard schema should define how risk zones, depth categories, timing assumptions, and Unity visualization hints are represented.
+
+## Official vs Reference Source Contract
+
+Future P4 integration should consume only processed outputs derived from approved official sources.
+
+`paper_or_secondary_reference` candidates may support design review and manual checks, but they are not primary pipeline sources. They should not be copied into `Assets/Data` or used as authoritative gameplay data.
+
 ## Stability Rules
 
 - P3 processed JSON must remain schema-validated.
@@ -66,6 +92,7 @@ P4 should not assume that P3-00 records already have Unity world positions or PL
 - P3 must keep source metadata in each record.
 - P3 sample outputs must remain small and committed for tests.
 - Raw, downloaded, intermediate, cache, and large GIS files must remain ignored by Git.
+- Source candidates must not enable scraping or downloads without a later explicit milestone.
 
 ## Manual Handoff Checks
 

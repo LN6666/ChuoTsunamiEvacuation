@@ -70,7 +70,8 @@ Push-Location $RepoRoot
 try {
     Invoke-PythonStep "1/3 Export Unity-ready shelter sample data" @("data_pipeline/scripts/export_unity_shelters.py")
     Invoke-PythonStep "2/3 Validate exported shelter data" @("data_pipeline/scripts/validate_real_shelters.py")
-    Invoke-PythonStep "3/3 Run pytest" @("-m", "pytest", "data_pipeline/tests")
+    New-Item -ItemType Directory -Force -Path "data_pipeline/tmp" | Out-Null
+    Invoke-PythonStep "3/3 Run pytest" @("-m", "pytest", "--basetemp", "data_pipeline/tmp/pytest", "data_pipeline/tests")
 }
 finally {
     Pop-Location

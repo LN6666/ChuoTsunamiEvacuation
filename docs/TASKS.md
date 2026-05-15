@@ -176,6 +176,23 @@ Scope:
 - Does not modify Unity gameplay, Unity scenes, PLATEAU imported files, or existing `Assets/Data` gameplay JSON.
 - Does not download PLATEAU data, re-import CityGML, parse CityGML, or integrate with Unity.
 
+### Phase 3-01: Official Source Registry and Hazard/Shelter Data Planning
+
+Status: Done
+
+Completed:
+
+- Added `data_pipeline/sources/source_candidates.json`.
+- Registered candidate source families for shelter/facility data, tsunami/water-hazard data, and paper/secondary references.
+- Documented official source vs secondary reference policy.
+- Documented shelter point data vs hazard area/depth data separation.
+- Added pytest coverage for source candidate registry structure and planning policy.
+
+Scope:
+
+- Planning and metadata only.
+- Does not download large datasets, scrape websites, parse GIS, parse CityGML, modify Unity, or integrate with `Assets/Data`.
+
 Tasks:
 
 - Define shelter CSV / JSON fields.
