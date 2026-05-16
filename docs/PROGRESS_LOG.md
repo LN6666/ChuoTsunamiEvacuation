@@ -1,5 +1,35 @@
 ---
 
+## 2026-05-17 | P4-B Real Shelter Markers and Hazard Debug Layer Implemented
+
+### Completed
+
+Added runtime-only real shelter marker generation for `sourceMode = real_sample` while keeping the committed default `sourceMode = test`.
+
+Mapped A1 real shelter records into existing shelter gameplay data, registered real shelters for runtime lookup, generated multiple real shelter markers on the debug platform, and displayed real shelter metadata in marker labels. Existing `BuildingShelter` and `ShelterEntranceTrigger` components remain the entry/climb path.
+
+Copied the P3 hazard fixture to `Assets/Data/sample_tsunami_hazard_zones.json`, added a Unity-side loader, and added a debug-only schematic hazard visualizer toggled with `H` in Play Mode. Hazard shapes have no gameplay colliders and do not call gameplay rule systems.
+
+Added focused EditMode tests for real shelter marker-ready mapping, deterministic fallback layout, metadata preservation, runtime lookup compatibility, hazard fixture loading, hazard visualization mapping, and no hazard gameplay effect.
+
+### Smoke Checks
+
+- `powershell -ExecutionPolicy Bypass -File tools/run_unity_tests.ps1 -Mode EditMode` failed to produce `test-results/editmode-results.xml`, matching the P4-A0/P4-A1 batchmode test-launch warning.
+- First wrapper output: `Unity EditMode tests failed with exit code . Results: D:\UnityProjects\ChuoTsunamiEvacuation\test-results\editmode-results.xml`.
+- Escalated retry exited with code 1 and also produced no `test-results/editmode-results.xml`.
+- Manual Unity Editor validation remains required for visible marker generation, player entry/climb/result flow, and `H` hazard visualization toggle.
+
+### Warnings
+
+- The hazard fixture uses schematic debug layout only; GeoJSON coordinates are loaded as metadata shape context but are not placed geographically in Unity.
+- Do not commit `Assets/Data/shelter_source_config.json` with `sourceMode = real_sample`.
+
+### Next Step
+
+Run the remaining hygiene checks, then commit and push P4-B.
+
+---
+
 ## 2026-05-17 | P4-A1 Real Shelter Sample Loader Implemented
 
 ### Completed

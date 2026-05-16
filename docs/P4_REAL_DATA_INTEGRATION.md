@@ -126,10 +126,68 @@ Current Unity test status:
 - Chose `Assets/Data/real_chuo_shelters_sample.json` as the Unity-readable copy path for the P3 release sample.
 - Added focused EditMode tests.
 
-## P4-B Planned Future Step
+## P4-B Status
 
-- Generate real shelter markers.
-- Display real shelter metadata.
-- Validate shelter entry/result flow.
-- Add debug-only hazard fixture visualization.
-- Do not replace the tsunami risk wall or gameplay failure rules.
+Date: 2026-05-17
+
+Files added or updated:
+
+- `Assets/Data/sample_tsunami_hazard_zones.json`
+- `Assets/Scripts/Data/ShelterGameplayDataMapper.cs`
+- `Assets/Scripts/Data/ShelterDebugMetadataFormatter.cs`
+- `Assets/Scripts/Data/TsunamiHazardFixtureLoader.cs`
+- `Assets/Scripts/Data/TsunamiHazardDebugLayout.cs`
+- `Assets/Scripts/Gameplay/RealShelterMarkerRuntimeGenerator.cs`
+- `Assets/Scripts/Debug/TsunamiHazardDebugVisualizer.cs`
+- `Assets/Tests/EditMode/RealShelterGameplayMappingTests.cs`
+- `Assets/Tests/EditMode/TsunamiHazardFixtureLoaderTests.cs`
+
+Real shelter marker behavior:
+
+- `sourceMode = test` remains the committed default in `Assets/Data/shelter_source_config.json`.
+- `sourceMode = test` keeps using the existing `test_shelters.json` and generated test shelter behavior.
+- `sourceMode = real_sample` loads `Assets/Data/real_chuo_shelters_sample.json`, maps records into `ShelterDataLoader.ShelterData`, registers them as runtime shelters, and generates runtime-only real shelter markers.
+- The generator uses existing `BuildingShelter` and `ShelterEntranceTrigger` components, so player entry, climb, success, failure, and active shelter entrance flow remain compatible.
+- Existing test shelter scene objects are disabled at runtime only when `real_sample` is active, avoiding mixed test/real prompts without saving scene changes.
+- The committed config must be reverted to `sourceMode = test` before commit if it is temporarily changed for manual validation.
+- Unity runtime loading still rejects `data_pipeline` paths; real shelters are read only from the copied `Assets/Data` sample.
+
+Real shelter positioning and metadata:
+
+- If a real shelter has `unityPosition`, that position is used.
+- The current P3 release sample has no `unityPosition`, so P4-B uses a deterministic schematic debug layout on the isolated test platform.
+- P4-B does not convert lat/lon to PLATEAU coordinates, match roads, infer entrances, or fake geographic precision.
+- Marker labels expose real sample metadata: shelter name, facility type, address, source/source type, capacity, safe floor estimate, source updated date, and notes where present.
+
+Hazard fixture behavior:
+
+- The P3 hazard fixture was copied to `Assets/Data/sample_tsunami_hazard_zones.json` for Unity-readable loading.
+- Hazard fixture root shape: top-level object with `dataset_id`, `generated_at`, `coordinate_reference_system`, `source`, and `zones`.
+- `source` contains fixture/source metadata such as `source_id`, `source_family`, `source_name`, `official_status`, `source_updated_at`, and notes.
+- `zones` contains zone records with `zone_id`, `zone_name`, `hazard_family`, `affected_zone`, `hazard_level`, `geometry_type`, GeoJSON-like `geometry`, inundation fields, tsunami height, and notes.
+- The Unity loader reads zone metadata and geometry type. GeoJSON coordinates are not used for placement in P4-B.
+- Hazard visualization is schematic debug-only. In Play Mode, press `H` to toggle the generated hazard fixture layer.
+- Generated hazard shapes and labels have no gameplay colliders and no `EvacuationGameManager` callbacks.
+- Hazard visualization does not affect success/failure, does not replace the tsunami risk wall, and does not implement flood simulation.
+
+Manual validation plan:
+
+1. Open Unity and confirm `Assets/Data/shelter_source_config.json` has `sourceMode = test`.
+2. Enter Play Mode and confirm the existing test shelter markers and entry/climb/result flow still work.
+3. Temporarily switch `sourceMode` to `real_sample` in `Assets/Data/shelter_source_config.json`.
+4. Enter Play Mode and confirm five real sample shelter markers appear on the debug platform.
+5. Confirm real shelter labels show names and metadata.
+6. Press `T`, approach an enterable real shelter marker, press `E`, and confirm climb/result flow still works.
+7. Confirm the blocked Ginza real sample marker remains not enterable.
+8. Press `H` in Play Mode and confirm the schematic hazard fixture layer appears.
+9. Confirm hazard visualization has no effect on success/failure and the tsunami risk wall behavior is unchanged.
+10. Revert `sourceMode` to `test` before committing.
+
+Current validation status:
+
+- Focused EditMode tests were added for real shelter marker mapping, runtime lookup compatibility, metadata preservation, hazard fixture loading, schematic hazard mapping, and no gameplay rule effect.
+- Command-line Unity validation command: `powershell -ExecutionPolicy Bypass -File tools/run_unity_tests.ps1 -Mode EditMode`
+- Result: failed to produce `test-results/editmode-results.xml`, matching the known P4-A0/P4-A1 batchmode test-launch warning.
+- First wrapper output: `Unity EditMode tests failed with exit code . Results: D:\UnityProjects\ChuoTsunamiEvacuation\test-results\editmode-results.xml`.
+- Escalated retry also exited with code 1 and produced no `test-results/editmode-results.xml`.
+- Manual Unity Editor Test Runner validation is still required before claiming the new EditMode tests passed in the Editor.

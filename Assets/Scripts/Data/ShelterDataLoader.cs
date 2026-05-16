@@ -9,9 +9,11 @@ public static class ShelterDataLoader
 
     private static readonly Dictionary<string, ShelterData> ShelterById = new Dictionary<string, ShelterData>();
     private static readonly Dictionary<string, ShelterData> RuntimeShelterOverridesById = new Dictionary<string, ShelterData>();
+    private static readonly HashSet<string> RuntimeShelterIds = new HashSet<string>();
     private static readonly List<string> ShelterIdsInLoadOrder = new List<string>();
     private static bool hasLoaded;
     private static string runtimeOverrideSource = "scenario";
+    private static string runtimeShelterSource = "runtime";
 
     [Serializable]
     private class ShelterDataList
@@ -244,6 +246,7 @@ public static class ShelterDataLoader
         hasLoaded = false;
         ShelterById.Clear();
         ShelterIdsInLoadOrder.Clear();
+        RuntimeShelterIds.Clear();
         EnsureLoaded();
     }
 
@@ -251,6 +254,62 @@ public static class ShelterDataLoader
     {
         RuntimeShelterOverridesById.Clear();
         runtimeOverrideSource = "scenario";
+    }
+
+    public static void ClearRuntimeShelters()
+    {
+        EnsureLoaded();
+
+        foreach (string runtimeShelterId in RuntimeShelterIds)
+        {
+            ShelterById.Remove(runtimeShelterId);
+            ShelterIdsInLoadOrder.Remove(runtimeShelterId);
+            RuntimeShelterOverridesById.Remove(runtimeShelterId);
+        }
+
+        RuntimeShelterIds.Clear();
+        runtimeShelterSource = "runtime";
+    }
+
+    public static void RegisterRuntimeShelters(ShelterData[] shelterDataList, string source)
+    {
+        if (shelterDataList == null || shelterDataList.Length == 0)
+        {
+            return;
+        }
+
+        EnsureLoaded();
+        runtimeShelterSource = string.IsNullOrWhiteSpace(source) ? "runtime" : source;
+
+        foreach (ShelterData shelterData in shelterDataList)
+        {
+            if (shelterData == null)
+            {
+                continue;
+            }
+
+            ShelterData clone = shelterData.Clone();
+            if (string.IsNullOrWhiteSpace(clone.shelterId))
+            {
+                Debug.LogWarning($"Runtime shelter from '{runtimeShelterSource}' was skipped because shelterId was empty.");
+                continue;
+            }
+
+            clone.Sanitize(runtimeShelterSource);
+
+            if (!ShelterById.ContainsKey(clone.shelterId))
+            {
+                ShelterIdsInLoadOrder.Add(clone.shelterId);
+            }
+
+            ShelterById[clone.shelterId] = clone;
+            RuntimeShelterIds.Add(clone.shelterId);
+        }
+
+        if (RuntimeShelterIds.Count > 0)
+        {
+            Debug.Log($"Registered {RuntimeShelterIds.Count} runtime shelter(s) from '{runtimeShelterSource}'.");
+        }
     }
 
     public static void SetRuntimeOverrides(ShelterData[] shelterOverrides, string source)

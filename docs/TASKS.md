@@ -333,22 +333,31 @@ Warning:
 
 ### Phase 4-B: Real Shelter Markers and Debug Hazard Fixture
 
-Status: Next
+Status: Implemented; Unity CLI wrapper warning recorded; pending manual validation, commit, and push
 
-Legacy Phase 3 follow-up tasks:
+Completed:
 
-- Generate real shelter markers from loaded `real_sample` records.
-- Display real shelter metadata.
-- Validate real shelter entry/result flow.
-- Add debug-only hazard fixture visualization.
-- Do not replace the tsunami risk wall or gameplay failure rules.
+- Added real shelter gameplay mapping from A1 `real_sample` records into existing shelter-compatible data.
+- Kept committed `sourceMode = test` as the default.
+- Added runtime-only real shelter marker generation for `sourceMode = real_sample`.
+- Generated markers use existing `BuildingShelter` and `ShelterEntranceTrigger` components.
+- Added marker labels for real shelter name, type, address, source, capacity, safe floor estimate, updated date, and notes.
+- Added deterministic debug layout fallback when `unityPosition` is absent.
+- Copied the P3 hazard fixture to `Assets/Data/sample_tsunami_hazard_zones.json`.
+- Added a hazard fixture loader and schematic debug visualizer toggled with `H` in Play Mode.
+- Confirmed in code/tests that hazard debug shapes have no gameplay rule effect.
+- Added focused EditMode tests for shelter mapping and hazard fixture visualization data.
 
-Tasks:
+Manual validation required:
 
-- Define shelter CSV / JSON fields.
-- Create a small test shelter dataset.
-- Add DataLoader.
-- Connect shelter data to BuildingShelter components.
+- Confirm existing `sourceMode = test` shelter gameplay still works.
+- Temporarily switch to `sourceMode = real_sample`, confirm multiple real markers appear, and validate entry/climb/result flow.
+- Press `H` in Play Mode and confirm hazard visualization appears without changing tsunami risk wall behavior.
+- Revert `sourceMode` to `test` before commit.
+
+Follow-up tasks:
+
+- Record manual Unity Editor validation result when available.
 
 ## Milestone 4: Risk Zone Data
 
