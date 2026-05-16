@@ -1,5 +1,27 @@
 ---
 
+## 2026-05-17 | P4-A0 Workspace Baseline Completed
+
+### Completed
+
+Created `phase4-unity-real-data-integration` and merged `origin/phase3-real-data-pipeline` through commit `ca74ab0`.
+
+Confirmed P3 `data_pipeline/` and processed/release sample outputs are present, with no `Assets`, `ProjectSettings`, `Packages`, `Chuo_BaseMap`, PLATEAU, or CityGML changes in the merge diff.
+
+Added the P4 real-data integration baseline document.
+
+### Smoke Checks
+
+- Unity EditMode command launched Unity `6000.4.6f1` but did not produce `test-results/editmode-results.xml`; PlayMode was skipped for P4-A0 due to the same batchmode environment risk.
+- `data_pipeline/run_pipeline.ps1` failed at step 1 because `jsonschema` is missing in the active Python environment.
+- `python -m pytest --version` failed because `pytest` is not installed.
+
+### Next Step
+
+P4-A1 should implement the real shelter loader/sourceMode path while keeping `test` as the default and adding focused EditMode tests.
+
+---
+
 ## 2026-05-16 | Milestone 2-05 Evaluation and Export Hooks Implemented
 
 ### Completed

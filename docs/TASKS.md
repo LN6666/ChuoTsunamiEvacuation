@@ -2,13 +2,13 @@
 
 ## Current Phase
 
-The project has completed environment setup, PLATEAU SDK installation, local Chuo City Buildings / LOD1 import, the first playable prototype, and Phase 3-00 real data pipeline scaffold.
+The project has completed environment setup, PLATEAU SDK installation, local Chuo City Buildings / LOD1 import, the first playable prototype, and Phase 3 real data pipeline preparation.
 
 The first playable prototype has been Unity-tested, DeepSeek V4 Pro max-thinking reviewed, committed, and pushed to GitHub.
 
 Current branch focus:
 
-Phase 3: Real Chuo Data Pipeline
+Phase 4: Unity real data integration baseline and loader preparation
 
 ## Milestone 0: Environment Setup
 
@@ -298,6 +298,31 @@ Scope:
 
 - Preparation and fixture milestone only.
 - Does not download official datasets, scrape websites, parse large GIS files, parse CityGML, modify Unity, copy to `Assets/Data`, or modify PLATEAU imported files.
+
+### Phase 4-A0: Workspace Setup, P3 Merge, and Documentation Baseline
+
+Status: Done
+
+Completed:
+
+- Created `phase4-unity-real-data-integration`.
+- Merged `origin/phase3-real-data-pipeline` through P3 commit `ca74ab0`.
+- Confirmed expected P3 processed/release shelter and hazard sample outputs are present.
+- Confirmed no forbidden Unity, PLATEAU, CityGML, `ProjectSettings`, or `Packages` paths changed in the merge diff.
+- Added `docs/P4_REAL_DATA_INTEGRATION.md`.
+- Recorded Unity batchmode and Python dependency environment warnings.
+
+### Phase 4-A1: Real Shelter Loader and Source Mode Preparation
+
+Status: Next
+
+Tasks:
+
+- Decide the Unity-readable copy/load path for the P3 release shelter sample.
+- Implement a real shelter loader while keeping the default data source as `test`.
+- Support the planned `sourceMode = test / real_sample` behavior.
+- Add focused EditMode tests for source selection, fallback behavior, and real sample parsing.
+- Do not modify gameplay rules, Unity scenes, PLATEAU imports, or hazard gameplay effects.
 
 Tasks:
 
