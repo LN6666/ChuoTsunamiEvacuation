@@ -1,0 +1,57 @@
+{
+  "mapping_id": "p3_02_manual_shelter_mapping_template",
+  "description": "Template for mapping a manually supplied local shelter CSV into the Phase 3 real shelter schema.",
+  "source_id": "manual_shelter_fixture",
+  "input_format": "csv",
+  "dataset_id": "manual_shelter_ingestion_sample",
+  "source_manifest": "data_pipeline/sources/source_manifest.json",
+  "coordinate_reference_system": "EPSG:4326",
+  "field_mappings": {
+    "id": "manual_id",
+    "name": "facility_name",
+    "type": "facility_kind",
+    "latitude": "lat",
+    "longitude": "lng",
+    "address": "location_text",
+    "capacity": "capacity_people",
+    "floors_available": "usable_floors",
+    "elevation_m": "elevation_m",
+    "source": "source_label",
+    "source_updated_at": "source_updated",
+    "notes": "source_note",
+    "prefab_hint": "prefab_hint",
+    "is_entry_enabled": "entry_enabled",
+    "estimated_stair_floors": "stair_floors"
+  },
+  "defaults": {
+    "source_url": null
+  },
+  "type_value_map": {
+    "evacuation shelter": "evacuation_shelter",
+    "temporary shelter": "temporary_shelter",
+    "tsunami evacuation building": "tsunami_evacuation_building",
+    "welfare shelter": "welfare_shelter",
+    "unknown": "unknown"
+  },
+  "boolean_value_map": {
+    "true": "true",
+    "false": "false",
+    "yes": "true",
+    "no": "false",
+    "1": "true",
+    "0": "false"
+  },
+  "null_markers": [
+    "",
+    "n/a",
+    "na",
+    "null"
+  ],
+  "policy": {
+    "network_access_allowed": false,
+    "scraping_allowed": false,
+    "unity_dependency_allowed": false,
+    "large_file_expected": false,
+    "notes": "This mapping is for local manually supplied fixture CSV files only."
+  }
+}

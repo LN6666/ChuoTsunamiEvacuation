@@ -1,0 +1,10 @@
+pandas
+requests
+beautifulsoup4
+lxml
+openpyxl
+pytest
+jsonschema
+pydantic
+pyproj
+shapely
