@@ -8,7 +8,7 @@ The first playable prototype has been Unity-tested, DeepSeek V4 Pro max-thinking
 
 Current branch focus:
 
-Phase 4: Unity real data integration baseline and loader preparation
+Phase 4 real data integration is implementation-complete on `phase4-unity-real-data-integration` and ready for final DeepSeek review / merge decision.
 
 ## Milestone 0: Environment Setup
 
@@ -333,7 +333,7 @@ Warning:
 
 ### Phase 4-B: Real Shelter Markers and Debug Hazard Fixture
 
-Status: Implemented and pushed; automated validation added in P4-BV; debug label readability polished in P4-C
+Status: Done
 
 Completed:
 
@@ -348,20 +348,17 @@ Completed:
 - Confirmed in code/tests that hazard debug shapes have no gameplay rule effect.
 - Added focused EditMode tests for shelter mapping and hazard fixture visualization data.
 
-Manual validation required:
+Manual validation completed:
 
-- Confirm existing `sourceMode = test` shelter gameplay still works.
-- Temporarily switch to `sourceMode = real_sample`, confirm multiple real markers appear, and validate entry/climb/result flow.
-- Press `H` in Play Mode and confirm hazard visualization appears without changing tsunami risk wall behavior.
-- Revert `sourceMode` to `test` before commit.
-
-Follow-up tasks:
-
-- Record manual Unity Editor validation result when available.
+- Existing `sourceMode = test` shelter gameplay works.
+- `real_sample` generates multiple real markers and supports entry/climb/result flow.
+- Compact and detailed real shelter metadata display works.
+- `H` hazard visualization appears without changing tsunami risk wall behavior.
+- `sourceMode` was restored to `test`.
 
 ### Phase 4-BV: Automated Real Shelter and Hazard Debug Validation
 
-Status: Implemented; CLI blocked by open Unity Editor instance; pending Unity Editor Test Runner execution
+Status: Done
 
 Completed:
 
@@ -374,21 +371,14 @@ Completed:
 
 Validation status:
 
-- `powershell -ExecutionPolicy Bypass -File tools/run_unity_tests.ps1 -Mode EditMode` could not complete.
-- Escalated CLI launch reached Unity but aborted because another Unity instance already had the project open.
-- No `test-results/editmode-results.xml` was produced.
-- PlayMode CLI was not run because EditMode CLI did not complete.
-
-Manual validation required:
-
 - Run EditMode and PlayMode tests from Unity Editor Test Runner.
-- Confirm visible real shelter markers and metadata in `real_sample`.
-- Confirm player entry/climb/result flow remains compatible.
-- Confirm `H` hazard debug visualization appears and has no effect on tsunami risk wall success/failure rules.
+- EditMode Test Runner `Run All` passed.
+- PlayMode Test Runner `Run All` passed.
+- CLI batchmode wrapper remains a tooling warning because it may fail to produce `test-results/editmode-results.xml`.
 
 ### Phase 4-C: Real Data Debug Label Readability Polish
 
-Status: Done; pending manual visual recheck in Unity Editor
+Status: Done
 
 Completed:
 
@@ -404,14 +394,38 @@ Validation status:
 - `sourceMode` remains `test`.
 - CLI EditMode wrapper still failed to produce `test-results/editmode-results.xml`.
 
-Manual validation required:
+Manual validation completed:
 
-- Temporarily switch to `sourceMode = real_sample`.
-- Confirm real shelter compact labels are readable.
-- Press `M` and confirm detailed shelter metadata appears when needed.
-- Press `H` and confirm hazard visualization still toggles.
-- Confirm gameplay result rules are unchanged.
-- Revert `sourceMode` to `test`.
+- Real shelter compact labels are readable.
+- `M` detailed shelter metadata toggle works.
+- `H` hazard visualization still toggles.
+- Gameplay result rules are unchanged.
+- `sourceMode` was restored to `test`.
+
+### Phase 4 Final Closure
+
+Status: Complete; pending DeepSeek final review / merge decision
+
+Completed:
+
+- P4-A0 branch/merge baseline.
+- P4-A1 loader/sourceMode integration.
+- P4-B real shelter markers and hazard debug visualization.
+- P4-BV automated validation.
+- Fallback layout stabilization.
+- P4-C debug label readability polish.
+- Unity Editor EditMode `Run All` passed.
+- Unity Editor PlayMode `Run All` passed.
+- Manual validation passed for default test gameplay, real sample markers, metadata display, entry/climb/result flow, `H` hazard visualization, hazard no-gameplay-effect behavior, and unchanged tsunami risk wall behavior.
+- Default committed `sourceMode` remains `test`.
+
+Future work:
+
+- Fix CLI batchmode test-results XML reliability.
+- Optional additional debug label polish.
+- Optional real map alignment.
+- Optional PLATEAU building matching.
+- Optional richer hazard visualization.
 
 ## Milestone 4: Risk Zone Data
 

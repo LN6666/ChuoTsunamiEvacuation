@@ -1,0 +1,72 @@
+You are DeepSeek V4 Pro reviewing ChuoTsunamiEvacuation / PBL-ALL / Phase 4 final integration.
+
+Repository:
+D:\UnityProjects\ChuoTsunamiEvacuation
+
+Branch:
+phase4-unity-real-data-integration
+
+Latest known Phase 4 commit:
+65d8a8e fix(p4): improve real data debug label readability
+
+Phase 4 scope summary:
+- P4-A0 created the Phase 4 integration branch, merged Phase 3 real-data pipeline outputs, and documented the baseline.
+- P4-A1 added Unity-side real shelter sample loading and source-mode selection.
+- P4-B generated runtime-only real shelter markers from real_sample data and added debug-only tsunami hazard fixture visualization.
+- P4-BV added automated EditMode/PlayMode validation for real shelter mapping, metadata, fallback layout, hazard loading/layout, and no-gameplay-effect behavior.
+- A fallback layout fix stabilized deterministic separated positions for real sample records without usable unityPosition.
+- P4-C improved real shelter and hazard debug label readability while preserving detailed metadata via M and hazard visualization via H.
+
+Hard boundaries to verify:
+- Default committed sourceMode must remain test in Assets/Data/shelter_source_config.json.
+- Unity runtime must not read data_pipeline paths for shelter or hazard fixture data.
+- Runtime real_sample shelter loading must read copied Assets/Data/real_chuo_shelters_sample.json only.
+- Runtime hazard debug loading must read copied Assets/Data/sample_tsunami_hazard_zones.json only.
+- No Chuo_BaseMap.unity changes.
+- No Assets/Scenes changes.
+- No PLATEAU imported file changes.
+- No ProjectSettings or Packages changes.
+- No CityGML parsing.
+- No real GIS coordinate alignment, real routing, PLATEAU building matching, crowd simulation, or flood simulation.
+- Hazard visualization must be debug-only and must not affect gameplay success/failure.
+- Existing tsunami risk wall behavior must remain unchanged.
+
+Please review for:
+1. A-level blockers that should prevent marking Phase 4 complete.
+2. B-level issues or follow-up tasks that can be deferred.
+3. Scope violations against the boundaries above.
+4. Source-mode safety, especially default sourceMode = test and real_sample fallback behavior.
+5. Runtime data path safety, especially no data_pipeline reads.
+6. Real shelter marker integration safety:
+   - generation is runtime-only
+   - existing BuildingShelter / ShelterEntranceTrigger flow is preserved
+   - entry/climb/result flow remains compatible
+   - fallback layout is deterministic and separated
+   - metadata display is readable and still available in detail mode
+7. Hazard debug visualization safety:
+   - debug-only
+   - no colliders or GameManager callbacks that affect success/failure
+   - H toggle still works
+   - labels are compact and readable
+8. Test coverage and manual validation credibility:
+   - EditMode Run All passed in Unity Editor
+   - PlayMode Run All passed in Unity Editor
+   - manual validation passed for default test gameplay, real_sample markers, metadata display, entry/climb/result flow, H hazard toggle, hazard no gameplay effect, and unchanged tsunami risk wall
+9. Known warning:
+   - tools/run_unity_tests.ps1 batchmode/test-results XML reliability issue remains an environment/tooling follow-up.
+10. Readiness to mark Phase 4 complete and proceed to merge/completion decision.
+
+Suggested local commands:
+git status --short
+git log --oneline --decorate -10
+git diff --name-status origin/master...HEAD
+git diff --name-status origin/master...HEAD -- Assets/Scenes ProjectSettings Packages
+git diff --name-status origin/master...HEAD | Select-String -Pattern "Chuo_BaseMap|PLATEAU|Plateau|plateau|CityGML|citygml"
+Get-Content Assets/Data/shelter_source_config.json
+
+Please return:
+- A-level blockers
+- B-level issues
+- Scope/boundary findings
+- Test/validation assessment
+- Recommendation: ready to mark P4 complete or not

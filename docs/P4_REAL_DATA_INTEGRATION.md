@@ -264,3 +264,47 @@ Validation:
 - Command attempted: `powershell -ExecutionPolicy Bypass -File tools/run_unity_tests.ps1 -Mode EditMode`
 - CLI result: failed with the known batchmode wrapper issue and did not produce `test-results/editmode-results.xml`.
 - Manual recheck: in Unity Editor Play Mode, temporarily enable `real_sample`, confirm compact real shelter labels are readable, press `M` to toggle detailed shelter metadata, press `H` to toggle hazard visualization, and confirm gameplay success/failure rules are unchanged. Revert `sourceMode` to `test` after manual validation.
+
+## Phase 4 Final Closure
+
+Date: 2026-05-17
+
+Branch: `phase4-unity-real-data-integration`
+
+Latest implementation commit before final documentation: `65d8a8e` (`fix(p4): improve real data debug label readability`)
+
+Phase 4 completed scope:
+
+- P4-A0 established the Phase 4 branch, merged the Phase 3 real-data pipeline outputs, and documented the integration baseline.
+- P4-A1 added Unity-side real shelter sample loading, source-mode selection, copied `Assets/Data/real_chuo_shelters_sample.json`, and kept default `sourceMode = test`.
+- P4-B generated runtime-only real shelter markers from `real_sample` data, preserved existing shelter entry/climb/result flow, and added debug-only tsunami hazard fixture visualization.
+- P4-BV added automated EditMode and PlayMode validation for source mode, shelter mapping, fallback layout, metadata, hazard loading/layout, and hazard no-gameplay-effect behavior.
+- The fallback layout fix stabilized deterministic separated marker positions for real sample records without usable `unityPosition`.
+- P4-C improved real shelter and hazard debug label readability while preserving detailed metadata access through the `M` toggle and hazard visualization through the existing `H` toggle.
+
+Final data-source boundaries:
+
+- The committed default remains `sourceMode = test` in `Assets/Data/shelter_source_config.json`.
+- `sourceMode = real_sample` reads the copied Unity-readable shelter sample at `Assets/Data/real_chuo_shelters_sample.json`.
+- Unity runtime shelter loading rejects `data_pipeline` paths.
+- The hazard debug layer reads the copied Unity-readable fixture at `Assets/Data/sample_tsunami_hazard_zones.json`.
+- Unity runtime hazard fixture loading rejects `data_pipeline` paths.
+- No real GIS alignment, route finding, PLATEAU building matching, CityGML parsing, crowd simulation, or flood simulation was added.
+
+Final validation:
+
+- Unity Editor EditMode Test Runner `Run All`: passed.
+- Unity Editor PlayMode Test Runner `Run All`: passed.
+- Manual validation passed for default test gameplay.
+- Manual validation passed for `real_sample` marker generation, compact/detailed metadata display, shelter entry, climb, and result flow.
+- Manual validation passed for `H` hazard debug visualization toggle.
+- Manual validation confirmed hazard visualization has no gameplay effect and tsunami risk wall behavior is unchanged.
+- `sourceMode` was restored to `test` after manual validation.
+
+Known warning:
+
+- `tools/run_unity_tests.ps1` still has a batchmode/test-results XML reliability issue in this environment. Earlier CLI runs either failed to produce `test-results/editmode-results.xml` or were blocked by the project already being open in Unity Editor. This is an environment/tooling follow-up, not evidence of failing Unity Editor tests.
+
+Ready for review:
+
+- Phase 4 is ready for DeepSeek final review and a merge/completion decision, subject to any review findings.

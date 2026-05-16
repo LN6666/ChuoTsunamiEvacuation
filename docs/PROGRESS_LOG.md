@@ -1,5 +1,33 @@
 ---
 
+## 2026-05-17 | P4 Final Validation Recorded
+
+### Completed
+
+Closed Phase 4 documentation on branch `phase4-unity-real-data-integration`.
+
+Latest implementation commit before final documentation: `65d8a8e` (`fix(p4): improve real data debug label readability`).
+
+Final Phase 4 validation passed in Unity Editor:
+
+- EditMode Test Runner `Run All` passed.
+- PlayMode Test Runner `Run All` passed.
+- Manual default `sourceMode = test` gameplay validation passed.
+- Manual `real_sample` marker generation, metadata display, shelter entry, climb, and result flow validation passed.
+- Manual `H` hazard visualization toggle validation passed.
+- Manual validation confirmed hazard visualization has no gameplay effect and tsunami risk wall behavior is unchanged.
+- `sourceMode` was restored to `test`.
+
+### Known Warning
+
+The CLI batchmode test wrapper can still fail to produce `test-results/editmode-results.xml` in this environment. Treat this as a tooling follow-up, not a Unity Editor test failure.
+
+### Next Step
+
+Run DeepSeek final review using `deepseek_review_prompt_p4_final.txt`, then decide whether to mark Phase 4 complete and merge.
+
+---
+
 ## 2026-05-17 | P4-C Real Data Debug Label Readability Polished
 
 ### Completed
