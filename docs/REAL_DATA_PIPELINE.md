@@ -63,6 +63,18 @@ The registry records candidate source metadata, expected data and geometry types
 
 P3-01 does not ingest any candidate source.
 
+## Current P3-02 Scope
+
+P3-02 integrates the preparation work needed before real source ingestion and P4 handoff:
+
+- manual shelter source mapping template
+- local fixture-based shelter ingestion adapter
+- tsunami hazard schema and fixture validator
+- small sample release package builder
+- P4 handoff documentation and release checklist
+
+P3-02 still does not download official datasets, scrape websites, parse large GIS files, parse CityGML, or modify Unity.
+
 ## Shelter Points vs Hazard Areas
 
 Shelter/facility data is usually point-like or address-based. It answers questions such as:
@@ -140,6 +152,14 @@ The expected future path is:
 5. Add automated validation for every transformation that can be checked.
 6. Export processed JSON/CSV or hazard layers under `data_pipeline/processed/`.
 7. Keep Unity integration deferred to P4.
+
+## Release Package
+
+P3-02 builds a sample release package in:
+
+`data_pipeline/processed/release/`
+
+The release package is sample/synthetic only. It is safe for P4 to inspect as a data-shape contract, but not safe to treat as official gameplay data.
 
 ## Manual Checks
 

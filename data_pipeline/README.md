@@ -27,6 +27,13 @@ Phase 3-01 adds a planning-only source candidate registry:
 
 The registry records future candidate sources for shelter/facility points and tsunami or water-hazard areas. It does not trigger downloads, scraping, GIS parsing, CityGML parsing, or Unity integration.
 
+Phase 3-02 adds preparation fixtures for:
+
+- local manual shelter ingestion mapping
+- tsunami hazard schema validation
+- small sample release package creation
+- P3 to P4 handoff documentation
+
 ## What Phase 3-00 Does Not Do
 
 - No website scraping.
@@ -49,17 +56,30 @@ data_pipeline/
     sample_raw_shelters.csv
   schemas/
     real_shelter_schema.json
+    source_shelter_mapping_schema.json
+    tsunami_hazard_schema.json
   scripts/
+    build_release_package.py
     export_unity_shelters.py
+    ingest_shelters_from_manual_source.py
+    validate_tsunami_hazard.py
     validate_real_shelters.py
   sources/
     source_candidates.json
     source_manifest.json
+    shelter_source_mapping_template.json
   processed/
+    release/
     real_chuo_shelters_sample.json
     real_chuo_shelters_sample.csv
+  samples/
+    sample_manual_shelter_source.csv
+    sample_tsunami_hazard_zones.json
   tests/
+    test_manual_shelter_ingestion.py
+    test_release_package.py
     test_real_shelter_schema.py
+    test_tsunami_hazard_schema.py
 ```
 
 ## Run

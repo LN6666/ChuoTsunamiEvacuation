@@ -193,6 +193,25 @@ Scope:
 - Planning and metadata only.
 - Does not download large datasets, scrape websites, parse GIS, parse CityGML, modify Unity, or integrate with `Assets/Data`.
 
+### Phase 3-02: Integrated Shelter/Hazard Pipeline Preparation and P4 Handoff
+
+Status: Done
+
+Completed:
+
+- Added shelter source mapping template and mapping schema.
+- Added local manual shelter ingestion fixture and adapter script.
+- Added tsunami hazard schema, synthetic fixture, and validator.
+- Added sample release package builder.
+- Added P3 to P4 handoff docs and release checklist.
+- Added pytest coverage for ingestion, hazard validation, release packaging, and existing P3 behavior.
+- Updated `data_pipeline/run_pipeline.ps1` to run the integrated preparation flow.
+
+Scope:
+
+- Preparation and fixture milestone only.
+- Does not download official datasets, scrape websites, parse large GIS files, parse CityGML, modify Unity, copy to `Assets/Data`, or modify PLATEAU imported files.
+
 Tasks:
 
 - Define shelter CSV / JSON fields.

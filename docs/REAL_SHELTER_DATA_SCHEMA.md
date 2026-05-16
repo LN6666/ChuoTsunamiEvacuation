@@ -76,3 +76,16 @@ Manual validation is still required for future official source authority, licens
 `data_pipeline/sources/source_candidates.json` lists possible future official and reference sources.
 
 Only `shelter_facility` sources should be transformed into this shelter schema. `tsunami_hazard` sources require a separate future hazard schema. `paper_or_secondary_reference` entries may be used for context or manual QA, but should not become primary shelter records.
+
+## Manual Source Mapping
+
+P3-02 adds `data_pipeline/sources/shelter_source_mapping_template.json` and `data_pipeline/schemas/source_shelter_mapping_schema.json`.
+
+The mapping file describes how a local manually supplied CSV can be transformed into this shelter schema. It is intentionally local-only:
+
+- no network access
+- no scraping
+- no Unity dependency
+- no PLATEAU or CityGML dependency
+
+Future official source mappings should follow the same pattern after source and license review.

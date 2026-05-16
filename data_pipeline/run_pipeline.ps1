@@ -62,20 +62,24 @@ function Invoke-PythonStep {
 
 $Python = Resolve-PipelinePython
 
-Write-Host "Phase 3-00 real shelter data pipeline"
+Write-Host "Phase 3 real data pipeline"
 Write-Host "Repository root: $RepoRoot"
 Write-Host "Python: $Python"
 
 Push-Location $RepoRoot
 try {
-    Invoke-PythonStep "1/3 Export Unity-ready shelter sample data" @("data_pipeline/scripts/export_unity_shelters.py")
-    Invoke-PythonStep "2/3 Validate exported shelter data" @("data_pipeline/scripts/validate_real_shelters.py")
+    Invoke-PythonStep "1/7 Export Unity-ready shelter sample data" @("data_pipeline/scripts/export_unity_shelters.py")
+    Invoke-PythonStep "2/7 Validate exported shelter sample data" @("data_pipeline/scripts/validate_real_shelters.py")
+    Invoke-PythonStep "3/7 Ingest manual shelter fixture" @("data_pipeline/scripts/ingest_shelters_from_manual_source.py")
+    Invoke-PythonStep "4/7 Validate manual shelter fixture output" @("data_pipeline/scripts/validate_real_shelters.py", "--input", "data_pipeline/processed/manual_shelter_ingestion_sample.json")
+    Invoke-PythonStep "5/7 Validate tsunami hazard sample data" @("data_pipeline/scripts/validate_tsunami_hazard.py")
+    Invoke-PythonStep "6/7 Build Phase 3 sample release package" @("data_pipeline/scripts/build_release_package.py")
     New-Item -ItemType Directory -Force -Path "data_pipeline/tmp" | Out-Null
-    Invoke-PythonStep "3/3 Run pytest" @("-m", "pytest", "--basetemp", "data_pipeline/tmp/pytest", "data_pipeline/tests")
+    Invoke-PythonStep "7/7 Run pytest" @("-m", "pytest", "--basetemp", "data_pipeline/tmp/pytest", "data_pipeline/tests")
 }
 finally {
     Pop-Location
 }
 
 Write-Host ""
-Write-Host "Phase 3-00 pipeline completed successfully."
+Write-Host "Phase 3 pipeline completed successfully."

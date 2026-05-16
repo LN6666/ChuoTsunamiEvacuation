@@ -1,0 +1,135 @@
+{
+  "dataset_id": "sample_tsunami_hazard_zones",
+  "generated_at": "2026-05-16T00:00:00Z",
+  "coordinate_reference_system": "EPSG:4326",
+  "source": {
+    "source_id": "p3_02_synthetic_tsunami_hazard_fixture",
+    "source_family": "tsunami_hazard",
+    "source_name": "P3-02 Synthetic Tsunami Hazard Fixture",
+    "organization": "ChuoTsunamiEvacuation project",
+    "official_status": "synthetic_sample",
+    "is_official_primary": false,
+    "source_url": null,
+    "source_updated_at": "2026-05-16",
+    "notes": "Synthetic fixture only. Not official hazard data and not suitable for gameplay decisions."
+  },
+  "zones": [
+    {
+      "zone_id": "sample_hazard_harumi_low",
+      "zone_name": "Sample Harumi Low Hazard Zone",
+      "hazard_family": "tsunami",
+      "affected_zone": "Harumi synthetic sample area",
+      "hazard_level": 1,
+      "geometry_type": "polygon",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              139.779,
+              35.655
+            ],
+            [
+              139.782,
+              35.655
+            ],
+            [
+              139.782,
+              35.658
+            ],
+            [
+              139.779,
+              35.658
+            ],
+            [
+              139.779,
+              35.655
+            ]
+          ]
+        ]
+      },
+      "inundation_area": "synthetic_low_depth_area",
+      "inundation_depth_m": 0.5,
+      "tsunami_height_m": 1.2,
+      "notes": "Small synthetic polygon for schema validation only."
+    },
+    {
+      "zone_id": "sample_hazard_kachidoki_medium",
+      "zone_name": "Sample Kachidoki Medium Hazard Zone",
+      "hazard_family": "storm_surge",
+      "affected_zone": "Kachidoki synthetic sample area",
+      "hazard_level": 3,
+      "geometry_type": "polygon",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              139.774,
+              35.657
+            ],
+            [
+              139.778,
+              35.657
+            ],
+            [
+              139.778,
+              35.661
+            ],
+            [
+              139.774,
+              35.661
+            ],
+            [
+              139.774,
+              35.657
+            ]
+          ]
+        ]
+      },
+      "inundation_area": "synthetic_medium_depth_area",
+      "inundation_depth_m": 1.8,
+      "tsunami_height_m": null,
+      "notes": "Shows nullable tsunami height for non-tsunami water-hazard fixture."
+    },
+    {
+      "zone_id": "sample_hazard_tsukishima_unknown_depth",
+      "zone_name": "Sample Tsukishima Unknown Depth Zone",
+      "hazard_family": "unknown",
+      "affected_zone": "Tsukishima synthetic sample area",
+      "hazard_level": 0,
+      "geometry_type": "polygon",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              139.782,
+              35.662
+            ],
+            [
+              139.786,
+              35.662
+            ],
+            [
+              139.786,
+              35.665
+            ],
+            [
+              139.782,
+              35.665
+            ],
+            [
+              139.782,
+              35.662
+            ]
+          ]
+        ]
+      },
+      "inundation_area": "synthetic_unknown_depth_area",
+      "inundation_depth_m": null,
+      "tsunami_height_m": null,
+      "notes": "Shows null depth/height while preserving declared geometry and metadata."
+    }
+  ]
+}

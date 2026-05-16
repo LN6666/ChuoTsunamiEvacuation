@@ -1,5 +1,23 @@
 ---
 
+## 2026-05-16 | Phase 3-02 Integrated Shelter/Hazard Pipeline Preparation Completed
+
+### Completed
+
+Added an integrated Phase 3 preparation milestone covering:
+
+- manual shelter source mapping and local fixture ingestion
+- tsunami hazard schema, synthetic fixture, and validator
+- P3 sample release package builder
+- P3 to P4 handoff docs and release checklist
+- pytest coverage for ingestion, hazard validation, release packaging, and existing P3 behavior
+
+### Scope Boundary
+
+Phase 3-02 remains preparation-only. It does not download official datasets, scrape websites, parse large GIS files, parse CityGML, integrate with Unity, copy outputs to `Assets/Data`, or modify PLATEAU imported files.
+
+---
+
 ## 2026-05-15 | Phase 3-01 Official Source Registry and Hazard Planning Completed
 
 ### Completed

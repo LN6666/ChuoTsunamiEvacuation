@@ -1,0 +1,4 @@
+id,name,type,latitude,longitude,address,capacity,floors_available,elevation_m,source,source_url,source_updated_at,notes,prefab_hint,is_entry_enabled,estimated_stair_floors
+manual_harumi_001,Manual Harumi Fixture Building,tsunami_evacuation_building,35.6571,139.7811,"Harumi area, Chuo City, Tokyo (manual fixture)",90,4,3.1,P3-02 manual fixture,,2026-05-16,Local fixture only; not official.,ShelterMarker,true,4
+manual_kachidoki_002,Manual Kachidoki Fixture Shelter,evacuation_shelter,35.6601,139.7756,"Kachidoki area, Chuo City, Tokyo (manual fixture)",120,3,2.7,P3-02 manual fixture,,2026-05-16,Local fixture only; not official.,ShelterMarker,true,3
+manual_tsukishima_003,Manual Tsukishima Fixture Facility,unknown,35.6641,139.7831,"Tsukishima area, Chuo City, Tokyo (manual fixture)",,2,2.9,P3-02 manual fixture,,2026-05-16,Local fixture only; capacity unknown by design.,ShelterMarker,false,2

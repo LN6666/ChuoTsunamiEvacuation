@@ -32,6 +32,12 @@ P3-01 adds source planning metadata in:
 
 This registry is not a Unity input. It is a review queue for future official shelter/facility sources, hazard sources, and secondary references.
 
+P3-02 adds sample handoff packaging in:
+
+- `data_pipeline/processed/release/`
+
+The release package is a P4 review input only. It is not copied into Unity and is not official gameplay data.
+
 ## P4 Future Unity Integration Layer
 
 P4 may later copy, transform, or load approved P3 outputs into Unity-facing data files. P4 is responsible for deciding:
@@ -78,6 +84,11 @@ Future P3 hazard outputs may represent:
 - disaster-risk areas
 
 P4 must not treat hazard polygons or meshes as shelter records. A future hazard schema should define how risk zones, depth categories, timing assumptions, and Unity visualization hints are represented.
+
+P3-02 provides the first small sample hazard schema and fixture:
+
+- `data_pipeline/schemas/tsunami_hazard_schema.json`
+- `data_pipeline/samples/sample_tsunami_hazard_zones.json`
 
 ## Official vs Reference Source Contract
 
