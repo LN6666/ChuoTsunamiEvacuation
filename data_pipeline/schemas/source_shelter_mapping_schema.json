@@ -1,0 +1,148 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.local/chuo-tsunami-evacuation/source_shelter_mapping_schema.json",
+  "title": "Phase 3 Shelter Source Mapping Schema",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "mapping_id",
+    "description",
+    "source_id",
+    "input_format",
+    "dataset_id",
+    "source_manifest",
+    "coordinate_reference_system",
+    "field_mappings",
+    "defaults",
+    "type_value_map",
+    "boolean_value_map",
+    "null_markers",
+    "policy"
+  ],
+  "properties": {
+    "mapping_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "description": {
+      "type": "string"
+    },
+    "source_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "input_format": {
+      "type": "string",
+      "const": "csv"
+    },
+    "dataset_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "source_manifest": {
+      "type": "string",
+      "minLength": 1
+    },
+    "coordinate_reference_system": {
+      "type": "string",
+      "const": "EPSG:4326"
+    },
+    "field_mappings": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "string",
+        "minLength": 1
+      },
+      "required": [
+        "id",
+        "name",
+        "type",
+        "latitude",
+        "longitude",
+        "address",
+        "capacity",
+        "floors_available",
+        "elevation_m",
+        "source",
+        "source_updated_at",
+        "notes",
+        "prefab_hint",
+        "is_entry_enabled",
+        "estimated_stair_floors"
+      ]
+    },
+    "defaults": {
+      "type": "object",
+      "additionalProperties": {
+        "type": [
+          "string",
+          "number",
+          "integer",
+          "boolean",
+          "null"
+        ]
+      }
+    },
+    "type_value_map": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "string",
+        "enum": [
+          "evacuation_shelter",
+          "temporary_shelter",
+          "tsunami_evacuation_building",
+          "welfare_shelter",
+          "unknown"
+        ]
+      }
+    },
+    "boolean_value_map": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "string",
+        "enum": [
+          "true",
+          "false"
+        ]
+      }
+    },
+    "null_markers": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "policy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "network_access_allowed",
+        "scraping_allowed",
+        "unity_dependency_allowed",
+        "large_file_expected",
+        "notes"
+      ],
+      "properties": {
+        "network_access_allowed": {
+          "type": "boolean",
+          "const": false
+        },
+        "scraping_allowed": {
+          "type": "boolean",
+          "const": false
+        },
+        "unity_dependency_allowed": {
+          "type": "boolean",
+          "const": false
+        },
+        "large_file_expected": {
+          "type": "boolean",
+          "const": false
+        },
+        "notes": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}

@@ -1,7 +1,5 @@
 ---
 
----
-
 ## 2026-05-16 | Milestone 2-05 Evaluation and Export Hooks Implemented
 
 ### Completed
@@ -81,6 +79,84 @@ Updated tests:
 This milestone remains a P2 debug-platform gameplay fixture.
 
 It does not import real Chuo facility data, read from P3 data_pipeline outputs, match PLATEAU buildings, infer real roads, or create real entrance navigation.
+
+---
+
+## 2026-05-16 | Phase 3-02 Integrated Shelter/Hazard Pipeline Preparation Completed
+
+### Completed
+
+Added an integrated Phase 3 preparation milestone covering:
+
+- manual shelter source mapping and local fixture ingestion
+- tsunami hazard schema, synthetic fixture, and validator
+- P3 sample release package builder
+- P3 to P4 handoff docs and release checklist
+- pytest coverage for ingestion, hazard validation, release packaging, and existing P3 behavior
+
+### Scope Boundary
+
+Phase 3-02 remains preparation-only. It does not download official datasets, scrape websites, parse large GIS files, parse CityGML, integrate with Unity, copy outputs to `Assets/Data`, or modify PLATEAU imported files.
+
+---
+
+## 2026-05-15 | Phase 3-01 Official Source Registry and Hazard Planning Completed
+
+### Completed
+
+Added a planning-only source candidate registry for future official Chuo/Tokyo data ingestion.
+
+Covered source families:
+
+- shelter / evacuation facility data
+- tsunami and water-hazard area/depth data
+- paper or secondary references for manual review only
+
+Added pytest coverage for:
+
+- registry JSON validity
+- required candidate metadata fields
+- allowed source families
+- scraping policy
+- secondary-reference official-status restrictions
+- planning policy flags that block download, scraping, CityGML parsing, and Unity integration
+
+### Scope Boundary
+
+Phase 3-01 does not download datasets, scrape websites, parse GIS files, parse CityGML, modify Unity, integrate with `Assets/Data`, or modify PLATEAU imported files.
+
+---
+
+## 2026-05-15 | Phase 3-00 Real Data Pipeline Scaffold Completed
+
+### Completed
+
+Added the Phase 3 standalone real shelter data pipeline scaffold.
+
+Created:
+
+- data_pipeline source manifest
+- real shelter JSON Schema
+- synthetic sample shelter CSV
+- exporter for Unity-ready sample JSON/CSV
+- validator with JSON Schema and sanity checks
+- pytest coverage for schema, export, validation, IDs, Unity interface fields, and coordinate ranges
+- PowerShell one-command runner
+- Phase 3 pipeline, schema, and P2/P3/P4 interface documentation
+
+### Verified
+
+`.\data_pipeline\run_pipeline.ps1` passes:
+
+- export step
+- validation step
+- pytest suite
+
+### Scope Boundary
+
+Phase 3-00 does not modify Unity gameplay, Unity scenes, PLATEAU imported files, or existing `Assets/Data` gameplay JSON.
+
+PLATEAU building matching, real source ingestion, geocoding, and Unity integration remain future Phase 3/4 work.
 
 ---
 

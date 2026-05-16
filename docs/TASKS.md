@@ -2,13 +2,13 @@
 
 ## Current Phase
 
-The project has completed environment setup, PLATEAU SDK installation, local Chuo City Buildings / LOD1 import, and the first playable prototype.
+The project has completed environment setup, PLATEAU SDK installation, local Chuo City Buildings / LOD1 import, the first playable prototype, and Phase 3-00 real data pipeline scaffold.
 
 The first playable prototype has been Unity-tested, DeepSeek V4 Pro max-thinking reviewed, committed, and pushed to GitHub.
 
-Current milestone:
+Current branch focus:
 
-Milestone 2: Rules and Dataization 1.0
+Phase 3: Real Chuo Data Pipeline
 
 ## Milestone 0: Environment Setup
 
@@ -236,10 +236,68 @@ Acceptance Criteria:
 
 ## Milestone 3: Chuo Data Integration
 
-Status: Not started
+Status: Started as Phase 3 real data pipeline work
 
 Goal:
 Connect the dataized gameplay loop to a small, controlled Chuo City shelter dataset without relying on inferred streets from Buildings / LOD1.
+
+### Phase 3-00: Real Data Pipeline Scaffold + Schema + Validation Foundation
+
+Status: Done
+
+Completed:
+
+- Added `data_pipeline/` scaffold.
+- Added source manifest for synthetic sample data.
+- Added real shelter export JSON Schema.
+- Added synthetic sample raw shelter CSV.
+- Added exporter for Unity-ready sample JSON/CSV.
+- Added validator for schema compliance, unique IDs, Chuo/Tokyo coordinate sanity, and Unity interface fields.
+- Added pytest coverage for schema, sample input, export behavior, validation, IDs, Unity interface fields, and coordinate ranges.
+- Added one-command PowerShell runner.
+- Added Phase 3 pipeline, schema, and data interface contract docs.
+- Added `.gitignore` rules for raw/intermediate/cache/download/tmp folders and large GIS/archive files.
+
+Scope:
+
+- Does not modify Unity gameplay, Unity scenes, PLATEAU imported files, or existing `Assets/Data` gameplay JSON.
+- Does not download PLATEAU data, re-import CityGML, parse CityGML, or integrate with Unity.
+
+### Phase 3-01: Official Source Registry and Hazard/Shelter Data Planning
+
+Status: Done
+
+Completed:
+
+- Added `data_pipeline/sources/source_candidates.json`.
+- Registered candidate source families for shelter/facility data, tsunami/water-hazard data, and paper/secondary references.
+- Documented official source vs secondary reference policy.
+- Documented shelter point data vs hazard area/depth data separation.
+- Added pytest coverage for source candidate registry structure and planning policy.
+
+Scope:
+
+- Planning and metadata only.
+- Does not download large datasets, scrape websites, parse GIS, parse CityGML, modify Unity, or integrate with `Assets/Data`.
+
+### Phase 3-02: Integrated Shelter/Hazard Pipeline Preparation and P4 Handoff
+
+Status: Done
+
+Completed:
+
+- Added shelter source mapping template and mapping schema.
+- Added local manual shelter ingestion fixture and adapter script.
+- Added tsunami hazard schema, synthetic fixture, and validator.
+- Added sample release package builder.
+- Added P3 to P4 handoff docs and release checklist.
+- Added pytest coverage for ingestion, hazard validation, release packaging, and existing P3 behavior.
+- Updated `data_pipeline/run_pipeline.ps1` to run the integrated preparation flow.
+
+Scope:
+
+- Preparation and fixture milestone only.
+- Does not download official datasets, scrape websites, parse large GIS files, parse CityGML, modify Unity, copy to `Assets/Data`, or modify PLATEAU imported files.
 
 Tasks:
 

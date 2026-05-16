@@ -1,0 +1,68 @@
+{
+  "dataset_id": "manual_shelter_ingestion_sample",
+  "generated_at": "2026-05-16T12:29:47Z",
+  "source_manifest": "data_pipeline/sources/source_manifest.json",
+  "coordinate_reference_system": "EPSG:4326",
+  "records": [
+    {
+      "id": "manual_harumi_001",
+      "name": "Manual Harumi Fixture Building",
+      "type": "tsunami_evacuation_building",
+      "latitude": 35.6571,
+      "longitude": 139.7811,
+      "address": "Harumi area, Chuo City, Tokyo (manual fixture)",
+      "capacity": 90,
+      "floors_available": 4,
+      "elevation_m": 3.1,
+      "source": "P3-02 manual fixture",
+      "source_url": null,
+      "source_updated_at": "2026-05-16",
+      "notes": "Local fixture only; not official.",
+      "unity": {
+        "prefab_hint": "ShelterMarker",
+        "is_entry_enabled": true,
+        "estimated_stair_floors": 4
+      }
+    },
+    {
+      "id": "manual_kachidoki_002",
+      "name": "Manual Kachidoki Fixture Shelter",
+      "type": "evacuation_shelter",
+      "latitude": 35.6601,
+      "longitude": 139.7756,
+      "address": "Kachidoki area, Chuo City, Tokyo (manual fixture)",
+      "capacity": 120,
+      "floors_available": 3,
+      "elevation_m": 2.7,
+      "source": "P3-02 manual fixture",
+      "source_url": null,
+      "source_updated_at": "2026-05-16",
+      "notes": "Local fixture only; not official.",
+      "unity": {
+        "prefab_hint": "ShelterMarker",
+        "is_entry_enabled": true,
+        "estimated_stair_floors": 3
+      }
+    },
+    {
+      "id": "manual_tsukishima_003",
+      "name": "Manual Tsukishima Fixture Facility",
+      "type": "unknown",
+      "latitude": 35.6641,
+      "longitude": 139.7831,
+      "address": "Tsukishima area, Chuo City, Tokyo (manual fixture)",
+      "capacity": null,
+      "floors_available": 2,
+      "elevation_m": 2.9,
+      "source": "P3-02 manual fixture",
+      "source_url": null,
+      "source_updated_at": "2026-05-16",
+      "notes": "Local fixture only; capacity unknown by design.",
+      "unity": {
+        "prefab_hint": "ShelterMarker",
+        "is_entry_enabled": false,
+        "estimated_stair_floors": 2
+      }
+    }
+  ]
+}

@@ -1,0 +1,48 @@
+{
+  "release_id": "p3_02_sample_release",
+  "generated_at": "2026-05-16T12:29:47Z",
+  "release_type": "synthetic_sample_fixture",
+  "all_data_sample_or_synthetic": true,
+  "intended_consumer": "future Phase 4 Unity integration review",
+  "not_for_gameplay_without_review": true,
+  "unity_integration_performed": false,
+  "plateau_or_citygml_used": false,
+  "included_files": [
+    {
+      "path": "real_chuo_shelters_sample.json",
+      "source_path": "data_pipeline/processed/real_chuo_shelters_sample.json",
+      "size_bytes": 3490,
+      "data_family": "shelter_facility",
+      "media_type": "json",
+      "sample_status": "synthetic_sample"
+    },
+    {
+      "path": "real_chuo_shelters_sample.csv",
+      "source_path": "data_pipeline/processed/real_chuo_shelters_sample.csv",
+      "size_bytes": 1471,
+      "data_family": "shelter_facility",
+      "media_type": "csv",
+      "sample_status": "synthetic_sample"
+    },
+    {
+      "path": "sample_tsunami_hazard_zones.json",
+      "source_path": "data_pipeline/samples/sample_tsunami_hazard_zones.json",
+      "size_bytes": 3491,
+      "data_family": "tsunami_hazard",
+      "media_type": "json",
+      "sample_status": "synthetic_sample"
+    }
+  ],
+  "datasets": {
+    "shelter_dataset_id": "real_chuo_shelters_sample",
+    "hazard_dataset_id": "sample_tsunami_hazard_zones",
+    "hazard_zone_count": 3,
+    "shelter_record_count": 5
+  },
+  "handoff_notes": [
+    "P3 release package is small and Git-safe.",
+    "All included data is sample/synthetic unless a future manifest states otherwise.",
+    "P4 must not copy these files into Assets/Data without a separate integration milestone.",
+    "No PLATEAU, CityGML, GIS archive, scraping, or network download was used to build this package."
+  ]
+}
