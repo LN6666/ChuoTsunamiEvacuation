@@ -1,5 +1,8 @@
+using System.IO;
+using System.Text.RegularExpressions;
 using NUnit.Framework;
 using UnityEngine;
+using UnityEngine.TestTools;
 
 public class TsunamiHazardFixtureLoaderTests
 {
@@ -36,6 +39,36 @@ public class TsunamiHazardFixtureLoaderTests
     }
 
     [Test]
+    public void HazardFixtureLoaderUsesAssetsDataCopy()
+    {
+        TsunamiHazardFixtureLoader.HazardFixtureLoadResult result =
+            TsunamiHazardFixtureLoader.LoadHazardFixture();
+        string normalizedSourcePath = result.sourcePath.Replace('\\', '/');
+
+        Assert.IsTrue(result.success);
+        StringAssert.Contains("Assets/Data", normalizedSourcePath);
+        Assert.IsFalse(normalizedSourcePath.Contains("data_pipeline/"));
+    }
+
+    [Test]
+    public void HazardFixtureRejectsDataPipelineRuntimePath()
+    {
+        string dataPipelinePath = Path.Combine(
+            "data_pipeline",
+            "processed",
+            "release",
+            "sample_tsunami_hazard_zones.json");
+
+        LogAssert.Expect(LogType.Warning, new Regex("must use Assets/Data copies"));
+
+        TsunamiHazardFixtureLoader.HazardFixtureLoadResult result =
+            TsunamiHazardFixtureLoader.LoadFromPath(dataPipelinePath);
+
+        Assert.IsFalse(result.success);
+        Assert.AreEqual(0, result.zones.Length);
+    }
+
+    [Test]
     public void HazardFixtureDebugShapesMapWithoutSceneDependency()
     {
         TsunamiHazardFixtureLoader.HazardFixtureLoadResult result =
@@ -53,6 +86,36 @@ public class TsunamiHazardFixtureLoaderTests
         StringAssert.Contains("Level: 1", shapes[0].label);
         StringAssert.Contains("Source: P3-02 Synthetic Tsunami Hazard Fixture", shapes[0].label);
         StringAssert.Contains("Status: synthetic_sample", shapes[0].label);
+    }
+
+    [Test]
+    public void HazardDebugShapesAreSchematicUniqueAndMetadataRich()
+    {
+        TsunamiHazardFixtureLoader.HazardFixtureLoadResult result =
+            TsunamiHazardFixtureLoader.LoadHazardFixture();
+        TsunamiHazardDebugLayout.HazardDebugShape[] shapes =
+            TsunamiHazardDebugLayout.CreateShapes(result.zones);
+
+        Assert.AreEqual(result.zones.Length, shapes.Length);
+
+        for (int i = 0; i < shapes.Length; i++)
+        {
+            Assert.IsFalse(string.IsNullOrWhiteSpace(shapes[i].zoneId));
+            Assert.IsFalse(string.IsNullOrWhiteSpace(shapes[i].label));
+            Assert.Greater(shapes[i].localScale.x, 0f);
+            Assert.Greater(shapes[i].localScale.z, 0f);
+            Assert.GreaterOrEqual(shapes[i].color.a, 0.3f);
+            StringAssert.Contains(result.zones[i].zoneName, shapes[i].label);
+            StringAssert.Contains(result.zones[i].notes, shapes[i].label);
+
+            for (int j = i + 1; j < shapes.Length; j++)
+            {
+                Assert.GreaterOrEqual(
+                    Vector3.Distance(shapes[i].localPosition, shapes[j].localPosition),
+                    10f,
+                    $"{shapes[i].zoneId} vs {shapes[j].zoneId}");
+            }
+        }
     }
 
     [Test]

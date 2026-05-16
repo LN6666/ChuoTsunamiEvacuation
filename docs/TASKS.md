@@ -333,7 +333,7 @@ Warning:
 
 ### Phase 4-B: Real Shelter Markers and Debug Hazard Fixture
 
-Status: Implemented; Unity CLI wrapper warning recorded; pending manual validation, commit, and push
+Status: Implemented and pushed; automated validation added in P4-BV; manual visual validation still required
 
 Completed:
 
@@ -358,6 +358,33 @@ Manual validation required:
 Follow-up tasks:
 
 - Record manual Unity Editor validation result when available.
+
+### Phase 4-BV: Automated Real Shelter and Hazard Debug Validation
+
+Status: Implemented; CLI blocked by open Unity Editor instance; pending Unity Editor Test Runner execution
+
+Completed:
+
+- Strengthened EditMode tests for committed `sourceMode = test`.
+- Added EditMode coverage for `real_sample` marker-ready shelter mapping.
+- Added EditMode coverage for deterministic fallback marker positions and metadata formatting.
+- Added EditMode coverage for hazard fixture loading, schematic hazard debug layout, and no gameplay rule effect.
+- Added Unity runtime hazard path guard rejecting `data_pipeline` paths.
+- Added a minimal PlayMode smoke test for temporary real shelter marker generation and hazard debug visualization toggling.
+
+Validation status:
+
+- `powershell -ExecutionPolicy Bypass -File tools/run_unity_tests.ps1 -Mode EditMode` could not complete.
+- Escalated CLI launch reached Unity but aborted because another Unity instance already had the project open.
+- No `test-results/editmode-results.xml` was produced.
+- PlayMode CLI was not run because EditMode CLI did not complete.
+
+Manual validation required:
+
+- Run EditMode and PlayMode tests from Unity Editor Test Runner.
+- Confirm visible real shelter markers and metadata in `real_sample`.
+- Confirm player entry/climb/result flow remains compatible.
+- Confirm `H` hazard debug visualization appears and has no effect on tsunami risk wall success/failure rules.
 
 ## Milestone 4: Risk Zone Data
 

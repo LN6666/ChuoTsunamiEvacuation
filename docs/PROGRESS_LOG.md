@@ -1,5 +1,29 @@
 ---
 
+## 2026-05-17 | P4-BV Automated Validation Added
+
+### Completed
+
+Strengthened EditMode coverage for the P4-B real shelter and hazard debug layer without changing scenes, ProjectSettings, Packages, PLATEAU assets, or gameplay rules.
+
+Added tests that assert the committed shelter source config remains `sourceMode = test`, real sample shelters map into marker-ready gameplay data, fallback marker layout is deterministic and separated, metadata labels preserve real shelter fields, hazard fixtures load from `Assets/Data`, hazard debug shapes are schematic/safe, and `data_pipeline` paths are rejected for Unity hazard runtime loading.
+
+Added a minimal PlayMode smoke test that creates temporary objects only, generates real shelter marker GameObjects with `BuildingShelter` and `ShelterEntranceTrigger`, and toggles collider-free hazard debug visualization objects.
+
+### Smoke Checks
+
+- Command attempted: `powershell -ExecutionPolicy Bypass -File tools/run_unity_tests.ps1 -Mode EditMode`.
+- Non-escalated result: failed with `Unity EditMode tests failed with exit code . Results: D:\UnityProjects\ChuoTsunamiEvacuation\test-results\editmode-results.xml`.
+- Escalated result: Unity launched but aborted because another Unity instance already had the project open.
+- No `test-results/editmode-results.xml` was produced.
+- PlayMode CLI was not run because EditMode CLI did not complete.
+
+### Remaining Manual Validation
+
+Run the Unity Editor Test Runner while the project is open to execute EditMode and PlayMode tests, then manually confirm visible real shelter markers, E entry/climb/result flow, `H` hazard visualization, and unchanged tsunami risk wall behavior.
+
+---
+
 ## 2026-05-17 | P4-B Real Shelter Markers and Hazard Debug Layer Implemented
 
 ### Completed

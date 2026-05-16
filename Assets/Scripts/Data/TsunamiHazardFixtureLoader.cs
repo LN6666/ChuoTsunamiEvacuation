@@ -141,6 +141,12 @@ public static class TsunamiHazardFixtureLoader
             sourcePath = path ?? string.Empty
         };
 
+        if (UsesDataPipelinePath(path))
+        {
+            Debug.LogWarning("Unity tsunami hazard fixture loading must use Assets/Data copies, not data_pipeline paths.");
+            return result;
+        }
+
         if (string.IsNullOrWhiteSpace(path) || !File.Exists(path))
         {
             Debug.LogWarning($"Missing tsunami hazard fixture at {path}. No debug hazard zones were loaded.");
@@ -290,6 +296,17 @@ public static class TsunamiHazardFixtureLoader
     private static string NullToEmpty(string value)
     {
         return value ?? string.Empty;
+    }
+
+    private static bool UsesDataPipelinePath(string path)
+    {
+        if (string.IsNullOrWhiteSpace(path))
+        {
+            return false;
+        }
+
+        string normalizedPath = path.Replace('\\', '/').Trim();
+        return normalizedPath.IndexOf("data_pipeline/", StringComparison.OrdinalIgnoreCase) >= 0;
     }
 
     private static string GetAssetsDataPath(string fileName)

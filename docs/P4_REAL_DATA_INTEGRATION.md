@@ -191,3 +191,49 @@ Current validation status:
 - First wrapper output: `Unity EditMode tests failed with exit code . Results: D:\UnityProjects\ChuoTsunamiEvacuation\test-results\editmode-results.xml`.
 - Escalated retry also exited with code 1 and produced no `test-results/editmode-results.xml`.
 - Manual Unity Editor Test Runner validation is still required before claiming the new EditMode tests passed in the Editor.
+
+## P4-BV Automated Validation
+
+Date: 2026-05-17
+
+Automated coverage added or strengthened:
+
+- `Assets/Tests/EditMode/RealShelterGameplayMappingTests.cs`
+  - Confirms the committed `Assets/Data/shelter_source_config.json` still has `sourceMode = test`.
+  - Confirms `real_sample` data maps to multiple marker-ready shelter records.
+  - Confirms real shelter metadata is preserved for marker/debug UI display.
+  - Confirms deterministic fallback positions are stable and separated enough for schematic debug markers.
+  - Confirms metadata formatting handles missing optional fields without crashing.
+  - Confirms runtime-registered real shelters can be resolved through the existing shelter lookup path.
+- `Assets/Tests/EditMode/TsunamiHazardFixtureLoaderTests.cs`
+  - Confirms the copied `Assets/Data/sample_tsunami_hazard_zones.json` fixture loads.
+  - Confirms hazard name, level, source, notes, nullable depth/height, and schematic layout fields are handled safely.
+  - Confirms hazard fixture loading uses the `Assets/Data` copy and rejects `data_pipeline` runtime paths.
+  - Confirms generated hazard debug shapes are schematic, valid, unique, metadata-rich, and have no gameplay rule effect.
+- `Assets/Tests/PlayMode/P4BDebugLayerPlayModeTests.cs`
+  - Creates temporary runtime objects only.
+  - Confirms the real shelter marker generator creates multiple `BuildingShelter` and `ShelterEntranceTrigger` objects with real metadata labels.
+  - Confirms the hazard visualizer creates/toggles temporary collider-free debug objects.
+
+Small production testability/safety change:
+
+- `TsunamiHazardFixtureLoader.LoadFromPath` now rejects `data_pipeline` paths, matching the P4 runtime boundary already enforced for shelter source resolution.
+- This does not change gameplay rules, scenes, ProjectSettings, Packages, PLATEAU assets, or tsunami risk wall behavior.
+
+Manual visual validation still required:
+
+- Confirm visible test-mode shelter gameplay in Unity Editor Play Mode.
+- Temporarily switch `sourceMode = real_sample`, confirm real markers appear, and validate E entry/climb/result flow.
+- Press `H` in Play Mode and confirm the hazard debug layer appears visually.
+- Confirm the tsunami risk wall behavior and success/failure rules remain unchanged.
+- Revert `sourceMode = test` before committing any future manual validation changes.
+
+P4-BV CLI test status:
+
+- Command attempted: `powershell -ExecutionPolicy Bypass -File tools/run_unity_tests.ps1 -Mode EditMode`
+- Non-escalated result: failed with `Unity EditMode tests failed with exit code . Results: D:\UnityProjects\ChuoTsunamiEvacuation\test-results\editmode-results.xml`.
+- Escalated result: Unity launched, connected to licensing, then aborted because another Unity instance already had the project open.
+- Exact Unity blocker: `It looks like another Unity instance is running with this project open. Multiple Unity instances cannot open the same project.`
+- `test-results/editmode-results.xml` was not produced.
+- PlayMode CLI was not run because EditMode CLI did not complete.
+- Use the Unity Editor Test Runner for manual automated execution of the EditMode and PlayMode tests while the project is open in the Editor.
