@@ -1,5 +1,28 @@
 ---
 
+## 2026-05-17 | P4-A1 Real Shelter Sample Loader Implemented
+
+### Completed
+
+Implemented the P4-A1 data-layer path for `sourceMode = test / real_sample` while keeping `test` as the default.
+
+Copied the validated P3 release shelter sample to `Assets/Data/real_chuo_shelters_sample.json` for Unity-readable loading. Runtime loading now rejects `data_pipeline` paths and uses the copied `Assets/Data` sample only.
+
+Added `RealShelterDataLoader` for P3-shaped shelter JSON and `ShelterDataSourceResolver` for source-mode selection and missing-file fallback. Existing `test_shelters.json` loading remains unchanged.
+
+Added focused EditMode tests for default source mode, test loading, P3-shaped real sample parsing, copied asset loading, nullable field handling, missing-file fallback, and rejecting `data_pipeline` runtime paths.
+
+### Smoke Checks
+
+- `powershell -ExecutionPolicy Bypass -File tools/run_unity_tests.ps1 -Mode EditMode` failed to produce `test-results/editmode-results.xml`, matching the P4-A0 batchmode environment warning.
+- PlayMode was not run because EditMode launch did not complete.
+
+### Next Step
+
+P4-B should generate real shelter markers from the loaded real sample, display real shelter metadata, validate shelter entry/result flow, and add debug-only hazard fixture visualization without replacing the tsunami risk wall or gameplay failure rules.
+
+---
+
 ## 2026-05-17 | P4-A0 Workspace Baseline Completed
 
 ### Completed

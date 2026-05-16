@@ -13,9 +13,11 @@ public static class ShelterSourceConfigLoader
     public class ShelterSourceConfig
     {
         public string sourceMode = TestSourceMode;
-        public string realSamplePath = "Assets/Data/real_chuo_shelters_sample.json";
+        public string testSheltersPath = "test_shelters.json";
+        public string realSamplePath = "real_chuo_shelters_sample.json";
+        public bool fallbackToTestOnError = true;
         public bool enableRealSampleLoading;
-        public string notes = "P4 hook only. Current gameplay uses test_shelters.json.";
+        public string notes = "P4-A1 data-layer source selection. Default gameplay source remains test.";
 
         public void Sanitize()
         {
@@ -36,14 +38,12 @@ public static class ShelterSourceConfigLoader
 
             if (string.IsNullOrWhiteSpace(realSamplePath))
             {
-                realSamplePath = "Assets/Data/real_chuo_shelters_sample.json";
+                realSamplePath = "real_chuo_shelters_sample.json";
             }
 
-            if (!string.Equals(sourceMode, TestSourceMode, StringComparison.OrdinalIgnoreCase) || enableRealSampleLoading)
+            if (string.IsNullOrWhiteSpace(testSheltersPath))
             {
-                Debug.LogWarning(
-                    $"{ShelterSourceConfigFileName} real-data source mode is a P4 hook only. " +
-                    "P2 gameplay continues to load test_shelters.json.");
+                testSheltersPath = "test_shelters.json";
             }
         }
     }
@@ -89,9 +89,11 @@ public static class ShelterSourceConfigLoader
         return new ShelterSourceConfig
         {
             sourceMode = TestSourceMode,
-            realSamplePath = "Assets/Data/real_chuo_shelters_sample.json",
+            testSheltersPath = "test_shelters.json",
+            realSamplePath = "real_chuo_shelters_sample.json",
+            fallbackToTestOnError = true,
             enableRealSampleLoading = false,
-            notes = "P4 hook only. Current gameplay uses test_shelters.json."
+            notes = "P4-A1 data-layer source selection. Default gameplay source remains test."
         };
     }
 

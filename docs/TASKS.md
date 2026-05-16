@@ -314,15 +314,34 @@ Completed:
 
 ### Phase 4-A1: Real Shelter Loader and Source Mode Preparation
 
+Status: Done
+
+Completed:
+
+- Copied the P3 release shelter sample to `Assets/Data/real_chuo_shelters_sample.json`.
+- Kept `sourceMode = test` as the default in `Assets/Data/shelter_source_config.json`.
+- Implemented `RealShelterDataLoader` for P3-shaped real shelter sample JSON.
+- Implemented `ShelterDataSourceResolver` for `test` / `real_sample` source selection.
+- Added missing-file fallback to test shelter data when configured.
+- Rejected Unity runtime loading from `data_pipeline` paths.
+- Added focused EditMode tests for source selection, real sample parsing, nullable fields, fallback behavior, and existing test-shelter compatibility.
+- Preserved gameplay rules, Unity scenes, PLATEAU imports, and hazard gameplay effects.
+
+Warning:
+
+- EditMode batchmode launch still did not produce `test-results/editmode-results.xml`; manual Unity test follow-up remains required.
+
+### Phase 4-B: Real Shelter Markers and Debug Hazard Fixture
+
 Status: Next
 
-Tasks:
+Legacy Phase 3 follow-up tasks:
 
-- Decide the Unity-readable copy/load path for the P3 release shelter sample.
-- Implement a real shelter loader while keeping the default data source as `test`.
-- Support the planned `sourceMode = test / real_sample` behavior.
-- Add focused EditMode tests for source selection, fallback behavior, and real sample parsing.
-- Do not modify gameplay rules, Unity scenes, PLATEAU imports, or hazard gameplay effects.
+- Generate real shelter markers from loaded `real_sample` records.
+- Display real shelter metadata.
+- Validate real shelter entry/result flow.
+- Add debug-only hazard fixture visualization.
+- Do not replace the tsunami risk wall or gameplay failure rules.
 
 Tasks:
 
