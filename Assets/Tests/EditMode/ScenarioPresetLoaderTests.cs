@@ -29,6 +29,15 @@ public class ScenarioPresetLoaderTests
     }
 
     [Test]
+    public void ProjectScenarioPresetFileKeepsDefaultActiveScenario()
+    {
+        ScenarioPresetLoader.ScenarioPresetFile presetFile = ScenarioPresetLoader.LoadScenarioPresetFile();
+
+        Assert.NotNull(presetFile);
+        Assert.AreEqual(ScenarioPresetLoader.DefaultScenarioId, presetFile.activeScenarioId);
+    }
+
+    [Test]
     public void DefaultScenarioIsSafe()
     {
         ScenarioPresetLoader.ActiveScenario activeScenario =

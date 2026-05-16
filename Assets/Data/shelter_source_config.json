@@ -1,0 +1,6 @@
+{
+  "sourceMode": "test",
+  "realSamplePath": "Assets/Data/real_chuo_shelters_sample.json",
+  "enableRealSampleLoading": false,
+  "notes": "P2-05 hook only. Current gameplay uses test_shelters.json. P4 may copy or convert selected P3 output into Assets/Data before enabling a real sample source."
+}

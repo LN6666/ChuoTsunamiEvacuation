@@ -118,7 +118,7 @@ Completed:
 
 ### Milestone 2-04: Multi-Shelter Decision Gameplay 1.0
 
-Status: Implemented; requires Unity manual scenario test and DeepSeek review before commit.
+Status: Done
 
 Goal:
 Upgrade the debug platform from a single-shelter loop into a multi-shelter decision field.
@@ -135,13 +135,17 @@ Completed:
 - ResultPanel review advice now reflects selected shelter decision context.
 - Added/updated EditMode tests for multi-shelter data, scenarios, and generated setup.
 
-Manual Unity scenarios to test:
+Manual Unity scenarios tested:
 
 - default
 - random_warning
 - blocked_shelter
 - anti_camping
 - late_failure
+
+Review:
+
+- DeepSeek review found no A-level blockers.
 
 Automated test commands:
 
@@ -155,6 +159,49 @@ Limitations:
 - No PLATEAU building matching.
 - No real road or entrance navigation.
 - P4 should integrate P3 processed real shelter data later.
+
+### Milestone 2-05: Evaluation, Decision Feedback & Real-Data Integration Hooks 1.0
+
+Status: Implemented; requires Unity automated/manual validation and DeepSeek review before commit.
+
+Goal:
+Make the multi-shelter serious-game prototype evaluable and exportable while preparing a minimal Unity-side hook for future P4 real-data integration.
+
+Completed:
+
+- Added ResultExportService.
+- Added CSV and JSON result export under run_logs/.
+- Added run_logs/ to .gitignore.
+- ResultMetrics now includes runId, timestamp, and advice fields.
+- Centralized next-step advice generation for blocked shelters, camping blocks, late risk failure, crowding delay, fast success, and fallback outcomes.
+- EvacuationGameManager exports one result when success or failure is finalized.
+- Added shelter_source_config.json with sourceMode defaulting to test.
+- Added ShelterSourceConfigLoader.
+- Added real_chuo_shelters_sample.example.json as an inactive P4 example stub.
+- Added EditMode tests for export records, CSV/JSON output, safe missing fields, advice generation, and source-mode hook behavior.
+- Added a PlayMode smoke test for creating an export record from ResultMetrics.
+
+Manual Unity scenarios to validate:
+
+- default
+- blocked_shelter
+- anti_camping
+- late_failure
+- export creation and cleanup
+
+Automated test commands:
+
+- .\tools\run_unity_tests.ps1 -Mode EditMode
+- .\tools\run_unity_tests.ps1 -Mode PlayMode
+
+Limitations:
+
+- run_logs/ is local debug output only.
+- No dashboard analytics.
+- No real Chuo facility import.
+- No coordinate conversion.
+- No PLATEAU building matching.
+- P4 will consume selected P3 output later; P2-05 does not read P3 data_pipeline outputs.
 
 ### Remaining Milestone 2 Work
 

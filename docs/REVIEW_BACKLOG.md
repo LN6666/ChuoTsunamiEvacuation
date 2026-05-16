@@ -170,6 +170,33 @@ No active blocking review items.
 
 ---
 
+### Review Pending 2026-05-16-01
+
+Source report:
+
+Pending DeepSeek review for Milestone 2-05.
+
+Context:
+
+Milestone 2-05 - Evaluation, Decision Feedback & Real-Data Integration Hooks 1.0 implementation.
+
+Overall verdict:
+
+Pending review.
+
+### Known Non-Blocking Risks To Review
+
+| ID | Priority | Status | Target File | Issue | Required Fix |
+|---|---|---|---|---|---|
+| M2-05-B01 | Medium | Deferred | Assets/Scripts/Result/ResultExportService.cs | Result export uses a local run_logs/ folder derived from Application.dataPath. This is acceptable for the Editor/debug prototype but may not be writable on all build targets. | Revisit export path policy before player builds or CI-driven evaluation runs; consider Application.persistentDataPath or a configurable output directory. |
+| M2-05-B02 | Medium | Deferred | Assets/Scripts/Data/ShelterSourceConfigLoader.cs / Assets/Data/shelter_source_config.json | The real-data source mode is a documented P4 hook only. It does not load real data yet. | Implement active real sample loading only during P4 after P3 output format is reviewed. |
+| M2-05-B03 | Low | Deferred | Assets/Scripts/Result/ResultMetrics.cs / Assets/Scripts/Result/ResultPanelController.cs | ResultPanel remains a fixed prototype/debug UI. Very long advice or failure reason text may still need a later scroll view. | Revisit ResultPanel layout only if UI polish becomes a milestone. |
+| M2-05-B04 | Medium | Deferred | Assets/Data/scenario_presets.json | scenario_presets.json should be saved as UTF-8 without BOM. Current .NET reading may tolerate a BOM, but future loaders or external tools may not. | Keep Unity JSON files BOM-free when editing or regenerating them. |
+| M2-05-B05 | Medium | Deferred | Assets/Scripts/Result/ResultMetrics.cs | Blocked-shelter advice currently depends on failureReason substring matching, such as unavailable or not available text. If failure reason wording changes, advice may fall back to generic text. | Consider structured failure codes or enums instead of string matching in a future result-reason pass. |
+| M2-05-B06 | Medium | Deferred | Assets/Scripts/Core/EvacuationGameManager.cs | Result export now uses a one-shot guard, but future result-state changes could accidentally bypass or duplicate finalization paths. | Preserve explicit one-export-per-run behavior when changing success/failure finalization. |
+
+---
+
 ## Notes
 
 DeepSeek review should not be followed blindly.

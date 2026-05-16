@@ -20,6 +20,7 @@
 
 review_reports/
 test-results/
+run_logs/
 
 # Generated PLATEAU imported scenes
 Assets/Scenes/Chuo_BaseMap.unity

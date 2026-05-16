@@ -18,6 +18,7 @@ The player acts as a pedestrian after an earthquake. The goal is to find a usabl
 8. The player succeeds if they reach a safe floor before the risk arrives.
 9. The player fails if they remain in the risk zone or cannot enter a valid shelter.
 10. A result panel explains the outcome.
+11. The run result can be exported locally for review.
 
 ## First Playable Version
 
@@ -82,6 +83,20 @@ The generated debug platform includes:
 The goal is to make the player compare distance, rank, official status, enterability, climb time, crowding delay, and scenario effects before pressing E.
 
 The current fixture still uses test shelters only. It does not import real Chuo facility data, match PLATEAU buildings, infer roads, or detect real entrances.
+
+## Evaluation and Decision Feedback
+
+Milestone 2-05 adds lightweight evaluation support for the debug-platform prototype.
+
+When the game reaches success or failure:
+
+- ResultMetrics records the selected shelter, scenario, timing, camping flags, and outcome reason.
+- ResultPanel shows short next-step advice.
+- ResultExportService writes CSV and JSON run logs under run_logs/.
+
+Advice remains simple and prototype-oriented. It distinguishes blocked shelters, anti-camping blocks, late risk failure, crowding delay, successful fast choices, and generic fallback cases.
+
+The export is for local evaluation only. It is not a dashboard or analytics system.
 
 ## Success Conditions
 

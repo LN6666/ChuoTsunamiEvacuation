@@ -24,6 +24,9 @@ public class ResultMetrics
     public bool wasShelterBlockedByCampingRule;
     public string activeScenarioId;
     public string activeScenarioName;
+    public string runId;
+    public string timestamp;
+    public string advice;
 
     public string GetShelterLabel()
     {
@@ -90,11 +93,11 @@ public class ResultMetrics
         builder.AppendLine($"- Camping detected: {FormatBool(wasCampingDetected)} | blocked: {FormatBool(wasShelterBlockedByCampingRule)}");
         builder.AppendLine($"- Scenario: {GetScenarioLabel()}");
         builder.AppendLine();
-        builder.AppendLine($"Next: {GetNextStepAdvice()}");
+        builder.AppendLine($"Next: {GetAdviceText()}");
         return builder.ToString().TrimEnd();
     }
 
-    private string GetOutcomeReason()
+    public string GetOutcomeReason()
     {
         if (!string.IsNullOrWhiteSpace(failureReason))
         {
@@ -106,13 +109,13 @@ public class ResultMetrics
             : "Evacuation failed before reaching a safe floor.";
     }
 
-    private string GetNextStepAdvice()
+    public string GetAdviceText()
     {
-        if (success)
-        {
-            return "Compare this shelter choice with the other scenario options.";
-        }
+        return string.IsNullOrWhiteSpace(advice) ? GenerateAdviceText() : advice;
+    }
 
+    private string GenerateAdviceText()
+    {
         if (wasShelterBlockedByCampingRule)
         {
             return "Avoid waiting at the same shelter before warning.";
@@ -125,12 +128,44 @@ public class ResultMetrics
             return "Try another shelter when the nearest one is unavailable.";
         }
 
-        if (tsunamiArrivalTime > 0f)
+        if (!success && (IsRiskRelatedFailure(reason) || tsunamiArrivalTime > 0f))
         {
             return "Choose a faster or closer shelter under this scenario.";
         }
 
+        if (crowdingDelaySeconds > 0f)
+        {
+            return success
+                ? "Success, but compare less crowded shelters to reduce evacuation time."
+                : "Compare less crowded shelters when crowding delay makes evacuation slower.";
+        }
+
+        if (success)
+        {
+            float totalDelay = entryDelaySeconds + climbTimeSeconds + crowdingDelaySeconds;
+            if (totalDelay > 0f && totalDelay <= 8f)
+            {
+                return "Fast shelter timing worked; compare it with closer options in other scenarios.";
+            }
+
+            return "Compare this shelter choice with the other scenario options.";
+        }
+
         return "Review shelter usability and entry timing before rerunning.";
+    }
+
+    private static bool IsRiskRelatedFailure(string normalizedReason)
+    {
+        if (string.IsNullOrWhiteSpace(normalizedReason))
+        {
+            return false;
+        }
+
+        return normalizedReason.Contains("risk reached the shelter entrance") ||
+            normalizedReason.Contains("tsunami risk reached") ||
+            normalizedReason.Contains("risk front") ||
+            normalizedReason.Contains("risk boundary") ||
+            normalizedReason.Contains("before you reached a safe floor");
     }
 
     private string GetShelterIdLabel()

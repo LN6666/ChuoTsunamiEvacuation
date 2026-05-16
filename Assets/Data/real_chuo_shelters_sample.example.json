@@ -1,0 +1,36 @@
+{
+  "description": "Example-only P4 hook file. This is not active gameplay data and is not loaded by the P2 prototype.",
+  "sourceMode": "real_sample",
+  "shelters": [
+    {
+      "shelterId": "real_sample_placeholder",
+      "shelterName": "Example Real Shelter Placeholder",
+      "shelterRank": "B",
+      "isOfficialShelter": true,
+      "canEnter": true,
+      "entryDelaySeconds": 0,
+      "climbTimeSeconds": 12,
+      "crowdingDelaySeconds": 0,
+      "failureReason": "This example placeholder is not active gameplay data.",
+      "sourceType": "real_sample_example",
+      "facilityType": "evacuation_facility",
+      "layoutPosition": {
+        "x": 0,
+        "y": 0,
+        "z": 0
+      },
+      "realFacilityName": "Example facility name from future P3/P4 data",
+      "address": "Example address",
+      "latitude": 0,
+      "longitude": 0,
+      "coordinateSystem": "wgs84_pending_conversion",
+      "plateauBuildingId": "",
+      "safeFloor": 3,
+      "capacity": 0,
+      "dataSource": "P4 example stub",
+      "sourceUrl": "",
+      "sourceUpdatedAt": "",
+      "notes": "Future P4 work should convert selected P3 output into an active Unity data file. P2-05 does not read P3 outputs."
+    }
+  ]
+}

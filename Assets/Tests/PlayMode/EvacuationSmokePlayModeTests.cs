@@ -61,6 +61,32 @@ public class EvacuationSmokePlayModeTests
         yield return null;
     }
 
+    [UnityTest]
+    public IEnumerator ResultMetricsExportRecordCanBeCreatedInPlayMode()
+    {
+        ResultMetrics metrics = new ResultMetrics
+        {
+            success = true,
+            selectedShelterId = "test_shelter_far_fast",
+            selectedShelterName = "Far Fast Shelter",
+            shelterRank = "A",
+            isOfficialShelter = true,
+            climbTimeSeconds = 5f,
+            evacuationCountdownSeconds = 60f,
+            activeScenarioId = "default",
+            activeScenarioName = "Default"
+        };
+
+        ResultExportService.ResultExportRecord record = ResultExportService.CreateRecord(metrics);
+
+        Assert.IsFalse(string.IsNullOrWhiteSpace(record.runId));
+        Assert.AreEqual("success", record.outcome);
+        Assert.AreEqual("test_shelter_far_fast", record.selectedShelterId);
+        Assert.IsFalse(string.IsNullOrWhiteSpace(record.advice));
+
+        yield return null;
+    }
+
     private EvacuationGameManager CreateGameManager()
     {
         gameManagerObject = new GameObject("EvacuationSmokeTest_GameManager");

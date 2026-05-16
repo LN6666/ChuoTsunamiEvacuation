@@ -9,11 +9,13 @@ Current completed state:
 - Milestone 2-01 - Data-Driven Rules Integration is complete and Unity-tested.
 - Milestone 2-02 - Scenarioized Gameplay Rules 1.0 is complete.
 - Milestone 2-03 - Unity Test Automation Foundation is complete.
-- Milestone 2-04 - Multi-Shelter Decision Gameplay 1.0 has been implemented for the debug platform.
+- Milestone 2-04 - Multi-Shelter Decision Gameplay 1.0 is complete for the debug platform.
+- Milestone 2-05 - Evaluation, Decision Feedback & Real-Data Integration Hooks 1.0 has been implemented.
 - The prototype runs on an isolated debug platform while PLATEAU geometry is used as background/context.
 - Tsunami warning currently starts manually with T for debug.
 - Countdown and tsunami movement begin only after the warning event.
 - Tsunami timing, multi-shelter test rules, scenario presets, anti-camping settings, and result metrics are data-driven.
+- Result metrics can be exported to local CSV/JSON run logs for evaluation.
 
 Current milestone:
 - Milestone 2: Rules and Dataization 1.0
@@ -142,6 +144,14 @@ Responsibility:
 - show explainable ResultMetrics fields for prototype review
 - support PBL presentation and reflection
 
+### ResultExportService
+
+Responsibility:
+- convert ResultMetrics into a flat export record
+- write local CSV and JSON run logs under run_logs/
+- tolerate missing optional fields without crashing gameplay
+- keep export logic separate from UI layout
+
 ## Data Loading System
 
 ### GameConfigLoader
@@ -164,6 +174,14 @@ Responsibility:
 - apply scenario shelter overrides in memory only
 - preserve scene/Inspector shelter values when shelterId is missing or unknown
 
+### ShelterSourceConfigLoader
+
+Responsibility:
+- load shelter_source_config.json
+- default sourceMode to test
+- provide a documented P4 hook for future real-data sample loading
+- avoid changing current P2 test_shelter loading behavior
+
 ### ScenarioPresetLoader
 
 Responsibility:
@@ -179,6 +197,8 @@ Responsibility:
 - store explainable result data such as selected shelter, timing, risk arrival, delays, and camping flags
 - keep result data separate from UI text formatting
 - include active scenario identifiers for decision review
+- generate short decision advice for ResultPanel and export
+- carry runId and timestamp when exported
 
 Milestone 2 data loading focuses on:
 
@@ -190,6 +210,8 @@ Milestone 2 data loading focuses on:
 - result metric definitions
 
 Milestone 2-04 keeps the data on the debug platform and does not consume P3 real-data pipeline outputs yet.
+
+Milestone 2-05 adds a Unity-side P4 source-mode hook but still does not consume P3 real-data pipeline outputs.
 
 ### Editor Validation
 
@@ -214,6 +236,7 @@ Current policy:
 - PLATEAU-specific logic should remain isolated.
 - Current gameplay-loop testing uses an isolated platform away from PLATEAU building geometry.
 - P2-04 multi-shelter gameplay uses test shelters only; future P4 work should integrate P3 processed real shelter data.
+- P2-05 provides an inactive real-data sample hook; P4 should copy or convert selected P3 output into Assets/Data before Unity consumes it.
 
 ## Agent Workflow
 

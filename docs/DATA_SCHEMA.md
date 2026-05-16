@@ -10,6 +10,8 @@ Milestone 2-01 moved tsunami event timing, test shelter rules, anti-camping sett
 
 Milestone 2-04 expanded the test shelter data into a multi-shelter decision fixture while keeping it separate from P3 real-data outputs.
 
+Milestone 2-05 added run-log export fields and a P4 source-mode hook while keeping active gameplay on test data.
+
 ## Data Folder
 
 Unity project data folder:
@@ -278,6 +280,81 @@ Unknown shelter IDs in scenario overrides are ignored with a warning and do not 
 
 ---
 
+## Shelter Source Config
+
+Implemented file:
+
+Assets/Data/shelter_source_config.json
+
+Purpose:
+
+Provide a small Unity-side hook for future P4 real-data integration without changing current P2 gameplay.
+
+| Field | Type | Description |
+|---|---|---|
+| sourceMode | string | Current default is "test"; future option may be "real_sample" |
+| realSamplePath | string | Future path for an active real-data sample under Assets/Data |
+| enableRealSampleLoading | bool | Reserved hook flag; false by default |
+| notes | string | Human-readable scope note |
+
+P2-05 always keeps sourceMode as "test" by default and continues to load test_shelters.json.
+
+Example-only file:
+
+Assets/Data/real_chuo_shelters_sample.example.json
+
+This file is a P4 stub and is not active gameplay data.
+
+---
+
+## Run Log Export
+
+Implemented output directory:
+
+run_logs/
+
+run_logs/ is ignored by Git.
+
+ResultExportService writes:
+
+- run_logs/run_results.csv
+- run_logs/run_<runId>.json
+
+### Export Fields
+
+| Field | Type | Description |
+|---|---|---|
+| runId | string | Unique run identifier generated when missing |
+| timestamp | string | UTC ISO timestamp generated when missing |
+| scenarioId | string | Active scenario ID |
+| scenarioName | string | Active scenario display name |
+| success | bool | Whether the run succeeded |
+| outcome | string | success or failure |
+| outcomeReason | string | Result reason used for review |
+| failureReason | string | Failure reason when outcome is failure |
+| successReason | string | Success reason when outcome is success |
+| selectedShelterId | string | Selected shelter ID |
+| selectedShelterName | string | Selected shelter display name |
+| shelterRank | string | Selected shelter rank |
+| isOfficialShelter | bool | Whether selected shelter is official |
+| entryDelaySeconds | float | Entry delay used in the run |
+| climbTimeSeconds | float | Climb time used in the run |
+| crowdingDelaySeconds | float | Crowding delay used in the run |
+| evacuationCountdownSeconds | float | Countdown setting for the run |
+| warningStartTime | float | Unity time when warning started |
+| shelterEntryTime | float | Unity time when shelter entry was selected |
+| climbStartTime | float | Unity time when climb started |
+| climbCompleteTime | float | Unity time when climb completed |
+| tsunamiArrivalTime | float | Unity time when risk reached player or active shelter |
+| resultTime | float | Unity time when result finalized |
+| wasCampingDetected | bool | Whether pre-warning camping was detected |
+| wasShelterBlockedByCampingRule | bool | Whether selected shelter was blocked by anti-camping |
+| advice | string | Short next-step advice shown in result review and export |
+
+If a runtime value is unavailable, export uses an empty string, false, or 0 instead of throwing.
+
+---
+
 ## Result Metrics Data
 
 Suggested runtime/export fields:
@@ -299,6 +376,11 @@ Suggested runtime/export fields:
 | crowding_delay_seconds | float | Crowding delay used for result explanation |
 | was_camping_detected | bool | Whether pre-warning camping was detected |
 | was_shelter_blocked_by_camping_rule | bool | Whether shelter was blocked by anti-camping config |
+| run_id | string | Run identifier used for CSV/JSON export |
+| timestamp | string | UTC export timestamp |
+| scenario_id | string | Active scenario ID |
+| scenario_name | string | Active scenario display name |
+| advice | string | Short next-step decision advice |
 
 Result metrics should be collected by gameplay/result systems, not by UI text components.
 

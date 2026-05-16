@@ -82,6 +82,35 @@ Covers:
 - Pre-warning camping threshold is positive.
 - Camped shelter blocking is true by default.
 
+### Assets/Tests/EditMode/ResultExportServiceTests.cs
+
+Covers:
+
+- ResultMetrics export payload contains required fields.
+- CSV export writes a header and one row.
+- JSON export creates a valid export record.
+- Missing optional fields are handled safely.
+- run_logs-style output directories do not need to exist before export.
+- Advice generation covers blocked shelter, camping block, late failure, crowding delay, and success cases.
+
+### Assets/Tests/EditMode/ShelterSourceConfigLoaderTests.cs
+
+Covers:
+
+- shelter_source_config.json can be loaded.
+- sourceMode defaults to test.
+- missing or unknown source config falls back to test mode.
+- the P4 hook does not change current test_shelter loading behavior.
+
+### Assets/Tests/EditMode/ScenarioPresetLoaderTests.cs
+
+Covers:
+
+- scenario_presets.json can be loaded.
+- activeScenarioId remains default for commit-ready project data.
+- scenario overrides remain in memory and do not rewrite base JSON files.
+- multi-shelter scenario references are valid.
+
 ### Assets/Tests/PlayMode/EvacuationSmokePlayModeTests.cs
 
 Covers:
@@ -90,6 +119,7 @@ Covers:
 - The manager reaches PreEvent state.
 - Manual start method moves the manager to Playing state.
 - Missing tsunami config fallback helper returns safe values in Play Mode.
+- ResultMetrics export records can be created in Play Mode without starting the PLATEAU scene.
 
 ## Manual Tests Still Required
 

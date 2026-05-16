@@ -27,6 +27,9 @@ public class EvacuationGameManager : MonoBehaviour
     [SerializeField] private string preEventMessage = "Move: WASD / Arrow Keys\nSprint: Left or Right Shift\nCamera: Mouse drag or Q/E\nStart tsunami test: T\nReach green shelter and press E";
     [SerializeField] private string startMessage = "Tsunami warning issued. Find a usable evacuation building.";
 
+    [Header("Result Export")]
+    [SerializeField] private bool exportResultLogs = true;
+
     private GameState currentState = GameState.WaitingToStart;
     private BuildingShelter selectedShelter;
     private ShelterEntranceTrigger activeShelterEntrance;
@@ -34,9 +37,11 @@ public class EvacuationGameManager : MonoBehaviour
     private string lastFailureReason;
     private GameConfigLoader.TsunamiEventConfig tsunamiEventConfig;
     private GameConfigLoader.AntiCampingConfig antiCampingConfig;
+    private ShelterSourceConfigLoader.ShelterSourceConfig shelterSourceConfig;
     private ScenarioPresetLoader.ActiveScenario activeScenario;
     private ResultMetrics resultMetrics;
     private bool randomStartScheduled;
+    private bool resultExported;
     private float randomStartTime;
     private readonly HashSet<string> campedShelterIds = new HashSet<string>();
     private ShelterEntranceTrigger campingTrackedEntrance;
@@ -47,6 +52,7 @@ public class EvacuationGameManager : MonoBehaviour
     public bool IsClimbing => currentState == GameState.Climbing;
     public ShelterEntranceTrigger ActiveShelterEntrance => activeShelterEntrance;
     public string ActiveScenarioId => activeScenario != null ? activeScenario.activeScenarioId : ScenarioPresetLoader.DefaultScenarioId;
+    public string ShelterSourceMode => shelterSourceConfig != null ? shelterSourceConfig.sourceMode : ShelterSourceConfigLoader.TestSourceMode;
 
     private void Awake()
     {
@@ -105,6 +111,7 @@ public class EvacuationGameManager : MonoBehaviour
         lastFailureReason = string.Empty;
         resultMetrics = CreateBaseResultMetrics();
         randomStartScheduled = false;
+        resultExported = false;
         campingTrackedEntrance = null;
         campingTrackedSeconds = 0f;
         campedShelterIds.Clear();
@@ -291,6 +298,7 @@ public class EvacuationGameManager : MonoBehaviour
             resultMetrics.failureReason = "Reached a safe floor before the risk boundary arrived.";
             resultMetrics.climbCompleteTime = Time.time;
             resultMetrics.resultTime = Time.time;
+            resultMetrics.advice = resultMetrics.GetAdviceText();
         }
 
         Debug.Log("Climb completes.");
@@ -303,6 +311,7 @@ public class EvacuationGameManager : MonoBehaviour
 
         if (resultMetrics != null)
         {
+            ExportResultMetrics();
             resultPanelController?.Show(resultMetrics);
         }
         else
@@ -330,6 +339,7 @@ public class EvacuationGameManager : MonoBehaviour
             resultMetrics.success = false;
             resultMetrics.failureReason = lastFailureReason;
             resultMetrics.resultTime = Time.time;
+            resultMetrics.advice = resultMetrics.GetAdviceText();
         }
 
         Debug.Log($"Failure triggered: {lastFailureReason}");
@@ -343,6 +353,7 @@ public class EvacuationGameManager : MonoBehaviour
 
         if (resultMetrics != null)
         {
+            ExportResultMetrics();
             resultPanelController?.Show(resultMetrics);
         }
         else
@@ -430,6 +441,9 @@ public class EvacuationGameManager : MonoBehaviour
             Debug.LogWarning("Anti-camping config failed to load. Using hard-coded safe defaults.");
             antiCampingConfig = GameConfigLoader.CreateDefaultAntiCampingConfig();
         }
+
+        shelterSourceConfig = ShelterSourceConfigLoader.Load();
+        Debug.Log($"Shelter source mode: {ShelterSourceMode}. Current P2 gameplay uses test_shelters.json.");
 
         activeScenario = ScenarioPresetLoader.LoadActiveScenario();
         ScenarioPresetLoader.ApplyScenarioOverrides(activeScenario, tsunamiEventConfig, antiCampingConfig);
@@ -524,6 +538,17 @@ public class EvacuationGameManager : MonoBehaviour
             activeScenarioId = ActiveScenarioId,
             activeScenarioName = activeScenario != null ? activeScenario.displayName : "Default"
         };
+    }
+
+    private void ExportResultMetrics()
+    {
+        if (!exportResultLogs || resultMetrics == null || resultExported)
+        {
+            return;
+        }
+
+        resultExported = true;
+        ResultExportService.Export(resultMetrics);
     }
 
     private void CaptureShelterMetrics(BuildingShelter shelter)

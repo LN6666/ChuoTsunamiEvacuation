@@ -1,5 +1,45 @@
 ---
 
+---
+
+## 2026-05-16 | Milestone 2-05 Evaluation and Export Hooks Implemented
+
+### Completed
+
+Implemented Milestone 2-05 - Evaluation, Decision Feedback & Real-Data Integration Hooks 1.0.
+
+Added run logging and export:
+
+- Added ResultExportService for one-result-per-run export when gameplay reaches success or failure.
+- Export writes CSV and JSON under run_logs/.
+- run_logs/ is ignored by Git.
+- Export records include runId, timestamp, scenario, outcome, selected shelter, shelter timing, countdown, risk timing, camping flags, and advice.
+
+Improved decision feedback:
+
+- ResultMetrics now exposes centralized outcome reason and next-step advice generation.
+- ResultPanel continues to use the readable prototype/debug layout.
+- Advice now covers blocked shelters, anti-camping blocks, late risk failure, crowding delay, and successful fast choices.
+
+Added P4 real-data integration hooks:
+
+- Added shelter_source_config.json with sourceMode defaulting to test.
+- Added ShelterSourceConfigLoader.
+- Added real_chuo_shelters_sample.example.json as an inactive example stub.
+- P2-05 still uses test_shelters.json and does not read P3 data_pipeline outputs.
+
+Updated tests:
+
+- Added EditMode coverage for export payloads, CSV/JSON generation, missing optional fields, and advice strings.
+- Added EditMode coverage for shelter source mode defaults and fallback behavior.
+- Added PlayMode smoke coverage for ResultMetrics export record creation.
+
+### Scope
+
+This milestone remains a debug-platform prototype. It does not import real Chuo facility data, read P3 processed output, convert coordinates, match PLATEAU buildings, create a dashboard, or add NPC/crowd simulation.
+
+---
+
 ## 2026-05-15 | Milestone 2-04 Multi-Shelter Decision Gameplay Implemented
 
 ### Completed
