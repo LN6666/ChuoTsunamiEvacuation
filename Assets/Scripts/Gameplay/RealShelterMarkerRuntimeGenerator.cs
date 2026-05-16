@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Reflection;
 using UnityEngine;
 
@@ -14,11 +15,14 @@ public class RealShelterMarkerRuntimeGenerator : MonoBehaviour
 
     [SerializeField] private Vector3 entranceSize = new Vector3(2f, 2f, 2f);
     [SerializeField] private Vector3 markerSize = new Vector3(3f, 0.5f, 3f);
-    [SerializeField] private Vector3 labelOffset = new Vector3(0f, 3.2f, 0f);
+    [SerializeField] private Vector3 labelOffset = new Vector3(0f, 3.8f, 0f);
+    [SerializeField] private KeyCode metadataToggleKey = KeyCode.M;
+    [SerializeField] private bool showDetailedMetadata;
 
     private Material enterableMaterial;
     private Material blockedMaterial;
     private Material entranceMaterial;
+    private readonly List<GeneratedShelterLabel> generatedLabels = new List<GeneratedShelterLabel>();
 
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
     private static void BootstrapRealShelterMarkers()
@@ -53,6 +57,17 @@ public class RealShelterMarkerRuntimeGenerator : MonoBehaviour
         generator.Generate(sourceResult, gameManager, UnityEngine.Object.FindObjectOfType<GameUIManager>());
     }
 
+    private void Update()
+    {
+        if (Input.GetKeyDown(metadataToggleKey))
+        {
+            showDetailedMetadata = !showDetailedMetadata;
+            RefreshGeneratedLabels();
+            UnityEngine.Debug.Log(
+                $"Real shelter metadata labels switched to {(showDetailedMetadata ? "detailed" : "compact")} mode.");
+        }
+    }
+
     public int Generate(
         ShelterDataSourceResolver.ShelterDataSourceResult sourceResult,
         EvacuationGameManager gameManager,
@@ -76,6 +91,7 @@ public class RealShelterMarkerRuntimeGenerator : MonoBehaviour
 
         DisableExistingTestShelters();
         InitializeMaterials();
+        generatedLabels.Clear();
 
         Transform parent = ResolveRuntimeParent();
         Vector3 debugOrigin = ResolveDebugOrigin();
@@ -220,7 +236,7 @@ public class RealShelterMarkerRuntimeGenerator : MonoBehaviour
         return gameObject;
     }
 
-    private static void CreateLabel(
+    private void CreateLabel(
         string name,
         Transform parent,
         Vector3 position,
@@ -232,12 +248,38 @@ public class RealShelterMarkerRuntimeGenerator : MonoBehaviour
         labelObject.transform.rotation = Quaternion.Euler(60f, 0f, 0f);
 
         TextMesh textMesh = labelObject.AddComponent<TextMesh>();
-        textMesh.text = ShelterDebugMetadataFormatter.BuildMarkerLabel(shelterData);
+        textMesh.text = FormatLabel(shelterData);
         textMesh.anchor = TextAnchor.MiddleCenter;
         textMesh.alignment = TextAlignment.Center;
-        textMesh.characterSize = 0.38f;
-        textMesh.fontSize = 32;
+        textMesh.characterSize = 0.28f;
+        textMesh.fontSize = 26;
         textMesh.color = Color.white;
+
+        generatedLabels.Add(new GeneratedShelterLabel
+        {
+            Label = textMesh,
+            ShelterData = shelterData
+        });
+    }
+
+    private void RefreshGeneratedLabels()
+    {
+        foreach (GeneratedShelterLabel generatedLabel in generatedLabels)
+        {
+            if (generatedLabel == null || generatedLabel.Label == null)
+            {
+                continue;
+            }
+
+            generatedLabel.Label.text = FormatLabel(generatedLabel.ShelterData);
+        }
+    }
+
+    private string FormatLabel(ShelterDataLoader.ShelterData shelterData)
+    {
+        return showDetailedMetadata
+            ? ShelterDebugMetadataFormatter.BuildDetailedMarkerLabel(shelterData)
+            : ShelterDebugMetadataFormatter.BuildCompactMarkerLabel(shelterData);
     }
 
     private static void SetColliderTrigger(GameObject gameObject, bool isTrigger)
@@ -309,5 +351,11 @@ public class RealShelterMarkerRuntimeGenerator : MonoBehaviour
     private static bool IsDebugContext()
     {
         return Application.isEditor || UnityEngine.Debug.isDebugBuild;
+    }
+
+    private class GeneratedShelterLabel
+    {
+        public TextMesh Label;
+        public ShelterDataLoader.ShelterData ShelterData;
     }
 }

@@ -98,11 +98,6 @@ public static class TsunamiHazardDebugLayout
         AppendLine(builder, $"Family: {zone.hazardFamily}");
         AppendLine(builder, $"Level: {zone.hazardLevel}");
 
-        if (!string.IsNullOrWhiteSpace(zone.affectedZone))
-        {
-            AppendLine(builder, $"Area: {zone.affectedZone}");
-        }
-
         if (zone.hasInundationDepth)
         {
             AppendLine(builder, $"Depth: {zone.inundationDepthMeters:0.#}m");
@@ -110,26 +105,6 @@ public static class TsunamiHazardDebugLayout
         else
         {
             AppendLine(builder, "Depth: unknown");
-        }
-
-        if (zone.hasTsunamiHeight)
-        {
-            AppendLine(builder, $"Height: {zone.tsunamiHeightMeters:0.#}m");
-        }
-
-        if (!string.IsNullOrWhiteSpace(zone.sourceName))
-        {
-            AppendLine(builder, $"Source: {zone.sourceName}");
-        }
-
-        if (!string.IsNullOrWhiteSpace(zone.officialStatus))
-        {
-            AppendLine(builder, $"Status: {zone.officialStatus}");
-        }
-
-        if (!string.IsNullOrWhiteSpace(zone.notes))
-        {
-            AppendLine(builder, $"Notes: {zone.notes}");
         }
 
         return builder.ToString().TrimEnd();

@@ -1,5 +1,26 @@
 ---
 
+## 2026-05-17 | P4-C Real Data Debug Label Readability Polished
+
+### Completed
+
+Improved real sample shelter and hazard debug label readability without changing gameplay rules, scenes, ProjectSettings, Packages, PLATEAU assets, or the default `sourceMode = test`.
+
+Shelter marker labels now default to compact metadata: shelter name, facility type, capacity, and safe floor. Detailed shelter metadata remains available with the `M` toggle in Play Mode. Hazard debug labels now show compact name/family, hazard level, and depth while keeping the existing `H` toggle.
+
+Updated focused tests for compact shelter labels, detailed shelter metadata generation, compact hazard labels, and the existing no-gameplay-effect contract.
+
+### Smoke Checks
+
+- `powershell -ExecutionPolicy Bypass -File tools/run_unity_tests.ps1 -Mode EditMode` failed with the known batchmode wrapper issue and produced no `test-results/editmode-results.xml`.
+- `sourceMode` remained `test`.
+
+### Manual Recheck
+
+Temporarily enable `real_sample` in Unity Editor Play Mode, confirm compact labels are readable, press `M` to inspect detailed shelter metadata, press `H` to toggle hazard visualization, confirm gameplay rules are unchanged, then restore `sourceMode = test`.
+
+---
+
 ## 2026-05-17 | P4-BV Automated Validation Added
 
 ### Completed

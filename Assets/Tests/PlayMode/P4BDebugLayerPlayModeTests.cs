@@ -61,8 +61,8 @@ public class P4BDebugLayerPlayModeTests
         Assert.AreEqual(generatedCount, CountRealSampleShelters(shelters));
         Assert.AreEqual(generatedCount, entrances.Length);
         Assert.IsTrue(ContainsLabel(labels, "Harumi Sample Evacuation Building"));
-        Assert.IsTrue(ContainsLabel(labels, "Capacity: 150"));
-        Assert.IsTrue(ContainsLabel(labels, "Safe floor estimate: 5"));
+        Assert.IsTrue(ContainsLabel(labels, "Cap: 150"));
+        Assert.IsTrue(ContainsLabel(labels, "Safe floor: 5"));
     }
 
     [UnityTest]

@@ -141,8 +141,8 @@ public class TsunamiHazardDebugVisualizer : MonoBehaviour
         textMesh.text = shape.label;
         textMesh.anchor = TextAnchor.MiddleCenter;
         textMesh.alignment = TextAlignment.Center;
-        textMesh.characterSize = 0.34f;
-        textMesh.fontSize = 30;
+        textMesh.characterSize = 0.26f;
+        textMesh.fontSize = 24;
         textMesh.color = Color.white;
     }
 

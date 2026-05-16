@@ -4,6 +4,35 @@ public static class ShelterDebugMetadataFormatter
 {
     public static string BuildMarkerLabel(ShelterDataLoader.ShelterData shelterData)
     {
+        return BuildCompactMarkerLabel(shelterData);
+    }
+
+    public static string BuildCompactMarkerLabel(ShelterDataLoader.ShelterData shelterData)
+    {
+        if (shelterData == null)
+        {
+            return string.Empty;
+        }
+
+        var builder = new StringBuilder();
+        AppendLine(builder, shelterData.shelterName);
+        AppendMetadata(builder, "Type", shelterData.facilityType);
+
+        if (shelterData.capacity > 0)
+        {
+            AppendLine(builder, $"Cap: {shelterData.capacity}");
+        }
+
+        if (shelterData.safeFloor > 0)
+        {
+            AppendLine(builder, $"Safe floor: {shelterData.safeFloor}");
+        }
+
+        return builder.ToString().TrimEnd();
+    }
+
+    public static string BuildDetailedMarkerLabel(ShelterDataLoader.ShelterData shelterData)
+    {
         if (shelterData == null)
         {
             return string.Empty;

@@ -157,7 +157,8 @@ Real shelter positioning and metadata:
 - If a real shelter has `unityPosition`, that position is used.
 - The current P3 release sample has no `unityPosition`, so P4-B uses a deterministic schematic debug layout on the isolated test platform.
 - P4-B does not convert lat/lon to PLATEAU coordinates, match roads, infer entrances, or fake geographic precision.
-- Marker labels expose real sample metadata: shelter name, facility type, address, source/source type, capacity, safe floor estimate, source updated date, and notes where present.
+- Marker labels default to compact real sample metadata for readability: shelter name, facility type, capacity, and safe floor estimate where present.
+- Press `M` in Play Mode when `real_sample` markers are active to toggle detailed shelter metadata, including address, source/source type, source updated date, and notes where present.
 
 Hazard fixture behavior:
 
@@ -237,3 +238,29 @@ P4-BV CLI test status:
 - `test-results/editmode-results.xml` was not produced.
 - PlayMode CLI was not run because EditMode CLI did not complete.
 - Use the Unity Editor Test Runner for manual automated execution of the EditMode and PlayMode tests while the project is open in the Editor.
+
+## P4-C Debug Label Readability Polish
+
+Date: 2026-05-17
+
+Readability changes:
+
+- Real shelter marker labels now default to compact text: shelter name, facility type, capacity, and safe floor.
+- Detailed shelter metadata remains available through the runtime `M` toggle for validation without crowding the default view.
+- Real shelter label text is smaller and raised slightly above markers to reduce overlap.
+- Hazard debug labels are compact by default: zone name, family, hazard level, and depth.
+- Hazard debug text is smaller; the existing `H` hazard visualization toggle is unchanged.
+
+Boundaries preserved:
+
+- No gameplay rules changed.
+- Hazard visualization remains debug-only and has no success/failure effect.
+- No Unity scenes, `Chuo_BaseMap`, PLATEAU files, ProjectSettings, or Packages were modified.
+- Default `sourceMode` remains `test`.
+
+Validation:
+
+- Focused tests were updated so compact labels exclude long address/source/notes fields by default, detailed shelter metadata can still be generated, hazard labels stay compact, and hazard debug still has no gameplay rule effect.
+- Command attempted: `powershell -ExecutionPolicy Bypass -File tools/run_unity_tests.ps1 -Mode EditMode`
+- CLI result: failed with the known batchmode wrapper issue and did not produce `test-results/editmode-results.xml`.
+- Manual recheck: in Unity Editor Play Mode, temporarily enable `real_sample`, confirm compact real shelter labels are readable, press `M` to toggle detailed shelter metadata, press `H` to toggle hazard visualization, and confirm gameplay success/failure rules are unchanged. Revert `sourceMode` to `test` after manual validation.

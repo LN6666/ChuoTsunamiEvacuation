@@ -333,7 +333,7 @@ Warning:
 
 ### Phase 4-B: Real Shelter Markers and Debug Hazard Fixture
 
-Status: Implemented and pushed; automated validation added in P4-BV; manual visual validation still required
+Status: Implemented and pushed; automated validation added in P4-BV; debug label readability polished in P4-C
 
 Completed:
 
@@ -341,7 +341,7 @@ Completed:
 - Kept committed `sourceMode = test` as the default.
 - Added runtime-only real shelter marker generation for `sourceMode = real_sample`.
 - Generated markers use existing `BuildingShelter` and `ShelterEntranceTrigger` components.
-- Added marker labels for real shelter name, type, address, source, capacity, safe floor estimate, updated date, and notes.
+- Added marker labels for real shelter metadata.
 - Added deterministic debug layout fallback when `unityPosition` is absent.
 - Copied the P3 hazard fixture to `Assets/Data/sample_tsunami_hazard_zones.json`.
 - Added a hazard fixture loader and schematic debug visualizer toggled with `H` in Play Mode.
@@ -385,6 +385,33 @@ Manual validation required:
 - Confirm visible real shelter markers and metadata in `real_sample`.
 - Confirm player entry/climb/result flow remains compatible.
 - Confirm `H` hazard debug visualization appears and has no effect on tsunami risk wall success/failure rules.
+
+### Phase 4-C: Real Data Debug Label Readability Polish
+
+Status: Done; pending manual visual recheck in Unity Editor
+
+Completed:
+
+- Changed real shelter labels to compact defaults: shelter name, facility type, capacity, and safe floor.
+- Preserved detailed shelter metadata behind an `M` toggle in Play Mode.
+- Reduced shelter label text size and raised labels to reduce overlap.
+- Changed hazard labels to compact defaults: zone name, family, level, and depth.
+- Reduced hazard label text size while preserving the existing `H` visualization toggle.
+- Updated focused tests for compact labels and detailed metadata availability.
+
+Validation status:
+
+- `sourceMode` remains `test`.
+- CLI EditMode wrapper still failed to produce `test-results/editmode-results.xml`.
+
+Manual validation required:
+
+- Temporarily switch to `sourceMode = real_sample`.
+- Confirm real shelter compact labels are readable.
+- Press `M` and confirm detailed shelter metadata appears when needed.
+- Press `H` and confirm hazard visualization still toggles.
+- Confirm gameplay result rules are unchanged.
+- Revert `sourceMode` to `test`.
 
 ## Milestone 4: Risk Zone Data
 

@@ -84,8 +84,10 @@ public class TsunamiHazardFixtureLoaderTests
         Assert.Greater(shapes[0].localScale.z, 0f);
         StringAssert.Contains("Sample Harumi Low Hazard Zone", shapes[0].label);
         StringAssert.Contains("Level: 1", shapes[0].label);
-        StringAssert.Contains("Source: P3-02 Synthetic Tsunami Hazard Fixture", shapes[0].label);
-        StringAssert.Contains("Status: synthetic_sample", shapes[0].label);
+        StringAssert.Contains("Depth: 0.5m", shapes[0].label);
+        Assert.IsFalse(shapes[0].label.Contains("Source:"));
+        Assert.IsFalse(shapes[0].label.Contains("Status:"));
+        Assert.IsFalse(shapes[0].label.Contains("Notes:"));
     }
 
     [Test]
@@ -106,7 +108,11 @@ public class TsunamiHazardFixtureLoaderTests
             Assert.Greater(shapes[i].localScale.z, 0f);
             Assert.GreaterOrEqual(shapes[i].color.a, 0.3f);
             StringAssert.Contains(result.zones[i].zoneName, shapes[i].label);
-            StringAssert.Contains(result.zones[i].notes, shapes[i].label);
+            StringAssert.Contains($"Level: {result.zones[i].hazardLevel}", shapes[i].label);
+            if (!string.IsNullOrWhiteSpace(result.zones[i].notes))
+            {
+                Assert.IsFalse(shapes[i].label.Contains(result.zones[i].notes));
+            }
 
             for (int j = i + 1; j < shapes.Length; j++)
             {

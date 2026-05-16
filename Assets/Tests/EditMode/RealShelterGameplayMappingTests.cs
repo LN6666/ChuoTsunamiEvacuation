@@ -243,14 +243,21 @@ public class RealShelterGameplayMappingTests
             ShelterGameplayDataMapper.MapRealSheltersToGameplayData(result.realShelters);
 
         ShelterDataLoader.ShelterData first = mappedShelters[0];
-        string label = ShelterDebugMetadataFormatter.BuildMarkerLabel(first);
+        string compactLabel = ShelterDebugMetadataFormatter.BuildMarkerLabel(first);
+        string detailedLabel = ShelterDebugMetadataFormatter.BuildDetailedMarkerLabel(first);
 
-        StringAssert.Contains("Harumi Sample Evacuation Building", label);
-        StringAssert.Contains("tsunami_evacuation_building", label);
-        StringAssert.Contains("Harumi area, Chuo City, Tokyo", label);
-        StringAssert.Contains("Capacity: 150", label);
-        StringAssert.Contains("Safe floor estimate: 5", label);
-        StringAssert.Contains("Updated: 2026-05-15", label);
+        StringAssert.Contains("Harumi Sample Evacuation Building", compactLabel);
+        StringAssert.Contains("tsunami_evacuation_building", compactLabel);
+        StringAssert.Contains("Cap: 150", compactLabel);
+        StringAssert.Contains("Safe floor: 5", compactLabel);
+        Assert.IsFalse(compactLabel.Contains("Harumi area, Chuo City, Tokyo"));
+        Assert.IsFalse(compactLabel.Contains("Updated:"));
+        Assert.IsFalse(compactLabel.Contains("Notes:"));
+
+        StringAssert.Contains("Harumi area, Chuo City, Tokyo", detailedLabel);
+        StringAssert.Contains("Capacity: 150", detailedLabel);
+        StringAssert.Contains("Safe floor estimate: 5", detailedLabel);
+        StringAssert.Contains("Updated: 2026-05-15", detailedLabel);
     }
 
     [Test]
@@ -268,14 +275,21 @@ public class RealShelterGameplayMappingTests
             notes = string.Empty
         };
 
-        string label = ShelterDebugMetadataFormatter.BuildMarkerLabel(shelter);
+        string compactLabel = ShelterDebugMetadataFormatter.BuildMarkerLabel(shelter);
+        string detailedLabel = ShelterDebugMetadataFormatter.BuildDetailedMarkerLabel(shelter);
 
-        StringAssert.Contains("Metadata Optional Missing", label);
-        StringAssert.Contains("Source: real_sample", label);
-        StringAssert.Contains("Capacity: unknown", label);
-        Assert.IsFalse(label.Contains("Address:"));
-        Assert.IsFalse(label.Contains("Safe floor estimate:"));
+        StringAssert.Contains("Metadata Optional Missing", compactLabel);
+        Assert.IsFalse(compactLabel.Contains("Address:"));
+        Assert.IsFalse(compactLabel.Contains("Source:"));
+        Assert.IsFalse(compactLabel.Contains("Capacity:"));
+        Assert.IsFalse(compactLabel.Contains("Safe floor:"));
+
+        StringAssert.Contains("Source: real_sample", detailedLabel);
+        StringAssert.Contains("Capacity: unknown", detailedLabel);
+        Assert.IsFalse(detailedLabel.Contains("Address:"));
+        Assert.IsFalse(detailedLabel.Contains("Safe floor estimate:"));
         Assert.AreEqual(string.Empty, ShelterDebugMetadataFormatter.BuildMarkerLabel(null));
+        Assert.AreEqual(string.Empty, ShelterDebugMetadataFormatter.BuildDetailedMarkerLabel(null));
     }
 
     [Test]
