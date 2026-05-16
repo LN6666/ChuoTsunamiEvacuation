@@ -166,6 +166,49 @@ public class RealShelterGameplayMappingTests
     }
 
     [Test]
+    public void DuplicateDefaultZeroUnityPositionsUseSeparatedFallbackLayouts()
+    {
+        var firstShelter = new RealShelterDataLoader.RealShelterRecord
+        {
+            shelterId = "duplicate_zero_real_001",
+            shelterName = "Duplicate Zero Real 001",
+            unityPosition = new RealShelterDataLoader.UnityPosition()
+        };
+        var secondShelter = new RealShelterDataLoader.RealShelterRecord
+        {
+            shelterId = "duplicate_zero_real_002",
+            shelterName = "Duplicate Zero Real 002",
+            unityPosition = new RealShelterDataLoader.UnityPosition()
+        };
+
+        ShelterDataLoader.ShelterData[] mappedShelters =
+            ShelterGameplayDataMapper.MapRealSheltersToGameplayData(new[] { firstShelter, secondShelter });
+
+        Vector3 first = mappedShelters[0].layoutPosition.ToVector3();
+        Vector3 second = mappedShelters[1].layoutPosition.ToVector3();
+
+        Assert.GreaterOrEqual(Vector3.Distance(first, second), 8f);
+        Assert.AreEqual(new Vector3(8f, 0f, -14f), first);
+        Assert.AreEqual(new Vector3(16f, 0f, -14f), second);
+    }
+
+    [Test]
+    public void UniqueExplicitUnityPositionIsPreserved()
+    {
+        var realShelter = new RealShelterDataLoader.RealShelterRecord
+        {
+            shelterId = "unique_zero_real",
+            shelterName = "Unique Zero Real",
+            unityPosition = new RealShelterDataLoader.UnityPosition()
+        };
+
+        ShelterDataLoader.ShelterData[] mappedShelters =
+            ShelterGameplayDataMapper.MapRealSheltersToGameplayData(new[] { realShelter });
+
+        Assert.AreEqual(Vector3.zero, mappedShelters[0].layoutPosition.ToVector3());
+    }
+
+    [Test]
     public void UnityPositionOverridesFallbackLayout()
     {
         var realShelter = new RealShelterDataLoader.RealShelterRecord

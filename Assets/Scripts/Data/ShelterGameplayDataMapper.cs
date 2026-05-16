@@ -8,6 +8,7 @@ public static class ShelterGameplayDataMapper
     private const float FallbackSpacingX = 8f;
     private const float FallbackSpacingZ = 10f;
     private const int FallbackColumns = 3;
+    private const float PositionEpsilon = 0.0001f;
 
     public static ShelterDataLoader.ShelterData[] MapRealSheltersToGameplayData(
         RealShelterDataLoader.RealShelterRecord[] realShelters)
@@ -18,10 +19,14 @@ public static class ShelterGameplayDataMapper
         }
 
         var mappedShelters = new List<ShelterDataLoader.ShelterData>();
+        Dictionary<string, int> unityPositionCounts = CountUnityPositionKeys(realShelters);
 
         for (int i = 0; i < realShelters.Length; i++)
         {
-            ShelterDataLoader.ShelterData mappedShelter = MapRealShelterToGameplayData(realShelters[i], i);
+            ShelterDataLoader.ShelterData mappedShelter = MapRealShelterToGameplayData(
+                realShelters[i],
+                i,
+                ShouldUseFallbackLayout(realShelters[i], unityPositionCounts));
             if (mappedShelter != null)
             {
                 mappedShelters.Add(mappedShelter);
@@ -34,6 +39,14 @@ public static class ShelterGameplayDataMapper
     public static ShelterDataLoader.ShelterData MapRealShelterToGameplayData(
         RealShelterDataLoader.RealShelterRecord realShelter,
         int index)
+    {
+        return MapRealShelterToGameplayData(realShelter, index, false);
+    }
+
+    private static ShelterDataLoader.ShelterData MapRealShelterToGameplayData(
+        RealShelterDataLoader.RealShelterRecord realShelter,
+        int index,
+        bool forceFallbackLayout)
     {
         if (realShelter == null || string.IsNullOrWhiteSpace(realShelter.shelterId))
         {
@@ -66,7 +79,9 @@ public static class ShelterGameplayDataMapper
             facilityType = string.IsNullOrWhiteSpace(realShelter.facilityType)
                 ? "unknown"
                 : realShelter.facilityType,
-            layoutPosition = ResolveLayoutPosition(realShelter, index),
+            layoutPosition = forceFallbackLayout
+                ? CreateDeterministicFallbackLayout(index)
+                : ResolveLayoutPosition(realShelter, index),
             realFacilityName = realShelter.shelterName,
             address = realShelter.address,
             latitude = realShelter.latitude,
@@ -113,5 +128,61 @@ public static class ShelterGameplayDataMapper
             y = 0f,
             z = FallbackStartZ + row * FallbackSpacingZ
         };
+    }
+
+    private static Dictionary<string, int> CountUnityPositionKeys(RealShelterDataLoader.RealShelterRecord[] realShelters)
+    {
+        var counts = new Dictionary<string, int>();
+
+        foreach (RealShelterDataLoader.RealShelterRecord realShelter in realShelters)
+        {
+            if (realShelter == null || !realShelter.HasUnityPosition)
+            {
+                continue;
+            }
+
+            string key = CreatePositionKey(realShelter.unityPosition.ToVector3());
+            if (!counts.ContainsKey(key))
+            {
+                counts[key] = 0;
+            }
+
+            counts[key]++;
+        }
+
+        return counts;
+    }
+
+    private static bool ShouldUseFallbackLayout(
+        RealShelterDataLoader.RealShelterRecord realShelter,
+        Dictionary<string, int> unityPositionCounts)
+    {
+        if (realShelter == null || !realShelter.HasUnityPosition)
+        {
+            return true;
+        }
+
+        Vector3 unityPosition = realShelter.unityPosition.ToVector3();
+        if (!IsZeroPosition(unityPosition))
+        {
+            return false;
+        }
+
+        string key = CreatePositionKey(unityPosition);
+        return unityPositionCounts != null &&
+            unityPositionCounts.TryGetValue(key, out int count) &&
+            count > 1;
+    }
+
+    private static bool IsZeroPosition(Vector3 position)
+    {
+        return Mathf.Abs(position.x) <= PositionEpsilon &&
+            Mathf.Abs(position.y) <= PositionEpsilon &&
+            Mathf.Abs(position.z) <= PositionEpsilon;
+    }
+
+    private static string CreatePositionKey(Vector3 position)
+    {
+        return $"{position.x:0.####},{position.y:0.####},{position.z:0.####}";
     }
 }
