@@ -484,3 +484,25 @@ The test platform should support:
 - risk zone failure testing
 
 Do not require the first playable loop to identify real streets from the current Buildings / LOD1 model.
+
+## Phase 4 — Unity Integration of P3 Real Data Pipeline Outputs
+
+Status: Complete after DeepSeek final review.
+
+Completed:
+- P4-A0 branch setup, P3 merge, workspace baseline
+- P4-A1 real shelter loader and sourceMode
+- P4-B real shelter markers and hazard debug visualization
+- P4-BV automated validation
+- fallback layout validation fix
+- P4-C debug label readability polish
+- Unity Editor EditMode / PlayMode validation
+- manual real_sample and hazard visualization validation
+- DeepSeek final review with no A-level blockers
+
+Future non-blocking follow-up:
+- Replace reflection-based ShelterEntranceTrigger setup with public setup API if needed
+- Improve hazard debug material fallback robustness
+- Clarify behavior when disabling existing test shelters in complex scenes
+- Reduce fixed Assets/Data path assumptions in tests if project structure changes
+- Fix CLI batchmode test-results XML issue
