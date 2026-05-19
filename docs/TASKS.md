@@ -2,13 +2,32 @@
 
 ## Current Phase
 
-The project has completed environment setup, PLATEAU SDK installation, local Chuo City Buildings / LOD1 import, the first playable prototype, and Phase 3 real data pipeline preparation.
+The project has completed environment setup, PLATEAU SDK installation, local Chuo City Buildings / LOD1 import, the first playable prototype, Phase 3 real data pipeline preparation, and Phase 4 Unity integration of the P3 real shelter/hazard sample.
 
 The first playable prototype has been Unity-tested, DeepSeek V4 Pro max-thinking reviewed, committed, and pushed to GitHub.
 
 Current branch focus:
 
-Phase 4 real data integration is implementation-complete on `phase4-unity-real-data-integration` and ready for final DeepSeek review / merge decision.
+Phase 5 qualification, routing, PLATEAU matching, and Unity map-decision integration planning is starting on `phase5-qualification-routing-plateau`.
+
+## Phase 5: Qualification, Routing, PLATEAU Matching, and Unity Integration
+
+Status: P5-A0 documentation baseline in progress.
+
+Planned tasks:
+
+- P5-A0: workspace setup, documentation baseline, and open-source reference candidate registry.
+- P5-A1: official evidence source review and open-source reference decisions.
+- P5-A2: evacuation building qualification rulebook foundation.
+- P5-B: PLATEAU qualification/matching and GIS routing pipeline.
+- P5-C: Unity integration for qualified buildings, routes, confidence, warnings, and decision feedback.
+- P5 final review: validation summary, DeepSeek review, scope boundary confirmation, and merge decision.
+
+Scope boundaries:
+
+- Do not confuse official confirmed evacuation buildings with non-official candidates.
+- Do not implement routing, PLATEAU matching, qualification logic, data downloads, scraping, dependency installation, or Unity changes in P5-A0.
+- Keep QGIS as a manual QA option, not a Unity runtime dependency.
 
 ## Milestone 0: Environment Setup
 
@@ -404,7 +423,7 @@ Manual validation completed:
 
 ### Phase 4 Final Closure
 
-Status: Complete; pending DeepSeek final review / merge decision
+Status: Complete; merged into `master` after DeepSeek final review
 
 Completed:
 

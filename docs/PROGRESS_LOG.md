@@ -1,5 +1,27 @@
 ---
 
+## 2026-05-19 | P5-A0 Qualification Routing Baseline Started
+
+### Completed
+
+Created branch `phase5-qualification-routing-plateau` from updated `master`.
+
+Established the Phase 5 scope for evidence-based evacuation building qualification, GIS routing, PLATEAU building matching, and Unity route/building integration.
+
+Recorded the P5-A / P5-B / P5-C structure and created the open-source reference candidate registry for later evaluation.
+
+Reserved a documentation-only qualification workspace for future rulebook/schema outputs.
+
+### Scope Boundary
+
+No code, Unity gameplay, Unity scenes, Unity data files, PLATEAU imports, `ProjectSettings`, `Packages`, official data downloads, scraping, dependency installation, GIS routing, or building matching were performed.
+
+### Next Step
+
+P5-A1 should review official evidence sources and make open-source reference decisions before any implementation or data ingestion.
+
+---
+
 ## 2026-05-17 | P4 Final Validation Recorded
 
 ### Completed

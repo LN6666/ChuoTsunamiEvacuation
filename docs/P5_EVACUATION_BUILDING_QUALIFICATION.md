@@ -1,0 +1,76 @@
+# Phase 5 Evacuation Building Qualification
+
+## Phase 5 Goal
+
+Phase 5 builds a prototype chain for evidence-based evacuation building qualification, GIS routing, PLATEAU building matching, and Unity route/building integration for map-based shelter decision validation.
+
+The phase must keep official evidence, candidate inference, routing estimates, and Unity visualization clearly separated.
+
+## P5 Structure
+
+- P5-A: official evidence registry and evacuation building qualification rulebook.
+- P5-B: PLATEAU building qualification/matching and GIS routing pipeline.
+- P5-C: Unity route and qualified building integration.
+
+## P5-A Research Question
+
+Which PLATEAU buildings in Tokyo Chuo Ward can be considered evacuation buildings, and based on what evidence?
+
+P5-A answers this by defining source families, evidence confidence, qualification statuses, and manual review rules before any matching or routing implementation begins.
+
+## Evidence Priority
+
+Evidence should be evaluated in this order:
+
+1. Official evacuation shelter, evacuation building, disaster facility, or related administrative facility data.
+2. Official hazard/disaster maps and administrative disaster documents.
+3. PLATEAU building geometry and attributes.
+4. Academic papers, policy reports, and technical reports.
+5. OSM, road network, and routing data as auxiliary sources.
+
+Papers and reports may define candidate criteria or review logic, but they must not be used to claim that a non-official building is officially designated.
+
+## Qualification Status Taxonomy
+
+- `official_confirmed`: the building is directly confirmed by official source evidence.
+- `official_confirmed_with_review`: official evidence likely confirms the building, but spatial matching, naming, address, geometry, or update-date ambiguity requires review.
+- `strong_candidate`: non-official or derived evidence strongly suggests suitability under documented criteria, but the building is not claimed as officially designated.
+- `weak_candidate`: limited or partial evidence suggests possible suitability, with significant uncertainty.
+- `unknown`: available evidence is insufficient to qualify or reject the building.
+- `not_qualified`: evidence or rule checks indicate the building should not be treated as an evacuation building candidate.
+
+## Required Future P5-A1 Outputs
+
+P5-A1 should produce:
+
+- an official evidence registry
+- an evacuation building qualification rulebook
+- source family definitions
+- evidence confidence levels
+- manual review flags
+- a schema plan for future building qualification outputs
+
+The schema plan should identify fields needed by P5-B matching/routing and P5-C Unity integration, but P5-A1 should remain documentation and evidence-review focused unless separately approved.
+
+## P5 Safety Boundaries
+
+- Do not confuse official buildings with non-official candidates.
+- Do not make unsupported claims that a candidate building is officially designated.
+- Do not parse CityGML at Unity runtime.
+- Do not reimport PLATEAU data.
+- Do not implement full flood simulation.
+- Do not implement real road navigation in P5-A.
+- Do not modify Unity scenes in P5-A.
+- Do not modify `Assets/Scenes/Chuo_BaseMap.unity`.
+
+## QGIS Role
+
+QGIS is a manual spatial QA and validation tool, not a runtime dependency.
+
+The Python/GIS pipeline must generate reproducible processed outputs. Unity should consume processed outputs only, never raw CityGML, raw GIS archives, QGIS project state, or manual-only intermediate files.
+
+## Manual Validation Preview
+
+- P5-A: evidence review, taxonomy review, official/non-official boundary review, and source confidence review.
+- P5-B: QGIS spatial QA for PLATEAU matching, candidate qualification geometry checks, CRS sanity, and routing output inspection.
+- P5-C: Unity validation for route/building display, confidence and warning labels, decision feedback, and preservation of existing gameplay boundaries.
