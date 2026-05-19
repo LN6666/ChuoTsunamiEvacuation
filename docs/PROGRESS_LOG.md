@@ -2,6 +2,36 @@
 
 ---
 
+---
+
+## 2026-05-19 | P5-B2 Real Chuo Ingestion Readiness
+
+### Completed
+
+Created dependency/environment planning for P5 validation and future GIS/routing packages.
+
+Created real Chuo ingestion planning for official source families, staged ingestion, provenance requirements, raw-data policy, processed-output policy, validation requirements, and P5-B3 next actions.
+
+Created CRS and QGIS QA planning for projected-CRS metric operations, Unity coordinate boundaries, planned QA layers, and manual spatial checks.
+
+Added standard-library planning tests for required planning JSON keys, source family coverage, CRS metric-operation rules, validation package expectations, and raw large-file commit policy.
+
+### Validation Notes
+
+Planning JSON files pass Python built-in JSON syntax validation. The planning test file compiles with `py_compile`.
+
+The active environment still has Python 3.12.10 and built-in `json`, but `jsonschema`, `pytest`, GeoPandas, Shapely, pyproj, NetworkX, and OSMnx are unavailable. No dependencies were installed.
+
+### Scope Boundary
+
+No official data download, scraping, dependency installation, OSM network download, CityGML parsing, full PLATEAU matching, real GIS routing, Unity change, Unity scene change, `Assets/Data` change, `ProjectSettings`, `Packages`, raw data, or large GIS file was added.
+
+### Next Step
+
+P5-B3 should create or verify a project-local Python GIS environment, then build a small controlled real-source fixture after manual source/license review.
+
+---
+
 ## 2026-05-19 | P5-B1 Controlled Qualification Pipeline Sample
 
 ### Completed

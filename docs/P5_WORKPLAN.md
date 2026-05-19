@@ -87,6 +87,23 @@ P5-B2 planned next step:
 
 P5-B2 should move from controlled synthetic fixtures to controlled real Chuo data ingestion planning and implementation. It should define the approved source collection workflow, CRS policy, QGIS QA checklist, actual PLATEAU/OSM routing decisions, and reproducible outputs before any Unity integration.
 
+## P5-B2 Real Chuo Ingestion Readiness
+
+P5-B2 defines readiness plans for controlled real Chuo ingestion without downloading, scraping, installing dependencies, parsing CityGML, performing real routing, performing real PLATEAU matching, or touching Unity.
+
+Completion criteria:
+
+- dependency/environment plan records the current Python package availability and the project-local environment strategy
+- real Chuo ingestion plan defines source families, staged ingestion, provenance requirements, raw-data policy, processed-output policy, and validation expectations
+- CRS/QGIS QA plan defines projected-CRS rules, Unity coordinate boundaries, planned QA layers, and manual spatial checks
+- machine-readable planning JSON files validate with Python's built-in JSON parser
+- standard-library planning tests are added and syntax-checked
+- `sourceMode` remains `test` and no Unity, `Assets/Data`, scene, `ProjectSettings`, `Packages`, PLATEAU, raw data, or large GIS files are changed
+
+P5-B3 next step:
+
+P5-B3 should create or verify a project-local Python GIS environment, then create a small controlled real-source fixture after manual source/license review. It should not process full datasets until validation, provenance, and CRS checks pass on the controlled fixture path.
+
 ## P5-B Planned Pipeline
 
 P5-B should build the reproducible PLATEAU qualification/matching and GIS routing pipeline after P5-A rule definitions are approved.

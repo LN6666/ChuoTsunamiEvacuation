@@ -107,6 +107,18 @@ Nearest and unmatched matches trigger `manualReviewNeeded` with warnings. Route 
 
 P5-B2 should replace the controlled placeholders with controlled real Chuo source ingestion, CRS-aware PLATEAU matching decisions, OSM routing decisions, and QGIS QA before Unity integration.
 
+## P5-B2 Real Ingestion Readiness
+
+P5-B2 does not ingest full real Chuo data yet. It creates readiness plans for dependency setup, source provenance, CRS discipline, and QGIS QA before real spatial processing begins.
+
+The dependency plan records that the active environment has Python and built-in JSON support, while `jsonschema`, `pytest`, GeoPandas, Shapely, pyproj, NetworkX, and OSMnx are not currently installed. P5-B3 should resolve this through a project-local environment rather than global installs.
+
+The real Chuo ingestion plan preserves the official/candidate boundary from P5-A2 and P5-B1. Official shelter/facility and evacuation-building records are the only source families that can directly support official designation; PLATEAU attributes, hazard context, OSM routes, and literature/report criteria remain supporting evidence or review context.
+
+The CRS/QGIS QA plan requires metric matching and route distance logic to use a projected CRS suitable for Tokyo/Chuo. QGIS QA will guard against coordinate shifts, incorrect shelter/building matches, route geometry problems, unmatched points, low-confidence points, and hazard-layer misalignment.
+
+Future P5-B3/B4/B5 milestones should start controlled real data ingestion in stages: first a small official-source fixture, then controlled PLATEAU footprint/attribute preparation, then controlled OSM route sample preparation after download/cache/attribution policy is approved.
+
 ## P5 Safety Boundaries
 
 - Do not confuse official buildings with non-official candidates.
