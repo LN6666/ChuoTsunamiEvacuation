@@ -60,12 +60,28 @@ Useful future QA outputs may include small GeoJSON layers, CSV review tables, PN
 
 ## P5-B4 QA Layer Status
 
-P5-B4 did not create real QGIS QA layers because the required real inputs are missing:
+P5-B4 created real processed QGIS QA layers from official Chuo/Tokyo/GSI shelter evidence and a limited local PLATEAU building mesh subset.
 
-- approved real Chuo official shelter/evacuation facility input
-- approved processed PLATEAU building footprint/attribute input
+CRS choices:
 
-The local environment is ready for CRS-aware processing, but QGIS QA layer generation must wait until those inputs exist. Synthetic P3 shelter samples and raw CityGML are not acceptable substitutes for B4 completion.
+- source/interchange CRS: `EPSG:4326`
+- metric processing CRS: `EPSG:6677`
+
+Generated QA layers:
+
+- `data_pipeline/processed/qgis_qa/real_chuo_shelter_points.geojson`
+- `data_pipeline/processed/qgis_qa/real_chuo_building_footprints.geojson`
+- `data_pipeline/processed/qgis_qa/real_chuo_match_lines.geojson`
+- `data_pipeline/processed/qgis_qa/real_chuo_low_confidence_or_unmatched.geojson`
+
+Manual B4 QA checklist:
+
+- verify shelter points align with expected Chuo locations
+- verify matched building footprints are plausible for `contains` records
+- inspect the 3 `nearest` records before treating them as accepted matches
+- inspect the 4 broad evacuation-area `unmatched` records and confirm they should not be assigned to a single building automatically
+- verify no visible coordinate shift between shelter points, building footprints, and match lines
+- keep route QA deferred until P5-B5, because B4 route fields are `not_evaluated`
 
 ## Risks
 

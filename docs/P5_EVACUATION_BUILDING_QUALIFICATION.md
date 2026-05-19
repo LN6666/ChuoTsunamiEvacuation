@@ -119,13 +119,32 @@ The CRS/QGIS QA plan requires metric matching and route distance logic to use a 
 
 Future P5-B3/B4/B5 milestones should start controlled real data ingestion in stages: first a small official-source fixture, then controlled PLATEAU footprint/attribute preparation, then controlled OSM route sample preparation after download/cache/attribution policy is approved.
 
-## P5-B4 Real Input Blocker
+## P5-B4 Real Official Data And PLATEAU Matching
 
-P5-B4 verified the project-local P5 Python environment, but full real Chuo building qualification and PLATEAU matching is blocked.
+P5-B4 ingests official Chuo/Tokyo/GSI evacuation-place and shelter data, then matches normalized Chuo records to a limited local PLATEAU building mesh subset.
 
-The available P3 shelter outputs are synthetic placeholders and cannot support official designation claims. The repository also does not contain an approved processed PLATEAU building footprint/attribute input. Local raw PLATEAU CityGML exists outside the repository, but parsing raw CityGML/full PLATEAU data is outside the B4 scope.
+Primary outputs:
 
-No real qualification outputs, shelter-building match outputs, or QGIS QA layers were created for B4 because doing so would require fabricating data or treating synthetic fixtures as real evidence.
+- `data_pipeline/sources/real_chuo_official_source_manifest.json`
+- `data_pipeline/processed/qualification/real_chuo_official_shelters_normalized.json`
+- `data_pipeline/processed/qualification/real_chuo_building_qualification.json`
+- `data_pipeline/processed/qualification/real_chuo_shelter_building_matches.json`
+- `data_pipeline/processed/qgis_qa/real_chuo_shelter_points.geojson`
+- `data_pipeline/processed/qgis_qa/real_chuo_building_footprints.geojson`
+- `data_pipeline/processed/qgis_qa/real_chuo_match_lines.geojson`
+- `data_pipeline/processed/qgis_qa/real_chuo_low_confidence_or_unmatched.geojson`
+
+The Chuo City open-data file is the primary official source. Tokyo Metropolitan Government and GSI records are retained as official reference cross-checks. Literature/report criteria are not used to create official claims.
+
+PLATEAU geometry is used only for spatial matching. It supports `contains`, `nearest`, and `unmatched` decisions but does not prove official designation by itself.
+
+B4 status counts:
+
+- `official_confirmed`: 24 records with official evidence and unambiguous contains matches
+- `official_confirmed_with_review`: 3 records with official evidence and nearest/ambiguous matching
+- `unknown`: 4 broad evacuation-area records not assigned to a single PLATEAU building
+
+Route fields remain `not_evaluated`. P5-B5 is responsible for prototype routing and route QA.
 
 ## P5 Safety Boundaries
 

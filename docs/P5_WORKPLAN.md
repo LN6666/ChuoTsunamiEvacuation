@@ -122,20 +122,42 @@ P5-B4 next step:
 
 P5-B4 should run or verify the project-local P5 environment with user approval, complete provenance/license review for selected source candidates, and create a small controlled real-source fixture plus schema-shaped outputs. It should still avoid full datasets, full PLATEAU parsing, real routing, and Unity integration.
 
-## P5-B4 Real Qualification Attempt
+## P5-B4 Official Data Ingestion And PLATEAU Matching
 
-P5-B4 environment setup succeeded: `data_pipeline/.venv` was created and the required validation/GIS packages imported successfully.
+P5-B4 completed the first real-data building qualification and local PLATEAU matching pipeline.
 
-P5-B4 implementation is blocked because required real inputs are missing:
+Completed scope:
 
-- no approved real Chuo official shelter/evacuation facility input with provenance/license review was found
-- no approved processed PLATEAU building footprint/attribute input was found
+- downloaded official Chuo/Tokyo/GSI shelter and evacuation-place source files into ignored `data_pipeline/downloads/` paths
+- recorded source provenance in `data_pipeline/sources/real_chuo_official_source_manifest.json`
+- normalized 31 official Chuo records into processed JSON/CSV outputs
+- used a limited local PLATEAU CityGML building mesh subset from `D:\PLATEAU_DATA\Chuo_2025_CityGML\udx\bldg`
+- computed shelter-to-building `contains`, `nearest`, and `unmatched` matches using EPSG:6677 for meter distances
+- generated schema-valid building qualification JSON/CSV and shelter-building match JSON/CSV
+- generated small QGIS QA GeoJSON layers for shelter points, matched footprints, match lines, and low-confidence/unmatched records
+- added pytest coverage for official source ingestion, output schema validation, official evidence rules, B4 routing scope, and QA layer creation
 
-The repository contains P3 synthetic shelter samples and source candidate registries, but those are not official real source records. Local raw PLATEAU CityGML exists under `D:\PLATEAU_DATA`, but parsing raw CityGML/full PLATEAU data is outside the B4 prompt.
+Completion summary:
 
-P5-B4-unblock next step:
+- shelter records processed: 31
+- candidate PLATEAU buildings extracted near shelter points: 4,447
+- distinct matched PLATEAU buildings: 26
+- match methods: 24 `contains`, 3 `nearest`, 4 `unmatched`
+- qualification statuses: 24 `official_confirmed`, 3 `official_confirmed_with_review`, 4 `unknown`
+- manual review records: 7
+- schema validation passed for 31 records
+- pytest passed: 9 tests
 
-Prepare a small approved real official source fixture and a small approved processed PLATEAU building footprint/attribute fixture, then rerun the real building qualification and matching implementation.
+Scope boundaries preserved:
+
+- raw official downloads are ignored and not committed
+- raw PLATEAU CityGML remains local and unmodified
+- no OSM routing, Unity integration, Unity scene change, `Assets/Data`, `ProjectSettings`, or `Packages` change was made
+- `sourceMode` remains `test`
+
+P5-B5 next step:
+
+Use the B4 qualification and match outputs as the input to an OSM routing sample. P5-B5 should define OSM attribution/cache behavior, compute prototype route fields, keep route outputs clearly non-official, and generate route QA layers before any Unity integration.
 
 ## P5-B Planned Pipeline
 

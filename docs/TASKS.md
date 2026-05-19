@@ -12,7 +12,7 @@ Phase 5 qualification, routing, PLATEAU matching, and Unity map-decision integra
 
 ## Phase 5: Qualification, Routing, PLATEAU Matching, and Unity Integration
 
-Status: P5-B4 blocked on missing approved real inputs.
+Status: P5-B4 official data ingestion and local PLATEAU building matching complete. P5-B5 routing sample is next.
 
 Planned tasks:
 
@@ -22,9 +22,8 @@ Planned tasks:
 - P5-B1: controlled sample qualification/matching/routing pipeline using the P5-A2 schema. Done.
 - P5-B2: real Chuo ingestion readiness, dependency/environment plan, CRS/QGIS QA plan, and P5-B3 execution plan. Done.
 - P5-B3: project-local Python GIS environment helper and source provenance/fixture readiness. Done.
-- P5-B4: real Chuo building qualification and PLATEAU matching. Blocked: missing approved real official source input and missing processed PLATEAU building footprint/attribute input.
-- P5-B4-unblock: prepare approved real official source fixture and processed PLATEAU building footprint/attribute fixture. Next.
-- P5-B5: OSM routing sample and integrated route-output planning/implementation after B4 inputs are resolved.
+- P5-B4: official Chuo/Tokyo/GSI data ingestion, real Chuo building qualification, and local PLATEAU building matching. Done.
+- P5-B5: OSM routing sample and integrated route-output planning/implementation. Next.
 - P5-B: PLATEAU qualification/matching and GIS routing pipeline.
 - P5-C: Unity integration for qualified buildings, routes, confidence, warnings, and decision feedback.
 - P5 final review: validation summary, DeepSeek review, scope boundary confirmation, and merge decision.
@@ -63,15 +62,15 @@ P5-B3 completed outputs:
 - standard-library tests for environment/source readiness planning files
 - no setup script execution, dependency installation, data download, Unity change, real routing, or real PLATEAU matching
 
-P5-B4 blocker:
+P5-B4 completed outputs:
 
-- project-local venv setup succeeded under `data_pipeline/.venv`
-- B4 required packages imported from the venv
-- no approved real Chuo official shelter/evacuation facility input was found
-- no approved processed PLATEAU building footprint/attribute input was found
-- P3 shelter outputs are synthetic placeholders and cannot be used as real official evidence
-- raw local PLATEAU CityGML exists but cannot be parsed in this B4 prompt
-- no fake qualification/matching outputs were created
+- official source manifest for Chuo/Tokyo/GSI shelter and evacuation-place inputs
+- official shelter ingestion script and 31-record normalized official Chuo output
+- real building qualification script using a limited local PLATEAU CityGML mesh subset
+- schema-valid qualification JSON/CSV and shelter-building match JSON/CSV
+- QGIS QA GeoJSON layers for shelter points, matched building footprints, match lines, and low-confidence/unmatched records
+- focused pytest coverage for source ingestion, schema validation, official evidence rules, B4 routing boundaries, and QGIS layer creation
+- validation passed in `data_pipeline/.venv`: 31 schema-valid records and 9 pytest tests
 
 ## Milestone 0: Environment Setup
 

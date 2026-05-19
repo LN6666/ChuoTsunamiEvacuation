@@ -106,6 +106,33 @@ Every processed output should include CRS metadata, source provenance, generatio
 - Hazard map scope may not apply cleanly to Chuo tsunami decision logic.
 - OSM route estimates may be incomplete or misleading if treated as official guidance.
 
+## P5-B4 Actual Ingestion
+
+P5-B4 performed the first approved official-source ingestion stage.
+
+Official source manifest:
+
+- `data_pipeline/sources/real_chuo_official_source_manifest.json`
+
+Raw downloaded official files remain local and ignored under:
+
+- `data_pipeline/downloads/chuo/`
+- `data_pipeline/downloads/tokyo/`
+- `data_pipeline/downloads/gsi/`
+
+Normalized official Chuo output:
+
+- `data_pipeline/processed/qualification/real_chuo_official_shelters_normalized.json`
+- `data_pipeline/processed/qualification/real_chuo_official_shelters_normalized.csv`
+
+The normalized output contains 31 Chuo official evacuation-place/shelter records. Chuo City open data is the primary source; Tokyo and GSI records are retained as official reference cross-checks when names match.
+
+P5-B4 also created a shelter-to-PLATEAU matching input manifest:
+
+- `data_pipeline/qualification/real_chuo_building_matching_input_manifest.json`
+
+The PLATEAU side uses existing local CityGML under `D:\PLATEAU_DATA` through a shelter-focused mesh subset. Raw CityGML is not committed, and Unity does not read it.
+
 ## Next Action
 
-P5-B3 should set up or verify the local Python validation/GIS environment, then create a small controlled real-source fixture after manual source/license review. It should not expand to full real datasets until the fixture path, provenance fields, and validation behavior are stable.
+P5-B5 should add OSM routing sample processing on top of the B4 normalized shelter and building-match outputs. It should define OSM attribution/cache policy, keep route results labeled as prototype estimates, and generate route QA layers before any P5-C Unity integration.

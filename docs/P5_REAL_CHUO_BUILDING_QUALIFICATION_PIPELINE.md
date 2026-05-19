@@ -1,101 +1,162 @@
 # P5 Real Chuo Building Qualification Pipeline
 
-## P5-B4 Status
+## Purpose
 
-P5-B4 is blocked by missing approved real inputs.
+P5-B4 ingests official Chuo/Tokyo/GSI evacuation-place and shelter data, normalizes Chuo Ward records, extracts a limited local PLATEAU building-footprint subset from existing local CityGML, and produces schema-valid building qualification and shelter-to-building match outputs.
 
-The project-local P5 Python environment was created successfully under `data_pipeline/.venv`, and required B4 packages import from that environment:
+This is a real-data pipeline stage, but it is still a processing/QA milestone. It does not modify Unity, run OSM routing, change gameplay rules, or commit raw source downloads.
 
-- `jsonschema`
-- `pytest`
-- `geopandas`
-- `shapely`
-- `pyproj`
-- `networkx`
+## Official Sources
 
-`osmnx` is also installed, but B4 does not use OSM routing.
+Raw official downloads are local ignored inputs under `data_pipeline/downloads/` and are not committed.
 
-## Input Search Result
+Accepted source manifest:
 
-Local repository/project paths inspected:
+- `data_pipeline/sources/real_chuo_official_source_manifest.json`
 
-- `data_pipeline/raw/`
-- `data_pipeline/sources/`
-- `data_pipeline/processed/`
-- `data_pipeline/processed/release/`
-- `data_pipeline/qualification/`
-- `data_pipeline/manual/`
-- `data_pipeline/input/`
-- `data_pipeline/external/`
+Official sources used:
 
-Known local PLATEAU data root was checked only at directory level:
+- Chuo City open data, `指定緊急避難所一覧`: `https://www.city.chuo.lg.jp/documents/984/shiteikinkyuuhinan.csv`
+- Tokyo Open Data Catalog, `東京都防災マップ 避難所一覧データCSV`: `https://www.opendata.metro.tokyo.lg.jp/soumu/130001_evacuation_center.csv`
+- Tokyo Open Data Catalog, `東京都防災マップ 避難場所一覧データCSV`: `https://www.opendata.metro.tokyo.lg.jp/soumu/130001_evacuation_area.csv`
+- GSI Chuo emergency evacuation places: `https://hinanmap.gsi.go.jp/hinanjocp/defaultFtpData/csv/13102_2.csv`
+- GSI Chuo designated shelters: `https://hinanmap.gsi.go.jp/hinanjocp/defaultFtpData/csv/13102_1.csv`
 
-- `D:\PLATEAU_DATA\Chuo_2025_CityGML`
-- `D:\PLATEAU_DATA\Chuo_2025_3DTiles_MVT`
-- `D:\PLATEAU_DATA\Chuo_2025_Related`
-- `D:\PLATEAU_DATA\Original_Zip`
+The Chuo City open-data file is treated as the primary official evidence source. Tokyo and GSI records are used as official reference cross-checks when facility names match.
 
-No real PLATEAU building footprint/attribute input suitable for B4 matching was found in the repository or approved processed paths.
+## Normalized Shelter Input
 
-## Blockers
+Normalizer:
 
-The available shelter-like inputs are P3 synthetic samples:
+- `data_pipeline/scripts/ingest_official_chuo_shelters.py`
 
-- `data_pipeline/processed/real_chuo_shelters_sample.json`
-- `data_pipeline/processed/release/real_chuo_shelters_sample.json`
+Outputs:
 
-Both explicitly state that records are synthetic placeholders and not official.
+- `data_pipeline/processed/qualification/real_chuo_official_shelters_normalized.json`
+- `data_pipeline/processed/qualification/real_chuo_official_shelters_normalized.csv`
 
-The available source registry files identify candidate official sources but do not contain downloaded, manually reviewed, or approved official records:
+Normalized record count: 31.
 
-- `data_pipeline/sources/source_candidates.json`
-- `data_pipeline/sources/source_manifest.json`
+Each normalized record preserves source owner, source URL, update/download metadata, license/terms notes, address, EPSG:4326 coordinates, disaster-type flags, capacity when parseable, official designation status, manual review flags, and evidence sources.
 
-The available PLATEAU data is raw/local source data, not a processed building footprint fixture:
+## PLATEAU Building Input
 
-- raw CityGML exists under `D:\PLATEAU_DATA\Chuo_2025_CityGML`
-- no approved small processed building footprint GeoJSON/CSV/GPKG was found
-- parsing raw CityGML or full PLATEAU data is outside this B4 prompt
+No committed processed PLATEAU footprint file existed before B4. P5-B4 therefore uses a limited extraction path from existing local PLATEAU CityGML files under:
 
-Because of these gaps, B4 cannot honestly produce full real Chuo building qualification and PLATEAU matching outputs.
+- `D:\PLATEAU_DATA\Chuo_2025_CityGML\udx\bldg`
 
-## Not Created
+The extraction is not a full PLATEAU parse. It selects only mesh files needed for the official shelter point mesh codes and only keeps building footprints within a fixed buffer around those points.
 
-The following B4 success outputs were not created because doing so would require fabricating data or using synthetic fixtures as if they were real:
+Input manifest:
+
+- `data_pipeline/qualification/real_chuo_building_matching_input_manifest.json`
+
+B4 selected 13 local building mesh files, extracted 4,447 nearby candidate building footprints, and matched 26 distinct PLATEAU buildings.
+
+## CRS Strategy
+
+Source/interchange CRS:
+
+- `EPSG:4326`
+
+Metric processing CRS:
+
+- `EPSG:6677`
+
+All distance thresholds and `matchDistanceMeters` values are computed after projection to EPSG:6677. The pipeline does not compute meter distances directly in longitude/latitude.
+
+## Matching Logic
+
+Builder:
+
+- `data_pipeline/scripts/build_real_chuo_building_qualification.py`
+
+Methods:
+
+- `contains`: shelter point is covered by one selected PLATEAU footprint.
+- `nearest`: shelter point is outside the footprint but within the B4 nearest threshold.
+- `unmatched`: no acceptable building match, or the official record describes a broad evacuation area rather than a single building.
+
+Broad evacuation areas such as park/area districts are not force-matched to a building even if a nearby or containing footprint exists. They remain `unknown` with manual review warnings.
+
+## Qualification Rules
+
+Official designation claims require official evidence from Chuo/Tokyo/GSI records.
+
+PLATEAU geometry supports spatial matching only. It does not independently prove official designation.
+
+Current B4 outputs:
+
+- `official_confirmed`: 24
+- `official_confirmed_with_review`: 3
+- `unknown`: 4
+
+Match method counts:
+
+- `contains`: 24
+- `nearest`: 3
+- `unmatched`: 4
+
+Manual review count: 7.
+
+Route fields remain `not_evaluated`; P5-B5 will add routing.
+
+## Outputs
+
+Qualification outputs:
 
 - `data_pipeline/processed/qualification/real_chuo_building_qualification.json`
 - `data_pipeline/processed/qualification/real_chuo_building_qualification.csv`
+
+Shelter-building match outputs:
+
 - `data_pipeline/processed/qualification/real_chuo_shelter_building_matches.json`
 - `data_pipeline/processed/qualification/real_chuo_shelter_building_matches.csv`
+
+QGIS QA layers:
+
 - `data_pipeline/processed/qgis_qa/real_chuo_shelter_points.geojson`
 - `data_pipeline/processed/qgis_qa/real_chuo_building_footprints.geojson`
 - `data_pipeline/processed/qgis_qa/real_chuo_match_lines.geojson`
 - `data_pipeline/processed/qgis_qa/real_chuo_low_confidence_or_unmatched.geojson`
 
-## Required To Unblock
+The GeoJSON QA layers are small processed QA exports. They are not raw PLATEAU or raw official source data.
 
-P5-B4 needs both of the following before implementation:
+## Validation
 
-1. A small, approved real Chuo official shelter/evacuation facility input with source provenance and license/terms review.
-2. A small, approved processed PLATEAU building footprint/attribute input, such as GeoJSON or CSV plus geometry, prepared without parsing raw CityGML inside this milestone.
+Commands run with `data_pipeline/.venv/Scripts/python.exe`:
 
-The processed PLATEAU input should include:
+- `data_pipeline/scripts/ingest_official_chuo_shelters.py`
+- `data_pipeline/scripts/build_real_chuo_building_qualification.py`
+- `data_pipeline/scripts/validate_building_qualification.py --input data_pipeline/processed/qualification/real_chuo_building_qualification.json --schema data_pipeline/qualification/evacuation_building_qualification_schema.json`
+- `python -m pytest data_pipeline/tests/test_official_chuo_shelter_ingestion.py data_pipeline/tests/test_real_chuo_building_qualification.py`
 
-- `plateauBuildingId`
-- geometry or footprint representation
-- CRS metadata
-- building name if available
-- height/floor/use attributes if available
-- source/provenance notes
+Result:
 
-## Validation Result
+- schema validation passed for 31 qualification records
+- pytest passed: 9 tests
 
-No B4 output validation or matching tests were run because the required real input contract is not satisfiable with the current repository inputs.
+## Manual QGIS QA
+
+Use QGIS to inspect:
+
+- shelter point alignment against basemap/context
+- matched PLATEAU footprints
+- match lines from shelter points to matched building centroids
+- nearest-match records
+- broad evacuation areas left unmatched
+- any low-confidence/manual-review point
+
+Manual QA should confirm there is no visible coordinate shift and that nearest matches are plausible before P5-C uses these outputs in Unity.
+
+## Limitations
+
+- P5-B4 does not parse every local PLATEAU building file; it extracts a shelter-focused mesh subset.
+- Official source points can represent evacuation places or broad districts, not always buildings.
+- Safe floor is not provided by the primary Chuo CSV and remains null.
+- Route fields are not evaluated in B4.
+- QGIS manual QA is still required before using matches for user-facing interpretation.
 
 ## Next Step
 
-P5-B4-unblock should prepare the missing inputs explicitly:
-
-- manually review and add a small real official source fixture if license/terms allow it
-- create an approved small processed PLATEAU building footprint/attribute fixture outside Unity and outside raw CityGML parsing
-- then rerun the B4 qualification and matching implementation prompt
+P5-B5 should add an OSM routing sample and integrated route-output fields using the existing qualification and match outputs, with OSM attribution/cache policy and all route results labeled as prototype estimates.

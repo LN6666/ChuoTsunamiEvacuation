@@ -1,0 +1,633 @@
+{
+  "type": "FeatureCollection",
+  "name": "real_chuo_match_lines",
+  "crs": {
+    "type": "name",
+    "properties": {
+      "name": "EPSG:4326"
+    }
+  },
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            139.769114,
+            35.679059
+          ],
+          [
+            139.76911633464553,
+            35.67905798633587
+          ]
+        ]
+      },
+      "properties": {
+        "shelterId": "chuo_official_emergency_001",
+        "plateauBuildingId": "13102-bldg-3742",
+        "matchMethod": "contains",
+        "matchDistanceMeters": 0.0,
+        "confidence": "high"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            139.771593,
+            35.673121
+          ],
+          [
+            139.77173688702152,
+            35.67324994800995
+          ]
+        ]
+      },
+      "properties": {
+        "shelterId": "chuo_official_emergency_002",
+        "plateauBuildingId": "13102-bldg-8069",
+        "matchMethod": "contains",
+        "matchDistanceMeters": 0.0,
+        "confidence": "high"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            139.761495,
+            35.672383
+          ],
+          [
+            139.76151556915372,
+            35.67235749437207
+          ]
+        ]
+      },
+      "properties": {
+        "shelterId": "chuo_official_emergency_003",
+        "plateauBuildingId": "13102-bldg-5702",
+        "matchMethod": "contains",
+        "matchDistanceMeters": 0.0,
+        "confidence": "high"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            139.764854,
+            35.665512
+          ],
+          [
+            139.76495557465353,
+            35.66560719978583
+          ]
+        ]
+      },
+      "properties": {
+        "shelterId": "chuo_official_emergency_004",
+        "plateauBuildingId": "13102-bldg-3140",
+        "matchMethod": "contains",
+        "matchDistanceMeters": 0.0,
+        "confidence": "high"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            139.77876,
+            35.672171
+          ],
+          [
+            139.7787643354012,
+            35.67216738847142
+          ]
+        ]
+      },
+      "properties": {
+        "shelterId": "chuo_official_emergency_005",
+        "plateauBuildingId": "13102-bldg-3228",
+        "matchMethod": "contains",
+        "matchDistanceMeters": 0.0,
+        "confidence": "high"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            139.776472,
+            35.668734
+          ],
+          [
+            139.77645457747266,
+            35.66873778598979
+          ]
+        ]
+      },
+      "properties": {
+        "shelterId": "chuo_official_emergency_006",
+        "plateauBuildingId": "13102-bldg-3751",
+        "matchMethod": "contains",
+        "matchDistanceMeters": 0.0,
+        "confidence": "high"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            139.771173,
+            35.667975
+          ],
+          [
+            139.77118706205198,
+            35.66797386002598
+          ]
+        ]
+      },
+      "properties": {
+        "shelterId": "chuo_official_emergency_007",
+        "plateauBuildingId": "13102-bldg-2853",
+        "matchMethod": "contains",
+        "matchDistanceMeters": 0.0,
+        "confidence": "high"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            139.775575,
+            35.674999
+          ],
+          [
+            139.77556012236198,
+            35.67497114804668
+          ]
+        ]
+      },
+      "properties": {
+        "shelterId": "chuo_official_emergency_008",
+        "plateauBuildingId": "13102-bldg-8277",
+        "matchMethod": "contains",
+        "matchDistanceMeters": 0.0,
+        "confidence": "high"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            139.781852,
+            35.676011
+          ],
+          [
+            139.78184116366876,
+            35.6760149962012
+          ]
+        ]
+      },
+      "properties": {
+        "shelterId": "chuo_official_emergency_009",
+        "plateauBuildingId": "13102-bldg-11364",
+        "matchMethod": "contains",
+        "matchDistanceMeters": 0.0,
+        "confidence": "high"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            139.770509,
+            35.688038
+          ],
+          [
+            139.77051774576074,
+            35.688037734268725
+          ]
+        ]
+      },
+      "properties": {
+        "shelterId": "chuo_official_emergency_010",
+        "plateauBuildingId": "13102-bldg-2872",
+        "matchMethod": "contains",
+        "matchDistanceMeters": 0.0,
+        "confidence": "high"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            139.776991,
+            35.690907
+          ],
+          [
+            139.7770899396994,
+            35.69092525634007
+          ]
+        ]
+      },
+      "properties": {
+        "shelterId": "chuo_official_emergency_011",
+        "plateauBuildingId": "13102-bldg-15570",
+        "matchMethod": "contains",
+        "matchDistanceMeters": 0.0,
+        "confidence": "high"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            139.78123,
+            35.684273
+          ],
+          [
+            139.7809437607127,
+            35.68414851438326
+          ]
+        ]
+      },
+      "properties": {
+        "shelterId": "chuo_official_emergency_012",
+        "plateauBuildingId": "13102-bldg-12810",
+        "matchMethod": "nearest",
+        "matchDistanceMeters": 13.45,
+        "confidence": "medium"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            139.787989,
+            35.683219
+          ],
+          [
+            139.78800673056978,
+            35.68319867848027
+          ]
+        ]
+      },
+      "properties": {
+        "shelterId": "chuo_official_emergency_013",
+        "plateauBuildingId": "13102-bldg-12391",
+        "matchMethod": "contains",
+        "matchDistanceMeters": 0.0,
+        "confidence": "high"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            139.784355,
+            35.689056
+          ],
+          [
+            139.78439283111172,
+            35.688833979809445
+          ]
+        ]
+      },
+      "properties": {
+        "shelterId": "chuo_official_emergency_014",
+        "plateauBuildingId": "13102-bldg-14859",
+        "matchMethod": "contains",
+        "matchDistanceMeters": 0.0,
+        "confidence": "high"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            139.786993,
+            35.691933
+          ],
+          [
+            139.78699764898175,
+            35.6919177246374
+          ]
+        ]
+      },
+      "properties": {
+        "shelterId": "chuo_official_emergency_015",
+        "plateauBuildingId": "13102-bldg-15963",
+        "matchMethod": "contains",
+        "matchDistanceMeters": 0.0,
+        "confidence": "high"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            139.776687,
+            35.679538
+          ],
+          [
+            139.77665284984377,
+            35.679518066620965
+          ]
+        ]
+      },
+      "properties": {
+        "shelterId": "chuo_official_emergency_016",
+        "plateauBuildingId": "13102-bldg-10474",
+        "matchMethod": "contains",
+        "matchDistanceMeters": 0.0,
+        "confidence": "high"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            139.784518,
+            35.668599
+          ],
+          [
+            139.78479937451607,
+            35.6683052130524
+          ]
+        ]
+      },
+      "properties": {
+        "shelterId": "chuo_official_emergency_017",
+        "plateauBuildingId": "13102-bldg-8511",
+        "matchMethod": "contains",
+        "matchDistanceMeters": 0.0,
+        "confidence": "high"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            139.785025,
+            35.667941
+          ],
+          [
+            139.78479937451607,
+            35.6683052130524
+          ]
+        ]
+      },
+      "properties": {
+        "shelterId": "chuo_official_emergency_018",
+        "plateauBuildingId": "13102-bldg-8511",
+        "matchMethod": "contains",
+        "matchDistanceMeters": 0.0,
+        "confidence": "high"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            139.780093,
+            35.660674
+          ],
+          [
+            139.78009357259745,
+            35.66066663955115
+          ]
+        ]
+      },
+      "properties": {
+        "shelterId": "chuo_official_emergency_019",
+        "plateauBuildingId": "13102-bldg-5099",
+        "matchMethod": "contains",
+        "matchDistanceMeters": 0.0,
+        "confidence": "high"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            139.775931,
+            35.66017
+          ],
+          [
+            139.7759040154867,
+            35.660126770016646
+          ]
+        ]
+      },
+      "properties": {
+        "shelterId": "chuo_official_emergency_020",
+        "plateauBuildingId": "13102-bldg-9813",
+        "matchMethod": "contains",
+        "matchDistanceMeters": 0.0,
+        "confidence": "high"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            139.785703,
+            35.658848
+          ],
+          [
+            139.7857405894637,
+            35.658864984009014
+          ]
+        ]
+      },
+      "properties": {
+        "shelterId": "chuo_official_emergency_021",
+        "plateauBuildingId": "13102-bldg-7675",
+        "matchMethod": "nearest",
+        "matchDistanceMeters": 0.075,
+        "confidence": "high"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            139.784908,
+            35.659743
+          ],
+          [
+            139.784683668279,
+            35.659751664947436
+          ]
+        ]
+      },
+      "properties": {
+        "shelterId": "chuo_official_emergency_022",
+        "plateauBuildingId": "13102-bldg-1478",
+        "matchMethod": "contains",
+        "matchDistanceMeters": 0.0,
+        "confidence": "high"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            139.773051,
+            35.654366
+          ],
+          [
+            139.77301295484725,
+            35.654474389904934
+          ]
+        ]
+      },
+      "properties": {
+        "shelterId": "chuo_official_emergency_023",
+        "plateauBuildingId": "13102-bldg-2954",
+        "matchMethod": "nearest",
+        "matchDistanceMeters": 7.215,
+        "confidence": "high"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            139.77201,
+            35.670599
+          ],
+          [
+            139.77201779417666,
+            35.67059982990399
+          ]
+        ]
+      },
+      "properties": {
+        "shelterId": "chuo_official_emergency_024",
+        "plateauBuildingId": "13102-bldg-10473",
+        "matchMethod": "contains",
+        "matchDistanceMeters": 0.0,
+        "confidence": "high"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            139.784287,
+            35.682479
+          ],
+          [
+            139.78429523060444,
+            35.68246303152789
+          ]
+        ]
+      },
+      "properties": {
+        "shelterId": "chuo_official_emergency_025",
+        "plateauBuildingId": "13102-bldg-12306",
+        "matchMethod": "contains",
+        "matchDistanceMeters": 0.0,
+        "confidence": "high"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            139.78192,
+            35.661921
+          ],
+          [
+            139.781918424945,
+            35.66191552869918
+          ]
+        ]
+      },
+      "properties": {
+        "shelterId": "chuo_official_emergency_026",
+        "plateauBuildingId": "13102-bldg-3852",
+        "matchMethod": "contains",
+        "matchDistanceMeters": 0.0,
+        "confidence": "high"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            139.774843,
+            35.652023
+          ],
+          [
+            139.77496211775184,
+            35.65192102011595
+          ]
+        ]
+      },
+      "properties": {
+        "shelterId": "chuo_official_emergency_027",
+        "plateauBuildingId": "13102-bldg-525",
+        "matchMethod": "contains",
+        "matchDistanceMeters": 0.0,
+        "confidence": "high"
+      }
+    }
+  ]
+}

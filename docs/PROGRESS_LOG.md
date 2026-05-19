@@ -8,6 +8,44 @@
 
 ---
 
+## 2026-05-19 | P5-B4 Official Chuo Building Qualification Completed
+
+### Completed
+
+Downloaded approved official Chuo/Tokyo/GSI evacuation-place and shelter source files into ignored `data_pipeline/downloads/` paths and recorded provenance in `data_pipeline/sources/real_chuo_official_source_manifest.json`.
+
+Added official shelter ingestion and real building matching scripts:
+
+- `data_pipeline/scripts/ingest_official_chuo_shelters.py`
+- `data_pipeline/scripts/build_real_chuo_building_qualification.py`
+
+Generated processed outputs for 31 normalized Chuo official records, schema-valid building qualification, shelter-building matches, and QGIS QA layers.
+
+### Results
+
+- shelter records processed: 31
+- candidate local PLATEAU buildings extracted near official points: 4,447
+- distinct matched PLATEAU buildings: 26
+- match methods: 24 `contains`, 3 `nearest`, 4 `unmatched`
+- qualification statuses: 24 `official_confirmed`, 3 `official_confirmed_with_review`, 4 `unknown`
+- manual review records: 7
+
+### Validation Notes
+
+`data_pipeline/.venv/Scripts/python.exe data_pipeline/scripts/validate_building_qualification.py --input data_pipeline/processed/qualification/real_chuo_building_qualification.json --schema data_pipeline/qualification/evacuation_building_qualification_schema.json` passed for 31 records.
+
+`data_pipeline/.venv/Scripts/python.exe -m pytest data_pipeline/tests/test_official_chuo_shelter_ingestion.py data_pipeline/tests/test_real_chuo_building_qualification.py` passed: 9 tests.
+
+### Scope Boundary
+
+No raw official downloads, raw PLATEAU CityGML, OSM network data, Unity change, Unity scene change, `Assets/Data` change, `ProjectSettings`, or `Packages` change was committed. `sourceMode` remains `test`.
+
+### Next Step
+
+P5-B5 should add OSM routing sample outputs and route QA using the B4 qualification/match outputs.
+
+---
+
 ## 2026-05-19 | P5-B4 Real Building Qualification Blocked
 
 ### Completed
