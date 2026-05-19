@@ -1,5 +1,25 @@
 ---
 
+## 2026-05-19 | P5-A1 Evidence and Tool Decision Review
+
+### Completed
+
+Reviewed Phase 5 evidence families for official evacuation facility data, official hazard/disaster data, PLATEAU geometry/attributes, literature/report criteria, and OSM/routing auxiliary inputs.
+
+Recorded preliminary open-source reference decisions for PLATEAU SDK Unity GIS Sample, PLATEAU QGIS Plugin, OSMnx, GeoPandas, Shapely, pyproj, NetworkX, and the GDAL/Fiona/pyogrio IO stack.
+
+Created planning JSON files for source families, tool decisions, and the future qualification rulebook.
+
+### Scope Boundary
+
+No official data download, scraping, dependency installation, GIS routing, PLATEAU matching, qualification logic, Unity gameplay change, Unity scene change, `Assets/Data` change, `ProjectSettings`, or `Packages` change was performed.
+
+### Next Step
+
+P5-A2 should formalize the first concrete qualification rulebook/schema foundation using the P5-A1 evidence and tool decision plans.
+
+---
+
 ## 2026-05-19 | P5-A0 Qualification Routing Baseline Started
 
 ### Completed

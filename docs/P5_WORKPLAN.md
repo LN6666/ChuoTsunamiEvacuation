@@ -29,6 +29,19 @@ Expected outputs:
 
 P5-A1 should not ingest official data unless a later prompt explicitly authorizes it.
 
+P5-A1 completion criteria:
+
+- official evidence families and literature/report evidence categories are documented
+- official designation and candidate qualification boundaries are explicit
+- manual review triggers are listed
+- preliminary open-source reference decisions are recorded
+- source family, tool decision, and qualification rulebook planning JSON files validate with Python's built-in JSON parser
+- no official data download, scraping, dependency installation, routing, PLATEAU matching, Unity gameplay changes, scene changes, `ProjectSettings`, `Packages`, or `Assets/Data` changes are made
+
+P5-A2 next step:
+
+P5-A2 should implement the first concrete qualification rulebook/schema foundation based on P5-A1 decisions. It should formalize official confirmation rules, candidate criteria, confidence levels, manual review flags, and output schema validation before P5-B begins matching/routing work.
+
 ## P5-A2 Rulebook Foundation
 
 P5-A2 should turn the P5-A1 evidence review into a qualification rulebook foundation.

@@ -1,0 +1,96 @@
+{
+  "planVersion": "p5-a1",
+  "createdFor": "Phase 5 evacuation building qualification rulebook planning",
+  "planningOnly": true,
+  "logicImplemented": false,
+  "statusTaxonomy": [
+    "official_confirmed",
+    "official_confirmed_with_review",
+    "strong_candidate",
+    "weak_candidate",
+    "unknown",
+    "not_qualified"
+  ],
+  "evidencePriority": [
+    "official evacuation shelter / disaster facility data",
+    "official hazard/disaster maps and administrative disaster documents",
+    "PLATEAU building geometry and attributes",
+    "academic papers and policy/technical reports",
+    "OSM / routing data as auxiliary evidence"
+  ],
+  "confidenceLevels": [
+    {
+      "level": "high",
+      "meaning": "Evidence and spatial matching are strong enough for automated use with low residual uncertainty."
+    },
+    {
+      "level": "medium",
+      "meaning": "Evidence is plausible but has match, metadata, or source limitations that should be visible to reviewers."
+    },
+    {
+      "level": "low",
+      "meaning": "Evidence is weak, incomplete, conflicting, or based mainly on candidate inference."
+    },
+    {
+      "level": "unknown",
+      "meaning": "Evidence is unavailable or insufficient to assign confidence."
+    }
+  ],
+  "plannedRuleGroups": [
+    {
+      "ruleGroupId": "official_designation",
+      "purpose": "Determine whether official source evidence confirms the building or requires review."
+    },
+    {
+      "ruleGroupId": "spatial_match_to_plateau_building",
+      "purpose": "Plan point-in-footprint, nearest-building, multi-candidate, and match-distance review rules."
+    },
+    {
+      "ruleGroupId": "safe_floor_or_height",
+      "purpose": "Plan safe floor, building height, and vertical evacuation candidate criteria."
+    },
+    {
+      "ruleGroupId": "hazard_context",
+      "purpose": "Plan hazard-map context, inundation-depth warnings, and scenario applicability checks."
+    },
+    {
+      "ruleGroupId": "route_accessibility",
+      "purpose": "Plan estimated route distance, travel time, and routing warning fields."
+    },
+    {
+      "ruleGroupId": "capacity_or_crowding",
+      "purpose": "Plan capacity, crowding, and missing-capacity review rules."
+    },
+    {
+      "ruleGroupId": "source_conflict_or_missing_data",
+      "purpose": "Plan conflict handling, missing field warnings, stale source checks, and manual review triggers."
+    }
+  ],
+  "plannedOutputFields": [
+    "plateauBuildingId",
+    "shelterId",
+    "qualificationStatus",
+    "qualificationReason",
+    "evidenceSources",
+    "matchMethod",
+    "matchDistanceMeters",
+    "confidence",
+    "manualReviewNeeded",
+    "warnings",
+    "sourceUpdatedAt"
+  ],
+  "manualReviewTriggers": [
+    "shelter point not inside building footprint",
+    "nearest match distance too large",
+    "multiple building candidates",
+    "source conflict",
+    "missing safe floor / capacity",
+    "low confidence match",
+    "candidate is non-official"
+  ],
+  "nonClaims": [
+    "candidate buildings are not official unless official evidence confirms them",
+    "routing results are estimated prototype routes",
+    "hazard context does not equal flood simulation"
+  ]
+}

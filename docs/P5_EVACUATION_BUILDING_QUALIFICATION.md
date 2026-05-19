@@ -52,6 +52,18 @@ P5-A1 should produce:
 
 The schema plan should identify fields needed by P5-B matching/routing and P5-C Unity integration, but P5-A1 should remain documentation and evidence-review focused unless separately approved.
 
+## P5-A1 Review Outputs
+
+P5-A1 records the first review/planning layer for official evidence, candidate evidence, and open-source tool decisions:
+
+- `docs/P5_OFFICIAL_EVIDENCE_REVIEW.md`: evidence hierarchy, official source families, literature/report categories, official/non-official claim boundaries, and manual review needs.
+- `docs/P5_OPEN_SOURCE_REFERENCE_DECISIONS.md`: preliminary use-mode decisions for PLATEAU, QGIS, routing, and geospatial processing candidates.
+- `data_pipeline/qualification/source_family_plan.json`: source family plan for future rulebook and schema work.
+- `data_pipeline/qualification/tool_decision_matrix.json`: machine-readable tool decision matrix for later P5-B planning.
+- `data_pipeline/qualification/qualification_rulebook_plan.json`: planned status taxonomy, confidence levels, rule groups, output fields, and non-claims.
+
+These files are planning artifacts only. They do not download official data, install dependencies, parse CityGML, implement matching/routing, or modify Unity.
+
 ## P5 Safety Boundaries
 
 - Do not confuse official buildings with non-official candidates.
