@@ -8,6 +8,28 @@
 
 ---
 
+## 2026-05-20 | P5-B Review Preparation
+
+### Completed
+
+Recorded final P5-B manual QGIS QA results for B4 building qualification/matching and B5 OSM routing.
+
+Prepared `deepseek_review_prompt_p5b.txt` for DeepSeek review of P5-B data correctness, scope boundaries, official/candidate claims, CRS handling, routing assumptions, raw/cache hygiene, and readiness for P5-C.
+
+### Validation Notes
+
+B4 building qualification and PLATEAU matching are complete. B5 OSM route outputs and integrated route/qualification outputs are complete. The user manually checked B4 and B5 QGIS layers with an OpenStreetMap basemap and reported no obvious matching, route placement, or CRS issue.
+
+### Scope Boundary
+
+No pipeline code, Unity file, Unity scene, `Assets/Data`, `ProjectSettings`, `Packages`, PLATEAU imported file, raw/cache/download/tmp, or `.venv` file was modified. `sourceMode` remains `test`.
+
+### Next Step
+
+Run DeepSeek review for P5-B, then begin P5-C planning only if no A-level blockers are found.
+
+---
+
 ## 2026-05-20 | P5-B5 OSM Routing Sample Completed
 
 ### Completed

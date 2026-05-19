@@ -142,6 +142,14 @@ Manual checks:
 - route lengths are plausible for the origin/target pairs
 - failure layer is empty or explicitly reviewed
 
+## Final QGIS Route QA Result
+
+The B5 route origin and route line layers were loaded successfully in QGIS with an OpenStreetMap basemap.
+
+The route origins and route lines remained within the Chuo Ward map context. Routes visually followed the street network and did not appear as simple direct flying lines. No obvious far-away coordinate error, origin collapse, or severe CRS shift was observed. The user manually confirmed that route placement showed no obvious issue.
+
+Detailed route spot checks should still be repeated before publication, presentation screenshots, or any user-facing Unity interpretation.
+
 ## Limitations
 
 - Routes are estimated prototype pedestrian routes.

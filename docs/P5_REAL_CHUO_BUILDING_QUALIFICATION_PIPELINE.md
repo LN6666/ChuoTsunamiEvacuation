@@ -149,6 +149,21 @@ Use QGIS to inspect:
 
 Manual QA should confirm there is no visible coordinate shift and that nearest matches are plausible before P5-C uses these outputs in Unity.
 
+## Final QGIS QA Result
+
+The B4 shelter/building match layers were loaded successfully in QGIS with an OpenStreetMap basemap.
+
+Reviewed layers:
+
+- shelter points
+- matched building footprints
+- shelter-to-building match lines
+- low-confidence/unmatched records
+
+The layers were located in the Tokyo Chuo Ward context. No obvious CRS offset or severe shelter/building mismatch was observed. The user manually confirmed that the matching has no obvious issue.
+
+Detailed spot checks should still be repeated before publication, presentation screenshots, or any user-facing Unity interpretation.
+
 ## Limitations
 
 - P5-B4 does not parse every local PLATEAU building file; it extracts a shelter-focused mesh subset.

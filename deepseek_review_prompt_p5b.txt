@@ -1,0 +1,143 @@
+DeepSeek V4 Pro Review Prompt: Phase 5-B Qualification, PLATEAU Matching, and OSM Routing
+
+Project:
+ChuoTsunamiEvacuation / PBL-ALL
+
+Branch:
+phase5-qualification-routing-plateau
+
+Review scope:
+Review P5-B only. P5-B includes the real-data pipeline outputs for official Chuo shelter ingestion, PLATEAU building matching, OSM route sampling, integrated qualification/route outputs, QGIS QA layers, and documentation. Do not review P5-C Unity integration as implemented because P5-C has not started.
+
+Key rule:
+P5-B must not modify Unity or claim official route status. It should produce processed data-pipeline artifacts only.
+
+Relevant docs:
+- docs/P5_REAL_CHUO_BUILDING_QUALIFICATION_PIPELINE.md
+- docs/P5_REAL_CHUO_OSM_ROUTING_PIPELINE.md
+- docs/P5_EVACUATION_BUILDING_QUALIFICATION.md
+- docs/P5_CRS_AND_QGIS_QA_PLAN.md
+- docs/P5_WORKPLAN.md
+- docs/PROGRESS_LOG.md
+- docs/TASKS.md
+
+Core P5-B source/output files:
+- data_pipeline/sources/real_chuo_official_source_manifest.json
+- data_pipeline/processed/qualification/real_chuo_official_shelters_normalized.json
+- data_pipeline/processed/qualification/real_chuo_building_qualification.json
+- data_pipeline/processed/qualification/real_chuo_building_qualification.csv
+- data_pipeline/processed/qualification/real_chuo_shelter_building_matches.json
+- data_pipeline/processed/qualification/real_chuo_shelter_building_matches.csv
+- data_pipeline/processed/qualification/real_chuo_integrated_route_qualification.json
+- data_pipeline/processed/qualification/real_chuo_integrated_route_qualification.csv
+- data_pipeline/qualification/real_chuo_building_matching_input_manifest.json
+- data_pipeline/qualification/real_chuo_route_origin_points.json
+- data_pipeline/processed/routes/real_chuo_osm_routes_sample.json
+- data_pipeline/processed/routes/real_chuo_osm_routes_sample.csv
+- data_pipeline/processed/routes/real_chuo_osm_routes_sample.geojson
+- data_pipeline/processed/qgis_qa/real_chuo_shelter_points.geojson
+- data_pipeline/processed/qgis_qa/real_chuo_building_footprints.geojson
+- data_pipeline/processed/qgis_qa/real_chuo_match_lines.geojson
+- data_pipeline/processed/qgis_qa/real_chuo_low_confidence_or_unmatched.geojson
+- data_pipeline/processed/qgis_qa/real_chuo_route_origins.geojson
+- data_pipeline/processed/qgis_qa/real_chuo_route_lines.geojson
+- data_pipeline/processed/qgis_qa/real_chuo_route_failures.geojson
+- data_pipeline/scripts/ingest_official_chuo_shelters.py
+- data_pipeline/scripts/build_real_chuo_building_qualification.py
+- data_pipeline/scripts/build_real_chuo_osm_routes.py
+- data_pipeline/scripts/build_real_chuo_integrated_route_qualification.py
+- data_pipeline/tests/test_official_chuo_shelter_ingestion.py
+- data_pipeline/tests/test_real_chuo_building_qualification.py
+- data_pipeline/tests/test_real_chuo_osm_routing.py
+
+Official/input source summary:
+- Chuo City official open data for designated emergency evacuation shelters/places:
+  https://www.city.chuo.lg.jp/documents/984/shiteikinkyuuhinan.csv
+- Tokyo Metropolitan Government open data, Tokyo Disaster Prevention Map shelter list:
+  https://www.opendata.metro.tokyo.lg.jp/soumu/130001_evacuation_center.csv
+- Tokyo Metropolitan Government open data, Tokyo Disaster Prevention Map evacuation place list:
+  https://www.opendata.metro.tokyo.lg.jp/soumu/130001_evacuation_area.csv
+- GSI Chuo designated emergency evacuation places:
+  https://hinanmap.gsi.go.jp/hinanjocp/defaultFtpData/csv/13102_2.csv
+- GSI Chuo designated shelters:
+  https://hinanmap.gsi.go.jp/hinanjocp/defaultFtpData/csv/13102_1.csv
+- PLATEAU building geometry was derived from existing local CityGML under D:\PLATEAU_DATA, limited to a shelter-focused mesh subset. Raw CityGML is not committed.
+- OSM route source is OpenStreetMap contributor data via OSMnx/NetworkX. Routes are estimated and used under ODbL attribution expectations. They are not official evacuation routes.
+
+P5-B4 output summary:
+- Normalized official Chuo shelter records: 31
+- Shelter-building match records: 31
+- Candidate local PLATEAU buildings extracted near official points: 4,447
+- Distinct matched PLATEAU buildings: 26
+- Match methods: 24 contains, 3 nearest, 4 unmatched
+- Qualification statuses: 24 official_confirmed, 3 official_confirmed_with_review, 4 unknown
+- Manual review records: 7
+- QGIS QA layers created for shelter points, building footprints, match lines, and low-confidence/unmatched records.
+
+P5-B5 output summary:
+- Controlled route test origins: 5
+- Route target shelter/buildings: 27
+- OSM route records: 135
+- Available routes: 135
+- Failed routes: 0
+- Integrated qualification records: 31
+- Integrated records with available route fields: 27
+- Integrated records left not_evaluated: 4 broad/unmatched B4 records
+- Route distance range: 97.727 m to 5,939.296 m
+- Estimated time range: 81.439 s to 4,949.413 s at 1.2 m/s
+- QGIS QA layers created for route origins, route lines, and route failures.
+
+Validation evidence:
+- B4 schema validation passed for 31 qualification records.
+- B4 pytest passed: 9 tests.
+- B5 pytest passed: 6 tests.
+- User manually loaded B4 QGIS layers with an OpenStreetMap basemap and confirmed no obvious shelter/building matching issue.
+- User manually loaded B5 route layers with an OpenStreetMap basemap and confirmed route origins and route lines are within Chuo Ward context with no obvious CRS offset or severe route issue.
+- Assets/Data/shelter_source_config.json remains sourceMode = test.
+- Unity files are expected to be untouched.
+
+Review request:
+Please review the P5-B implementation and documentation for A-level blockers and B-level issues.
+
+A-level blockers to check:
+- Data correctness blockers that make P5-B outputs unusable.
+- Scope violations.
+- Fake or unsupported official designation claims.
+- Literature/report/candidate evidence incorrectly used to claim official status.
+- OSM route outputs incorrectly claimed as official evacuation routes.
+- Hazard/flood simulation claims or disaster road closure claims.
+- Unsafe CRS or distance handling, including meter distances computed directly in lat/lon.
+- Raw official downloads, raw OSM/cache files, raw CityGML, large source archives, or .venv accidentally committed.
+- Unity, Assets, scene, Chuo_BaseMap, PLATEAU imported files, ProjectSettings, or Packages pollution.
+- Assets/Data/shelter_source_config.json changed away from sourceMode = test.
+- Processed outputs depending on data_pipeline/raw, data_pipeline/cache, data_pipeline/downloads, or .venv at Unity runtime.
+
+B-level issues to check:
+- Source reliability or provenance gaps.
+- License/attribution notes, especially OSM ODbL and official open-data attribution.
+- PLATEAU matching confidence/warning logic weaknesses.
+- Low-confidence, nearest, unmatched, and broad-area handling.
+- Manual review flags that should be added or clarified.
+- CRS/QGIS QA limitations.
+- OSM route estimation limitations.
+- Walking speed assumption risks.
+- Missing route-failure edge cases.
+- Test coverage gaps.
+- Processed output size or reviewability concerns.
+- Documentation gaps before P5-C.
+
+Scope/boundary checks:
+- P5-B should process real data pipeline outputs only.
+- P5-B should not include Unity integration.
+- No Unity Assets, scenes, ProjectSettings, Packages, Chuo_BaseMap, or PLATEAU imported files should be changed.
+- Raw downloads/cache/tmp/.venv should not be staged.
+- Processed outputs should be under data_pipeline/processed.
+- QGIS QA layers should be processed outputs only.
+- Routes must remain estimated prototype pedestrian routes and not official evacuation routes.
+
+Please conclude with:
+1. Verdict: PASS / PASS WITH B-LEVEL ISSUES / FAIL.
+2. A-level blockers, if any.
+3. B-level issues and recommended follow-up tasks.
+4. Whether P5-B can be marked complete.
+5. Whether P5-C Unity read-only integration planning can start.

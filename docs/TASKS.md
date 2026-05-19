@@ -12,7 +12,7 @@ Phase 5 qualification, routing, PLATEAU matching, and Unity map-decision integra
 
 ## Phase 5: Qualification, Routing, PLATEAU Matching, and Unity Integration
 
-Status: P5-B5 OSM routing sample and integrated route/qualification outputs complete. P5-C Unity read-only integration planning is next.
+Status: P5-B review preparation complete. DeepSeek review is next before P5-C Unity read-only integration planning.
 
 Planned tasks:
 
@@ -24,7 +24,9 @@ Planned tasks:
 - P5-B3: project-local Python GIS environment helper and source provenance/fixture readiness. Done.
 - P5-B4: official Chuo/Tokyo/GSI data ingestion, real Chuo building qualification, and local PLATEAU building matching. Done.
 - P5-B5: OSM routing sample and integrated route-output planning/implementation. Done.
-- P5-C0: Unity read-only integration plan for qualified buildings, route lines, confidence, warnings, and source-mode safety. Next.
+- P5-B ReviewPrep: record B4/B5 validation and prepare DeepSeek review prompt. Done.
+- P5-B DeepSeek review: review P5-B data correctness, scope boundaries, CRS/routing assumptions, and P5-C readiness. Next.
+- P5-C0: Unity read-only integration plan for qualified buildings, route lines, confidence, warnings, and source-mode safety. After DeepSeek review.
 - P5-B: PLATEAU qualification/matching and GIS routing pipeline.
 - P5-C: Unity integration for qualified buildings, routes, confidence, warnings, and decision feedback.
 - P5 final review: validation summary, DeepSeek review, scope boundary confirmation, and merge decision.
@@ -83,6 +85,13 @@ P5-B5 completed outputs:
 - QGIS QA layers for route origins, route lines, and route failures
 - pytest coverage for OSM route semantics, non-official route flags, integrated route fields, QA layers, and no raw/cache/download runtime references
 - validation passed in `data_pipeline/.venv`: 135 available OSM route records, 0 failed routes, and 6 pytest tests
+
+P5-B review prep completed outputs:
+
+- recorded user-confirmed QGIS QA result for B4 shelter/building matching
+- recorded user-confirmed QGIS QA result for B5 route origins and route lines
+- created DeepSeek review prompt at `deepseek_review_prompt_p5b.txt`
+- no code, Unity files, `Assets/Data`, raw/cache/download/tmp, or `.venv` files changed
 
 ## Milestone 0: Environment Setup
 

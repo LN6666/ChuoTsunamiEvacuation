@@ -107,6 +107,19 @@ Manual B5 QA checklist:
 - inspect the route failures layer; B5 generated zero failed routes
 - keep route labels clear that routes are estimated OSM pedestrian routes, not official evacuation routes
 
+## P5-B4/B5 QA Completion Note
+
+P5-B4 and P5-B5 manual QGIS QA were completed with an OpenStreetMap basemap.
+
+Observed result:
+
+- B4 shelter points, matched building footprints, match lines, and low-confidence/unmatched records loaded in the Tokyo Chuo Ward context.
+- B4 matching had no obvious CRS offset or severe shelter/building mismatch on user inspection.
+- B5 route origins and route lines loaded in the Chuo Ward map context.
+- B5 routes visually followed the street network and did not show obvious far-away coordinate errors, origin collapse, direct flying lines, or severe CRS shift.
+
+This is sufficient for DeepSeek P5-B review and P5-C planning. Detailed spot checks should still be repeated before final publication, presentation screenshots, or user-facing Unity use.
+
 ## Risks
 
 - Axis-order mistakes can swap latitude and longitude.

@@ -155,6 +155,11 @@ Scope boundaries preserved:
 - no OSM routing, Unity integration, Unity scene change, `Assets/Data`, `ProjectSettings`, or `Packages` change was made
 - `sourceMode` remains `test`
 
+Manual QGIS QA:
+
+- B4 shelter points, matched building footprints, match lines, and low-confidence/unmatched records were loaded with an OpenStreetMap basemap.
+- The user confirmed the matching has no obvious issue.
+
 P5-B5 next step:
 
 Use the B4 qualification and match outputs as the input to an OSM routing sample. P5-B5 should define OSM attribution/cache behavior, compute prototype route fields, keep route outputs clearly non-official, and generate route QA layers before any Unity integration.
@@ -191,9 +196,24 @@ Scope boundaries preserved:
 - raw/cache OSM files are ignored and not committed
 - `sourceMode` remains `test`
 
+Manual QGIS QA:
+
+- B5 route origins and route lines were loaded with an OpenStreetMap basemap.
+- The user confirmed route origins and route lines are within the Chuo Ward context with no obvious CRS offset or severe route issue.
+
 P5-C next step:
 
 Prepare Unity-side read-only loading of integrated qualification/route outputs, preserving confidence/warning labels and keeping the committed default `sourceMode = test` unless a later milestone explicitly changes it.
+
+## P5-B ReviewPrep
+
+P5-B ReviewPrep records B4/B5 validation results and prepares the DeepSeek review prompt.
+
+Next sequence:
+
+- run DeepSeek review for P5-B
+- resolve any A-level blockers if found
+- start P5-C only if P5-B passes or has B-level-only follow-ups
 
 ## P5-B Planned Pipeline
 
