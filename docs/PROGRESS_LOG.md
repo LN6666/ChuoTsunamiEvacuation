@@ -8,6 +8,47 @@
 
 ---
 
+## 2026-05-20 | P5-B5 OSM Routing Sample Completed
+
+### Completed
+
+Created controlled route test origins for Ginza, Nihonbashi, Hatchobori/Tsukiji, Tsukishima/Kachidoki, and Harumi waterfront.
+
+Added OSM routing and integrated route/qualification scripts:
+
+- `data_pipeline/scripts/build_real_chuo_osm_routes.py`
+- `data_pipeline/scripts/build_real_chuo_integrated_route_qualification.py`
+
+Generated processed OSM route outputs, integrated route/qualification JSON/CSV outputs, and QGIS route QA layers.
+
+Recorded B4 QGIS QA handoff: OpenStreetMap basemap was loaded in QGIS, shelter/building layers aligned normally, and the user confirmed matching had no obvious issue.
+
+### Results
+
+- origin points: 5
+- target shelter/buildings: 27
+- OSM route records: 135
+- available routes: 135
+- failed routes: 0
+- integrated qualification records with available route fields: 27
+- integrated records left `not_evaluated`: 4 broad/unmatched B4 records
+- distance range: 97.727 m to 5,939.296 m
+- estimated time range: 81.439 s to 4,949.413 s
+
+### Validation Notes
+
+`data_pipeline/.venv/Scripts/python.exe -m pytest data_pipeline/tests/test_real_chuo_osm_routing.py` passed: 6 tests.
+
+### Scope Boundary
+
+Routes are estimated OSM pedestrian routes, not official evacuation routes. No OSM raw/cache files, Unity change, Unity scene change, `Assets/Data` change, `ProjectSettings`, `Packages`, PLATEAU imported files, flood simulation, disaster road closure, or gameplay rule change was committed. `sourceMode` remains `test`.
+
+### Next Step
+
+P5-C should prepare Unity-side read-only loading and visualization of processed qualification/route outputs while preserving confidence and warning fields.
+
+---
+
 ## 2026-05-19 | P5-B4 Official Chuo Building Qualification Completed
 
 ### Completed

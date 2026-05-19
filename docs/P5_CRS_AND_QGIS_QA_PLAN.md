@@ -83,6 +83,30 @@ Manual B4 QA checklist:
 - verify no visible coordinate shift between shelter points, building footprints, and match lines
 - keep route QA deferred until P5-B5, because B4 route fields are `not_evaluated`
 
+After B4, the QGIS QA layers were loaded with an OpenStreetMap basemap. Shelter points, building footprints, and match lines aligned normally, and the user confirmed that the shelter/building matching had no obvious issue. This cleared B5 to proceed with route QA outputs.
+
+## P5-B5 Route QA Layer Status
+
+P5-B5 created processed route QA layers:
+
+- `data_pipeline/processed/qgis_qa/real_chuo_route_lines.geojson`
+- `data_pipeline/processed/qgis_qa/real_chuo_route_origins.geojson`
+- `data_pipeline/processed/qgis_qa/real_chuo_route_failures.geojson`
+
+CRS choices:
+
+- source/interchange CRS: `EPSG:4326`
+- OSM route snapping CRS: `EPSG:6677`
+
+Manual B5 QA checklist:
+
+- load route origins, route lines, B4 shelter points, and B4 matched building footprints with an OpenStreetMap basemap
+- verify route origins are located in the intended Ginza, Nihonbashi, Hatchobori/Tsukiji, Tsukishima/Kachidoki, and Harumi waterfront areas
+- verify route lines follow plausible street/bridge paths and do not visibly fly away
+- verify route endpoints terminate near expected shelter/building targets
+- inspect the route failures layer; B5 generated zero failed routes
+- keep route labels clear that routes are estimated OSM pedestrian routes, not official evacuation routes
+
 ## Risks
 
 - Axis-order mistakes can swap latitude and longitude.

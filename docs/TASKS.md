@@ -12,7 +12,7 @@ Phase 5 qualification, routing, PLATEAU matching, and Unity map-decision integra
 
 ## Phase 5: Qualification, Routing, PLATEAU Matching, and Unity Integration
 
-Status: P5-B4 official data ingestion and local PLATEAU building matching complete. P5-B5 routing sample is next.
+Status: P5-B5 OSM routing sample and integrated route/qualification outputs complete. P5-C Unity read-only integration planning is next.
 
 Planned tasks:
 
@@ -23,7 +23,8 @@ Planned tasks:
 - P5-B2: real Chuo ingestion readiness, dependency/environment plan, CRS/QGIS QA plan, and P5-B3 execution plan. Done.
 - P5-B3: project-local Python GIS environment helper and source provenance/fixture readiness. Done.
 - P5-B4: official Chuo/Tokyo/GSI data ingestion, real Chuo building qualification, and local PLATEAU building matching. Done.
-- P5-B5: OSM routing sample and integrated route-output planning/implementation. Next.
+- P5-B5: OSM routing sample and integrated route-output planning/implementation. Done.
+- P5-C0: Unity read-only integration plan for qualified buildings, route lines, confidence, warnings, and source-mode safety. Next.
 - P5-B: PLATEAU qualification/matching and GIS routing pipeline.
 - P5-C: Unity integration for qualified buildings, routes, confidence, warnings, and decision feedback.
 - P5 final review: validation summary, DeepSeek review, scope boundary confirmation, and merge decision.
@@ -71,6 +72,17 @@ P5-B4 completed outputs:
 - QGIS QA GeoJSON layers for shelter points, matched building footprints, match lines, and low-confidence/unmatched records
 - focused pytest coverage for source ingestion, schema validation, official evidence rules, B4 routing boundaries, and QGIS layer creation
 - validation passed in `data_pipeline/.venv`: 31 schema-valid records and 9 pytest tests
+
+P5-B5 completed outputs:
+
+- controlled route test origins under `data_pipeline/qualification/`
+- OSMnx/NetworkX walking-route builder for B4 qualified shelter/building targets
+- integrated route/qualification builder preserving B4 evidence and match fields
+- processed route JSON/CSV/GeoJSON outputs under `data_pipeline/processed/routes/`
+- integrated route/qualification JSON/CSV outputs under `data_pipeline/processed/qualification/`
+- QGIS QA layers for route origins, route lines, and route failures
+- pytest coverage for OSM route semantics, non-official route flags, integrated route fields, QA layers, and no raw/cache/download runtime references
+- validation passed in `data_pipeline/.venv`: 135 available OSM route records, 0 failed routes, and 6 pytest tests
 
 ## Milestone 0: Environment Setup
 

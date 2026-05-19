@@ -146,6 +146,40 @@ B4 status counts:
 
 Route fields remain `not_evaluated`. P5-B5 is responsible for prototype routing and route QA.
 
+## P5-B5 OSM Route Fields
+
+P5-B5 adds estimated OSM pedestrian route fields to the B4 qualification output without changing official qualification claims.
+
+New outputs:
+
+- `data_pipeline/processed/routes/real_chuo_osm_routes_sample.json`
+- `data_pipeline/processed/routes/real_chuo_osm_routes_sample.csv`
+- `data_pipeline/processed/routes/real_chuo_osm_routes_sample.geojson`
+- `data_pipeline/processed/qualification/real_chuo_integrated_route_qualification.json`
+- `data_pipeline/processed/qualification/real_chuo_integrated_route_qualification.csv`
+
+The integrated output preserves B4 fields such as `qualificationStatus`, `confidence`, `manualReviewNeeded`, official evidence sources, `matchMethod`, and `matchDistanceMeters`.
+
+Route fields added or updated:
+
+- `routeAvailability`
+- `nearestRouteDistanceMeters`
+- `estimatedTravelTimeSeconds`
+- `routeSource`
+- `routeType`
+- `isOfficialEvacuationRoute`
+- nearest route origin metadata
+
+All B5 route records use:
+
+- `routeSource = OSM`
+- `routeType = estimated_pedestrian_route`
+- `isOfficialEvacuationRoute = false`
+
+P5-B5 produced available routes for the 27 B4 qualified shelter/building targets. The 4 broad/unmatched B4 records remain `not_evaluated` for routing.
+
+OSM route estimates must not be interpreted as official evacuation routes and must not affect Unity gameplay rules until a later approved Unity integration milestone.
+
 ## P5 Safety Boundaries
 
 - Do not confuse official buildings with non-official candidates.

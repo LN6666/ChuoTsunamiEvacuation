@@ -159,6 +159,42 @@ P5-B5 next step:
 
 Use the B4 qualification and match outputs as the input to an OSM routing sample. P5-B5 should define OSM attribution/cache behavior, compute prototype route fields, keep route outputs clearly non-official, and generate route QA layers before any Unity integration.
 
+## P5-B5 OSM Routing Sample And Integrated Output
+
+P5-B5 completed the first OSM walking-route sample stage using B4 qualification/match outputs.
+
+Completed scope:
+
+- recorded five controlled route test origins for Ginza, Nihonbashi, Hatchobori/Tsukiji, Tsukishima/Kachidoki, and Harumi waterfront
+- used OSMnx/NetworkX with `walk` network data and local ignored cache files
+- routed from 5 origins to 27 B4 qualified shelter/building targets
+- generated 135 available estimated pedestrian routes and 0 failed routes
+- merged nearest route distance/time back into the 31 B4 qualification records
+- produced QGIS QA layers for route origins, route lines, and route failures
+- added focused tests for route output semantics, non-official route flags, integrated output fields, and QA layer presence
+
+Completion summary:
+
+- route records: 135
+- available routes: 135
+- failed routes: 0
+- integrated qualification records with available routes: 27
+- integrated qualification records left `not_evaluated`: 4 broad/unmatched B4 records
+- route distance range: 97.727 m to 5,939.296 m
+- estimated travel time range: 81.439 s to 4,949.413 s at 1.2 m/s
+- pytest passed: 6 tests
+
+Scope boundaries preserved:
+
+- routes are OSM-based prototype walking estimates, not official evacuation routes
+- no flood simulation, disaster road closure, Unity integration, gameplay rule change, scene change, `Assets/Data`, `ProjectSettings`, or `Packages` change was made
+- raw/cache OSM files are ignored and not committed
+- `sourceMode` remains `test`
+
+P5-C next step:
+
+Prepare Unity-side read-only loading of integrated qualification/route outputs, preserving confidence/warning labels and keeping the committed default `sourceMode = test` unless a later milestone explicitly changes it.
+
 ## P5-B Planned Pipeline
 
 P5-B should build the reproducible PLATEAU qualification/matching and GIS routing pipeline after P5-A rule definitions are approved.
