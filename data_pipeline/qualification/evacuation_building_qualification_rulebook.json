@@ -1,0 +1,295 @@
+{
+  "rulebookVersion": "p5-a2-qualification-rulebook-v1",
+  "purpose": "Define the Phase 5 foundation for evidence-based evacuation building qualification outputs. This rulebook separates official designation from non-official candidate suitability and prepares validation rules for later P5-B matching/routing work.",
+  "planningOnly": true,
+  "logicImplemented": false,
+  "nonClaims": [
+    "Official designation can only come from official evidence.",
+    "Literature/report criteria can support strong_candidate or weak_candidate, but cannot make a building official_confirmed.",
+    "Routing results are estimated prototype routes, not official evacuation routes.",
+    "Hazard context is not flood simulation."
+  ],
+  "evidencePriority": [
+    "official evacuation shelter / disaster facility data",
+    "official hazard/disaster maps and administrative disaster documents",
+    "PLATEAU building geometry and attributes",
+    "academic papers and policy/technical reports",
+    "OSM / routing data as auxiliary evidence"
+  ],
+  "officialEvidenceFamilies": [
+    "official_shelter_facility",
+    "official_evacuation_building",
+    "official_hazard_map",
+    "official_disaster_prevention_plan"
+  ],
+  "candidateEvidenceFamilies": [
+    "plateau_building_geometry",
+    "plateau_building_attribute",
+    "literature_vertical_evacuation_criteria",
+    "literature_accessibility_criteria",
+    "osm_routing_network"
+  ],
+  "statusTaxonomy": [
+    {
+      "status": "official_confirmed",
+      "description": "Official evidence directly identifies the facility/building and the PLATEAU building match is sufficiently unambiguous.",
+      "requiresOfficialEvidence": true,
+      "manualReviewExpected": false
+    },
+    {
+      "status": "official_confirmed_with_review",
+      "description": "Official evidence likely identifies the building, but spatial matching, naming, source date, geometry, or metadata ambiguity requires manual review.",
+      "requiresOfficialEvidence": true,
+      "manualReviewExpected": true
+    },
+    {
+      "status": "strong_candidate",
+      "description": "Non-official or derived evidence strongly suggests suitability under documented criteria; this is not an official designation claim.",
+      "requiresOfficialEvidence": false,
+      "manualReviewExpected": true
+    },
+    {
+      "status": "weak_candidate",
+      "description": "Limited or partial evidence suggests possible suitability, with significant uncertainty.",
+      "requiresOfficialEvidence": false,
+      "manualReviewExpected": true
+    },
+    {
+      "status": "unknown",
+      "description": "Available evidence is insufficient to qualify or reject the building.",
+      "requiresOfficialEvidence": false,
+      "manualReviewExpected": true
+    },
+    {
+      "status": "not_qualified",
+      "description": "Evidence or rule checks indicate the building should not be treated as an evacuation building candidate.",
+      "requiresOfficialEvidence": false,
+      "manualReviewExpected": true
+    }
+  ],
+  "confidenceLevels": [
+    {
+      "level": "high",
+      "description": "Evidence and spatial matching are strong enough for automated use with low residual uncertainty."
+    },
+    {
+      "level": "medium",
+      "description": "Evidence is plausible but has match, metadata, route, or source limitations that should be visible to reviewers."
+    },
+    {
+      "level": "low",
+      "description": "Evidence is weak, incomplete, conflicting, or based mainly on candidate inference."
+    },
+    {
+      "level": "unknown",
+      "description": "Evidence is unavailable or insufficient to assign confidence."
+    }
+  ],
+  "manualReviewTriggers": [
+    "shelter point not inside building footprint",
+    "nearest match distance too large",
+    "multiple building candidates",
+    "source conflict",
+    "missing safe floor / capacity",
+    "low confidence match",
+    "candidate is non-official",
+    "source update date missing",
+    "map/PDF/manual-reference source only",
+    "hazard applicability unclear",
+    "OSM-derived routing used"
+  ],
+  "ruleGroups": [
+    {
+      "groupId": "official_designation",
+      "description": "Determines whether a building can be officially confirmed based on official shelter, evacuation building, disaster facility, or administrative evidence.",
+      "evidenceSources": [
+        "official_shelter_facility",
+        "official_evacuation_building",
+        "official_disaster_prevention_plan"
+      ],
+      "canConfirmOfficialStatus": true,
+      "canSupportCandidateStatus": true,
+      "exampleRules": [
+        "If an official evacuation building source identifies a building and the PLATEAU match is unambiguous, qualificationStatus may be official_confirmed.",
+        "If official evidence identifies a facility but the building match is ambiguous, qualificationStatus should be official_confirmed_with_review.",
+        "If only literature/report or PLATEAU-derived evidence exists, qualificationStatus must not be official_confirmed."
+      ],
+      "warnings": [
+        "Do not claim official designation without official source evidence.",
+        "Do not treat third-party summaries as official primary sources."
+      ],
+      "manualReviewTriggers": [
+        "official source is address-only",
+        "official source update date missing",
+        "official source conflicts with another official source",
+        "facility spans multiple candidate buildings"
+      ]
+    },
+    {
+      "groupId": "spatial_match_to_plateau_building",
+      "description": "Plans how official or candidate facility evidence should be linked to PLATEAU building records.",
+      "evidenceSources": [
+        "official_shelter_facility",
+        "official_evacuation_building",
+        "plateau_building_geometry",
+        "plateau_building_attribute"
+      ],
+      "canConfirmOfficialStatus": false,
+      "canSupportCandidateStatus": true,
+      "exampleRules": [
+        "A contains match is preferred when the source point lies inside a single building footprint.",
+        "A nearest match can be used only with matchDistanceMeters and manualReviewNeeded when the point is outside a footprint.",
+        "Unmatched records must not be official_confirmed unless later manual review provides an approved override."
+      ],
+      "warnings": [
+        "PLATEAU geometry supports matching but does not prove official designation.",
+        "Metric distance must be calculated in an appropriate projected CRS in future implementation."
+      ],
+      "manualReviewTriggers": [
+        "shelter point not inside building footprint",
+        "nearest match distance too large",
+        "multiple building candidates",
+        "matchMethod is unmatched",
+        "matchMethod is manual_override"
+      ]
+    },
+    {
+      "groupId": "safe_floor_or_height",
+      "description": "Plans candidate checks for safe floors, available vertical evacuation height, and height-related warnings.",
+      "evidenceSources": [
+        "official_shelter_facility",
+        "official_evacuation_building",
+        "official_hazard_map",
+        "plateau_building_attribute",
+        "literature_vertical_evacuation_criteria"
+      ],
+      "canConfirmOfficialStatus": false,
+      "canSupportCandidateStatus": true,
+      "exampleRules": [
+        "Official safe-floor fields can support official_confirmed or official_confirmed_with_review metadata when official designation also exists.",
+        "Literature/report height criteria can support strong_candidate or weak_candidate, not official_confirmed.",
+        "Missing safeFloor or height data should create warnings and manual review for candidates."
+      ],
+      "warnings": [
+        "Hazard depth context does not equal flood simulation.",
+        "Height criteria must be tied to a documented hazard scenario before use."
+      ],
+      "manualReviewTriggers": [
+        "missing safe floor / capacity",
+        "missing height or floor attributes",
+        "hazard depth scenario unclear",
+        "literature criterion applicability unclear"
+      ]
+    },
+    {
+      "groupId": "hazard_context",
+      "description": "Plans how official hazard maps and disaster documents provide context for warnings and candidate screening.",
+      "evidenceSources": [
+        "official_hazard_map",
+        "official_disaster_prevention_plan",
+        "literature_vertical_evacuation_criteria"
+      ],
+      "canConfirmOfficialStatus": false,
+      "canSupportCandidateStatus": true,
+      "exampleRules": [
+        "Official hazard map overlap can add warnings or support safe-floor review.",
+        "Hazard context can downgrade confidence or require manual review when applicability to Chuo Ward is unclear.",
+        "Hazard context alone cannot make a building official_confirmed."
+      ],
+      "warnings": [
+        "Hazard context is not flood simulation.",
+        "PDF or visual-only maps should not be treated as reproducible geometry without later controlled processing."
+      ],
+      "manualReviewTriggers": [
+        "hazard applicability unclear",
+        "map/PDF/manual-reference source only",
+        "source conflict",
+        "hazard scenario missing"
+      ]
+    },
+    {
+      "groupId": "route_accessibility",
+      "description": "Plans how prototype route availability, distance, and travel time support accessibility warnings.",
+      "evidenceSources": [
+        "osm_routing_network",
+        "literature_accessibility_criteria",
+        "official_disaster_prevention_plan"
+      ],
+      "canConfirmOfficialStatus": false,
+      "canSupportCandidateStatus": true,
+      "exampleRules": [
+        "Estimated route distance and travel time can add routeAvailability, nearestRouteDistanceMeters, and estimatedTravelTimeSeconds.",
+        "OSM-derived route estimates must be labeled as prototype estimates.",
+        "Route availability cannot confirm official evacuation route status."
+      ],
+      "warnings": [
+        "Routing results are estimated prototype routes, not official evacuation routes.",
+        "OSM network completeness and pedestrian access tags require review."
+      ],
+      "manualReviewTriggers": [
+        "OSM-derived routing used",
+        "routeAvailability is failed",
+        "routeAvailability is unavailable",
+        "low confidence match"
+      ]
+    },
+    {
+      "groupId": "capacity_or_crowding",
+      "description": "Plans how capacity, expected crowding, and missing occupancy evidence should affect warnings and confidence.",
+      "evidenceSources": [
+        "official_shelter_facility",
+        "official_evacuation_building",
+        "literature_accessibility_criteria"
+      ],
+      "canConfirmOfficialStatus": false,
+      "canSupportCandidateStatus": true,
+      "exampleRules": [
+        "Official capacity fields should be preserved when available.",
+        "Missing capacity should not disqualify a building by itself, but should add warnings and manual review.",
+        "Crowding assumptions from literature can support warnings, not official designation."
+      ],
+      "warnings": [
+        "Capacity values may use different definitions across sources.",
+        "Crowding estimates are scenario assumptions unless official source fields provide them."
+      ],
+      "manualReviewTriggers": [
+        "missing safe floor / capacity",
+        "capacity source conflict",
+        "vulnerable population assumptions used"
+      ]
+    },
+    {
+      "groupId": "source_conflict_or_missing_data",
+      "description": "Plans handling of missing source metadata, conflicting evidence, unknown values, and disqualification cases.",
+      "evidenceSources": [
+        "official_shelter_facility",
+        "official_evacuation_building",
+        "official_hazard_map",
+        "official_disaster_prevention_plan",
+        "plateau_building_geometry",
+        "plateau_building_attribute",
+        "literature_vertical_evacuation_criteria",
+        "literature_accessibility_criteria",
+        "osm_routing_network"
+      ],
+      "canConfirmOfficialStatus": false,
+      "canSupportCandidateStatus": true,
+      "exampleRules": [
+        "Conflicting official evidence should produce manualReviewNeeded and may produce not_qualified when evidence shows the building is unsuitable.",
+        "Insufficient evidence should produce unknown, not a candidate claim.",
+        "Missing sourceUpdatedAt should be preserved as null and listed in warnings."
+      ],
+      "warnings": [
+        "Do not fill missing official fields with inferred values.",
+        "Do not treat unknown as qualified."
+      ],
+      "manualReviewTriggers": [
+        "source conflict",
+        "source update date missing",
+        "missing safe floor / capacity",
+        "candidate is non-official",
+        "low confidence match"
+      ]
+    }
+  ]
+}

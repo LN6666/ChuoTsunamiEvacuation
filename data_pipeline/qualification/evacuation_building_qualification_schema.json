@@ -1,0 +1,282 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.local/chuo-tsunami-evacuation/evacuation-building-qualification.schema.json",
+  "title": "Evacuation Building Qualification Dataset",
+  "description": "Schema for future Phase 5 evacuation building qualification outputs. This validates output shape only; it does not implement matching, routing, or official-source ingestion.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "datasetId",
+    "generatedAt",
+    "coordinateReferenceSystem",
+    "rulebookVersion",
+    "records"
+  ],
+  "properties": {
+    "datasetId": {
+      "type": "string",
+      "minLength": 1
+    },
+    "generatedAt": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "coordinateReferenceSystem": {
+      "type": "string",
+      "minLength": 1
+    },
+    "rulebookVersion": {
+      "type": "string",
+      "minLength": 1
+    },
+    "notes": {
+      "type": "string"
+    },
+    "records": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/$defs/qualificationRecord"
+      }
+    }
+  },
+  "$defs": {
+    "qualificationStatus": {
+      "type": "string",
+      "enum": [
+        "official_confirmed",
+        "official_confirmed_with_review",
+        "strong_candidate",
+        "weak_candidate",
+        "unknown",
+        "not_qualified"
+      ]
+    },
+    "officialDesignationStatus": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "enum": [
+        "official_designated",
+        "official_designated_with_review",
+        "not_official",
+        "unknown",
+        "conflicting",
+        "not_evaluated",
+        null
+      ]
+    },
+    "matchMethod": {
+      "type": "string",
+      "enum": [
+        "contains",
+        "nearest",
+        "manual_override",
+        "unmatched",
+        "not_evaluated"
+      ]
+    },
+    "confidence": {
+      "type": "string",
+      "enum": [
+        "high",
+        "medium",
+        "low",
+        "unknown"
+      ]
+    },
+    "routeAvailability": {
+      "type": "string",
+      "enum": [
+        "available",
+        "unavailable",
+        "not_evaluated",
+        "failed"
+      ]
+    },
+    "sourceFamily": {
+      "type": "string",
+      "enum": [
+        "official_shelter_facility",
+        "official_evacuation_building",
+        "official_hazard_map",
+        "official_disaster_prevention_plan",
+        "plateau_building_geometry",
+        "plateau_building_attribute",
+        "literature_vertical_evacuation_criteria",
+        "literature_accessibility_criteria",
+        "osm_routing_network",
+        "manual_review"
+      ]
+    },
+    "evidenceSource": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "sourceId",
+        "sourceFamily",
+        "sourceName",
+        "officialStatus"
+      ],
+      "properties": {
+        "sourceId": {
+          "type": "string",
+          "minLength": 1
+        },
+        "sourceFamily": {
+          "$ref": "#/$defs/sourceFamily"
+        },
+        "sourceName": {
+          "type": "string",
+          "minLength": 1
+        },
+        "officialStatus": {
+          "type": "string",
+          "enum": [
+            "official_primary",
+            "official_reference",
+            "secondary_reference",
+            "derived",
+            "manual_review",
+            "not_official"
+          ]
+        },
+        "sourceUrl": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "uri"
+        },
+        "sourceUpdatedAt": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "evidenceNote": {
+          "type": "string"
+        }
+      }
+    },
+    "nullableString": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "nullableNumber": {
+      "type": [
+        "number",
+        "null"
+      ]
+    },
+    "nullableInteger": {
+      "type": [
+        "integer",
+        "null"
+      ]
+    },
+    "qualificationRecord": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "qualificationId",
+        "qualificationStatus",
+        "qualificationReason",
+        "evidenceSources",
+        "matchMethod",
+        "confidence",
+        "manualReviewNeeded",
+        "warnings"
+      ],
+      "properties": {
+        "qualificationId": {
+          "type": "string",
+          "minLength": 1
+        },
+        "plateauBuildingId": {
+          "$ref": "#/$defs/nullableString"
+        },
+        "shelterId": {
+          "$ref": "#/$defs/nullableString"
+        },
+        "shelterName": {
+          "$ref": "#/$defs/nullableString"
+        },
+        "officialDesignationStatus": {
+          "$ref": "#/$defs/officialDesignationStatus"
+        },
+        "qualificationStatus": {
+          "$ref": "#/$defs/qualificationStatus"
+        },
+        "qualificationReason": {
+          "type": "string",
+          "minLength": 1
+        },
+        "evidenceSources": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/evidenceSource"
+          }
+        },
+        "matchMethod": {
+          "$ref": "#/$defs/matchMethod"
+        },
+        "matchDistanceMeters": {
+          "$ref": "#/$defs/nullableNumber",
+          "minimum": 0
+        },
+        "confidence": {
+          "$ref": "#/$defs/confidence"
+        },
+        "manualReviewNeeded": {
+          "type": "boolean"
+        },
+        "warnings": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "disasterTypes": {
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "safeFloor": {
+          "$ref": "#/$defs/nullableInteger",
+          "minimum": 0
+        },
+        "capacity": {
+          "$ref": "#/$defs/nullableInteger",
+          "minimum": 0
+        },
+        "sourceUpdatedAt": {
+          "$ref": "#/$defs/nullableString"
+        },
+        "routeAvailability": {
+          "$ref": "#/$defs/routeAvailability"
+        },
+        "nearestRouteDistanceMeters": {
+          "$ref": "#/$defs/nullableNumber",
+          "minimum": 0
+        },
+        "estimatedTravelTimeSeconds": {
+          "$ref": "#/$defs/nullableNumber",
+          "minimum": 0
+        },
+        "notes": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}

@@ -55,6 +55,19 @@ Expected work:
 - define schema requirements for qualification outputs
 - define how official, candidate, and unknown statuses are represented without overstating certainty
 
+P5-A2 completion criteria:
+
+- concrete evacuation building qualification rulebook JSON is created
+- JSON Schema for future qualification outputs is created
+- synthetic sample fixture covers official, review, candidate, unknown, not-qualified, and unmatched cases
+- validator script validates a fixture against the schema when `jsonschema` is available
+- pytest coverage checks taxonomy, official/candidate boundaries, manual review triggers, and fixture shape
+- no official data download, scraping, dependency installation, routing, PLATEAU matching, Unity gameplay changes, scene changes, `ProjectSettings`, `Packages`, or `Assets/Data` changes are made
+
+P5-B1 next step:
+
+P5-B1 should implement a controlled sample qualification/matching/routing pipeline using this schema. It should start with small fixtures and explicit CRS/match assumptions, not official downloads or Unity integration.
+
 ## P5-B Planned Pipeline
 
 P5-B should build the reproducible PLATEAU qualification/matching and GIS routing pipeline after P5-A rule definitions are approved.

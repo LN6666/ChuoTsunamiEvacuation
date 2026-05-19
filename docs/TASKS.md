@@ -12,13 +12,14 @@ Phase 5 qualification, routing, PLATEAU matching, and Unity map-decision integra
 
 ## Phase 5: Qualification, Routing, PLATEAU Matching, and Unity Integration
 
-Status: P5-A1 evidence and tool decision review complete.
+Status: P5-A2 rulebook/schema foundation complete.
 
 Planned tasks:
 
 - P5-A0: workspace setup, documentation baseline, and open-source reference candidate registry. Done.
 - P5-A1: official evidence source review and open-source reference decisions. Done.
-- P5-A2: evacuation building qualification rulebook foundation. Next.
+- P5-A2: evacuation building qualification rulebook foundation. Done.
+- P5-B1: controlled sample qualification/matching/routing pipeline using the P5-A2 schema. Next.
 - P5-B: PLATEAU qualification/matching and GIS routing pipeline.
 - P5-C: Unity integration for qualified buildings, routes, confidence, warnings, and decision feedback.
 - P5 final review: validation summary, DeepSeek review, scope boundary confirmation, and merge decision.

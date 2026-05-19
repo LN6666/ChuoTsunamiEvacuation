@@ -1,0 +1,292 @@
+{
+  "datasetId": "p5_a2_sample_building_qualification_fixture",
+  "generatedAt": "2026-05-19T12:00:00Z",
+  "coordinateReferenceSystem": "EPSG:4326",
+  "rulebookVersion": "p5-a2-qualification-rulebook-v1",
+  "notes": "Synthetic/sample fixture for schema validation only. This is not a final real Chuo dataset and does not claim any real building is officially designated.",
+  "records": [
+    {
+      "qualificationId": "sample_qualification_001",
+      "plateauBuildingId": "sample_plateau_bldg_001",
+      "shelterId": "sample_official_shelter_001",
+      "shelterName": "Sample Official Vertical Evacuation Building",
+      "officialDesignationStatus": "official_designated",
+      "qualificationStatus": "official_confirmed",
+      "qualificationReason": "Official evacuation building evidence is present and the synthetic source point is contained by one sample PLATEAU building footprint.",
+      "evidenceSources": [
+        {
+          "sourceId": "sample_official_evacuation_building_list",
+          "sourceFamily": "official_evacuation_building",
+          "sourceName": "Synthetic Official Evacuation Building List",
+          "officialStatus": "official_primary",
+          "sourceUrl": null,
+          "sourceUpdatedAt": "2026-05-01",
+          "evidenceNote": "Synthetic official-like source for schema validation only."
+        },
+        {
+          "sourceId": "sample_plateau_geometry",
+          "sourceFamily": "plateau_building_geometry",
+          "sourceName": "Synthetic PLATEAU Geometry Fixture",
+          "officialStatus": "derived",
+          "sourceUrl": null,
+          "sourceUpdatedAt": null,
+          "evidenceNote": "Contains match in sample data."
+        }
+      ],
+      "matchMethod": "contains",
+      "matchDistanceMeters": 0.0,
+      "confidence": "high",
+      "manualReviewNeeded": false,
+      "warnings": [],
+      "disasterTypes": [
+        "tsunami",
+        "flood"
+      ],
+      "safeFloor": 3,
+      "capacity": 500,
+      "sourceUpdatedAt": "2026-05-01",
+      "routeAvailability": "not_evaluated",
+      "nearestRouteDistanceMeters": null,
+      "estimatedTravelTimeSeconds": null,
+      "notes": "Synthetic official_confirmed contains-match example."
+    },
+    {
+      "qualificationId": "sample_qualification_002",
+      "plateauBuildingId": "sample_plateau_bldg_002",
+      "shelterId": "sample_official_shelter_002",
+      "shelterName": "Sample Official Facility With Ambiguous Match",
+      "officialDesignationStatus": "official_designated_with_review",
+      "qualificationStatus": "official_confirmed_with_review",
+      "qualificationReason": "Official shelter evidence exists, but the point uses a nearest-building match and requires manual review.",
+      "evidenceSources": [
+        {
+          "sourceId": "sample_official_shelter_facility_list",
+          "sourceFamily": "official_shelter_facility",
+          "sourceName": "Synthetic Official Shelter Facility List",
+          "officialStatus": "official_primary",
+          "sourceUrl": null,
+          "sourceUpdatedAt": "2026-05-02",
+          "evidenceNote": "Synthetic official-like source for schema validation only."
+        },
+        {
+          "sourceId": "sample_plateau_geometry",
+          "sourceFamily": "plateau_building_geometry",
+          "sourceName": "Synthetic PLATEAU Geometry Fixture",
+          "officialStatus": "derived",
+          "sourceUrl": null,
+          "sourceUpdatedAt": null,
+          "evidenceNote": "Nearest match is outside the sample footprint."
+        }
+      ],
+      "matchMethod": "nearest",
+      "matchDistanceMeters": 18.5,
+      "confidence": "medium",
+      "manualReviewNeeded": true,
+      "warnings": [
+        "nearest match requires manual review",
+        "source point not inside building footprint"
+      ],
+      "disasterTypes": [
+        "flood"
+      ],
+      "safeFloor": 2,
+      "capacity": 250,
+      "sourceUpdatedAt": "2026-05-02",
+      "routeAvailability": "not_evaluated",
+      "nearestRouteDistanceMeters": null,
+      "estimatedTravelTimeSeconds": null,
+      "notes": "Synthetic official_confirmed_with_review nearest-match example."
+    },
+    {
+      "qualificationId": "sample_qualification_003",
+      "plateauBuildingId": "sample_plateau_bldg_003",
+      "shelterId": null,
+      "shelterName": "Sample Literature-Based Candidate Building",
+      "officialDesignationStatus": "not_official",
+      "qualificationStatus": "strong_candidate",
+      "qualificationReason": "Synthetic PLATEAU attributes and literature-style vertical evacuation criteria suggest candidate suitability, but no official designation evidence is present.",
+      "evidenceSources": [
+        {
+          "sourceId": "sample_literature_vertical_criteria",
+          "sourceFamily": "literature_vertical_evacuation_criteria",
+          "sourceName": "Synthetic Vertical Evacuation Criteria Reference",
+          "officialStatus": "secondary_reference",
+          "sourceUrl": null,
+          "sourceUpdatedAt": null,
+          "evidenceNote": "Supports candidate criteria only, not official designation."
+        },
+        {
+          "sourceId": "sample_plateau_attribute",
+          "sourceFamily": "plateau_building_attribute",
+          "sourceName": "Synthetic PLATEAU Attribute Fixture",
+          "officialStatus": "derived",
+          "sourceUrl": null,
+          "sourceUpdatedAt": null,
+          "evidenceNote": "Sample building height/floor attributes meet candidate threshold."
+        }
+      ],
+      "matchMethod": "contains",
+      "matchDistanceMeters": 0.0,
+      "confidence": "medium",
+      "manualReviewNeeded": true,
+      "warnings": [
+        "candidate is non-official",
+        "literature criteria cannot confirm official designation"
+      ],
+      "disasterTypes": [
+        "tsunami"
+      ],
+      "safeFloor": 4,
+      "capacity": 120,
+      "sourceUpdatedAt": null,
+      "routeAvailability": "not_evaluated",
+      "nearestRouteDistanceMeters": null,
+      "estimatedTravelTimeSeconds": null,
+      "notes": "Synthetic strong_candidate example based on non-official candidate evidence."
+    },
+    {
+      "qualificationId": "sample_qualification_004",
+      "plateauBuildingId": "sample_plateau_bldg_004",
+      "shelterId": null,
+      "shelterName": "Sample Weak Candidate With Missing Fields",
+      "officialDesignationStatus": "not_official",
+      "qualificationStatus": "weak_candidate",
+      "qualificationReason": "Some candidate evidence exists, but capacity and safe floor are missing.",
+      "evidenceSources": [
+        {
+          "sourceId": "sample_literature_accessibility_criteria",
+          "sourceFamily": "literature_accessibility_criteria",
+          "sourceName": "Synthetic Accessibility Criteria Reference",
+          "officialStatus": "secondary_reference",
+          "sourceUrl": null,
+          "sourceUpdatedAt": null,
+          "evidenceNote": "Suggests possible accessibility but not official designation."
+        }
+      ],
+      "matchMethod": "contains",
+      "matchDistanceMeters": 0.0,
+      "confidence": "low",
+      "manualReviewNeeded": true,
+      "warnings": [
+        "missing safe floor / capacity",
+        "candidate is non-official"
+      ],
+      "disasterTypes": null,
+      "safeFloor": null,
+      "capacity": null,
+      "sourceUpdatedAt": null,
+      "routeAvailability": "not_evaluated",
+      "nearestRouteDistanceMeters": null,
+      "estimatedTravelTimeSeconds": null,
+      "notes": "Synthetic weak_candidate example with missing qualification fields."
+    },
+    {
+      "qualificationId": "sample_qualification_005",
+      "plateauBuildingId": "sample_plateau_bldg_005",
+      "shelterId": null,
+      "shelterName": "Sample Unknown Evidence Building",
+      "officialDesignationStatus": "unknown",
+      "qualificationStatus": "unknown",
+      "qualificationReason": "Insufficient evidence exists to qualify or reject this synthetic building.",
+      "evidenceSources": [],
+      "matchMethod": "not_evaluated",
+      "matchDistanceMeters": null,
+      "confidence": "unknown",
+      "manualReviewNeeded": true,
+      "warnings": [
+        "insufficient evidence"
+      ],
+      "disasterTypes": null,
+      "safeFloor": null,
+      "capacity": null,
+      "sourceUpdatedAt": null,
+      "routeAvailability": "not_evaluated",
+      "nearestRouteDistanceMeters": null,
+      "estimatedTravelTimeSeconds": null,
+      "notes": "Synthetic unknown example."
+    },
+    {
+      "qualificationId": "sample_qualification_006",
+      "plateauBuildingId": "sample_plateau_bldg_006",
+      "shelterId": "sample_conflicting_facility_006",
+      "shelterName": "Sample Conflicting Facility",
+      "officialDesignationStatus": "conflicting",
+      "qualificationStatus": "not_qualified",
+      "qualificationReason": "Synthetic evidence conflict and unsuitable candidate evidence indicate the building should not be treated as an evacuation building candidate.",
+      "evidenceSources": [
+        {
+          "sourceId": "sample_official_reference_conflict",
+          "sourceFamily": "official_disaster_prevention_plan",
+          "sourceName": "Synthetic Official Disaster Prevention Reference",
+          "officialStatus": "official_reference",
+          "sourceUrl": null,
+          "sourceUpdatedAt": "2026-05-03",
+          "evidenceNote": "Synthetic conflict example for validation only."
+        },
+        {
+          "sourceId": "sample_manual_review_note",
+          "sourceFamily": "manual_review",
+          "sourceName": "Synthetic Manual Review Note",
+          "officialStatus": "manual_review",
+          "sourceUrl": null,
+          "sourceUpdatedAt": null,
+          "evidenceNote": "Manual review flags conflict or unsuitable evidence."
+        }
+      ],
+      "matchMethod": "manual_override",
+      "matchDistanceMeters": null,
+      "confidence": "low",
+      "manualReviewNeeded": true,
+      "warnings": [
+        "source conflict",
+        "not qualified based on synthetic review evidence"
+      ],
+      "disasterTypes": [],
+      "safeFloor": null,
+      "capacity": null,
+      "sourceUpdatedAt": "2026-05-03",
+      "routeAvailability": "not_evaluated",
+      "nearestRouteDistanceMeters": null,
+      "estimatedTravelTimeSeconds": null,
+      "notes": "Synthetic not_qualified example."
+    },
+    {
+      "qualificationId": "sample_qualification_007",
+      "plateauBuildingId": null,
+      "shelterId": "sample_unmatched_source_007",
+      "shelterName": "Sample Unmatched Source Record",
+      "officialDesignationStatus": "official_designated_with_review",
+      "qualificationStatus": "official_confirmed_with_review",
+      "qualificationReason": "Official-like source evidence exists, but no PLATEAU building match is available in this synthetic fixture.",
+      "evidenceSources": [
+        {
+          "sourceId": "sample_official_shelter_facility_list",
+          "sourceFamily": "official_shelter_facility",
+          "sourceName": "Synthetic Official Shelter Facility List",
+          "officialStatus": "official_primary",
+          "sourceUrl": null,
+          "sourceUpdatedAt": "2026-05-02",
+          "evidenceNote": "Synthetic official-like source with unmatched PLATEAU building."
+        }
+      ],
+      "matchMethod": "unmatched",
+      "matchDistanceMeters": null,
+      "confidence": "low",
+      "manualReviewNeeded": true,
+      "warnings": [
+        "unmatched PLATEAU building",
+        "manual review required before Unity integration"
+      ],
+      "disasterTypes": [
+        "flood"
+      ],
+      "safeFloor": null,
+      "capacity": null,
+      "sourceUpdatedAt": "2026-05-02",
+      "routeAvailability": "not_evaluated",
+      "nearestRouteDistanceMeters": null,
+      "estimatedTravelTimeSeconds": null,
+      "notes": "Synthetic unmatched record example."
+    }
+  ]
+}

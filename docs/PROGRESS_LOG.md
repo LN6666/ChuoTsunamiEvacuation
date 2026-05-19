@@ -1,5 +1,27 @@
 ---
 
+## 2026-05-19 | P5-A2 Qualification Rulebook and Schema Foundation
+
+### Completed
+
+Created the evacuation building qualification rulebook, JSON Schema, and synthetic sample fixture for future P5-B qualification outputs.
+
+Added a standard validation script for building qualification datasets and pytest coverage for schema validity, taxonomy, official/candidate boundaries, manual review expectations, and sample record shape.
+
+### Validation Notes
+
+JSON syntax validation passed for the rulebook, schema, and sample fixture. The validator script reported that `jsonschema` is unavailable in the active Python environment, and focused pytest execution could not run because `pytest` is unavailable. No dependencies were installed.
+
+### Scope Boundary
+
+No official data download, scraping, dependency installation, GIS routing, PLATEAU matching, CityGML parsing, Unity gameplay change, Unity scene change, `Assets/Data` change, `ProjectSettings`, or `Packages` change was performed.
+
+### Next Step
+
+P5-B1 should build a controlled sample qualification/matching/routing pipeline that emits schema-valid outputs before any real data ingestion or Unity integration.
+
+---
+
 ## 2026-05-19 | P5-A1 Evidence and Tool Decision Review
 
 ### Completed

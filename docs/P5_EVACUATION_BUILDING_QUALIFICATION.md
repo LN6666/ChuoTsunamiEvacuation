@@ -64,6 +64,30 @@ P5-A1 records the first review/planning layer for official evidence, candidate e
 
 These files are planning artifacts only. They do not download official data, install dependencies, parse CityGML, implement matching/routing, or modify Unity.
 
+## P5-A2 Rulebook And Schema Foundation
+
+P5-A2 converts the P5-A1 plans into concrete validation artifacts for future P5-B outputs:
+
+- Rulebook: `data_pipeline/qualification/evacuation_building_qualification_rulebook.json`
+- Output schema: `data_pipeline/qualification/evacuation_building_qualification_schema.json`
+- Sample fixture: `data_pipeline/qualification/sample_building_qualification_fixture.json`
+- Validator: `data_pipeline/scripts/validate_building_qualification.py`
+- Tests: `data_pipeline/tests/test_building_qualification_schema.py`
+
+The rulebook preserves the status taxonomy: `official_confirmed`, `official_confirmed_with_review`, `strong_candidate`, `weak_candidate`, `unknown`, and `not_qualified`.
+
+Evidence rules:
+
+- Official designation can only come from official evidence families.
+- Literature/report criteria may support `strong_candidate`, `weak_candidate`, warnings, and manual review, but cannot make a building official.
+- PLATEAU geometry and attributes support matching and candidate review, not official designation by themselves.
+- Routing results are estimated prototype routes, not official evacuation routes.
+- Hazard context is not flood simulation.
+
+Manual review triggers include nearest/unmatched/manual building matches, large match distance, multiple building candidates, source conflict, missing safe floor or capacity, low confidence, non-official candidate status, stale/missing source metadata, PDF/manual-only evidence, unclear hazard applicability, and OSM-derived routing.
+
+P5-B should consume this foundation by producing controlled sample qualification/matching/routing outputs that validate against the schema before any Unity integration.
+
 ## P5 Safety Boundaries
 
 - Do not confuse official buildings with non-official candidates.
