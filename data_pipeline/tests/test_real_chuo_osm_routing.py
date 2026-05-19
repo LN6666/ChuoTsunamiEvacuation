@@ -48,7 +48,8 @@ def test_scripts_and_outputs_exist() -> None:
 def test_route_records_are_osm_estimates_not_official_routes() -> None:
     payload = load_json(ROUTES_JSON)
     assert payload["osmNetworkType"] == "walk"
-    assert payload["osmAttribution"]
+    assert "OpenStreetMap" in payload["osmAttribution"]
+    assert payload["walkingSpeedMetersPerSecond"] == 1.2
     assert payload["originCount"] >= 5
     assert payload["targetCount"] > 0
     assert payload["records"]
@@ -61,6 +62,7 @@ def test_route_records_are_osm_estimates_not_official_routes() -> None:
         assert record["routeSource"] == "OSM"
         assert record["routeType"] == "estimated_pedestrian_route"
         assert record["isOfficialEvacuationRoute"] is False
+        assert record["walkingSpeedMetersPerSecond"] == payload["walkingSpeedMetersPerSecond"]
         if record["routeAvailability"] == "available":
             assert record["routeDistanceMeters"] > 0
             assert record["estimatedTravelTimeSeconds"] > 0
@@ -68,8 +70,6 @@ def test_route_records_are_osm_estimates_not_official_routes() -> None:
             assert len(record["geometry"]["coordinates"]) >= 2
         if record["routeAvailability"] == "failed":
             assert record["routeFailureReason"]
-
-    assert len(failed) >= 0
 
 
 def test_integrated_output_preserves_qualification_and_adds_route_info() -> None:
@@ -100,8 +100,16 @@ def test_qgis_route_layers_exist_and_are_geojson() -> None:
 
     route_lines = load_json(QGIS_LAYERS[0])
     route_origins = load_json(QGIS_LAYERS[1])
+    route_failures = load_json(QGIS_LAYERS[2])
     assert route_lines["features"]
     assert route_origins["features"]
+    assert isinstance(route_failures["features"], list)
+    for feature in route_failures["features"]:
+        properties = feature["properties"]
+        assert properties["routeAvailability"] == "failed"
+        assert properties["routeFailureReason"]
+        assert properties["routeSource"] == "OSM"
+        assert properties["isOfficialEvacuationRoute"] is False
 
 
 def test_outputs_do_not_reference_raw_cache_downloads_as_runtime_dependencies() -> None:

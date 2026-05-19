@@ -66,9 +66,11 @@ Network settings:
 - source CRS: `EPSG:4326`
 - snapping CRS: `EPSG:6677`
 - shortest path weight: OSM edge `length`
-- walking speed assumption: `1.2 m/s`
+- walking speed assumption: `1.2 m/s` prototype constant
 
-Routes are shortest-path estimates over the OSM walking network. They are not official evacuation routes.
+Routes are shortest-path estimates over the OSM walking network. They are not official evacuation routes, and the route results must not be presented as official evacuation guidance.
+
+`walkingSpeedMetersPerSecond = 1.2` is a P5-B prototype assumption used only to estimate route times. It is not a final evacuation-behavior model and does not account for crowding, age, disability, stair movement, panic, flooding, debris, road closures, or tsunami timing.
 
 ## Outputs
 
@@ -89,13 +91,15 @@ QGIS route QA layers:
 - `data_pipeline/processed/qgis_qa/real_chuo_route_origins.geojson`
 - `data_pipeline/processed/qgis_qa/real_chuo_route_failures.geojson`
 
+`real_chuo_route_failures.geojson` is part of the output contract and must remain included even when it contains an empty FeatureCollection.
+
 ## Results
 
 - origin points: 5
 - target shelter/buildings: 27
 - route records: 135
 - available routes: 135
-- failed routes: 0
+- failed routes: 0 for the current controlled 5-origin sample
 - integrated qualification records: 31
 - integrated records with available routes: 27
 - integrated records left `not_evaluated`: 4 broad/unmatched B4 records
@@ -154,9 +158,12 @@ Detailed route spot checks should still be repeated before publication, presenta
 
 - Routes are estimated prototype pedestrian routes.
 - Routes are not official evacuation routes.
+- The current 0-failure result applies only to the controlled 5-origin sample.
+- Future random, sparse, or waterfront origins may fail because of OSM network gaps, disconnected pedestrian components, tagging gaps, or snapping failures.
 - No disaster road closure is modeled.
 - No flood or tsunami simulation is modeled.
 - OSM completeness and pedestrian access tagging require review.
+- Walking speed is a prototype time-estimation constant, not final evacuation behavior.
 - P5-B5 does not integrate with Unity or change gameplay rules.
 
 ## Next Step

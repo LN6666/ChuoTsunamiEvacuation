@@ -1,6 +1,6 @@
 {
   "datasetId": "p5_b5_real_chuo_integrated_route_qualification",
-  "generatedAt": "2026-05-20T01:02:30+09:00",
+  "generatedAt": "2026-05-20T01:55:25+09:00",
   "coordinateReferenceSystem": "EPSG:4326",
   "rulebookVersion": "p5-a2-qualification-rulebook-v1",
   "qualificationInputPath": "data_pipeline/processed/qualification/real_chuo_building_qualification.json",
@@ -2138,10 +2138,14 @@
       ],
       "matchMethod": "nearest",
       "matchDistanceMeters": 7.215,
-      "confidence": "high",
+      "confidence": "medium",
       "manualReviewNeeded": true,
       "warnings": [
         "shelter point is outside PLATEAU footprint; nearest-building match requires review",
+        "nearest_match_semantic_review_needed",
+        "nearest PLATEAU building height is missing",
+        "nearest PLATEAU building floor count is low or uncertain",
+        "nearest PLATEAU building usage is raw, unknown, or not semantically interpreted in P5-B",
         "official source does not provide safeFloor; preserve null for review",
         "OSM route is an estimated prototype pedestrian route, not an official evacuation route",
         "target building qualification requires manual review",

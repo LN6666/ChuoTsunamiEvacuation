@@ -8,6 +8,34 @@
 
 ---
 
+## 2026-05-20 | P5-B DeepSeek B-Level Follow-Up
+
+### Completed
+
+Addressed DeepSeek B-level follow-up items before the separate P5-B5 review.
+
+Updated nearest-match confidence handling so a nearest PLATEAU match with multiple weak building-attribute signals is not assigned high confidence. The `chuo_official_emergency_023` / 豊海小学校 nearest match now has medium confidence and includes `nearest_match_semantic_review_needed`.
+
+Updated P5-B documentation for OSM route-failure scope, empty failure-layer retention, prototype walking-speed assumptions, non-official route labeling, raw PLATEAU usage-code handling, and future broad-area place-name heuristic refinement.
+
+### Validation Notes
+
+Schema validation passed for 31 building qualification records.
+
+`data_pipeline/.venv/Scripts/python.exe -m pytest data_pipeline/tests/test_real_chuo_building_qualification.py data_pipeline/tests/test_real_chuo_osm_routing.py` passed: 12 tests.
+
+After the building test reran B4 generation, the integrated route qualification builder was rerun and `data_pipeline/.venv/Scripts/python.exe -m pytest data_pipeline/tests/test_real_chuo_osm_routing.py` passed again: 6 tests.
+
+### Scope Boundary
+
+No Unity files, scenes, `Assets/Data`, `ProjectSettings`, `Packages`, raw/cache/download/tmp, `.venv`, or raw PLATEAU/CityGML files were intentionally modified. `sourceMode` remains `test`.
+
+### Next Step
+
+Run the separate P5-B5 DeepSeek review.
+
+---
+
 ## 2026-05-20 | P5-B Review Preparation
 
 ### Completed

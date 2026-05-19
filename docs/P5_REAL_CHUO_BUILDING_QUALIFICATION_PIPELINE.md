@@ -53,6 +53,12 @@ Input manifest:
 
 B4 selected 13 local building mesh files, extracted 4,447 nearby candidate building footprints, and matched 26 distinct PLATEAU buildings.
 
+## PLATEAU Attribute Handling
+
+P5-B preserves PLATEAU building attributes such as `usage`, `class`, measured height, and storeys as raw/source attributes when they are available in the parsed local CityGML building elements.
+
+Raw PLATEAU usage codes such as `9999`, `3002`, and `3003` are not fully interpreted in P5-B. They are retained for QA context only. Downstream users should not over-interpret these codes, infer facility type from them, or use them as evacuation-safety evidence without a formal PLATEAU usage-code codebook and a separate review step.
+
 ## CRS Strategy
 
 Source/interchange CRS:
@@ -76,6 +82,8 @@ Methods:
 - `contains`: shelter point is covered by one selected PLATEAU footprint.
 - `nearest`: shelter point is outside the footprint but within the B4 nearest threshold.
 - `unmatched`: no acceptable building match, or the official record describes a broad evacuation area rather than a single building.
+
+Nearest-match confidence is distance-based but capped below high confidence when multiple selected-building attributes are weak for semantic review, such as missing height, low/uncertain floors, or raw/uninterpreted usage codes. These records include `nearest_match_semantic_review_needed`.
 
 Broad evacuation areas such as park/area districts are not force-matched to a building even if a nearby or containing footprint exists. They remain `unknown` with manual review warnings.
 

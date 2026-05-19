@@ -58,7 +58,7 @@
         "shelterName": "豊海小学校",
         "matchMethod": "nearest",
         "qualificationStatus": "official_confirmed_with_review",
-        "confidence": "high",
+        "confidence": "medium",
         "manualReviewNeeded": true
       }
     },

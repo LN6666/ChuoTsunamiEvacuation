@@ -21,7 +21,7 @@ chuo_official_emergency_019,月島第一小学校,13102-bldg-5099,bldg_1b30504b-
 chuo_official_emergency_020,月島第二小学校,13102-bldg-9813,bldg_997fde71-9138-4d1a-ba84-6ff57047e6a7,contains,0.0,high,False,[],53393692
 chuo_official_emergency_021,月島第三小学校,13102-bldg-7675,bldg_28476e16-ba7c-4fe3-bf1d-90cf577fe301,nearest,0.075,high,True,"[""shelter point is outside PLATEAU footprint; nearest-building match requires review""]",53393692
 chuo_official_emergency_022,晴海中学校,13102-bldg-1478,bldg_f843c6a2-8d52-4dcc-bc01-bc7d0ede2733,contains,0.0,high,False,[],53393692
-chuo_official_emergency_023,豊海小学校,13102-bldg-2954,bldg_01c61dfd-c5c9-454f-afbc-662aa6709160,nearest,7.215,high,True,"[""shelter point is outside PLATEAU footprint; nearest-building match requires review""]",53393681
+chuo_official_emergency_023,豊海小学校,13102-bldg-2954,bldg_01c61dfd-c5c9-454f-afbc-662aa6709160,nearest,7.215,medium,True,"[""shelter point is outside PLATEAU footprint; nearest-building match requires review"",""nearest_match_semantic_review_needed"",""nearest PLATEAU building height is missing"",""nearest PLATEAU building floor count is low or uncertain"",""nearest PLATEAU building usage is raw, unknown, or not semantically interpreted in P5-B""]",53393681
 chuo_official_emergency_024,中央区役所,13102-bldg-10473,bldg_35741517-9a06-4d9b-81ed-d11ec2576b30,contains,0.0,high,False,[],53394601
 chuo_official_emergency_025,日本橋区民センター,13102-bldg-12306,bldg_8df3166b-df28-4208-9fbd-883cf98547a8,contains,0.0,high,False,[],53394612
 chuo_official_emergency_026,月島区民センター,13102-bldg-3852,bldg_fee39d2c-fd06-4f35-b0a1-a093a3e16fd5,contains,0.0,high,False,[],53393692

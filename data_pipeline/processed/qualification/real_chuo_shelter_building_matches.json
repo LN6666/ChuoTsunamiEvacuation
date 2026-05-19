@@ -1,6 +1,6 @@
 {
   "datasetId": "p5_b4_real_chuo_shelter_building_matches",
-  "generatedAt": "2026-05-19T23:36:42+09:00",
+  "generatedAt": "2026-05-20T01:55:13+09:00",
   "coordinateReferenceSystem": "EPSG:4326",
   "metricCoordinateReferenceSystem": "EPSG:6677",
   "records": [
@@ -279,10 +279,14 @@
       "plateauGmlId": "bldg_01c61dfd-c5c9-454f-afbc-662aa6709160",
       "matchMethod": "nearest",
       "matchDistanceMeters": 7.215,
-      "confidence": "high",
+      "confidence": "medium",
       "manualReviewNeeded": true,
       "warnings": [
-        "shelter point is outside PLATEAU footprint; nearest-building match requires review"
+        "shelter point is outside PLATEAU footprint; nearest-building match requires review",
+        "nearest_match_semantic_review_needed",
+        "nearest PLATEAU building height is missing",
+        "nearest PLATEAU building floor count is low or uncertain",
+        "nearest PLATEAU building usage is raw, unknown, or not semantically interpreted in P5-B"
       ],
       "sourceMeshCode": "53393681"
     },

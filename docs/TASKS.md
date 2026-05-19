@@ -26,6 +26,7 @@ Planned tasks:
 - P5-B5: OSM routing sample and integrated route-output planning/implementation. Done.
 - P5-B ReviewPrep: record B4/B5 validation and prepare DeepSeek review prompt. Done.
 - P5-B DeepSeek review: review P5-B data correctness, scope boundaries, CRS/routing assumptions, and P5-C readiness. Next.
+- Future P5 data QA: refine broad-area / non-building place-name heuristics beyond current tokens such as `公園一帯`, `地区`, and `リバーシティ`.
 - P5-C0: Unity read-only integration plan for qualified buildings, route lines, confidence, warnings, and source-mode safety. After DeepSeek review.
 - P5-B: PLATEAU qualification/matching and GIS routing pipeline.
 - P5-C: Unity integration for qualified buildings, routes, confidence, warnings, and decision feedback.

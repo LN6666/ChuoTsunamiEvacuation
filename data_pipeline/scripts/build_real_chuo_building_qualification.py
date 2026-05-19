@@ -42,6 +42,8 @@ EXTRACTION_BUFFER_METERS = 140.0
 NEAREST_HIGH_CONFIDENCE_METERS = 10.0
 NEAREST_MEDIUM_CONFIDENCE_METERS = 30.0
 UNMATCHED_DISTANCE_METERS = 80.0
+LOW_OR_UNCERTAIN_FLOOR_MAX = 2
+NEAREST_SEMANTIC_REVIEW_WARNING = "nearest_match_semantic_review_needed"
 
 QUALIFICATION_FIELDS = [
     "qualificationId",
@@ -222,6 +224,25 @@ def is_likely_non_building_area(name: str | None) -> bool:
     return any(token in name for token in ("公園一帯", "地区", "リバーシティ"))
 
 
+def nearest_semantic_review_reasons(building: dict[str, Any]) -> list[str]:
+    reasons: list[str] = []
+    if building.get("heightMeters") is None:
+        reasons.append("nearest PLATEAU building height is missing")
+
+    floors = building.get("floors")
+    if floors is None:
+        reasons.append("nearest PLATEAU building floor count is missing")
+    elif floors <= LOW_OR_UNCERTAIN_FLOOR_MAX:
+        reasons.append("nearest PLATEAU building floor count is low or uncertain")
+
+    usage = building.get("usage")
+    usage_text = usage.strip() if isinstance(usage, str) else None
+    if usage_text in {None, "", "9999", "3002", "3003"}:
+        reasons.append("nearest PLATEAU building usage is raw, unknown, or not semantically interpreted in P5-B")
+
+    return reasons
+
+
 def project_geometry(transformer: Transformer, geometry: Any) -> Any:
     return transform(transformer.transform, geometry)
 
@@ -356,6 +377,11 @@ def classify_match(
         else:
             confidence = "low"
             warnings.append("nearest PLATEAU building distance exceeds medium-confidence threshold")
+        semantic_reasons = nearest_semantic_review_reasons(nearest)
+        if len(semantic_reasons) >= 2:
+            if confidence == "high":
+                confidence = "medium"
+            warnings.extend([NEAREST_SEMANTIC_REVIEW_WARNING, *semantic_reasons])
         return nearest, "nearest", round(nearest_distance, 3), confidence, True, warnings
 
     warnings.append("no PLATEAU building footprint found within the B4 unmatched distance threshold")
