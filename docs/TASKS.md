@@ -590,3 +590,19 @@ Future non-blocking follow-up:
 - Clarify behavior when disabling existing test shelters in complex scenes
 - Reduce fixed Assets/Data path assumptions in tests if project structure changes
 - Fix CLI batchmode test-results XML issue
+
+## Phase 5-B — Real Chuo Qualification + Routing Pipeline
+
+Status: Complete after DeepSeek final review.
+
+Completed:
+- Official Chuo/Tokyo/GSI evacuation data ingestion
+- Real Chuo shelter normalization
+- PLATEAU building qualification and matching
+- OSM walking-route sample generation
+- Integrated route + qualification outputs
+- QGIS QA for building matching and routes
+- DeepSeek final review with no A-level blockers
+
+Next:
+- P5-C Unity read-only integration of qualified buildings, route lines, confidence, warnings, and decision feedback

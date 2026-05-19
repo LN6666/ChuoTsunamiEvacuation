@@ -860,3 +860,28 @@ Non-blocking B-level items recorded:
 - fixed Assets/Data test path assumptions
 
 Status: Phase 4 ready to mark complete.
+
+## 2026-05-20 | P5-B DeepSeek Final Review Passed
+
+P5-B final DeepSeek review passed with no A-level blockers.
+
+Completed:
+- P5-B4 official Chuo evacuation/shelter data ingestion
+- PLATEAU building qualification and shelter-building matching
+- QGIS QA for shelter/building match layers
+- P5-B5 OSMnx/NetworkX estimated walking-route outputs
+- integrated route + qualification outputs
+- QGIS QA for route layers
+- B-level follow-up fixes after earlier review
+
+DeepSeek verdict:
+PASS
+
+P5-B is ready to mark complete.
+P5-C Unity read-only integration can start.
+
+Remaining B-level follow-up:
+- refine nearest-match semantic confidence logic in future
+- add artificial route-failure test case in future
+- repeat QGIS spot checks before publication/user-facing use
+- preserve OSM / ODbL attribution in Unity integration
