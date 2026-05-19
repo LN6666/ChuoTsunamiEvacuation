@@ -58,6 +58,15 @@ QGIS outputs should remain small QA exports, screenshots, or notes. Do not commi
 
 Useful future QA outputs may include small GeoJSON layers, CSV review tables, PNG screenshots, or Markdown QA notes, only when explicitly approved by the milestone.
 
+## P5-B4 QA Layer Status
+
+P5-B4 did not create real QGIS QA layers because the required real inputs are missing:
+
+- approved real Chuo official shelter/evacuation facility input
+- approved processed PLATEAU building footprint/attribute input
+
+The local environment is ready for CRS-aware processing, but QGIS QA layer generation must wait until those inputs exist. Synthetic P3 shelter samples and raw CityGML are not acceptable substitutes for B4 completion.
+
 ## Risks
 
 - Axis-order mistakes can swap latitude and longitude.

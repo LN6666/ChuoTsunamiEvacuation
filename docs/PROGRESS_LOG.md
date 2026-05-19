@@ -6,6 +6,35 @@
 
 ---
 
+---
+
+## 2026-05-19 | P5-B4 Real Building Qualification Blocked
+
+### Completed
+
+Ran the project-local P5 environment setup with approval. The environment was created under `data_pipeline/.venv`, and `jsonschema`, `pytest`, GeoPandas, Shapely, pyproj, NetworkX, and OSMnx imported successfully from that venv.
+
+Inspected P5 rulebook/schema/planning docs and searched local repository/project input paths for real Chuo shelter evidence and processed PLATEAU building geometry.
+
+### Blocker
+
+B4 cannot proceed because required real inputs are missing:
+
+- no approved real Chuo official shelter/evacuation facility input with provenance/license review was found
+- no approved processed PLATEAU building footprint/attribute input was found
+
+The available P3 shelter outputs are explicitly synthetic placeholders, not official records. The available PLATEAU data is raw local data under `D:\PLATEAU_DATA`; parsing raw CityGML/full PLATEAU data is outside this B4 prompt.
+
+### Scope Boundary
+
+No fake processed outputs were created. No official data download, scraping, OSM network download, CityGML parsing, full PLATEAU matching, real routing, Unity change, Unity scene change, `Assets/Data` change, `ProjectSettings`, or `Packages` change was performed.
+
+### Next Step
+
+Prepare the missing approved real official source fixture and processed PLATEAU building footprint/attribute fixture, then rerun B4.
+
+---
+
 ## 2026-05-19 | P5-B3 Environment and Source Readiness
 
 ### Completed

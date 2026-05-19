@@ -12,7 +12,7 @@ Phase 5 qualification, routing, PLATEAU matching, and Unity map-decision integra
 
 ## Phase 5: Qualification, Routing, PLATEAU Matching, and Unity Integration
 
-Status: P5-B3 environment and source readiness complete.
+Status: P5-B4 blocked on missing approved real inputs.
 
 Planned tasks:
 
@@ -22,7 +22,9 @@ Planned tasks:
 - P5-B1: controlled sample qualification/matching/routing pipeline using the P5-A2 schema. Done.
 - P5-B2: real Chuo ingestion readiness, dependency/environment plan, CRS/QGIS QA plan, and P5-B3 execution plan. Done.
 - P5-B3: project-local Python GIS environment helper and source provenance/fixture readiness. Done.
-- P5-B4: run or verify local P5 environment with user approval, complete source provenance/license review, and create a small controlled real-source fixture. Next.
+- P5-B4: real Chuo building qualification and PLATEAU matching. Blocked: missing approved real official source input and missing processed PLATEAU building footprint/attribute input.
+- P5-B4-unblock: prepare approved real official source fixture and processed PLATEAU building footprint/attribute fixture. Next.
+- P5-B5: OSM routing sample and integrated route-output planning/implementation after B4 inputs are resolved.
 - P5-B: PLATEAU qualification/matching and GIS routing pipeline.
 - P5-C: Unity integration for qualified buildings, routes, confidence, warnings, and decision feedback.
 - P5 final review: validation summary, DeepSeek review, scope boundary confirmation, and merge decision.
@@ -60,6 +62,16 @@ P5-B3 completed outputs:
 - controlled real-source fixture plan for P5-B4
 - standard-library tests for environment/source readiness planning files
 - no setup script execution, dependency installation, data download, Unity change, real routing, or real PLATEAU matching
+
+P5-B4 blocker:
+
+- project-local venv setup succeeded under `data_pipeline/.venv`
+- B4 required packages imported from the venv
+- no approved real Chuo official shelter/evacuation facility input was found
+- no approved processed PLATEAU building footprint/attribute input was found
+- P3 shelter outputs are synthetic placeholders and cannot be used as real official evidence
+- raw local PLATEAU CityGML exists but cannot be parsed in this B4 prompt
+- no fake qualification/matching outputs were created
 
 ## Milestone 0: Environment Setup
 

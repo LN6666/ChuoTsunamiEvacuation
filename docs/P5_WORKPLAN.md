@@ -122,6 +122,21 @@ P5-B4 next step:
 
 P5-B4 should run or verify the project-local P5 environment with user approval, complete provenance/license review for selected source candidates, and create a small controlled real-source fixture plus schema-shaped outputs. It should still avoid full datasets, full PLATEAU parsing, real routing, and Unity integration.
 
+## P5-B4 Real Qualification Attempt
+
+P5-B4 environment setup succeeded: `data_pipeline/.venv` was created and the required validation/GIS packages imported successfully.
+
+P5-B4 implementation is blocked because required real inputs are missing:
+
+- no approved real Chuo official shelter/evacuation facility input with provenance/license review was found
+- no approved processed PLATEAU building footprint/attribute input was found
+
+The repository contains P3 synthetic shelter samples and source candidate registries, but those are not official real source records. Local raw PLATEAU CityGML exists under `D:\PLATEAU_DATA`, but parsing raw CityGML/full PLATEAU data is outside the B4 prompt.
+
+P5-B4-unblock next step:
+
+Prepare a small approved real official source fixture and a small approved processed PLATEAU building footprint/attribute fixture, then rerun the real building qualification and matching implementation.
+
 ## P5-B Planned Pipeline
 
 P5-B should build the reproducible PLATEAU qualification/matching and GIS routing pipeline after P5-A rule definitions are approved.

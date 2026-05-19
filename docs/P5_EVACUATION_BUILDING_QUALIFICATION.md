@@ -119,6 +119,14 @@ The CRS/QGIS QA plan requires metric matching and route distance logic to use a 
 
 Future P5-B3/B4/B5 milestones should start controlled real data ingestion in stages: first a small official-source fixture, then controlled PLATEAU footprint/attribute preparation, then controlled OSM route sample preparation after download/cache/attribution policy is approved.
 
+## P5-B4 Real Input Blocker
+
+P5-B4 verified the project-local P5 Python environment, but full real Chuo building qualification and PLATEAU matching is blocked.
+
+The available P3 shelter outputs are synthetic placeholders and cannot support official designation claims. The repository also does not contain an approved processed PLATEAU building footprint/attribute input. Local raw PLATEAU CityGML exists outside the repository, but parsing raw CityGML/full PLATEAU data is outside the B4 scope.
+
+No real qualification outputs, shelter-building match outputs, or QGIS QA layers were created for B4 because doing so would require fabricating data or treating synthetic fixtures as real evidence.
+
 ## P5 Safety Boundaries
 
 - Do not confuse official buildings with non-official candidates.
