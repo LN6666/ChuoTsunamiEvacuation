@@ -61,6 +61,20 @@ Every real source record or processed source batch should preserve:
 
 When fields are missing, the pipeline should keep them null or explicitly unknown rather than inventing values.
 
+## P5-B3 Source Review Templates
+
+P5-B3 adds a source provenance and license review template:
+
+- `data_pipeline/qualification/source_provenance_review_template.json`
+
+Template entries are marked `template_not_verified` and must not be treated as verified official source claims.
+
+P5-B3 also adds the controlled real-source fixture plan for the next milestone:
+
+- `data_pipeline/qualification/controlled_real_source_fixture_plan.json`
+
+P5-B4 should use these files to complete manual source/license review, select a small controlled fixture, record CRS and provenance fields, and generate schema-shaped outputs without processing full datasets.
+
 ## Raw Data Policy
 
 Raw large source files must not be committed. This includes CityGML, shapefiles, GeoPackages, raster files, archives, OSM extracts, and other large GIS downloads.

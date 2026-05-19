@@ -12,7 +12,7 @@ Phase 5 qualification, routing, PLATEAU matching, and Unity map-decision integra
 
 ## Phase 5: Qualification, Routing, PLATEAU Matching, and Unity Integration
 
-Status: P5-B2 real Chuo ingestion readiness planning complete.
+Status: P5-B3 environment and source readiness complete.
 
 Planned tasks:
 
@@ -21,7 +21,8 @@ Planned tasks:
 - P5-A2: evacuation building qualification rulebook foundation. Done.
 - P5-B1: controlled sample qualification/matching/routing pipeline using the P5-A2 schema. Done.
 - P5-B2: real Chuo ingestion readiness, dependency/environment plan, CRS/QGIS QA plan, and P5-B3 execution plan. Done.
-- P5-B3: local Python GIS environment verification and controlled real-source fixture ingestion after source/license review. Next.
+- P5-B3: project-local Python GIS environment helper and source provenance/fixture readiness. Done.
+- P5-B4: run or verify local P5 environment with user approval, complete source provenance/license review, and create a small controlled real-source fixture. Next.
 - P5-B: PLATEAU qualification/matching and GIS routing pipeline.
 - P5-C: Unity integration for qualified buildings, routes, confidence, warnings, and decision feedback.
 - P5 final review: validation summary, DeepSeek review, scope boundary confirmation, and merge decision.
@@ -50,6 +51,15 @@ P5-B2 completed outputs:
 - machine-readable planning JSON files
 - standard-library planning tests
 - no dependency installation, data download, Unity change, real routing, or real PLATEAU matching
+
+P5-B3 completed outputs:
+
+- P5-specific requirements file for project-local validation/GIS/routing dependencies
+- rerunnable local virtual environment setup helper under `data_pipeline/`
+- source provenance/license review template with non-approved placeholder entries
+- controlled real-source fixture plan for P5-B4
+- standard-library tests for environment/source readiness planning files
+- no setup script execution, dependency installation, data download, Unity change, real routing, or real PLATEAU matching
 
 ## Milestone 0: Environment Setup
 

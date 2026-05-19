@@ -4,6 +4,36 @@
 
 ---
 
+---
+
+## 2026-05-19 | P5-B3 Environment and Source Readiness
+
+### Completed
+
+Created `data_pipeline/requirements-p5.txt` for Phase 5 validation, GIS, and routing dependencies.
+
+Created `data_pipeline/setup_p5_environment.ps1`, a rerunnable project-local virtual environment helper for `data_pipeline/.venv`. The script installs baseline and P5 requirements inside the venv and runs import checks, but it was not run in this milestone.
+
+Created a source provenance/license review template and a controlled real-source fixture plan for the next milestone.
+
+Added standard-library tests for the P5 requirements file, setup script presence, source provenance template, controlled real-source fixture plan, CRS/license requirements, and default non-approval status.
+
+### Validation Notes
+
+The new JSON planning files pass Python built-in JSON syntax validation. The new test file passes `py_compile`. Existing P5-B2 planning JSON files still pass JSON syntax checks.
+
+`pytest` remains unavailable in the active global Python environment, so focused pytest execution was not run. No dependency installation was performed.
+
+### Scope Boundary
+
+No official data download, scraping, OSM network download, dependency installation, CityGML parsing, full PLATEAU matching, real GIS routing, Unity change, Unity scene change, `Assets/Data` change, `ProjectSettings`, `Packages`, raw data, or large GIS file was added.
+
+### Next Step
+
+P5-B4 should run or verify the project-local P5 environment with user approval, complete source provenance/license review for selected sources, and create a small controlled real-source fixture.
+
+---
+
 ## 2026-05-19 | P5-B2 Real Chuo Ingestion Readiness
 
 ### Completed

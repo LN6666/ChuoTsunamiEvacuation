@@ -51,6 +51,22 @@ Likely P5-B3/B4/B5 dependencies:
 - Verify Windows compatibility before committing to a GeoPandas/GDAL/Fiona/pyogrio path.
 - Keep OSM download/cache behavior disabled until a routing milestone approves it.
 
+## P5-B3 Environment Helper
+
+P5-B3 adds a P5-specific dependency list:
+
+- `data_pipeline/requirements-p5.txt`
+
+This file complements the existing `data_pipeline/requirements.txt`. The baseline requirements file remains the general data-pipeline dependency list; `requirements-p5.txt` records validation, GIS, and routing packages needed for Phase 5 work.
+
+P5-B3 also adds a rerunnable project-local setup helper:
+
+- `data_pipeline/setup_p5_environment.ps1`
+
+The script creates or reuses `data_pipeline/.venv`, upgrades pip inside that environment, installs `data_pipeline/requirements.txt` if present, installs `data_pipeline/requirements-p5.txt`, and runs import checks for `jsonschema`, `pytest`, GeoPandas, Shapely, pyproj, NetworkX, and OSMnx.
+
+The setup script should only be run with explicit user approval. It was created for reproducibility, but P5-B3 does not run it automatically because package installation can take time and may fail on Windows GIS dependencies.
+
 ## Risks
 
 - Windows GIS package compatibility can fail because of native dependencies.

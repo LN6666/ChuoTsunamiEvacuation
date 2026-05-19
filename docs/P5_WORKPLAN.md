@@ -104,6 +104,24 @@ P5-B3 next step:
 
 P5-B3 should create or verify a project-local Python GIS environment, then create a small controlled real-source fixture after manual source/license review. It should not process full datasets until validation, provenance, and CRS checks pass on the controlled fixture path.
 
+## P5-B3 Environment And Source Readiness
+
+P5-B3 prepares Phase 5 environment and source review readiness without installing dependencies, downloading data, scraping, parsing CityGML, routing, matching real PLATEAU buildings, or modifying Unity.
+
+Completion criteria:
+
+- `data_pipeline/requirements-p5.txt` records P5 validation/GIS/routing dependencies
+- `data_pipeline/setup_p5_environment.ps1` creates and verifies a project-local `data_pipeline/.venv` when run with user approval
+- source provenance/license review template is created with placeholder entries marked `template_not_verified`
+- controlled real-source fixture plan defines P5-B4 preconditions, provenance, license, CRS, validation, output, and review requirements
+- standard-library tests validate the new planning files and compile without requiring installed pytest
+- existing planning JSON files still pass Python built-in JSON syntax checks
+- setup script is not run automatically, no dependencies are installed, and no Unity or raw data files are changed
+
+P5-B4 next step:
+
+P5-B4 should run or verify the project-local P5 environment with user approval, complete provenance/license review for selected source candidates, and create a small controlled real-source fixture plus schema-shaped outputs. It should still avoid full datasets, full PLATEAU parsing, real routing, and Unity integration.
+
 ## P5-B Planned Pipeline
 
 P5-B should build the reproducible PLATEAU qualification/matching and GIS routing pipeline after P5-A rule definitions are approved.
