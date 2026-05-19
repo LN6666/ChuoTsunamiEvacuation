@@ -88,6 +88,25 @@ Manual review triggers include nearest/unmatched/manual building matches, large 
 
 P5-B should consume this foundation by producing controlled sample qualification/matching/routing outputs that validate against the schema before any Unity integration.
 
+## P5-B1 Controlled Sample Pipeline
+
+P5-B1 adds a controlled sample pipeline that emits schema-shaped qualification outputs with placeholder PLATEAU matching and placeholder route fields:
+
+- Controlled shelter fixture: `data_pipeline/qualification/sample_controlled_shelters_for_qualification.json`
+- Controlled building fixture: `data_pipeline/qualification/sample_controlled_buildings_for_matching.json`
+- Controlled route fixture: `data_pipeline/qualification/sample_controlled_routes_for_qualification.json`
+- Pipeline config: `data_pipeline/qualification/controlled_qualification_pipeline_config.json`
+- Build script: `data_pipeline/scripts/build_controlled_qualification_sample.py`
+- Output JSON/CSV under `data_pipeline/qualification/controlled_building_qualification_output.*`
+
+The controlled cases cover official contains-match confirmation, official nearest-match review, non-official strong candidate, weak candidate with missing safe floor/capacity, unknown insufficient evidence, conflict/not-qualified, and unmatched shelter/building behavior.
+
+Official evidence is still required for `official_confirmed`. Candidate evidence from literature/report-style sources can support `strong_candidate` or `weak_candidate`, but it cannot create an official designation claim.
+
+Nearest and unmatched matches trigger `manualReviewNeeded` with warnings. Route fields are present as controlled prototype estimates only and are not official evacuation routes.
+
+P5-B2 should replace the controlled placeholders with controlled real Chuo source ingestion, CRS-aware PLATEAU matching decisions, OSM routing decisions, and QGIS QA before Unity integration.
+
 ## P5 Safety Boundaries
 
 - Do not confuse official buildings with non-official candidates.

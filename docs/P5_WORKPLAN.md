@@ -68,6 +68,25 @@ P5-B1 next step:
 
 P5-B1 should implement a controlled sample qualification/matching/routing pipeline using this schema. It should start with small fixtures and explicit CRS/match assumptions, not official downloads or Unity integration.
 
+## P5-B1 Controlled Qualification Pipeline
+
+P5-B1 completion criteria:
+
+- controlled shelter, building, and route fixtures are created with only synthetic sample data
+- controlled pipeline config records deterministic thresholds and output paths
+- standard-library build script writes schema-shaped JSON and CSV qualification outputs
+- output covers official confirmed, official with review, strong candidate, weak candidate, unknown, not qualified, and unmatched cases
+- nearest/unmatched/manual review warnings are visible
+- route fields are labeled as controlled prototype estimates, not official evacuation routes
+- JSON syntax checks pass for controlled inputs, config, and output
+- schema validation passes when `jsonschema` is available, or the missing package is documented as an environment warning
+- focused tests are added without requiring GeoPandas, Shapely, pyproj, NetworkX, or OSMnx
+- no official download, scraping, CityGML parsing, full PLATEAU matching, OSM routing, Unity change, scene change, `ProjectSettings`, `Packages`, or `Assets/Data` change is made
+
+P5-B2 planned next step:
+
+P5-B2 should move from controlled synthetic fixtures to controlled real Chuo data ingestion planning and implementation. It should define the approved source collection workflow, CRS policy, QGIS QA checklist, actual PLATEAU/OSM routing decisions, and reproducible outputs before any Unity integration.
+
 ## P5-B Planned Pipeline
 
 P5-B should build the reproducible PLATEAU qualification/matching and GIS routing pipeline after P5-A rule definitions are approved.

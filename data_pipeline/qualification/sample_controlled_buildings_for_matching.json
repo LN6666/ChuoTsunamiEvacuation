@@ -1,0 +1,178 @@
+{
+  "datasetId": "p5_b1_sample_controlled_buildings_for_matching",
+  "generatedAt": "2026-05-19T13:00:00Z",
+  "coordinateReferenceSystem": "EPSG:4326",
+  "notes": "Synthetic controlled PLATEAU-like building fixture for P5-B1 only. These are not real PLATEAU records and simplified geometry is used only to exercise schema fields.",
+  "buildings": [
+    {
+      "plateauBuildingId": "controlled_plateau_bldg_001",
+      "buildingName": "Controlled PLATEAU-like Building 001",
+      "coordinateReferenceSystem": "EPSG:4326",
+      "centroid": {
+        "latitude": 35.6671,
+        "longitude": 139.7712
+      },
+      "footprintBounds": {
+        "minLatitude": 35.667,
+        "minLongitude": 139.7711,
+        "maxLatitude": 35.6672,
+        "maxLongitude": 139.7713
+      },
+      "heightMeters": 21.0,
+      "floors": 6,
+      "usage": "public_facility",
+      "evidenceSources": [
+        {
+          "sourceId": "controlled_plateau_geometry_fixture",
+          "sourceFamily": "plateau_building_geometry",
+          "sourceName": "Controlled PLATEAU-like Geometry Fixture",
+          "officialStatus": "derived",
+          "sourceUrl": null,
+          "sourceUpdatedAt": null,
+          "evidenceNote": "Synthetic geometry fixture; not real PLATEAU data."
+        }
+      ],
+      "notes": "Contains-match target for an official-like shelter point."
+    },
+    {
+      "plateauBuildingId": "controlled_plateau_bldg_002",
+      "buildingName": "Controlled PLATEAU-like Building 002",
+      "coordinateReferenceSystem": "EPSG:4326",
+      "centroid": {
+        "latitude": 35.6677,
+        "longitude": 139.772
+      },
+      "footprintBounds": {
+        "minLatitude": 35.6676,
+        "minLongitude": 139.7719,
+        "maxLatitude": 35.6678,
+        "maxLongitude": 139.7721
+      },
+      "heightMeters": 15.0,
+      "floors": 4,
+      "usage": "school_or_public_facility",
+      "evidenceSources": [
+        {
+          "sourceId": "controlled_plateau_geometry_fixture",
+          "sourceFamily": "plateau_building_geometry",
+          "sourceName": "Controlled PLATEAU-like Geometry Fixture",
+          "officialStatus": "derived",
+          "sourceUrl": null,
+          "sourceUpdatedAt": null,
+          "evidenceNote": "Synthetic nearest-match target; not real PLATEAU data."
+        }
+      ],
+      "notes": "Nearest-match target for an official-like shelter point."
+    },
+    {
+      "plateauBuildingId": "controlled_plateau_bldg_003",
+      "buildingName": "Controlled PLATEAU-like Building 003",
+      "coordinateReferenceSystem": "EPSG:4326",
+      "centroid": {
+        "latitude": 35.6683,
+        "longitude": 139.773
+      },
+      "footprintBounds": {
+        "minLatitude": 35.6682,
+        "minLongitude": 139.7729,
+        "maxLatitude": 35.6684,
+        "maxLongitude": 139.7731
+      },
+      "heightMeters": 24.0,
+      "floors": 7,
+      "usage": "office",
+      "evidenceSources": [
+        {
+          "sourceId": "controlled_plateau_attribute_fixture",
+          "sourceFamily": "plateau_building_attribute",
+          "sourceName": "Controlled PLATEAU-like Attribute Fixture",
+          "officialStatus": "derived",
+          "sourceUrl": null,
+          "sourceUpdatedAt": null,
+          "evidenceNote": "Synthetic height/floor attributes meet controlled candidate thresholds."
+        }
+      ],
+      "notes": "Candidate building with enough controlled attributes for strong_candidate."
+    },
+    {
+      "plateauBuildingId": "controlled_plateau_bldg_004",
+      "buildingName": "Controlled PLATEAU-like Building 004",
+      "coordinateReferenceSystem": "EPSG:4326",
+      "centroid": {
+        "latitude": 35.6689,
+        "longitude": 139.7737
+      },
+      "footprintBounds": {
+        "minLatitude": 35.6688,
+        "minLongitude": 139.7736,
+        "maxLatitude": 35.669,
+        "maxLongitude": 139.7738
+      },
+      "heightMeters": null,
+      "floors": null,
+      "usage": "mixed_use",
+      "evidenceSources": [
+        {
+          "sourceId": "controlled_plateau_attribute_fixture",
+          "sourceFamily": "plateau_building_attribute",
+          "sourceName": "Controlled PLATEAU-like Attribute Fixture",
+          "officialStatus": "derived",
+          "sourceUrl": null,
+          "sourceUpdatedAt": null,
+          "evidenceNote": "Synthetic attributes are incomplete."
+        }
+      ],
+      "notes": "Candidate building with incomplete safe-floor/capacity evidence."
+    },
+    {
+      "plateauBuildingId": "controlled_plateau_bldg_005",
+      "buildingName": "Controlled PLATEAU-like Building 005",
+      "coordinateReferenceSystem": "EPSG:4326",
+      "centroid": {
+        "latitude": 35.6694,
+        "longitude": 139.7744
+      },
+      "footprintBounds": {
+        "minLatitude": 35.6693,
+        "minLongitude": 139.7743,
+        "maxLatitude": 35.6695,
+        "maxLongitude": 139.7745
+      },
+      "heightMeters": null,
+      "floors": null,
+      "usage": "unknown",
+      "evidenceSources": [],
+      "notes": "No usable evidence beyond a placeholder building identifier."
+    },
+    {
+      "plateauBuildingId": "controlled_plateau_bldg_006",
+      "buildingName": "Controlled PLATEAU-like Building 006",
+      "coordinateReferenceSystem": "EPSG:4326",
+      "centroid": {
+        "latitude": 35.6699,
+        "longitude": 139.7751
+      },
+      "footprintBounds": {
+        "minLatitude": 35.6698,
+        "minLongitude": 139.775,
+        "maxLatitude": 35.67,
+        "maxLongitude": 139.7752
+      },
+      "heightMeters": 8.0,
+      "floors": 2,
+      "usage": "restricted_or_unsuitable",
+      "evidenceSources": [
+        {
+          "sourceId": "controlled_plateau_attribute_fixture",
+          "sourceFamily": "plateau_building_attribute",
+          "sourceName": "Controlled PLATEAU-like Attribute Fixture",
+          "officialStatus": "derived",
+          "sourceUrl": null,
+          "sourceUpdatedAt": null,
+          "evidenceNote": "Synthetic low-rise/unsuitable attributes used only for conflict coverage."
+        }
+      ],
+      "notes": "Conflict target for not_qualified output."
+    }
+  ]
+}

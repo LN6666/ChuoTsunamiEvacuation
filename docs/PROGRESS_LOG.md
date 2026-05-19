@@ -1,5 +1,33 @@
 ---
 
+---
+
+## 2026-05-19 | P5-B1 Controlled Qualification Pipeline Sample
+
+### Completed
+
+Created controlled synthetic shelter, PLATEAU-like building, and route fixtures for the P5-B1 qualification pipeline foundation.
+
+Added a standard-library build script that generates schema-shaped qualification JSON and CSV outputs with placeholder match and route fields.
+
+Added focused tests for fixture/config JSON loading, deterministic thresholds, output shape, official-vs-candidate boundaries, manual review warnings, route placeholder labeling, and optional schema validation.
+
+### Validation Notes
+
+Generated `data_pipeline/qualification/controlled_building_qualification_output.json` and `.csv` from controlled fixtures. JSON syntax checks passed for controlled inputs, config, and output.
+
+The active Python environment has Python 3.12.10 and built-in `json`, but does not have `jsonschema`, `pytest`, GeoPandas, Shapely, pyproj, NetworkX, or OSMnx installed. No dependencies were installed.
+
+### Scope Boundary
+
+No official data download, scraping, OSM download, CityGML parsing, full PLATEAU matching, full GIS routing, Unity change, Unity scene change, `Assets/Data` change, `ProjectSettings`, `Packages`, raw PLATEAU data, or `Chuo_BaseMap.unity` change was performed.
+
+### Next Step
+
+P5-B2 should use this controlled output shape as the handoff into controlled real Chuo data ingestion, CRS-aware PLATEAU matching decisions, OSM routing decisions, and QGIS QA planning.
+
+---
+
 ## 2026-05-19 | P5-A2 Qualification Rulebook and Schema Foundation
 
 ### Completed

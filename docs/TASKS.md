@@ -12,14 +12,15 @@ Phase 5 qualification, routing, PLATEAU matching, and Unity map-decision integra
 
 ## Phase 5: Qualification, Routing, PLATEAU Matching, and Unity Integration
 
-Status: P5-A2 rulebook/schema foundation complete.
+Status: P5-B1 controlled sample pipeline foundation complete.
 
 Planned tasks:
 
 - P5-A0: workspace setup, documentation baseline, and open-source reference candidate registry. Done.
 - P5-A1: official evidence source review and open-source reference decisions. Done.
 - P5-A2: evacuation building qualification rulebook foundation. Done.
-- P5-B1: controlled sample qualification/matching/routing pipeline using the P5-A2 schema. Next.
+- P5-B1: controlled sample qualification/matching/routing pipeline using the P5-A2 schema. Done.
+- P5-B2: controlled real Chuo data ingestion planning/implementation, QGIS QA checklist, and actual PLATEAU/OSM routing decisions. Next.
 - P5-B: PLATEAU qualification/matching and GIS routing pipeline.
 - P5-C: Unity integration for qualified buildings, routes, confidence, warnings, and decision feedback.
 - P5 final review: validation summary, DeepSeek review, scope boundary confirmation, and merge decision.
@@ -27,8 +28,18 @@ Planned tasks:
 Scope boundaries:
 
 - Do not confuse official confirmed evacuation buildings with non-official candidates.
-- Do not implement routing, PLATEAU matching, qualification logic, data downloads, scraping, dependency installation, or Unity changes in P5-A0.
+- Do not confuse controlled prototype route estimates with official evacuation routes.
+- Do not implement full real routing, full PLATEAU matching, data downloads, scraping, dependency installation, or Unity changes until the matching/routing milestone explicitly allows them.
 - Keep QGIS as a manual QA option, not a Unity runtime dependency.
+
+P5-B1 completed outputs:
+
+- controlled shelter, building, and route fixtures under `data_pipeline/qualification/`
+- controlled pipeline config with deterministic thresholds
+- standard-library controlled sample build script
+- generated controlled qualification JSON/CSV outputs
+- focused controlled pipeline tests
+- P5-B1 documentation and progress updates
 
 ## Milestone 0: Environment Setup
 
