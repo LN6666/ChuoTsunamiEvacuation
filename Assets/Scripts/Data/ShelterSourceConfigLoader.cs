@@ -17,6 +17,7 @@ public static class ShelterSourceConfigLoader
         public string realSamplePath = "real_chuo_shelters_sample.json";
         public bool fallbackToTestOnError = true;
         public bool enableRealSampleLoading;
+        public bool enableP5COverlay;
         public string notes = "P4-A1 data-layer source selection. Default gameplay source remains test.";
 
         public void Sanitize()
@@ -93,6 +94,7 @@ public static class ShelterSourceConfigLoader
             realSamplePath = "real_chuo_shelters_sample.json",
             fallbackToTestOnError = true,
             enableRealSampleLoading = false,
+            enableP5COverlay = false,
             notes = "P4-A1 data-layer source selection. Default gameplay source remains test."
         };
     }

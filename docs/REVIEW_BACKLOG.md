@@ -14,6 +14,58 @@ This file only records actionable review items that should guide Codex fixes.
 
 ---
 
+## P5-C Unity Integration Follow-Ups
+
+Context:
+
+P5-B5 DeepSeek review passed with no A-level blockers, and P5-C Unity read-only integration has been implemented.
+
+Deferred B-level items:
+
+| ID | Priority | Status | Target | Issue | Required Fix |
+|---|---|---|---|---|---|
+| P5C-B01 | Medium | Deferred | P5 matching pipeline / docs | Nearest-match semantic confidence logic is conservative but can be refined. | Improve semantic confidence rules in a future data-pipeline pass. |
+| P5C-B02 | Medium | Deferred | data_pipeline tests | Route tests do not yet include an artificial out-of-network failure case. | Add a controlled route failure fixture/test. |
+| P5C-B03 | Medium | Deferred | QGIS QA process | QGIS spot checks should be repeated before publication or user-facing use. | Re-run shelter/building and route QA layers with an OSM basemap before external use. |
+| P5C-B04 | Medium | Deferred | Unity visualization | Current route geometry is WGS84 and has no verified Unity/PLATEAU coordinate transform. | Define and validate a coordinate transform before rendering route lines. |
+
+Decision:
+
+No immediate Codex fix is required for these B-level items before P5-C review. They should be included in the next DeepSeek review prompt.
+
+---
+
+### P5-C Closeout Review 2026-05-20
+
+Source report:
+
+DeepSeek V4 Pro P5-C review.
+
+Context:
+
+P5-C read-only Unity integration for qualified building evidence, estimated route metadata, and decision feedback.
+
+Overall verdict:
+
+PASS with B-level issues only. No A-level blockers. P5-C can be marked complete as a read-only informational Unity integration.
+
+### Action Items
+
+| ID | Priority | Status | Target File | Issue | Required Fix |
+|---|---|---|---|---|---|
+| P5C-CLOSE-B01 | Medium | Deferred | ResultPanel / P5-C debug metadata flow | P5-C evidence may currently be visible only through debug, `GetDebugText`, or `M` metadata/debug flow. If intended for all players, the main ResultPanel visibility should be verified. | Future UI pass may move or duplicate P5-C evidence into the main result panel if player-facing visibility is required. |
+| P5C-CLOSE-B02 | Medium | Deferred | Assets/Scripts/Core/EvacuationGameManager.cs / Assets/Scripts/Data/P5CDecisionFeedbackFormatter.cs | `EvacuationGameManager` calls `P5CDecisionFeedbackFormatter` methods. Current assembly setup should make this available, but the dependency should remain explicit and safe. | Add a defensive guard or confirm asmdef dependency guarantees availability if assembly boundaries change. |
+| P5C-CLOSE-B03 | Medium | Deferred | Route tests / data_pipeline tests | Route tests do not yet include an artificial out-of-network route failure fixture. | Add a controlled out-of-network route failure fixture/test in a future route coverage pass. |
+| P5C-CLOSE-B04 | Medium | Deferred | Unity route visualization | WGS84 route geometry to Unity/PLATEAU coordinate transform has not been verified. | Keep route rendering disabled/deferred until the coordinate transform is validated. |
+| P5C-CLOSE-B05 | Medium | Deferred | real_sample mapping / P5-C docs | `real_sample` shelter IDs do not safely map to P5-B official shelter IDs. The unavailable evidence fallback is intentional and should stay explicit. | Do not invent unsafe shelter/building mappings; explain the expected fallback in docs and UI/debug text where relevant. |
+| P5C-CLOSE-B06 | Medium | Fixed | Assets/Scripts/Data/P5CStaticDataLoader.cs | Loader path safety needed manual confirmation that runtime reads only copied `Assets/Data` files and does not touch pipeline/raw/cache/temp environments. | Manual audit completed on 2026-05-20. Runtime reads use `Application.dataPath + "/Data/"`; no code change required unless loader paths change. |
+
+Decision:
+
+No implementation change is required for P5-C closeout. The remaining items are deferred follow-ups, except the loader path safety audit, which is complete with no code changes.
+
+---
+
 ## Why This File Exists
 
 The project uses a semi-automatic AI development workflow:

@@ -885,3 +885,38 @@ Remaining B-level follow-up:
 - add artificial route-failure test case in future
 - repeat QGIS spot checks before publication/user-facing use
 - preserve OSM / ODbL attribution in Unity integration
+
+## 2026-05-20 | P5-C Unity Read-Only Integration Implemented
+
+P5-C implementation added Unity-side static loading, conservative debug visualization, and decision feedback for P5-B qualified building and OSM route outputs.
+
+Implemented:
+- copied the four P5-B JSON outputs into `Assets/Data`
+- added P5-C read-only data models/loaders for integrated route qualification, route samples, building qualification, and shelter-building matches
+- preserved qualification status, confidence, `manualReviewNeeded`, warnings, route distance/time, route geometry metadata, prototype route status, and OSM/ODbL attribution
+- added a collider-free P5-C qualification overlay for `sourceMode = real_sample` with `enableP5COverlay = true`
+- kept route lines disabled for current WGS84 `LineString` data because no verified Unity/PLATEAU coordinate transform exists
+- extended ResultPanel metrics with concise P5-C evidence feedback for non-test shelter sources and a safe unavailable fallback
+- added focused EditMode and PlayMode tests for loader, mapping, prototype route labels, attribution, fallback, and debug overlay behavior
+- documented P5-C mapping and limitations in `docs/P5C_UNITY_INTEGRATION.md`
+
+Safety boundaries preserved:
+- committed `sourceMode` remains `test`
+- P5-C runtime reads copied static JSON from `Assets/Data` only
+- no raw/download/cache/tmp/.venv/OSM cache/live GIS source is read by Unity runtime
+- OSM routes are labeled `estimated prototype route, not an official evacuation route`
+- OSM/ODbL attribution is preserved in data, UI metadata, and docs
+- qualification, route, and hazard feedback is informational and does not determine gameplay success/failure
+- H hazard toggle and M metadata/details toggle are preserved
+- no PLATEAU scene, `Chuo_BaseMap.unity`, `ProjectSettings`, or `Packages` changes were made
+
+Known limitations:
+- existing P4 `real_sample` shelter IDs do not safely map to P5-B official shelter IDs, so ResultPanel uses the P5-C unavailable fallback for those selections
+- WGS84 route geometry is loaded but not rendered until a verified Unity coordinate transform is defined
+- P5-C visualization is prototype/debug visualization, not navigation UI
+
+Future B-level follow-up:
+- refine nearest-match semantic confidence logic
+- add artificial out-of-network route failure test
+- repeat QGIS spot checks before publication/user-facing use
+- define verified Unity/PLATEAU coordinate conversion before rendering OSM route lines

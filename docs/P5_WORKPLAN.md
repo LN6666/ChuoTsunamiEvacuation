@@ -245,6 +245,27 @@ Planned Unity concerns:
 - preserve existing `sourceMode = test` behavior unless a later milestone changes the committed default
 - avoid scene and PLATEAU asset churn unless explicitly approved
 
+## P5-C Implemented Unity Integration
+
+P5-C now integrates copied P5-B static outputs into Unity as read-only prototype evidence data.
+
+Implemented:
+
+- copied integrated qualification, OSM route sample, building qualification, and shelter-building match JSON into `Assets/Data`
+- added Unity loaders that reject runtime `data_pipeline`, raw, download, cache, tmp, and `.venv` paths
+- preserved status, confidence, manual review, warnings, route distance/time, route geometry metadata, and OSM/ODbL attribution
+- added a limited collider-free debug marker overlay for P5-C qualification evidence
+- kept current route line rendering disabled because the available geometry is WGS84 and no verified Unity coordinate transform exists
+- added concise ResultPanel feedback for non-test shelter sources with an unavailable fallback when no safe `shelterId` mapping exists
+
+P5-C remains informational only:
+
+- no real-time routing
+- no flood simulation
+- no route-based, hazard-based, or qualification-based success/failure rule
+- no change to default `sourceMode = test`
+- no `Chuo_BaseMap.unity`, PLATEAU imported asset, `ProjectSettings`, or `Packages` change
+
 ## Testing And Review Strategy
 
 - P5-A: documentation review, evidence-source review, taxonomy review, and DeepSeek architecture review.

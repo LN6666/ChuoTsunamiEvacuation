@@ -560,6 +560,7 @@ public class EvacuationGameManager : MonoBehaviour
 
         resultMetrics.selectedShelterId = shelter.ShelterId;
         resultMetrics.selectedShelterName = shelter.ShelterName;
+        resultMetrics.selectedShelterSourceType = shelter.SourceType;
         resultMetrics.shelterRank = shelter.ShelterRank;
         resultMetrics.isOfficialShelter = shelter.IsOfficialShelter;
         resultMetrics.shelterEntryTime = resultMetrics.shelterEntryTime <= 0f ? Time.time : resultMetrics.shelterEntryTime;
@@ -567,6 +568,11 @@ public class EvacuationGameManager : MonoBehaviour
         resultMetrics.climbTimeSeconds = shelter.ClimbTimeSeconds;
         resultMetrics.crowdingDelaySeconds = shelter.CrowdingDelaySeconds;
         resultMetrics.wasCampingDetected = resultMetrics.wasCampingDetected || campedShelterIds.Contains(shelter.ShelterId);
+
+        if (P5CDecisionFeedbackFormatter.ShouldShowForSourceType(shelter.SourceType))
+        {
+            resultMetrics.p5cDecisionFeedback = P5CDecisionFeedbackFormatter.BuildForShelterId(shelter.ShelterId);
+        }
     }
 
     private void SetPlayerControlEnabled(bool isEnabled, GameState reasonState)

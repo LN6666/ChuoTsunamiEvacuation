@@ -8,11 +8,11 @@ The first playable prototype has been Unity-tested, DeepSeek V4 Pro max-thinking
 
 Current branch focus:
 
-Phase 5 qualification, routing, PLATEAU matching, and Unity map-decision integration planning is starting on `phase5-qualification-routing-plateau`.
+Phase 5 qualification, routing, PLATEAU matching, and Unity map-decision integration is active on `phase5-qualification-routing-plateau`.
 
 ## Phase 5: Qualification, Routing, PLATEAU Matching, and Unity Integration
 
-Status: P5-B review preparation complete. DeepSeek review is next before P5-C Unity read-only integration planning.
+Status: P5-C Unity read-only integration implemented; validation and DeepSeek review are next before Phase 5 closure.
 
 Planned tasks:
 
@@ -25,9 +25,9 @@ Planned tasks:
 - P5-B4: official Chuo/Tokyo/GSI data ingestion, real Chuo building qualification, and local PLATEAU building matching. Done.
 - P5-B5: OSM routing sample and integrated route-output planning/implementation. Done.
 - P5-B ReviewPrep: record B4/B5 validation and prepare DeepSeek review prompt. Done.
-- P5-B DeepSeek review: review P5-B data correctness, scope boundaries, CRS/routing assumptions, and P5-C readiness. Next.
+- P5-B DeepSeek review: review P5-B data correctness, scope boundaries, CRS/routing assumptions, and P5-C readiness. Done. Verdict PASS, no A-level blockers.
 - Future P5 data QA: refine broad-area / non-building place-name heuristics beyond current tokens such as `公園一帯`, `地区`, and `リバーシティ`.
-- P5-C0: Unity read-only integration plan for qualified buildings, route lines, confidence, warnings, and source-mode safety. After DeepSeek review.
+- P5-C: Unity read-only integration for qualified buildings, estimated route metadata, confidence, warnings, and source-mode safety. Implemented; validation pending.
 - P5-B: PLATEAU qualification/matching and GIS routing pipeline.
 - P5-C: Unity integration for qualified buildings, routes, confidence, warnings, and decision feedback.
 - P5 final review: validation summary, DeepSeek review, scope boundary confirmation, and merge decision.
@@ -86,6 +86,17 @@ P5-B5 completed outputs:
 - QGIS QA layers for route origins, route lines, and route failures
 - pytest coverage for OSM route semantics, non-official route flags, integrated route fields, QA layers, and no raw/cache/download runtime references
 - validation passed in `data_pipeline/.venv`: 135 available OSM route records, 0 failed routes, and 6 pytest tests
+
+P5-C implemented outputs:
+
+- copied P5-B static JSON outputs into `Assets/Data`
+- added Unity P5-C read-only loaders for integrated qualification, route samples, building qualification, and shelter-building matches
+- preserved qualification status, confidence, manual-review flags, warnings, route distance/time, route geometry metadata, route prototype labels, and OSM/ODbL attribution
+- added conservative collider-free P5-C debug markers behind `sourceMode = real_sample` and `enableP5COverlay = true`
+- route lines remain disabled for current WGS84 geometry because the project has no verified Unity/PLATEAU coordinate transform
+- added concise P5-C ResultPanel feedback for non-test shelter sources, with unavailable fallback when no safe shelter mapping exists
+- default `sourceMode = test` remains unchanged
+- P5-C does not implement real-time routing, flood simulation, NPC behavior, or route/qualification/hazard-based success/failure rules
 
 P5-B review prep completed outputs:
 
