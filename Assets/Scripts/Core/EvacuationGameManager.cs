@@ -443,7 +443,7 @@ public class EvacuationGameManager : MonoBehaviour
         }
 
         shelterSourceConfig = ShelterSourceConfigLoader.Load();
-        Debug.Log($"Shelter source mode: {ShelterSourceMode}. Current P2 gameplay uses test_shelters.json.");
+        Debug.Log($"Shelter source mode: {ShelterSourceMode}. Runtime shelter data is resolved from configured Assets/Data sources.");
 
         activeScenario = ScenarioPresetLoader.LoadActiveScenario();
         ScenarioPresetLoader.ApplyScenarioOverrides(activeScenario, tsunamiEventConfig, antiCampingConfig);
@@ -569,9 +569,27 @@ public class EvacuationGameManager : MonoBehaviour
         resultMetrics.crowdingDelaySeconds = shelter.CrowdingDelaySeconds;
         resultMetrics.wasCampingDetected = resultMetrics.wasCampingDetected || campedShelterIds.Contains(shelter.ShelterId);
 
-        if (P5CDecisionFeedbackFormatter.ShouldShowForSourceType(shelter.SourceType))
+        if (string.Equals(shelter.SourceType, RealQualifiedShelterDataLoader.SourceType, System.StringComparison.OrdinalIgnoreCase))
+        {
+            resultMetrics.p5dDecisionFeedback = BuildP5DDecisionFeedbackSafe(shelter.ShelterId);
+        }
+        else if (P5CDecisionFeedbackFormatter.ShouldShowForSourceType(shelter.SourceType))
         {
             resultMetrics.p5cDecisionFeedback = P5CDecisionFeedbackFormatter.BuildForShelterId(shelter.ShelterId);
+        }
+    }
+
+    private static string BuildP5DDecisionFeedbackSafe(string shelterId)
+    {
+        try
+        {
+            return RealQualifiedShelterFeedbackFormatter.BuildForShelterId(shelterId);
+        }
+        catch (System.Exception exception)
+        {
+            Debug.LogWarning(
+                $"P5-D real-qualified shelter feedback fallback used for '{shelterId}': {exception.Message}");
+            return RealQualifiedShelterDataLoader.UnavailableMessage;
         }
     }
 

@@ -12,10 +12,18 @@ public static class ShelterDataSourceResolver
         public string sourcePath = string.Empty;
         public ShelterDataLoader.ShelterData[] testShelters = new ShelterDataLoader.ShelterData[0];
         public RealShelterDataLoader.RealShelterRecord[] realShelters = new RealShelterDataLoader.RealShelterRecord[0];
+        public RealQualifiedShelterDataLoader.RealQualifiedShelterRecord[] realQualifiedShelters =
+            new RealQualifiedShelterDataLoader.RealQualifiedShelterRecord[0];
+        public RealQualifiedShelterDataLoader.RealQualifiedShelterLoadResult realQualifiedLoadResult;
 
         public bool IsRealSample => string.Equals(
             sourceMode,
             ShelterSourceConfigLoader.RealSampleSourceMode,
+            StringComparison.OrdinalIgnoreCase);
+
+        public bool IsRealQualified => string.Equals(
+            sourceMode,
+            ShelterSourceConfigLoader.RealQualifiedSourceMode,
             StringComparison.OrdinalIgnoreCase);
     }
 
@@ -44,6 +52,11 @@ public static class ShelterDataSourceResolver
         if (string.Equals(config.sourceMode, ShelterSourceConfigLoader.RealSampleSourceMode, StringComparison.OrdinalIgnoreCase))
         {
             return LoadRealSample(config, assetsDataDirectory);
+        }
+
+        if (string.Equals(config.sourceMode, ShelterSourceConfigLoader.RealQualifiedSourceMode, StringComparison.OrdinalIgnoreCase))
+        {
+            return LoadRealQualified(config);
         }
 
         return LoadTestSource(config);
@@ -79,6 +92,29 @@ public static class ShelterDataSourceResolver
         return config.fallbackToTestOnError ? FallbackToTest(result) : result;
     }
 
+    private static ShelterDataSourceResult LoadRealQualified(ShelterSourceConfigLoader.ShelterSourceConfig config)
+    {
+        var result = new ShelterDataSourceResult
+        {
+            sourceMode = ShelterSourceConfigLoader.RealQualifiedSourceMode
+        };
+
+        RealQualifiedShelterDataLoader.RealQualifiedShelterLoadResult realLoad =
+            RealQualifiedShelterDataLoader.LoadFromAssetsData();
+        result.realQualifiedLoadResult = realLoad;
+        result.realQualifiedShelters = realLoad.records ??
+            new RealQualifiedShelterDataLoader.RealQualifiedShelterRecord[0];
+        result.sourcePath = realLoad.sourcePath;
+        result.success = realLoad.success;
+
+        if (result.success)
+        {
+            return result;
+        }
+
+        return config.fallbackToTestOnError ? FallbackToTest(result) : result;
+    }
+
     private static ShelterDataSourceResult LoadTestSource(ShelterSourceConfigLoader.ShelterSourceConfig config)
     {
         var result = new ShelterDataSourceResult
@@ -95,7 +131,7 @@ public static class ShelterDataSourceResolver
 
     private static ShelterDataSourceResult FallbackToTest(ShelterDataSourceResult failedRealResult)
     {
-        Debug.LogWarning("Falling back to test shelter data after real_sample loading failed.");
+        Debug.LogWarning("Falling back to test shelter data after configured real shelter source loading failed.");
 
         ShelterDataSourceResult fallback = LoadTestSource(ShelterSourceConfigLoader.CreateDefaultConfig());
         fallback.sourceMode = ShelterSourceConfigLoader.TestSourceMode;

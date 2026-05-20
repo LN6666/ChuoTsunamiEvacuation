@@ -6,6 +6,7 @@ public static class ShelterSourceConfigLoader
 {
     public const string TestSourceMode = "test";
     public const string RealSampleSourceMode = "real_sample";
+    public const string RealQualifiedSourceMode = "real_qualified";
 
     private const string ShelterSourceConfigFileName = "shelter_source_config.json";
 
@@ -18,7 +19,7 @@ public static class ShelterSourceConfigLoader
         public bool fallbackToTestOnError = true;
         public bool enableRealSampleLoading;
         public bool enableP5COverlay;
-        public string notes = "P4-A1 data-layer source selection. Default gameplay source remains test.";
+        public string notes = "P4/P5 source selection. Default gameplay source remains test.";
 
         public void Sanitize()
         {
@@ -31,7 +32,8 @@ public static class ShelterSourceConfigLoader
             sourceMode = sourceMode.Trim();
 
             if (!string.Equals(sourceMode, TestSourceMode, StringComparison.OrdinalIgnoreCase) &&
-                !string.Equals(sourceMode, RealSampleSourceMode, StringComparison.OrdinalIgnoreCase))
+                !string.Equals(sourceMode, RealSampleSourceMode, StringComparison.OrdinalIgnoreCase) &&
+                !string.Equals(sourceMode, RealQualifiedSourceMode, StringComparison.OrdinalIgnoreCase))
             {
                 Debug.LogWarning($"{ShelterSourceConfigFileName} had unknown sourceMode '{sourceMode}'. Using test mode.");
                 sourceMode = TestSourceMode;
@@ -95,7 +97,7 @@ public static class ShelterSourceConfigLoader
             fallbackToTestOnError = true,
             enableRealSampleLoading = false,
             enableP5COverlay = false,
-            notes = "P4-A1 data-layer source selection. Default gameplay source remains test."
+            notes = "P4/P5 source selection. Default gameplay source remains test."
         };
     }
 

@@ -12,7 +12,7 @@ Phase 5 qualification, routing, PLATEAU matching, and Unity map-decision integra
 
 ## Phase 5: Qualification, Routing, PLATEAU Matching, and Unity Integration
 
-Status: P5-C Unity read-only integration implemented; validation and DeepSeek review are next before Phase 5 closure.
+Status: P5-D real qualified gameplay and verified route-preview fallback are implemented and GUI/headful automated validation passed in the current worktree; DeepSeek review is next before Phase 5 closure.
 
 Planned tasks:
 
@@ -30,6 +30,7 @@ Planned tasks:
 - P5-C: Unity read-only integration for qualified buildings, estimated route metadata, confidence, warnings, and source-mode safety. Implemented; validation pending.
 - P5-B: PLATEAU qualification/matching and GIS routing pipeline.
 - P5-C: Unity integration for qualified buildings, routes, confidence, warnings, and decision feedback.
+- P5-D: opt-in real_qualified gameplay source, runtime playable real shelter proxies, ResultPanel feedback, and verified route-preview fallback. Implemented in current worktree.
 - P5 final review: validation summary, DeepSeek review, scope boundary confirmation, and merge decision.
 
 Scope boundaries:
@@ -97,6 +98,18 @@ P5-C implemented outputs:
 - added concise P5-C ResultPanel feedback for non-test shelter sources, with unavailable fallback when no safe shelter mapping exists
 - default `sourceMode = test` remains unchanged
 - P5-C does not implement real-time routing, flood simulation, NPC behavior, or route/qualification/hazard-based success/failure rules
+
+P5-D implemented outputs:
+
+- added opt-in `sourceMode = real_qualified` while keeping default `sourceMode = test`
+- loaded copied P5-B/P5-C static JSON from `Assets/Data` only
+- generated runtime-only playable shelter proxies for 27 official/qualified records
+- made only `official_confirmed` and `official_confirmed_with_review` records selectable by default
+- kept candidate, unknown, and not-qualified records non-playable/debug-only
+- reused existing E entry, stair-climb, success/failure, and ResultPanel flow
+- appended P5-D real qualified feedback with qualification status, confidence, manual review flag, warnings, route distance/time, estimated prototype route label, and OSM/ODbL attribution
+- parsed route geometry but rejected current WGS84 route lines because no verified Unity/PLATEAU transform exists
+- preserved route/qualification/hazard information as feedback only; no gameplay success/failure rule depends on it
 
 P5-B review prep completed outputs:
 

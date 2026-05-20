@@ -5,5 +5,5 @@
   "fallbackToTestOnError": true,
   "enableRealSampleLoading": false,
   "enableP5COverlay": false,
-  "notes": "P4-A1/P5-C data-layer source selection. Default gameplay source remains test; real_sample reads copied Assets/Data samples only."
+  "notes": "P4-A1/P5-D data-layer source selection. Default gameplay source remains test; real_sample and real_qualified read copied Assets/Data static JSON only."
 }

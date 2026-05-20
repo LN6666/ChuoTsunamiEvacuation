@@ -6,42 +6,60 @@ Milestone 2-03 adds a lightweight Unity test foundation for the ChuoTsunamiEvacu
 
 The tests are intended to catch basic config/data regressions before larger gameplay-rule changes. They are not a full QA suite.
 
-## Unity Test Runner
+## Automated Unity Test Runner
 
-### EditMode
+Manual Test Runner clicking is not the primary validation path for this project.
+Use the PowerShell wrapper so tests are launched automatically, bounded by a timeout,
+and written to XML under `test-results`.
 
-In Unity:
+### GUI/headful fallback
 
-1. Open Window > General > Test Runner.
-2. Select EditMode.
-3. Run all EditMode tests.
-
-EditMode tests cover config and data loading without entering Play Mode.
-
-### PlayMode
-
-In Unity:
-
-1. Open Window > General > Test Runner.
-2. Select PlayMode.
-3. Run all PlayMode tests.
-
-PlayMode tests are smoke tests only. They instantiate minimal test objects and do not open or modify Chuo_BaseMap.unity.
-
-## PowerShell Runner
+The approved cloud-desktop fallback is GUI/headful automation. Unity opens without
+`-batchmode`, but the tests are still started by `-executeMethod`; no Test Runner
+clicking is required.
 
 From the project root:
 
 ```powershell
-.\tools\run_unity_tests.ps1 -Mode EditMode
-.\tools\run_unity_tests.ps1 -Mode PlayMode
-.\tools\run_unity_tests.ps1 -Mode All
+.\tools\run_unity_tests.ps1 -Mode EditMode -LaunchMode Gui
+.\tools\run_unity_tests.ps1 -Mode PlayMode -LaunchMode Gui
+.\tools\run_unity_tests.ps1 -Mode All -LaunchMode Gui
 ```
+
+EditMode tests cover config and data loading without entering Play Mode.
+PlayMode tests are smoke tests only. They instantiate minimal test objects and do
+not open or modify `Chuo_BaseMap.unity`.
 
 Results are written to:
 
-- test-results/editmode-results.xml
-- test-results/playmode-results.xml
+- `test-results/editmode-results.xml`
+- `test-results/playmode-results.xml`
+
+The wrapper prints explicit `total`, `passed`, `failed`, `skipped`, and
+`inconclusive` counts after each run. PlayMode runs may first write Unity's
+internal XML to the user `LocalLow` test-results path; the wrapper automatically
+copies that fresh XML into `test-results`.
+
+### Batch launch mode
+
+Batchmode remains supported when the cloud Unity licensing/package state allows
+it:
+
+```powershell
+.\tools\run_unity_tests.ps1 -Mode EditMode -LaunchMode Batch
+.\tools\run_unity_tests.ps1 -Mode PlayMode -LaunchMode Batch
+.\tools\run_unity_tests.ps1 -Mode All -LaunchMode Batch
+```
+
+This cloud Administrator environment has shown batchmode instability where the
+Unity Licensing Client fails and Package Manager registers 0 packages. When that
+happens, Unity modules such as UI, Physics, and UIElements may be unavailable
+before script compilation. The wrapper detects the Licensing Client plus
+`Registered 0 packages` blocker in the Unity log and fails fast with the blocker
+lines instead of waiting for the full timeout.
+
+When batchmode is blocked, use the GUI/headful commands above as the approved
+automation path.
 
 If Unity is not found, set either:
 

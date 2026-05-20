@@ -266,11 +266,50 @@ P5-C remains informational only:
 - no change to default `sourceMode = test`
 - no `Chuo_BaseMap.unity`, PLATEAU imported asset, `ProjectSettings`, or `Packages` change
 
+## P5-D Implemented Real Qualified Gameplay
+
+P5-D turns the P5-C static evidence data into an opt-in gameplay source without changing the committed default.
+
+Implemented:
+
+- added `sourceMode = real_qualified` while keeping `sourceMode = test` as the default
+- loaded only copied static JSON under `Assets/Data`
+- mapped P5-B/P5-C integrated records into gameplay-ready shelter records
+- made only `official_confirmed` and `official_confirmed_with_review` records playable
+- kept `strong_candidate`, `weak_candidate`, `unknown`, and `not_qualified` records non-playable/debug-only
+- generated runtime-only proxy shelter targets with marker, entrance trigger, metadata label, and optional debug route-preview root
+- reused existing shelter entry, climb, success/failure, and ResultPanel flow
+- preserved qualification status, confidence, manual review flag, first warnings, route distance/time, estimated prototype route disclaimer, and OSM/ODbL attribution in feedback
+- parsed actual route geometry from the copied route sample JSON
+- rejected current WGS84 route geometry for rendering because no verified WGS84-to-Unity/PLATEAU transform exists
+- kept route, qualification, and hazard information informational only; they do not determine success/failure
+
+P5-D validation uses GUI/headful automated Unity tests:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File tools/run_unity_tests.ps1 -Mode EditMode -LaunchMode Gui
+powershell -ExecutionPolicy Bypass -File tools/run_unity_tests.ps1 -Mode PlayMode -LaunchMode Gui
+```
+
+Latest GUI/headful automated validation:
+
+- EditMode: 102 passed, 0 failed
+- PlayMode: 13 passed, 0 failed
+
+Scope boundaries preserved:
+
+- no live routing or web requests
+- no flood simulation
+- no NPC or crowd simulation
+- no `Chuo_BaseMap.unity`, PLATEAU imported asset, `ProjectSettings`, or `Packages` change
+- no runtime reads from `data_pipeline/processed`, `data_pipeline/raw`, `data_pipeline/downloads`, `data_pipeline/cache`, `tmp`, or `.venv`
+
 ## Testing And Review Strategy
 
 - P5-A: documentation review, evidence-source review, taxonomy review, and DeepSeek architecture review.
 - P5-B: schema validation, fixture tests, CRS and geometry sanity checks, routing graph tests, and QGIS manual spatial QA.
 - P5-C: focused EditMode tests for loaders/mappers, PlayMode smoke tests for generated runtime objects, and Unity Editor manual validation.
+- P5-D: GUI/headful automated EditMode and PlayMode tests, plus DeepSeek review for gameplay source-mode safety, Unity lifecycle behavior, route-preview fallback, and scope boundaries.
 
 ## DeepSeek Review Checkpoints
 

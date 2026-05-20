@@ -29,6 +29,7 @@ public class ResultMetrics
     public string timestamp;
     public string advice;
     public string p5cDecisionFeedback;
+    public string p5dDecisionFeedback;
 
     public string GetShelterLabel()
     {
@@ -100,6 +101,13 @@ public class ResultMetrics
         {
             builder.AppendLine("P5-C evidence");
             builder.AppendLine(p5cDecisionFeedback.Trim());
+            builder.AppendLine();
+        }
+
+        if (!string.IsNullOrWhiteSpace(p5dDecisionFeedback))
+        {
+            builder.AppendLine("P5-D real qualified feedback");
+            builder.AppendLine(p5dDecisionFeedback.Trim());
             builder.AppendLine();
         }
 

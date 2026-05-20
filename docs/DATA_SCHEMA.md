@@ -292,12 +292,21 @@ Provide a small Unity-side hook for future P4 real-data integration without chan
 
 | Field | Type | Description |
 |---|---|---|
-| sourceMode | string | Current default is "test"; future option may be "real_sample" |
+| sourceMode | string | Current default is "test"; opt-in options include "real_sample" and "real_qualified" |
 | realSamplePath | string | Future path for an active real-data sample under Assets/Data |
 | enableRealSampleLoading | bool | Reserved hook flag; false by default |
 | notes | string | Human-readable scope note |
 
 P2-05 always keeps sourceMode as "test" by default and continues to load test_shelters.json.
+
+P5-D adds `sourceMode = "real_qualified"` as an opt-in gameplay source. It reads only copied static P5-C/P5-B JSON files under `Assets/Data`:
+
+- `real_chuo_integrated_route_qualification.json`
+- `real_chuo_osm_routes_sample.json`
+- `real_chuo_building_qualification.json`
+- `real_chuo_shelter_building_matches.json`
+
+Only `official_confirmed` and `official_confirmed_with_review` records are selectable/playable by default. `strong_candidate`, `weak_candidate`, `unknown`, and `not_qualified` records remain debug/data-only for P5-D 1.0.
 
 Example-only file:
 

@@ -14,6 +14,37 @@ This file only records actionable review items that should guide Codex fixes.
 
 ---
 
+## P5-D Closeout Review Follow-Ups
+
+Source report:
+
+review_reports/deepseek_review_20260521_051736.md
+
+Context:
+
+P5-D real qualified gameplay closeout after DeepSeek PASS with B-level follow-ups only.
+
+Overall verdict:
+
+PASS with B-level follow-ups. No A-level blockers.
+
+### Action Items
+
+| ID | Priority | Status | Target File | Issue | Required Fix |
+|---|---|---|---|---|---|
+| P5D-CLOSE-B01 | Medium | Fixed | Assets/Scripts/Data/RealQualifiedShelterFeedbackFormatter.cs / Assets/Scripts/Core/EvacuationGameManager.cs | P5-D feedback formatting should not throw on missing records, malformed optional fields, null/empty shelter IDs, or missing route/qualification records. | Keep formatter and GameManager fallback exception-safe and use concise unavailable feedback without affecting success/failure. |
+| P5D-CLOSE-B02 | Medium | Fixed | Assets/Scripts/Shelter/BuildingShelter.cs | `real_qualified` shelters missing `RealQualifiedShelterMetadata` should warn but continue safely. | Log a warning and keep the base shelter prompt/interaction usable. |
+| P5D-CLOSE-B03 | Medium | Confirmed | Assets/Scripts/Data/P5DRoutePreviewTransformValidator.cs / Assets/Scripts/Gameplay/P5DRealQualifiedShelterRuntimeGenerator.cs | WGS84 route geometry must not render until WGS84-to-Unity/PLATEAU transform validation passes. | Current runtime route line rendering remains disabled for `EPSG:4326` data; no implementation change. |
+| P5D-CLOSE-B04 | Medium | Fixed | Assets/Tests/EditMode/P5DRealQualifiedGameplayDataTests.cs | `real_qualified` source-mode smoke coverage should verify playable vs debug-only statuses and metadata preservation. | Added focused EditMode smoke coverage. |
+| P5D-CLOSE-B05 | Medium | Deferred | Manual Unity validation | A one-run `real_qualified` gameplay smoke remains recommended before public/demo use. | Temporarily enable `real_qualified`, enter a selectable real shelter, complete result flow, confirm qualification/warnings/route/OSM feedback, confirm candidate/unknown records are not playable, then restore `test`. |
+| P5D-CLOSE-B06 | Medium | Confirmed | tools/run_unity_tests.ps1 / docs | GUI/headful automated testing is the current approved fallback in this cloud Administrator environment. | Continue using GUI/headful EditMode and PlayMode commands that produce XML and pass/fail counts without manual Test Runner clicking. |
+
+Decision:
+
+Closeout fixes stay within P5-D scope. Route/qualification/hazard metadata remain feedback-only and do not affect gameplay success/failure.
+
+---
+
 ## P5-C Unity Integration Follow-Ups
 
 Context:

@@ -28,6 +28,8 @@ public class BuildingShelter : MonoBehaviour
     [SerializeField] private string sourceUpdatedAt;
     [SerializeField] private string notes;
 
+    private bool warnedMissingRealQualifiedMetadata;
+
     public string ShelterId => shelterId;
     public string ShelterName => string.IsNullOrWhiteSpace(shelterName) ? gameObject.name : shelterName;
     public string ShelterRank => shelterRank;
@@ -101,12 +103,28 @@ public class BuildingShelter : MonoBehaviour
         string officialText = isOfficialShelter ? "Official shelter" : "Candidate shelter";
         string enterText = canEnter ? "Enterable" : "Not enterable";
         string blockedText = canEnter ? string.Empty : $"\nReason: {FailureReason}";
+        RealQualifiedShelterMetadata realQualifiedMetadata = GetComponent<RealQualifiedShelterMetadata>();
+        string realQualifiedText = string.Empty;
+        if (realQualifiedMetadata != null)
+        {
+            realQualifiedText = $"\n{realQualifiedMetadata.BuildPromptText()}";
+        }
+        else if (string.Equals(sourceType, RealQualifiedShelterDataLoader.SourceType, System.StringComparison.OrdinalIgnoreCase) &&
+            !warnedMissingRealQualifiedMetadata)
+        {
+            Debug.LogWarning(
+                $"real_qualified shelter '{ShelterId}' is missing RealQualifiedShelterMetadata. Continuing with base shelter prompt.",
+                this);
+            warnedMissingRealQualifiedMetadata = true;
+        }
+
         return
             $"{ShelterName}\n" +
             $"ID: {shelterId}\n" +
             $"Rank: {shelterRank} | {officialText}\n" +
             $"{enterText}\n" +
             $"Entry: {EntryDelaySeconds:0.#}s | Climb: {ClimbTimeSeconds:0.#}s | Crowd: {CrowdingDelaySeconds:0.#}s" +
-            blockedText;
+            blockedText +
+            realQualifiedText;
     }
 }
