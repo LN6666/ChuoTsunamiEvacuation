@@ -8,7 +8,38 @@ The first playable prototype has been Unity-tested, DeepSeek V4 Pro max-thinking
 
 Current branch focus:
 
-Phase 5 final closeout is complete as a prototype/research integration stage and is ready for final DeepSeek review. P5-GH integrates the completed P5-E route geometry validation work with the completed P5-F high-rise humanitarian candidate foundation. Display-only humanitarian candidate markers and an explicit life-first selectable candidate mode are implemented behind default-off flags.
+P6-0 Open-source Reference Review + Technical Selection is a documentation-only planning stage for the upcoming P6-A Navigation Guidance Prototype and P6-B NPC Evacuation Prototype. Phase 5 remains the stable baseline: default `sourceMode = test`, `real_qualified` opt-in, humanitarian candidate flags default false, OSM routes estimated only, route rendering fail-closed until WGS84 to Unity/PLATEAU transform validation exists, and no navigation/crowd reference is an official evacuation guidance source.
+
+## Phase 6: Navigation Guidance and NPC Evacuation Prototype
+
+Status: P6-0 reference review and technical selection documented. No implementation, dependency import, package change, ProjectSettings change, scene change, PLATEAU change, data-pipeline raw/download/cache/tmp/.venv change, source-mode default change, or gameplay success/failure logic change has been made for P6-0.
+
+Planned tasks:
+
+- P6-0: open-source navigation/crowd/evacuation reference review and technical selection. Done in documentation only.
+- P6-A: lightweight player navigation guidance prototype under `Assets/Scripts/Navigation/` after a confirmed Markdown plan.
+- P6-B: small NPC evacuation prototype under `Assets/Scripts/NPC/` and/or `Assets/Scripts/Simulation/` after a confirmed Markdown plan.
+- P6-C: integrate P6-A and P6-B only after both are reviewed and tested independently.
+
+P6-0 completed outputs:
+
+- created `docs/P6_OPEN_SOURCE_REFERENCE_REVIEW.md`
+- created `docs/P6_TECHNICAL_SELECTION.md`
+- created `deepseek_review_prompt_p60.md`
+- reviewed Unity NavMeshComponents, Unity AI Navigation, Recast Navigation, A* Pathfinding Project, JR-Morgan Crowd Evacuation Simulation, keijiro unity-crowd-simulation, Unity ECS samples, Unity ML-Agents, JuPedSim, and SebLague Pathfinding
+- selected `reference_only` first for navigation/crowd dependencies and no package import without separate approval
+- selected custom lightweight P6-A navigation UI first
+- selected custom lightweight P6-B NPC movement and target selection first
+- deferred NavMesh/AI Navigation package workflow adoption, A* import, Recast integration, DOTS/ECS, ML-Agents, social-force models, congestion physics, and real route line rendering
+
+Scope boundaries:
+
+- P6-A/P6-B must not modify `Packages`, `ProjectSettings`, Unity scenes, PLATEAU imports, `Chuo_BaseMap.unity`, raw PLATEAU data, or protected data-pipeline paths during prototype stage.
+- P6-A/P6-B must not introduce live routing or runtime web requests.
+- P6-A/P6-B must not change `sourceMode` defaults or gameplay success/failure rules.
+- P6-A must always display `estimated prototype route / not official navigation` when showing route guidance or route feedback.
+- P6-B NPCs must not affect player success/failure.
+- Navigation/crowd references are engineering references only, not official evacuation guidance sources.
 
 ## Phase 5: Qualification, Routing, PLATEAU Matching, and Unity Integration
 

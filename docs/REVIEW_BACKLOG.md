@@ -14,6 +14,37 @@ This file only records actionable review items that should guide Codex fixes.
 
 ---
 
+## P6-0 Reference Review Deferred Decisions
+
+Source report:
+
+Pending DeepSeek review of `deepseek_review_prompt_p60.md`.
+
+Context:
+
+P6-0 is a documentation-only reference review and technical selection stage for P6-A navigation guidance and P6-B NPC evacuation. No implementation, dependency import, package change, ProjectSettings change, scene change, PLATEAU change, source-mode change, or gameplay success/failure change is approved by P6-0.
+
+Overall verdict:
+
+Pending review.
+
+### Deferred Risks And Decisions
+
+| ID | Severity | Status | Limitation / Decision | Follow-up |
+|---|---|---|---|---|
+| P60-B01 | Medium | Deferred | Real route line rendering remains blocked because WGS84 to Unity/PLATEAU transform validation is still unverified. | Keep route rendering fail-closed until a dedicated transform validation plan and tests exist. |
+| P60-B02 | Medium | Deferred | NavMesh / AI Navigation workflow adoption could create scene, bake, package, or ProjectSettings risk. | Reconsider only after explicit approval and a package/project-settings/scene risk review. |
+| P60-B03 | Medium | Deferred | A* Pathfinding Project has license/package footprint considerations. | Keep `reference_only` until license and dependency approval are complete. |
+| P60-B04 | Medium | Deferred | Recast, DOTS/ECS, ML-Agents, and external pedestrian simulation tools are too heavy for P6-A/P6-B. | Treat as future research references only unless a later phase approves a technical spike. |
+| P60-B05 | Medium | Deferred | Public crowd/evacuation sample repositories with unclear license files must not be copied. | Use behavior/visual inspiration only and avoid code/assets unless license clearance is documented. |
+| P60-B06 | High | Deferred | P6-B NPCs could be misread as validated evacuation behavior or could accidentally influence player success/failure. | Keep NPC state labels/disclaimers clear and ensure future implementation cannot mutate player result logic. |
+
+Decision:
+
+P6-0 selects reference-only review first and custom lightweight prototypes for P6-A/P6-B. DeepSeek should confirm there are no A-level blockers before committing P6-0.
+
+---
+
 ## P5 Final Closeout Review
 
 Source report:
