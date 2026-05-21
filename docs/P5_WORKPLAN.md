@@ -339,6 +339,47 @@ Latest P5-E GUI/headful automated validation:
 - EditMode: 107 passed, 0 failed
 - PlayMode: 13 passed, 0 failed
 
+## P5-F High-Rise Humanitarian Candidate Screening
+
+P5-F defines a data-only rulebook, schema, fixture, and source plan for future screening of high-rise humanitarian vertical evacuation candidates.
+
+Implemented in the current P5-F worktree:
+
+- created `docs/P5F_HIGHRISE_HUMANITARIAN_CANDIDATES.md`
+- created `data_pipeline/qualification/highrise_humanitarian_candidate_rulebook.json`
+- created `data_pipeline/qualification/highrise_humanitarian_candidate_schema.json`
+- created `data_pipeline/qualification/highrise_humanitarian_candidate_sources_plan.json`
+- created `data_pipeline/qualification/highrise_humanitarian_candidates_sample.json`
+- added focused pytest coverage in `data_pipeline/tests/test_highrise_humanitarian_candidates.py`
+- created `deepseek_review_prompt_p5f.md`
+
+P5-F preserves this policy:
+
+- official/designated evacuation facilities and humanitarian emergency candidate high-rises are separate layers
+- non-official high-rises must not be labeled as official shelters
+- unknown public access is not a hard exclusion in the life-first humanitarian emergency scenario
+- unknown public access, unknown management agreement, and unknown seismic evidence remain visible review risks
+- humanitarian candidate statuses require warnings and manual review
+
+P5-F status taxonomy:
+
+- `official_confirmed`
+- `official_confirmed_with_review`
+- `humanitarian_strong_candidate`
+- `humanitarian_candidate_with_review`
+- `humanitarian_weak_candidate`
+- `unknown`
+- `not_recommended`
+
+P5-F does not perform real Chuo high-rise extraction, large downloads, scraping, Unity gameplay changes, scene changes, `Assets/Data` changes, `ProjectSettings` changes, `Packages` changes, or `sourceMode` changes.
+
+Chronology for P5-G:
+
+- P5-D completed the opt-in `real_qualified` gameplay source first.
+- P5-E then validated route geometry parsing and fail-closed WGS84 route-preview behavior.
+- P5-F then added the data-only high-rise humanitarian candidate screening foundation.
+- P5-G will integrate the P5-E and P5-F outcomes without treating humanitarian candidates as official shelters and without enabling route rendering until a verified Unity/PLATEAU transform exists.
+
 ## Testing And Review Strategy
 
 - P5-A: documentation review, evidence-source review, taxonomy review, and DeepSeek architecture review.
@@ -346,6 +387,7 @@ Latest P5-E GUI/headful automated validation:
 - P5-C: focused EditMode tests for loaders/mappers, PlayMode smoke tests for generated runtime objects, and Unity Editor manual validation.
 - P5-D: GUI/headful automated EditMode and PlayMode tests, plus DeepSeek review for gameplay source-mode safety, Unity lifecycle behavior, route-preview fallback, and scope boundaries.
 - P5-E: GUI/headful EditMode and PlayMode tests for stricter route geometry parsing, WGS84 transform validation fail-closed behavior, selected route-preview limits, and real_qualified feedback/selection safety.
+- P5-F: data-pipeline JSON syntax checks, JSON Schema validation when `jsonschema` is available, pytest semantic checks for official/humanitarian separation, and DeepSeek review of life-first candidate boundaries.
 
 ## DeepSeek Review Checkpoints
 
@@ -353,7 +395,9 @@ Latest P5-E GUI/headful automated validation:
 - After P5-A2: review qualification rulebook risks and schema readiness.
 - After P5-B: review CRS handling, matching assumptions, routing assumptions, and reproducibility.
 - After P5-C: review Unity lifecycle, scene-safety, loader behavior, and UI/feedback correctness.
-- Before Phase 5 closure: final review for blockers, scope creep, and documentation completeness.
+- After P5-E: review route geometry parsing, WGS84 validation, route-preview fail-closed behavior, and real_qualified feedback safety.
+- After P5-F: review humanitarian candidate taxonomy, non-official warning policy, schema completeness, and source-collection boundaries.
+- Before Phase 5 closure / P5-G integration: final review for blockers, scope creep, and documentation completeness.
 
 ## Known Risks
 
@@ -364,6 +408,8 @@ Latest P5-E GUI/headful automated validation:
 - OSM-derived routing may be incomplete, outdated, or unsuitable for official evacuation guidance.
 - Windows geospatial dependency setup can be fragile.
 - Unity route visualization can become misleading if confidence and warnings are not visible.
+- Humanitarian emergency candidate screening can be misread as permission or official shelter designation unless warnings remain prominent.
+- Public access, management agreement, and seismic evidence may be difficult to verify for private high-rises.
 
 ## No Scope Creep Boundaries
 
@@ -374,3 +420,4 @@ Latest P5-E GUI/headful automated validation:
 - No PLATEAU building matching implementation in P5-A0.
 - No evacuation building qualification logic implementation in P5-A0.
 - No Unity gameplay, scene, `Assets/Data`, `ProjectSettings`, or `Packages` changes in P5-A0.
+- No Unity gameplay, scene, `Assets/Data`, `ProjectSettings`, `Packages`, large download, raw GIS commit, or `sourceMode` change in P5-F.

@@ -8,11 +8,11 @@ The first playable prototype has been Unity-tested, DeepSeek V4 Pro max-thinking
 
 Current branch focus:
 
-Phase 5 qualification, routing, PLATEAU matching, and Unity map-decision integration is active on `phase5-qualification-routing-plateau`.
+Phase 5-G integration is reconciling the completed P5-E route geometry validation work with the completed P5-F high-rise humanitarian candidate foundation. No P5-G gameplay features are implemented yet.
 
 ## Phase 5: Qualification, Routing, PLATEAU Matching, and Unity Integration
 
-Status: P5-E verified route geometry rendering QA is implemented and GUI/headful automated validation passed in the current worktree; DeepSeek review is next before Phase 5 closure.
+Status: P5-D completed the opt-in `real_qualified` gameplay source first, P5-E completed route geometry validation and fail-closed route-preview QA next, and P5-F completed the data-only high-rise humanitarian candidate foundation after that. P5-G will integrate those outcomes before Phase 5 closure.
 
 Planned tasks:
 
@@ -32,6 +32,8 @@ Planned tasks:
 - P5-C: Unity integration for qualified buildings, routes, confidence, warnings, and decision feedback.
 - P5-D: opt-in real_qualified gameplay source, runtime playable real shelter proxies, ResultPanel feedback, and verified route-preview fallback. Implemented in current worktree.
 - P5-E: verified route geometry parsing, WGS84 transform validation gate, selected/limited route-preview safety, and real_qualified gameplay QA. Implemented in current worktree.
+- P5-F: high-rise humanitarian vertical evacuation candidate rulebook, schema, source plan, controlled fixture, validation tests, and DeepSeek prompt. Implemented in current worktree.
+- P5-G: integrate P5-E route validation and P5-F humanitarian candidate foundation without changing official shelter semantics or enabling unverified route rendering. Pending.
 - P5 final review: validation summary, DeepSeek review, scope boundary confirmation, and merge decision.
 
 Scope boundaries:
@@ -124,6 +126,24 @@ P5-E implemented outputs:
 - kept `sourceMode = test` as the committed default and `real_qualified` opt-in only
 - GUI/headful automated validation passed: EditMode 107 passed / 0 failed; PlayMode 13 passed / 0 failed
 - created `deepseek_review_prompt_p5e.md`
+
+P5-F implemented outputs:
+
+- documented life-first humanitarian emergency high-rise candidate screening in `docs/P5F_HIGHRISE_HUMANITARIAN_CANDIDATES.md`
+- separated official/designated evacuation facilities from humanitarian emergency candidate high-rises
+- defined statuses `official_confirmed`, `official_confirmed_with_review`, `humanitarian_strong_candidate`, `humanitarian_candidate_with_review`, `humanitarian_weak_candidate`, `unknown`, and `not_recommended`
+- created JSON Schema, rulebook, source plan, and seven-record controlled sample fixture under `data_pipeline/qualification/`
+- added pytest coverage for schema validation, official/humanitarian separation, non-official warning policy, manual review triggers, and unknown public access behavior
+- created `deepseek_review_prompt_p5f.md`
+- performed JSON syntax validation with system Python; focused pytest requires `pytest` and schema validation requires `jsonschema`, which are not installed in the system Python environment
+- made no Unity gameplay, scene, `Assets/Data`, PLATEAU import, `ProjectSettings`, `Packages`, large download, raw/cache/tmp/.venv, or `sourceMode` changes
+
+P5-G integration intent:
+
+- preserve P5-E route geometry validation and fail-closed rendering behavior
+- preserve P5-F official/humanitarian separation and manual-review warning policy
+- keep humanitarian candidates out of official shelter gameplay semantics until a later confirmed task changes that policy
+- keep route line rendering disabled until a verified Unity/PLATEAU transform exists
 
 P5-B review prep completed outputs:
 

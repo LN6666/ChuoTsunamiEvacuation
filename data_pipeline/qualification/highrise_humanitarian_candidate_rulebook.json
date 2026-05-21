@@ -1,0 +1,297 @@
+{
+  "rulebookVersion": "p5-f-highrise-humanitarian-candidates-v1",
+  "purpose": "Define conservative Phase 5-F screening rules for high-rise humanitarian vertical evacuation candidates while preserving the boundary between official evacuation facilities and non-official emergency candidates.",
+  "planningOnly": true,
+  "logicImplemented": false,
+  "lifeFirstPrinciple": "During tsunami risk, life safety is the first priority. Non-official high-rises may be screened as humanitarian emergency candidates, but uncertainty and non-official status must remain visible.",
+  "layerSeparation": {
+    "officialLayer": "Official/designated evacuation facilities require official Chuo, Tokyo, or administrative evidence.",
+    "humanitarianCandidateLayer": "Humanitarian emergency candidate high-rises are non-official or unverified buildings with possible vertical evacuation potential. They are not official shelters.",
+    "nonClaim": "Do not label non-official candidate buildings as official evacuation shelters.",
+    "candidateLayerField": "candidateLayer",
+    "candidateLayerValues": [
+      "official",
+      "humanitarian_candidate"
+    ],
+    "officialLayerRule": "candidateLayer may be official only when officialDesignationStatus is official_designated or official_designated_with_review and official source evidence is present.",
+    "humanitarianLayerRule": "candidateLayer must remain humanitarian_candidate for all non-official, unknown, not evaluated, conflicting, or not recommended screening records, even when physical suitability is strong."
+  },
+  "statusTaxonomy": [
+    {
+      "status": "official_confirmed",
+      "layer": "official",
+      "candidateLayer": "official",
+      "description": "Official evidence confirms the facility/building and the building identity is sufficiently clear.",
+      "requiresOfficialEvidence": true,
+      "allowedOfficialDesignationStatuses": [
+        "official_designated"
+      ],
+      "manualReviewExpected": false
+    },
+    {
+      "status": "official_confirmed_with_review",
+      "layer": "official",
+      "candidateLayer": "official",
+      "description": "Official evidence exists, but match, source date, facility extent, or metadata ambiguity remains.",
+      "requiresOfficialEvidence": true,
+      "allowedOfficialDesignationStatuses": [
+        "official_designated",
+        "official_designated_with_review"
+      ],
+      "manualReviewExpected": true
+    },
+    {
+      "status": "humanitarian_strong_candidate",
+      "layer": "humanitarian_candidate",
+      "candidateLayer": "humanitarian_candidate",
+      "description": "Non-official high-rise candidate with strong physical suitability evidence and manageable operational uncertainty.",
+      "requiresOfficialEvidence": false,
+      "allowedOfficialDesignationStatuses": [
+        "not_official",
+        "unknown",
+        "not_evaluated"
+      ],
+      "manualReviewExpected": true
+    },
+    {
+      "status": "humanitarian_candidate_with_review",
+      "layer": "humanitarian_candidate",
+      "candidateLayer": "humanitarian_candidate",
+      "description": "Non-official candidate with promising physical signals but unresolved access, management, seismic, route, or capacity uncertainty.",
+      "requiresOfficialEvidence": false,
+      "allowedOfficialDesignationStatuses": [
+        "not_official",
+        "unknown",
+        "not_evaluated"
+      ],
+      "manualReviewExpected": true
+    },
+    {
+      "status": "humanitarian_weak_candidate",
+      "layer": "humanitarian_candidate",
+      "candidateLayer": "humanitarian_candidate",
+      "description": "Non-official candidate with limited positive evidence, weak vertical refuge margin, or substantial unresolved uncertainty.",
+      "requiresOfficialEvidence": false,
+      "allowedOfficialDesignationStatuses": [
+        "not_official",
+        "unknown",
+        "not_evaluated"
+      ],
+      "manualReviewExpected": true
+    },
+    {
+      "status": "unknown",
+      "layer": "unresolved",
+      "candidateLayer": "humanitarian_candidate",
+      "description": "Insufficient evidence to recommend or reject the building.",
+      "requiresOfficialEvidence": false,
+      "allowedOfficialDesignationStatuses": [
+        "not_official",
+        "unknown",
+        "not_evaluated"
+      ],
+      "manualReviewExpected": true
+    },
+    {
+      "status": "not_recommended",
+      "layer": "excluded_or_downgraded",
+      "candidateLayer": "humanitarian_candidate",
+      "description": "Evidence suggests the building should not be treated as a vertical evacuation candidate.",
+      "requiresOfficialEvidence": false,
+      "allowedOfficialDesignationStatuses": [
+        "not_official",
+        "unknown",
+        "not_evaluated",
+        "conflicting"
+      ],
+      "manualReviewExpected": true
+    }
+  ],
+  "confidenceLevels": [
+    {
+      "level": "high",
+      "description": "Official evidence or high-quality physical evidence is strong and residual uncertainty is low."
+    },
+    {
+      "level": "medium",
+      "description": "Evidence is plausible but has visible source, access, seismic, route, or management limitations."
+    },
+    {
+      "level": "low",
+      "description": "Evidence is weak, incomplete, conflicting, or relies mainly on inferred candidate suitability."
+    },
+    {
+      "level": "unknown",
+      "description": "Evidence is unavailable or insufficient."
+    }
+  ],
+  "scoreModel": {
+    "physicalSuitabilityScore": {
+      "range": [
+        0,
+        100
+      ],
+      "higherIsBetter": true,
+      "signals": [
+        {
+          "signal": "height_or_floors_strong",
+          "exampleRule": "Height at least 30 meters or floorsAboveGround at least 10 supports strong high-rise candidacy."
+        },
+        {
+          "signal": "height_or_floors_minimum",
+          "exampleRule": "Height at least 15 meters or floorsAboveGround at least 5 may support weak or review-level candidacy."
+        },
+        {
+          "signal": "structural_hint",
+          "exampleRule": "Confirmed or estimated seismic evidence improves physical suitability but does not certify safety."
+        },
+        {
+          "signal": "capacity_proxy",
+          "exampleRule": "Larger floor area or estimated capacity proxy improves screening priority when source uncertainty is visible."
+        },
+        {
+          "signal": "risk_relevance",
+          "exampleRule": "Location in tsunami risk context can increase humanitarian relevance, not official status."
+        },
+        {
+          "signal": "route_accessibility",
+          "exampleRule": "Route distance/time that is not obviously impossible can support candidate screening."
+        }
+      ]
+    },
+    "operationalUncertaintyScore": {
+      "range": [
+        0,
+        100
+      ],
+      "higherIsMoreUncertain": true,
+      "signals": [
+        "non-official designation",
+        "public access unknown or restricted",
+        "management agreement unknown or not found",
+        "seismic evidence estimated or unknown",
+        "private or unclear building use",
+        "route distance/time missing or prototype-only",
+        "source date or source authority missing",
+        "capacity proxy missing"
+      ]
+    },
+    "conservativeScoringPolicy": {
+      "missingCriticalEvidenceRule": "Missing height, floor, capacity, route, seismic, public access, or management evidence must reduce confidence, increase operationalUncertaintyScore, and may downgrade status from strong to review, weak, unknown, or not_recommended.",
+      "unknownCriticalFieldsIncreaseUncertainty": [
+        "publicAccessStatus",
+        "managementAgreementStatus",
+        "seismicEvidenceLevel",
+        "tsunamiRiskContext",
+        "routeDistanceMeters",
+        "routeTimeSeconds",
+        "estimatedCapacityProxy"
+      ],
+      "manualReviewEscalationFields": [
+        "publicAccessStatus",
+        "managementAgreementStatus",
+        "seismicEvidenceLevel",
+        "officialDesignationStatus"
+      ],
+      "officialSeparationRule": "High physical suitability, low route distance, or high capacity can never upgrade candidateLayer to official without official designation evidence."
+    },
+    "classificationGuidance": [
+      {
+        "status": "humanitarian_strong_candidate",
+        "typicalPhysicalSuitabilityMinimum": 75,
+        "typicalOperationalUncertaintyMaximum": 55,
+        "notes": "Must remain non-official unless official evidence is later added."
+      },
+      {
+        "status": "humanitarian_candidate_with_review",
+        "typicalPhysicalSuitabilityMinimum": 60,
+        "typicalOperationalUncertaintyMaximum": 85,
+        "notes": "Use when physical evidence is promising but access, seismic, route, or agreement uncertainty is unresolved."
+      },
+      {
+        "status": "humanitarian_weak_candidate",
+        "typicalPhysicalSuitabilityMinimum": 35,
+        "typicalOperationalUncertaintyMaximum": 90,
+        "notes": "Use when there is some vertical refuge signal but not enough for a strong candidate."
+      },
+      {
+        "status": "unknown",
+        "typicalPhysicalSuitabilityMinimum": 0,
+        "typicalOperationalUncertaintyMaximum": 100,
+        "notes": "Use when evidence is too incomplete for candidate or rejection."
+      },
+      {
+        "status": "not_recommended",
+        "typicalPhysicalSuitabilityMinimum": 0,
+        "typicalOperationalUncertaintyMaximum": 100,
+        "notes": "Use for low-rise, unsafe, underground-only, practically inaccessible, or conflicting evidence cases."
+      }
+    ]
+  },
+  "publicAccessPolicy": {
+    "unknownAccessIsHardExclusion": false,
+    "unknownAccessManualReviewRequired": true,
+    "unknownAccessReviewTrigger": "public access unknown",
+    "unknownAccessWarningRequired": true,
+    "rule": "Unknown public access must not automatically exclude a building in the humanitarian emergency scenario, but it must trigger manualReviewNeeded, reviewRisks, reviewTriggers, and warnings."
+  },
+  "reviewRiskCodes": [
+    "official_match_ambiguous",
+    "non_official_status",
+    "public_access_unknown",
+    "public_access_restricted",
+    "management_agreement_unknown",
+    "management_agreement_not_found",
+    "seismic_evidence_estimated",
+    "seismic_evidence_unknown",
+    "seismic_concern",
+    "limited_vertical_refuge_margin",
+    "insufficient_physical_evidence",
+    "route_or_capacity_proxy",
+    "private_building_use",
+    "life_first_access_not_legal_guarantee"
+  ],
+  "manualReviewTriggers": [
+    "non-official humanitarian candidate",
+    "public access unknown",
+    "public access restricted",
+    "management agreement unknown",
+    "management agreement not found",
+    "seismic evidence unknown",
+    "seismic evidence concern",
+    "height/floor/capacity missing",
+    "route distance/time missing",
+    "route distance/time prototype-only",
+    "private residential or office-only use",
+    "source conflict",
+    "official designation ambiguous"
+  ],
+  "downgradeOrNotRecommendedSignals": [
+    "height below 12 meters and floorsAboveGround below 4",
+    "known seismic concern without mitigating evidence",
+    "underground-only or no usable upper-floor refuge",
+    "known demolition, closure, or building condition issue",
+    "route access practically impossible in the modeled context",
+    "conflicting evidence that would make candidate labeling misleading"
+  ],
+  "requiredWarningRules": [
+    "Every non-official humanitarian candidate must warn that it is not an official shelter.",
+    "Unknown public access must be preserved as uncertainty.",
+    "Unknown management agreement status must be preserved as uncertainty.",
+    "Unknown seismic evidence must be preserved as uncertainty.",
+    "Life-first emergency access is a scenario assumption, not a legal or official access guarantee.",
+    "Prototype route estimates must not be called official evacuation routes."
+  ],
+  "sourceFamilies": [
+    "plateau_building_geometry",
+    "plateau_building_attribute",
+    "p5_official_shelter_data",
+    "tokyo_chuo_official_source",
+    "official_hazard_map",
+    "public_seismic_retrofit_info",
+    "public_building_registry",
+    "osm_routing_network",
+    "manual_review",
+    "controlled_fixture"
+  ]
+}

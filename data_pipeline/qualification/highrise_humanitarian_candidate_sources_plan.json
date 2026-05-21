@@ -1,0 +1,136 @@
+{
+  "planVersion": "p5-f-source-plan-v1",
+  "purpose": "Plan future source collection for high-rise humanitarian vertical evacuation candidate screening without performing large downloads or scraping in P5-F.",
+  "collectionPolicy": {
+    "performCollectionInP5F": false,
+    "largeDownloadsAllowedInP5F": false,
+    "aggressiveScrapingAllowed": false,
+    "rawDataCommitAllowed": false,
+    "unityRuntimeConsumptionAllowed": false,
+    "notes": "P5-F records source families and future collection requirements only. Real collection must be a later reviewed task."
+  },
+  "sourceFamilies": [
+    {
+      "familyId": "plateau_building_attributes",
+      "authorityLevel": "official_or_derived_geometry_attribute",
+      "futureUse": "Extract height, floors above ground, usage, footprint area, and PLATEAU building identifiers where available.",
+      "candidateFields": [
+        "plateauBuildingId",
+        "heightMeters",
+        "floorsAboveGround",
+        "usageType",
+        "buildingUse",
+        "estimatedCapacityProxy"
+      ],
+      "collectionMode": "Use existing local PLATEAU data or processed subsets under an approved later task.",
+      "p5fAction": "plan_only"
+    },
+    {
+      "familyId": "existing_p5_official_shelter_data",
+      "authorityLevel": "official_primary_or_processed_from_official",
+      "futureUse": "Preserve official/designated evacuation facility records from P5-B/P5-C outputs and keep them separate from humanitarian candidates.",
+      "candidateFields": [
+        "officialDesignationStatus",
+        "distanceToOfficialShelter",
+        "sourceRefs"
+      ],
+      "collectionMode": "Reuse existing processed outputs when approved; do not change Unity runtime source mode.",
+      "p5fAction": "plan_only"
+    },
+    {
+      "familyId": "tokyo_chuo_official_sources",
+      "authorityLevel": "official_primary",
+      "futureUse": "Collect Chuo/Tokyo disaster prevention, evacuation building, hazard map, and agreement information when source review permits.",
+      "candidateFields": [
+        "officialDesignationStatus",
+        "tsunamiRiskContext",
+        "managementAgreementStatus",
+        "sourceRefs"
+      ],
+      "collectionMode": "Manual official-source review and controlled download only.",
+      "p5fAction": "plan_only"
+    },
+    {
+      "familyId": "public_seismic_diagnosis_or_retrofit_information",
+      "authorityLevel": "public_reference_or_official_reference",
+      "futureUse": "Capture seismic diagnosis, retrofit, construction era, or structural safety hints where public and lawful to use.",
+      "candidateFields": [
+        "seismicEvidenceLevel",
+        "seismicEvidenceSource",
+        "confidence",
+        "warnings"
+      ],
+      "collectionMode": "Manual review and small controlled source registry before automated ingestion.",
+      "p5fAction": "plan_only"
+    },
+    {
+      "familyId": "public_building_height_floor_use_information",
+      "authorityLevel": "secondary_or_public_reference",
+      "futureUse": "Supplement PLATEAU attributes with public height, floor count, use, and capacity proxy information if available.",
+      "candidateFields": [
+        "heightMeters",
+        "floorsAboveGround",
+        "usageType",
+        "buildingUse",
+        "estimatedCapacityProxy"
+      ],
+      "collectionMode": "Manual source review first; avoid broad scraping.",
+      "p5fAction": "plan_only"
+    },
+    {
+      "familyId": "route_and_accessibility_sources",
+      "authorityLevel": "derived_prototype_or_official_reference",
+      "futureUse": "Estimate route distance/time and compare candidate coverage against official shelter access gaps.",
+      "candidateFields": [
+        "distanceToOfficialShelter",
+        "routeDistanceMeters",
+        "routeTimeSeconds",
+        "warnings"
+      ],
+      "collectionMode": "Reuse approved P5 routing methods only as prototype estimates; official route claims require official evidence.",
+      "p5fAction": "plan_only"
+    },
+    {
+      "familyId": "manual_review_list",
+      "authorityLevel": "manual_review",
+      "futureUse": "Track public access, management agreement, seismic uncertainty, source conflict, and field verification needs.",
+      "candidateFields": [
+        "publicAccessStatus",
+        "managementAgreementStatus",
+        "manualReviewNeeded",
+        "reviewTriggers",
+        "warnings"
+      ],
+      "collectionMode": "Human-maintained review queue; no automatic public claim.",
+      "p5fAction": "plan_only"
+    }
+  ],
+  "manualReviewQueueFields": [
+    "candidateId",
+    "buildingName",
+    "address",
+    "plateauBuildingId",
+    "humanitarianCandidateStatus",
+    "officialDesignationStatus",
+    "publicAccessStatus",
+    "managementAgreementStatus",
+    "seismicEvidenceLevel",
+    "reviewTriggers",
+    "warnings",
+    "sourceRefs"
+  ],
+  "futureValidationRequirements": [
+    "Every official_confirmed or official_confirmed_with_review record must cite official evidence.",
+    "Every humanitarian candidate must state that it is not an official shelter.",
+    "Unknown public access must trigger manual review but must not automatically exclude a candidate.",
+    "Unknown seismic evidence must trigger manual review.",
+    "Prototype route fields must not be labeled as official evacuation routes.",
+    "Raw/cache/download/tmp/.venv and large GIS data must stay uncommitted."
+  ],
+  "nextActions": [
+    "Run DeepSeek review on P5-F data/schema/rulebook boundaries.",
+    "After review, design a small controlled Chuo high-rise extraction task using local PLATEAU attributes only.",
+    "Add manual review workflow for access, management agreement, and seismic evidence.",
+    "Only after source review, decide whether small official-source updates are needed."
+  ]
+}

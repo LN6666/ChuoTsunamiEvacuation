@@ -1,0 +1,429 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.local/chuo-tsunami-evacuation/highrise-humanitarian-candidate.schema.json",
+  "title": "High-Rise Humanitarian Vertical Evacuation Candidate Dataset",
+  "description": "Schema for P5-F high-rise humanitarian emergency vertical evacuation candidate screening records. This validates evidence shape only and does not claim official designation for non-official candidates.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "datasetId",
+    "generatedAt",
+    "coordinateReferenceSystem",
+    "rulebookVersion",
+    "notes",
+    "records"
+  ],
+  "properties": {
+    "datasetId": {
+      "type": "string",
+      "minLength": 1
+    },
+    "generatedAt": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "coordinateReferenceSystem": {
+      "type": "string",
+      "minLength": 1
+    },
+    "rulebookVersion": {
+      "type": "string",
+      "minLength": 1
+    },
+    "notes": {
+      "type": "string"
+    },
+    "records": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/$defs/candidateRecord"
+      }
+    }
+  },
+  "$defs": {
+    "nullableString": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "nullableNumber": {
+      "type": [
+        "number",
+        "null"
+      ]
+    },
+    "nullableInteger": {
+      "type": [
+        "integer",
+        "null"
+      ]
+    },
+    "confidence": {
+      "type": "string",
+      "enum": [
+        "high",
+        "medium",
+        "low",
+        "unknown"
+      ]
+    },
+    "candidateLayer": {
+      "type": "string",
+      "enum": [
+        "official",
+        "humanitarian_candidate"
+      ]
+    },
+    "seismicEvidenceLevel": {
+      "type": "string",
+      "enum": [
+        "confirmed",
+        "estimated",
+        "unknown",
+        "concern",
+        "not_evaluated"
+      ]
+    },
+    "publicAccessStatus": {
+      "type": "string",
+      "enum": [
+        "confirmed_public",
+        "likely_public_or_lobby_access",
+        "restricted_private",
+        "unknown",
+        "not_evaluated"
+      ]
+    },
+    "managementAgreementStatus": {
+      "type": "string",
+      "enum": [
+        "official_agreement_confirmed",
+        "likely_agreement",
+        "no_agreement_found",
+        "unknown",
+        "not_evaluated"
+      ]
+    },
+    "officialDesignationStatus": {
+      "type": "string",
+      "enum": [
+        "official_designated",
+        "official_designated_with_review",
+        "not_official",
+        "unknown",
+        "conflicting",
+        "not_evaluated"
+      ]
+    },
+    "humanitarianCandidateStatus": {
+      "type": "string",
+      "enum": [
+        "official_confirmed",
+        "official_confirmed_with_review",
+        "humanitarian_strong_candidate",
+        "humanitarian_candidate_with_review",
+        "humanitarian_weak_candidate",
+        "unknown",
+        "not_recommended"
+      ]
+    },
+    "sourceFamily": {
+      "type": "string",
+      "enum": [
+        "plateau_building_geometry",
+        "plateau_building_attribute",
+        "p5_official_shelter_data",
+        "tokyo_chuo_official_source",
+        "official_hazard_map",
+        "public_seismic_retrofit_info",
+        "public_building_registry",
+        "osm_routing_network",
+        "manual_review",
+        "controlled_fixture"
+      ]
+    },
+    "sourceOfficialStatus": {
+      "type": "string",
+      "enum": [
+        "official_primary",
+        "official_reference",
+        "derived",
+        "secondary_reference",
+        "manual_review",
+        "controlled_fixture",
+        "not_official"
+      ]
+    },
+    "reviewRiskCode": {
+      "type": "string",
+      "enum": [
+        "official_match_ambiguous",
+        "non_official_status",
+        "public_access_unknown",
+        "public_access_restricted",
+        "management_agreement_unknown",
+        "management_agreement_not_found",
+        "seismic_evidence_estimated",
+        "seismic_evidence_unknown",
+        "seismic_concern",
+        "limited_vertical_refuge_margin",
+        "insufficient_physical_evidence",
+        "route_or_capacity_proxy",
+        "private_building_use",
+        "life_first_access_not_legal_guarantee"
+      ]
+    },
+    "sourceRef": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "sourceId",
+        "sourceFamily",
+        "sourceName",
+        "officialStatus"
+      ],
+      "properties": {
+        "sourceId": {
+          "type": "string",
+          "minLength": 1
+        },
+        "sourceFamily": {
+          "$ref": "#/$defs/sourceFamily"
+        },
+        "sourceName": {
+          "type": "string",
+          "minLength": 1
+        },
+        "officialStatus": {
+          "$ref": "#/$defs/sourceOfficialStatus"
+        },
+        "sourceUrl": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "uri"
+        },
+        "sourcePath": {
+          "$ref": "#/$defs/nullableString"
+        },
+        "sourceUpdatedAt": {
+          "$ref": "#/$defs/nullableString"
+        },
+        "evidenceNote": {
+          "type": "string"
+        }
+      }
+    },
+    "tsunamiRiskContext": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "additionalProperties": false,
+      "required": [
+        "contextStatus",
+        "inTsunamiRiskArea",
+        "expectedInundationDepthMeters",
+        "safeFloorAssumption",
+        "notes"
+      ],
+      "properties": {
+        "contextStatus": {
+          "type": "string",
+          "enum": [
+            "official_hazard_context",
+            "estimated_context",
+            "unknown",
+            "not_evaluated"
+          ]
+        },
+        "inTsunamiRiskArea": {
+          "type": [
+            "boolean",
+            "null"
+          ]
+        },
+        "expectedInundationDepthMeters": {
+          "$ref": "#/$defs/nullableNumber",
+          "minimum": 0
+        },
+        "safeFloorAssumption": {
+          "$ref": "#/$defs/nullableString"
+        },
+        "notes": {
+          "type": "string"
+        }
+      }
+    },
+    "candidateRecord": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "candidateId",
+        "buildingId",
+        "plateauBuildingId",
+        "buildingName",
+        "address",
+        "latitude",
+        "longitude",
+        "heightMeters",
+        "floorsAboveGround",
+        "usageType",
+        "buildingUse",
+        "estimatedCapacityProxy",
+        "tsunamiRiskContext",
+        "distanceToOfficialShelter",
+        "routeDistanceMeters",
+        "routeTimeSeconds",
+        "seismicEvidenceLevel",
+        "seismicEvidenceSource",
+        "publicAccessStatus",
+        "managementAgreementStatus",
+        "officialDesignationStatus",
+        "candidateLayer",
+        "humanitarianCandidateStatus",
+        "confidence",
+        "manualReviewNeeded",
+        "warnings",
+        "reviewTriggers",
+        "reviewRisks",
+        "sourceRefs",
+        "physicalSuitabilityScore",
+        "operationalUncertaintyScore",
+        "classificationReason"
+      ],
+      "properties": {
+        "candidateId": {
+          "type": "string",
+          "minLength": 1
+        },
+        "buildingId": {
+          "$ref": "#/$defs/nullableString"
+        },
+        "plateauBuildingId": {
+          "$ref": "#/$defs/nullableString"
+        },
+        "buildingName": {
+          "$ref": "#/$defs/nullableString"
+        },
+        "address": {
+          "$ref": "#/$defs/nullableString"
+        },
+        "latitude": {
+          "$ref": "#/$defs/nullableNumber",
+          "minimum": -90,
+          "maximum": 90
+        },
+        "longitude": {
+          "$ref": "#/$defs/nullableNumber",
+          "minimum": -180,
+          "maximum": 180
+        },
+        "heightMeters": {
+          "$ref": "#/$defs/nullableNumber",
+          "minimum": 0
+        },
+        "floorsAboveGround": {
+          "$ref": "#/$defs/nullableInteger",
+          "minimum": 0
+        },
+        "usageType": {
+          "$ref": "#/$defs/nullableString"
+        },
+        "buildingUse": {
+          "$ref": "#/$defs/nullableString"
+        },
+        "estimatedCapacityProxy": {
+          "$ref": "#/$defs/nullableInteger",
+          "minimum": 0
+        },
+        "tsunamiRiskContext": {
+          "$ref": "#/$defs/tsunamiRiskContext"
+        },
+        "distanceToOfficialShelter": {
+          "$ref": "#/$defs/nullableNumber",
+          "minimum": 0
+        },
+        "routeDistanceMeters": {
+          "$ref": "#/$defs/nullableNumber",
+          "minimum": 0
+        },
+        "routeTimeSeconds": {
+          "$ref": "#/$defs/nullableNumber",
+          "minimum": 0
+        },
+        "seismicEvidenceLevel": {
+          "$ref": "#/$defs/seismicEvidenceLevel"
+        },
+        "seismicEvidenceSource": {
+          "$ref": "#/$defs/nullableString"
+        },
+        "publicAccessStatus": {
+          "$ref": "#/$defs/publicAccessStatus"
+        },
+        "managementAgreementStatus": {
+          "$ref": "#/$defs/managementAgreementStatus"
+        },
+        "officialDesignationStatus": {
+          "$ref": "#/$defs/officialDesignationStatus"
+        },
+        "candidateLayer": {
+          "$ref": "#/$defs/candidateLayer"
+        },
+        "humanitarianCandidateStatus": {
+          "$ref": "#/$defs/humanitarianCandidateStatus"
+        },
+        "confidence": {
+          "$ref": "#/$defs/confidence"
+        },
+        "manualReviewNeeded": {
+          "type": "boolean"
+        },
+        "warnings": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "reviewTriggers": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "reviewRisks": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "$ref": "#/$defs/reviewRiskCode"
+          }
+        },
+        "sourceRefs": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/sourceRef"
+          }
+        },
+        "physicalSuitabilityScore": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 100
+        },
+        "operationalUncertaintyScore": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 100
+        },
+        "classificationReason": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    }
+  }
+}
