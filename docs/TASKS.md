@@ -8,11 +8,11 @@ The first playable prototype has been Unity-tested, DeepSeek V4 Pro max-thinking
 
 Current branch focus:
 
-P6-D Playable Behavior Validation is the final implementation/validation stage inside P6. P6-0, P6-A, P6-B, and P6-C are complete. Phase 5 remains the stable baseline: default `sourceMode = test`, `real_qualified` opt-in, humanitarian candidate flags default false, OSM routes estimated only, route rendering fail-closed until WGS84 to Unity/PLATEAU transform validation exists, and no navigation/crowd reference is an official evacuation guidance source.
+P6-E Final Closeout is the final documentation, validation, and review stage inside P6. P6-0, P6-A, P6-B, P6-C, P6-D, and P6-E are complete. Phase 5 remains the stable baseline: default `sourceMode = test`, `real_qualified` opt-in, humanitarian candidate flags default false, OSM routes estimated only, route rendering fail-closed until WGS84 to Unity/PLATEAU transform validation exists, and no navigation/crowd reference is an official evacuation guidance source.
 
 ## Phase 6: Navigation Guidance and NPC Evacuation Prototype
 
-Status: P6-D playable behavior validation is in progress as a generated/test-only integration layer. No dependency import, package change, ProjectSettings change, scene change, PLATEAU change, data-pipeline raw/download/cache/tmp/.venv change, source-mode default change, or gameplay success/failure logic change is allowed in P6-D.
+Status: P6-E final closeout is complete after GUI automated validation and final DeepSeek review. No dependency import, package change, ProjectSettings change, scene change, PLATEAU change, data-pipeline raw/download/cache/tmp/.venv change, source-mode default change, gameplay success/failure logic change, P6-F work, or P7 work is allowed in P6-E.
 
 Planned tasks:
 
@@ -20,8 +20,23 @@ Planned tasks:
 - P6-A: lightweight player navigation guidance prototype under `Assets/Scripts/Navigation/` after a confirmed Markdown plan.
 - P6-B: small NPC evacuation prototype under `Assets/Scripts/NPC/` and/or `Assets/Scripts/Simulation/` after a confirmed Markdown plan.
 - P6-C: integrate P6-A and P6-B only after both are reviewed and tested independently.
-- P6-D: final playable behavior validation using generated/runtime test harnesses only; no P7 work.
-- P6-E: final P6 review and closeout. Do not create P6-F or later stages.
+- P6-D: final playable behavior validation using generated/runtime test harnesses only; no P7 work. Done.
+- P6-E: final P6 review and closeout. Done. Do not create P6-F or later stages.
+
+P6-E final closeout outputs:
+
+- reran GUI/headful automated EditMode validation: 142 total / 142 passed / 0 failed / 0 skipped / 0 inconclusive
+- reran GUI/headful automated PlayMode validation: 27 total / 27 passed / 0 failed / 0 skipped / 0 inconclusive
+- confirmed `Assets/Data/shelter_source_config.json` still has `sourceMode = test`
+- confirmed `enableHumanitarianCandidates = false` and `enableLifeFirstCandidateSelection = false`
+- created `docs/P6_FINAL_CLOSEOUT.md`
+- created `deepseek_review_prompt_p6e.md`
+- updated `docs/TASKS.md`
+- updated `docs/REVIEW_BACKLOG.md`
+- completed final DeepSeek review: PASS, no A-level blockers; local report `review_reports/deepseek_review_20260522_010241.md`
+- confirmed final P7 boundary: Full Chuo Asset Loading + Underground/Bridge + LOD Upgrade + Game Optimization
+- did not create P6-F and did not start P7
+- did not add gameplay features, Navigation/NPC mechanics, live routing, web requests, flood simulation, crowd simulation, scene wiring, or asset loading
 
 P6-D implemented outputs:
 

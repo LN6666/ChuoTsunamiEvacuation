@@ -14,6 +14,42 @@ This file only records actionable review items that should guide Codex fixes.
 
 ---
 
+## P6-E Final Closeout Review
+
+Source report:
+
+review_reports/deepseek_review_20260522_010241.md
+
+Context:
+
+P6-E closes PBL6 after P6-0 reference review, P6-A display-only navigation guidance, P6-B lightweight NPC evacuation prototype, P6-C integration validation, and P6-D generated playable behavior validation.
+
+Overall verdict:
+
+PASS. No A-level blockers. P6 is ready for final commit/push after closeout.
+
+Validation:
+
+- EditMode GUI/headful: 142 total / 142 passed / 0 failed / 0 skipped / 0 inconclusive
+- PlayMode GUI/headful: 27 total / 27 passed / 0 failed / 0 skipped / 0 inconclusive
+
+### Items To Review
+
+| ID | Priority | Status | Target File | Issue | Required Review |
+|---|---|---|---|---|---|
+| P6E-R01 | High | Confirmed | `docs/P6_FINAL_CLOSEOUT.md` / `docs/TASKS.md` | Confirm every P6 stage is represented accurately and P6-E does not imply P6-F. | Final review found all expected files present and consistent; no P6-F or future work implied. |
+| P6E-R02 | High | Confirmed | Git diff / protected paths | Confirm no `ProjectSettings`, `Packages`, `Assets/Scenes/Chuo_BaseMap.unity`, PLATEAU imported file, raw PLATEAU data, or generated large scene changes are present. | Final review found no protected-file boundary concerns. |
+| P6E-R03 | High | Confirmed | `Assets/Data/shelter_source_config.json` / docs | Confirm `sourceMode = test`, `real_qualified` opt-in, and humanitarian flags default false remain protected. | Final review found no source-mode or default-flag regression in the closeout diff; current config was manually confirmed before review. |
+| P6E-R04 | High | Confirmed | P6 Navigation/NPC docs | Confirm navigation remains display-only and NPCs remain non-blocking with no player success/failure effect. | Final review found no unsafe official-navigation, simulation, or gameplay-rule overclaim. |
+| P6E-R05 | Medium | Confirmed | `docs/P6_FINAL_CLOSEOUT.md` | Confirm known limitations and deferred items preserve route-rendering, NPC, no-live-routing, no-flood, and no-P7 boundaries. | Final review found safety disclaimers, deferred items, and P7 boundary clear. |
+| P6E-R06 | Medium | Confirmed | Test results / closeout docs | Confirm final GUI EditMode and PlayMode XML counts are recorded accurately. | Final review confirmed the closeout docs consistently record EditMode 142 passed / 0 failed and PlayMode 27 passed / 0 failed. |
+
+Decision:
+
+Final DeepSeek review passed with no A-level blockers. P6-E remains documentation and validation only; P7 begins later with Full Chuo Asset Loading + Underground/Bridge + LOD Upgrade + Game Optimization.
+
+---
+
 ## P6-0 Reference Review Deferred Decisions
 
 Source report:
