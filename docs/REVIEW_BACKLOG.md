@@ -253,6 +253,30 @@ No active blocking review items.
 
 ---
 
+### Review Pending 2026-05-21-P5F
+
+Source report:
+
+Pending DeepSeek review for P5-F high-rise humanitarian candidate screening.
+
+Context:
+
+P5-F creates data-only rulebook, schema, source-plan, sample fixture, and tests for life-first high-rise humanitarian vertical evacuation candidate screening.
+
+Overall verdict:
+
+Pending review.
+
+### Known P5-F Review Questions
+
+| ID | Priority | Status | Target File | Issue | Required Fix |
+|---|---|---|---|---|---|
+| P5F-RQ01 | Medium | Open | docs/P5F_HIGHRISE_HUMANITARIAN_CANDIDATES.md / data_pipeline/qualification/highrise_humanitarian_candidate_rulebook.json | Confirm the official/designated layer and humanitarian candidate layer are separated clearly enough to prevent non-official candidates being treated as official shelters. | DeepSeek should review taxonomy and warning policy. |
+| P5F-RQ02 | Medium | Open | data_pipeline/qualification/highrise_humanitarian_candidate_schema.json / data_pipeline/qualification/highrise_humanitarian_candidates_sample.json | Confirm schema fields are sufficient for future real Chuo high-rise screening without overclaiming seismic, access, or management agreement evidence. | DeepSeek should identify missing evidence fields or unsafe assumptions. |
+| P5F-RQ03 | Medium | Open | data_pipeline/tests/test_highrise_humanitarian_candidates.py | Focused pytest exists but was not executed in system Python because `pytest` and `jsonschema` are unavailable. | Run in project-approved Python environment before commit if dependencies are available. |
+
+---
+
 ### Review Pending 2026-05-16-01
 
 Source report:

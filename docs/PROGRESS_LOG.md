@@ -920,3 +920,35 @@ Future B-level follow-up:
 - add artificial out-of-network route failure test
 - repeat QGIS spot checks before publication/user-facing use
 - define verified Unity/PLATEAU coordinate conversion before rendering OSM route lines
+
+## 2026-05-21 | P5-F High-Rise Humanitarian Candidate Screening Implemented
+
+P5-F added a data-only rulebook/schema/source-plan foundation for future Chuo high-rise humanitarian vertical evacuation candidate screening.
+
+Implemented:
+- `docs/P5F_HIGHRISE_HUMANITARIAN_CANDIDATES.md`
+- `data_pipeline/qualification/highrise_humanitarian_candidate_rulebook.json`
+- `data_pipeline/qualification/highrise_humanitarian_candidate_schema.json`
+- `data_pipeline/qualification/highrise_humanitarian_candidate_sources_plan.json`
+- `data_pipeline/qualification/highrise_humanitarian_candidates_sample.json` with seven taxonomy-covering sample records
+- `data_pipeline/tests/test_highrise_humanitarian_candidates.py`
+- `deepseek_review_prompt_p5f.md`
+
+Policy recorded:
+- official/designated evacuation facilities and humanitarian emergency candidate high-rises are separate layers
+- non-official high-rises must not be labeled official shelters
+- unknown public access is not a hard exclusion in the life-first humanitarian emergency scenario
+- unknown access, unknown management agreement, and unknown seismic evidence require warnings/manual review
+
+Validation:
+- JSON syntax checks passed for the new P5-F schema, rulebook, source plan, and sample fixture
+- focused pytest was added but could not be executed with system Python because `pytest` is not installed
+- JSON Schema validation could not be executed with system Python because `jsonschema` is not installed
+
+Safety boundaries preserved:
+- no Unity gameplay script changes
+- no `Assets/Data` changes
+- no `Chuo_BaseMap.unity` or other scene changes
+- no PLATEAU imported/raw data changes
+- no `ProjectSettings` or `Packages` changes
+- no large downloads, scraping, raw/cache/tmp/.venv commits, or `sourceMode` changes

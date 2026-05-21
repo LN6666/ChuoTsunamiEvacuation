@@ -8,7 +8,7 @@ The first playable prototype has been Unity-tested, DeepSeek V4 Pro max-thinking
 
 Current branch focus:
 
-Phase 5 qualification, routing, PLATEAU matching, and Unity map-decision integration is active on `phase5-qualification-routing-plateau`.
+Phase 5-F high-rise humanitarian candidate screening is active on `p5f-highrise-humanitarian-candidates`.
 
 ## Phase 5: Qualification, Routing, PLATEAU Matching, and Unity Integration
 
@@ -31,6 +31,7 @@ Planned tasks:
 - P5-B: PLATEAU qualification/matching and GIS routing pipeline.
 - P5-C: Unity integration for qualified buildings, routes, confidence, warnings, and decision feedback.
 - P5-D: opt-in real_qualified gameplay source, runtime playable real shelter proxies, ResultPanel feedback, and verified route-preview fallback. Implemented in current worktree.
+- P5-F: high-rise humanitarian vertical evacuation candidate rulebook, schema, source plan, controlled fixture, validation tests, and DeepSeek prompt. Implemented in current worktree.
 - P5 final review: validation summary, DeepSeek review, scope boundary confirmation, and merge decision.
 
 Scope boundaries:
@@ -110,6 +111,17 @@ P5-D implemented outputs:
 - appended P5-D real qualified feedback with qualification status, confidence, manual review flag, warnings, route distance/time, estimated prototype route label, and OSM/ODbL attribution
 - parsed route geometry but rejected current WGS84 route lines because no verified Unity/PLATEAU transform exists
 - preserved route/qualification/hazard information as feedback only; no gameplay success/failure rule depends on it
+
+P5-F implemented outputs:
+
+- documented life-first humanitarian emergency high-rise candidate screening in `docs/P5F_HIGHRISE_HUMANITARIAN_CANDIDATES.md`
+- separated official/designated evacuation facilities from humanitarian emergency candidate high-rises
+- defined statuses `official_confirmed`, `official_confirmed_with_review`, `humanitarian_strong_candidate`, `humanitarian_candidate_with_review`, `humanitarian_weak_candidate`, `unknown`, and `not_recommended`
+- created JSON Schema, rulebook, source plan, and seven-record controlled sample fixture under `data_pipeline/qualification/`
+- added pytest coverage for schema validation, official/humanitarian separation, non-official warning policy, manual review triggers, and unknown public access behavior
+- created `deepseek_review_prompt_p5f.md`
+- performed JSON syntax validation with system Python; focused pytest requires `pytest` and schema validation requires `jsonschema`, which are not installed in the system Python environment
+- made no Unity gameplay, scene, `Assets/Data`, PLATEAU import, `ProjectSettings`, `Packages`, large download, raw/cache/tmp/.venv, or `sourceMode` changes
 
 P5-B review prep completed outputs:
 
