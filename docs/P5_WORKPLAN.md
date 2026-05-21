@@ -380,6 +380,37 @@ Chronology for P5-G:
 - P5-F then added the data-only high-rise humanitarian candidate screening foundation.
 - P5-G will integrate the P5-E and P5-F outcomes without treating humanitarian candidates as official shelters and without enabling route rendering until a verified Unity/PLATEAU transform exists.
 
+## P5-GH Humanitarian Candidate Unity Integration
+
+P5-GH integrates the P5-F controlled high-rise humanitarian candidate sample into Unity with two explicit opt-in levels.
+
+Implemented:
+
+- copied `Assets/Data/p5g_highrise_humanitarian_candidates_sample.json`
+- added `enableHumanitarianCandidates = false` and `enableLifeFirstCandidateSelection = false`
+- added an Assets/Data-only humanitarian candidate loader
+- added display-only candidate markers with no gameplay components
+- added life-first selectable candidate proxies behind both flags
+- limited selectable statuses to `humanitarian_strong_candidate` and `humanitarian_candidate_with_review`
+- kept `humanitarian_weak_candidate`, `unknown`, and `not_recommended` display-only
+- added non-official/manual-review/access/management/seismic/life-first labels in metadata and ResultPanel feedback
+- added `docs/P5G_HUMANITARIAN_CANDIDATE_UNITY_INTEGRATION.md`
+- added `deepseek_review_prompt_p5g.md`
+
+P5-GH preserves:
+
+- `sourceMode = test` as the committed default
+- `real_qualified` as opt-in only
+- `candidateLayer = humanitarian_candidate` for humanitarian records
+- `isOfficialShelter = false` for life-first selectable candidates
+- controlled-sample warnings: P5-F sample data is not full real Chuo high-rise screening
+- route/qualification/hazard/candidate status as feedback only, not success/failure rules
+
+Latest P5-GH GUI/headful automated validation:
+
+- EditMode: 115 passed, 0 failed
+- PlayMode: 17 passed, 0 failed
+
 ## Testing And Review Strategy
 
 - P5-A: documentation review, evidence-source review, taxonomy review, and DeepSeek architecture review.
@@ -388,6 +419,7 @@ Chronology for P5-G:
 - P5-D: GUI/headful automated EditMode and PlayMode tests, plus DeepSeek review for gameplay source-mode safety, Unity lifecycle behavior, route-preview fallback, and scope boundaries.
 - P5-E: GUI/headful EditMode and PlayMode tests for stricter route geometry parsing, WGS84 transform validation fail-closed behavior, selected route-preview limits, and real_qualified feedback/selection safety.
 - P5-F: data-pipeline JSON syntax checks, JSON Schema validation when `jsonschema` is available, pytest semantic checks for official/humanitarian separation, and DeepSeek review of life-first candidate boundaries.
+- P5-GH: GUI/headful EditMode and PlayMode tests for candidate loader path guards, official/humanitarian separation, display-only markers, explicit life-first selection, and unchanged success/failure rules.
 
 ## DeepSeek Review Checkpoints
 
@@ -397,6 +429,7 @@ Chronology for P5-G:
 - After P5-C: review Unity lifecycle, scene-safety, loader behavior, and UI/feedback correctness.
 - After P5-E: review route geometry parsing, WGS84 validation, route-preview fail-closed behavior, and real_qualified feedback safety.
 - After P5-F: review humanitarian candidate taxonomy, non-official warning policy, schema completeness, and source-collection boundaries.
+- After P5-GH: review Unity lifecycle, display-only/selectable mode boundaries, non-official labeling, path safety, and result feedback clarity.
 - Before Phase 5 closure / P5-G integration: final review for blockers, scope creep, and documentation completeness.
 
 ## Known Risks
@@ -421,3 +454,4 @@ Chronology for P5-G:
 - No evacuation building qualification logic implementation in P5-A0.
 - No Unity gameplay, scene, `Assets/Data`, `ProjectSettings`, or `Packages` changes in P5-A0.
 - No Unity gameplay, scene, `Assets/Data`, `ProjectSettings`, `Packages`, large download, raw GIS commit, or `sourceMode` change in P5-F.
+- No `Chuo_BaseMap.unity`, PLATEAU, `ProjectSettings`, `Packages`, raw/cache/download/tmp/.venv, live routing, web request, flood simulation, NPC/crowd simulation, or default source-mode change in P5-GH.

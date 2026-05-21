@@ -14,6 +14,42 @@ This file only records actionable review items that should guide Codex fixes.
 
 ---
 
+## P5-GH Closeout Follow-Ups
+
+Source report:
+
+review_reports/deepseek_review_20260521_203334.md
+
+Context:
+
+P5-GH integrates the P5-F controlled humanitarian high-rise candidate sample into Unity with display-only markers and an explicit life-first selectable mode. DeepSeek review was conditionally approved with moderate B-level follow-ups and no A-level blockers.
+
+Overall verdict:
+
+Ready after closeout hardening and GUI/headful automated validation.
+
+### Action Items
+
+| ID | Priority | Status | Target File | Issue | Required Fix |
+|---|---|---|---|---|---|
+| P5GH-R01 | High | Fixed | Assets/Scripts/Data/HumanitarianCandidateDataLoader.cs | Confirm `candidateLayer = official` records cannot enter the humanitarian layer and non-official candidates cannot become official shelters. | Loader accepts only `candidateLayer = humanitarian_candidate`, skips `official`, records diagnostics, and tests mixed official/humanitarian JSON. |
+| P5GH-R02 | High | Fixed | Assets/Scripts/Gameplay/P5GHHumanitarianCandidateRuntimeGenerator.cs | Confirm display-only mode has no `BuildingShelter`, no `ShelterEntranceTrigger`, no colliders, and no success/failure effect. | PlayMode coverage verifies display-only markers have no gameplay components, no collider, no `Rigidbody`, no runtime registration, and no raycast hit. |
+| P5GH-R03 | High | Fixed | Assets/Scripts/Gameplay/P5GHHumanitarianCandidateRuntimeGenerator.cs / Assets/Scripts/Core/EvacuationGameManager.cs | Confirm life-first selectable mode is explicit opt-in, non-official, warning-heavy, and does not use candidate status as a success/failure rule. | PlayMode coverage verifies the life-first flag alone creates no markers, first flag alone remains display-only, selectable proxies are non-official, and candidate metadata remains feedback-only for result flow. |
+| P5GH-R04 | Medium | Fixed | Assets/Scripts/Data/HumanitarianCandidateDataLoader.cs | Confirm runtime path guards reject `data_pipeline/raw/download/cache/tmp/.venv` and require copied `Assets/Data` JSON. | Loader uses an `Application.dataPath + "/Data/"` whitelist plus forbidden runtime path rejection; EditMode tests cover raw, downloads, cache, tmp, and `.venv` paths. |
+| P5GH-R05 | Medium | Fixed | docs/P5G_HUMANITARIAN_CANDIDATE_UNITY_INTEGRATION.md | Confirm docs clearly state controlled sample data, non-official status, uncertainty, and future real Chuo screening gap. | Docs state display-only non-interaction, double opt-in, non-official status, controlled P5-F sample limits, and feedback-only success/failure semantics. |
+| P5GH-R06 | Medium | Fixed | Assets/Scripts/Data/HumanitarianCandidateFeedbackFormatter.cs | Result feedback should prominently warn that candidates are not official shelters even with minimal data. | Feedback now starts with `This building is NOT officially designated as an evacuation shelter.` and EditMode coverage verifies the warning with minimal record data. |
+
+Validation:
+
+- EditMode: 120 passed, 0 failed
+- PlayMode: 18 passed, 0 failed
+
+Decision:
+
+Closeout hardening stays within P5-GH review scope. Display-only candidates remain non-interactive, life-first selectable candidates require double opt-in, and candidate selection remains feedback-only with respect to success/failure rules.
+
+---
+
 ## P5-E Review Preparation
 
 Source report:

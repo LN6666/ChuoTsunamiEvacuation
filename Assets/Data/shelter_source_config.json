@@ -5,5 +5,7 @@
     "fallbackToTestOnError":  true,
     "enableRealSampleLoading":  false,
     "enableP5COverlay":  false,
-    "notes":  "P4-A1/P5-D data-layer source selection. Default gameplay source remains test; real_sample and real_qualified read copied Assets/Data static JSON only."
+    "enableHumanitarianCandidates":  false,
+    "enableLifeFirstCandidateSelection":  false,
+    "notes":  "P4-A1/P5-D/P5-GH data-layer source selection. Default gameplay source remains test; real_sample, real_qualified, and humanitarian candidate layers read copied Assets/Data static JSON only."
 }

@@ -1,5 +1,42 @@
 ---
 
+## 2026-05-21 | P5-GH Humanitarian Candidate Unity Integration Implemented
+
+Implemented combined P5-GH Unity integration for the P5-F high-rise humanitarian candidate foundation.
+
+Implemented:
+- copied controlled P5-F sample data to `Assets/Data/p5g_highrise_humanitarian_candidates_sample.json`
+- added default-off config flags `enableHumanitarianCandidates` and `enableLifeFirstCandidateSelection`
+- added `HumanitarianCandidateDataLoader` with Assets/Data-only runtime path guard
+- added display-only humanitarian candidate markers with no `BuildingShelter`, no `ShelterEntranceTrigger`, and no colliders
+- added explicit life-first selectable mode for `humanitarian_strong_candidate` and `humanitarian_candidate_with_review`
+- added non-official candidate metadata and ResultPanel feedback
+- added EditMode and PlayMode coverage for config defaults, path guards, layer separation, unknown-access manual review, display-only non-playability, and life-first result flow
+- added `docs/P5G_HUMANITARIAN_CANDIDATE_UNITY_INTEGRATION.md`
+- added `deepseek_review_prompt_p5g.md`
+
+Policy preserved:
+- `sourceMode` remains `test`
+- `real_qualified` remains opt-in
+- humanitarian candidates are never official shelters
+- P5-F sample data is controlled sample data, not full real Chuo high-rise screening
+- public access, management agreement, and seismic evidence warnings remain visible
+- route/qualification/hazard/candidate status remains feedback-only for success/failure
+
+Validation:
+- EditMode GUI/headful: `test-results/editmode-results.xml`, 115 passed, 0 failed
+- PlayMode GUI/headful: `test-results/playmode-results.xml`, 17 passed, 0 failed
+- forbidden scene/settings/raw-data checks returned no output after removing Unity-generated test artifacts
+
+Safety boundaries preserved:
+- no `Chuo_BaseMap.unity` change
+- no PLATEAU imported/raw data change
+- no `ProjectSettings` or `Packages` change
+- no `data_pipeline/raw`, `data_pipeline/downloads`, `data_pipeline/cache`, `tmp`, or `.venv` change
+- no live routing, web requests, flood simulation, or NPC/crowd simulation
+
+---
+
 ## 2026-05-21 | P5-E Route Geometry Rendering QA Implemented
 
 ### Completed

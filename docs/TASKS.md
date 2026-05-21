@@ -8,11 +8,11 @@ The first playable prototype has been Unity-tested, DeepSeek V4 Pro max-thinking
 
 Current branch focus:
 
-Phase 5-G integration is reconciling the completed P5-E route geometry validation work with the completed P5-F high-rise humanitarian candidate foundation. No P5-G gameplay features are implemented yet.
+Phase 5-GH integrates the completed P5-E route geometry validation work with the completed P5-F high-rise humanitarian candidate foundation. Display-only humanitarian candidate markers and an explicit life-first selectable candidate mode are implemented behind default-off flags.
 
 ## Phase 5: Qualification, Routing, PLATEAU Matching, and Unity Integration
 
-Status: P5-D completed the opt-in `real_qualified` gameplay source first, P5-E completed route geometry validation and fail-closed route-preview QA next, and P5-F completed the data-only high-rise humanitarian candidate foundation after that. P5-G will integrate those outcomes before Phase 5 closure.
+Status: P5-D completed the opt-in `real_qualified` gameplay source first, P5-E completed route geometry validation and fail-closed route-preview QA next, P5-F completed the data-only high-rise humanitarian candidate foundation, and P5-GH now integrates the controlled candidate sample into Unity behind explicit default-off flags.
 
 Planned tasks:
 
@@ -33,7 +33,7 @@ Planned tasks:
 - P5-D: opt-in real_qualified gameplay source, runtime playable real shelter proxies, ResultPanel feedback, and verified route-preview fallback. Implemented in current worktree.
 - P5-E: verified route geometry parsing, WGS84 transform validation gate, selected/limited route-preview safety, and real_qualified gameplay QA. Implemented in current worktree.
 - P5-F: high-rise humanitarian vertical evacuation candidate rulebook, schema, source plan, controlled fixture, validation tests, and DeepSeek prompt. Implemented in current worktree.
-- P5-G: integrate P5-E route validation and P5-F humanitarian candidate foundation without changing official shelter semantics or enabling unverified route rendering. Pending.
+- P5-GH: integrate P5-E route validation and P5-F humanitarian candidate foundation with display-only markers and explicit life-first selectable candidates without changing official shelter semantics or enabling unverified route rendering. Implemented in current worktree.
 - P5 final review: validation summary, DeepSeek review, scope boundary confirmation, and merge decision.
 
 Scope boundaries:
@@ -138,12 +138,21 @@ P5-F implemented outputs:
 - performed JSON syntax validation with system Python; focused pytest requires `pytest` and schema validation requires `jsonschema`, which are not installed in the system Python environment
 - made no Unity gameplay, scene, `Assets/Data`, PLATEAU import, `ProjectSettings`, `Packages`, large download, raw/cache/tmp/.venv, or `sourceMode` changes
 
-P5-G integration intent:
+P5-GH implemented outputs:
 
-- preserve P5-E route geometry validation and fail-closed rendering behavior
-- preserve P5-F official/humanitarian separation and manual-review warning policy
-- keep humanitarian candidates out of official shelter gameplay semantics until a later confirmed task changes that policy
-- keep route line rendering disabled until a verified Unity/PLATEAU transform exists
+- copied P5-F controlled sample data to `Assets/Data/p5g_highrise_humanitarian_candidates_sample.json`
+- added `enableHumanitarianCandidates = false` and `enableLifeFirstCandidateSelection = false`
+- added Unity-side humanitarian candidate loader with Assets/Data-only path restrictions
+- preserved `candidateLayer = humanitarian_candidate` and skipped official-layer records
+- added display-only candidate markers with no `BuildingShelter`, no `ShelterEntranceTrigger`, and no colliders
+- added life-first selectable candidate proxies behind both flags for `humanitarian_strong_candidate` and `humanitarian_candidate_with_review`
+- kept `humanitarian_weak_candidate`, `unknown`, and `not_recommended` display-only
+- kept life-first candidates non-official with `isOfficialShelter = false`
+- added ResultPanel feedback for humanitarian emergency candidate, not officially designated, manual review, access/management/seismic uncertainty, life-first assumption, and controlled-sample limitation
+- kept route/qualification/hazard/candidate status feedback-only for success/failure
+- GUI/headful validation passed: EditMode 115 passed / 0 failed; PlayMode 17 passed / 0 failed
+- created `docs/P5G_HUMANITARIAN_CANDIDATE_UNITY_INTEGRATION.md`
+- created `deepseek_review_prompt_p5g.md`
 
 P5-B review prep completed outputs:
 

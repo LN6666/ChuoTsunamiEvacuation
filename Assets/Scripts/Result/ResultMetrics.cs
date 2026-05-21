@@ -30,6 +30,7 @@ public class ResultMetrics
     public string advice;
     public string p5cDecisionFeedback;
     public string p5dDecisionFeedback;
+    public string p5gHumanitarianCandidateFeedback;
 
     public string GetShelterLabel()
     {
@@ -108,6 +109,13 @@ public class ResultMetrics
         {
             builder.AppendLine("P5-D real qualified feedback");
             builder.AppendLine(p5dDecisionFeedback.Trim());
+            builder.AppendLine();
+        }
+
+        if (!string.IsNullOrWhiteSpace(p5gHumanitarianCandidateFeedback))
+        {
+            builder.AppendLine("P5-GH humanitarian candidate feedback");
+            builder.AppendLine(p5gHumanitarianCandidateFeedback.Trim());
             builder.AppendLine();
         }
 

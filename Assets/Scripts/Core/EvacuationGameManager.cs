@@ -573,6 +573,11 @@ public class EvacuationGameManager : MonoBehaviour
         {
             resultMetrics.p5dDecisionFeedback = BuildP5DDecisionFeedbackSafe(shelter.ShelterId);
         }
+        else if (string.Equals(shelter.SourceType, HumanitarianCandidateDataLoader.SourceType, System.StringComparison.OrdinalIgnoreCase))
+        {
+            resultMetrics.p5gHumanitarianCandidateFeedback =
+                BuildP5GHumanitarianCandidateFeedbackSafe(shelter.ShelterId);
+        }
         else if (P5CDecisionFeedbackFormatter.ShouldShowForSourceType(shelter.SourceType))
         {
             resultMetrics.p5cDecisionFeedback = P5CDecisionFeedbackFormatter.BuildForShelterId(shelter.ShelterId);
@@ -590,6 +595,20 @@ public class EvacuationGameManager : MonoBehaviour
             Debug.LogWarning(
                 $"P5-D real-qualified shelter feedback fallback used for '{shelterId}': {exception.Message}");
             return RealQualifiedShelterDataLoader.UnavailableMessage;
+        }
+    }
+
+    private static string BuildP5GHumanitarianCandidateFeedbackSafe(string candidateId)
+    {
+        try
+        {
+            return HumanitarianCandidateFeedbackFormatter.BuildForCandidateId(candidateId);
+        }
+        catch (System.Exception exception)
+        {
+            Debug.LogWarning(
+                $"P5-GH humanitarian candidate feedback fallback used for '{candidateId}': {exception.Message}");
+            return "P5-GH humanitarian candidate data unavailable for this candidate";
         }
     }
 
