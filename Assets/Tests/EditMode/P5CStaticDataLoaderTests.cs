@@ -82,7 +82,57 @@ public class P5CStaticDataLoaderTests
         Assert.IsTrue(first.HasGeometry);
         Assert.Greater(first.geometry.coordinates.Length, 2);
         Assert.AreEqual("LineString", first.geometry.type);
+        Assert.AreEqual(P5CStaticDataLoader.RouteGeometryCoordinateOrder, "longitude, latitude");
         Assert.IsFalse(P5CStaticDataLoader.CanRenderRouteGeometryInCurrentUnityLayout(first));
+    }
+
+    [Test]
+    public void RouteGeometryParserFailsSafelyForMissingMalformedOrUnsupportedGeometry()
+    {
+        string json =
+            "{" +
+            "\"datasetId\":\"malformed_route_fixture\"," +
+            "\"coordinateReferenceSystem\":\"EPSG:4326\"," +
+            "\"records\":[" +
+            "{" +
+            "\"routeId\":\"missing_geometry\"," +
+            "\"routeAvailability\":\"available\"," +
+            "\"routeType\":\"estimated_pedestrian_route\"," +
+            "\"isOfficialEvacuationRoute\":false" +
+            "}," +
+            "{" +
+            "\"routeId\":\"unsupported_point_geometry\"," +
+            "\"routeAvailability\":\"available\"," +
+            "\"routeType\":\"estimated_pedestrian_route\"," +
+            "\"isOfficialEvacuationRoute\":false," +
+            "\"geometry\":{\"type\":\"Point\",\"coordinates\":[139.76,35.67]}" +
+            "}," +
+            "{" +
+            "\"routeId\":\"malformed_coordinates\"," +
+            "\"routeAvailability\":\"available\"," +
+            "\"routeType\":\"estimated_pedestrian_route\"," +
+            "\"isOfficialEvacuationRoute\":false," +
+            "\"geometry\":{\"type\":\"LineString\",\"coordinates\":[[139.76],[139.77,35.68]]}" +
+            "}," +
+            "{" +
+            "\"routeId\":\"swapped_wgs84_order\"," +
+            "\"routeAvailability\":\"available\"," +
+            "\"routeType\":\"estimated_pedestrian_route\"," +
+            "\"isOfficialEvacuationRoute\":false," +
+            "\"geometry\":{\"type\":\"LineString\",\"coordinates\":[[35.67,139.76],[35.68,139.77]]}" +
+            "}" +
+            "]}";
+
+        P5CStaticDataLoader.LoadResult<P5CStaticDataLoader.RouteSampleRecord> result =
+            P5CStaticDataLoader.LoadRouteSamplesFromJson(json, "inline malformed route fixture");
+
+        Assert.IsTrue(result.success);
+        Assert.AreEqual(4, result.records.Length);
+        foreach (P5CStaticDataLoader.RouteSampleRecord record in result.records)
+        {
+            Assert.IsFalse(record.HasGeometry, record.routeId);
+            Assert.IsFalse(P5CStaticDataLoader.CanRenderRouteGeometryInCurrentUnityLayout(record));
+        }
     }
 
     [Test]

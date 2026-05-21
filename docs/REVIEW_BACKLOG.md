@@ -14,6 +14,39 @@ This file only records actionable review items that should guide Codex fixes.
 
 ---
 
+## P5-E Review Preparation
+
+Source report:
+
+Pending DeepSeek review.
+
+Context:
+
+P5-E verified route geometry rendering QA on branch `p5e-route-geometry-rendering`.
+
+Overall verdict:
+
+Pending review after GUI/headful automated validation passed.
+
+### Items To Review
+
+| ID | Priority | Status | Target File | Issue | Required Fix |
+|---|---|---|---|---|---|
+| P5E-R01 | Medium | Open | Assets/Scripts/Data/P5CStaticDataLoader.cs | Route geometry parser should fail safely for missing, malformed, unsupported, or invalid WGS84 geometry. | Confirm parser leaves `HasGeometry` false without crashing and still preserves route metadata. |
+| P5E-R02 | Medium | Open | Assets/Scripts/Data/P5DRoutePreviewTransformValidator.cs / Assets/Scripts/Gameplay/P5DRealQualifiedShelterRuntimeGenerator.cs | Current real routes are WGS84 and must not render unless a verified Unity/PLATEAU transform passes validation. | Confirm current EPSG:4326 route lines render zero objects and selected-route limits remain in place. |
+| P5E-R03 | Medium | Open | Assets/Tests/EditMode/P5DRealQualifiedGameplayDataTests.cs / Assets/Tests/PlayMode/P5DRealQualifiedGameplayPlayModeTests.cs | real_qualified QA must preserve selectable-status policy, feedback metadata, OSM/ODbL attribution, and no gameplay rule effect. | Confirm GUI/headful EditMode and PlayMode tests cover these boundaries. |
+
+Decision:
+
+GUI/headful Unity validation passed:
+
+- EditMode: 107 passed, 0 failed
+- PlayMode: 13 passed, 0 failed
+
+Send `deepseek_review_prompt_p5e.md` for review.
+
+---
+
 ## P5-D Closeout Review Follow-Ups
 
 Source report:

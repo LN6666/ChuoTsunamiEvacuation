@@ -1,5 +1,53 @@
 ---
 
+## 2026-05-21 | P5-E Route Geometry Rendering QA Implemented
+
+### Completed
+
+Implemented P5-E route-geometry QA and fail-closed route-preview validation for the current `p5e-route-geometry-rendering` branch.
+
+Route sample inspection confirmed:
+
+- route sample file: `Assets/Data/real_chuo_osm_routes_sample.json`
+- route records: 135 available OSM estimated pedestrian routes
+- coordinate system: `EPSG:4326`
+- metric processing CRS metadata: `EPSG:6677`
+- geometry format: GeoJSON-like `LineString`
+- coordinate order: `[longitude, latitude]`
+- route linkage fields: `routeId`, `originId`, `shelterId`, `plateauBuildingId`
+- distance/time fields: `routeDistanceMeters`, `estimatedTravelTimeSeconds`
+
+Code updates:
+
+- tightened `P5CStaticDataLoader` route geometry extraction so missing, malformed, unsupported, non-finite, or invalid WGS84 geometry leaves `HasGeometry` false instead of producing a renderable line
+- strengthened `P5DRoutePreviewTransformValidator` with WGS84 lon/lat order checks, broad Chuo bounds checks, collapse checks, and approximate route-span checks
+- kept current `EPSG:4326` route lines disabled because no verified WGS84-to-Unity/PLATEAU world-coordinate transform exists in the runtime code
+- preserved route distance/time feedback, estimated prototype route labeling, and OSM/ODbL attribution
+- added focused EditMode coverage for malformed route geometry and invalid WGS84 validation cases
+
+### Validation Notes
+
+Initial EditMode GUI run timed out while Unity rebuilt the missing `Library/` asset database, and the first retry exposed one brittle pre-existing whitespace assertion in `RealShelterGameplayMappingTests.CommittedShelterSourceConfigAssetRemainsTestMode`. The assertion now checks the `sourceMode` key/value with whitespace-insensitive matching while the parsed config continues to confirm `test`.
+
+Final GUI/headful automated validation passed:
+
+- `powershell -ExecutionPolicy Bypass -File tools/run_unity_tests.ps1 -Mode EditMode -LaunchMode Gui`
+  - XML: `test-results/editmode-results.xml`
+  - result: 107 passed, 0 failed
+- `powershell -ExecutionPolicy Bypass -File tools/run_unity_tests.ps1 -Mode PlayMode -LaunchMode Gui`
+  - XML: `test-results/playmode-results.xml`
+  - result: 13 passed, 0 failed
+
+### Scope Boundary
+
+No scene files, `Chuo_BaseMap.unity`, PLATEAU imported files, `ProjectSettings`, `Packages`, raw/cache/download/tmp/.venv paths, live routing, web requests, flood simulation, NPC/crowd simulation, or gameplay success/failure rules were changed. `sourceMode` remains `test`.
+
+### Next Step
+
+Run DeepSeek review with `deepseek_review_prompt_p5e.md`.
+
+---
+
 ---
 
 ---

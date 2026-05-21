@@ -12,7 +12,7 @@ Phase 5 qualification, routing, PLATEAU matching, and Unity map-decision integra
 
 ## Phase 5: Qualification, Routing, PLATEAU Matching, and Unity Integration
 
-Status: P5-D real qualified gameplay and verified route-preview fallback are implemented and GUI/headful automated validation passed in the current worktree; DeepSeek review is next before Phase 5 closure.
+Status: P5-E verified route geometry rendering QA is implemented and GUI/headful automated validation passed in the current worktree; DeepSeek review is next before Phase 5 closure.
 
 Planned tasks:
 
@@ -31,6 +31,7 @@ Planned tasks:
 - P5-B: PLATEAU qualification/matching and GIS routing pipeline.
 - P5-C: Unity integration for qualified buildings, routes, confidence, warnings, and decision feedback.
 - P5-D: opt-in real_qualified gameplay source, runtime playable real shelter proxies, ResultPanel feedback, and verified route-preview fallback. Implemented in current worktree.
+- P5-E: verified route geometry parsing, WGS84 transform validation gate, selected/limited route-preview safety, and real_qualified gameplay QA. Implemented in current worktree.
 - P5 final review: validation summary, DeepSeek review, scope boundary confirmation, and merge decision.
 
 Scope boundaries:
@@ -110,6 +111,19 @@ P5-D implemented outputs:
 - appended P5-D real qualified feedback with qualification status, confidence, manual review flag, warnings, route distance/time, estimated prototype route label, and OSM/ODbL attribution
 - parsed route geometry but rejected current WGS84 route lines because no verified Unity/PLATEAU transform exists
 - preserved route/qualification/hazard information as feedback only; no gameplay success/failure rule depends on it
+
+P5-E implemented outputs:
+
+- inspected `Assets/Data/real_chuo_osm_routes_sample.json` route schema and documented it in `docs/P5E_ROUTE_RENDERING_QA.md`
+- confirmed route records use `routeId`, `originId`, `shelterId`, `plateauBuildingId`, `routeDistanceMeters`, `estimatedTravelTimeSeconds`, and GeoJSON-like `geometry.coordinates`
+- confirmed route geometry is `EPSG:4326` WGS84 `LineString` with `[longitude, latitude]` pairs
+- refined parser behavior so missing, malformed, unsupported, or invalid WGS84 geometry fails safely without crashing route metadata loading
+- strengthened route preview validation for WGS84 lon/lat order, broad Chuo bounds, collapse, and implausible span
+- confirmed no verified WGS84-to-Unity/PLATEAU transform exists in current Unity runtime code
+- kept selected estimated route line rendering safely disabled for current real data while preserving route distance/time feedback
+- kept `sourceMode = test` as the committed default and `real_qualified` opt-in only
+- GUI/headful automated validation passed: EditMode 107 passed / 0 failed; PlayMode 13 passed / 0 failed
+- created `deepseek_review_prompt_p5e.md`
 
 P5-B review prep completed outputs:
 

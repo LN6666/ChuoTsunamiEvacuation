@@ -304,12 +304,48 @@ Scope boundaries preserved:
 - no `Chuo_BaseMap.unity`, PLATEAU imported asset, `ProjectSettings`, or `Packages` change
 - no runtime reads from `data_pipeline/processed`, `data_pipeline/raw`, `data_pipeline/downloads`, `data_pipeline/cache`, `tmp`, or `.venv`
 
+## P5-E Verified Route Geometry Rendering QA
+
+P5-E strengthens the existing P5-D route-preview safety gate and real_qualified QA.
+
+Implemented:
+
+- inspected the actual route sample schema in `Assets/Data/real_chuo_osm_routes_sample.json`
+- confirmed route geometry is GeoJSON-like `LineString` data in WGS84 `EPSG:4326`
+- confirmed route coordinate order is `[longitude, latitude]`
+- refined Unity route parsing so missing, malformed, unsupported, or invalid WGS84 geometry fails closed
+- added WGS84 sanity validation for finite coordinates, broad Chuo bounds, lon/lat order, collapse, and implausible span
+- confirmed no verified WGS84-to-Unity/PLATEAU world-coordinate transform exists in the Unity runtime code
+- kept route preview line rendering disabled for current real WGS84 data
+- preserved route distance/time feedback, estimated prototype route labeling, and OSM/ODbL attribution
+- kept selected route preview limited to a small opt-in debug subset, not all 135 route records
+
+Current transform result:
+
+- route geometry format: valid WGS84 lon/lat `LineString`
+- Unity/PLATEAU transform: not verified / not configured
+- route line rendering: safely disabled for current real data
+- gameplay effect: none
+
+P5-E validation uses GUI/headful automated Unity tests:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File tools/run_unity_tests.ps1 -Mode EditMode -LaunchMode Gui
+powershell -ExecutionPolicy Bypass -File tools/run_unity_tests.ps1 -Mode PlayMode -LaunchMode Gui
+```
+
+Latest P5-E GUI/headful automated validation:
+
+- EditMode: 107 passed, 0 failed
+- PlayMode: 13 passed, 0 failed
+
 ## Testing And Review Strategy
 
 - P5-A: documentation review, evidence-source review, taxonomy review, and DeepSeek architecture review.
 - P5-B: schema validation, fixture tests, CRS and geometry sanity checks, routing graph tests, and QGIS manual spatial QA.
 - P5-C: focused EditMode tests for loaders/mappers, PlayMode smoke tests for generated runtime objects, and Unity Editor manual validation.
 - P5-D: GUI/headful automated EditMode and PlayMode tests, plus DeepSeek review for gameplay source-mode safety, Unity lifecycle behavior, route-preview fallback, and scope boundaries.
+- P5-E: GUI/headful EditMode and PlayMode tests for stricter route geometry parsing, WGS84 transform validation fail-closed behavior, selected route-preview limits, and real_qualified feedback/selection safety.
 
 ## DeepSeek Review Checkpoints
 
