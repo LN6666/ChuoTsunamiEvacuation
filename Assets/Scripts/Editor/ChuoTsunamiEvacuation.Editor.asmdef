@@ -2,7 +2,10 @@
     "name": "ChuoTsunamiEvacuation.Editor",
     "rootNamespace": "",
     "references": [
-        "ChuoTsunamiEvacuation.Runtime"
+        "ChuoTsunamiEvacuation.Runtime",
+        "UnityEditor.TestRunner",
+        "UnityEngine.TestRunner",
+        "UnityEngine.UI"
     ],
     "includePlatforms": [
         "Editor"

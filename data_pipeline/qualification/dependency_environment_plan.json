@@ -1,0 +1,73 @@
+{
+  "planVersion": "p5-b2-dependency-environment-plan-v1",
+  "createdAt": "2026-05-19T14:30:00Z",
+  "pythonVersion": "3.12.10",
+  "packageChecks": {
+    "json": {
+      "available": true,
+      "role": "standard-library JSON parsing and syntax validation"
+    },
+    "jsonschema": {
+      "available": false,
+      "role": "JSON Schema validation for qualification outputs"
+    },
+    "pytest": {
+      "available": false,
+      "role": "focused Python test execution"
+    },
+    "geopandas": {
+      "available": false,
+      "role": "future vector GIS processing and CRS-aware tables"
+    },
+    "shapely": {
+      "available": false,
+      "role": "future geometry operations for contains, nearest, and distance checks"
+    },
+    "pyproj": {
+      "available": false,
+      "role": "future CRS transforms and coordinate validation"
+    },
+    "networkx": {
+      "available": false,
+      "role": "future graph/routing support"
+    },
+    "osmnx": {
+      "available": false,
+      "role": "future controlled OSM pedestrian network preparation"
+    }
+  },
+  "requiredForValidation": [
+    "jsonschema",
+    "pytest"
+  ],
+  "requiredForRouting": [
+    "osmnx",
+    "networkx"
+  ],
+  "requiredForBuildingMatching": [
+    "geopandas",
+    "shapely",
+    "pyproj",
+    "GDAL/Fiona/pyogrio stack if source formats require it"
+  ],
+  "installPolicy": {
+    "globalInstallsAllowed": false,
+    "preferredEnvironment": "project-local virtual environment",
+    "requirementsUpdatePolicy": "Update data_pipeline/requirements.txt only in a dedicated dependency milestone after version review.",
+    "networkPolicy": "Do not run OSMnx network downloads or package installation in P5-B2.",
+    "versionPolicy": "Document and pin or record versions before real GIS processing."
+  },
+  "risks": [
+    "Windows GIS package compatibility can be fragile.",
+    "Fiona/GDAL installation may require a different IO backend or carefully selected binary packages.",
+    "OSMnx can trigger network downloads and cache writes if not controlled.",
+    "OSM license and attribution requirements must be reviewed before route outputs are used.",
+    "Package version drift can affect geometry, CRS, and file IO behavior."
+  ],
+  "nextActions": [
+    "P5-B3 should create or verify a project-local Python GIS environment.",
+    "P5-B3 should decide whether to update data_pipeline/requirements.txt.",
+    "P5-B3 should rerun JSON Schema validation and pytest once jsonschema and pytest are available.",
+    "Real source ingestion should wait until dependency versions and install policy are documented."
+  ]
+}

@@ -1,0 +1,68 @@
+{
+  "configVersion": "p5-b1-controlled-qualification-pipeline-v1",
+  "purpose": "Deterministic controlled sample pipeline configuration for P5-B1. This uses synthetic fixtures only and does not download, scrape, parse CityGML, perform GIS routing, or perform real PLATEAU matching.",
+  "generatedAt": "2026-05-19T13:30:00Z",
+  "inputFixturePaths": {
+    "shelters": "data_pipeline/qualification/sample_controlled_shelters_for_qualification.json",
+    "buildings": "data_pipeline/qualification/sample_controlled_buildings_for_matching.json",
+    "routes": "data_pipeline/qualification/sample_controlled_routes_for_qualification.json"
+  },
+  "outputPaths": {
+    "json": "data_pipeline/qualification/controlled_building_qualification_output.json",
+    "csv": "data_pipeline/qualification/controlled_building_qualification_output.csv"
+  },
+  "rulebookPath": "data_pipeline/qualification/evacuation_building_qualification_rulebook.json",
+  "schemaPath": "data_pipeline/qualification/evacuation_building_qualification_schema.json",
+  "defaultThresholds": {
+    "containsMatchConfidence": "high",
+    "nearestHighConfidenceDistanceMeters": 10.0,
+    "nearestMediumConfidenceDistanceMeters": 30.0,
+    "unmatchedDistanceMeters": 75.0,
+    "minSafeFloorCandidate": 3,
+    "minCapacityCandidate": 50
+  },
+  "statusMappingRules": [
+    {
+      "ruleId": "official_contains",
+      "description": "Official evidence plus a contains match can produce official_confirmed when no manual review warning applies."
+    },
+    {
+      "ruleId": "official_nearest",
+      "description": "Official evidence plus a nearest match produces official_confirmed_with_review and requires manual review."
+    },
+    {
+      "ruleId": "candidate_thresholds_met",
+      "description": "Non-official evidence with controlled candidate threshold coverage can produce strong_candidate, never official_confirmed."
+    },
+    {
+      "ruleId": "candidate_missing_safe_floor_or_capacity",
+      "description": "Candidate evidence with missing safeFloor or capacity produces weak_candidate and warnings."
+    },
+    {
+      "ruleId": "insufficient_evidence",
+      "description": "Records without enough evidence produce unknown."
+    },
+    {
+      "ruleId": "source_conflict_or_unsuitable",
+      "description": "Controlled conflict or canEnter=false produces not_qualified with review warnings."
+    },
+    {
+      "ruleId": "unmatched_building",
+      "description": "Unmatched shelter/building records produce unknown or not_qualified, not official_confirmed."
+    }
+  ],
+  "warningRules": {
+    "nearestMatch": "nearest match requires manual review",
+    "nearestDistanceTooLarge": "nearest match distance exceeds high-confidence threshold",
+    "unmatched": "unmatched controlled PLATEAU building",
+    "missingSafeFloorOrCapacity": "missing safe floor / capacity",
+    "candidateNonOfficial": "candidate is non-official",
+    "literatureCannotConfirmOfficial": "literature criteria cannot confirm official designation",
+    "insufficientEvidence": "insufficient evidence",
+    "sourceConflict": "source conflict",
+    "notQualified": "not qualified based on controlled conflict evidence",
+    "routeUnavailable": "route unavailable in controlled fixture",
+    "routeFailed": "route failed in controlled fixture",
+    "routePrototype": "route is a controlled prototype estimate, not an official evacuation route"
+  }
+}

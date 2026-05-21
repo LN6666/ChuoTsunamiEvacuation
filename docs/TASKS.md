@@ -2,13 +2,241 @@
 
 ## Current Phase
 
-The project has completed environment setup, PLATEAU SDK installation, local Chuo City Buildings / LOD1 import, the first playable prototype, and Phase 3 real data pipeline preparation.
+The project has completed environment setup, PLATEAU SDK installation, local Chuo City Buildings / LOD1 import, the first playable prototype, Phase 3 real data pipeline preparation, and Phase 4 Unity integration of the P3 real shelter/hazard sample.
 
 The first playable prototype has been Unity-tested, DeepSeek V4 Pro max-thinking reviewed, committed, and pushed to GitHub.
 
 Current branch focus:
 
-Phase 4 real data integration is implementation-complete on `phase4-unity-real-data-integration` and ready for final DeepSeek review / merge decision.
+P6-E Final Closeout is the final documentation, validation, and review stage inside P6. P6-0, P6-A, P6-B, P6-C, P6-D, and P6-E are complete. Phase 5 remains the stable baseline: default `sourceMode = test`, `real_qualified` opt-in, humanitarian candidate flags default false, OSM routes estimated only, route rendering fail-closed until WGS84 to Unity/PLATEAU transform validation exists, and no navigation/crowd reference is an official evacuation guidance source.
+
+## Phase 6: Navigation Guidance and NPC Evacuation Prototype
+
+Status: P6-E final closeout is complete after GUI automated validation and final DeepSeek review. No dependency import, package change, ProjectSettings change, scene change, PLATEAU change, data-pipeline raw/download/cache/tmp/.venv change, source-mode default change, gameplay success/failure logic change, P6-F work, or P7 work is allowed in P6-E.
+
+Planned tasks:
+
+- P6-0: open-source navigation/crowd/evacuation reference review and technical selection. Done in documentation only.
+- P6-A: lightweight player navigation guidance prototype under `Assets/Scripts/Navigation/` after a confirmed Markdown plan.
+- P6-B: small NPC evacuation prototype under `Assets/Scripts/NPC/` and/or `Assets/Scripts/Simulation/` after a confirmed Markdown plan.
+- P6-C: integrate P6-A and P6-B only after both are reviewed and tested independently.
+- P6-D: final playable behavior validation using generated/runtime test harnesses only; no P7 work. Done.
+- P6-E: final P6 review and closeout. Done. Do not create P6-F or later stages.
+
+P6-E final closeout outputs:
+
+- reran GUI/headful automated EditMode validation: 142 total / 142 passed / 0 failed / 0 skipped / 0 inconclusive
+- reran GUI/headful automated PlayMode validation: 27 total / 27 passed / 0 failed / 0 skipped / 0 inconclusive
+- confirmed `Assets/Data/shelter_source_config.json` still has `sourceMode = test`
+- confirmed `enableHumanitarianCandidates = false` and `enableLifeFirstCandidateSelection = false`
+- created `docs/P6_FINAL_CLOSEOUT.md`
+- created `deepseek_review_prompt_p6e.md`
+- updated `docs/TASKS.md`
+- updated `docs/REVIEW_BACKLOG.md`
+- completed final DeepSeek review: PASS, no A-level blockers; local report `review_reports/deepseek_review_20260522_010241.md`
+- confirmed final P7 boundary: Full Chuo Asset Loading + Underground/Bridge + LOD Upgrade + Game Optimization
+- did not create P6-F and did not start P7
+- did not add gameplay features, Navigation/NPC mechanics, live routing, web requests, flood simulation, crowd simulation, scene wiring, or asset loading
+
+P6-D implemented outputs:
+
+- added generated behavior validation scripts under `Assets/Scripts/Simulation/`
+- added EditMode validation/source-boundary tests for P6-D
+- added PlayMode generated scenario coexistence tests for player navigation plus NPC movement
+- created `docs/P6D_PLAYABLE_BEHAVIOR_VALIDATION.md`
+- created `deepseek_review_prompt_p6d.md`
+- validated EditMode GUI tests: 142 total / 142 passed / 0 failed
+- validated PlayMode GUI tests: 27 total / 27 passed / 0 failed
+
+P6-D scope notes:
+
+- validates target awareness, NPC coexistence, NPC arrival, guidance distance trend, required warnings, non-blocking NPCs, and result-manager absence
+- keeps navigation display-only and NPCs ambient/non-blocking
+- keeps `Chuo_BaseMap.unity` wiring deferred
+- does not start P7 full Chuo asset loading, underground/bridge assets, LOD upgrade, or optimization
+
+P6-0 completed outputs:
+
+- created `docs/P6_OPEN_SOURCE_REFERENCE_REVIEW.md`
+- created `docs/P6_TECHNICAL_SELECTION.md`
+- created `deepseek_review_prompt_p60.md`
+- reviewed Unity NavMeshComponents, Unity AI Navigation, Recast Navigation, A* Pathfinding Project, JR-Morgan Crowd Evacuation Simulation, keijiro unity-crowd-simulation, Unity ECS samples, Unity ML-Agents, JuPedSim, and SebLague Pathfinding
+- selected `reference_only` first for navigation/crowd dependencies and no package import without separate approval
+- selected custom lightweight P6-A navigation UI first
+- selected custom lightweight P6-B NPC movement and target selection first
+- deferred NavMesh/AI Navigation package workflow adoption, A* import, Recast integration, DOTS/ECS, ML-Agents, social-force models, congestion physics, and real route line rendering
+
+Scope boundaries:
+
+- P6-A/P6-B must not modify `Packages`, `ProjectSettings`, Unity scenes, PLATEAU imports, `Chuo_BaseMap.unity`, raw PLATEAU data, or protected data-pipeline paths during prototype stage.
+- P6-A/P6-B must not introduce live routing or runtime web requests.
+- P6-A/P6-B must not change `sourceMode` defaults or gameplay success/failure rules.
+- P6-A must always display `estimated prototype route / not official navigation` when showing route guidance or route feedback.
+- P6-B NPCs must not affect player success/failure.
+- Navigation/crowd references are engineering references only, not official evacuation guidance sources.
+
+## Phase 5: Qualification, Routing, PLATEAU Matching, and Unity Integration
+
+Status: P5-D completed the opt-in `real_qualified` gameplay source first, P5-E completed route geometry validation and fail-closed route-preview QA next, P5-F completed the data-only high-rise humanitarian candidate foundation, P5-GH integrates the controlled candidate sample into Unity behind explicit default-off flags, and P5 final closeout is ready for final DeepSeek review.
+
+Planned tasks:
+
+- P5-A0: workspace setup, documentation baseline, and open-source reference candidate registry. Done.
+- P5-A1: official evidence source review and open-source reference decisions. Done.
+- P5-A2: evacuation building qualification rulebook foundation. Done.
+- P5-B1: controlled sample qualification/matching/routing pipeline using the P5-A2 schema. Done.
+- P5-B2: real Chuo ingestion readiness, dependency/environment plan, CRS/QGIS QA plan, and P5-B3 execution plan. Done.
+- P5-B3: project-local Python GIS environment helper and source provenance/fixture readiness. Done.
+- P5-B4: official Chuo/Tokyo/GSI data ingestion, real Chuo building qualification, and local PLATEAU building matching. Done.
+- P5-B5: OSM routing sample and integrated route-output planning/implementation. Done.
+- P5-B ReviewPrep: record B4/B5 validation and prepare DeepSeek review prompt. Done.
+- P5-B DeepSeek review: review P5-B data correctness, scope boundaries, CRS/routing assumptions, and P5-C readiness. Done. Verdict PASS, no A-level blockers.
+- Future P5 data QA: refine broad-area / non-building place-name heuristics beyond current tokens such as `公園一帯`, `地区`, and `リバーシティ`.
+- P5-C: Unity read-only integration for qualified buildings, estimated route metadata, confidence, warnings, and source-mode safety. Implemented; validation pending.
+- P5-B: PLATEAU qualification/matching and GIS routing pipeline.
+- P5-C: Unity integration for qualified buildings, routes, confidence, warnings, and decision feedback.
+- P5-D: opt-in real_qualified gameplay source, runtime playable real shelter proxies, ResultPanel feedback, and verified route-preview fallback. Implemented in current worktree.
+- P5-E: verified route geometry parsing, WGS84 transform validation gate, selected/limited route-preview safety, and real_qualified gameplay QA. Implemented in current worktree.
+- P5-F: high-rise humanitarian vertical evacuation candidate rulebook, schema, source plan, controlled fixture, validation tests, and DeepSeek prompt. Implemented in current worktree.
+- P5-GH: integrate P5-E route validation and P5-F humanitarian candidate foundation with display-only markers and explicit life-first selectable candidates without changing official shelter semantics or enabling unverified route rendering. Implemented in current worktree.
+- P5 final review: Codex closeout validation summary, scope boundary confirmation, and final DeepSeek prompt complete. Final DeepSeek review and merge decision pending.
+
+Scope boundaries:
+
+- Do not confuse official confirmed evacuation buildings with non-official candidates.
+- Do not confuse controlled prototype route estimates with official evacuation routes.
+- Do not implement full real routing, full PLATEAU matching, data downloads, scraping, dependency installation, or Unity changes until the matching/routing milestone explicitly allows them.
+- Keep QGIS as a manual QA option, not a Unity runtime dependency.
+
+P5-B1 completed outputs:
+
+- controlled shelter, building, and route fixtures under `data_pipeline/qualification/`
+- controlled pipeline config with deterministic thresholds
+- standard-library controlled sample build script
+- generated controlled qualification JSON/CSV outputs
+- focused controlled pipeline tests
+- P5-B1 documentation and progress updates
+
+P5-B2 completed outputs:
+
+- dependency/environment plan for validation and future GIS packages
+- real Chuo ingestion plan with staged source-family workflow
+- CRS and QGIS QA plan for projected metric operations and visual spatial checks
+- machine-readable planning JSON files
+- standard-library planning tests
+- no dependency installation, data download, Unity change, real routing, or real PLATEAU matching
+
+P5-B3 completed outputs:
+
+- P5-specific requirements file for project-local validation/GIS/routing dependencies
+- rerunnable local virtual environment setup helper under `data_pipeline/`
+- source provenance/license review template with non-approved placeholder entries
+- controlled real-source fixture plan for P5-B4
+- standard-library tests for environment/source readiness planning files
+- no setup script execution, dependency installation, data download, Unity change, real routing, or real PLATEAU matching
+
+P5-B4 completed outputs:
+
+- official source manifest for Chuo/Tokyo/GSI shelter and evacuation-place inputs
+- official shelter ingestion script and 31-record normalized official Chuo output
+- real building qualification script using a limited local PLATEAU CityGML mesh subset
+- schema-valid qualification JSON/CSV and shelter-building match JSON/CSV
+- QGIS QA GeoJSON layers for shelter points, matched building footprints, match lines, and low-confidence/unmatched records
+- focused pytest coverage for source ingestion, schema validation, official evidence rules, B4 routing boundaries, and QGIS layer creation
+- validation passed in `data_pipeline/.venv`: 31 schema-valid records and 9 pytest tests
+
+P5-B5 completed outputs:
+
+- controlled route test origins under `data_pipeline/qualification/`
+- OSMnx/NetworkX walking-route builder for B4 qualified shelter/building targets
+- integrated route/qualification builder preserving B4 evidence and match fields
+- processed route JSON/CSV/GeoJSON outputs under `data_pipeline/processed/routes/`
+- integrated route/qualification JSON/CSV outputs under `data_pipeline/processed/qualification/`
+- QGIS QA layers for route origins, route lines, and route failures
+- pytest coverage for OSM route semantics, non-official route flags, integrated route fields, QA layers, and no raw/cache/download runtime references
+- validation passed in `data_pipeline/.venv`: 135 available OSM route records, 0 failed routes, and 6 pytest tests
+
+P5-C implemented outputs:
+
+- copied P5-B static JSON outputs into `Assets/Data`
+- added Unity P5-C read-only loaders for integrated qualification, route samples, building qualification, and shelter-building matches
+- preserved qualification status, confidence, manual-review flags, warnings, route distance/time, route geometry metadata, route prototype labels, and OSM/ODbL attribution
+- added conservative collider-free P5-C debug markers behind `sourceMode = real_sample` and `enableP5COverlay = true`
+- route lines remain disabled for current WGS84 geometry because the project has no verified Unity/PLATEAU coordinate transform
+- added concise P5-C ResultPanel feedback for non-test shelter sources, with unavailable fallback when no safe shelter mapping exists
+- default `sourceMode = test` remains unchanged
+- P5-C does not implement real-time routing, flood simulation, NPC behavior, or route/qualification/hazard-based success/failure rules
+
+P5-D implemented outputs:
+
+- added opt-in `sourceMode = real_qualified` while keeping default `sourceMode = test`
+- loaded copied P5-B/P5-C static JSON from `Assets/Data` only
+- generated runtime-only playable shelter proxies for 27 official/qualified records
+- made only `official_confirmed` and `official_confirmed_with_review` records selectable by default
+- kept candidate, unknown, and not-qualified records non-playable/debug-only
+- reused existing E entry, stair-climb, success/failure, and ResultPanel flow
+- appended P5-D real qualified feedback with qualification status, confidence, manual review flag, warnings, route distance/time, estimated prototype route label, and OSM/ODbL attribution
+- parsed route geometry but rejected current WGS84 route lines because no verified Unity/PLATEAU transform exists
+- preserved route/qualification/hazard information as feedback only; no gameplay success/failure rule depends on it
+
+P5-E implemented outputs:
+
+- inspected `Assets/Data/real_chuo_osm_routes_sample.json` route schema and documented it in `docs/P5E_ROUTE_RENDERING_QA.md`
+- confirmed route records use `routeId`, `originId`, `shelterId`, `plateauBuildingId`, `routeDistanceMeters`, `estimatedTravelTimeSeconds`, and GeoJSON-like `geometry.coordinates`
+- confirmed route geometry is `EPSG:4326` WGS84 `LineString` with `[longitude, latitude]` pairs
+- refined parser behavior so missing, malformed, unsupported, or invalid WGS84 geometry fails safely without crashing route metadata loading
+- strengthened route preview validation for WGS84 lon/lat order, broad Chuo bounds, collapse, and implausible span
+- confirmed no verified WGS84-to-Unity/PLATEAU transform exists in current Unity runtime code
+- kept selected estimated route line rendering safely disabled for current real data while preserving route distance/time feedback
+- kept `sourceMode = test` as the committed default and `real_qualified` opt-in only
+- GUI/headful automated validation passed: EditMode 107 passed / 0 failed; PlayMode 13 passed / 0 failed
+- created `deepseek_review_prompt_p5e.md`
+
+P5-F implemented outputs:
+
+- documented life-first humanitarian emergency high-rise candidate screening in `docs/P5F_HIGHRISE_HUMANITARIAN_CANDIDATES.md`
+- separated official/designated evacuation facilities from humanitarian emergency candidate high-rises
+- defined statuses `official_confirmed`, `official_confirmed_with_review`, `humanitarian_strong_candidate`, `humanitarian_candidate_with_review`, `humanitarian_weak_candidate`, `unknown`, and `not_recommended`
+- created JSON Schema, rulebook, source plan, and seven-record controlled sample fixture under `data_pipeline/qualification/`
+- added pytest coverage for schema validation, official/humanitarian separation, non-official warning policy, manual review triggers, and unknown public access behavior
+- created `deepseek_review_prompt_p5f.md`
+- performed JSON syntax validation with system Python; focused pytest requires `pytest` and schema validation requires `jsonschema`, which are not installed in the system Python environment
+- made no Unity gameplay, scene, `Assets/Data`, PLATEAU import, `ProjectSettings`, `Packages`, large download, raw/cache/tmp/.venv, or `sourceMode` changes
+
+P5-GH implemented outputs:
+
+- copied P5-F controlled sample data to `Assets/Data/p5g_highrise_humanitarian_candidates_sample.json`
+- added `enableHumanitarianCandidates = false` and `enableLifeFirstCandidateSelection = false`
+- added Unity-side humanitarian candidate loader with Assets/Data-only path restrictions
+- preserved `candidateLayer = humanitarian_candidate` and skipped official-layer records
+- added display-only candidate markers with no `BuildingShelter`, no `ShelterEntranceTrigger`, and no colliders
+- added life-first selectable candidate proxies behind both flags for `humanitarian_strong_candidate` and `humanitarian_candidate_with_review`
+- kept `humanitarian_weak_candidate`, `unknown`, and `not_recommended` display-only
+- kept life-first candidates non-official with `isOfficialShelter = false`
+- added ResultPanel feedback for humanitarian emergency candidate, not officially designated, manual review, access/management/seismic uncertainty, life-first assumption, and controlled-sample limitation
+- kept route/qualification/hazard/candidate status feedback-only for success/failure
+- GUI/headful validation passed: EditMode 115 passed / 0 failed; PlayMode 17 passed / 0 failed
+- created `docs/P5G_HUMANITARIAN_CANDIDATE_UNITY_INTEGRATION.md`
+- created `deepseek_review_prompt_p5g.md`
+
+P5 final closeout outputs:
+
+- confirmed current branch and clean baseline before closeout docs
+- confirmed P5-E and P5-F merge/content presence on the P5-GH branch
+- confirmed key P5-D/P5-E/P5-F/P5-GH files exist
+- confirmed safety boundaries: default `test`, opt-in `real_qualified`, default-off humanitarian flags, Assets/Data-only runtime reads, no live routing/web requests, no official navigation claims, and no success/failure rules based directly on route/qualification/hazard/candidate status
+- confirmed route rendering remains fail-closed until verified Unity/PLATEAU transform validation exists
+- confirmed P5-F/P5-GH candidate data is controlled/sample foundation data, not full real Chuo high-rise screening
+- reran GUI/headful automated validation: EditMode 120 passed / 0 failed; PlayMode 18 passed / 0 failed
+- created `docs/P5_FINAL_CLOSEOUT_REVIEW.md`
+- created `deepseek_review_prompt_p5_final.md`
+
+P5-B review prep completed outputs:
+
+- recorded user-confirmed QGIS QA result for B4 shelter/building matching
+- recorded user-confirmed QGIS QA result for B5 route origins and route lines
+- created DeepSeek review prompt at `deepseek_review_prompt_p5b.txt`
+- no code, Unity files, `Assets/Data`, raw/cache/download/tmp, or `.venv` files changed
 
 ## Milestone 0: Environment Setup
 
@@ -404,7 +632,7 @@ Manual validation completed:
 
 ### Phase 4 Final Closure
 
-Status: Complete; pending DeepSeek final review / merge decision
+Status: Complete; merged into `master` after DeepSeek final review
 
 Completed:
 
@@ -506,3 +734,19 @@ Future non-blocking follow-up:
 - Clarify behavior when disabling existing test shelters in complex scenes
 - Reduce fixed Assets/Data path assumptions in tests if project structure changes
 - Fix CLI batchmode test-results XML issue
+
+## Phase 5-B — Real Chuo Qualification + Routing Pipeline
+
+Status: Complete after DeepSeek final review.
+
+Completed:
+- Official Chuo/Tokyo/GSI evacuation data ingestion
+- Real Chuo shelter normalization
+- PLATEAU building qualification and matching
+- OSM walking-route sample generation
+- Integrated route + qualification outputs
+- QGIS QA for building matching and routes
+- DeepSeek final review with no A-level blockers
+
+Next:
+- P5-C Unity read-only integration of qualified buildings, route lines, confidence, warnings, and decision feedback

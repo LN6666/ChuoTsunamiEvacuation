@@ -1,0 +1,68 @@
+{
+  "planVersion": "p5-b2-crs-qgis-qa-plan-v1",
+  "createdAt": "2026-05-19T14:30:00Z",
+  "planningOnly": true,
+  "crsStrategy": {
+    "sourceCrsPossibilities": [
+      "EPSG:4326 for latitude/longitude shelter or OSM source coordinates",
+      "local projected CRS for metric official GIS layers",
+      "PLATEAU/CityGML coordinate conventions that must be verified before processing"
+    ],
+    "candidateProcessingCrs": "A reviewed projected CRS suitable for Tokyo/Chuo, such as Japan Plane Rectangular CS zone IX, should be selected in P5-B3.",
+    "recordCrsMetadataInEveryOutput": true,
+    "preserveOriginalCoordinatesWhenUseful": true
+  },
+  "metricOperationRules": {
+    "mustUseProjectedCrs": true,
+    "forbidMeterDistancesInUnprojectedLatLon": true,
+    "operationsRequiringProjectedCrs": [
+      "contains or boundary-sensitive spatial matching after CRS normalization",
+      "nearest-building distance",
+      "buffer distance",
+      "route length",
+      "distance threshold classification"
+    ],
+    "ruleNote": "Never compute meter distances directly in unprojected latitude/longitude."
+  },
+  "unityCoordinatePolicy": {
+    "unityMappingDeferredToP5C": true,
+    "unityShouldConsumeProcessedOutputsOnly": true,
+    "unityMustNotReadRawGisArchives": true,
+    "policyNote": "GIS CRS to Unity Vector3 mapping is separate from P5-B spatial processing."
+  },
+  "qgisLayers": [
+    "shelter points",
+    "candidate/qualified building footprints",
+    "building match lines",
+    "route lines",
+    "unmatched/low-confidence points",
+    "hazard context layers"
+  ],
+  "manualChecks": [
+    "no visible coordinate shift between layers",
+    "routes are not flying, disconnected, or crossing impossible gaps in obvious ways",
+    "shelter point near or inside matched building",
+    "nearest-match records are visually plausible",
+    "low-confidence and unmatched points are inspectable",
+    "hazard context layers align with basemap/reference layers",
+    "source CRS and processed CRS are visible in layer metadata"
+  ],
+  "outputFormats": [
+    "small GeoJSON QA layers when explicitly approved",
+    "CSV review tables",
+    "PNG screenshots",
+    "Markdown QA notes"
+  ],
+  "risks": [
+    "Axis-order mistakes can swap latitude and longitude.",
+    "Geographic CRS distances can silently produce wrong meter thresholds.",
+    "PLATEAU-derived building footprints may not share the same CRS as source points.",
+    "QGIS visual alignment can hide source-provenance or attribute errors.",
+    "Unity coordinate conversion can introduce a second alignment problem if attempted before processed GIS outputs are stable."
+  ],
+  "nextActions": [
+    "P5-B3 should define the exact processing CRS candidate.",
+    "P5-B3 should verify the CRS with known Chuo reference points.",
+    "P5-B3 should add CRS metadata checks before controlled real-source output is accepted."
+  ]
+}

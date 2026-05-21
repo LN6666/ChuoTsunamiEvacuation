@@ -1,5 +1,462 @@
 ---
 
+## 2026-05-21 | P5 Final Integration Closeout Review
+
+Completed the final Codex closeout review for Phase 5 as a prototype/research integration stage.
+
+Confirmed:
+- branch `p5g-humanitarian-candidate-unity-integration`
+- P5-E merge/content present through `8731f12`
+- P5-F merge/content present through `1421abf`
+- `sourceMode = test` remains the committed default
+- `real_qualified` remains opt-in
+- humanitarian candidate display and life-first selection are default-off
+- life-first selectable candidates require both humanitarian flags
+- route rendering remains fail-closed for current EPSG:4326 route geometry
+- OSM routes remain estimated prototype routes, not official evacuation routes
+- OSM/ODbL attribution remains preserved
+- P5-F/P5-GH candidate data is a controlled/sample foundation, not full real Chuo high-rise screening
+- no P6/P7 gameplay, NPC, navigation, full environment, or official navigation claim was added
+
+Validation:
+- EditMode GUI/headful: `test-results/editmode-results.xml`, 120 passed, 0 failed
+- PlayMode GUI/headful: `test-results/playmode-results.xml`, 18 passed, 0 failed
+- no manual Test Runner clicking
+- Unity-generated InitTestScene artifacts were removed after the PlayMode run
+- `ProjectSettings/ProjectSettings.asset` had no content diff and was left unchanged
+
+Created:
+- `docs/P5_FINAL_CLOSEOUT_REVIEW.md`
+- `deepseek_review_prompt_p5_final.md`
+
+Next step:
+- run final DeepSeek review with `python tools\deepseek_review.py --prompt-file deepseek_review_prompt_p5_final.md`
+
+---
+
+## 2026-05-21 | P5-GH Humanitarian Candidate Unity Integration Implemented
+
+Implemented combined P5-GH Unity integration for the P5-F high-rise humanitarian candidate foundation.
+
+Implemented:
+- copied controlled P5-F sample data to `Assets/Data/p5g_highrise_humanitarian_candidates_sample.json`
+- added default-off config flags `enableHumanitarianCandidates` and `enableLifeFirstCandidateSelection`
+- added `HumanitarianCandidateDataLoader` with Assets/Data-only runtime path guard
+- added display-only humanitarian candidate markers with no `BuildingShelter`, no `ShelterEntranceTrigger`, and no colliders
+- added explicit life-first selectable mode for `humanitarian_strong_candidate` and `humanitarian_candidate_with_review`
+- added non-official candidate metadata and ResultPanel feedback
+- added EditMode and PlayMode coverage for config defaults, path guards, layer separation, unknown-access manual review, display-only non-playability, and life-first result flow
+- added `docs/P5G_HUMANITARIAN_CANDIDATE_UNITY_INTEGRATION.md`
+- added `deepseek_review_prompt_p5g.md`
+
+Policy preserved:
+- `sourceMode` remains `test`
+- `real_qualified` remains opt-in
+- humanitarian candidates are never official shelters
+- P5-F sample data is controlled sample data, not full real Chuo high-rise screening
+- public access, management agreement, and seismic evidence warnings remain visible
+- route/qualification/hazard/candidate status remains feedback-only for success/failure
+
+Validation:
+- EditMode GUI/headful: `test-results/editmode-results.xml`, 115 passed, 0 failed
+- PlayMode GUI/headful: `test-results/playmode-results.xml`, 17 passed, 0 failed
+- forbidden scene/settings/raw-data checks returned no output after removing Unity-generated test artifacts
+
+Safety boundaries preserved:
+- no `Chuo_BaseMap.unity` change
+- no PLATEAU imported/raw data change
+- no `ProjectSettings` or `Packages` change
+- no `data_pipeline/raw`, `data_pipeline/downloads`, `data_pipeline/cache`, `tmp`, or `.venv` change
+- no live routing, web requests, flood simulation, or NPC/crowd simulation
+
+---
+
+## 2026-05-21 | P5-E Route Geometry Rendering QA Implemented
+
+### Completed
+
+Implemented P5-E route-geometry QA and fail-closed route-preview validation for the current `p5e-route-geometry-rendering` branch.
+
+Route sample inspection confirmed:
+
+- route sample file: `Assets/Data/real_chuo_osm_routes_sample.json`
+- route records: 135 available OSM estimated pedestrian routes
+- coordinate system: `EPSG:4326`
+- metric processing CRS metadata: `EPSG:6677`
+- geometry format: GeoJSON-like `LineString`
+- coordinate order: `[longitude, latitude]`
+- route linkage fields: `routeId`, `originId`, `shelterId`, `plateauBuildingId`
+- distance/time fields: `routeDistanceMeters`, `estimatedTravelTimeSeconds`
+
+Code updates:
+
+- tightened `P5CStaticDataLoader` route geometry extraction so missing, malformed, unsupported, non-finite, or invalid WGS84 geometry leaves `HasGeometry` false instead of producing a renderable line
+- strengthened `P5DRoutePreviewTransformValidator` with WGS84 lon/lat order checks, broad Chuo bounds checks, collapse checks, and approximate route-span checks
+- kept current `EPSG:4326` route lines disabled because no verified WGS84-to-Unity/PLATEAU world-coordinate transform exists in the runtime code
+- preserved route distance/time feedback, estimated prototype route labeling, and OSM/ODbL attribution
+- added focused EditMode coverage for malformed route geometry and invalid WGS84 validation cases
+
+### Validation Notes
+
+Initial EditMode GUI run timed out while Unity rebuilt the missing `Library/` asset database, and the first retry exposed one brittle pre-existing whitespace assertion in `RealShelterGameplayMappingTests.CommittedShelterSourceConfigAssetRemainsTestMode`. The assertion now checks the `sourceMode` key/value with whitespace-insensitive matching while the parsed config continues to confirm `test`.
+
+Final GUI/headful automated validation passed:
+
+- `powershell -ExecutionPolicy Bypass -File tools/run_unity_tests.ps1 -Mode EditMode -LaunchMode Gui`
+  - XML: `test-results/editmode-results.xml`
+  - result: 107 passed, 0 failed
+- `powershell -ExecutionPolicy Bypass -File tools/run_unity_tests.ps1 -Mode PlayMode -LaunchMode Gui`
+  - XML: `test-results/playmode-results.xml`
+  - result: 13 passed, 0 failed
+
+### Scope Boundary
+
+No scene files, `Chuo_BaseMap.unity`, PLATEAU imported files, `ProjectSettings`, `Packages`, raw/cache/download/tmp/.venv paths, live routing, web requests, flood simulation, NPC/crowd simulation, or gameplay success/failure rules were changed. `sourceMode` remains `test`.
+
+### Next Step
+
+Run DeepSeek review with `deepseek_review_prompt_p5e.md`.
+
+---
+
+## 2026-05-21 | P5-F High-Rise Humanitarian Candidate Screening Implemented
+
+P5-F followed P5-E and added a data-only rulebook/schema/source-plan foundation for future Chuo high-rise humanitarian vertical evacuation candidate screening.
+
+Implemented:
+- `docs/P5F_HIGHRISE_HUMANITARIAN_CANDIDATES.md`
+- `data_pipeline/qualification/highrise_humanitarian_candidate_rulebook.json`
+- `data_pipeline/qualification/highrise_humanitarian_candidate_schema.json`
+- `data_pipeline/qualification/highrise_humanitarian_candidate_sources_plan.json`
+- `data_pipeline/qualification/highrise_humanitarian_candidates_sample.json` with seven taxonomy-covering sample records
+- `data_pipeline/tests/test_highrise_humanitarian_candidates.py`
+- `deepseek_review_prompt_p5f.md`
+
+Policy recorded:
+- official/designated evacuation facilities and humanitarian emergency candidate high-rises are separate layers
+- non-official high-rises must not be labeled official shelters
+- unknown public access is not a hard exclusion in the life-first humanitarian emergency scenario
+- unknown access, unknown management agreement, and unknown seismic evidence require warnings/manual review
+
+Validation:
+- JSON syntax checks passed for the new P5-F schema, rulebook, source plan, and sample fixture
+- focused pytest was added but could not be executed with system Python because `pytest` is not installed
+- JSON Schema validation could not be executed with system Python because `jsonschema` is not installed
+
+Safety boundaries preserved:
+- no Unity gameplay script changes
+- no `Assets/Data` changes
+- no `Chuo_BaseMap.unity` or other scene changes
+- no PLATEAU imported/raw data changes
+- no `ProjectSettings` or `Packages` changes
+- no large downloads, scraping, raw/cache/tmp/.venv commits, or `sourceMode` changes
+
+Chronology note: P5-D completed the opt-in real-qualified gameplay source first, P5-E then validated route geometry and fail-closed route-preview behavior, P5-F then added the humanitarian candidate screening foundation, and P5-G will integrate those outcomes.
+
+---
+
+## 2026-05-20 | P5-B DeepSeek B-Level Follow-Up
+
+### Completed
+
+Addressed DeepSeek B-level follow-up items before the separate P5-B5 review.
+
+Updated nearest-match confidence handling so a nearest PLATEAU match with multiple weak building-attribute signals is not assigned high confidence. The `chuo_official_emergency_023` / 豊海小学校 nearest match now has medium confidence and includes `nearest_match_semantic_review_needed`.
+
+Updated P5-B documentation for OSM route-failure scope, empty failure-layer retention, prototype walking-speed assumptions, non-official route labeling, raw PLATEAU usage-code handling, and future broad-area place-name heuristic refinement.
+
+### Validation Notes
+
+Schema validation passed for 31 building qualification records.
+
+`data_pipeline/.venv/Scripts/python.exe -m pytest data_pipeline/tests/test_real_chuo_building_qualification.py data_pipeline/tests/test_real_chuo_osm_routing.py` passed: 12 tests.
+
+After the building test reran B4 generation, the integrated route qualification builder was rerun and `data_pipeline/.venv/Scripts/python.exe -m pytest data_pipeline/tests/test_real_chuo_osm_routing.py` passed again: 6 tests.
+
+### Scope Boundary
+
+No Unity files, scenes, `Assets/Data`, `ProjectSettings`, `Packages`, raw/cache/download/tmp, `.venv`, or raw PLATEAU/CityGML files were intentionally modified. `sourceMode` remains `test`.
+
+### Next Step
+
+Run the separate P5-B5 DeepSeek review.
+
+---
+
+## 2026-05-20 | P5-B Review Preparation
+
+### Completed
+
+Recorded final P5-B manual QGIS QA results for B4 building qualification/matching and B5 OSM routing.
+
+Prepared `deepseek_review_prompt_p5b.txt` for DeepSeek review of P5-B data correctness, scope boundaries, official/candidate claims, CRS handling, routing assumptions, raw/cache hygiene, and readiness for P5-C.
+
+### Validation Notes
+
+B4 building qualification and PLATEAU matching are complete. B5 OSM route outputs and integrated route/qualification outputs are complete. The user manually checked B4 and B5 QGIS layers with an OpenStreetMap basemap and reported no obvious matching, route placement, or CRS issue.
+
+### Scope Boundary
+
+No pipeline code, Unity file, Unity scene, `Assets/Data`, `ProjectSettings`, `Packages`, PLATEAU imported file, raw/cache/download/tmp, or `.venv` file was modified. `sourceMode` remains `test`.
+
+### Next Step
+
+Run DeepSeek review for P5-B, then begin P5-C planning only if no A-level blockers are found.
+
+---
+
+## 2026-05-20 | P5-B5 OSM Routing Sample Completed
+
+### Completed
+
+Created controlled route test origins for Ginza, Nihonbashi, Hatchobori/Tsukiji, Tsukishima/Kachidoki, and Harumi waterfront.
+
+Added OSM routing and integrated route/qualification scripts:
+
+- `data_pipeline/scripts/build_real_chuo_osm_routes.py`
+- `data_pipeline/scripts/build_real_chuo_integrated_route_qualification.py`
+
+Generated processed OSM route outputs, integrated route/qualification JSON/CSV outputs, and QGIS route QA layers.
+
+Recorded B4 QGIS QA handoff: OpenStreetMap basemap was loaded in QGIS, shelter/building layers aligned normally, and the user confirmed matching had no obvious issue.
+
+### Results
+
+- origin points: 5
+- target shelter/buildings: 27
+- OSM route records: 135
+- available routes: 135
+- failed routes: 0
+- integrated qualification records with available route fields: 27
+- integrated records left `not_evaluated`: 4 broad/unmatched B4 records
+- distance range: 97.727 m to 5,939.296 m
+- estimated time range: 81.439 s to 4,949.413 s
+
+### Validation Notes
+
+`data_pipeline/.venv/Scripts/python.exe -m pytest data_pipeline/tests/test_real_chuo_osm_routing.py` passed: 6 tests.
+
+### Scope Boundary
+
+Routes are estimated OSM pedestrian routes, not official evacuation routes. No OSM raw/cache files, Unity change, Unity scene change, `Assets/Data` change, `ProjectSettings`, `Packages`, PLATEAU imported files, flood simulation, disaster road closure, or gameplay rule change was committed. `sourceMode` remains `test`.
+
+### Next Step
+
+P5-C should prepare Unity-side read-only loading and visualization of processed qualification/route outputs while preserving confidence and warning fields.
+
+---
+
+## 2026-05-19 | P5-B4 Official Chuo Building Qualification Completed
+
+### Completed
+
+Downloaded approved official Chuo/Tokyo/GSI evacuation-place and shelter source files into ignored `data_pipeline/downloads/` paths and recorded provenance in `data_pipeline/sources/real_chuo_official_source_manifest.json`.
+
+Added official shelter ingestion and real building matching scripts:
+
+- `data_pipeline/scripts/ingest_official_chuo_shelters.py`
+- `data_pipeline/scripts/build_real_chuo_building_qualification.py`
+
+Generated processed outputs for 31 normalized Chuo official records, schema-valid building qualification, shelter-building matches, and QGIS QA layers.
+
+### Results
+
+- shelter records processed: 31
+- candidate local PLATEAU buildings extracted near official points: 4,447
+- distinct matched PLATEAU buildings: 26
+- match methods: 24 `contains`, 3 `nearest`, 4 `unmatched`
+- qualification statuses: 24 `official_confirmed`, 3 `official_confirmed_with_review`, 4 `unknown`
+- manual review records: 7
+
+### Validation Notes
+
+`data_pipeline/.venv/Scripts/python.exe data_pipeline/scripts/validate_building_qualification.py --input data_pipeline/processed/qualification/real_chuo_building_qualification.json --schema data_pipeline/qualification/evacuation_building_qualification_schema.json` passed for 31 records.
+
+`data_pipeline/.venv/Scripts/python.exe -m pytest data_pipeline/tests/test_official_chuo_shelter_ingestion.py data_pipeline/tests/test_real_chuo_building_qualification.py` passed: 9 tests.
+
+### Scope Boundary
+
+No raw official downloads, raw PLATEAU CityGML, OSM network data, Unity change, Unity scene change, `Assets/Data` change, `ProjectSettings`, or `Packages` change was committed. `sourceMode` remains `test`.
+
+### Next Step
+
+P5-B5 should add OSM routing sample outputs and route QA using the B4 qualification/match outputs.
+
+---
+
+## 2026-05-19 | P5-B4 Real Building Qualification Blocked
+
+### Completed
+
+Ran the project-local P5 environment setup with approval. The environment was created under `data_pipeline/.venv`, and `jsonschema`, `pytest`, GeoPandas, Shapely, pyproj, NetworkX, and OSMnx imported successfully from that venv.
+
+Inspected P5 rulebook/schema/planning docs and searched local repository/project input paths for real Chuo shelter evidence and processed PLATEAU building geometry.
+
+### Blocker
+
+B4 cannot proceed because required real inputs are missing:
+
+- no approved real Chuo official shelter/evacuation facility input with provenance/license review was found
+- no approved processed PLATEAU building footprint/attribute input was found
+
+The available P3 shelter outputs are explicitly synthetic placeholders, not official records. The available PLATEAU data is raw local data under `D:\PLATEAU_DATA`; parsing raw CityGML/full PLATEAU data is outside this B4 prompt.
+
+### Scope Boundary
+
+No fake processed outputs were created. No official data download, scraping, OSM network download, CityGML parsing, full PLATEAU matching, real routing, Unity change, Unity scene change, `Assets/Data` change, `ProjectSettings`, or `Packages` change was performed.
+
+### Next Step
+
+Prepare the missing approved real official source fixture and processed PLATEAU building footprint/attribute fixture, then rerun B4.
+
+---
+
+## 2026-05-19 | P5-B3 Environment and Source Readiness
+
+### Completed
+
+Created `data_pipeline/requirements-p5.txt` for Phase 5 validation, GIS, and routing dependencies.
+
+Created `data_pipeline/setup_p5_environment.ps1`, a rerunnable project-local virtual environment helper for `data_pipeline/.venv`. The script installs baseline and P5 requirements inside the venv and runs import checks, but it was not run in this milestone.
+
+Created a source provenance/license review template and a controlled real-source fixture plan for the next milestone.
+
+Added standard-library tests for the P5 requirements file, setup script presence, source provenance template, controlled real-source fixture plan, CRS/license requirements, and default non-approval status.
+
+### Validation Notes
+
+The new JSON planning files pass Python built-in JSON syntax validation. The new test file passes `py_compile`. Existing P5-B2 planning JSON files still pass JSON syntax checks.
+
+`pytest` remains unavailable in the active global Python environment, so focused pytest execution was not run. No dependency installation was performed.
+
+### Scope Boundary
+
+No official data download, scraping, OSM network download, dependency installation, CityGML parsing, full PLATEAU matching, real GIS routing, Unity change, Unity scene change, `Assets/Data` change, `ProjectSettings`, `Packages`, raw data, or large GIS file was added.
+
+### Next Step
+
+P5-B4 should run or verify the project-local P5 environment with user approval, complete source provenance/license review for selected sources, and create a small controlled real-source fixture.
+
+---
+
+## 2026-05-19 | P5-B2 Real Chuo Ingestion Readiness
+
+### Completed
+
+Created dependency/environment planning for P5 validation and future GIS/routing packages.
+
+Created real Chuo ingestion planning for official source families, staged ingestion, provenance requirements, raw-data policy, processed-output policy, validation requirements, and P5-B3 next actions.
+
+Created CRS and QGIS QA planning for projected-CRS metric operations, Unity coordinate boundaries, planned QA layers, and manual spatial checks.
+
+Added standard-library planning tests for required planning JSON keys, source family coverage, CRS metric-operation rules, validation package expectations, and raw large-file commit policy.
+
+### Validation Notes
+
+Planning JSON files pass Python built-in JSON syntax validation. The planning test file compiles with `py_compile`.
+
+The active environment still has Python 3.12.10 and built-in `json`, but `jsonschema`, `pytest`, GeoPandas, Shapely, pyproj, NetworkX, and OSMnx are unavailable. No dependencies were installed.
+
+### Scope Boundary
+
+No official data download, scraping, dependency installation, OSM network download, CityGML parsing, full PLATEAU matching, real GIS routing, Unity change, Unity scene change, `Assets/Data` change, `ProjectSettings`, `Packages`, raw data, or large GIS file was added.
+
+### Next Step
+
+P5-B3 should create or verify a project-local Python GIS environment, then build a small controlled real-source fixture after manual source/license review.
+
+---
+
+## 2026-05-19 | P5-B1 Controlled Qualification Pipeline Sample
+
+### Completed
+
+Created controlled synthetic shelter, PLATEAU-like building, and route fixtures for the P5-B1 qualification pipeline foundation.
+
+Added a standard-library build script that generates schema-shaped qualification JSON and CSV outputs with placeholder match and route fields.
+
+Added focused tests for fixture/config JSON loading, deterministic thresholds, output shape, official-vs-candidate boundaries, manual review warnings, route placeholder labeling, and optional schema validation.
+
+### Validation Notes
+
+Generated `data_pipeline/qualification/controlled_building_qualification_output.json` and `.csv` from controlled fixtures. JSON syntax checks passed for controlled inputs, config, and output.
+
+The active Python environment has Python 3.12.10 and built-in `json`, but does not have `jsonschema`, `pytest`, GeoPandas, Shapely, pyproj, NetworkX, or OSMnx installed. No dependencies were installed.
+
+### Scope Boundary
+
+No official data download, scraping, OSM download, CityGML parsing, full PLATEAU matching, full GIS routing, Unity change, Unity scene change, `Assets/Data` change, `ProjectSettings`, `Packages`, raw PLATEAU data, or `Chuo_BaseMap.unity` change was performed.
+
+### Next Step
+
+P5-B2 should use this controlled output shape as the handoff into controlled real Chuo data ingestion, CRS-aware PLATEAU matching decisions, OSM routing decisions, and QGIS QA planning.
+
+---
+
+## 2026-05-19 | P5-A2 Qualification Rulebook and Schema Foundation
+
+### Completed
+
+Created the evacuation building qualification rulebook, JSON Schema, and synthetic sample fixture for future P5-B qualification outputs.
+
+Added a standard validation script for building qualification datasets and pytest coverage for schema validity, taxonomy, official/candidate boundaries, manual review expectations, and sample record shape.
+
+### Validation Notes
+
+JSON syntax validation passed for the rulebook, schema, and sample fixture. The validator script reported that `jsonschema` is unavailable in the active Python environment, and focused pytest execution could not run because `pytest` is unavailable. No dependencies were installed.
+
+### Scope Boundary
+
+No official data download, scraping, dependency installation, GIS routing, PLATEAU matching, CityGML parsing, Unity gameplay change, Unity scene change, `Assets/Data` change, `ProjectSettings`, or `Packages` change was performed.
+
+### Next Step
+
+P5-B1 should build a controlled sample qualification/matching/routing pipeline that emits schema-valid outputs before any real data ingestion or Unity integration.
+
+---
+
+## 2026-05-19 | P5-A1 Evidence and Tool Decision Review
+
+### Completed
+
+Reviewed Phase 5 evidence families for official evacuation facility data, official hazard/disaster data, PLATEAU geometry/attributes, literature/report criteria, and OSM/routing auxiliary inputs.
+
+Recorded preliminary open-source reference decisions for PLATEAU SDK Unity GIS Sample, PLATEAU QGIS Plugin, OSMnx, GeoPandas, Shapely, pyproj, NetworkX, and the GDAL/Fiona/pyogrio IO stack.
+
+Created planning JSON files for source families, tool decisions, and the future qualification rulebook.
+
+### Scope Boundary
+
+No official data download, scraping, dependency installation, GIS routing, PLATEAU matching, qualification logic, Unity gameplay change, Unity scene change, `Assets/Data` change, `ProjectSettings`, or `Packages` change was performed.
+
+### Next Step
+
+P5-A2 should formalize the first concrete qualification rulebook/schema foundation using the P5-A1 evidence and tool decision plans.
+
+---
+
+## 2026-05-19 | P5-A0 Qualification Routing Baseline Started
+
+### Completed
+
+Created branch `phase5-qualification-routing-plateau` from updated `master`.
+
+Established the Phase 5 scope for evidence-based evacuation building qualification, GIS routing, PLATEAU building matching, and Unity route/building integration.
+
+Recorded the P5-A / P5-B / P5-C structure and created the open-source reference candidate registry for later evaluation.
+
+Reserved a documentation-only qualification workspace for future rulebook/schema outputs.
+
+### Scope Boundary
+
+No code, Unity gameplay, Unity scenes, Unity data files, PLATEAU imports, `ProjectSettings`, `Packages`, official data downloads, scraping, dependency installation, GIS routing, or building matching were performed.
+
+### Next Step
+
+P5-A1 should review official evidence sources and make open-source reference decisions before any implementation or data ingestion.
+
+---
+
 ## 2026-05-17 | P4 Final Validation Recorded
 
 ### Completed
@@ -550,3 +1007,63 @@ Non-blocking B-level items recorded:
 - fixed Assets/Data test path assumptions
 
 Status: Phase 4 ready to mark complete.
+
+## 2026-05-20 | P5-B DeepSeek Final Review Passed
+
+P5-B final DeepSeek review passed with no A-level blockers.
+
+Completed:
+- P5-B4 official Chuo evacuation/shelter data ingestion
+- PLATEAU building qualification and shelter-building matching
+- QGIS QA for shelter/building match layers
+- P5-B5 OSMnx/NetworkX estimated walking-route outputs
+- integrated route + qualification outputs
+- QGIS QA for route layers
+- B-level follow-up fixes after earlier review
+
+DeepSeek verdict:
+PASS
+
+P5-B is ready to mark complete.
+P5-C Unity read-only integration can start.
+
+Remaining B-level follow-up:
+- refine nearest-match semantic confidence logic in future
+- add artificial route-failure test case in future
+- repeat QGIS spot checks before publication/user-facing use
+- preserve OSM / ODbL attribution in Unity integration
+
+## 2026-05-20 | P5-C Unity Read-Only Integration Implemented
+
+P5-C implementation added Unity-side static loading, conservative debug visualization, and decision feedback for P5-B qualified building and OSM route outputs.
+
+Implemented:
+- copied the four P5-B JSON outputs into `Assets/Data`
+- added P5-C read-only data models/loaders for integrated route qualification, route samples, building qualification, and shelter-building matches
+- preserved qualification status, confidence, `manualReviewNeeded`, warnings, route distance/time, route geometry metadata, prototype route status, and OSM/ODbL attribution
+- added a collider-free P5-C qualification overlay for `sourceMode = real_sample` with `enableP5COverlay = true`
+- kept route lines disabled for current WGS84 `LineString` data because no verified Unity/PLATEAU coordinate transform exists
+- extended ResultPanel metrics with concise P5-C evidence feedback for non-test shelter sources and a safe unavailable fallback
+- added focused EditMode and PlayMode tests for loader, mapping, prototype route labels, attribution, fallback, and debug overlay behavior
+- documented P5-C mapping and limitations in `docs/P5C_UNITY_INTEGRATION.md`
+
+Safety boundaries preserved:
+- committed `sourceMode` remains `test`
+- P5-C runtime reads copied static JSON from `Assets/Data` only
+- no raw/download/cache/tmp/.venv/OSM cache/live GIS source is read by Unity runtime
+- OSM routes are labeled `estimated prototype route, not an official evacuation route`
+- OSM/ODbL attribution is preserved in data, UI metadata, and docs
+- qualification, route, and hazard feedback is informational and does not determine gameplay success/failure
+- H hazard toggle and M metadata/details toggle are preserved
+- no PLATEAU scene, `Chuo_BaseMap.unity`, `ProjectSettings`, or `Packages` changes were made
+
+Known limitations:
+- existing P4 `real_sample` shelter IDs do not safely map to P5-B official shelter IDs, so ResultPanel uses the P5-C unavailable fallback for those selections
+- WGS84 route geometry is loaded but not rendered until a verified Unity coordinate transform is defined
+- P5-C visualization is prototype/debug visualization, not navigation UI
+
+Future B-level follow-up:
+- refine nearest-match semantic confidence logic
+- add artificial out-of-network route failure test
+- repeat QGIS spot checks before publication/user-facing use
+- define verified Unity/PLATEAU coordinate conversion before rendering OSM route lines

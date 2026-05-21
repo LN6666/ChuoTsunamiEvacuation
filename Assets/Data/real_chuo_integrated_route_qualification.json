@@ -1,0 +1,2700 @@
+{
+  "datasetId": "p5_b5_real_chuo_integrated_route_qualification",
+  "generatedAt": "2026-05-20T01:55:25+09:00",
+  "coordinateReferenceSystem": "EPSG:4326",
+  "rulebookVersion": "p5-a2-qualification-rulebook-v1",
+  "qualificationInputPath": "data_pipeline/processed/qualification/real_chuo_building_qualification.json",
+  "routeInputPath": "data_pipeline/processed/routes/real_chuo_osm_routes_sample.json",
+  "osmAttribution": "Route network data from OpenStreetMap contributors; use under the Open Database License.",
+  "notes": "Integrated P5-B5 output preserves B4 evidence/qualification fields and adds OSM prototype walking-route estimates. Routes are not official evacuation routes.",
+  "records": [
+    {
+      "qualificationId": "real_chuo_building_qualification_001",
+      "plateauBuildingId": "13102-bldg-3742",
+      "shelterId": "chuo_official_emergency_001",
+      "shelterName": "城東小学校",
+      "officialDesignationStatus": "official_designated",
+      "qualificationStatus": "official_confirmed",
+      "qualificationReason": "Official Chuo evidence is present and the shelter point is contained by one local PLATEAU building footprint.",
+      "evidenceSources": [
+        {
+          "sourceId": "chuo_open_data_designated_emergency_shelters",
+          "sourceFamily": "official_shelter_facility",
+          "sourceName": "指定緊急避難所一覧",
+          "officialStatus": "official_primary",
+          "sourceUrl": "https://www.city.chuo.lg.jp/documents/984/shiteikinkyuuhinan.csv",
+          "sourceUpdatedAt": "2025-03-31",
+          "evidenceNote": "Primary Chuo City open-data record for a designated emergency evacuation shelter/place."
+        },
+        {
+          "sourceId": "gsi_chuo_designated_emergency_evacuation_places",
+          "sourceFamily": "official_shelter_facility",
+          "sourceName": "国土地理院 指定緊急避難場所データ 東京都中央区",
+          "officialStatus": "official_reference",
+          "sourceUrl": "https://hinanmap.gsi.go.jp/hinanjocp/defaultFtpData/csv/13102_2.csv",
+          "sourceUpdatedAt": "2025-09-02",
+          "evidenceNote": "Supporting official source has 1 record(s) with matching normalized facility name."
+        },
+        {
+          "sourceId": "gsi_chuo_designated_shelters",
+          "sourceFamily": "official_shelter_facility",
+          "sourceName": "国土地理院 指定避難所データ 東京都中央区",
+          "officialStatus": "official_reference",
+          "sourceUrl": "https://hinanmap.gsi.go.jp/hinanjocp/defaultFtpData/csv/13102_1.csv",
+          "sourceUpdatedAt": "2025-09-02",
+          "evidenceNote": "Supporting official source has 1 record(s) with matching normalized facility name."
+        },
+        {
+          "sourceId": "local_plateau_citygml_bldg_mesh_53394611",
+          "sourceFamily": "plateau_building_geometry",
+          "sourceName": "Local PLATEAU 2025 Chuo CityGML building mesh subset",
+          "officialStatus": "derived",
+          "sourceUrl": null,
+          "sourceUpdatedAt": null,
+          "evidenceNote": "Building footprint was derived from an existing local PLATEAU CityGML building mesh. Raw CityGML is not committed."
+        }
+      ],
+      "matchMethod": "contains",
+      "matchDistanceMeters": 0.0,
+      "confidence": "high",
+      "manualReviewNeeded": false,
+      "warnings": [
+        "official source does not provide safeFloor; preserve null for review",
+        "OSM route is an estimated prototype pedestrian route, not an official evacuation route",
+        "OSM route fields are prototype estimates and are not official evacuation routes"
+      ],
+      "disasterTypes": [
+        "flood",
+        "storm_surge",
+        "earthquake",
+        "inland_flooding"
+      ],
+      "safeFloor": null,
+      "capacity": 2480,
+      "sourceUpdatedAt": "2025-03-31",
+      "routeAvailability": "available",
+      "nearestRouteDistanceMeters": 1083.201,
+      "estimatedTravelTimeSeconds": 902.668,
+      "notes": "Normalized from official Chuo City open data. Original municipality code: 131024. Source marks overlap with designated shelter address. 国土地理院 指定緊急避難場所データ 東京都中央区 match count: 1 国土地理院 指定避難所データ 東京都中央区 match count: 1 B4 performs PLATEAU building matching only; route fields remain not_evaluated for P5-B5. B5 merged OSM route estimates where available; no disaster road closure, flood simulation, or Unity gameplay integration is applied.",
+      "routeSource": "OSM",
+      "routeType": "estimated_pedestrian_route",
+      "isOfficialEvacuationRoute": false,
+      "nearestRouteId": "osm_route_02_001",
+      "nearestRouteOriginId": "route_origin_nihonbashi_001",
+      "nearestRouteOriginName": "Nihonbashi controlled route test origin",
+      "availableRouteCount": 5,
+      "failedRouteCount": 0
+    },
+    {
+      "qualificationId": "real_chuo_building_qualification_002",
+      "plateauBuildingId": "13102-bldg-8069",
+      "shelterId": "chuo_official_emergency_002",
+      "shelterName": "京橋プラザ",
+      "officialDesignationStatus": "official_designated",
+      "qualificationStatus": "official_confirmed",
+      "qualificationReason": "Official Chuo evidence is present and the shelter point is contained by one local PLATEAU building footprint.",
+      "evidenceSources": [
+        {
+          "sourceId": "chuo_open_data_designated_emergency_shelters",
+          "sourceFamily": "official_shelter_facility",
+          "sourceName": "指定緊急避難所一覧",
+          "officialStatus": "official_primary",
+          "sourceUrl": "https://www.city.chuo.lg.jp/documents/984/shiteikinkyuuhinan.csv",
+          "sourceUpdatedAt": "2025-03-31",
+          "evidenceNote": "Primary Chuo City open-data record for a designated emergency evacuation shelter/place."
+        },
+        {
+          "sourceId": "tokyo_bosai_map_evacuation_center",
+          "sourceFamily": "official_shelter_facility",
+          "sourceName": "東京都防災マップ 避難所一覧データCSV",
+          "officialStatus": "official_reference",
+          "sourceUrl": "https://www.opendata.metro.tokyo.lg.jp/soumu/130001_evacuation_center.csv",
+          "sourceUpdatedAt": "2022-06-20",
+          "evidenceNote": "Supporting official source has 1 record(s) with matching normalized facility name."
+        },
+        {
+          "sourceId": "tokyo_bosai_map_evacuation_area",
+          "sourceFamily": "official_shelter_facility",
+          "sourceName": "東京都防災マップ 避難場所一覧データCSV",
+          "officialStatus": "official_reference",
+          "sourceUrl": "https://www.opendata.metro.tokyo.lg.jp/soumu/130001_evacuation_area.csv",
+          "sourceUpdatedAt": "2025-12-12",
+          "evidenceNote": "Supporting official source has 1 record(s) with matching normalized facility name."
+        },
+        {
+          "sourceId": "gsi_chuo_designated_emergency_evacuation_places",
+          "sourceFamily": "official_shelter_facility",
+          "sourceName": "国土地理院 指定緊急避難場所データ 東京都中央区",
+          "officialStatus": "official_reference",
+          "sourceUrl": "https://hinanmap.gsi.go.jp/hinanjocp/defaultFtpData/csv/13102_2.csv",
+          "sourceUpdatedAt": "2025-09-02",
+          "evidenceNote": "Supporting official source has 1 record(s) with matching normalized facility name."
+        },
+        {
+          "sourceId": "gsi_chuo_designated_shelters",
+          "sourceFamily": "official_shelter_facility",
+          "sourceName": "国土地理院 指定避難所データ 東京都中央区",
+          "officialStatus": "official_reference",
+          "sourceUrl": "https://hinanmap.gsi.go.jp/hinanjocp/defaultFtpData/csv/13102_1.csv",
+          "sourceUpdatedAt": "2025-09-02",
+          "evidenceNote": "Supporting official source has 1 record(s) with matching normalized facility name."
+        },
+        {
+          "sourceId": "local_plateau_citygml_bldg_mesh_53394601",
+          "sourceFamily": "plateau_building_geometry",
+          "sourceName": "Local PLATEAU 2025 Chuo CityGML building mesh subset",
+          "officialStatus": "derived",
+          "sourceUrl": null,
+          "sourceUpdatedAt": null,
+          "evidenceNote": "Building footprint was derived from an existing local PLATEAU CityGML building mesh. Raw CityGML is not committed."
+        }
+      ],
+      "matchMethod": "contains",
+      "matchDistanceMeters": 0.0,
+      "confidence": "high",
+      "manualReviewNeeded": false,
+      "warnings": [
+        "official source does not provide safeFloor; preserve null for review",
+        "OSM route is an estimated prototype pedestrian route, not an official evacuation route",
+        "OSM route fields are prototype estimates and are not official evacuation routes"
+      ],
+      "disasterTypes": [
+        "flood",
+        "storm_surge",
+        "earthquake",
+        "inland_flooding"
+      ],
+      "safeFloor": null,
+      "capacity": 1038,
+      "sourceUpdatedAt": "2025-03-31",
+      "routeAvailability": "available",
+      "nearestRouteDistanceMeters": 869.882,
+      "estimatedTravelTimeSeconds": 724.902,
+      "notes": "Normalized from official Chuo City open data. Original municipality code: 131024. Source marks overlap with designated shelter address. 東京都防災マップ 避難所一覧データCSV match count: 1 東京都防災マップ 避難場所一覧データCSV match count: 1 国土地理院 指定緊急避難場所データ 東京都中央区 match count: 1 国土地理院 指定避難所データ 東京都中央区 match count: 1 B4 performs PLATEAU building matching only; route fields remain not_evaluated for P5-B5. B5 merged OSM route estimates where available; no disaster road closure, flood simulation, or Unity gameplay integration is applied.",
+      "routeSource": "OSM",
+      "routeType": "estimated_pedestrian_route",
+      "isOfficialEvacuationRoute": false,
+      "nearestRouteId": "osm_route_01_002",
+      "nearestRouteOriginId": "route_origin_ginza_001",
+      "nearestRouteOriginName": "Ginza controlled route test origin",
+      "availableRouteCount": 5,
+      "failedRouteCount": 0
+    },
+    {
+      "qualificationId": "real_chuo_building_qualification_003",
+      "plateauBuildingId": "13102-bldg-5702",
+      "shelterId": "chuo_official_emergency_003",
+      "shelterName": "泰明小学校",
+      "officialDesignationStatus": "official_designated",
+      "qualificationStatus": "official_confirmed",
+      "qualificationReason": "Official Chuo evidence is present and the shelter point is contained by one local PLATEAU building footprint.",
+      "evidenceSources": [
+        {
+          "sourceId": "chuo_open_data_designated_emergency_shelters",
+          "sourceFamily": "official_shelter_facility",
+          "sourceName": "指定緊急避難所一覧",
+          "officialStatus": "official_primary",
+          "sourceUrl": "https://www.city.chuo.lg.jp/documents/984/shiteikinkyuuhinan.csv",
+          "sourceUpdatedAt": "2025-03-31",
+          "evidenceNote": "Primary Chuo City open-data record for a designated emergency evacuation shelter/place."
+        },
+        {
+          "sourceId": "tokyo_bosai_map_evacuation_center",
+          "sourceFamily": "official_shelter_facility",
+          "sourceName": "東京都防災マップ 避難所一覧データCSV",
+          "officialStatus": "official_reference",
+          "sourceUrl": "https://www.opendata.metro.tokyo.lg.jp/soumu/130001_evacuation_center.csv",
+          "sourceUpdatedAt": "2022-06-20",
+          "evidenceNote": "Supporting official source has 1 record(s) with matching normalized facility name."
+        },
+        {
+          "sourceId": "tokyo_bosai_map_evacuation_area",
+          "sourceFamily": "official_shelter_facility",
+          "sourceName": "東京都防災マップ 避難場所一覧データCSV",
+          "officialStatus": "official_reference",
+          "sourceUrl": "https://www.opendata.metro.tokyo.lg.jp/soumu/130001_evacuation_area.csv",
+          "sourceUpdatedAt": "2025-12-12",
+          "evidenceNote": "Supporting official source has 1 record(s) with matching normalized facility name."
+        },
+        {
+          "sourceId": "gsi_chuo_designated_emergency_evacuation_places",
+          "sourceFamily": "official_shelter_facility",
+          "sourceName": "国土地理院 指定緊急避難場所データ 東京都中央区",
+          "officialStatus": "official_reference",
+          "sourceUrl": "https://hinanmap.gsi.go.jp/hinanjocp/defaultFtpData/csv/13102_2.csv",
+          "sourceUpdatedAt": "2025-09-02",
+          "evidenceNote": "Supporting official source has 1 record(s) with matching normalized facility name."
+        },
+        {
+          "sourceId": "gsi_chuo_designated_shelters",
+          "sourceFamily": "official_shelter_facility",
+          "sourceName": "国土地理院 指定避難所データ 東京都中央区",
+          "officialStatus": "official_reference",
+          "sourceUrl": "https://hinanmap.gsi.go.jp/hinanjocp/defaultFtpData/csv/13102_1.csv",
+          "sourceUpdatedAt": "2025-09-02",
+          "evidenceNote": "Supporting official source has 1 record(s) with matching normalized facility name."
+        },
+        {
+          "sourceId": "local_plateau_citygml_bldg_mesh_53394600",
+          "sourceFamily": "plateau_building_geometry",
+          "sourceName": "Local PLATEAU 2025 Chuo CityGML building mesh subset",
+          "officialStatus": "derived",
+          "sourceUrl": null,
+          "sourceUpdatedAt": null,
+          "evidenceNote": "Building footprint was derived from an existing local PLATEAU CityGML building mesh. Raw CityGML is not committed."
+        }
+      ],
+      "matchMethod": "contains",
+      "matchDistanceMeters": 0.0,
+      "confidence": "high",
+      "manualReviewNeeded": false,
+      "warnings": [
+        "official source does not provide safeFloor; preserve null for review",
+        "OSM route is an estimated prototype pedestrian route, not an official evacuation route",
+        "OSM route fields are prototype estimates and are not official evacuation routes"
+      ],
+      "disasterTypes": [
+        "flood",
+        "storm_surge",
+        "earthquake",
+        "inland_flooding"
+      ],
+      "safeFloor": null,
+      "capacity": 2384,
+      "sourceUpdatedAt": "2025-03-31",
+      "routeAvailability": "available",
+      "nearestRouteDistanceMeters": 454.365,
+      "estimatedTravelTimeSeconds": 378.638,
+      "notes": "Normalized from official Chuo City open data. Original municipality code: 131024. Source marks overlap with designated shelter address. 東京都防災マップ 避難所一覧データCSV match count: 1 東京都防災マップ 避難場所一覧データCSV match count: 1 国土地理院 指定緊急避難場所データ 東京都中央区 match count: 1 国土地理院 指定避難所データ 東京都中央区 match count: 1 B4 performs PLATEAU building matching only; route fields remain not_evaluated for P5-B5. B5 merged OSM route estimates where available; no disaster road closure, flood simulation, or Unity gameplay integration is applied.",
+      "routeSource": "OSM",
+      "routeType": "estimated_pedestrian_route",
+      "isOfficialEvacuationRoute": false,
+      "nearestRouteId": "osm_route_01_003",
+      "nearestRouteOriginId": "route_origin_ginza_001",
+      "nearestRouteOriginName": "Ginza controlled route test origin",
+      "availableRouteCount": 5,
+      "failedRouteCount": 0
+    },
+    {
+      "qualificationId": "real_chuo_building_qualification_004",
+      "plateauBuildingId": "13102-bldg-3140",
+      "shelterId": "chuo_official_emergency_004",
+      "shelterName": "銀座中学校",
+      "officialDesignationStatus": "official_designated",
+      "qualificationStatus": "official_confirmed",
+      "qualificationReason": "Official Chuo evidence is present and the shelter point is contained by one local PLATEAU building footprint.",
+      "evidenceSources": [
+        {
+          "sourceId": "chuo_open_data_designated_emergency_shelters",
+          "sourceFamily": "official_shelter_facility",
+          "sourceName": "指定緊急避難所一覧",
+          "officialStatus": "official_primary",
+          "sourceUrl": "https://www.city.chuo.lg.jp/documents/984/shiteikinkyuuhinan.csv",
+          "sourceUpdatedAt": "2025-03-31",
+          "evidenceNote": "Primary Chuo City open-data record for a designated emergency evacuation shelter/place."
+        },
+        {
+          "sourceId": "tokyo_bosai_map_evacuation_center",
+          "sourceFamily": "official_shelter_facility",
+          "sourceName": "東京都防災マップ 避難所一覧データCSV",
+          "officialStatus": "official_reference",
+          "sourceUrl": "https://www.opendata.metro.tokyo.lg.jp/soumu/130001_evacuation_center.csv",
+          "sourceUpdatedAt": "2022-06-20",
+          "evidenceNote": "Supporting official source has 1 record(s) with matching normalized facility name."
+        },
+        {
+          "sourceId": "tokyo_bosai_map_evacuation_area",
+          "sourceFamily": "official_shelter_facility",
+          "sourceName": "東京都防災マップ 避難場所一覧データCSV",
+          "officialStatus": "official_reference",
+          "sourceUrl": "https://www.opendata.metro.tokyo.lg.jp/soumu/130001_evacuation_area.csv",
+          "sourceUpdatedAt": "2025-12-12",
+          "evidenceNote": "Supporting official source has 1 record(s) with matching normalized facility name."
+        },
+        {
+          "sourceId": "gsi_chuo_designated_emergency_evacuation_places",
+          "sourceFamily": "official_shelter_facility",
+          "sourceName": "国土地理院 指定緊急避難場所データ 東京都中央区",
+          "officialStatus": "official_reference",
+          "sourceUrl": "https://hinanmap.gsi.go.jp/hinanjocp/defaultFtpData/csv/13102_2.csv",
+          "sourceUpdatedAt": "2025-09-02",
+          "evidenceNote": "Supporting official source has 1 record(s) with matching normalized facility name."
+        },
+        {
+          "sourceId": "gsi_chuo_designated_shelters",
+          "sourceFamily": "official_shelter_facility",
+          "sourceName": "国土地理院 指定避難所データ 東京都中央区",
+          "officialStatus": "official_reference",
+          "sourceUrl": "https://hinanmap.gsi.go.jp/hinanjocp/defaultFtpData/csv/13102_1.csv",
+          "sourceUpdatedAt": "2025-09-02",
+          "evidenceNote": "Supporting official source has 1 record(s) with matching normalized facility name."
+        },
+        {
+          "sourceId": "local_plateau_citygml_bldg_mesh_53393691",
+          "sourceFamily": "plateau_building_geometry",
+          "sourceName": "Local PLATEAU 2025 Chuo CityGML building mesh subset",
+          "officialStatus": "derived",
+          "sourceUrl": null,
+          "sourceUpdatedAt": null,
+          "evidenceNote": "Building footprint was derived from an existing local PLATEAU CityGML building mesh. Raw CityGML is not committed."
+        }
+      ],
+      "matchMethod": "contains",
+      "matchDistanceMeters": 0.0,
+      "confidence": "high",
+      "manualReviewNeeded": false,
+      "warnings": [
+        "official source does not provide safeFloor; preserve null for review",
+        "OSM route is an estimated prototype pedestrian route, not an official evacuation route",
+        "OSM route fields are prototype estimates and are not official evacuation routes"
+      ],
+      "disasterTypes": [
+        "flood",
+        "storm_surge",
+        "earthquake",
+        "inland_flooding"
+      ],
+      "safeFloor": null,
+      "capacity": 4590,
+      "sourceUpdatedAt": "2025-03-31",
+      "routeAvailability": "available",
+      "nearestRouteDistanceMeters": 894.862,
+      "estimatedTravelTimeSeconds": 745.718,
+      "notes": "Normalized from official Chuo City open data. Original municipality code: 131024. Source marks overlap with designated shelter address. 東京都防災マップ 避難所一覧データCSV match count: 1 東京都防災マップ 避難場所一覧データCSV match count: 1 国土地理院 指定緊急避難場所データ 東京都中央区 match count: 1 国土地理院 指定避難所データ 東京都中央区 match count: 1 B4 performs PLATEAU building matching only; route fields remain not_evaluated for P5-B5. B5 merged OSM route estimates where available; no disaster road closure, flood simulation, or Unity gameplay integration is applied.",
+      "routeSource": "OSM",
+      "routeType": "estimated_pedestrian_route",
+      "isOfficialEvacuationRoute": false,
+      "nearestRouteId": "osm_route_01_004",
+      "nearestRouteOriginId": "route_origin_ginza_001",
+      "nearestRouteOriginName": "Ginza controlled route test origin",
+      "availableRouteCount": 5,
+      "failedRouteCount": 0
+    },
+    {
+      "qualificationId": "real_chuo_building_qualification_005",
+      "plateauBuildingId": "13102-bldg-3228",
+      "shelterId": "chuo_official_emergency_005",
+      "shelterName": "中央小学校",
+      "officialDesignationStatus": "official_designated",
+      "qualificationStatus": "official_confirmed",
+      "qualificationReason": "Official Chuo evidence is present and the shelter point is contained by one local PLATEAU building footprint.",
+      "evidenceSources": [
+        {
+          "sourceId": "chuo_open_data_designated_emergency_shelters",
+          "sourceFamily": "official_shelter_facility",
+          "sourceName": "指定緊急避難所一覧",
+          "officialStatus": "official_primary",
+          "sourceUrl": "https://www.city.chuo.lg.jp/documents/984/shiteikinkyuuhinan.csv",
+          "sourceUpdatedAt": "2025-03-31",
+          "evidenceNote": "Primary Chuo City open-data record for a designated emergency evacuation shelter/place."
+        },
+        {
+          "sourceId": "tokyo_bosai_map_evacuation_center",
+          "sourceFamily": "official_shelter_facility",
+          "sourceName": "東京都防災マップ 避難所一覧データCSV",
+          "officialStatus": "official_reference",
+          "sourceUrl": "https://www.opendata.metro.tokyo.lg.jp/soumu/130001_evacuation_center.csv",
+          "sourceUpdatedAt": "2022-06-20",
+          "evidenceNote": "Supporting official source has 1 record(s) with matching normalized facility name."
+        },
+        {
+          "sourceId": "tokyo_bosai_map_evacuation_area",
+          "sourceFamily": "official_shelter_facility",
+          "sourceName": "東京都防災マップ 避難場所一覧データCSV",
+          "officialStatus": "official_reference",
+          "sourceUrl": "https://www.opendata.metro.tokyo.lg.jp/soumu/130001_evacuation_area.csv",
+          "sourceUpdatedAt": "2025-12-12",
+          "evidenceNote": "Supporting official source has 1 record(s) with matching normalized facility name."
+        },
+        {
+          "sourceId": "gsi_chuo_designated_emergency_evacuation_places",
+          "sourceFamily": "official_shelter_facility",
+          "sourceName": "国土地理院 指定緊急避難場所データ 東京都中央区",
+          "officialStatus": "official_reference",
+          "sourceUrl": "https://hinanmap.gsi.go.jp/hinanjocp/defaultFtpData/csv/13102_2.csv",
+          "sourceUpdatedAt": "2025-09-02",
+          "evidenceNote": "Supporting official source has 1 record(s) with matching normalized facility name."
+        },
+        {
+          "sourceId": "gsi_chuo_designated_shelters",
+          "sourceFamily": "official_shelter_facility",
+          "sourceName": "国土地理院 指定避難所データ 東京都中央区",
+          "officialStatus": "official_reference",
+          "sourceUrl": "https://hinanmap.gsi.go.jp/hinanjocp/defaultFtpData/csv/13102_1.csv",
+          "sourceUpdatedAt": "2025-09-02",
+          "evidenceNote": "Supporting official source has 1 record(s) with matching normalized facility name."
+        },
+        {
+          "sourceId": "local_plateau_citygml_bldg_mesh_53394602",
+          "sourceFamily": "plateau_building_geometry",
+          "sourceName": "Local PLATEAU 2025 Chuo CityGML building mesh subset",
+          "officialStatus": "derived",
+          "sourceUrl": null,
+          "sourceUpdatedAt": null,
+          "evidenceNote": "Building footprint was derived from an existing local PLATEAU CityGML building mesh. Raw CityGML is not committed."
+        }
+      ],
+      "matchMethod": "contains",
+      "matchDistanceMeters": 0.0,
+      "confidence": "high",
+      "manualReviewNeeded": false,
+      "warnings": [
+        "official source does not provide safeFloor; preserve null for review",
+        "OSM route is an estimated prototype pedestrian route, not an official evacuation route",
+        "OSM route fields are prototype estimates and are not official evacuation routes"
+      ],
+      "disasterTypes": [
+        "flood",
+        "storm_surge",
+        "earthquake",
+        "inland_flooding"
+      ],
+      "safeFloor": null,
+      "capacity": 2940,
+      "sourceUpdatedAt": "2025-03-31",
+      "routeAvailability": "available",
+      "nearestRouteDistanceMeters": 537.159,
+      "estimatedTravelTimeSeconds": 447.632,
+      "notes": "Normalized from official Chuo City open data. Original municipality code: 131024. Source marks overlap with designated shelter address. 東京都防災マップ 避難所一覧データCSV match count: 1 東京都防災マップ 避難場所一覧データCSV match count: 1 国土地理院 指定緊急避難場所データ 東京都中央区 match count: 1 国土地理院 指定避難所データ 東京都中央区 match count: 1 B4 performs PLATEAU building matching only; route fields remain not_evaluated for P5-B5. B5 merged OSM route estimates where available; no disaster road closure, flood simulation, or Unity gameplay integration is applied.",
+      "routeSource": "OSM",
+      "routeType": "estimated_pedestrian_route",
+      "isOfficialEvacuationRoute": false,
+      "nearestRouteId": "osm_route_03_005",
+      "nearestRouteOriginId": "route_origin_hatchobori_tsukiji_001",
+      "nearestRouteOriginName": "Hatchobori Tsukiji controlled route test origin",
+      "availableRouteCount": 5,
+      "failedRouteCount": 0
+    },
+    {
+      "qualificationId": "real_chuo_building_qualification_006",
+      "plateauBuildingId": "13102-bldg-3751",
+      "shelterId": "chuo_official_emergency_006",
+      "shelterName": "明石小学校",
+      "officialDesignationStatus": "official_designated",
+      "qualificationStatus": "official_confirmed",
+      "qualificationReason": "Official Chuo evidence is present and the shelter point is contained by one local PLATEAU building footprint.",
+      "evidenceSources": [
+        {
+          "sourceId": "chuo_open_data_designated_emergency_shelters",
+          "sourceFamily": "official_shelter_facility",
+          "sourceName": "指定緊急避難所一覧",
+          "officialStatus": "official_primary",
+          "sourceUrl": "https://www.city.chuo.lg.jp/documents/984/shiteikinkyuuhinan.csv",
+          "sourceUpdatedAt": "2025-03-31",
+          "evidenceNote": "Primary Chuo City open-data record for a designated emergency evacuation shelter/place."
+        },
+        {
+          "sourceId": "tokyo_bosai_map_evacuation_center",
+          "sourceFamily": "official_shelter_facility",
+          "sourceName": "東京都防災マップ 避難所一覧データCSV",
+          "officialStatus": "official_reference",
+          "sourceUrl": "https://www.opendata.metro.tokyo.lg.jp/soumu/130001_evacuation_center.csv",
+          "sourceUpdatedAt": "2022-06-20",
+          "evidenceNote": "Supporting official source has 1 record(s) with matching normalized facility name."
+        },
+        {
+          "sourceId": "tokyo_bosai_map_evacuation_area",
+          "sourceFamily": "official_shelter_facility",
+          "sourceName": "東京都防災マップ 避難場所一覧データCSV",
+          "officialStatus": "official_reference",
+          "sourceUrl": "https://www.opendata.metro.tokyo.lg.jp/soumu/130001_evacuation_area.csv",
+          "sourceUpdatedAt": "2025-12-12",
+          "evidenceNote": "Supporting official source has 1 record(s) with matching normalized facility name."
+        },
+        {
+          "sourceId": "gsi_chuo_designated_emergency_evacuation_places",
+          "sourceFamily": "official_shelter_facility",
+          "sourceName": "国土地理院 指定緊急避難場所データ 東京都中央区",
+          "officialStatus": "official_reference",
+          "sourceUrl": "https://hinanmap.gsi.go.jp/hinanjocp/defaultFtpData/csv/13102_2.csv",
+          "sourceUpdatedAt": "2025-09-02",
+          "evidenceNote": "Supporting official source has 1 record(s) with matching normalized facility name."
+        },
+        {
+          "sourceId": "gsi_chuo_designated_shelters",
+          "sourceFamily": "official_shelter_facility",
+          "sourceName": "国土地理院 指定避難所データ 東京都中央区",
+          "officialStatus": "official_reference",
+          "sourceUrl": "https://hinanmap.gsi.go.jp/hinanjocp/defaultFtpData/csv/13102_1.csv",
+          "sourceUpdatedAt": "2025-09-02",
+          "evidenceNote": "Supporting official source has 1 record(s) with matching normalized facility name."
+        },
+        {
+          "sourceId": "local_plateau_citygml_bldg_mesh_53394602",
+          "sourceFamily": "plateau_building_geometry",
+          "sourceName": "Local PLATEAU 2025 Chuo CityGML building mesh subset",
+          "officialStatus": "derived",
+          "sourceUrl": null,
+          "sourceUpdatedAt": null,
+          "evidenceNote": "Building footprint was derived from an existing local PLATEAU CityGML building mesh. Raw CityGML is not committed."
+        }
+      ],
+      "matchMethod": "contains",
+      "matchDistanceMeters": 0.0,
+      "confidence": "high",
+      "manualReviewNeeded": false,
+      "warnings": [
+        "official source does not provide safeFloor; preserve null for review",
+        "OSM route is an estimated prototype pedestrian route, not an official evacuation route",
+        "OSM route fields are prototype estimates and are not official evacuation routes"
+      ],
+      "disasterTypes": [
+        "flood",
+        "storm_surge",
+        "earthquake",
+        "inland_flooding"
+      ],
+      "safeFloor": null,
+      "capacity": 3903,
+      "sourceUpdatedAt": "2025-03-31",
+      "routeAvailability": "available",
+      "nearestRouteDistanceMeters": 97.727,
+      "estimatedTravelTimeSeconds": 81.439,
+      "notes": "Normalized from official Chuo City open data. Original municipality code: 131024. Source marks overlap with designated shelter address. 東京都防災マップ 避難所一覧データCSV match count: 1 東京都防災マップ 避難場所一覧データCSV match count: 1 国土地理院 指定緊急避難場所データ 東京都中央区 match count: 1 国土地理院 指定避難所データ 東京都中央区 match count: 1 B4 performs PLATEAU building matching only; route fields remain not_evaluated for P5-B5. B5 merged OSM route estimates where available; no disaster road closure, flood simulation, or Unity gameplay integration is applied.",
+      "routeSource": "OSM",
+      "routeType": "estimated_pedestrian_route",
+      "isOfficialEvacuationRoute": false,
+      "nearestRouteId": "osm_route_03_006",
+      "nearestRouteOriginId": "route_origin_hatchobori_tsukiji_001",
+      "nearestRouteOriginName": "Hatchobori Tsukiji controlled route test origin",
+      "availableRouteCount": 5,
+      "failedRouteCount": 0
+    },
+    {
+      "qualificationId": "real_chuo_building_qualification_007",
+      "plateauBuildingId": "13102-bldg-2853",
+      "shelterId": "chuo_official_emergency_007",
+      "shelterName": "京橋築地小学校",
+      "officialDesignationStatus": "official_designated",
+      "qualificationStatus": "official_confirmed",
+      "qualificationReason": "Official Chuo evidence is present and the shelter point is contained by one local PLATEAU building footprint.",
+      "evidenceSources": [
+        {
+          "sourceId": "chuo_open_data_designated_emergency_shelters",
+          "sourceFamily": "official_shelter_facility",
+          "sourceName": "指定緊急避難所一覧",
+          "officialStatus": "official_primary",
+          "sourceUrl": "https://www.city.chuo.lg.jp/documents/984/shiteikinkyuuhinan.csv",
+          "sourceUpdatedAt": "2025-03-31",
+          "evidenceNote": "Primary Chuo City open-data record for a designated emergency evacuation shelter/place."
+        },
+        {
+          "sourceId": "tokyo_bosai_map_evacuation_center",
+          "sourceFamily": "official_shelter_facility",
+          "sourceName": "東京都防災マップ 避難所一覧データCSV",
+          "officialStatus": "official_reference",
+          "sourceUrl": "https://www.opendata.metro.tokyo.lg.jp/soumu/130001_evacuation_center.csv",
+          "sourceUpdatedAt": "2022-06-20",
+          "evidenceNote": "Supporting official source has 1 record(s) with matching normalized facility name."
+        },
+        {
+          "sourceId": "tokyo_bosai_map_evacuation_area",
+          "sourceFamily": "official_shelter_facility",
+          "sourceName": "東京都防災マップ 避難場所一覧データCSV",
+          "officialStatus": "official_reference",
+          "sourceUrl": "https://www.opendata.metro.tokyo.lg.jp/soumu/130001_evacuation_area.csv",
+          "sourceUpdatedAt": "2025-12-12",
+          "evidenceNote": "Supporting official source has 1 record(s) with matching normalized facility name."
+        },
+        {
+          "sourceId": "gsi_chuo_designated_emergency_evacuation_places",
+          "sourceFamily": "official_shelter_facility",
+          "sourceName": "国土地理院 指定緊急避難場所データ 東京都中央区",
+          "officialStatus": "official_reference",
+          "sourceUrl": "https://hinanmap.gsi.go.jp/hinanjocp/defaultFtpData/csv/13102_2.csv",
+          "sourceUpdatedAt": "2025-09-02",
+          "evidenceNote": "Supporting official source has 1 record(s) with matching normalized facility name."
+        },
+        {
+          "sourceId": "gsi_chuo_designated_shelters",
+          "sourceFamily": "official_shelter_facility",
+          "sourceName": "国土地理院 指定避難所データ 東京都中央区",
+          "officialStatus": "official_reference",
+          "sourceUrl": "https://hinanmap.gsi.go.jp/hinanjocp/defaultFtpData/csv/13102_1.csv",
+          "sourceUpdatedAt": "2025-09-02",
+          "evidenceNote": "Supporting official source has 1 record(s) with matching normalized facility name."
+        },
+        {
+          "sourceId": "local_plateau_citygml_bldg_mesh_53394601",
+          "sourceFamily": "plateau_building_geometry",
+          "sourceName": "Local PLATEAU 2025 Chuo CityGML building mesh subset",
+          "officialStatus": "derived",
+          "sourceUrl": null,
+          "sourceUpdatedAt": null,
+          "evidenceNote": "Building footprint was derived from an existing local PLATEAU CityGML building mesh. Raw CityGML is not committed."
+        }
+      ],
+      "matchMethod": "contains",
+      "matchDistanceMeters": 0.0,
+      "confidence": "high",
+      "manualReviewNeeded": false,
+      "warnings": [
+        "official source does not provide safeFloor; preserve null for review",
+        "OSM route is an estimated prototype pedestrian route, not an official evacuation route",
+        "OSM route fields are prototype estimates and are not official evacuation routes"
+      ],
+      "disasterTypes": [
+        "flood",
+        "storm_surge",
+        "earthquake",
+        "inland_flooding"
+      ],
+      "safeFloor": null,
+      "capacity": 3397,
+      "sourceUpdatedAt": "2025-03-31",
+      "routeAvailability": "available",
+      "nearestRouteDistanceMeters": 714.915,
+      "estimatedTravelTimeSeconds": 595.763,
+      "notes": "Normalized from official Chuo City open data. Original municipality code: 131024. Source marks overlap with designated shelter address. 東京都防災マップ 避難所一覧データCSV match count: 1 東京都防災マップ 避難場所一覧データCSV match count: 1 国土地理院 指定緊急避難場所データ 東京都中央区 match count: 1 国土地理院 指定避難所データ 東京都中央区 match count: 1 B4 performs PLATEAU building matching only; route fields remain not_evaluated for P5-B5. B5 merged OSM route estimates where available; no disaster road closure, flood simulation, or Unity gameplay integration is applied.",
+      "routeSource": "OSM",
+      "routeType": "estimated_pedestrian_route",
+      "isOfficialEvacuationRoute": false,
+      "nearestRouteId": "osm_route_01_007",
+      "nearestRouteOriginId": "route_origin_ginza_001",
+      "nearestRouteOriginName": "Ginza controlled route test origin",
+      "availableRouteCount": 5,
+      "failedRouteCount": 0
+    },
+    {
+      "qualificationId": "real_chuo_building_qualification_008",
+      "plateauBuildingId": "13102-bldg-8277",
+      "shelterId": "chuo_official_emergency_008",
+      "shelterName": "京華スクエア",
+      "officialDesignationStatus": "official_designated",
+      "qualificationStatus": "official_confirmed",
+      "qualificationReason": "Official Chuo evidence is present and the shelter point is contained by one local PLATEAU building footprint.",
+      "evidenceSources": [
+        {
+          "sourceId": "chuo_open_data_designated_emergency_shelters",
+          "sourceFamily": "official_shelter_facility",
+          "sourceName": "指定緊急避難所一覧",
+          "officialStatus": "official_primary",
+          "sourceUrl": "https://www.city.chuo.lg.jp/documents/984/shiteikinkyuuhinan.csv",
+          "sourceUpdatedAt": "2025-03-31",
+          "evidenceNote": "Primary Chuo City open-data record for a designated emergency evacuation shelter/place."
+        },
+        {
+          "sourceId": "tokyo_bosai_map_evacuation_center",
+          "sourceFamily": "official_shelter_facility",
+          "sourceName": "東京都防災マップ 避難所一覧データCSV",
+          "officialStatus": "official_reference",
+          "sourceUrl": "https://www.opendata.metro.tokyo.lg.jp/soumu/130001_evacuation_center.csv",
+          "sourceUpdatedAt": "2022-06-20",
+          "evidenceNote": "Supporting official source has 1 record(s) with matching normalized facility name."
+        },
+        {
+          "sourceId": "tokyo_bosai_map_evacuation_area",
+          "sourceFamily": "official_shelter_facility",
+          "sourceName": "東京都防災マップ 避難場所一覧データCSV",
+          "officialStatus": "official_reference",
+          "sourceUrl": "https://www.opendata.metro.tokyo.lg.jp/soumu/130001_evacuation_area.csv",
+          "sourceUpdatedAt": "2025-12-12",
+          "evidenceNote": "Supporting official source has 1 record(s) with matching normalized facility name."
+        },
+        {
+          "sourceId": "gsi_chuo_designated_emergency_evacuation_places",
+          "sourceFamily": "official_shelter_facility",
+          "sourceName": "国土地理院 指定緊急避難場所データ 東京都中央区",
+          "officialStatus": "official_reference",
+          "sourceUrl": "https://hinanmap.gsi.go.jp/hinanjocp/defaultFtpData/csv/13102_2.csv",
+          "sourceUpdatedAt": "2025-09-02",
+          "evidenceNote": "Supporting official source has 1 record(s) with matching normalized facility name."
+        },
+        {
+          "sourceId": "gsi_chuo_designated_shelters",
+          "sourceFamily": "official_shelter_facility",
+          "sourceName": "国土地理院 指定避難所データ 東京都中央区",
+          "officialStatus": "official_reference",
+          "sourceUrl": "https://hinanmap.gsi.go.jp/hinanjocp/defaultFtpData/csv/13102_1.csv",
+          "sourceUpdatedAt": "2025-09-02",
+          "evidenceNote": "Supporting official source has 1 record(s) with matching normalized facility name."
+        },
+        {
+          "sourceId": "local_plateau_citygml_bldg_mesh_53394602",
+          "sourceFamily": "plateau_building_geometry",
+          "sourceName": "Local PLATEAU 2025 Chuo CityGML building mesh subset",
+          "officialStatus": "derived",
+          "sourceUrl": null,
+          "sourceUpdatedAt": null,
+          "evidenceNote": "Building footprint was derived from an existing local PLATEAU CityGML building mesh. Raw CityGML is not committed."
+        }
+      ],
+      "matchMethod": "contains",
+      "matchDistanceMeters": 0.0,
+      "confidence": "high",
+      "manualReviewNeeded": false,
+      "warnings": [
+        "official source does not provide safeFloor; preserve null for review",
+        "OSM route is an estimated prototype pedestrian route, not an official evacuation route",
+        "OSM route fields are prototype estimates and are not official evacuation routes"
+      ],
+      "disasterTypes": [
+        "flood",
+        "storm_surge",
+        "earthquake",
+        "inland_flooding"
+      ],
+      "safeFloor": null,
+      "capacity": 2460,
+      "sourceUpdatedAt": "2025-03-31",
+      "routeAvailability": "available",
+      "nearestRouteDistanceMeters": 956.373,
+      "estimatedTravelTimeSeconds": 796.978,
+      "notes": "Normalized from official Chuo City open data. Original municipality code: 131024. Source marks overlap with designated shelter address. 東京都防災マップ 避難所一覧データCSV match count: 1 東京都防災マップ 避難場所一覧データCSV match count: 1 国土地理院 指定緊急避難場所データ 東京都中央区 match count: 1 国土地理院 指定避難所データ 東京都中央区 match count: 1 B4 performs PLATEAU building matching only; route fields remain not_evaluated for P5-B5. B5 merged OSM route estimates where available; no disaster road closure, flood simulation, or Unity gameplay integration is applied.",
+      "routeSource": "OSM",
+      "routeType": "estimated_pedestrian_route",
+      "isOfficialEvacuationRoute": false,
+      "nearestRouteId": "osm_route_03_008",
+      "nearestRouteOriginId": "route_origin_hatchobori_tsukiji_001",
+      "nearestRouteOriginName": "Hatchobori Tsukiji controlled route test origin",
+      "availableRouteCount": 5,
+      "failedRouteCount": 0
+    },
+    {
+      "qualificationId": "real_chuo_building_qualification_009",
+      "plateauBuildingId": "13102-bldg-11364",
+      "shelterId": "chuo_official_emergency_009",
+      "shelterName": "明正小学校",
+      "officialDesignationStatus": "official_designated",
+      "qualificationStatus": "official_confirmed",
+      "qualificationReason": "Official Chuo evidence is present and the shelter point is contained by one local PLATEAU building footprint.",
+      "evidenceSources": [
+        {
+          "sourceId": "chuo_open_data_designated_emergency_shelters",
+          "sourceFamily": "official_shelter_facility",
+          "sourceName": "指定緊急避難所一覧",
+          "officialStatus": "official_primary",
+          "sourceUrl": "https://www.city.chuo.lg.jp/documents/984/shiteikinkyuuhinan.csv",
+          "sourceUpdatedAt": "2025-03-31",
+          "evidenceNote": "Primary Chuo City open-data record for a designated emergency evacuation shelter/place."
+        },
+        {
+          "sourceId": "tokyo_bosai_map_evacuation_center",
+          "sourceFamily": "official_shelter_facility",
+          "sourceName": "東京都防災マップ 避難所一覧データCSV",
+          "officialStatus": "official_reference",
+          "sourceUrl": "https://www.opendata.metro.tokyo.lg.jp/soumu/130001_evacuation_center.csv",
+          "sourceUpdatedAt": "2022-06-20",
+          "evidenceNote": "Supporting official source has 1 record(s) with matching normalized facility name."
+        },
+        {
+          "sourceId": "tokyo_bosai_map_evacuation_area",
+          "sourceFamily": "official_shelter_facility",
+          "sourceName": "東京都防災マップ 避難場所一覧データCSV",
+          "officialStatus": "official_reference",
+          "sourceUrl": "https://www.opendata.metro.tokyo.lg.jp/soumu/130001_evacuation_area.csv",
+          "sourceUpdatedAt": "2025-12-12",
+          "evidenceNote": "Supporting official source has 1 record(s) with matching normalized facility name."
+        },
+        {
+          "sourceId": "gsi_chuo_designated_emergency_evacuation_places",
+          "sourceFamily": "official_shelter_facility",
+          "sourceName": "国土地理院 指定緊急避難場所データ 東京都中央区",
+          "officialStatus": "official_reference",
+          "sourceUrl": "https://hinanmap.gsi.go.jp/hinanjocp/defaultFtpData/csv/13102_2.csv",
+          "sourceUpdatedAt": "2025-09-02",
+          "evidenceNote": "Supporting official source has 1 record(s) with matching normalized facility name."
+        },
+        {
+          "sourceId": "gsi_chuo_designated_shelters",
+          "sourceFamily": "official_shelter_facility",
+          "sourceName": "国土地理院 指定避難所データ 東京都中央区",
+          "officialStatus": "official_reference",
+          "sourceUrl": "https://hinanmap.gsi.go.jp/hinanjocp/defaultFtpData/csv/13102_1.csv",
+          "sourceUpdatedAt": "2025-09-02",
+          "evidenceNote": "Supporting official source has 1 record(s) with matching normalized facility name."
+        },
+        {
+          "sourceId": "local_plateau_citygml_bldg_mesh_53394612",
+          "sourceFamily": "plateau_building_geometry",
+          "sourceName": "Local PLATEAU 2025 Chuo CityGML building mesh subset",
+          "officialStatus": "derived",
+          "sourceUrl": null,
+          "sourceUpdatedAt": null,
+          "evidenceNote": "Building footprint was derived from an existing local PLATEAU CityGML building mesh. Raw CityGML is not committed."
+        }
+      ],
+      "matchMethod": "contains",
+      "matchDistanceMeters": 0.0,
+      "confidence": "high",
+      "manualReviewNeeded": false,
+      "warnings": [
+        "official source does not provide safeFloor; preserve null for review",
+        "OSM route is an estimated prototype pedestrian route, not an official evacuation route",
+        "OSM route fields are prototype estimates and are not official evacuation routes"
+      ],
+      "disasterTypes": [
+        "flood",
+        "storm_surge",
+        "earthquake",
+        "inland_flooding"
+      ],
+      "safeFloor": null,
+      "capacity": 5200,
+      "sourceUpdatedAt": "2025-03-31",
+      "routeAvailability": "available",
+      "nearestRouteDistanceMeters": 1143.164,
+      "estimatedTravelTimeSeconds": 952.637,
+      "notes": "Normalized from official Chuo City open data. Original municipality code: 131024. Source marks overlap with designated shelter address. 東京都防災マップ 避難所一覧データCSV match count: 1 東京都防災マップ 避難場所一覧データCSV match count: 1 国土地理院 指定緊急避難場所データ 東京都中央区 match count: 1 国土地理院 指定避難所データ 東京都中央区 match count: 1 B4 performs PLATEAU building matching only; route fields remain not_evaluated for P5-B5. B5 merged OSM route estimates where available; no disaster road closure, flood simulation, or Unity gameplay integration is applied.",
+      "routeSource": "OSM",
+      "routeType": "estimated_pedestrian_route",
+      "isOfficialEvacuationRoute": false,
+      "nearestRouteId": "osm_route_02_009",
+      "nearestRouteOriginId": "route_origin_nihonbashi_001",
+      "nearestRouteOriginName": "Nihonbashi controlled route test origin",
+      "availableRouteCount": 5,
+      "failedRouteCount": 0
+    },
+    {
+      "qualificationId": "real_chuo_building_qualification_010",
+      "plateauBuildingId": "13102-bldg-2872",
+      "shelterId": "chuo_official_emergency_010",
+      "shelterName": "常盤小学校",
+      "officialDesignationStatus": "official_designated",
+      "qualificationStatus": "official_confirmed",
+      "qualificationReason": "Official Chuo evidence is present and the shelter point is contained by one local PLATEAU building footprint.",
+      "evidenceSources": [
+        {
+          "sourceId": "chuo_open_data_designated_emergency_shelters",
+          "sourceFamily": "official_shelter_facility",
+          "sourceName": "指定緊急避難所一覧",
+          "officialStatus": "official_primary",
+          "sourceUrl": "https://www.city.chuo.lg.jp/documents/984/shiteikinkyuuhinan.csv",
+          "sourceUpdatedAt": "2025-03-31",
+          "evidenceNote": "Primary Chuo City open-data record for a designated emergency evacuation shelter/place."
+        },
+        {
+          "sourceId": "tokyo_bosai_map_evacuation_center",
+          "sourceFamily": "official_shelter_facility",
+          "sourceName": "東京都防災マップ 避難所一覧データCSV",
+          "officialStatus": "official_reference",
+          "sourceUrl": "https://www.opendata.metro.tokyo.lg.jp/soumu/130001_evacuation_center.csv",
+          "sourceUpdatedAt": "2022-06-20",
+          "evidenceNote": "Supporting official source has 1 record(s) with matching normalized facility name."
+        },
+        {
+          "sourceId": "tokyo_bosai_map_evacuation_area",
+          "sourceFamily": "official_shelter_facility",
+          "sourceName": "東京都防災マップ 避難場所一覧データCSV",
+          "officialStatus": "official_reference",
+          "sourceUrl": "https://www.opendata.metro.tokyo.lg.jp/soumu/130001_evacuation_area.csv",
+          "sourceUpdatedAt": "2025-12-12",
+          "evidenceNote": "Supporting official source has 1 record(s) with matching normalized facility name."
+        },
+        {
+          "sourceId": "gsi_chuo_designated_emergency_evacuation_places",
+          "sourceFamily": "official_shelter_facility",
+          "sourceName": "国土地理院 指定緊急避難場所データ 東京都中央区",
+          "officialStatus": "official_reference",
+          "sourceUrl": "https://hinanmap.gsi.go.jp/hinanjocp/defaultFtpData/csv/13102_2.csv",
+          "sourceUpdatedAt": "2025-09-02",
+          "evidenceNote": "Supporting official source has 1 record(s) with matching normalized facility name."
+        },
+        {
+          "sourceId": "gsi_chuo_designated_shelters",
+          "sourceFamily": "official_shelter_facility",
+          "sourceName": "国土地理院 指定避難所データ 東京都中央区",
+          "officialStatus": "official_reference",
+          "sourceUrl": "https://hinanmap.gsi.go.jp/hinanjocp/defaultFtpData/csv/13102_1.csv",
+          "sourceUpdatedAt": "2025-09-02",
+          "evidenceNote": "Supporting official source has 1 record(s) with matching normalized facility name."
+        },
+        {
+          "sourceId": "local_plateau_citygml_bldg_mesh_53394621",
+          "sourceFamily": "plateau_building_geometry",
+          "sourceName": "Local PLATEAU 2025 Chuo CityGML building mesh subset",
+          "officialStatus": "derived",
+          "sourceUrl": null,
+          "sourceUpdatedAt": null,
+          "evidenceNote": "Building footprint was derived from an existing local PLATEAU CityGML building mesh. Raw CityGML is not committed."
+        }
+      ],
+      "matchMethod": "contains",
+      "matchDistanceMeters": 0.0,
+      "confidence": "high",
+      "manualReviewNeeded": false,
+      "warnings": [
+        "official source does not provide safeFloor; preserve null for review",
+        "OSM route is an estimated prototype pedestrian route, not an official evacuation route",
+        "OSM route fields are prototype estimates and are not official evacuation routes"
+      ],
+      "disasterTypes": [
+        "flood",
+        "storm_surge",
+        "earthquake",
+        "inland_flooding"
+      ],
+      "safeFloor": null,
+      "capacity": 1749,
+      "sourceUpdatedAt": "2025-03-31",
+      "routeAvailability": "available",
+      "nearestRouteDistanceMeters": 926.319,
+      "estimatedTravelTimeSeconds": 771.933,
+      "notes": "Normalized from official Chuo City open data. Original municipality code: 131024. Source marks overlap with designated shelter address. 東京都防災マップ 避難所一覧データCSV match count: 1 東京都防災マップ 避難場所一覧データCSV match count: 1 国土地理院 指定緊急避難場所データ 東京都中央区 match count: 1 国土地理院 指定避難所データ 東京都中央区 match count: 1 B4 performs PLATEAU building matching only; route fields remain not_evaluated for P5-B5. B5 merged OSM route estimates where available; no disaster road closure, flood simulation, or Unity gameplay integration is applied.",
+      "routeSource": "OSM",
+      "routeType": "estimated_pedestrian_route",
+      "isOfficialEvacuationRoute": false,
+      "nearestRouteId": "osm_route_02_010",
+      "nearestRouteOriginId": "route_origin_nihonbashi_001",
+      "nearestRouteOriginName": "Nihonbashi controlled route test origin",
+      "availableRouteCount": 5,
+      "failedRouteCount": 0
+    },
+    {
+      "qualificationId": "real_chuo_building_qualification_011",
+      "plateauBuildingId": "13102-bldg-15570",
+      "shelterId": "chuo_official_emergency_011",
+      "shelterName": "十思スクエア",
+      "officialDesignationStatus": "official_designated",
+      "qualificationStatus": "official_confirmed",
+      "qualificationReason": "Official Chuo evidence is present and the shelter point is contained by one local PLATEAU building footprint.",
+      "evidenceSources": [
+        {
+          "sourceId": "chuo_open_data_designated_emergency_shelters",
+          "sourceFamily": "official_shelter_facility",
+          "sourceName": "指定緊急避難所一覧",
+          "officialStatus": "official_primary",
+          "sourceUrl": "https://www.city.chuo.lg.jp/documents/984/shiteikinkyuuhinan.csv",
+          "sourceUpdatedAt": "2025-03-31",
+          "evidenceNote": "Primary Chuo City open-data record for a designated emergency evacuation shelter/place."
+        },
+        {
+          "sourceId": "tokyo_bosai_map_evacuation_center",
+          "sourceFamily": "official_shelter_facility",
+          "sourceName": "東京都防災マップ 避難所一覧データCSV",
+          "officialStatus": "official_reference",
+          "sourceUrl": "https://www.opendata.metro.tokyo.lg.jp/soumu/130001_evacuation_center.csv",
+          "sourceUpdatedAt": "2022-06-20",
+          "evidenceNote": "Supporting official source has 1 record(s) with matching normalized facility name."
+        },
+        {
+          "sourceId": "tokyo_bosai_map_evacuation_area",
+          "sourceFamily": "official_shelter_facility",
+          "sourceName": "東京都防災マップ 避難場所一覧データCSV",
+          "officialStatus": "official_reference",
+          "sourceUrl": "https://www.opendata.metro.tokyo.lg.jp/soumu/130001_evacuation_area.csv",
+          "sourceUpdatedAt": "2025-12-12",
+          "evidenceNote": "Supporting official source has 1 record(s) with matching normalized facility name."
+        },
+        {
+          "sourceId": "gsi_chuo_designated_emergency_evacuation_places",
+          "sourceFamily": "official_shelter_facility",
+          "sourceName": "国土地理院 指定緊急避難場所データ 東京都中央区",
+          "officialStatus": "official_reference",
+          "sourceUrl": "https://hinanmap.gsi.go.jp/hinanjocp/defaultFtpData/csv/13102_2.csv",
+          "sourceUpdatedAt": "2025-09-02",
+          "evidenceNote": "Supporting official source has 1 record(s) with matching normalized facility name."
+        },
+        {
+          "sourceId": "gsi_chuo_designated_shelters",
+          "sourceFamily": "official_shelter_facility",
+          "sourceName": "国土地理院 指定避難所データ 東京都中央区",
+          "officialStatus": "official_reference",
+          "sourceUrl": "https://hinanmap.gsi.go.jp/hinanjocp/defaultFtpData/csv/13102_1.csv",
+          "sourceUpdatedAt": "2025-09-02",
+          "evidenceNote": "Supporting official source has 1 record(s) with matching normalized facility name."
+        },
+        {
+          "sourceId": "local_plateau_citygml_bldg_mesh_53394622",
+          "sourceFamily": "plateau_building_geometry",
+          "sourceName": "Local PLATEAU 2025 Chuo CityGML building mesh subset",
+          "officialStatus": "derived",
+          "sourceUrl": null,
+          "sourceUpdatedAt": null,
+          "evidenceNote": "Building footprint was derived from an existing local PLATEAU CityGML building mesh. Raw CityGML is not committed."
+        }
+      ],
+      "matchMethod": "contains",
+      "matchDistanceMeters": 0.0,
+      "confidence": "high",
+      "manualReviewNeeded": false,
+      "warnings": [
+        "official source does not provide safeFloor; preserve null for review",
+        "OSM route is an estimated prototype pedestrian route, not an official evacuation route",
+        "OSM route fields are prototype estimates and are not official evacuation routes"
+      ],
+      "disasterTypes": [
+        "flood",
+        "storm_surge",
+        "earthquake",
+        "inland_flooding"
+      ],
+      "safeFloor": null,
+      "capacity": 1332,
+      "sourceUpdatedAt": "2025-03-31",
+      "routeAvailability": "available",
+      "nearestRouteDistanceMeters": 1155.84,
+      "estimatedTravelTimeSeconds": 963.2,
+      "notes": "Normalized from official Chuo City open data. Original municipality code: 131024. Source marks overlap with designated shelter address. 東京都防災マップ 避難所一覧データCSV match count: 1 東京都防災マップ 避難場所一覧データCSV match count: 1 国土地理院 指定緊急避難場所データ 東京都中央区 match count: 1 国土地理院 指定避難所データ 東京都中央区 match count: 1 B4 performs PLATEAU building matching only; route fields remain not_evaluated for P5-B5. B5 merged OSM route estimates where available; no disaster road closure, flood simulation, or Unity gameplay integration is applied.",
+      "routeSource": "OSM",
+      "routeType": "estimated_pedestrian_route",
+      "isOfficialEvacuationRoute": false,
+      "nearestRouteId": "osm_route_02_011",
+      "nearestRouteOriginId": "route_origin_nihonbashi_001",
+      "nearestRouteOriginName": "Nihonbashi controlled route test origin",
+      "availableRouteCount": 5,
+      "failedRouteCount": 0
+    },
+    {
+      "qualificationId": "real_chuo_building_qualification_012",
+      "plateauBuildingId": "13102-bldg-12810",
+      "shelterId": "chuo_official_emergency_012",
+      "shelterName": "日本橋小学校",
+      "officialDesignationStatus": "official_designated_with_review",
+      "qualificationStatus": "official_confirmed_with_review",
+      "qualificationReason": "Official Chuo evidence is present, but PLATEAU building matching requires manual review.",
+      "evidenceSources": [
+        {
+          "sourceId": "chuo_open_data_designated_emergency_shelters",
+          "sourceFamily": "official_shelter_facility",
+          "sourceName": "指定緊急避難所一覧",
+          "officialStatus": "official_primary",
+          "sourceUrl": "https://www.city.chuo.lg.jp/documents/984/shiteikinkyuuhinan.csv",
+          "sourceUpdatedAt": "2025-03-31",
+          "evidenceNote": "Primary Chuo City open-data record for a designated emergency evacuation shelter/place."
+        },
+        {
+          "sourceId": "tokyo_bosai_map_evacuation_center",
+          "sourceFamily": "official_shelter_facility",
+          "sourceName": "東京都防災マップ 避難所一覧データCSV",
+          "officialStatus": "official_reference",
+          "sourceUrl": "https://www.opendata.metro.tokyo.lg.jp/soumu/130001_evacuation_center.csv",
+          "sourceUpdatedAt": "2022-06-20",
+          "evidenceNote": "Supporting official source has 1 record(s) with matching normalized facility name."
+        },
+        {
+          "sourceId": "tokyo_bosai_map_evacuation_area",
+          "sourceFamily": "official_shelter_facility",
+          "sourceName": "東京都防災マップ 避難場所一覧データCSV",
+          "officialStatus": "official_reference",
+          "sourceUrl": "https://www.opendata.metro.tokyo.lg.jp/soumu/130001_evacuation_area.csv",
+          "sourceUpdatedAt": "2025-12-12",
+          "evidenceNote": "Supporting official source has 1 record(s) with matching normalized facility name."
+        },
+        {
+          "sourceId": "gsi_chuo_designated_emergency_evacuation_places",
+          "sourceFamily": "official_shelter_facility",
+          "sourceName": "国土地理院 指定緊急避難場所データ 東京都中央区",
+          "officialStatus": "official_reference",
+          "sourceUrl": "https://hinanmap.gsi.go.jp/hinanjocp/defaultFtpData/csv/13102_2.csv",
+          "sourceUpdatedAt": "2025-09-02",
+          "evidenceNote": "Supporting official source has 1 record(s) with matching normalized facility name."
+        },
+        {
+          "sourceId": "gsi_chuo_designated_shelters",
+          "sourceFamily": "official_shelter_facility",
+          "sourceName": "国土地理院 指定避難所データ 東京都中央区",
+          "officialStatus": "official_reference",
+          "sourceUrl": "https://hinanmap.gsi.go.jp/hinanjocp/defaultFtpData/csv/13102_1.csv",
+          "sourceUpdatedAt": "2025-09-02",
+          "evidenceNote": "Supporting official source has 1 record(s) with matching normalized facility name."
+        },
+        {
+          "sourceId": "local_plateau_citygml_bldg_mesh_53394622",
+          "sourceFamily": "plateau_building_geometry",
+          "sourceName": "Local PLATEAU 2025 Chuo CityGML building mesh subset",
+          "officialStatus": "derived",
+          "sourceUrl": null,
+          "sourceUpdatedAt": null,
+          "evidenceNote": "Building footprint was derived from an existing local PLATEAU CityGML building mesh. Raw CityGML is not committed."
+        }
+      ],
+      "matchMethod": "nearest",
+      "matchDistanceMeters": 13.45,
+      "confidence": "medium",
+      "manualReviewNeeded": true,
+      "warnings": [
+        "shelter point is outside PLATEAU footprint; nearest-building match requires review",
+        "official source does not provide safeFloor; preserve null for review",
+        "OSM route is an estimated prototype pedestrian route, not an official evacuation route",
+        "target building qualification requires manual review",
+        "target uses nearest PLATEAU building match; review in QGIS",
+        "OSM route fields are prototype estimates and are not official evacuation routes"
+      ],
+      "disasterTypes": [
+        "flood",
+        "storm_surge",
+        "earthquake",
+        "inland_flooding"
+      ],
+      "safeFloor": null,
+      "capacity": 3120,
+      "sourceUpdatedAt": "2025-03-31",
+      "routeAvailability": "available",
+      "nearestRouteDistanceMeters": 823.208,
+      "estimatedTravelTimeSeconds": 686.007,
+      "notes": "Normalized from official Chuo City open data. Original municipality code: 131024. Source marks overlap with designated shelter address. 東京都防災マップ 避難所一覧データCSV match count: 1 東京都防災マップ 避難場所一覧データCSV match count: 1 国土地理院 指定緊急避難場所データ 東京都中央区 match count: 1 国土地理院 指定避難所データ 東京都中央区 match count: 1 B4 performs PLATEAU building matching only; route fields remain not_evaluated for P5-B5. B5 merged OSM route estimates where available; no disaster road closure, flood simulation, or Unity gameplay integration is applied.",
+      "routeSource": "OSM",
+      "routeType": "estimated_pedestrian_route",
+      "isOfficialEvacuationRoute": false,
+      "nearestRouteId": "osm_route_02_012",
+      "nearestRouteOriginId": "route_origin_nihonbashi_001",
+      "nearestRouteOriginName": "Nihonbashi controlled route test origin",
+      "availableRouteCount": 5,
+      "failedRouteCount": 0
+    },
+    {
+      "qualificationId": "real_chuo_building_qualification_013",
+      "plateauBuildingId": "13102-bldg-12391",
+      "shelterId": "chuo_official_emergency_013",
+      "shelterName": "有馬小学校",
+      "officialDesignationStatus": "official_designated",
+      "qualificationStatus": "official_confirmed",
+      "qualificationReason": "Official Chuo evidence is present and the shelter point is contained by one local PLATEAU building footprint.",
+      "evidenceSources": [
+        {
+          "sourceId": "chuo_open_data_designated_emergency_shelters",
+          "sourceFamily": "official_shelter_facility",
+          "sourceName": "指定緊急避難所一覧",
+          "officialStatus": "official_primary",
+          "sourceUrl": "https://www.city.chuo.lg.jp/documents/984/shiteikinkyuuhinan.csv",
+          "sourceUpdatedAt": "2025-03-31",
+          "evidenceNote": "Primary Chuo City open-data record for a designated emergency evacuation shelter/place."
+        },
+        {
+          "sourceId": "tokyo_bosai_map_evacuation_center",
+          "sourceFamily": "official_shelter_facility",
+          "sourceName": "東京都防災マップ 避難所一覧データCSV",
+          "officialStatus": "official_reference",
+          "sourceUrl": "https://www.opendata.metro.tokyo.lg.jp/soumu/130001_evacuation_center.csv",
+          "sourceUpdatedAt": "2022-06-20",
+          "evidenceNote": "Supporting official source has 1 record(s) with matching normalized facility name."
+        },
+        {
+          "sourceId": "tokyo_bosai_map_evacuation_area",
+          "sourceFamily": "official_shelter_facility",
+          "sourceName": "東京都防災マップ 避難場所一覧データCSV",
+          "officialStatus": "official_reference",
+          "sourceUrl": "https://www.opendata.metro.tokyo.lg.jp/soumu/130001_evacuation_area.csv",
+          "sourceUpdatedAt": "2025-12-12",
+          "evidenceNote": "Supporting official source has 1 record(s) with matching normalized facility name."
+        },
+        {
+          "sourceId": "gsi_chuo_designated_emergency_evacuation_places",
+          "sourceFamily": "official_shelter_facility",
+          "sourceName": "国土地理院 指定緊急避難場所データ 東京都中央区",
+          "officialStatus": "official_reference",
+          "sourceUrl": "https://hinanmap.gsi.go.jp/hinanjocp/defaultFtpData/csv/13102_2.csv",
+          "sourceUpdatedAt": "2025-09-02",
+          "evidenceNote": "Supporting official source has 1 record(s) with matching normalized facility name."
+        },
+        {
+          "sourceId": "gsi_chuo_designated_shelters",
+          "sourceFamily": "official_shelter_facility",
+          "sourceName": "国土地理院 指定避難所データ 東京都中央区",
+          "officialStatus": "official_reference",
+          "sourceUrl": "https://hinanmap.gsi.go.jp/hinanjocp/defaultFtpData/csv/13102_1.csv",
+          "sourceUpdatedAt": "2025-09-02",
+          "evidenceNote": "Supporting official source has 1 record(s) with matching normalized facility name."
+        },
+        {
+          "sourceId": "local_plateau_citygml_bldg_mesh_53394613",
+          "sourceFamily": "plateau_building_geometry",
+          "sourceName": "Local PLATEAU 2025 Chuo CityGML building mesh subset",
+          "officialStatus": "derived",
+          "sourceUrl": null,
+          "sourceUpdatedAt": null,
+          "evidenceNote": "Building footprint was derived from an existing local PLATEAU CityGML building mesh. Raw CityGML is not committed."
+        }
+      ],
+      "matchMethod": "contains",
+      "matchDistanceMeters": 0.0,
+      "confidence": "high",
+      "manualReviewNeeded": false,
+      "warnings": [
+        "official source does not provide safeFloor; preserve null for review",
+        "OSM route is an estimated prototype pedestrian route, not an official evacuation route",
+        "OSM route fields are prototype estimates and are not official evacuation routes"
+      ],
+      "disasterTypes": [
+        "flood",
+        "storm_surge",
+        "earthquake",
+        "inland_flooding"
+      ],
+      "safeFloor": null,
+      "capacity": 4075,
+      "sourceUpdatedAt": "2025-03-31",
+      "routeAvailability": "available",
+      "nearestRouteDistanceMeters": 1497.205,
+      "estimatedTravelTimeSeconds": 1247.671,
+      "notes": "Normalized from official Chuo City open data. Original municipality code: 131024. Source marks overlap with designated shelter address. 東京都防災マップ 避難所一覧データCSV match count: 1 東京都防災マップ 避難場所一覧データCSV match count: 1 国土地理院 指定緊急避難場所データ 東京都中央区 match count: 1 国土地理院 指定避難所データ 東京都中央区 match count: 1 B4 performs PLATEAU building matching only; route fields remain not_evaluated for P5-B5. B5 merged OSM route estimates where available; no disaster road closure, flood simulation, or Unity gameplay integration is applied.",
+      "routeSource": "OSM",
+      "routeType": "estimated_pedestrian_route",
+      "isOfficialEvacuationRoute": false,
+      "nearestRouteId": "osm_route_02_013",
+      "nearestRouteOriginId": "route_origin_nihonbashi_001",
+      "nearestRouteOriginName": "Nihonbashi controlled route test origin",
+      "availableRouteCount": 5,
+      "failedRouteCount": 0
+    },
+    {
+      "qualificationId": "real_chuo_building_qualification_014",
+      "plateauBuildingId": "13102-bldg-14859",
+      "shelterId": "chuo_official_emergency_014",
+      "shelterName": "久松小学校",
+      "officialDesignationStatus": "official_designated",
+      "qualificationStatus": "official_confirmed",
+      "qualificationReason": "Official Chuo evidence is present and the shelter point is contained by one local PLATEAU building footprint.",
+      "evidenceSources": [
+        {
+          "sourceId": "chuo_open_data_designated_emergency_shelters",
+          "sourceFamily": "official_shelter_facility",
+          "sourceName": "指定緊急避難所一覧",
+          "officialStatus": "official_primary",
+          "sourceUrl": "https://www.city.chuo.lg.jp/documents/984/shiteikinkyuuhinan.csv",
+          "sourceUpdatedAt": "2025-03-31",
+          "evidenceNote": "Primary Chuo City open-data record for a designated emergency evacuation shelter/place."
+        },
+        {
+          "sourceId": "tokyo_bosai_map_evacuation_center",
+          "sourceFamily": "official_shelter_facility",
+          "sourceName": "東京都防災マップ 避難所一覧データCSV",
+          "officialStatus": "official_reference",
+          "sourceUrl": "https://www.opendata.metro.tokyo.lg.jp/soumu/130001_evacuation_center.csv",
+          "sourceUpdatedAt": "2022-06-20",
+          "evidenceNote": "Supporting official source has 1 record(s) with matching normalized facility name."
+        },
+        {
+          "sourceId": "tokyo_bosai_map_evacuation_area",
+          "sourceFamily": "official_shelter_facility",
+          "sourceName": "東京都防災マップ 避難場所一覧データCSV",
+          "officialStatus": "official_reference",
+          "sourceUrl": "https://www.opendata.metro.tokyo.lg.jp/soumu/130001_evacuation_area.csv",
+          "sourceUpdatedAt": "2025-12-12",
+          "evidenceNote": "Supporting official source has 1 record(s) with matching normalized facility name."
+        },
+        {
+          "sourceId": "gsi_chuo_designated_emergency_evacuation_places",
+          "sourceFamily": "official_shelter_facility",
+          "sourceName": "国土地理院 指定緊急避難場所データ 東京都中央区",
+          "officialStatus": "official_reference",
+          "sourceUrl": "https://hinanmap.gsi.go.jp/hinanjocp/defaultFtpData/csv/13102_2.csv",
+          "sourceUpdatedAt": "2025-09-02",
+          "evidenceNote": "Supporting official source has 1 record(s) with matching normalized facility name."
+        },
+        {
+          "sourceId": "gsi_chuo_designated_shelters",
+          "sourceFamily": "official_shelter_facility",
+          "sourceName": "国土地理院 指定避難所データ 東京都中央区",
+          "officialStatus": "official_reference",
+          "sourceUrl": "https://hinanmap.gsi.go.jp/hinanjocp/defaultFtpData/csv/13102_1.csv",
+          "sourceUpdatedAt": "2025-09-02",
+          "evidenceNote": "Supporting official source has 1 record(s) with matching normalized facility name."
+        },
+        {
+          "sourceId": "local_plateau_citygml_bldg_mesh_53394622",
+          "sourceFamily": "plateau_building_geometry",
+          "sourceName": "Local PLATEAU 2025 Chuo CityGML building mesh subset",
+          "officialStatus": "derived",
+          "sourceUrl": null,
+          "sourceUpdatedAt": null,
+          "evidenceNote": "Building footprint was derived from an existing local PLATEAU CityGML building mesh. Raw CityGML is not committed."
+        }
+      ],
+      "matchMethod": "contains",
+      "matchDistanceMeters": 0.0,
+      "confidence": "high",
+      "manualReviewNeeded": false,
+      "warnings": [
+        "official source does not provide safeFloor; preserve null for review",
+        "OSM route is an estimated prototype pedestrian route, not an official evacuation route",
+        "OSM route fields are prototype estimates and are not official evacuation routes"
+      ],
+      "disasterTypes": [
+        "flood",
+        "storm_surge",
+        "earthquake",
+        "inland_flooding"
+      ],
+      "safeFloor": null,
+      "capacity": 4212,
+      "sourceUpdatedAt": "2025-03-31",
+      "routeAvailability": "available",
+      "nearestRouteDistanceMeters": 1283.159,
+      "estimatedTravelTimeSeconds": 1069.299,
+      "notes": "Normalized from official Chuo City open data. Original municipality code: 131024. Source marks overlap with designated shelter address. 東京都防災マップ 避難所一覧データCSV match count: 1 東京都防災マップ 避難場所一覧データCSV match count: 1 国土地理院 指定緊急避難場所データ 東京都中央区 match count: 1 国土地理院 指定避難所データ 東京都中央区 match count: 1 B4 performs PLATEAU building matching only; route fields remain not_evaluated for P5-B5. B5 merged OSM route estimates where available; no disaster road closure, flood simulation, or Unity gameplay integration is applied.",
+      "routeSource": "OSM",
+      "routeType": "estimated_pedestrian_route",
+      "isOfficialEvacuationRoute": false,
+      "nearestRouteId": "osm_route_02_014",
+      "nearestRouteOriginId": "route_origin_nihonbashi_001",
+      "nearestRouteOriginName": "Nihonbashi controlled route test origin",
+      "availableRouteCount": 5,
+      "failedRouteCount": 0
+    },
+    {
+      "qualificationId": "real_chuo_building_qualification_015",
+      "plateauBuildingId": "13102-bldg-15963",
+      "shelterId": "chuo_official_emergency_015",
+      "shelterName": "日本橋中学校",
+      "officialDesignationStatus": "official_designated",
+      "qualificationStatus": "official_confirmed",
+      "qualificationReason": "Official Chuo evidence is present and the shelter point is contained by one local PLATEAU building footprint.",
+      "evidenceSources": [
+        {
+          "sourceId": "chuo_open_data_designated_emergency_shelters",
+          "sourceFamily": "official_shelter_facility",
+          "sourceName": "指定緊急避難所一覧",
+          "officialStatus": "official_primary",
+          "sourceUrl": "https://www.city.chuo.lg.jp/documents/984/shiteikinkyuuhinan.csv",
+          "sourceUpdatedAt": "2025-03-31",
+          "evidenceNote": "Primary Chuo City open-data record for a designated emergency evacuation shelter/place."
+        },
+        {
+          "sourceId": "tokyo_bosai_map_evacuation_center",
+          "sourceFamily": "official_shelter_facility",
+          "sourceName": "東京都防災マップ 避難所一覧データCSV",
+          "officialStatus": "official_reference",
+          "sourceUrl": "https://www.opendata.metro.tokyo.lg.jp/soumu/130001_evacuation_center.csv",
+          "sourceUpdatedAt": "2022-06-20",
+          "evidenceNote": "Supporting official source has 1 record(s) with matching normalized facility name."
+        },
+        {
+          "sourceId": "tokyo_bosai_map_evacuation_area",
+          "sourceFamily": "official_shelter_facility",
+          "sourceName": "東京都防災マップ 避難場所一覧データCSV",
+          "officialStatus": "official_reference",
+          "sourceUrl": "https://www.opendata.metro.tokyo.lg.jp/soumu/130001_evacuation_area.csv",
+          "sourceUpdatedAt": "2025-12-12",
+          "evidenceNote": "Supporting official source has 1 record(s) with matching normalized facility name."
+        },
+        {
+          "sourceId": "local_plateau_citygml_bldg_mesh_53394632",
+          "sourceFamily": "plateau_building_geometry",
+          "sourceName": "Local PLATEAU 2025 Chuo CityGML building mesh subset",
+          "officialStatus": "derived",
+          "sourceUrl": null,
+          "sourceUpdatedAt": null,
+          "evidenceNote": "Building footprint was derived from an existing local PLATEAU CityGML building mesh. Raw CityGML is not committed."
+        }
+      ],
+      "matchMethod": "contains",
+      "matchDistanceMeters": 0.0,
+      "confidence": "high",
+      "manualReviewNeeded": false,
+      "warnings": [
+        "official source does not provide safeFloor; preserve null for review",
+        "OSM route is an estimated prototype pedestrian route, not an official evacuation route",
+        "OSM route fields are prototype estimates and are not official evacuation routes"
+      ],
+      "disasterTypes": [
+        "flood",
+        "storm_surge",
+        "earthquake",
+        "inland_flooding"
+      ],
+      "safeFloor": null,
+      "capacity": 4176,
+      "sourceUpdatedAt": "2025-03-31",
+      "routeAvailability": "available",
+      "nearestRouteDistanceMeters": 1708.703,
+      "estimatedTravelTimeSeconds": 1423.919,
+      "notes": "Normalized from official Chuo City open data. Original municipality code: 131024. Source marks overlap with designated shelter address. 東京都防災マップ 避難所一覧データCSV match count: 1 東京都防災マップ 避難場所一覧データCSV match count: 1 B4 performs PLATEAU building matching only; route fields remain not_evaluated for P5-B5. B5 merged OSM route estimates where available; no disaster road closure, flood simulation, or Unity gameplay integration is applied.",
+      "routeSource": "OSM",
+      "routeType": "estimated_pedestrian_route",
+      "isOfficialEvacuationRoute": false,
+      "nearestRouteId": "osm_route_02_015",
+      "nearestRouteOriginId": "route_origin_nihonbashi_001",
+      "nearestRouteOriginName": "Nihonbashi controlled route test origin",
+      "availableRouteCount": 5,
+      "failedRouteCount": 0
+    },
+    {
+      "qualificationId": "real_chuo_building_qualification_016",
+      "plateauBuildingId": "13102-bldg-10474",
+      "shelterId": "chuo_official_emergency_016",
+      "shelterName": "阪本小学校",
+      "officialDesignationStatus": "official_designated",
+      "qualificationStatus": "official_confirmed",
+      "qualificationReason": "Official Chuo evidence is present and the shelter point is contained by one local PLATEAU building footprint.",
+      "evidenceSources": [
+        {
+          "sourceId": "chuo_open_data_designated_emergency_shelters",
+          "sourceFamily": "official_shelter_facility",
+          "sourceName": "指定緊急避難所一覧",
+          "officialStatus": "official_primary",
+          "sourceUrl": "https://www.city.chuo.lg.jp/documents/984/shiteikinkyuuhinan.csv",
+          "sourceUpdatedAt": "2025-03-31",
+          "evidenceNote": "Primary Chuo City open-data record for a designated emergency evacuation shelter/place."
+        },
+        {
+          "sourceId": "tokyo_bosai_map_evacuation_center",
+          "sourceFamily": "official_shelter_facility",
+          "sourceName": "東京都防災マップ 避難所一覧データCSV",
+          "officialStatus": "official_reference",
+          "sourceUrl": "https://www.opendata.metro.tokyo.lg.jp/soumu/130001_evacuation_center.csv",
+          "sourceUpdatedAt": "2022-06-20",
+          "evidenceNote": "Supporting official source has 1 record(s) with matching normalized facility name."
+        },
+        {
+          "sourceId": "tokyo_bosai_map_evacuation_area",
+          "sourceFamily": "official_shelter_facility",
+          "sourceName": "東京都防災マップ 避難場所一覧データCSV",
+          "officialStatus": "official_reference",
+          "sourceUrl": "https://www.opendata.metro.tokyo.lg.jp/soumu/130001_evacuation_area.csv",
+          "sourceUpdatedAt": "2025-12-12",
+          "evidenceNote": "Supporting official source has 1 record(s) with matching normalized facility name."
+        },
+        {
+          "sourceId": "gsi_chuo_designated_emergency_evacuation_places",
+          "sourceFamily": "official_shelter_facility",
+          "sourceName": "国土地理院 指定緊急避難場所データ 東京都中央区",
+          "officialStatus": "official_reference",
+          "sourceUrl": "https://hinanmap.gsi.go.jp/hinanjocp/defaultFtpData/csv/13102_2.csv",
+          "sourceUpdatedAt": "2025-09-02",
+          "evidenceNote": "Supporting official source has 1 record(s) with matching normalized facility name."
+        },
+        {
+          "sourceId": "gsi_chuo_designated_shelters",
+          "sourceFamily": "official_shelter_facility",
+          "sourceName": "国土地理院 指定避難所データ 東京都中央区",
+          "officialStatus": "official_reference",
+          "sourceUrl": "https://hinanmap.gsi.go.jp/hinanjocp/defaultFtpData/csv/13102_1.csv",
+          "sourceUpdatedAt": "2025-09-02",
+          "evidenceNote": "Supporting official source has 1 record(s) with matching normalized facility name."
+        },
+        {
+          "sourceId": "local_plateau_citygml_bldg_mesh_53394612",
+          "sourceFamily": "plateau_building_geometry",
+          "sourceName": "Local PLATEAU 2025 Chuo CityGML building mesh subset",
+          "officialStatus": "derived",
+          "sourceUrl": null,
+          "sourceUpdatedAt": null,
+          "evidenceNote": "Building footprint was derived from an existing local PLATEAU CityGML building mesh. Raw CityGML is not committed."
+        }
+      ],
+      "matchMethod": "contains",
+      "matchDistanceMeters": 0.0,
+      "confidence": "high",
+      "manualReviewNeeded": false,
+      "warnings": [
+        "official source does not provide safeFloor; preserve null for review",
+        "OSM route is an estimated prototype pedestrian route, not an official evacuation route",
+        "OSM route fields are prototype estimates and are not official evacuation routes"
+      ],
+      "disasterTypes": [
+        "flood",
+        "storm_surge",
+        "earthquake",
+        "inland_flooding"
+      ],
+      "safeFloor": null,
+      "capacity": 2987,
+      "sourceUpdatedAt": "2025-03-31",
+      "routeAvailability": "available",
+      "nearestRouteDistanceMeters": 541.15,
+      "estimatedTravelTimeSeconds": 450.958,
+      "notes": "Normalized from official Chuo City open data. Original municipality code: 131024. Source marks overlap with designated shelter address. 東京都防災マップ 避難所一覧データCSV match count: 1 東京都防災マップ 避難場所一覧データCSV match count: 1 国土地理院 指定緊急避難場所データ 東京都中央区 match count: 1 国土地理院 指定避難所データ 東京都中央区 match count: 1 B4 performs PLATEAU building matching only; route fields remain not_evaluated for P5-B5. B5 merged OSM route estimates where available; no disaster road closure, flood simulation, or Unity gameplay integration is applied.",
+      "routeSource": "OSM",
+      "routeType": "estimated_pedestrian_route",
+      "isOfficialEvacuationRoute": false,
+      "nearestRouteId": "osm_route_02_016",
+      "nearestRouteOriginId": "route_origin_nihonbashi_001",
+      "nearestRouteOriginName": "Nihonbashi controlled route test origin",
+      "availableRouteCount": 5,
+      "failedRouteCount": 0
+    },
+    {
+      "qualificationId": "real_chuo_building_qualification_017",
+      "plateauBuildingId": "13102-bldg-8511",
+      "shelterId": "chuo_official_emergency_017",
+      "shelterName": "佃島小学校",
+      "officialDesignationStatus": "official_designated",
+      "qualificationStatus": "official_confirmed",
+      "qualificationReason": "Official Chuo evidence is present and the shelter point is contained by one local PLATEAU building footprint.",
+      "evidenceSources": [
+        {
+          "sourceId": "chuo_open_data_designated_emergency_shelters",
+          "sourceFamily": "official_shelter_facility",
+          "sourceName": "指定緊急避難所一覧",
+          "officialStatus": "official_primary",
+          "sourceUrl": "https://www.city.chuo.lg.jp/documents/984/shiteikinkyuuhinan.csv",
+          "sourceUpdatedAt": "2025-03-31",
+          "evidenceNote": "Primary Chuo City open-data record for a designated emergency evacuation shelter/place."
+        },
+        {
+          "sourceId": "tokyo_bosai_map_evacuation_center",
+          "sourceFamily": "official_shelter_facility",
+          "sourceName": "東京都防災マップ 避難所一覧データCSV",
+          "officialStatus": "official_reference",
+          "sourceUrl": "https://www.opendata.metro.tokyo.lg.jp/soumu/130001_evacuation_center.csv",
+          "sourceUpdatedAt": "2022-06-20",
+          "evidenceNote": "Supporting official source has 1 record(s) with matching normalized facility name."
+        },
+        {
+          "sourceId": "tokyo_bosai_map_evacuation_area",
+          "sourceFamily": "official_shelter_facility",
+          "sourceName": "東京都防災マップ 避難場所一覧データCSV",
+          "officialStatus": "official_reference",
+          "sourceUrl": "https://www.opendata.metro.tokyo.lg.jp/soumu/130001_evacuation_area.csv",
+          "sourceUpdatedAt": "2025-12-12",
+          "evidenceNote": "Supporting official source has 1 record(s) with matching normalized facility name."
+        },
+        {
+          "sourceId": "gsi_chuo_designated_emergency_evacuation_places",
+          "sourceFamily": "official_shelter_facility",
+          "sourceName": "国土地理院 指定緊急避難場所データ 東京都中央区",
+          "officialStatus": "official_reference",
+          "sourceUrl": "https://hinanmap.gsi.go.jp/hinanjocp/defaultFtpData/csv/13102_2.csv",
+          "sourceUpdatedAt": "2025-09-02",
+          "evidenceNote": "Supporting official source has 1 record(s) with matching normalized facility name."
+        },
+        {
+          "sourceId": "gsi_chuo_designated_shelters",
+          "sourceFamily": "official_shelter_facility",
+          "sourceName": "国土地理院 指定避難所データ 東京都中央区",
+          "officialStatus": "official_reference",
+          "sourceUrl": "https://hinanmap.gsi.go.jp/hinanjocp/defaultFtpData/csv/13102_1.csv",
+          "sourceUpdatedAt": "2025-09-02",
+          "evidenceNote": "Supporting official source has 1 record(s) with matching normalized facility name."
+        },
+        {
+          "sourceId": "local_plateau_citygml_bldg_mesh_53394602",
+          "sourceFamily": "plateau_building_geometry",
+          "sourceName": "Local PLATEAU 2025 Chuo CityGML building mesh subset",
+          "officialStatus": "derived",
+          "sourceUrl": null,
+          "sourceUpdatedAt": null,
+          "evidenceNote": "Building footprint was derived from an existing local PLATEAU CityGML building mesh. Raw CityGML is not committed."
+        }
+      ],
+      "matchMethod": "contains",
+      "matchDistanceMeters": 0.0,
+      "confidence": "high",
+      "manualReviewNeeded": false,
+      "warnings": [
+        "official source does not provide safeFloor; preserve null for review",
+        "OSM route is an estimated prototype pedestrian route, not an official evacuation route",
+        "OSM route fields are prototype estimates and are not official evacuation routes"
+      ],
+      "disasterTypes": [
+        "flood",
+        "storm_surge",
+        "earthquake",
+        "tsunami",
+        "inland_flooding"
+      ],
+      "safeFloor": null,
+      "capacity": 4509,
+      "sourceUpdatedAt": "2025-03-31",
+      "routeAvailability": "available",
+      "nearestRouteDistanceMeters": 985.939,
+      "estimatedTravelTimeSeconds": 821.616,
+      "notes": "Normalized from official Chuo City open data. Original municipality code: 131024. Source marks overlap with designated shelter address. 東京都防災マップ 避難所一覧データCSV match count: 1 東京都防災マップ 避難場所一覧データCSV match count: 1 国土地理院 指定緊急避難場所データ 東京都中央区 match count: 1 国土地理院 指定避難所データ 東京都中央区 match count: 1 B4 performs PLATEAU building matching only; route fields remain not_evaluated for P5-B5. B5 merged OSM route estimates where available; no disaster road closure, flood simulation, or Unity gameplay integration is applied.",
+      "routeSource": "OSM",
+      "routeType": "estimated_pedestrian_route",
+      "isOfficialEvacuationRoute": false,
+      "nearestRouteId": "osm_route_03_017",
+      "nearestRouteOriginId": "route_origin_hatchobori_tsukiji_001",
+      "nearestRouteOriginName": "Hatchobori Tsukiji controlled route test origin",
+      "availableRouteCount": 5,
+      "failedRouteCount": 0
+    },
+    {
+      "qualificationId": "real_chuo_building_qualification_018",
+      "plateauBuildingId": "13102-bldg-8511",
+      "shelterId": "chuo_official_emergency_018",
+      "shelterName": "佃中学校",
+      "officialDesignationStatus": "official_designated",
+      "qualificationStatus": "official_confirmed",
+      "qualificationReason": "Official Chuo evidence is present and the shelter point is contained by one local PLATEAU building footprint.",
+      "evidenceSources": [
+        {
+          "sourceId": "chuo_open_data_designated_emergency_shelters",
+          "sourceFamily": "official_shelter_facility",
+          "sourceName": "指定緊急避難所一覧",
+          "officialStatus": "official_primary",
+          "sourceUrl": "https://www.city.chuo.lg.jp/documents/984/shiteikinkyuuhinan.csv",
+          "sourceUpdatedAt": "2025-03-31",
+          "evidenceNote": "Primary Chuo City open-data record for a designated emergency evacuation shelter/place."
+        },
+        {
+          "sourceId": "tokyo_bosai_map_evacuation_center",
+          "sourceFamily": "official_shelter_facility",
+          "sourceName": "東京都防災マップ 避難所一覧データCSV",
+          "officialStatus": "official_reference",
+          "sourceUrl": "https://www.opendata.metro.tokyo.lg.jp/soumu/130001_evacuation_center.csv",
+          "sourceUpdatedAt": "2022-06-20",
+          "evidenceNote": "Supporting official source has 1 record(s) with matching normalized facility name."
+        },
+        {
+          "sourceId": "tokyo_bosai_map_evacuation_area",
+          "sourceFamily": "official_shelter_facility",
+          "sourceName": "東京都防災マップ 避難場所一覧データCSV",
+          "officialStatus": "official_reference",
+          "sourceUrl": "https://www.opendata.metro.tokyo.lg.jp/soumu/130001_evacuation_area.csv",
+          "sourceUpdatedAt": "2025-12-12",
+          "evidenceNote": "Supporting official source has 1 record(s) with matching normalized facility name."
+        },
+        {
+          "sourceId": "gsi_chuo_designated_emergency_evacuation_places",
+          "sourceFamily": "official_shelter_facility",
+          "sourceName": "国土地理院 指定緊急避難場所データ 東京都中央区",
+          "officialStatus": "official_reference",
+          "sourceUrl": "https://hinanmap.gsi.go.jp/hinanjocp/defaultFtpData/csv/13102_2.csv",
+          "sourceUpdatedAt": "2025-09-02",
+          "evidenceNote": "Supporting official source has 1 record(s) with matching normalized facility name."
+        },
+        {
+          "sourceId": "gsi_chuo_designated_shelters",
+          "sourceFamily": "official_shelter_facility",
+          "sourceName": "国土地理院 指定避難所データ 東京都中央区",
+          "officialStatus": "official_reference",
+          "sourceUrl": "https://hinanmap.gsi.go.jp/hinanjocp/defaultFtpData/csv/13102_1.csv",
+          "sourceUpdatedAt": "2025-09-02",
+          "evidenceNote": "Supporting official source has 1 record(s) with matching normalized facility name."
+        },
+        {
+          "sourceId": "local_plateau_citygml_bldg_mesh_53394602",
+          "sourceFamily": "plateau_building_geometry",
+          "sourceName": "Local PLATEAU 2025 Chuo CityGML building mesh subset",
+          "officialStatus": "derived",
+          "sourceUrl": null,
+          "sourceUpdatedAt": null,
+          "evidenceNote": "Building footprint was derived from an existing local PLATEAU CityGML building mesh. Raw CityGML is not committed."
+        }
+      ],
+      "matchMethod": "contains",
+      "matchDistanceMeters": 0.0,
+      "confidence": "high",
+      "manualReviewNeeded": false,
+      "warnings": [
+        "official source does not provide safeFloor; preserve null for review",
+        "OSM route is an estimated prototype pedestrian route, not an official evacuation route",
+        "OSM route fields are prototype estimates and are not official evacuation routes"
+      ],
+      "disasterTypes": [
+        "flood",
+        "storm_surge",
+        "earthquake",
+        "tsunami",
+        "inland_flooding"
+      ],
+      "safeFloor": null,
+      "capacity": 4890,
+      "sourceUpdatedAt": "2025-03-31",
+      "routeAvailability": "available",
+      "nearestRouteDistanceMeters": 891.774,
+      "estimatedTravelTimeSeconds": 743.145,
+      "notes": "Normalized from official Chuo City open data. Original municipality code: 131024. Source marks overlap with designated shelter address. 東京都防災マップ 避難所一覧データCSV match count: 1 東京都防災マップ 避難場所一覧データCSV match count: 1 国土地理院 指定緊急避難場所データ 東京都中央区 match count: 1 国土地理院 指定避難所データ 東京都中央区 match count: 1 B4 performs PLATEAU building matching only; route fields remain not_evaluated for P5-B5. B5 merged OSM route estimates where available; no disaster road closure, flood simulation, or Unity gameplay integration is applied.",
+      "routeSource": "OSM",
+      "routeType": "estimated_pedestrian_route",
+      "isOfficialEvacuationRoute": false,
+      "nearestRouteId": "osm_route_03_018",
+      "nearestRouteOriginId": "route_origin_hatchobori_tsukiji_001",
+      "nearestRouteOriginName": "Hatchobori Tsukiji controlled route test origin",
+      "availableRouteCount": 5,
+      "failedRouteCount": 0
+    },
+    {
+      "qualificationId": "real_chuo_building_qualification_019",
+      "plateauBuildingId": "13102-bldg-5099",
+      "shelterId": "chuo_official_emergency_019",
+      "shelterName": "月島第一小学校",
+      "officialDesignationStatus": "official_designated",
+      "qualificationStatus": "official_confirmed",
+      "qualificationReason": "Official Chuo evidence is present and the shelter point is contained by one local PLATEAU building footprint.",
+      "evidenceSources": [
+        {
+          "sourceId": "chuo_open_data_designated_emergency_shelters",
+          "sourceFamily": "official_shelter_facility",
+          "sourceName": "指定緊急避難所一覧",
+          "officialStatus": "official_primary",
+          "sourceUrl": "https://www.city.chuo.lg.jp/documents/984/shiteikinkyuuhinan.csv",
+          "sourceUpdatedAt": "2025-03-31",
+          "evidenceNote": "Primary Chuo City open-data record for a designated emergency evacuation shelter/place."
+        },
+        {
+          "sourceId": "tokyo_bosai_map_evacuation_center",
+          "sourceFamily": "official_shelter_facility",
+          "sourceName": "東京都防災マップ 避難所一覧データCSV",
+          "officialStatus": "official_reference",
+          "sourceUrl": "https://www.opendata.metro.tokyo.lg.jp/soumu/130001_evacuation_center.csv",
+          "sourceUpdatedAt": "2022-06-20",
+          "evidenceNote": "Supporting official source has 1 record(s) with matching normalized facility name."
+        },
+        {
+          "sourceId": "tokyo_bosai_map_evacuation_area",
+          "sourceFamily": "official_shelter_facility",
+          "sourceName": "東京都防災マップ 避難場所一覧データCSV",
+          "officialStatus": "official_reference",
+          "sourceUrl": "https://www.opendata.metro.tokyo.lg.jp/soumu/130001_evacuation_area.csv",
+          "sourceUpdatedAt": "2025-12-12",
+          "evidenceNote": "Supporting official source has 1 record(s) with matching normalized facility name."
+        },
+        {
+          "sourceId": "gsi_chuo_designated_emergency_evacuation_places",
+          "sourceFamily": "official_shelter_facility",
+          "sourceName": "国土地理院 指定緊急避難場所データ 東京都中央区",
+          "officialStatus": "official_reference",
+          "sourceUrl": "https://hinanmap.gsi.go.jp/hinanjocp/defaultFtpData/csv/13102_2.csv",
+          "sourceUpdatedAt": "2025-09-02",
+          "evidenceNote": "Supporting official source has 1 record(s) with matching normalized facility name."
+        },
+        {
+          "sourceId": "gsi_chuo_designated_shelters",
+          "sourceFamily": "official_shelter_facility",
+          "sourceName": "国土地理院 指定避難所データ 東京都中央区",
+          "officialStatus": "official_reference",
+          "sourceUrl": "https://hinanmap.gsi.go.jp/hinanjocp/defaultFtpData/csv/13102_1.csv",
+          "sourceUpdatedAt": "2025-09-02",
+          "evidenceNote": "Supporting official source has 1 record(s) with matching normalized facility name."
+        },
+        {
+          "sourceId": "local_plateau_citygml_bldg_mesh_53393692",
+          "sourceFamily": "plateau_building_geometry",
+          "sourceName": "Local PLATEAU 2025 Chuo CityGML building mesh subset",
+          "officialStatus": "derived",
+          "sourceUrl": null,
+          "sourceUpdatedAt": null,
+          "evidenceNote": "Building footprint was derived from an existing local PLATEAU CityGML building mesh. Raw CityGML is not committed."
+        }
+      ],
+      "matchMethod": "contains",
+      "matchDistanceMeters": 0.0,
+      "confidence": "high",
+      "manualReviewNeeded": false,
+      "warnings": [
+        "official source does not provide safeFloor; preserve null for review",
+        "OSM route is an estimated prototype pedestrian route, not an official evacuation route",
+        "OSM route fields are prototype estimates and are not official evacuation routes"
+      ],
+      "disasterTypes": [
+        "flood",
+        "storm_surge",
+        "earthquake",
+        "tsunami",
+        "inland_flooding"
+      ],
+      "safeFloor": null,
+      "capacity": 3504,
+      "sourceUpdatedAt": "2025-03-31",
+      "routeAvailability": "available",
+      "nearestRouteDistanceMeters": 416.372,
+      "estimatedTravelTimeSeconds": 346.977,
+      "notes": "Normalized from official Chuo City open data. Original municipality code: 131024. Source marks overlap with designated shelter address. 東京都防災マップ 避難所一覧データCSV match count: 1 東京都防災マップ 避難場所一覧データCSV match count: 1 国土地理院 指定緊急避難場所データ 東京都中央区 match count: 1 国土地理院 指定避難所データ 東京都中央区 match count: 1 B4 performs PLATEAU building matching only; route fields remain not_evaluated for P5-B5. B5 merged OSM route estimates where available; no disaster road closure, flood simulation, or Unity gameplay integration is applied.",
+      "routeSource": "OSM",
+      "routeType": "estimated_pedestrian_route",
+      "isOfficialEvacuationRoute": false,
+      "nearestRouteId": "osm_route_04_019",
+      "nearestRouteOriginId": "route_origin_tsukishima_kachidoki_001",
+      "nearestRouteOriginName": "Tsukishima Kachidoki controlled route test origin",
+      "availableRouteCount": 5,
+      "failedRouteCount": 0
+    },
+    {
+      "qualificationId": "real_chuo_building_qualification_020",
+      "plateauBuildingId": "13102-bldg-9813",
+      "shelterId": "chuo_official_emergency_020",
+      "shelterName": "月島第二小学校",
+      "officialDesignationStatus": "official_designated",
+      "qualificationStatus": "official_confirmed",
+      "qualificationReason": "Official Chuo evidence is present and the shelter point is contained by one local PLATEAU building footprint.",
+      "evidenceSources": [
+        {
+          "sourceId": "chuo_open_data_designated_emergency_shelters",
+          "sourceFamily": "official_shelter_facility",
+          "sourceName": "指定緊急避難所一覧",
+          "officialStatus": "official_primary",
+          "sourceUrl": "https://www.city.chuo.lg.jp/documents/984/shiteikinkyuuhinan.csv",
+          "sourceUpdatedAt": "2025-03-31",
+          "evidenceNote": "Primary Chuo City open-data record for a designated emergency evacuation shelter/place."
+        },
+        {
+          "sourceId": "tokyo_bosai_map_evacuation_center",
+          "sourceFamily": "official_shelter_facility",
+          "sourceName": "東京都防災マップ 避難所一覧データCSV",
+          "officialStatus": "official_reference",
+          "sourceUrl": "https://www.opendata.metro.tokyo.lg.jp/soumu/130001_evacuation_center.csv",
+          "sourceUpdatedAt": "2022-06-20",
+          "evidenceNote": "Supporting official source has 1 record(s) with matching normalized facility name."
+        },
+        {
+          "sourceId": "tokyo_bosai_map_evacuation_area",
+          "sourceFamily": "official_shelter_facility",
+          "sourceName": "東京都防災マップ 避難場所一覧データCSV",
+          "officialStatus": "official_reference",
+          "sourceUrl": "https://www.opendata.metro.tokyo.lg.jp/soumu/130001_evacuation_area.csv",
+          "sourceUpdatedAt": "2025-12-12",
+          "evidenceNote": "Supporting official source has 1 record(s) with matching normalized facility name."
+        },
+        {
+          "sourceId": "gsi_chuo_designated_emergency_evacuation_places",
+          "sourceFamily": "official_shelter_facility",
+          "sourceName": "国土地理院 指定緊急避難場所データ 東京都中央区",
+          "officialStatus": "official_reference",
+          "sourceUrl": "https://hinanmap.gsi.go.jp/hinanjocp/defaultFtpData/csv/13102_2.csv",
+          "sourceUpdatedAt": "2025-09-02",
+          "evidenceNote": "Supporting official source has 1 record(s) with matching normalized facility name."
+        },
+        {
+          "sourceId": "gsi_chuo_designated_shelters",
+          "sourceFamily": "official_shelter_facility",
+          "sourceName": "国土地理院 指定避難所データ 東京都中央区",
+          "officialStatus": "official_reference",
+          "sourceUrl": "https://hinanmap.gsi.go.jp/hinanjocp/defaultFtpData/csv/13102_1.csv",
+          "sourceUpdatedAt": "2025-09-02",
+          "evidenceNote": "Supporting official source has 1 record(s) with matching normalized facility name."
+        },
+        {
+          "sourceId": "local_plateau_citygml_bldg_mesh_53393692",
+          "sourceFamily": "plateau_building_geometry",
+          "sourceName": "Local PLATEAU 2025 Chuo CityGML building mesh subset",
+          "officialStatus": "derived",
+          "sourceUrl": null,
+          "sourceUpdatedAt": null,
+          "evidenceNote": "Building footprint was derived from an existing local PLATEAU CityGML building mesh. Raw CityGML is not committed."
+        }
+      ],
+      "matchMethod": "contains",
+      "matchDistanceMeters": 0.0,
+      "confidence": "high",
+      "manualReviewNeeded": false,
+      "warnings": [
+        "official source does not provide safeFloor; preserve null for review",
+        "OSM route is an estimated prototype pedestrian route, not an official evacuation route",
+        "OSM route fields are prototype estimates and are not official evacuation routes"
+      ],
+      "disasterTypes": [
+        "flood",
+        "storm_surge",
+        "earthquake",
+        "tsunami",
+        "inland_flooding"
+      ],
+      "safeFloor": null,
+      "capacity": 3837,
+      "sourceUpdatedAt": "2025-03-31",
+      "routeAvailability": "available",
+      "nearestRouteDistanceMeters": 219.427,
+      "estimatedTravelTimeSeconds": 182.856,
+      "notes": "Normalized from official Chuo City open data. Original municipality code: 131024. Source marks overlap with designated shelter address. 東京都防災マップ 避難所一覧データCSV match count: 1 東京都防災マップ 避難場所一覧データCSV match count: 1 国土地理院 指定緊急避難場所データ 東京都中央区 match count: 1 国土地理院 指定避難所データ 東京都中央区 match count: 1 B4 performs PLATEAU building matching only; route fields remain not_evaluated for P5-B5. B5 merged OSM route estimates where available; no disaster road closure, flood simulation, or Unity gameplay integration is applied.",
+      "routeSource": "OSM",
+      "routeType": "estimated_pedestrian_route",
+      "isOfficialEvacuationRoute": false,
+      "nearestRouteId": "osm_route_04_020",
+      "nearestRouteOriginId": "route_origin_tsukishima_kachidoki_001",
+      "nearestRouteOriginName": "Tsukishima Kachidoki controlled route test origin",
+      "availableRouteCount": 5,
+      "failedRouteCount": 0
+    },
+    {
+      "qualificationId": "real_chuo_building_qualification_021",
+      "plateauBuildingId": "13102-bldg-7675",
+      "shelterId": "chuo_official_emergency_021",
+      "shelterName": "月島第三小学校",
+      "officialDesignationStatus": "official_designated_with_review",
+      "qualificationStatus": "official_confirmed_with_review",
+      "qualificationReason": "Official Chuo evidence is present, but PLATEAU building matching requires manual review.",
+      "evidenceSources": [
+        {
+          "sourceId": "chuo_open_data_designated_emergency_shelters",
+          "sourceFamily": "official_shelter_facility",
+          "sourceName": "指定緊急避難所一覧",
+          "officialStatus": "official_primary",
+          "sourceUrl": "https://www.city.chuo.lg.jp/documents/984/shiteikinkyuuhinan.csv",
+          "sourceUpdatedAt": "2025-03-31",
+          "evidenceNote": "Primary Chuo City open-data record for a designated emergency evacuation shelter/place."
+        },
+        {
+          "sourceId": "tokyo_bosai_map_evacuation_center",
+          "sourceFamily": "official_shelter_facility",
+          "sourceName": "東京都防災マップ 避難所一覧データCSV",
+          "officialStatus": "official_reference",
+          "sourceUrl": "https://www.opendata.metro.tokyo.lg.jp/soumu/130001_evacuation_center.csv",
+          "sourceUpdatedAt": "2022-06-20",
+          "evidenceNote": "Supporting official source has 1 record(s) with matching normalized facility name."
+        },
+        {
+          "sourceId": "tokyo_bosai_map_evacuation_area",
+          "sourceFamily": "official_shelter_facility",
+          "sourceName": "東京都防災マップ 避難場所一覧データCSV",
+          "officialStatus": "official_reference",
+          "sourceUrl": "https://www.opendata.metro.tokyo.lg.jp/soumu/130001_evacuation_area.csv",
+          "sourceUpdatedAt": "2025-12-12",
+          "evidenceNote": "Supporting official source has 1 record(s) with matching normalized facility name."
+        },
+        {
+          "sourceId": "gsi_chuo_designated_emergency_evacuation_places",
+          "sourceFamily": "official_shelter_facility",
+          "sourceName": "国土地理院 指定緊急避難場所データ 東京都中央区",
+          "officialStatus": "official_reference",
+          "sourceUrl": "https://hinanmap.gsi.go.jp/hinanjocp/defaultFtpData/csv/13102_2.csv",
+          "sourceUpdatedAt": "2025-09-02",
+          "evidenceNote": "Supporting official source has 1 record(s) with matching normalized facility name."
+        },
+        {
+          "sourceId": "gsi_chuo_designated_shelters",
+          "sourceFamily": "official_shelter_facility",
+          "sourceName": "国土地理院 指定避難所データ 東京都中央区",
+          "officialStatus": "official_reference",
+          "sourceUrl": "https://hinanmap.gsi.go.jp/hinanjocp/defaultFtpData/csv/13102_1.csv",
+          "sourceUpdatedAt": "2025-09-02",
+          "evidenceNote": "Supporting official source has 1 record(s) with matching normalized facility name."
+        },
+        {
+          "sourceId": "local_plateau_citygml_bldg_mesh_53393692",
+          "sourceFamily": "plateau_building_geometry",
+          "sourceName": "Local PLATEAU 2025 Chuo CityGML building mesh subset",
+          "officialStatus": "derived",
+          "sourceUrl": null,
+          "sourceUpdatedAt": null,
+          "evidenceNote": "Building footprint was derived from an existing local PLATEAU CityGML building mesh. Raw CityGML is not committed."
+        }
+      ],
+      "matchMethod": "nearest",
+      "matchDistanceMeters": 0.075,
+      "confidence": "high",
+      "manualReviewNeeded": true,
+      "warnings": [
+        "shelter point is outside PLATEAU footprint; nearest-building match requires review",
+        "official source does not provide safeFloor; preserve null for review",
+        "OSM route is an estimated prototype pedestrian route, not an official evacuation route",
+        "target building qualification requires manual review",
+        "target uses nearest PLATEAU building match; review in QGIS",
+        "OSM route fields are prototype estimates and are not official evacuation routes"
+      ],
+      "disasterTypes": [
+        "flood",
+        "storm_surge",
+        "earthquake",
+        "inland_flooding"
+      ],
+      "safeFloor": null,
+      "capacity": 4529,
+      "sourceUpdatedAt": "2025-03-31",
+      "routeAvailability": "available",
+      "nearestRouteDistanceMeters": 1151.801,
+      "estimatedTravelTimeSeconds": 959.834,
+      "notes": "Normalized from official Chuo City open data. Original municipality code: 131024. Source marks overlap with designated shelter address. 東京都防災マップ 避難所一覧データCSV match count: 1 東京都防災マップ 避難場所一覧データCSV match count: 1 国土地理院 指定緊急避難場所データ 東京都中央区 match count: 1 国土地理院 指定避難所データ 東京都中央区 match count: 1 B4 performs PLATEAU building matching only; route fields remain not_evaluated for P5-B5. B5 merged OSM route estimates where available; no disaster road closure, flood simulation, or Unity gameplay integration is applied.",
+      "routeSource": "OSM",
+      "routeType": "estimated_pedestrian_route",
+      "isOfficialEvacuationRoute": false,
+      "nearestRouteId": "osm_route_04_021",
+      "nearestRouteOriginId": "route_origin_tsukishima_kachidoki_001",
+      "nearestRouteOriginName": "Tsukishima Kachidoki controlled route test origin",
+      "availableRouteCount": 5,
+      "failedRouteCount": 0
+    },
+    {
+      "qualificationId": "real_chuo_building_qualification_022",
+      "plateauBuildingId": "13102-bldg-1478",
+      "shelterId": "chuo_official_emergency_022",
+      "shelterName": "晴海中学校",
+      "officialDesignationStatus": "official_designated",
+      "qualificationStatus": "official_confirmed",
+      "qualificationReason": "Official Chuo evidence is present and the shelter point is contained by one local PLATEAU building footprint.",
+      "evidenceSources": [
+        {
+          "sourceId": "chuo_open_data_designated_emergency_shelters",
+          "sourceFamily": "official_shelter_facility",
+          "sourceName": "指定緊急避難所一覧",
+          "officialStatus": "official_primary",
+          "sourceUrl": "https://www.city.chuo.lg.jp/documents/984/shiteikinkyuuhinan.csv",
+          "sourceUpdatedAt": "2025-03-31",
+          "evidenceNote": "Primary Chuo City open-data record for a designated emergency evacuation shelter/place."
+        },
+        {
+          "sourceId": "tokyo_bosai_map_evacuation_center",
+          "sourceFamily": "official_shelter_facility",
+          "sourceName": "東京都防災マップ 避難所一覧データCSV",
+          "officialStatus": "official_reference",
+          "sourceUrl": "https://www.opendata.metro.tokyo.lg.jp/soumu/130001_evacuation_center.csv",
+          "sourceUpdatedAt": "2022-06-20",
+          "evidenceNote": "Supporting official source has 1 record(s) with matching normalized facility name."
+        },
+        {
+          "sourceId": "tokyo_bosai_map_evacuation_area",
+          "sourceFamily": "official_shelter_facility",
+          "sourceName": "東京都防災マップ 避難場所一覧データCSV",
+          "officialStatus": "official_reference",
+          "sourceUrl": "https://www.opendata.metro.tokyo.lg.jp/soumu/130001_evacuation_area.csv",
+          "sourceUpdatedAt": "2025-12-12",
+          "evidenceNote": "Supporting official source has 1 record(s) with matching normalized facility name."
+        },
+        {
+          "sourceId": "gsi_chuo_designated_emergency_evacuation_places",
+          "sourceFamily": "official_shelter_facility",
+          "sourceName": "国土地理院 指定緊急避難場所データ 東京都中央区",
+          "officialStatus": "official_reference",
+          "sourceUrl": "https://hinanmap.gsi.go.jp/hinanjocp/defaultFtpData/csv/13102_2.csv",
+          "sourceUpdatedAt": "2025-09-02",
+          "evidenceNote": "Supporting official source has 1 record(s) with matching normalized facility name."
+        },
+        {
+          "sourceId": "gsi_chuo_designated_shelters",
+          "sourceFamily": "official_shelter_facility",
+          "sourceName": "国土地理院 指定避難所データ 東京都中央区",
+          "officialStatus": "official_reference",
+          "sourceUrl": "https://hinanmap.gsi.go.jp/hinanjocp/defaultFtpData/csv/13102_1.csv",
+          "sourceUpdatedAt": "2025-09-02",
+          "evidenceNote": "Supporting official source has 1 record(s) with matching normalized facility name."
+        },
+        {
+          "sourceId": "local_plateau_citygml_bldg_mesh_53393692",
+          "sourceFamily": "plateau_building_geometry",
+          "sourceName": "Local PLATEAU 2025 Chuo CityGML building mesh subset",
+          "officialStatus": "derived",
+          "sourceUrl": null,
+          "sourceUpdatedAt": null,
+          "evidenceNote": "Building footprint was derived from an existing local PLATEAU CityGML building mesh. Raw CityGML is not committed."
+        }
+      ],
+      "matchMethod": "contains",
+      "matchDistanceMeters": 0.0,
+      "confidence": "high",
+      "manualReviewNeeded": false,
+      "warnings": [
+        "official source does not provide safeFloor; preserve null for review",
+        "OSM route is an estimated prototype pedestrian route, not an official evacuation route",
+        "OSM route fields are prototype estimates and are not official evacuation routes"
+      ],
+      "disasterTypes": [
+        "flood",
+        "storm_surge",
+        "earthquake",
+        "inland_flooding"
+      ],
+      "safeFloor": null,
+      "capacity": 4401,
+      "sourceUpdatedAt": "2025-03-31",
+      "routeAvailability": "available",
+      "nearestRouteDistanceMeters": 1042.408,
+      "estimatedTravelTimeSeconds": 868.673,
+      "notes": "Normalized from official Chuo City open data. Original municipality code: 131024. Source marks overlap with designated shelter address. 東京都防災マップ 避難所一覧データCSV match count: 1 東京都防災マップ 避難場所一覧データCSV match count: 1 国土地理院 指定緊急避難場所データ 東京都中央区 match count: 1 国土地理院 指定避難所データ 東京都中央区 match count: 1 B4 performs PLATEAU building matching only; route fields remain not_evaluated for P5-B5. B5 merged OSM route estimates where available; no disaster road closure, flood simulation, or Unity gameplay integration is applied.",
+      "routeSource": "OSM",
+      "routeType": "estimated_pedestrian_route",
+      "isOfficialEvacuationRoute": false,
+      "nearestRouteId": "osm_route_04_022",
+      "nearestRouteOriginId": "route_origin_tsukishima_kachidoki_001",
+      "nearestRouteOriginName": "Tsukishima Kachidoki controlled route test origin",
+      "availableRouteCount": 5,
+      "failedRouteCount": 0
+    },
+    {
+      "qualificationId": "real_chuo_building_qualification_023",
+      "plateauBuildingId": "13102-bldg-2954",
+      "shelterId": "chuo_official_emergency_023",
+      "shelterName": "豊海小学校",
+      "officialDesignationStatus": "official_designated_with_review",
+      "qualificationStatus": "official_confirmed_with_review",
+      "qualificationReason": "Official Chuo evidence is present, but PLATEAU building matching requires manual review.",
+      "evidenceSources": [
+        {
+          "sourceId": "chuo_open_data_designated_emergency_shelters",
+          "sourceFamily": "official_shelter_facility",
+          "sourceName": "指定緊急避難所一覧",
+          "officialStatus": "official_primary",
+          "sourceUrl": "https://www.city.chuo.lg.jp/documents/984/shiteikinkyuuhinan.csv",
+          "sourceUpdatedAt": "2025-03-31",
+          "evidenceNote": "Primary Chuo City open-data record for a designated emergency evacuation shelter/place."
+        },
+        {
+          "sourceId": "tokyo_bosai_map_evacuation_center",
+          "sourceFamily": "official_shelter_facility",
+          "sourceName": "東京都防災マップ 避難所一覧データCSV",
+          "officialStatus": "official_reference",
+          "sourceUrl": "https://www.opendata.metro.tokyo.lg.jp/soumu/130001_evacuation_center.csv",
+          "sourceUpdatedAt": "2022-06-20",
+          "evidenceNote": "Supporting official source has 1 record(s) with matching normalized facility name."
+        },
+        {
+          "sourceId": "tokyo_bosai_map_evacuation_area",
+          "sourceFamily": "official_shelter_facility",
+          "sourceName": "東京都防災マップ 避難場所一覧データCSV",
+          "officialStatus": "official_reference",
+          "sourceUrl": "https://www.opendata.metro.tokyo.lg.jp/soumu/130001_evacuation_area.csv",
+          "sourceUpdatedAt": "2025-12-12",
+          "evidenceNote": "Supporting official source has 1 record(s) with matching normalized facility name."
+        },
+        {
+          "sourceId": "gsi_chuo_designated_emergency_evacuation_places",
+          "sourceFamily": "official_shelter_facility",
+          "sourceName": "国土地理院 指定緊急避難場所データ 東京都中央区",
+          "officialStatus": "official_reference",
+          "sourceUrl": "https://hinanmap.gsi.go.jp/hinanjocp/defaultFtpData/csv/13102_2.csv",
+          "sourceUpdatedAt": "2025-09-02",
+          "evidenceNote": "Supporting official source has 1 record(s) with matching normalized facility name."
+        },
+        {
+          "sourceId": "gsi_chuo_designated_shelters",
+          "sourceFamily": "official_shelter_facility",
+          "sourceName": "国土地理院 指定避難所データ 東京都中央区",
+          "officialStatus": "official_reference",
+          "sourceUrl": "https://hinanmap.gsi.go.jp/hinanjocp/defaultFtpData/csv/13102_1.csv",
+          "sourceUpdatedAt": "2025-09-02",
+          "evidenceNote": "Supporting official source has 1 record(s) with matching normalized facility name."
+        },
+        {
+          "sourceId": "local_plateau_citygml_bldg_mesh_53393681",
+          "sourceFamily": "plateau_building_geometry",
+          "sourceName": "Local PLATEAU 2025 Chuo CityGML building mesh subset",
+          "officialStatus": "derived",
+          "sourceUrl": null,
+          "sourceUpdatedAt": null,
+          "evidenceNote": "Building footprint was derived from an existing local PLATEAU CityGML building mesh. Raw CityGML is not committed."
+        }
+      ],
+      "matchMethod": "nearest",
+      "matchDistanceMeters": 7.215,
+      "confidence": "medium",
+      "manualReviewNeeded": true,
+      "warnings": [
+        "shelter point is outside PLATEAU footprint; nearest-building match requires review",
+        "nearest_match_semantic_review_needed",
+        "nearest PLATEAU building height is missing",
+        "nearest PLATEAU building floor count is low or uncertain",
+        "nearest PLATEAU building usage is raw, unknown, or not semantically interpreted in P5-B",
+        "official source does not provide safeFloor; preserve null for review",
+        "OSM route is an estimated prototype pedestrian route, not an official evacuation route",
+        "target building qualification requires manual review",
+        "target uses nearest PLATEAU building match; review in QGIS",
+        "OSM route fields are prototype estimates and are not official evacuation routes"
+      ],
+      "disasterTypes": [
+        "flood",
+        "storm_surge",
+        "earthquake",
+        "tsunami",
+        "inland_flooding"
+      ],
+      "safeFloor": null,
+      "capacity": 5612,
+      "sourceUpdatedAt": "2025-03-31",
+      "routeAvailability": "available",
+      "nearestRouteDistanceMeters": 791.179,
+      "estimatedTravelTimeSeconds": 659.316,
+      "notes": "Normalized from official Chuo City open data. Original municipality code: 131024. Source marks overlap with designated shelter address. 東京都防災マップ 避難所一覧データCSV match count: 1 東京都防災マップ 避難場所一覧データCSV match count: 1 国土地理院 指定緊急避難場所データ 東京都中央区 match count: 1 国土地理院 指定避難所データ 東京都中央区 match count: 1 B4 performs PLATEAU building matching only; route fields remain not_evaluated for P5-B5. B5 merged OSM route estimates where available; no disaster road closure, flood simulation, or Unity gameplay integration is applied.",
+      "routeSource": "OSM",
+      "routeType": "estimated_pedestrian_route",
+      "isOfficialEvacuationRoute": false,
+      "nearestRouteId": "osm_route_04_023",
+      "nearestRouteOriginId": "route_origin_tsukishima_kachidoki_001",
+      "nearestRouteOriginName": "Tsukishima Kachidoki controlled route test origin",
+      "availableRouteCount": 5,
+      "failedRouteCount": 0
+    },
+    {
+      "qualificationId": "real_chuo_building_qualification_024",
+      "plateauBuildingId": "13102-bldg-10473",
+      "shelterId": "chuo_official_emergency_024",
+      "shelterName": "中央区役所",
+      "officialDesignationStatus": "official_designated",
+      "qualificationStatus": "official_confirmed",
+      "qualificationReason": "Official Chuo evidence is present and the shelter point is contained by one local PLATEAU building footprint.",
+      "evidenceSources": [
+        {
+          "sourceId": "chuo_open_data_designated_emergency_shelters",
+          "sourceFamily": "official_shelter_facility",
+          "sourceName": "指定緊急避難所一覧",
+          "officialStatus": "official_primary",
+          "sourceUrl": "https://www.city.chuo.lg.jp/documents/984/shiteikinkyuuhinan.csv",
+          "sourceUpdatedAt": "2025-03-31",
+          "evidenceNote": "Primary Chuo City open-data record for a designated emergency evacuation shelter/place."
+        },
+        {
+          "sourceId": "tokyo_bosai_map_evacuation_area",
+          "sourceFamily": "official_shelter_facility",
+          "sourceName": "東京都防災マップ 避難場所一覧データCSV",
+          "officialStatus": "official_reference",
+          "sourceUrl": "https://www.opendata.metro.tokyo.lg.jp/soumu/130001_evacuation_area.csv",
+          "sourceUpdatedAt": "2025-12-12",
+          "evidenceNote": "Supporting official source has 1 record(s) with matching normalized facility name."
+        },
+        {
+          "sourceId": "gsi_chuo_designated_emergency_evacuation_places",
+          "sourceFamily": "official_shelter_facility",
+          "sourceName": "国土地理院 指定緊急避難場所データ 東京都中央区",
+          "officialStatus": "official_reference",
+          "sourceUrl": "https://hinanmap.gsi.go.jp/hinanjocp/defaultFtpData/csv/13102_2.csv",
+          "sourceUpdatedAt": "2025-09-02",
+          "evidenceNote": "Supporting official source has 1 record(s) with matching normalized facility name."
+        },
+        {
+          "sourceId": "local_plateau_citygml_bldg_mesh_53394601",
+          "sourceFamily": "plateau_building_geometry",
+          "sourceName": "Local PLATEAU 2025 Chuo CityGML building mesh subset",
+          "officialStatus": "derived",
+          "sourceUrl": null,
+          "sourceUpdatedAt": null,
+          "evidenceNote": "Building footprint was derived from an existing local PLATEAU CityGML building mesh. Raw CityGML is not committed."
+        }
+      ],
+      "matchMethod": "contains",
+      "matchDistanceMeters": 0.0,
+      "confidence": "high",
+      "manualReviewNeeded": false,
+      "warnings": [
+        "official source does not provide safeFloor; preserve null for review",
+        "official source does not provide capacity or capacity could not be parsed",
+        "OSM route is an estimated prototype pedestrian route, not an official evacuation route",
+        "OSM route fields are prototype estimates and are not official evacuation routes"
+      ],
+      "disasterTypes": [
+        "flood",
+        "storm_surge",
+        "inland_flooding"
+      ],
+      "safeFloor": null,
+      "capacity": null,
+      "sourceUpdatedAt": "2025-03-31",
+      "routeAvailability": "available",
+      "nearestRouteDistanceMeters": 669.632,
+      "estimatedTravelTimeSeconds": 558.027,
+      "notes": "Normalized from official Chuo City open data. Original municipality code: 131024. 東京都防災マップ 避難場所一覧データCSV match count: 1 国土地理院 指定緊急避難場所データ 東京都中央区 match count: 1 B4 performs PLATEAU building matching only; route fields remain not_evaluated for P5-B5. B5 merged OSM route estimates where available; no disaster road closure, flood simulation, or Unity gameplay integration is applied.",
+      "routeSource": "OSM",
+      "routeType": "estimated_pedestrian_route",
+      "isOfficialEvacuationRoute": false,
+      "nearestRouteId": "osm_route_03_024",
+      "nearestRouteOriginId": "route_origin_hatchobori_tsukiji_001",
+      "nearestRouteOriginName": "Hatchobori Tsukiji controlled route test origin",
+      "availableRouteCount": 5,
+      "failedRouteCount": 0
+    },
+    {
+      "qualificationId": "real_chuo_building_qualification_025",
+      "plateauBuildingId": "13102-bldg-12306",
+      "shelterId": "chuo_official_emergency_025",
+      "shelterName": "日本橋区民センター",
+      "officialDesignationStatus": "official_designated",
+      "qualificationStatus": "official_confirmed",
+      "qualificationReason": "Official Chuo evidence is present and the shelter point is contained by one local PLATEAU building footprint.",
+      "evidenceSources": [
+        {
+          "sourceId": "chuo_open_data_designated_emergency_shelters",
+          "sourceFamily": "official_shelter_facility",
+          "sourceName": "指定緊急避難所一覧",
+          "officialStatus": "official_primary",
+          "sourceUrl": "https://www.city.chuo.lg.jp/documents/984/shiteikinkyuuhinan.csv",
+          "sourceUpdatedAt": "2025-03-31",
+          "evidenceNote": "Primary Chuo City open-data record for a designated emergency evacuation shelter/place."
+        },
+        {
+          "sourceId": "tokyo_bosai_map_evacuation_area",
+          "sourceFamily": "official_shelter_facility",
+          "sourceName": "東京都防災マップ 避難場所一覧データCSV",
+          "officialStatus": "official_reference",
+          "sourceUrl": "https://www.opendata.metro.tokyo.lg.jp/soumu/130001_evacuation_area.csv",
+          "sourceUpdatedAt": "2025-12-12",
+          "evidenceNote": "Supporting official source has 1 record(s) with matching normalized facility name."
+        },
+        {
+          "sourceId": "gsi_chuo_designated_emergency_evacuation_places",
+          "sourceFamily": "official_shelter_facility",
+          "sourceName": "国土地理院 指定緊急避難場所データ 東京都中央区",
+          "officialStatus": "official_reference",
+          "sourceUrl": "https://hinanmap.gsi.go.jp/hinanjocp/defaultFtpData/csv/13102_2.csv",
+          "sourceUpdatedAt": "2025-09-02",
+          "evidenceNote": "Supporting official source has 1 record(s) with matching normalized facility name."
+        },
+        {
+          "sourceId": "local_plateau_citygml_bldg_mesh_53394612",
+          "sourceFamily": "plateau_building_geometry",
+          "sourceName": "Local PLATEAU 2025 Chuo CityGML building mesh subset",
+          "officialStatus": "derived",
+          "sourceUrl": null,
+          "sourceUpdatedAt": null,
+          "evidenceNote": "Building footprint was derived from an existing local PLATEAU CityGML building mesh. Raw CityGML is not committed."
+        }
+      ],
+      "matchMethod": "contains",
+      "matchDistanceMeters": 0.0,
+      "confidence": "high",
+      "manualReviewNeeded": false,
+      "warnings": [
+        "official source does not provide safeFloor; preserve null for review",
+        "OSM route is an estimated prototype pedestrian route, not an official evacuation route",
+        "OSM route fields are prototype estimates and are not official evacuation routes"
+      ],
+      "disasterTypes": [
+        "flood",
+        "storm_surge",
+        "inland_flooding"
+      ],
+      "safeFloor": null,
+      "capacity": 579,
+      "sourceUpdatedAt": "2025-03-31",
+      "routeAvailability": "available",
+      "nearestRouteDistanceMeters": 1013.889,
+      "estimatedTravelTimeSeconds": 844.908,
+      "notes": "Normalized from official Chuo City open data. Original municipality code: 131024. 東京都防災マップ 避難場所一覧データCSV match count: 1 国土地理院 指定緊急避難場所データ 東京都中央区 match count: 1 B4 performs PLATEAU building matching only; route fields remain not_evaluated for P5-B5. B5 merged OSM route estimates where available; no disaster road closure, flood simulation, or Unity gameplay integration is applied.",
+      "routeSource": "OSM",
+      "routeType": "estimated_pedestrian_route",
+      "isOfficialEvacuationRoute": false,
+      "nearestRouteId": "osm_route_02_025",
+      "nearestRouteOriginId": "route_origin_nihonbashi_001",
+      "nearestRouteOriginName": "Nihonbashi controlled route test origin",
+      "availableRouteCount": 5,
+      "failedRouteCount": 0
+    },
+    {
+      "qualificationId": "real_chuo_building_qualification_026",
+      "plateauBuildingId": "13102-bldg-3852",
+      "shelterId": "chuo_official_emergency_026",
+      "shelterName": "月島区民センター",
+      "officialDesignationStatus": "official_designated",
+      "qualificationStatus": "official_confirmed",
+      "qualificationReason": "Official Chuo evidence is present and the shelter point is contained by one local PLATEAU building footprint.",
+      "evidenceSources": [
+        {
+          "sourceId": "chuo_open_data_designated_emergency_shelters",
+          "sourceFamily": "official_shelter_facility",
+          "sourceName": "指定緊急避難所一覧",
+          "officialStatus": "official_primary",
+          "sourceUrl": "https://www.city.chuo.lg.jp/documents/984/shiteikinkyuuhinan.csv",
+          "sourceUpdatedAt": "2025-03-31",
+          "evidenceNote": "Primary Chuo City open-data record for a designated emergency evacuation shelter/place."
+        },
+        {
+          "sourceId": "tokyo_bosai_map_evacuation_area",
+          "sourceFamily": "official_shelter_facility",
+          "sourceName": "東京都防災マップ 避難場所一覧データCSV",
+          "officialStatus": "official_reference",
+          "sourceUrl": "https://www.opendata.metro.tokyo.lg.jp/soumu/130001_evacuation_area.csv",
+          "sourceUpdatedAt": "2025-12-12",
+          "evidenceNote": "Supporting official source has 1 record(s) with matching normalized facility name."
+        },
+        {
+          "sourceId": "gsi_chuo_designated_emergency_evacuation_places",
+          "sourceFamily": "official_shelter_facility",
+          "sourceName": "国土地理院 指定緊急避難場所データ 東京都中央区",
+          "officialStatus": "official_reference",
+          "sourceUrl": "https://hinanmap.gsi.go.jp/hinanjocp/defaultFtpData/csv/13102_2.csv",
+          "sourceUpdatedAt": "2025-09-02",
+          "evidenceNote": "Supporting official source has 1 record(s) with matching normalized facility name."
+        },
+        {
+          "sourceId": "local_plateau_citygml_bldg_mesh_53393692",
+          "sourceFamily": "plateau_building_geometry",
+          "sourceName": "Local PLATEAU 2025 Chuo CityGML building mesh subset",
+          "officialStatus": "derived",
+          "sourceUrl": null,
+          "sourceUpdatedAt": null,
+          "evidenceNote": "Building footprint was derived from an existing local PLATEAU CityGML building mesh. Raw CityGML is not committed."
+        }
+      ],
+      "matchMethod": "contains",
+      "matchDistanceMeters": 0.0,
+      "confidence": "high",
+      "manualReviewNeeded": false,
+      "warnings": [
+        "official source does not provide safeFloor; preserve null for review",
+        "OSM route is an estimated prototype pedestrian route, not an official evacuation route",
+        "OSM route fields are prototype estimates and are not official evacuation routes"
+      ],
+      "disasterTypes": [
+        "flood",
+        "storm_surge",
+        "tsunami",
+        "inland_flooding"
+      ],
+      "safeFloor": null,
+      "capacity": 2026,
+      "sourceUpdatedAt": "2025-03-31",
+      "routeAvailability": "available",
+      "nearestRouteDistanceMeters": 600.474,
+      "estimatedTravelTimeSeconds": 500.395,
+      "notes": "Normalized from official Chuo City open data. Original municipality code: 131024. 東京都防災マップ 避難場所一覧データCSV match count: 1 国土地理院 指定緊急避難場所データ 東京都中央区 match count: 1 B4 performs PLATEAU building matching only; route fields remain not_evaluated for P5-B5. B5 merged OSM route estimates where available; no disaster road closure, flood simulation, or Unity gameplay integration is applied.",
+      "routeSource": "OSM",
+      "routeType": "estimated_pedestrian_route",
+      "isOfficialEvacuationRoute": false,
+      "nearestRouteId": "osm_route_04_026",
+      "nearestRouteOriginId": "route_origin_tsukishima_kachidoki_001",
+      "nearestRouteOriginName": "Tsukishima Kachidoki controlled route test origin",
+      "availableRouteCount": 5,
+      "failedRouteCount": 0
+    },
+    {
+      "qualificationId": "real_chuo_building_qualification_027",
+      "plateauBuildingId": "13102-bldg-525",
+      "shelterId": "chuo_official_emergency_027",
+      "shelterName": "(旧)ほっとプラザはるみ",
+      "officialDesignationStatus": "official_designated",
+      "qualificationStatus": "official_confirmed",
+      "qualificationReason": "Official Chuo evidence is present and the shelter point is contained by one local PLATEAU building footprint.",
+      "evidenceSources": [
+        {
+          "sourceId": "chuo_open_data_designated_emergency_shelters",
+          "sourceFamily": "official_shelter_facility",
+          "sourceName": "指定緊急避難所一覧",
+          "officialStatus": "official_primary",
+          "sourceUrl": "https://www.city.chuo.lg.jp/documents/984/shiteikinkyuuhinan.csv",
+          "sourceUpdatedAt": "2025-03-31",
+          "evidenceNote": "Primary Chuo City open-data record for a designated emergency evacuation shelter/place."
+        },
+        {
+          "sourceId": "local_plateau_citygml_bldg_mesh_53393681",
+          "sourceFamily": "plateau_building_geometry",
+          "sourceName": "Local PLATEAU 2025 Chuo CityGML building mesh subset",
+          "officialStatus": "derived",
+          "sourceUrl": null,
+          "sourceUpdatedAt": null,
+          "evidenceNote": "Building footprint was derived from an existing local PLATEAU CityGML building mesh. Raw CityGML is not committed."
+        }
+      ],
+      "matchMethod": "contains",
+      "matchDistanceMeters": 0.0,
+      "confidence": "high",
+      "manualReviewNeeded": false,
+      "warnings": [
+        "official source does not provide safeFloor; preserve null for review",
+        "OSM route is an estimated prototype pedestrian route, not an official evacuation route",
+        "OSM route fields are prototype estimates and are not official evacuation routes"
+      ],
+      "disasterTypes": [
+        "flood",
+        "storm_surge",
+        "earthquake",
+        "inland_flooding"
+      ],
+      "safeFloor": null,
+      "capacity": 479,
+      "sourceUpdatedAt": "2025-03-31",
+      "routeAvailability": "available",
+      "nearestRouteDistanceMeters": 1142.479,
+      "estimatedTravelTimeSeconds": 952.066,
+      "notes": "Normalized from official Chuo City open data. Original municipality code: 131024. Source marks overlap with designated shelter address. B4 performs PLATEAU building matching only; route fields remain not_evaluated for P5-B5. B5 merged OSM route estimates where available; no disaster road closure, flood simulation, or Unity gameplay integration is applied.",
+      "routeSource": "OSM",
+      "routeType": "estimated_pedestrian_route",
+      "isOfficialEvacuationRoute": false,
+      "nearestRouteId": "osm_route_04_027",
+      "nearestRouteOriginId": "route_origin_tsukishima_kachidoki_001",
+      "nearestRouteOriginName": "Tsukishima Kachidoki controlled route test origin",
+      "availableRouteCount": 5,
+      "failedRouteCount": 0
+    },
+    {
+      "qualificationId": "real_chuo_building_qualification_028",
+      "plateauBuildingId": null,
+      "shelterId": "chuo_official_emergency_028",
+      "shelterName": "あかつき公園一帯",
+      "officialDesignationStatus": "official_designated_with_review",
+      "qualificationStatus": "unknown",
+      "qualificationReason": "Official evacuation-place evidence exists, but no unambiguous PLATEAU building match is available in B4.",
+      "evidenceSources": [
+        {
+          "sourceId": "chuo_open_data_designated_emergency_shelters",
+          "sourceFamily": "official_shelter_facility",
+          "sourceName": "指定緊急避難所一覧",
+          "officialStatus": "official_primary",
+          "sourceUrl": "https://www.city.chuo.lg.jp/documents/984/shiteikinkyuuhinan.csv",
+          "sourceUpdatedAt": "2025-03-31",
+          "evidenceNote": "Primary Chuo City open-data record for a designated emergency evacuation shelter/place."
+        },
+        {
+          "sourceId": "gsi_chuo_designated_emergency_evacuation_places",
+          "sourceFamily": "official_shelter_facility",
+          "sourceName": "国土地理院 指定緊急避難場所データ 東京都中央区",
+          "officialStatus": "official_reference",
+          "sourceUrl": "https://hinanmap.gsi.go.jp/hinanjocp/defaultFtpData/csv/13102_2.csv",
+          "sourceUpdatedAt": "2025-09-02",
+          "evidenceNote": "Supporting official source has 1 record(s) with matching normalized facility name."
+        }
+      ],
+      "matchMethod": "unmatched",
+      "matchDistanceMeters": null,
+      "confidence": "low",
+      "manualReviewNeeded": true,
+      "warnings": [
+        "official source appears to describe a broad evacuation area rather than a single building",
+        "manual QGIS review required before assigning any PLATEAU building",
+        "official source does not provide safeFloor; preserve null for review",
+        "B5 routing skipped because B4 did not provide a qualified building target",
+        "OSM route fields are prototype estimates and are not official evacuation routes"
+      ],
+      "disasterTypes": [
+        "large_fire"
+      ],
+      "safeFloor": null,
+      "capacity": 9895,
+      "sourceUpdatedAt": "2025-03-31",
+      "routeAvailability": "not_evaluated",
+      "nearestRouteDistanceMeters": null,
+      "estimatedTravelTimeSeconds": null,
+      "notes": "Normalized from official Chuo City open data. Original municipality code: 131024. Name appears to describe a broad evacuation area rather than a single building. 国土地理院 指定緊急避難場所データ 東京都中央区 match count: 1 B4 performs PLATEAU building matching only; route fields remain not_evaluated for P5-B5. B5 merged OSM route estimates where available; no disaster road closure, flood simulation, or Unity gameplay integration is applied.",
+      "routeSource": null,
+      "routeType": null,
+      "isOfficialEvacuationRoute": false,
+      "nearestRouteId": null,
+      "nearestRouteOriginId": null,
+      "nearestRouteOriginName": null,
+      "availableRouteCount": 0,
+      "failedRouteCount": 0
+    },
+    {
+      "qualificationId": "real_chuo_building_qualification_029",
+      "plateauBuildingId": null,
+      "shelterId": "chuo_official_emergency_029",
+      "shelterName": "新川ツインビル地区",
+      "officialDesignationStatus": "official_designated_with_review",
+      "qualificationStatus": "unknown",
+      "qualificationReason": "Official evacuation-place evidence exists, but no unambiguous PLATEAU building match is available in B4.",
+      "evidenceSources": [
+        {
+          "sourceId": "chuo_open_data_designated_emergency_shelters",
+          "sourceFamily": "official_shelter_facility",
+          "sourceName": "指定緊急避難所一覧",
+          "officialStatus": "official_primary",
+          "sourceUrl": "https://www.city.chuo.lg.jp/documents/984/shiteikinkyuuhinan.csv",
+          "sourceUpdatedAt": "2025-03-31",
+          "evidenceNote": "Primary Chuo City open-data record for a designated emergency evacuation shelter/place."
+        },
+        {
+          "sourceId": "gsi_chuo_designated_emergency_evacuation_places",
+          "sourceFamily": "official_shelter_facility",
+          "sourceName": "国土地理院 指定緊急避難場所データ 東京都中央区",
+          "officialStatus": "official_reference",
+          "sourceUrl": "https://hinanmap.gsi.go.jp/hinanjocp/defaultFtpData/csv/13102_2.csv",
+          "sourceUpdatedAt": "2025-09-02",
+          "evidenceNote": "Supporting official source has 1 record(s) with matching normalized facility name."
+        }
+      ],
+      "matchMethod": "unmatched",
+      "matchDistanceMeters": null,
+      "confidence": "low",
+      "manualReviewNeeded": true,
+      "warnings": [
+        "official source appears to describe a broad evacuation area rather than a single building",
+        "manual QGIS review required before assigning any PLATEAU building",
+        "official source does not provide safeFloor; preserve null for review",
+        "B5 routing skipped because B4 did not provide a qualified building target",
+        "OSM route fields are prototype estimates and are not official evacuation routes"
+      ],
+      "disasterTypes": [
+        "large_fire"
+      ],
+      "safeFloor": null,
+      "capacity": 30650,
+      "sourceUpdatedAt": "2025-03-31",
+      "routeAvailability": "not_evaluated",
+      "nearestRouteDistanceMeters": null,
+      "estimatedTravelTimeSeconds": null,
+      "notes": "Normalized from official Chuo City open data. Original municipality code: 131024. Name appears to describe a broad evacuation area rather than a single building. 国土地理院 指定緊急避難場所データ 東京都中央区 match count: 1 B4 performs PLATEAU building matching only; route fields remain not_evaluated for P5-B5. B5 merged OSM route estimates where available; no disaster road closure, flood simulation, or Unity gameplay integration is applied.",
+      "routeSource": null,
+      "routeType": null,
+      "isOfficialEvacuationRoute": false,
+      "nearestRouteId": null,
+      "nearestRouteOriginId": null,
+      "nearestRouteOriginName": null,
+      "availableRouteCount": 0,
+      "failedRouteCount": 0
+    },
+    {
+      "qualificationId": "real_chuo_building_qualification_030",
+      "plateauBuildingId": null,
+      "shelterId": "chuo_official_emergency_030",
+      "shelterName": "佃リバーシティ地区",
+      "officialDesignationStatus": "official_designated_with_review",
+      "qualificationStatus": "unknown",
+      "qualificationReason": "Official evacuation-place evidence exists, but no unambiguous PLATEAU building match is available in B4.",
+      "evidenceSources": [
+        {
+          "sourceId": "chuo_open_data_designated_emergency_shelters",
+          "sourceFamily": "official_shelter_facility",
+          "sourceName": "指定緊急避難所一覧",
+          "officialStatus": "official_primary",
+          "sourceUrl": "https://www.city.chuo.lg.jp/documents/984/shiteikinkyuuhinan.csv",
+          "sourceUpdatedAt": "2025-03-31",
+          "evidenceNote": "Primary Chuo City open-data record for a designated emergency evacuation shelter/place."
+        },
+        {
+          "sourceId": "gsi_chuo_designated_emergency_evacuation_places",
+          "sourceFamily": "official_shelter_facility",
+          "sourceName": "国土地理院 指定緊急避難場所データ 東京都中央区",
+          "officialStatus": "official_reference",
+          "sourceUrl": "https://hinanmap.gsi.go.jp/hinanjocp/defaultFtpData/csv/13102_2.csv",
+          "sourceUpdatedAt": "2025-09-02",
+          "evidenceNote": "Supporting official source has 1 record(s) with matching normalized facility name."
+        }
+      ],
+      "matchMethod": "unmatched",
+      "matchDistanceMeters": null,
+      "confidence": "low",
+      "manualReviewNeeded": true,
+      "warnings": [
+        "official source appears to describe a broad evacuation area rather than a single building",
+        "manual QGIS review required before assigning any PLATEAU building",
+        "official source does not provide safeFloor; preserve null for review",
+        "B5 routing skipped because B4 did not provide a qualified building target",
+        "OSM route fields are prototype estimates and are not official evacuation routes"
+      ],
+      "disasterTypes": [
+        "large_fire"
+      ],
+      "safeFloor": null,
+      "capacity": 22208,
+      "sourceUpdatedAt": "2025-03-31",
+      "routeAvailability": "not_evaluated",
+      "nearestRouteDistanceMeters": null,
+      "estimatedTravelTimeSeconds": null,
+      "notes": "Normalized from official Chuo City open data. Original municipality code: 131024. Name appears to describe a broad evacuation area rather than a single building. 国土地理院 指定緊急避難場所データ 東京都中央区 match count: 1 B4 performs PLATEAU building matching only; route fields remain not_evaluated for P5-B5. B5 merged OSM route estimates where available; no disaster road closure, flood simulation, or Unity gameplay integration is applied.",
+      "routeSource": null,
+      "routeType": null,
+      "isOfficialEvacuationRoute": false,
+      "nearestRouteId": null,
+      "nearestRouteOriginId": null,
+      "nearestRouteOriginName": null,
+      "availableRouteCount": 0,
+      "failedRouteCount": 0
+    },
+    {
+      "qualificationId": "real_chuo_building_qualification_031",
+      "plateauBuildingId": null,
+      "shelterId": "chuo_official_emergency_031",
+      "shelterName": "晴海地区",
+      "officialDesignationStatus": "official_designated_with_review",
+      "qualificationStatus": "unknown",
+      "qualificationReason": "Official evacuation-place evidence exists, but no unambiguous PLATEAU building match is available in B4.",
+      "evidenceSources": [
+        {
+          "sourceId": "chuo_open_data_designated_emergency_shelters",
+          "sourceFamily": "official_shelter_facility",
+          "sourceName": "指定緊急避難所一覧",
+          "officialStatus": "official_primary",
+          "sourceUrl": "https://www.city.chuo.lg.jp/documents/984/shiteikinkyuuhinan.csv",
+          "sourceUpdatedAt": "2025-03-31",
+          "evidenceNote": "Primary Chuo City open-data record for a designated emergency evacuation shelter/place."
+        },
+        {
+          "sourceId": "gsi_chuo_designated_emergency_evacuation_places",
+          "sourceFamily": "official_shelter_facility",
+          "sourceName": "国土地理院 指定緊急避難場所データ 東京都中央区",
+          "officialStatus": "official_reference",
+          "sourceUrl": "https://hinanmap.gsi.go.jp/hinanjocp/defaultFtpData/csv/13102_2.csv",
+          "sourceUpdatedAt": "2025-09-02",
+          "evidenceNote": "Supporting official source has 1 record(s) with matching normalized facility name."
+        }
+      ],
+      "matchMethod": "unmatched",
+      "matchDistanceMeters": null,
+      "confidence": "low",
+      "manualReviewNeeded": true,
+      "warnings": [
+        "official source appears to describe a broad evacuation area rather than a single building",
+        "manual QGIS review required before assigning any PLATEAU building",
+        "official source does not provide safeFloor; preserve null for review",
+        "B5 routing skipped because B4 did not provide a qualified building target",
+        "OSM route fields are prototype estimates and are not official evacuation routes"
+      ],
+      "disasterTypes": [
+        "large_fire"
+      ],
+      "safeFloor": null,
+      "capacity": 48529,
+      "sourceUpdatedAt": "2025-03-31",
+      "routeAvailability": "not_evaluated",
+      "nearestRouteDistanceMeters": null,
+      "estimatedTravelTimeSeconds": null,
+      "notes": "Normalized from official Chuo City open data. Original municipality code: 131024. Name appears to describe a broad evacuation area rather than a single building. 国土地理院 指定緊急避難場所データ 東京都中央区 match count: 1 B4 performs PLATEAU building matching only; route fields remain not_evaluated for P5-B5. B5 merged OSM route estimates where available; no disaster road closure, flood simulation, or Unity gameplay integration is applied.",
+      "routeSource": null,
+      "routeType": null,
+      "isOfficialEvacuationRoute": false,
+      "nearestRouteId": null,
+      "nearestRouteOriginId": null,
+      "nearestRouteOriginName": null,
+      "availableRouteCount": 0,
+      "failedRouteCount": 0
+    }
+  ]
+}

@@ -1,0 +1,184 @@
+{
+  "matrixVersion": "p5-a1",
+  "createdFor": "Phase 5 open-source reference and tool decision planning",
+  "planningOnly": true,
+  "dependenciesAdded": false,
+  "tools": [
+    {
+      "name": "PLATEAU SDK for Unity GIS Sample",
+      "phase": "P5-C",
+      "useMode": "reference_only",
+      "decisionStatus": "preliminary_accept_reference_only",
+      "expectedRole": "Unity GIS visualization and PLATEAU-related display pattern reference.",
+      "adoptionConditions": [
+        "review license and supported Unity/PLATEAU SDK version",
+        "extract concepts only unless a later Unity milestone approves code adoption",
+        "avoid sample project import"
+      ],
+      "risks": [
+        "ProjectSettings or Packages pollution",
+        "scene dependency mismatch",
+        "sample assumptions may not match this project"
+      ],
+      "boundaryNotes": [
+        "do not import sample project directly",
+        "do not modify Unity Packages or ProjectSettings in P5-A1"
+      ],
+      "nextAction": "Review concepts in P5-A2 or P5-C planning before any Unity integration."
+    },
+    {
+      "name": "PLATEAU QGIS Plugin",
+      "phase": "P5-B",
+      "useMode": "optional_tool",
+      "decisionStatus": "preliminary_accept_manual_qa_candidate",
+      "expectedRole": "Manual QGIS inspection of PLATEAU/CityGML layers and spatial QA candidate.",
+      "adoptionConditions": [
+        "confirm plugin maturity and QGIS version compatibility",
+        "use only for manual QA unless a later decision approves reproducible pipeline use",
+        "document any manual QA steps separately from pipeline outputs"
+      ],
+      "risks": [
+        "beta or experimental behavior",
+        "manual plugin state is not reproducible",
+        "version-dependent rendering or import behavior"
+      ],
+      "boundaryNotes": [
+        "not a Unity runtime dependency",
+        "not a required pipeline dependency in P5-A1"
+      ],
+      "nextAction": "Evaluate as a visual QA aid during P5-B planning."
+    },
+    {
+      "name": "OSMnx",
+      "phase": "P5-B routing",
+      "useMode": "dependency_candidate",
+      "decisionStatus": "evaluate_before_p5b_routing",
+      "expectedRole": "OSM pedestrian network retrieval, graph preparation, and prototype route generation.",
+      "adoptionConditions": [
+        "review OSM license and attribution requirements",
+        "define cache/offline reproducibility policy",
+        "label outputs as estimated prototype routes"
+      ],
+      "risks": [
+        "OSM network completeness varies",
+        "OSM data changes over time",
+        "routes are not official evacuation routes"
+      ],
+      "boundaryNotes": [
+        "do not install in P5-A1",
+        "do not treat OSM routes as official guidance"
+      ],
+      "nextAction": "Review route reproducibility and attribution before P5-B implementation."
+    },
+    {
+      "name": "GeoPandas",
+      "phase": "P5-B",
+      "useMode": "likely_dependency",
+      "decisionStatus": "evaluate_before_p5b_pipeline",
+      "expectedRole": "Core vector geospatial processing, spatial joins, CRS-aware tables, and Unity-ready GeoJSON/CSV outputs.",
+      "adoptionConditions": [
+        "choose stable Windows-compatible install path",
+        "define CRS policy and tests",
+        "pin version after dependency review"
+      ],
+      "risks": [
+        "Windows dependency setup",
+        "IO backend compatibility",
+        "schema drift in processed outputs"
+      ],
+      "boundaryNotes": [
+        "do not modify requirements.txt in P5-A1",
+        "must preserve explicit CRS metadata"
+      ],
+      "nextAction": "Evaluate with Shapely, pyproj, and IO backend choices before P5-B."
+    },
+    {
+      "name": "Shapely",
+      "phase": "P5-B",
+      "useMode": "likely_dependency",
+      "decisionStatus": "evaluate_before_p5b_pipeline",
+      "expectedRole": "Geometry operations for contains, nearest, distance, buffer, intersection, and geometry validation.",
+      "adoptionConditions": [
+        "use projected CRS for metric distances",
+        "validate geometry validity before matching",
+        "add tests for containment and nearest-building decisions"
+      ],
+      "risks": [
+        "distance errors in geographic CRS",
+        "invalid source geometries",
+        "ambiguous boundary cases"
+      ],
+      "boundaryNotes": [
+        "does not confirm official designation",
+        "requires CRS discipline"
+      ],
+      "nextAction": "Define geometry test fixtures and CRS requirements before implementation."
+    },
+    {
+      "name": "pyproj",
+      "phase": "P5-B",
+      "useMode": "likely_dependency",
+      "decisionStatus": "evaluate_before_p5b_pipeline",
+      "expectedRole": "CRS transforms, coordinate validation, and reference point testing.",
+      "adoptionConditions": [
+        "record input and output CRS in every processed dataset",
+        "define axis-order convention",
+        "test known reference points"
+      ],
+      "risks": [
+        "wrong EPSG selection",
+        "axis-order mistakes",
+        "hidden CRS assumptions"
+      ],
+      "boundaryNotes": [
+        "do not install in P5-A1",
+        "future pipeline must record CRS metadata explicitly"
+      ],
+      "nextAction": "Define CRS policy in P5-A2 rulebook/schema planning."
+    },
+    {
+      "name": "NetworkX",
+      "phase": "P5-B routing",
+      "useMode": "dependency_candidate",
+      "decisionStatus": "evaluate_before_p5b_routing",
+      "expectedRole": "Graph routing support, potentially through OSMnx or direct graph operations.",
+      "adoptionConditions": [
+        "confirm whether OSMnx already satisfies graph needs",
+        "define route cost model",
+        "confirm graph size and performance are acceptable"
+      ],
+      "risks": [
+        "duplicating OSMnx functionality",
+        "route cost assumptions may be too simplistic",
+        "large graph performance constraints"
+      ],
+      "boundaryNotes": [
+        "do not install in P5-A1",
+        "route outputs remain prototype estimates"
+      ],
+      "nextAction": "Evaluate only after the P5-B routing approach is selected."
+    },
+    {
+      "name": "GDAL/Fiona/pyogrio",
+      "phase": "P5-B",
+      "useMode": "dependency_candidate",
+      "decisionStatus": "evaluate_before_p5b_io",
+      "expectedRole": "Geospatial file IO backend for GeoJSON, GeoPackage, shapefile, and related vector formats.",
+      "adoptionConditions": [
+        "identify actual official source formats",
+        "choose simplest stable Windows-compatible backend",
+        "avoid unnecessary heavy dependency footprint"
+      ],
+      "risks": [
+        "Windows binary compatibility",
+        "transitive dependency conflicts",
+        "format-specific behavior differences"
+      ],
+      "boundaryNotes": [
+        "do not install in P5-A1",
+        "do not modify requirements.txt in P5-A1"
+      ],
+      "nextAction": "Choose IO backend after official source formats are confirmed."
+    }
+  ]
+}

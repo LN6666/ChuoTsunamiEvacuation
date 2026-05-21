@@ -1,0 +1,2006 @@
+{
+  "datasetId": "p5_b4_real_chuo_official_shelters_normalized",
+  "generatedAt": "2026-05-19T23:35:56+09:00",
+  "coordinateReferenceSystem": "EPSG:4326",
+  "sourceManifestPath": "data_pipeline/sources/real_chuo_official_source_manifest.json",
+  "recordCount": 31,
+  "sourceRowCounts": {
+    "chuoOpenData": 31,
+    "tokyoEvacuationCenterChuoMatches": 23,
+    "tokyoEvacuationAreaChuoMatches": 27,
+    "gsiEmergencyEvacuationPlaces": 33,
+    "gsiDesignatedShelters": 34
+  },
+  "notes": "Official Chuo City open data is the primary source. Tokyo Metropolitan Government and GSI records are used as official reference cross-checks where facility names match. No raw downloaded files are required at Unity runtime.",
+  "records": [
+    {
+      "shelterId": "chuo_official_emergency_001",
+      "shelterName": "城東小学校",
+      "officialSourceName": "指定緊急避難所一覧",
+      "sourceOwner": "東京都中央区",
+      "sourceUrl": "https://www.city.chuo.lg.jp/documents/984/shiteikinkyuuhinan.csv",
+      "sourceUpdatedAt": "2025-03-31",
+      "downloadedAt": "2026-05-19T00:00:00+09:00",
+      "licenseOrTerms": "Creative Commons Attribution 4.0 International as stated on the Chuo City open data page.",
+      "address": "東京都中央区八重洲2-2-1",
+      "latitude": 35.679059,
+      "longitude": 139.769114,
+      "coordinateReferenceSystem": "EPSG:4326",
+      "disasterTypes": [
+        "flood",
+        "storm_surge",
+        "earthquake",
+        "inland_flooding"
+      ],
+      "officialDesignationStatus": "official_designated",
+      "safeFloor": null,
+      "capacity": 2480,
+      "notes": "Normalized from official Chuo City open data. Original municipality code: 131024. Source marks overlap with designated shelter address. 国土地理院 指定緊急避難場所データ 東京都中央区 match count: 1 国土地理院 指定避難所データ 東京都中央区 match count: 1",
+      "manualReviewNeeded": false,
+      "evidenceSources": [
+        {
+          "sourceId": "chuo_open_data_designated_emergency_shelters",
+          "sourceFamily": "official_shelter_facility",
+          "sourceName": "指定緊急避難所一覧",
+          "officialStatus": "official_primary",
+          "sourceUrl": "https://www.city.chuo.lg.jp/documents/984/shiteikinkyuuhinan.csv",
+          "sourceUpdatedAt": "2025-03-31",
+          "evidenceNote": "Primary Chuo City open-data record for a designated emergency evacuation shelter/place."
+        },
+        {
+          "sourceId": "gsi_chuo_designated_emergency_evacuation_places",
+          "sourceFamily": "official_shelter_facility",
+          "sourceName": "国土地理院 指定緊急避難場所データ 東京都中央区",
+          "officialStatus": "official_reference",
+          "sourceUrl": "https://hinanmap.gsi.go.jp/hinanjocp/defaultFtpData/csv/13102_2.csv",
+          "sourceUpdatedAt": "2025-09-02",
+          "evidenceNote": "Supporting official source has 1 record(s) with matching normalized facility name."
+        },
+        {
+          "sourceId": "gsi_chuo_designated_shelters",
+          "sourceFamily": "official_shelter_facility",
+          "sourceName": "国土地理院 指定避難所データ 東京都中央区",
+          "officialStatus": "official_reference",
+          "sourceUrl": "https://hinanmap.gsi.go.jp/hinanjocp/defaultFtpData/csv/13102_1.csv",
+          "sourceUpdatedAt": "2025-09-02",
+          "evidenceNote": "Supporting official source has 1 record(s) with matching normalized facility name."
+        }
+      ]
+    },
+    {
+      "shelterId": "chuo_official_emergency_002",
+      "shelterName": "京橋プラザ",
+      "officialSourceName": "指定緊急避難所一覧",
+      "sourceOwner": "東京都中央区",
+      "sourceUrl": "https://www.city.chuo.lg.jp/documents/984/shiteikinkyuuhinan.csv",
+      "sourceUpdatedAt": "2025-03-31",
+      "downloadedAt": "2026-05-19T00:00:00+09:00",
+      "licenseOrTerms": "Creative Commons Attribution 4.0 International as stated on the Chuo City open data page.",
+      "address": "東京都中央区銀座1-25-3",
+      "latitude": 35.673121,
+      "longitude": 139.771593,
+      "coordinateReferenceSystem": "EPSG:4326",
+      "disasterTypes": [
+        "flood",
+        "storm_surge",
+        "earthquake",
+        "inland_flooding"
+      ],
+      "officialDesignationStatus": "official_designated",
+      "safeFloor": null,
+      "capacity": 1038,
+      "notes": "Normalized from official Chuo City open data. Original municipality code: 131024. Source marks overlap with designated shelter address. 東京都防災マップ 避難所一覧データCSV match count: 1 東京都防災マップ 避難場所一覧データCSV match count: 1 国土地理院 指定緊急避難場所データ 東京都中央区 match count: 1 国土地理院 指定避難所データ 東京都中央区 match count: 1",
+      "manualReviewNeeded": false,
+      "evidenceSources": [
+        {
+          "sourceId": "chuo_open_data_designated_emergency_shelters",
+          "sourceFamily": "official_shelter_facility",
+          "sourceName": "指定緊急避難所一覧",
+          "officialStatus": "official_primary",
+          "sourceUrl": "https://www.city.chuo.lg.jp/documents/984/shiteikinkyuuhinan.csv",
+          "sourceUpdatedAt": "2025-03-31",
+          "evidenceNote": "Primary Chuo City open-data record for a designated emergency evacuation shelter/place."
+        },
+        {
+          "sourceId": "tokyo_bosai_map_evacuation_center",
+          "sourceFamily": "official_shelter_facility",
+          "sourceName": "東京都防災マップ 避難所一覧データCSV",
+          "officialStatus": "official_reference",
+          "sourceUrl": "https://www.opendata.metro.tokyo.lg.jp/soumu/130001_evacuation_center.csv",
+          "sourceUpdatedAt": "2022-06-20",
+          "evidenceNote": "Supporting official source has 1 record(s) with matching normalized facility name."
+        },
+        {
+          "sourceId": "tokyo_bosai_map_evacuation_area",
+          "sourceFamily": "official_shelter_facility",
+          "sourceName": "東京都防災マップ 避難場所一覧データCSV",
+          "officialStatus": "official_reference",
+          "sourceUrl": "https://www.opendata.metro.tokyo.lg.jp/soumu/130001_evacuation_area.csv",
+          "sourceUpdatedAt": "2025-12-12",
+          "evidenceNote": "Supporting official source has 1 record(s) with matching normalized facility name."
+        },
+        {
+          "sourceId": "gsi_chuo_designated_emergency_evacuation_places",
+          "sourceFamily": "official_shelter_facility",
+          "sourceName": "国土地理院 指定緊急避難場所データ 東京都中央区",
+          "officialStatus": "official_reference",
+          "sourceUrl": "https://hinanmap.gsi.go.jp/hinanjocp/defaultFtpData/csv/13102_2.csv",
+          "sourceUpdatedAt": "2025-09-02",
+          "evidenceNote": "Supporting official source has 1 record(s) with matching normalized facility name."
+        },
+        {
+          "sourceId": "gsi_chuo_designated_shelters",
+          "sourceFamily": "official_shelter_facility",
+          "sourceName": "国土地理院 指定避難所データ 東京都中央区",
+          "officialStatus": "official_reference",
+          "sourceUrl": "https://hinanmap.gsi.go.jp/hinanjocp/defaultFtpData/csv/13102_1.csv",
+          "sourceUpdatedAt": "2025-09-02",
+          "evidenceNote": "Supporting official source has 1 record(s) with matching normalized facility name."
+        }
+      ]
+    },
+    {
+      "shelterId": "chuo_official_emergency_003",
+      "shelterName": "泰明小学校",
+      "officialSourceName": "指定緊急避難所一覧",
+      "sourceOwner": "東京都中央区",
+      "sourceUrl": "https://www.city.chuo.lg.jp/documents/984/shiteikinkyuuhinan.csv",
+      "sourceUpdatedAt": "2025-03-31",
+      "downloadedAt": "2026-05-19T00:00:00+09:00",
+      "licenseOrTerms": "Creative Commons Attribution 4.0 International as stated on the Chuo City open data page.",
+      "address": "東京都中央区銀座5-1-13",
+      "latitude": 35.672383,
+      "longitude": 139.761495,
+      "coordinateReferenceSystem": "EPSG:4326",
+      "disasterTypes": [
+        "flood",
+        "storm_surge",
+        "earthquake",
+        "inland_flooding"
+      ],
+      "officialDesignationStatus": "official_designated",
+      "safeFloor": null,
+      "capacity": 2384,
+      "notes": "Normalized from official Chuo City open data. Original municipality code: 131024. Source marks overlap with designated shelter address. 東京都防災マップ 避難所一覧データCSV match count: 1 東京都防災マップ 避難場所一覧データCSV match count: 1 国土地理院 指定緊急避難場所データ 東京都中央区 match count: 1 国土地理院 指定避難所データ 東京都中央区 match count: 1",
+      "manualReviewNeeded": false,
+      "evidenceSources": [
+        {
+          "sourceId": "chuo_open_data_designated_emergency_shelters",
+          "sourceFamily": "official_shelter_facility",
+          "sourceName": "指定緊急避難所一覧",
+          "officialStatus": "official_primary",
+          "sourceUrl": "https://www.city.chuo.lg.jp/documents/984/shiteikinkyuuhinan.csv",
+          "sourceUpdatedAt": "2025-03-31",
+          "evidenceNote": "Primary Chuo City open-data record for a designated emergency evacuation shelter/place."
+        },
+        {
+          "sourceId": "tokyo_bosai_map_evacuation_center",
+          "sourceFamily": "official_shelter_facility",
+          "sourceName": "東京都防災マップ 避難所一覧データCSV",
+          "officialStatus": "official_reference",
+          "sourceUrl": "https://www.opendata.metro.tokyo.lg.jp/soumu/130001_evacuation_center.csv",
+          "sourceUpdatedAt": "2022-06-20",
+          "evidenceNote": "Supporting official source has 1 record(s) with matching normalized facility name."
+        },
+        {
+          "sourceId": "tokyo_bosai_map_evacuation_area",
+          "sourceFamily": "official_shelter_facility",
+          "sourceName": "東京都防災マップ 避難場所一覧データCSV",
+          "officialStatus": "official_reference",
+          "sourceUrl": "https://www.opendata.metro.tokyo.lg.jp/soumu/130001_evacuation_area.csv",
+          "sourceUpdatedAt": "2025-12-12",
+          "evidenceNote": "Supporting official source has 1 record(s) with matching normalized facility name."
+        },
+        {
+          "sourceId": "gsi_chuo_designated_emergency_evacuation_places",
+          "sourceFamily": "official_shelter_facility",
+          "sourceName": "国土地理院 指定緊急避難場所データ 東京都中央区",
+          "officialStatus": "official_reference",
+          "sourceUrl": "https://hinanmap.gsi.go.jp/hinanjocp/defaultFtpData/csv/13102_2.csv",
+          "sourceUpdatedAt": "2025-09-02",
+          "evidenceNote": "Supporting official source has 1 record(s) with matching normalized facility name."
+        },
+        {
+          "sourceId": "gsi_chuo_designated_shelters",
+          "sourceFamily": "official_shelter_facility",
+          "sourceName": "国土地理院 指定避難所データ 東京都中央区",
+          "officialStatus": "official_reference",
+          "sourceUrl": "https://hinanmap.gsi.go.jp/hinanjocp/defaultFtpData/csv/13102_1.csv",
+          "sourceUpdatedAt": "2025-09-02",
+          "evidenceNote": "Supporting official source has 1 record(s) with matching normalized facility name."
+        }
+      ]
+    },
+    {
+      "shelterId": "chuo_official_emergency_004",
+      "shelterName": "銀座中学校",
+      "officialSourceName": "指定緊急避難所一覧",
+      "sourceOwner": "東京都中央区",
+      "sourceUrl": "https://www.city.chuo.lg.jp/documents/984/shiteikinkyuuhinan.csv",
+      "sourceUpdatedAt": "2025-03-31",
+      "downloadedAt": "2026-05-19T00:00:00+09:00",
+      "licenseOrTerms": "Creative Commons Attribution 4.0 International as stated on the Chuo City open data page.",
+      "address": "東京都中央区銀座8-19-15",
+      "latitude": 35.665512,
+      "longitude": 139.764854,
+      "coordinateReferenceSystem": "EPSG:4326",
+      "disasterTypes": [
+        "flood",
+        "storm_surge",
+        "earthquake",
+        "inland_flooding"
+      ],
+      "officialDesignationStatus": "official_designated",
+      "safeFloor": null,
+      "capacity": 4590,
+      "notes": "Normalized from official Chuo City open data. Original municipality code: 131024. Source marks overlap with designated shelter address. 東京都防災マップ 避難所一覧データCSV match count: 1 東京都防災マップ 避難場所一覧データCSV match count: 1 国土地理院 指定緊急避難場所データ 東京都中央区 match count: 1 国土地理院 指定避難所データ 東京都中央区 match count: 1",
+      "manualReviewNeeded": false,
+      "evidenceSources": [
+        {
+          "sourceId": "chuo_open_data_designated_emergency_shelters",
+          "sourceFamily": "official_shelter_facility",
+          "sourceName": "指定緊急避難所一覧",
+          "officialStatus": "official_primary",
+          "sourceUrl": "https://www.city.chuo.lg.jp/documents/984/shiteikinkyuuhinan.csv",
+          "sourceUpdatedAt": "2025-03-31",
+          "evidenceNote": "Primary Chuo City open-data record for a designated emergency evacuation shelter/place."
+        },
+        {
+          "sourceId": "tokyo_bosai_map_evacuation_center",
+          "sourceFamily": "official_shelter_facility",
+          "sourceName": "東京都防災マップ 避難所一覧データCSV",
+          "officialStatus": "official_reference",
+          "sourceUrl": "https://www.opendata.metro.tokyo.lg.jp/soumu/130001_evacuation_center.csv",
+          "sourceUpdatedAt": "2022-06-20",
+          "evidenceNote": "Supporting official source has 1 record(s) with matching normalized facility name."
+        },
+        {
+          "sourceId": "tokyo_bosai_map_evacuation_area",
+          "sourceFamily": "official_shelter_facility",
+          "sourceName": "東京都防災マップ 避難場所一覧データCSV",
+          "officialStatus": "official_reference",
+          "sourceUrl": "https://www.opendata.metro.tokyo.lg.jp/soumu/130001_evacuation_area.csv",
+          "sourceUpdatedAt": "2025-12-12",
+          "evidenceNote": "Supporting official source has 1 record(s) with matching normalized facility name."
+        },
+        {
+          "sourceId": "gsi_chuo_designated_emergency_evacuation_places",
+          "sourceFamily": "official_shelter_facility",
+          "sourceName": "国土地理院 指定緊急避難場所データ 東京都中央区",
+          "officialStatus": "official_reference",
+          "sourceUrl": "https://hinanmap.gsi.go.jp/hinanjocp/defaultFtpData/csv/13102_2.csv",
+          "sourceUpdatedAt": "2025-09-02",
+          "evidenceNote": "Supporting official source has 1 record(s) with matching normalized facility name."
+        },
+        {
+          "sourceId": "gsi_chuo_designated_shelters",
+          "sourceFamily": "official_shelter_facility",
+          "sourceName": "国土地理院 指定避難所データ 東京都中央区",
+          "officialStatus": "official_reference",
+          "sourceUrl": "https://hinanmap.gsi.go.jp/hinanjocp/defaultFtpData/csv/13102_1.csv",
+          "sourceUpdatedAt": "2025-09-02",
+          "evidenceNote": "Supporting official source has 1 record(s) with matching normalized facility name."
+        }
+      ]
+    },
+    {
+      "shelterId": "chuo_official_emergency_005",
+      "shelterName": "中央小学校",
+      "officialSourceName": "指定緊急避難所一覧",
+      "sourceOwner": "東京都中央区",
+      "sourceUrl": "https://www.city.chuo.lg.jp/documents/984/shiteikinkyuuhinan.csv",
+      "sourceUpdatedAt": "2025-03-31",
+      "downloadedAt": "2026-05-19T00:00:00+09:00",
+      "licenseOrTerms": "Creative Commons Attribution 4.0 International as stated on the Chuo City open data page.",
+      "address": "東京都中央区湊1-4-1",
+      "latitude": 35.672171,
+      "longitude": 139.77876,
+      "coordinateReferenceSystem": "EPSG:4326",
+      "disasterTypes": [
+        "flood",
+        "storm_surge",
+        "earthquake",
+        "inland_flooding"
+      ],
+      "officialDesignationStatus": "official_designated",
+      "safeFloor": null,
+      "capacity": 2940,
+      "notes": "Normalized from official Chuo City open data. Original municipality code: 131024. Source marks overlap with designated shelter address. 東京都防災マップ 避難所一覧データCSV match count: 1 東京都防災マップ 避難場所一覧データCSV match count: 1 国土地理院 指定緊急避難場所データ 東京都中央区 match count: 1 国土地理院 指定避難所データ 東京都中央区 match count: 1",
+      "manualReviewNeeded": false,
+      "evidenceSources": [
+        {
+          "sourceId": "chuo_open_data_designated_emergency_shelters",
+          "sourceFamily": "official_shelter_facility",
+          "sourceName": "指定緊急避難所一覧",
+          "officialStatus": "official_primary",
+          "sourceUrl": "https://www.city.chuo.lg.jp/documents/984/shiteikinkyuuhinan.csv",
+          "sourceUpdatedAt": "2025-03-31",
+          "evidenceNote": "Primary Chuo City open-data record for a designated emergency evacuation shelter/place."
+        },
+        {
+          "sourceId": "tokyo_bosai_map_evacuation_center",
+          "sourceFamily": "official_shelter_facility",
+          "sourceName": "東京都防災マップ 避難所一覧データCSV",
+          "officialStatus": "official_reference",
+          "sourceUrl": "https://www.opendata.metro.tokyo.lg.jp/soumu/130001_evacuation_center.csv",
+          "sourceUpdatedAt": "2022-06-20",
+          "evidenceNote": "Supporting official source has 1 record(s) with matching normalized facility name."
+        },
+        {
+          "sourceId": "tokyo_bosai_map_evacuation_area",
+          "sourceFamily": "official_shelter_facility",
+          "sourceName": "東京都防災マップ 避難場所一覧データCSV",
+          "officialStatus": "official_reference",
+          "sourceUrl": "https://www.opendata.metro.tokyo.lg.jp/soumu/130001_evacuation_area.csv",
+          "sourceUpdatedAt": "2025-12-12",
+          "evidenceNote": "Supporting official source has 1 record(s) with matching normalized facility name."
+        },
+        {
+          "sourceId": "gsi_chuo_designated_emergency_evacuation_places",
+          "sourceFamily": "official_shelter_facility",
+          "sourceName": "国土地理院 指定緊急避難場所データ 東京都中央区",
+          "officialStatus": "official_reference",
+          "sourceUrl": "https://hinanmap.gsi.go.jp/hinanjocp/defaultFtpData/csv/13102_2.csv",
+          "sourceUpdatedAt": "2025-09-02",
+          "evidenceNote": "Supporting official source has 1 record(s) with matching normalized facility name."
+        },
+        {
+          "sourceId": "gsi_chuo_designated_shelters",
+          "sourceFamily": "official_shelter_facility",
+          "sourceName": "国土地理院 指定避難所データ 東京都中央区",
+          "officialStatus": "official_reference",
+          "sourceUrl": "https://hinanmap.gsi.go.jp/hinanjocp/defaultFtpData/csv/13102_1.csv",
+          "sourceUpdatedAt": "2025-09-02",
+          "evidenceNote": "Supporting official source has 1 record(s) with matching normalized facility name."
+        }
+      ]
+    },
+    {
+      "shelterId": "chuo_official_emergency_006",
+      "shelterName": "明石小学校",
+      "officialSourceName": "指定緊急避難所一覧",
+      "sourceOwner": "東京都中央区",
+      "sourceUrl": "https://www.city.chuo.lg.jp/documents/984/shiteikinkyuuhinan.csv",
+      "sourceUpdatedAt": "2025-03-31",
+      "downloadedAt": "2026-05-19T00:00:00+09:00",
+      "licenseOrTerms": "Creative Commons Attribution 4.0 International as stated on the Chuo City open data page.",
+      "address": "東京都中央区明石町1-15",
+      "latitude": 35.668734,
+      "longitude": 139.776472,
+      "coordinateReferenceSystem": "EPSG:4326",
+      "disasterTypes": [
+        "flood",
+        "storm_surge",
+        "earthquake",
+        "inland_flooding"
+      ],
+      "officialDesignationStatus": "official_designated",
+      "safeFloor": null,
+      "capacity": 3903,
+      "notes": "Normalized from official Chuo City open data. Original municipality code: 131024. Source marks overlap with designated shelter address. 東京都防災マップ 避難所一覧データCSV match count: 1 東京都防災マップ 避難場所一覧データCSV match count: 1 国土地理院 指定緊急避難場所データ 東京都中央区 match count: 1 国土地理院 指定避難所データ 東京都中央区 match count: 1",
+      "manualReviewNeeded": false,
+      "evidenceSources": [
+        {
+          "sourceId": "chuo_open_data_designated_emergency_shelters",
+          "sourceFamily": "official_shelter_facility",
+          "sourceName": "指定緊急避難所一覧",
+          "officialStatus": "official_primary",
+          "sourceUrl": "https://www.city.chuo.lg.jp/documents/984/shiteikinkyuuhinan.csv",
+          "sourceUpdatedAt": "2025-03-31",
+          "evidenceNote": "Primary Chuo City open-data record for a designated emergency evacuation shelter/place."
+        },
+        {
+          "sourceId": "tokyo_bosai_map_evacuation_center",
+          "sourceFamily": "official_shelter_facility",
+          "sourceName": "東京都防災マップ 避難所一覧データCSV",
+          "officialStatus": "official_reference",
+          "sourceUrl": "https://www.opendata.metro.tokyo.lg.jp/soumu/130001_evacuation_center.csv",
+          "sourceUpdatedAt": "2022-06-20",
+          "evidenceNote": "Supporting official source has 1 record(s) with matching normalized facility name."
+        },
+        {
+          "sourceId": "tokyo_bosai_map_evacuation_area",
+          "sourceFamily": "official_shelter_facility",
+          "sourceName": "東京都防災マップ 避難場所一覧データCSV",
+          "officialStatus": "official_reference",
+          "sourceUrl": "https://www.opendata.metro.tokyo.lg.jp/soumu/130001_evacuation_area.csv",
+          "sourceUpdatedAt": "2025-12-12",
+          "evidenceNote": "Supporting official source has 1 record(s) with matching normalized facility name."
+        },
+        {
+          "sourceId": "gsi_chuo_designated_emergency_evacuation_places",
+          "sourceFamily": "official_shelter_facility",
+          "sourceName": "国土地理院 指定緊急避難場所データ 東京都中央区",
+          "officialStatus": "official_reference",
+          "sourceUrl": "https://hinanmap.gsi.go.jp/hinanjocp/defaultFtpData/csv/13102_2.csv",
+          "sourceUpdatedAt": "2025-09-02",
+          "evidenceNote": "Supporting official source has 1 record(s) with matching normalized facility name."
+        },
+        {
+          "sourceId": "gsi_chuo_designated_shelters",
+          "sourceFamily": "official_shelter_facility",
+          "sourceName": "国土地理院 指定避難所データ 東京都中央区",
+          "officialStatus": "official_reference",
+          "sourceUrl": "https://hinanmap.gsi.go.jp/hinanjocp/defaultFtpData/csv/13102_1.csv",
+          "sourceUpdatedAt": "2025-09-02",
+          "evidenceNote": "Supporting official source has 1 record(s) with matching normalized facility name."
+        }
+      ]
+    },
+    {
+      "shelterId": "chuo_official_emergency_007",
+      "shelterName": "京橋築地小学校",
+      "officialSourceName": "指定緊急避難所一覧",
+      "sourceOwner": "東京都中央区",
+      "sourceUrl": "https://www.city.chuo.lg.jp/documents/984/shiteikinkyuuhinan.csv",
+      "sourceUpdatedAt": "2025-03-31",
+      "downloadedAt": "2026-05-19T00:00:00+09:00",
+      "licenseOrTerms": "Creative Commons Attribution 4.0 International as stated on the Chuo City open data page.",
+      "address": "東京都中央区築地2-13-1",
+      "latitude": 35.667975,
+      "longitude": 139.771173,
+      "coordinateReferenceSystem": "EPSG:4326",
+      "disasterTypes": [
+        "flood",
+        "storm_surge",
+        "earthquake",
+        "inland_flooding"
+      ],
+      "officialDesignationStatus": "official_designated",
+      "safeFloor": null,
+      "capacity": 3397,
+      "notes": "Normalized from official Chuo City open data. Original municipality code: 131024. Source marks overlap with designated shelter address. 東京都防災マップ 避難所一覧データCSV match count: 1 東京都防災マップ 避難場所一覧データCSV match count: 1 国土地理院 指定緊急避難場所データ 東京都中央区 match count: 1 国土地理院 指定避難所データ 東京都中央区 match count: 1",
+      "manualReviewNeeded": false,
+      "evidenceSources": [
+        {
+          "sourceId": "chuo_open_data_designated_emergency_shelters",
+          "sourceFamily": "official_shelter_facility",
+          "sourceName": "指定緊急避難所一覧",
+          "officialStatus": "official_primary",
+          "sourceUrl": "https://www.city.chuo.lg.jp/documents/984/shiteikinkyuuhinan.csv",
+          "sourceUpdatedAt": "2025-03-31",
+          "evidenceNote": "Primary Chuo City open-data record for a designated emergency evacuation shelter/place."
+        },
+        {
+          "sourceId": "tokyo_bosai_map_evacuation_center",
+          "sourceFamily": "official_shelter_facility",
+          "sourceName": "東京都防災マップ 避難所一覧データCSV",
+          "officialStatus": "official_reference",
+          "sourceUrl": "https://www.opendata.metro.tokyo.lg.jp/soumu/130001_evacuation_center.csv",
+          "sourceUpdatedAt": "2022-06-20",
+          "evidenceNote": "Supporting official source has 1 record(s) with matching normalized facility name."
+        },
+        {
+          "sourceId": "tokyo_bosai_map_evacuation_area",
+          "sourceFamily": "official_shelter_facility",
+          "sourceName": "東京都防災マップ 避難場所一覧データCSV",
+          "officialStatus": "official_reference",
+          "sourceUrl": "https://www.opendata.metro.tokyo.lg.jp/soumu/130001_evacuation_area.csv",
+          "sourceUpdatedAt": "2025-12-12",
+          "evidenceNote": "Supporting official source has 1 record(s) with matching normalized facility name."
+        },
+        {
+          "sourceId": "gsi_chuo_designated_emergency_evacuation_places",
+          "sourceFamily": "official_shelter_facility",
+          "sourceName": "国土地理院 指定緊急避難場所データ 東京都中央区",
+          "officialStatus": "official_reference",
+          "sourceUrl": "https://hinanmap.gsi.go.jp/hinanjocp/defaultFtpData/csv/13102_2.csv",
+          "sourceUpdatedAt": "2025-09-02",
+          "evidenceNote": "Supporting official source has 1 record(s) with matching normalized facility name."
+        },
+        {
+          "sourceId": "gsi_chuo_designated_shelters",
+          "sourceFamily": "official_shelter_facility",
+          "sourceName": "国土地理院 指定避難所データ 東京都中央区",
+          "officialStatus": "official_reference",
+          "sourceUrl": "https://hinanmap.gsi.go.jp/hinanjocp/defaultFtpData/csv/13102_1.csv",
+          "sourceUpdatedAt": "2025-09-02",
+          "evidenceNote": "Supporting official source has 1 record(s) with matching normalized facility name."
+        }
+      ]
+    },
+    {
+      "shelterId": "chuo_official_emergency_008",
+      "shelterName": "京華スクエア",
+      "officialSourceName": "指定緊急避難所一覧",
+      "sourceOwner": "東京都中央区",
+      "sourceUrl": "https://www.city.chuo.lg.jp/documents/984/shiteikinkyuuhinan.csv",
+      "sourceUpdatedAt": "2025-03-31",
+      "downloadedAt": "2026-05-19T00:00:00+09:00",
+      "licenseOrTerms": "Creative Commons Attribution 4.0 International as stated on the Chuo City open data page.",
+      "address": "東京都中央区八丁堀3-17-9",
+      "latitude": 35.674999,
+      "longitude": 139.775575,
+      "coordinateReferenceSystem": "EPSG:4326",
+      "disasterTypes": [
+        "flood",
+        "storm_surge",
+        "earthquake",
+        "inland_flooding"
+      ],
+      "officialDesignationStatus": "official_designated",
+      "safeFloor": null,
+      "capacity": 2460,
+      "notes": "Normalized from official Chuo City open data. Original municipality code: 131024. Source marks overlap with designated shelter address. 東京都防災マップ 避難所一覧データCSV match count: 1 東京都防災マップ 避難場所一覧データCSV match count: 1 国土地理院 指定緊急避難場所データ 東京都中央区 match count: 1 国土地理院 指定避難所データ 東京都中央区 match count: 1",
+      "manualReviewNeeded": false,
+      "evidenceSources": [
+        {
+          "sourceId": "chuo_open_data_designated_emergency_shelters",
+          "sourceFamily": "official_shelter_facility",
+          "sourceName": "指定緊急避難所一覧",
+          "officialStatus": "official_primary",
+          "sourceUrl": "https://www.city.chuo.lg.jp/documents/984/shiteikinkyuuhinan.csv",
+          "sourceUpdatedAt": "2025-03-31",
+          "evidenceNote": "Primary Chuo City open-data record for a designated emergency evacuation shelter/place."
+        },
+        {
+          "sourceId": "tokyo_bosai_map_evacuation_center",
+          "sourceFamily": "official_shelter_facility",
+          "sourceName": "東京都防災マップ 避難所一覧データCSV",
+          "officialStatus": "official_reference",
+          "sourceUrl": "https://www.opendata.metro.tokyo.lg.jp/soumu/130001_evacuation_center.csv",
+          "sourceUpdatedAt": "2022-06-20",
+          "evidenceNote": "Supporting official source has 1 record(s) with matching normalized facility name."
+        },
+        {
+          "sourceId": "tokyo_bosai_map_evacuation_area",
+          "sourceFamily": "official_shelter_facility",
+          "sourceName": "東京都防災マップ 避難場所一覧データCSV",
+          "officialStatus": "official_reference",
+          "sourceUrl": "https://www.opendata.metro.tokyo.lg.jp/soumu/130001_evacuation_area.csv",
+          "sourceUpdatedAt": "2025-12-12",
+          "evidenceNote": "Supporting official source has 1 record(s) with matching normalized facility name."
+        },
+        {
+          "sourceId": "gsi_chuo_designated_emergency_evacuation_places",
+          "sourceFamily": "official_shelter_facility",
+          "sourceName": "国土地理院 指定緊急避難場所データ 東京都中央区",
+          "officialStatus": "official_reference",
+          "sourceUrl": "https://hinanmap.gsi.go.jp/hinanjocp/defaultFtpData/csv/13102_2.csv",
+          "sourceUpdatedAt": "2025-09-02",
+          "evidenceNote": "Supporting official source has 1 record(s) with matching normalized facility name."
+        },
+        {
+          "sourceId": "gsi_chuo_designated_shelters",
+          "sourceFamily": "official_shelter_facility",
+          "sourceName": "国土地理院 指定避難所データ 東京都中央区",
+          "officialStatus": "official_reference",
+          "sourceUrl": "https://hinanmap.gsi.go.jp/hinanjocp/defaultFtpData/csv/13102_1.csv",
+          "sourceUpdatedAt": "2025-09-02",
+          "evidenceNote": "Supporting official source has 1 record(s) with matching normalized facility name."
+        }
+      ]
+    },
+    {
+      "shelterId": "chuo_official_emergency_009",
+      "shelterName": "明正小学校",
+      "officialSourceName": "指定緊急避難所一覧",
+      "sourceOwner": "東京都中央区",
+      "sourceUrl": "https://www.city.chuo.lg.jp/documents/984/shiteikinkyuuhinan.csv",
+      "sourceUpdatedAt": "2025-03-31",
+      "downloadedAt": "2026-05-19T00:00:00+09:00",
+      "licenseOrTerms": "Creative Commons Attribution 4.0 International as stated on the Chuo City open data page.",
+      "address": "東京都中央区新川2-13-4",
+      "latitude": 35.676011,
+      "longitude": 139.781852,
+      "coordinateReferenceSystem": "EPSG:4326",
+      "disasterTypes": [
+        "flood",
+        "storm_surge",
+        "earthquake",
+        "inland_flooding"
+      ],
+      "officialDesignationStatus": "official_designated",
+      "safeFloor": null,
+      "capacity": 5200,
+      "notes": "Normalized from official Chuo City open data. Original municipality code: 131024. Source marks overlap with designated shelter address. 東京都防災マップ 避難所一覧データCSV match count: 1 東京都防災マップ 避難場所一覧データCSV match count: 1 国土地理院 指定緊急避難場所データ 東京都中央区 match count: 1 国土地理院 指定避難所データ 東京都中央区 match count: 1",
+      "manualReviewNeeded": false,
+      "evidenceSources": [
+        {
+          "sourceId": "chuo_open_data_designated_emergency_shelters",
+          "sourceFamily": "official_shelter_facility",
+          "sourceName": "指定緊急避難所一覧",
+          "officialStatus": "official_primary",
+          "sourceUrl": "https://www.city.chuo.lg.jp/documents/984/shiteikinkyuuhinan.csv",
+          "sourceUpdatedAt": "2025-03-31",
+          "evidenceNote": "Primary Chuo City open-data record for a designated emergency evacuation shelter/place."
+        },
+        {
+          "sourceId": "tokyo_bosai_map_evacuation_center",
+          "sourceFamily": "official_shelter_facility",
+          "sourceName": "東京都防災マップ 避難所一覧データCSV",
+          "officialStatus": "official_reference",
+          "sourceUrl": "https://www.opendata.metro.tokyo.lg.jp/soumu/130001_evacuation_center.csv",
+          "sourceUpdatedAt": "2022-06-20",
+          "evidenceNote": "Supporting official source has 1 record(s) with matching normalized facility name."
+        },
+        {
+          "sourceId": "tokyo_bosai_map_evacuation_area",
+          "sourceFamily": "official_shelter_facility",
+          "sourceName": "東京都防災マップ 避難場所一覧データCSV",
+          "officialStatus": "official_reference",
+          "sourceUrl": "https://www.opendata.metro.tokyo.lg.jp/soumu/130001_evacuation_area.csv",
+          "sourceUpdatedAt": "2025-12-12",
+          "evidenceNote": "Supporting official source has 1 record(s) with matching normalized facility name."
+        },
+        {
+          "sourceId": "gsi_chuo_designated_emergency_evacuation_places",
+          "sourceFamily": "official_shelter_facility",
+          "sourceName": "国土地理院 指定緊急避難場所データ 東京都中央区",
+          "officialStatus": "official_reference",
+          "sourceUrl": "https://hinanmap.gsi.go.jp/hinanjocp/defaultFtpData/csv/13102_2.csv",
+          "sourceUpdatedAt": "2025-09-02",
+          "evidenceNote": "Supporting official source has 1 record(s) with matching normalized facility name."
+        },
+        {
+          "sourceId": "gsi_chuo_designated_shelters",
+          "sourceFamily": "official_shelter_facility",
+          "sourceName": "国土地理院 指定避難所データ 東京都中央区",
+          "officialStatus": "official_reference",
+          "sourceUrl": "https://hinanmap.gsi.go.jp/hinanjocp/defaultFtpData/csv/13102_1.csv",
+          "sourceUpdatedAt": "2025-09-02",
+          "evidenceNote": "Supporting official source has 1 record(s) with matching normalized facility name."
+        }
+      ]
+    },
+    {
+      "shelterId": "chuo_official_emergency_010",
+      "shelterName": "常盤小学校",
+      "officialSourceName": "指定緊急避難所一覧",
+      "sourceOwner": "東京都中央区",
+      "sourceUrl": "https://www.city.chuo.lg.jp/documents/984/shiteikinkyuuhinan.csv",
+      "sourceUpdatedAt": "2025-03-31",
+      "downloadedAt": "2026-05-19T00:00:00+09:00",
+      "licenseOrTerms": "Creative Commons Attribution 4.0 International as stated on the Chuo City open data page.",
+      "address": "東京都中央区日本橋本石町4-4-26",
+      "latitude": 35.688038,
+      "longitude": 139.770509,
+      "coordinateReferenceSystem": "EPSG:4326",
+      "disasterTypes": [
+        "flood",
+        "storm_surge",
+        "earthquake",
+        "inland_flooding"
+      ],
+      "officialDesignationStatus": "official_designated",
+      "safeFloor": null,
+      "capacity": 1749,
+      "notes": "Normalized from official Chuo City open data. Original municipality code: 131024. Source marks overlap with designated shelter address. 東京都防災マップ 避難所一覧データCSV match count: 1 東京都防災マップ 避難場所一覧データCSV match count: 1 国土地理院 指定緊急避難場所データ 東京都中央区 match count: 1 国土地理院 指定避難所データ 東京都中央区 match count: 1",
+      "manualReviewNeeded": false,
+      "evidenceSources": [
+        {
+          "sourceId": "chuo_open_data_designated_emergency_shelters",
+          "sourceFamily": "official_shelter_facility",
+          "sourceName": "指定緊急避難所一覧",
+          "officialStatus": "official_primary",
+          "sourceUrl": "https://www.city.chuo.lg.jp/documents/984/shiteikinkyuuhinan.csv",
+          "sourceUpdatedAt": "2025-03-31",
+          "evidenceNote": "Primary Chuo City open-data record for a designated emergency evacuation shelter/place."
+        },
+        {
+          "sourceId": "tokyo_bosai_map_evacuation_center",
+          "sourceFamily": "official_shelter_facility",
+          "sourceName": "東京都防災マップ 避難所一覧データCSV",
+          "officialStatus": "official_reference",
+          "sourceUrl": "https://www.opendata.metro.tokyo.lg.jp/soumu/130001_evacuation_center.csv",
+          "sourceUpdatedAt": "2022-06-20",
+          "evidenceNote": "Supporting official source has 1 record(s) with matching normalized facility name."
+        },
+        {
+          "sourceId": "tokyo_bosai_map_evacuation_area",
+          "sourceFamily": "official_shelter_facility",
+          "sourceName": "東京都防災マップ 避難場所一覧データCSV",
+          "officialStatus": "official_reference",
+          "sourceUrl": "https://www.opendata.metro.tokyo.lg.jp/soumu/130001_evacuation_area.csv",
+          "sourceUpdatedAt": "2025-12-12",
+          "evidenceNote": "Supporting official source has 1 record(s) with matching normalized facility name."
+        },
+        {
+          "sourceId": "gsi_chuo_designated_emergency_evacuation_places",
+          "sourceFamily": "official_shelter_facility",
+          "sourceName": "国土地理院 指定緊急避難場所データ 東京都中央区",
+          "officialStatus": "official_reference",
+          "sourceUrl": "https://hinanmap.gsi.go.jp/hinanjocp/defaultFtpData/csv/13102_2.csv",
+          "sourceUpdatedAt": "2025-09-02",
+          "evidenceNote": "Supporting official source has 1 record(s) with matching normalized facility name."
+        },
+        {
+          "sourceId": "gsi_chuo_designated_shelters",
+          "sourceFamily": "official_shelter_facility",
+          "sourceName": "国土地理院 指定避難所データ 東京都中央区",
+          "officialStatus": "official_reference",
+          "sourceUrl": "https://hinanmap.gsi.go.jp/hinanjocp/defaultFtpData/csv/13102_1.csv",
+          "sourceUpdatedAt": "2025-09-02",
+          "evidenceNote": "Supporting official source has 1 record(s) with matching normalized facility name."
+        }
+      ]
+    },
+    {
+      "shelterId": "chuo_official_emergency_011",
+      "shelterName": "十思スクエア",
+      "officialSourceName": "指定緊急避難所一覧",
+      "sourceOwner": "東京都中央区",
+      "sourceUrl": "https://www.city.chuo.lg.jp/documents/984/shiteikinkyuuhinan.csv",
+      "sourceUpdatedAt": "2025-03-31",
+      "downloadedAt": "2026-05-19T00:00:00+09:00",
+      "licenseOrTerms": "Creative Commons Attribution 4.0 International as stated on the Chuo City open data page.",
+      "address": "東京都中央区日本橋小伝馬町5-1",
+      "latitude": 35.690907,
+      "longitude": 139.776991,
+      "coordinateReferenceSystem": "EPSG:4326",
+      "disasterTypes": [
+        "flood",
+        "storm_surge",
+        "earthquake",
+        "inland_flooding"
+      ],
+      "officialDesignationStatus": "official_designated",
+      "safeFloor": null,
+      "capacity": 1332,
+      "notes": "Normalized from official Chuo City open data. Original municipality code: 131024. Source marks overlap with designated shelter address. 東京都防災マップ 避難所一覧データCSV match count: 1 東京都防災マップ 避難場所一覧データCSV match count: 1 国土地理院 指定緊急避難場所データ 東京都中央区 match count: 1 国土地理院 指定避難所データ 東京都中央区 match count: 1",
+      "manualReviewNeeded": false,
+      "evidenceSources": [
+        {
+          "sourceId": "chuo_open_data_designated_emergency_shelters",
+          "sourceFamily": "official_shelter_facility",
+          "sourceName": "指定緊急避難所一覧",
+          "officialStatus": "official_primary",
+          "sourceUrl": "https://www.city.chuo.lg.jp/documents/984/shiteikinkyuuhinan.csv",
+          "sourceUpdatedAt": "2025-03-31",
+          "evidenceNote": "Primary Chuo City open-data record for a designated emergency evacuation shelter/place."
+        },
+        {
+          "sourceId": "tokyo_bosai_map_evacuation_center",
+          "sourceFamily": "official_shelter_facility",
+          "sourceName": "東京都防災マップ 避難所一覧データCSV",
+          "officialStatus": "official_reference",
+          "sourceUrl": "https://www.opendata.metro.tokyo.lg.jp/soumu/130001_evacuation_center.csv",
+          "sourceUpdatedAt": "2022-06-20",
+          "evidenceNote": "Supporting official source has 1 record(s) with matching normalized facility name."
+        },
+        {
+          "sourceId": "tokyo_bosai_map_evacuation_area",
+          "sourceFamily": "official_shelter_facility",
+          "sourceName": "東京都防災マップ 避難場所一覧データCSV",
+          "officialStatus": "official_reference",
+          "sourceUrl": "https://www.opendata.metro.tokyo.lg.jp/soumu/130001_evacuation_area.csv",
+          "sourceUpdatedAt": "2025-12-12",
+          "evidenceNote": "Supporting official source has 1 record(s) with matching normalized facility name."
+        },
+        {
+          "sourceId": "gsi_chuo_designated_emergency_evacuation_places",
+          "sourceFamily": "official_shelter_facility",
+          "sourceName": "国土地理院 指定緊急避難場所データ 東京都中央区",
+          "officialStatus": "official_reference",
+          "sourceUrl": "https://hinanmap.gsi.go.jp/hinanjocp/defaultFtpData/csv/13102_2.csv",
+          "sourceUpdatedAt": "2025-09-02",
+          "evidenceNote": "Supporting official source has 1 record(s) with matching normalized facility name."
+        },
+        {
+          "sourceId": "gsi_chuo_designated_shelters",
+          "sourceFamily": "official_shelter_facility",
+          "sourceName": "国土地理院 指定避難所データ 東京都中央区",
+          "officialStatus": "official_reference",
+          "sourceUrl": "https://hinanmap.gsi.go.jp/hinanjocp/defaultFtpData/csv/13102_1.csv",
+          "sourceUpdatedAt": "2025-09-02",
+          "evidenceNote": "Supporting official source has 1 record(s) with matching normalized facility name."
+        }
+      ]
+    },
+    {
+      "shelterId": "chuo_official_emergency_012",
+      "shelterName": "日本橋小学校",
+      "officialSourceName": "指定緊急避難所一覧",
+      "sourceOwner": "東京都中央区",
+      "sourceUrl": "https://www.city.chuo.lg.jp/documents/984/shiteikinkyuuhinan.csv",
+      "sourceUpdatedAt": "2025-03-31",
+      "downloadedAt": "2026-05-19T00:00:00+09:00",
+      "licenseOrTerms": "Creative Commons Attribution 4.0 International as stated on the Chuo City open data page.",
+      "address": "東京都中央区日本橋人形町1-1-17",
+      "latitude": 35.684273,
+      "longitude": 139.78123,
+      "coordinateReferenceSystem": "EPSG:4326",
+      "disasterTypes": [
+        "flood",
+        "storm_surge",
+        "earthquake",
+        "inland_flooding"
+      ],
+      "officialDesignationStatus": "official_designated",
+      "safeFloor": null,
+      "capacity": 3120,
+      "notes": "Normalized from official Chuo City open data. Original municipality code: 131024. Source marks overlap with designated shelter address. 東京都防災マップ 避難所一覧データCSV match count: 1 東京都防災マップ 避難場所一覧データCSV match count: 1 国土地理院 指定緊急避難場所データ 東京都中央区 match count: 1 国土地理院 指定避難所データ 東京都中央区 match count: 1",
+      "manualReviewNeeded": false,
+      "evidenceSources": [
+        {
+          "sourceId": "chuo_open_data_designated_emergency_shelters",
+          "sourceFamily": "official_shelter_facility",
+          "sourceName": "指定緊急避難所一覧",
+          "officialStatus": "official_primary",
+          "sourceUrl": "https://www.city.chuo.lg.jp/documents/984/shiteikinkyuuhinan.csv",
+          "sourceUpdatedAt": "2025-03-31",
+          "evidenceNote": "Primary Chuo City open-data record for a designated emergency evacuation shelter/place."
+        },
+        {
+          "sourceId": "tokyo_bosai_map_evacuation_center",
+          "sourceFamily": "official_shelter_facility",
+          "sourceName": "東京都防災マップ 避難所一覧データCSV",
+          "officialStatus": "official_reference",
+          "sourceUrl": "https://www.opendata.metro.tokyo.lg.jp/soumu/130001_evacuation_center.csv",
+          "sourceUpdatedAt": "2022-06-20",
+          "evidenceNote": "Supporting official source has 1 record(s) with matching normalized facility name."
+        },
+        {
+          "sourceId": "tokyo_bosai_map_evacuation_area",
+          "sourceFamily": "official_shelter_facility",
+          "sourceName": "東京都防災マップ 避難場所一覧データCSV",
+          "officialStatus": "official_reference",
+          "sourceUrl": "https://www.opendata.metro.tokyo.lg.jp/soumu/130001_evacuation_area.csv",
+          "sourceUpdatedAt": "2025-12-12",
+          "evidenceNote": "Supporting official source has 1 record(s) with matching normalized facility name."
+        },
+        {
+          "sourceId": "gsi_chuo_designated_emergency_evacuation_places",
+          "sourceFamily": "official_shelter_facility",
+          "sourceName": "国土地理院 指定緊急避難場所データ 東京都中央区",
+          "officialStatus": "official_reference",
+          "sourceUrl": "https://hinanmap.gsi.go.jp/hinanjocp/defaultFtpData/csv/13102_2.csv",
+          "sourceUpdatedAt": "2025-09-02",
+          "evidenceNote": "Supporting official source has 1 record(s) with matching normalized facility name."
+        },
+        {
+          "sourceId": "gsi_chuo_designated_shelters",
+          "sourceFamily": "official_shelter_facility",
+          "sourceName": "国土地理院 指定避難所データ 東京都中央区",
+          "officialStatus": "official_reference",
+          "sourceUrl": "https://hinanmap.gsi.go.jp/hinanjocp/defaultFtpData/csv/13102_1.csv",
+          "sourceUpdatedAt": "2025-09-02",
+          "evidenceNote": "Supporting official source has 1 record(s) with matching normalized facility name."
+        }
+      ]
+    },
+    {
+      "shelterId": "chuo_official_emergency_013",
+      "shelterName": "有馬小学校",
+      "officialSourceName": "指定緊急避難所一覧",
+      "sourceOwner": "東京都中央区",
+      "sourceUrl": "https://www.city.chuo.lg.jp/documents/984/shiteikinkyuuhinan.csv",
+      "sourceUpdatedAt": "2025-03-31",
+      "downloadedAt": "2026-05-19T00:00:00+09:00",
+      "licenseOrTerms": "Creative Commons Attribution 4.0 International as stated on the Chuo City open data page.",
+      "address": "東京都中央区日本橋蛎殻町2-10-23",
+      "latitude": 35.683219,
+      "longitude": 139.787989,
+      "coordinateReferenceSystem": "EPSG:4326",
+      "disasterTypes": [
+        "flood",
+        "storm_surge",
+        "earthquake",
+        "inland_flooding"
+      ],
+      "officialDesignationStatus": "official_designated",
+      "safeFloor": null,
+      "capacity": 4075,
+      "notes": "Normalized from official Chuo City open data. Original municipality code: 131024. Source marks overlap with designated shelter address. 東京都防災マップ 避難所一覧データCSV match count: 1 東京都防災マップ 避難場所一覧データCSV match count: 1 国土地理院 指定緊急避難場所データ 東京都中央区 match count: 1 国土地理院 指定避難所データ 東京都中央区 match count: 1",
+      "manualReviewNeeded": false,
+      "evidenceSources": [
+        {
+          "sourceId": "chuo_open_data_designated_emergency_shelters",
+          "sourceFamily": "official_shelter_facility",
+          "sourceName": "指定緊急避難所一覧",
+          "officialStatus": "official_primary",
+          "sourceUrl": "https://www.city.chuo.lg.jp/documents/984/shiteikinkyuuhinan.csv",
+          "sourceUpdatedAt": "2025-03-31",
+          "evidenceNote": "Primary Chuo City open-data record for a designated emergency evacuation shelter/place."
+        },
+        {
+          "sourceId": "tokyo_bosai_map_evacuation_center",
+          "sourceFamily": "official_shelter_facility",
+          "sourceName": "東京都防災マップ 避難所一覧データCSV",
+          "officialStatus": "official_reference",
+          "sourceUrl": "https://www.opendata.metro.tokyo.lg.jp/soumu/130001_evacuation_center.csv",
+          "sourceUpdatedAt": "2022-06-20",
+          "evidenceNote": "Supporting official source has 1 record(s) with matching normalized facility name."
+        },
+        {
+          "sourceId": "tokyo_bosai_map_evacuation_area",
+          "sourceFamily": "official_shelter_facility",
+          "sourceName": "東京都防災マップ 避難場所一覧データCSV",
+          "officialStatus": "official_reference",
+          "sourceUrl": "https://www.opendata.metro.tokyo.lg.jp/soumu/130001_evacuation_area.csv",
+          "sourceUpdatedAt": "2025-12-12",
+          "evidenceNote": "Supporting official source has 1 record(s) with matching normalized facility name."
+        },
+        {
+          "sourceId": "gsi_chuo_designated_emergency_evacuation_places",
+          "sourceFamily": "official_shelter_facility",
+          "sourceName": "国土地理院 指定緊急避難場所データ 東京都中央区",
+          "officialStatus": "official_reference",
+          "sourceUrl": "https://hinanmap.gsi.go.jp/hinanjocp/defaultFtpData/csv/13102_2.csv",
+          "sourceUpdatedAt": "2025-09-02",
+          "evidenceNote": "Supporting official source has 1 record(s) with matching normalized facility name."
+        },
+        {
+          "sourceId": "gsi_chuo_designated_shelters",
+          "sourceFamily": "official_shelter_facility",
+          "sourceName": "国土地理院 指定避難所データ 東京都中央区",
+          "officialStatus": "official_reference",
+          "sourceUrl": "https://hinanmap.gsi.go.jp/hinanjocp/defaultFtpData/csv/13102_1.csv",
+          "sourceUpdatedAt": "2025-09-02",
+          "evidenceNote": "Supporting official source has 1 record(s) with matching normalized facility name."
+        }
+      ]
+    },
+    {
+      "shelterId": "chuo_official_emergency_014",
+      "shelterName": "久松小学校",
+      "officialSourceName": "指定緊急避難所一覧",
+      "sourceOwner": "東京都中央区",
+      "sourceUrl": "https://www.city.chuo.lg.jp/documents/984/shiteikinkyuuhinan.csv",
+      "sourceUpdatedAt": "2025-03-31",
+      "downloadedAt": "2026-05-19T00:00:00+09:00",
+      "licenseOrTerms": "Creative Commons Attribution 4.0 International as stated on the Chuo City open data page.",
+      "address": "東京都中央区日本橋久松町7-2",
+      "latitude": 35.689056,
+      "longitude": 139.784355,
+      "coordinateReferenceSystem": "EPSG:4326",
+      "disasterTypes": [
+        "flood",
+        "storm_surge",
+        "earthquake",
+        "inland_flooding"
+      ],
+      "officialDesignationStatus": "official_designated",
+      "safeFloor": null,
+      "capacity": 4212,
+      "notes": "Normalized from official Chuo City open data. Original municipality code: 131024. Source marks overlap with designated shelter address. 東京都防災マップ 避難所一覧データCSV match count: 1 東京都防災マップ 避難場所一覧データCSV match count: 1 国土地理院 指定緊急避難場所データ 東京都中央区 match count: 1 国土地理院 指定避難所データ 東京都中央区 match count: 1",
+      "manualReviewNeeded": false,
+      "evidenceSources": [
+        {
+          "sourceId": "chuo_open_data_designated_emergency_shelters",
+          "sourceFamily": "official_shelter_facility",
+          "sourceName": "指定緊急避難所一覧",
+          "officialStatus": "official_primary",
+          "sourceUrl": "https://www.city.chuo.lg.jp/documents/984/shiteikinkyuuhinan.csv",
+          "sourceUpdatedAt": "2025-03-31",
+          "evidenceNote": "Primary Chuo City open-data record for a designated emergency evacuation shelter/place."
+        },
+        {
+          "sourceId": "tokyo_bosai_map_evacuation_center",
+          "sourceFamily": "official_shelter_facility",
+          "sourceName": "東京都防災マップ 避難所一覧データCSV",
+          "officialStatus": "official_reference",
+          "sourceUrl": "https://www.opendata.metro.tokyo.lg.jp/soumu/130001_evacuation_center.csv",
+          "sourceUpdatedAt": "2022-06-20",
+          "evidenceNote": "Supporting official source has 1 record(s) with matching normalized facility name."
+        },
+        {
+          "sourceId": "tokyo_bosai_map_evacuation_area",
+          "sourceFamily": "official_shelter_facility",
+          "sourceName": "東京都防災マップ 避難場所一覧データCSV",
+          "officialStatus": "official_reference",
+          "sourceUrl": "https://www.opendata.metro.tokyo.lg.jp/soumu/130001_evacuation_area.csv",
+          "sourceUpdatedAt": "2025-12-12",
+          "evidenceNote": "Supporting official source has 1 record(s) with matching normalized facility name."
+        },
+        {
+          "sourceId": "gsi_chuo_designated_emergency_evacuation_places",
+          "sourceFamily": "official_shelter_facility",
+          "sourceName": "国土地理院 指定緊急避難場所データ 東京都中央区",
+          "officialStatus": "official_reference",
+          "sourceUrl": "https://hinanmap.gsi.go.jp/hinanjocp/defaultFtpData/csv/13102_2.csv",
+          "sourceUpdatedAt": "2025-09-02",
+          "evidenceNote": "Supporting official source has 1 record(s) with matching normalized facility name."
+        },
+        {
+          "sourceId": "gsi_chuo_designated_shelters",
+          "sourceFamily": "official_shelter_facility",
+          "sourceName": "国土地理院 指定避難所データ 東京都中央区",
+          "officialStatus": "official_reference",
+          "sourceUrl": "https://hinanmap.gsi.go.jp/hinanjocp/defaultFtpData/csv/13102_1.csv",
+          "sourceUpdatedAt": "2025-09-02",
+          "evidenceNote": "Supporting official source has 1 record(s) with matching normalized facility name."
+        }
+      ]
+    },
+    {
+      "shelterId": "chuo_official_emergency_015",
+      "shelterName": "日本橋中学校",
+      "officialSourceName": "指定緊急避難所一覧",
+      "sourceOwner": "東京都中央区",
+      "sourceUrl": "https://www.city.chuo.lg.jp/documents/984/shiteikinkyuuhinan.csv",
+      "sourceUpdatedAt": "2025-03-31",
+      "downloadedAt": "2026-05-19T00:00:00+09:00",
+      "licenseOrTerms": "Creative Commons Attribution 4.0 International as stated on the Chuo City open data page.",
+      "address": "東京都中央区東日本橋1-10-1",
+      "latitude": 35.691933,
+      "longitude": 139.786993,
+      "coordinateReferenceSystem": "EPSG:4326",
+      "disasterTypes": [
+        "flood",
+        "storm_surge",
+        "earthquake",
+        "inland_flooding"
+      ],
+      "officialDesignationStatus": "official_designated",
+      "safeFloor": null,
+      "capacity": 4176,
+      "notes": "Normalized from official Chuo City open data. Original municipality code: 131024. Source marks overlap with designated shelter address. 東京都防災マップ 避難所一覧データCSV match count: 1 東京都防災マップ 避難場所一覧データCSV match count: 1",
+      "manualReviewNeeded": false,
+      "evidenceSources": [
+        {
+          "sourceId": "chuo_open_data_designated_emergency_shelters",
+          "sourceFamily": "official_shelter_facility",
+          "sourceName": "指定緊急避難所一覧",
+          "officialStatus": "official_primary",
+          "sourceUrl": "https://www.city.chuo.lg.jp/documents/984/shiteikinkyuuhinan.csv",
+          "sourceUpdatedAt": "2025-03-31",
+          "evidenceNote": "Primary Chuo City open-data record for a designated emergency evacuation shelter/place."
+        },
+        {
+          "sourceId": "tokyo_bosai_map_evacuation_center",
+          "sourceFamily": "official_shelter_facility",
+          "sourceName": "東京都防災マップ 避難所一覧データCSV",
+          "officialStatus": "official_reference",
+          "sourceUrl": "https://www.opendata.metro.tokyo.lg.jp/soumu/130001_evacuation_center.csv",
+          "sourceUpdatedAt": "2022-06-20",
+          "evidenceNote": "Supporting official source has 1 record(s) with matching normalized facility name."
+        },
+        {
+          "sourceId": "tokyo_bosai_map_evacuation_area",
+          "sourceFamily": "official_shelter_facility",
+          "sourceName": "東京都防災マップ 避難場所一覧データCSV",
+          "officialStatus": "official_reference",
+          "sourceUrl": "https://www.opendata.metro.tokyo.lg.jp/soumu/130001_evacuation_area.csv",
+          "sourceUpdatedAt": "2025-12-12",
+          "evidenceNote": "Supporting official source has 1 record(s) with matching normalized facility name."
+        }
+      ]
+    },
+    {
+      "shelterId": "chuo_official_emergency_016",
+      "shelterName": "阪本小学校",
+      "officialSourceName": "指定緊急避難所一覧",
+      "sourceOwner": "東京都中央区",
+      "sourceUrl": "https://www.city.chuo.lg.jp/documents/984/shiteikinkyuuhinan.csv",
+      "sourceUpdatedAt": "2025-03-31",
+      "downloadedAt": "2026-05-19T00:00:00+09:00",
+      "licenseOrTerms": "Creative Commons Attribution 4.0 International as stated on the Chuo City open data page.",
+      "address": "東京都中央区日本橋兜町15-18",
+      "latitude": 35.679538,
+      "longitude": 139.776687,
+      "coordinateReferenceSystem": "EPSG:4326",
+      "disasterTypes": [
+        "flood",
+        "storm_surge",
+        "earthquake",
+        "inland_flooding"
+      ],
+      "officialDesignationStatus": "official_designated",
+      "safeFloor": null,
+      "capacity": 2987,
+      "notes": "Normalized from official Chuo City open data. Original municipality code: 131024. Source marks overlap with designated shelter address. 東京都防災マップ 避難所一覧データCSV match count: 1 東京都防災マップ 避難場所一覧データCSV match count: 1 国土地理院 指定緊急避難場所データ 東京都中央区 match count: 1 国土地理院 指定避難所データ 東京都中央区 match count: 1",
+      "manualReviewNeeded": false,
+      "evidenceSources": [
+        {
+          "sourceId": "chuo_open_data_designated_emergency_shelters",
+          "sourceFamily": "official_shelter_facility",
+          "sourceName": "指定緊急避難所一覧",
+          "officialStatus": "official_primary",
+          "sourceUrl": "https://www.city.chuo.lg.jp/documents/984/shiteikinkyuuhinan.csv",
+          "sourceUpdatedAt": "2025-03-31",
+          "evidenceNote": "Primary Chuo City open-data record for a designated emergency evacuation shelter/place."
+        },
+        {
+          "sourceId": "tokyo_bosai_map_evacuation_center",
+          "sourceFamily": "official_shelter_facility",
+          "sourceName": "東京都防災マップ 避難所一覧データCSV",
+          "officialStatus": "official_reference",
+          "sourceUrl": "https://www.opendata.metro.tokyo.lg.jp/soumu/130001_evacuation_center.csv",
+          "sourceUpdatedAt": "2022-06-20",
+          "evidenceNote": "Supporting official source has 1 record(s) with matching normalized facility name."
+        },
+        {
+          "sourceId": "tokyo_bosai_map_evacuation_area",
+          "sourceFamily": "official_shelter_facility",
+          "sourceName": "東京都防災マップ 避難場所一覧データCSV",
+          "officialStatus": "official_reference",
+          "sourceUrl": "https://www.opendata.metro.tokyo.lg.jp/soumu/130001_evacuation_area.csv",
+          "sourceUpdatedAt": "2025-12-12",
+          "evidenceNote": "Supporting official source has 1 record(s) with matching normalized facility name."
+        },
+        {
+          "sourceId": "gsi_chuo_designated_emergency_evacuation_places",
+          "sourceFamily": "official_shelter_facility",
+          "sourceName": "国土地理院 指定緊急避難場所データ 東京都中央区",
+          "officialStatus": "official_reference",
+          "sourceUrl": "https://hinanmap.gsi.go.jp/hinanjocp/defaultFtpData/csv/13102_2.csv",
+          "sourceUpdatedAt": "2025-09-02",
+          "evidenceNote": "Supporting official source has 1 record(s) with matching normalized facility name."
+        },
+        {
+          "sourceId": "gsi_chuo_designated_shelters",
+          "sourceFamily": "official_shelter_facility",
+          "sourceName": "国土地理院 指定避難所データ 東京都中央区",
+          "officialStatus": "official_reference",
+          "sourceUrl": "https://hinanmap.gsi.go.jp/hinanjocp/defaultFtpData/csv/13102_1.csv",
+          "sourceUpdatedAt": "2025-09-02",
+          "evidenceNote": "Supporting official source has 1 record(s) with matching normalized facility name."
+        }
+      ]
+    },
+    {
+      "shelterId": "chuo_official_emergency_017",
+      "shelterName": "佃島小学校",
+      "officialSourceName": "指定緊急避難所一覧",
+      "sourceOwner": "東京都中央区",
+      "sourceUrl": "https://www.city.chuo.lg.jp/documents/984/shiteikinkyuuhinan.csv",
+      "sourceUpdatedAt": "2025-03-31",
+      "downloadedAt": "2026-05-19T00:00:00+09:00",
+      "licenseOrTerms": "Creative Commons Attribution 4.0 International as stated on the Chuo City open data page.",
+      "address": "東京都中央区佃2-3-1",
+      "latitude": 35.668599,
+      "longitude": 139.784518,
+      "coordinateReferenceSystem": "EPSG:4326",
+      "disasterTypes": [
+        "flood",
+        "storm_surge",
+        "earthquake",
+        "tsunami",
+        "inland_flooding"
+      ],
+      "officialDesignationStatus": "official_designated",
+      "safeFloor": null,
+      "capacity": 4509,
+      "notes": "Normalized from official Chuo City open data. Original municipality code: 131024. Source marks overlap with designated shelter address. 東京都防災マップ 避難所一覧データCSV match count: 1 東京都防災マップ 避難場所一覧データCSV match count: 1 国土地理院 指定緊急避難場所データ 東京都中央区 match count: 1 国土地理院 指定避難所データ 東京都中央区 match count: 1",
+      "manualReviewNeeded": false,
+      "evidenceSources": [
+        {
+          "sourceId": "chuo_open_data_designated_emergency_shelters",
+          "sourceFamily": "official_shelter_facility",
+          "sourceName": "指定緊急避難所一覧",
+          "officialStatus": "official_primary",
+          "sourceUrl": "https://www.city.chuo.lg.jp/documents/984/shiteikinkyuuhinan.csv",
+          "sourceUpdatedAt": "2025-03-31",
+          "evidenceNote": "Primary Chuo City open-data record for a designated emergency evacuation shelter/place."
+        },
+        {
+          "sourceId": "tokyo_bosai_map_evacuation_center",
+          "sourceFamily": "official_shelter_facility",
+          "sourceName": "東京都防災マップ 避難所一覧データCSV",
+          "officialStatus": "official_reference",
+          "sourceUrl": "https://www.opendata.metro.tokyo.lg.jp/soumu/130001_evacuation_center.csv",
+          "sourceUpdatedAt": "2022-06-20",
+          "evidenceNote": "Supporting official source has 1 record(s) with matching normalized facility name."
+        },
+        {
+          "sourceId": "tokyo_bosai_map_evacuation_area",
+          "sourceFamily": "official_shelter_facility",
+          "sourceName": "東京都防災マップ 避難場所一覧データCSV",
+          "officialStatus": "official_reference",
+          "sourceUrl": "https://www.opendata.metro.tokyo.lg.jp/soumu/130001_evacuation_area.csv",
+          "sourceUpdatedAt": "2025-12-12",
+          "evidenceNote": "Supporting official source has 1 record(s) with matching normalized facility name."
+        },
+        {
+          "sourceId": "gsi_chuo_designated_emergency_evacuation_places",
+          "sourceFamily": "official_shelter_facility",
+          "sourceName": "国土地理院 指定緊急避難場所データ 東京都中央区",
+          "officialStatus": "official_reference",
+          "sourceUrl": "https://hinanmap.gsi.go.jp/hinanjocp/defaultFtpData/csv/13102_2.csv",
+          "sourceUpdatedAt": "2025-09-02",
+          "evidenceNote": "Supporting official source has 1 record(s) with matching normalized facility name."
+        },
+        {
+          "sourceId": "gsi_chuo_designated_shelters",
+          "sourceFamily": "official_shelter_facility",
+          "sourceName": "国土地理院 指定避難所データ 東京都中央区",
+          "officialStatus": "official_reference",
+          "sourceUrl": "https://hinanmap.gsi.go.jp/hinanjocp/defaultFtpData/csv/13102_1.csv",
+          "sourceUpdatedAt": "2025-09-02",
+          "evidenceNote": "Supporting official source has 1 record(s) with matching normalized facility name."
+        }
+      ]
+    },
+    {
+      "shelterId": "chuo_official_emergency_018",
+      "shelterName": "佃中学校",
+      "officialSourceName": "指定緊急避難所一覧",
+      "sourceOwner": "東京都中央区",
+      "sourceUrl": "https://www.city.chuo.lg.jp/documents/984/shiteikinkyuuhinan.csv",
+      "sourceUpdatedAt": "2025-03-31",
+      "downloadedAt": "2026-05-19T00:00:00+09:00",
+      "licenseOrTerms": "Creative Commons Attribution 4.0 International as stated on the Chuo City open data page.",
+      "address": "東京都中央区佃2-3-2",
+      "latitude": 35.667941,
+      "longitude": 139.785025,
+      "coordinateReferenceSystem": "EPSG:4326",
+      "disasterTypes": [
+        "flood",
+        "storm_surge",
+        "earthquake",
+        "tsunami",
+        "inland_flooding"
+      ],
+      "officialDesignationStatus": "official_designated",
+      "safeFloor": null,
+      "capacity": 4890,
+      "notes": "Normalized from official Chuo City open data. Original municipality code: 131024. Source marks overlap with designated shelter address. 東京都防災マップ 避難所一覧データCSV match count: 1 東京都防災マップ 避難場所一覧データCSV match count: 1 国土地理院 指定緊急避難場所データ 東京都中央区 match count: 1 国土地理院 指定避難所データ 東京都中央区 match count: 1",
+      "manualReviewNeeded": false,
+      "evidenceSources": [
+        {
+          "sourceId": "chuo_open_data_designated_emergency_shelters",
+          "sourceFamily": "official_shelter_facility",
+          "sourceName": "指定緊急避難所一覧",
+          "officialStatus": "official_primary",
+          "sourceUrl": "https://www.city.chuo.lg.jp/documents/984/shiteikinkyuuhinan.csv",
+          "sourceUpdatedAt": "2025-03-31",
+          "evidenceNote": "Primary Chuo City open-data record for a designated emergency evacuation shelter/place."
+        },
+        {
+          "sourceId": "tokyo_bosai_map_evacuation_center",
+          "sourceFamily": "official_shelter_facility",
+          "sourceName": "東京都防災マップ 避難所一覧データCSV",
+          "officialStatus": "official_reference",
+          "sourceUrl": "https://www.opendata.metro.tokyo.lg.jp/soumu/130001_evacuation_center.csv",
+          "sourceUpdatedAt": "2022-06-20",
+          "evidenceNote": "Supporting official source has 1 record(s) with matching normalized facility name."
+        },
+        {
+          "sourceId": "tokyo_bosai_map_evacuation_area",
+          "sourceFamily": "official_shelter_facility",
+          "sourceName": "東京都防災マップ 避難場所一覧データCSV",
+          "officialStatus": "official_reference",
+          "sourceUrl": "https://www.opendata.metro.tokyo.lg.jp/soumu/130001_evacuation_area.csv",
+          "sourceUpdatedAt": "2025-12-12",
+          "evidenceNote": "Supporting official source has 1 record(s) with matching normalized facility name."
+        },
+        {
+          "sourceId": "gsi_chuo_designated_emergency_evacuation_places",
+          "sourceFamily": "official_shelter_facility",
+          "sourceName": "国土地理院 指定緊急避難場所データ 東京都中央区",
+          "officialStatus": "official_reference",
+          "sourceUrl": "https://hinanmap.gsi.go.jp/hinanjocp/defaultFtpData/csv/13102_2.csv",
+          "sourceUpdatedAt": "2025-09-02",
+          "evidenceNote": "Supporting official source has 1 record(s) with matching normalized facility name."
+        },
+        {
+          "sourceId": "gsi_chuo_designated_shelters",
+          "sourceFamily": "official_shelter_facility",
+          "sourceName": "国土地理院 指定避難所データ 東京都中央区",
+          "officialStatus": "official_reference",
+          "sourceUrl": "https://hinanmap.gsi.go.jp/hinanjocp/defaultFtpData/csv/13102_1.csv",
+          "sourceUpdatedAt": "2025-09-02",
+          "evidenceNote": "Supporting official source has 1 record(s) with matching normalized facility name."
+        }
+      ]
+    },
+    {
+      "shelterId": "chuo_official_emergency_019",
+      "shelterName": "月島第一小学校",
+      "officialSourceName": "指定緊急避難所一覧",
+      "sourceOwner": "東京都中央区",
+      "sourceUrl": "https://www.city.chuo.lg.jp/documents/984/shiteikinkyuuhinan.csv",
+      "sourceUpdatedAt": "2025-03-31",
+      "downloadedAt": "2026-05-19T00:00:00+09:00",
+      "licenseOrTerms": "Creative Commons Attribution 4.0 International as stated on the Chuo City open data page.",
+      "address": "東京都中央区月島4-15-1",
+      "latitude": 35.660674,
+      "longitude": 139.780093,
+      "coordinateReferenceSystem": "EPSG:4326",
+      "disasterTypes": [
+        "flood",
+        "storm_surge",
+        "earthquake",
+        "tsunami",
+        "inland_flooding"
+      ],
+      "officialDesignationStatus": "official_designated",
+      "safeFloor": null,
+      "capacity": 3504,
+      "notes": "Normalized from official Chuo City open data. Original municipality code: 131024. Source marks overlap with designated shelter address. 東京都防災マップ 避難所一覧データCSV match count: 1 東京都防災マップ 避難場所一覧データCSV match count: 1 国土地理院 指定緊急避難場所データ 東京都中央区 match count: 1 国土地理院 指定避難所データ 東京都中央区 match count: 1",
+      "manualReviewNeeded": false,
+      "evidenceSources": [
+        {
+          "sourceId": "chuo_open_data_designated_emergency_shelters",
+          "sourceFamily": "official_shelter_facility",
+          "sourceName": "指定緊急避難所一覧",
+          "officialStatus": "official_primary",
+          "sourceUrl": "https://www.city.chuo.lg.jp/documents/984/shiteikinkyuuhinan.csv",
+          "sourceUpdatedAt": "2025-03-31",
+          "evidenceNote": "Primary Chuo City open-data record for a designated emergency evacuation shelter/place."
+        },
+        {
+          "sourceId": "tokyo_bosai_map_evacuation_center",
+          "sourceFamily": "official_shelter_facility",
+          "sourceName": "東京都防災マップ 避難所一覧データCSV",
+          "officialStatus": "official_reference",
+          "sourceUrl": "https://www.opendata.metro.tokyo.lg.jp/soumu/130001_evacuation_center.csv",
+          "sourceUpdatedAt": "2022-06-20",
+          "evidenceNote": "Supporting official source has 1 record(s) with matching normalized facility name."
+        },
+        {
+          "sourceId": "tokyo_bosai_map_evacuation_area",
+          "sourceFamily": "official_shelter_facility",
+          "sourceName": "東京都防災マップ 避難場所一覧データCSV",
+          "officialStatus": "official_reference",
+          "sourceUrl": "https://www.opendata.metro.tokyo.lg.jp/soumu/130001_evacuation_area.csv",
+          "sourceUpdatedAt": "2025-12-12",
+          "evidenceNote": "Supporting official source has 1 record(s) with matching normalized facility name."
+        },
+        {
+          "sourceId": "gsi_chuo_designated_emergency_evacuation_places",
+          "sourceFamily": "official_shelter_facility",
+          "sourceName": "国土地理院 指定緊急避難場所データ 東京都中央区",
+          "officialStatus": "official_reference",
+          "sourceUrl": "https://hinanmap.gsi.go.jp/hinanjocp/defaultFtpData/csv/13102_2.csv",
+          "sourceUpdatedAt": "2025-09-02",
+          "evidenceNote": "Supporting official source has 1 record(s) with matching normalized facility name."
+        },
+        {
+          "sourceId": "gsi_chuo_designated_shelters",
+          "sourceFamily": "official_shelter_facility",
+          "sourceName": "国土地理院 指定避難所データ 東京都中央区",
+          "officialStatus": "official_reference",
+          "sourceUrl": "https://hinanmap.gsi.go.jp/hinanjocp/defaultFtpData/csv/13102_1.csv",
+          "sourceUpdatedAt": "2025-09-02",
+          "evidenceNote": "Supporting official source has 1 record(s) with matching normalized facility name."
+        }
+      ]
+    },
+    {
+      "shelterId": "chuo_official_emergency_020",
+      "shelterName": "月島第二小学校",
+      "officialSourceName": "指定緊急避難所一覧",
+      "sourceOwner": "東京都中央区",
+      "sourceUrl": "https://www.city.chuo.lg.jp/documents/984/shiteikinkyuuhinan.csv",
+      "sourceUpdatedAt": "2025-03-31",
+      "downloadedAt": "2026-05-19T00:00:00+09:00",
+      "licenseOrTerms": "Creative Commons Attribution 4.0 International as stated on the Chuo City open data page.",
+      "address": "東京都中央区勝どき1-12-2",
+      "latitude": 35.66017,
+      "longitude": 139.775931,
+      "coordinateReferenceSystem": "EPSG:4326",
+      "disasterTypes": [
+        "flood",
+        "storm_surge",
+        "earthquake",
+        "tsunami",
+        "inland_flooding"
+      ],
+      "officialDesignationStatus": "official_designated",
+      "safeFloor": null,
+      "capacity": 3837,
+      "notes": "Normalized from official Chuo City open data. Original municipality code: 131024. Source marks overlap with designated shelter address. 東京都防災マップ 避難所一覧データCSV match count: 1 東京都防災マップ 避難場所一覧データCSV match count: 1 国土地理院 指定緊急避難場所データ 東京都中央区 match count: 1 国土地理院 指定避難所データ 東京都中央区 match count: 1",
+      "manualReviewNeeded": false,
+      "evidenceSources": [
+        {
+          "sourceId": "chuo_open_data_designated_emergency_shelters",
+          "sourceFamily": "official_shelter_facility",
+          "sourceName": "指定緊急避難所一覧",
+          "officialStatus": "official_primary",
+          "sourceUrl": "https://www.city.chuo.lg.jp/documents/984/shiteikinkyuuhinan.csv",
+          "sourceUpdatedAt": "2025-03-31",
+          "evidenceNote": "Primary Chuo City open-data record for a designated emergency evacuation shelter/place."
+        },
+        {
+          "sourceId": "tokyo_bosai_map_evacuation_center",
+          "sourceFamily": "official_shelter_facility",
+          "sourceName": "東京都防災マップ 避難所一覧データCSV",
+          "officialStatus": "official_reference",
+          "sourceUrl": "https://www.opendata.metro.tokyo.lg.jp/soumu/130001_evacuation_center.csv",
+          "sourceUpdatedAt": "2022-06-20",
+          "evidenceNote": "Supporting official source has 1 record(s) with matching normalized facility name."
+        },
+        {
+          "sourceId": "tokyo_bosai_map_evacuation_area",
+          "sourceFamily": "official_shelter_facility",
+          "sourceName": "東京都防災マップ 避難場所一覧データCSV",
+          "officialStatus": "official_reference",
+          "sourceUrl": "https://www.opendata.metro.tokyo.lg.jp/soumu/130001_evacuation_area.csv",
+          "sourceUpdatedAt": "2025-12-12",
+          "evidenceNote": "Supporting official source has 1 record(s) with matching normalized facility name."
+        },
+        {
+          "sourceId": "gsi_chuo_designated_emergency_evacuation_places",
+          "sourceFamily": "official_shelter_facility",
+          "sourceName": "国土地理院 指定緊急避難場所データ 東京都中央区",
+          "officialStatus": "official_reference",
+          "sourceUrl": "https://hinanmap.gsi.go.jp/hinanjocp/defaultFtpData/csv/13102_2.csv",
+          "sourceUpdatedAt": "2025-09-02",
+          "evidenceNote": "Supporting official source has 1 record(s) with matching normalized facility name."
+        },
+        {
+          "sourceId": "gsi_chuo_designated_shelters",
+          "sourceFamily": "official_shelter_facility",
+          "sourceName": "国土地理院 指定避難所データ 東京都中央区",
+          "officialStatus": "official_reference",
+          "sourceUrl": "https://hinanmap.gsi.go.jp/hinanjocp/defaultFtpData/csv/13102_1.csv",
+          "sourceUpdatedAt": "2025-09-02",
+          "evidenceNote": "Supporting official source has 1 record(s) with matching normalized facility name."
+        }
+      ]
+    },
+    {
+      "shelterId": "chuo_official_emergency_021",
+      "shelterName": "月島第三小学校",
+      "officialSourceName": "指定緊急避難所一覧",
+      "sourceOwner": "東京都中央区",
+      "sourceUrl": "https://www.city.chuo.lg.jp/documents/984/shiteikinkyuuhinan.csv",
+      "sourceUpdatedAt": "2025-03-31",
+      "downloadedAt": "2026-05-19T00:00:00+09:00",
+      "licenseOrTerms": "Creative Commons Attribution 4.0 International as stated on the Chuo City open data page.",
+      "address": "東京都中央区晴海1-4-1",
+      "latitude": 35.658848,
+      "longitude": 139.785703,
+      "coordinateReferenceSystem": "EPSG:4326",
+      "disasterTypes": [
+        "flood",
+        "storm_surge",
+        "earthquake",
+        "inland_flooding"
+      ],
+      "officialDesignationStatus": "official_designated",
+      "safeFloor": null,
+      "capacity": 4529,
+      "notes": "Normalized from official Chuo City open data. Original municipality code: 131024. Source marks overlap with designated shelter address. 東京都防災マップ 避難所一覧データCSV match count: 1 東京都防災マップ 避難場所一覧データCSV match count: 1 国土地理院 指定緊急避難場所データ 東京都中央区 match count: 1 国土地理院 指定避難所データ 東京都中央区 match count: 1",
+      "manualReviewNeeded": false,
+      "evidenceSources": [
+        {
+          "sourceId": "chuo_open_data_designated_emergency_shelters",
+          "sourceFamily": "official_shelter_facility",
+          "sourceName": "指定緊急避難所一覧",
+          "officialStatus": "official_primary",
+          "sourceUrl": "https://www.city.chuo.lg.jp/documents/984/shiteikinkyuuhinan.csv",
+          "sourceUpdatedAt": "2025-03-31",
+          "evidenceNote": "Primary Chuo City open-data record for a designated emergency evacuation shelter/place."
+        },
+        {
+          "sourceId": "tokyo_bosai_map_evacuation_center",
+          "sourceFamily": "official_shelter_facility",
+          "sourceName": "東京都防災マップ 避難所一覧データCSV",
+          "officialStatus": "official_reference",
+          "sourceUrl": "https://www.opendata.metro.tokyo.lg.jp/soumu/130001_evacuation_center.csv",
+          "sourceUpdatedAt": "2022-06-20",
+          "evidenceNote": "Supporting official source has 1 record(s) with matching normalized facility name."
+        },
+        {
+          "sourceId": "tokyo_bosai_map_evacuation_area",
+          "sourceFamily": "official_shelter_facility",
+          "sourceName": "東京都防災マップ 避難場所一覧データCSV",
+          "officialStatus": "official_reference",
+          "sourceUrl": "https://www.opendata.metro.tokyo.lg.jp/soumu/130001_evacuation_area.csv",
+          "sourceUpdatedAt": "2025-12-12",
+          "evidenceNote": "Supporting official source has 1 record(s) with matching normalized facility name."
+        },
+        {
+          "sourceId": "gsi_chuo_designated_emergency_evacuation_places",
+          "sourceFamily": "official_shelter_facility",
+          "sourceName": "国土地理院 指定緊急避難場所データ 東京都中央区",
+          "officialStatus": "official_reference",
+          "sourceUrl": "https://hinanmap.gsi.go.jp/hinanjocp/defaultFtpData/csv/13102_2.csv",
+          "sourceUpdatedAt": "2025-09-02",
+          "evidenceNote": "Supporting official source has 1 record(s) with matching normalized facility name."
+        },
+        {
+          "sourceId": "gsi_chuo_designated_shelters",
+          "sourceFamily": "official_shelter_facility",
+          "sourceName": "国土地理院 指定避難所データ 東京都中央区",
+          "officialStatus": "official_reference",
+          "sourceUrl": "https://hinanmap.gsi.go.jp/hinanjocp/defaultFtpData/csv/13102_1.csv",
+          "sourceUpdatedAt": "2025-09-02",
+          "evidenceNote": "Supporting official source has 1 record(s) with matching normalized facility name."
+        }
+      ]
+    },
+    {
+      "shelterId": "chuo_official_emergency_022",
+      "shelterName": "晴海中学校",
+      "officialSourceName": "指定緊急避難所一覧",
+      "sourceOwner": "東京都中央区",
+      "sourceUrl": "https://www.city.chuo.lg.jp/documents/984/shiteikinkyuuhinan.csv",
+      "sourceUpdatedAt": "2025-03-31",
+      "downloadedAt": "2026-05-19T00:00:00+09:00",
+      "licenseOrTerms": "Creative Commons Attribution 4.0 International as stated on the Chuo City open data page.",
+      "address": "東京都中央区晴海1-5-3",
+      "latitude": 35.659743,
+      "longitude": 139.784908,
+      "coordinateReferenceSystem": "EPSG:4326",
+      "disasterTypes": [
+        "flood",
+        "storm_surge",
+        "earthquake",
+        "inland_flooding"
+      ],
+      "officialDesignationStatus": "official_designated",
+      "safeFloor": null,
+      "capacity": 4401,
+      "notes": "Normalized from official Chuo City open data. Original municipality code: 131024. Source marks overlap with designated shelter address. 東京都防災マップ 避難所一覧データCSV match count: 1 東京都防災マップ 避難場所一覧データCSV match count: 1 国土地理院 指定緊急避難場所データ 東京都中央区 match count: 1 国土地理院 指定避難所データ 東京都中央区 match count: 1",
+      "manualReviewNeeded": false,
+      "evidenceSources": [
+        {
+          "sourceId": "chuo_open_data_designated_emergency_shelters",
+          "sourceFamily": "official_shelter_facility",
+          "sourceName": "指定緊急避難所一覧",
+          "officialStatus": "official_primary",
+          "sourceUrl": "https://www.city.chuo.lg.jp/documents/984/shiteikinkyuuhinan.csv",
+          "sourceUpdatedAt": "2025-03-31",
+          "evidenceNote": "Primary Chuo City open-data record for a designated emergency evacuation shelter/place."
+        },
+        {
+          "sourceId": "tokyo_bosai_map_evacuation_center",
+          "sourceFamily": "official_shelter_facility",
+          "sourceName": "東京都防災マップ 避難所一覧データCSV",
+          "officialStatus": "official_reference",
+          "sourceUrl": "https://www.opendata.metro.tokyo.lg.jp/soumu/130001_evacuation_center.csv",
+          "sourceUpdatedAt": "2022-06-20",
+          "evidenceNote": "Supporting official source has 1 record(s) with matching normalized facility name."
+        },
+        {
+          "sourceId": "tokyo_bosai_map_evacuation_area",
+          "sourceFamily": "official_shelter_facility",
+          "sourceName": "東京都防災マップ 避難場所一覧データCSV",
+          "officialStatus": "official_reference",
+          "sourceUrl": "https://www.opendata.metro.tokyo.lg.jp/soumu/130001_evacuation_area.csv",
+          "sourceUpdatedAt": "2025-12-12",
+          "evidenceNote": "Supporting official source has 1 record(s) with matching normalized facility name."
+        },
+        {
+          "sourceId": "gsi_chuo_designated_emergency_evacuation_places",
+          "sourceFamily": "official_shelter_facility",
+          "sourceName": "国土地理院 指定緊急避難場所データ 東京都中央区",
+          "officialStatus": "official_reference",
+          "sourceUrl": "https://hinanmap.gsi.go.jp/hinanjocp/defaultFtpData/csv/13102_2.csv",
+          "sourceUpdatedAt": "2025-09-02",
+          "evidenceNote": "Supporting official source has 1 record(s) with matching normalized facility name."
+        },
+        {
+          "sourceId": "gsi_chuo_designated_shelters",
+          "sourceFamily": "official_shelter_facility",
+          "sourceName": "国土地理院 指定避難所データ 東京都中央区",
+          "officialStatus": "official_reference",
+          "sourceUrl": "https://hinanmap.gsi.go.jp/hinanjocp/defaultFtpData/csv/13102_1.csv",
+          "sourceUpdatedAt": "2025-09-02",
+          "evidenceNote": "Supporting official source has 1 record(s) with matching normalized facility name."
+        }
+      ]
+    },
+    {
+      "shelterId": "chuo_official_emergency_023",
+      "shelterName": "豊海小学校",
+      "officialSourceName": "指定緊急避難所一覧",
+      "sourceOwner": "東京都中央区",
+      "sourceUrl": "https://www.city.chuo.lg.jp/documents/984/shiteikinkyuuhinan.csv",
+      "sourceUpdatedAt": "2025-03-31",
+      "downloadedAt": "2026-05-19T00:00:00+09:00",
+      "licenseOrTerms": "Creative Commons Attribution 4.0 International as stated on the Chuo City open data page.",
+      "address": "東京都中央区勝どき6-6-2",
+      "latitude": 35.654366,
+      "longitude": 139.773051,
+      "coordinateReferenceSystem": "EPSG:4326",
+      "disasterTypes": [
+        "flood",
+        "storm_surge",
+        "earthquake",
+        "tsunami",
+        "inland_flooding"
+      ],
+      "officialDesignationStatus": "official_designated",
+      "safeFloor": null,
+      "capacity": 5612,
+      "notes": "Normalized from official Chuo City open data. Original municipality code: 131024. Source marks overlap with designated shelter address. 東京都防災マップ 避難所一覧データCSV match count: 1 東京都防災マップ 避難場所一覧データCSV match count: 1 国土地理院 指定緊急避難場所データ 東京都中央区 match count: 1 国土地理院 指定避難所データ 東京都中央区 match count: 1",
+      "manualReviewNeeded": false,
+      "evidenceSources": [
+        {
+          "sourceId": "chuo_open_data_designated_emergency_shelters",
+          "sourceFamily": "official_shelter_facility",
+          "sourceName": "指定緊急避難所一覧",
+          "officialStatus": "official_primary",
+          "sourceUrl": "https://www.city.chuo.lg.jp/documents/984/shiteikinkyuuhinan.csv",
+          "sourceUpdatedAt": "2025-03-31",
+          "evidenceNote": "Primary Chuo City open-data record for a designated emergency evacuation shelter/place."
+        },
+        {
+          "sourceId": "tokyo_bosai_map_evacuation_center",
+          "sourceFamily": "official_shelter_facility",
+          "sourceName": "東京都防災マップ 避難所一覧データCSV",
+          "officialStatus": "official_reference",
+          "sourceUrl": "https://www.opendata.metro.tokyo.lg.jp/soumu/130001_evacuation_center.csv",
+          "sourceUpdatedAt": "2022-06-20",
+          "evidenceNote": "Supporting official source has 1 record(s) with matching normalized facility name."
+        },
+        {
+          "sourceId": "tokyo_bosai_map_evacuation_area",
+          "sourceFamily": "official_shelter_facility",
+          "sourceName": "東京都防災マップ 避難場所一覧データCSV",
+          "officialStatus": "official_reference",
+          "sourceUrl": "https://www.opendata.metro.tokyo.lg.jp/soumu/130001_evacuation_area.csv",
+          "sourceUpdatedAt": "2025-12-12",
+          "evidenceNote": "Supporting official source has 1 record(s) with matching normalized facility name."
+        },
+        {
+          "sourceId": "gsi_chuo_designated_emergency_evacuation_places",
+          "sourceFamily": "official_shelter_facility",
+          "sourceName": "国土地理院 指定緊急避難場所データ 東京都中央区",
+          "officialStatus": "official_reference",
+          "sourceUrl": "https://hinanmap.gsi.go.jp/hinanjocp/defaultFtpData/csv/13102_2.csv",
+          "sourceUpdatedAt": "2025-09-02",
+          "evidenceNote": "Supporting official source has 1 record(s) with matching normalized facility name."
+        },
+        {
+          "sourceId": "gsi_chuo_designated_shelters",
+          "sourceFamily": "official_shelter_facility",
+          "sourceName": "国土地理院 指定避難所データ 東京都中央区",
+          "officialStatus": "official_reference",
+          "sourceUrl": "https://hinanmap.gsi.go.jp/hinanjocp/defaultFtpData/csv/13102_1.csv",
+          "sourceUpdatedAt": "2025-09-02",
+          "evidenceNote": "Supporting official source has 1 record(s) with matching normalized facility name."
+        }
+      ]
+    },
+    {
+      "shelterId": "chuo_official_emergency_024",
+      "shelterName": "中央区役所",
+      "officialSourceName": "指定緊急避難所一覧",
+      "sourceOwner": "東京都中央区",
+      "sourceUrl": "https://www.city.chuo.lg.jp/documents/984/shiteikinkyuuhinan.csv",
+      "sourceUpdatedAt": "2025-03-31",
+      "downloadedAt": "2026-05-19T00:00:00+09:00",
+      "licenseOrTerms": "Creative Commons Attribution 4.0 International as stated on the Chuo City open data page.",
+      "address": "東京都中央区築地1-1-1",
+      "latitude": 35.670599,
+      "longitude": 139.77201,
+      "coordinateReferenceSystem": "EPSG:4326",
+      "disasterTypes": [
+        "flood",
+        "storm_surge",
+        "inland_flooding"
+      ],
+      "officialDesignationStatus": "official_designated",
+      "safeFloor": null,
+      "capacity": null,
+      "notes": "Normalized from official Chuo City open data. Original municipality code: 131024. 東京都防災マップ 避難場所一覧データCSV match count: 1 国土地理院 指定緊急避難場所データ 東京都中央区 match count: 1",
+      "manualReviewNeeded": false,
+      "evidenceSources": [
+        {
+          "sourceId": "chuo_open_data_designated_emergency_shelters",
+          "sourceFamily": "official_shelter_facility",
+          "sourceName": "指定緊急避難所一覧",
+          "officialStatus": "official_primary",
+          "sourceUrl": "https://www.city.chuo.lg.jp/documents/984/shiteikinkyuuhinan.csv",
+          "sourceUpdatedAt": "2025-03-31",
+          "evidenceNote": "Primary Chuo City open-data record for a designated emergency evacuation shelter/place."
+        },
+        {
+          "sourceId": "tokyo_bosai_map_evacuation_area",
+          "sourceFamily": "official_shelter_facility",
+          "sourceName": "東京都防災マップ 避難場所一覧データCSV",
+          "officialStatus": "official_reference",
+          "sourceUrl": "https://www.opendata.metro.tokyo.lg.jp/soumu/130001_evacuation_area.csv",
+          "sourceUpdatedAt": "2025-12-12",
+          "evidenceNote": "Supporting official source has 1 record(s) with matching normalized facility name."
+        },
+        {
+          "sourceId": "gsi_chuo_designated_emergency_evacuation_places",
+          "sourceFamily": "official_shelter_facility",
+          "sourceName": "国土地理院 指定緊急避難場所データ 東京都中央区",
+          "officialStatus": "official_reference",
+          "sourceUrl": "https://hinanmap.gsi.go.jp/hinanjocp/defaultFtpData/csv/13102_2.csv",
+          "sourceUpdatedAt": "2025-09-02",
+          "evidenceNote": "Supporting official source has 1 record(s) with matching normalized facility name."
+        }
+      ]
+    },
+    {
+      "shelterId": "chuo_official_emergency_025",
+      "shelterName": "日本橋区民センター",
+      "officialSourceName": "指定緊急避難所一覧",
+      "sourceOwner": "東京都中央区",
+      "sourceUrl": "https://www.city.chuo.lg.jp/documents/984/shiteikinkyuuhinan.csv",
+      "sourceUpdatedAt": "2025-03-31",
+      "downloadedAt": "2026-05-19T00:00:00+09:00",
+      "licenseOrTerms": "Creative Commons Attribution 4.0 International as stated on the Chuo City open data page.",
+      "address": "東京都中央区日本橋蛎殻町1-31-1",
+      "latitude": 35.682479,
+      "longitude": 139.784287,
+      "coordinateReferenceSystem": "EPSG:4326",
+      "disasterTypes": [
+        "flood",
+        "storm_surge",
+        "inland_flooding"
+      ],
+      "officialDesignationStatus": "official_designated",
+      "safeFloor": null,
+      "capacity": 579,
+      "notes": "Normalized from official Chuo City open data. Original municipality code: 131024. 東京都防災マップ 避難場所一覧データCSV match count: 1 国土地理院 指定緊急避難場所データ 東京都中央区 match count: 1",
+      "manualReviewNeeded": false,
+      "evidenceSources": [
+        {
+          "sourceId": "chuo_open_data_designated_emergency_shelters",
+          "sourceFamily": "official_shelter_facility",
+          "sourceName": "指定緊急避難所一覧",
+          "officialStatus": "official_primary",
+          "sourceUrl": "https://www.city.chuo.lg.jp/documents/984/shiteikinkyuuhinan.csv",
+          "sourceUpdatedAt": "2025-03-31",
+          "evidenceNote": "Primary Chuo City open-data record for a designated emergency evacuation shelter/place."
+        },
+        {
+          "sourceId": "tokyo_bosai_map_evacuation_area",
+          "sourceFamily": "official_shelter_facility",
+          "sourceName": "東京都防災マップ 避難場所一覧データCSV",
+          "officialStatus": "official_reference",
+          "sourceUrl": "https://www.opendata.metro.tokyo.lg.jp/soumu/130001_evacuation_area.csv",
+          "sourceUpdatedAt": "2025-12-12",
+          "evidenceNote": "Supporting official source has 1 record(s) with matching normalized facility name."
+        },
+        {
+          "sourceId": "gsi_chuo_designated_emergency_evacuation_places",
+          "sourceFamily": "official_shelter_facility",
+          "sourceName": "国土地理院 指定緊急避難場所データ 東京都中央区",
+          "officialStatus": "official_reference",
+          "sourceUrl": "https://hinanmap.gsi.go.jp/hinanjocp/defaultFtpData/csv/13102_2.csv",
+          "sourceUpdatedAt": "2025-09-02",
+          "evidenceNote": "Supporting official source has 1 record(s) with matching normalized facility name."
+        }
+      ]
+    },
+    {
+      "shelterId": "chuo_official_emergency_026",
+      "shelterName": "月島区民センター",
+      "officialSourceName": "指定緊急避難所一覧",
+      "sourceOwner": "東京都中央区",
+      "sourceUrl": "https://www.city.chuo.lg.jp/documents/984/shiteikinkyuuhinan.csv",
+      "sourceUpdatedAt": "2025-03-31",
+      "downloadedAt": "2026-05-19T00:00:00+09:00",
+      "licenseOrTerms": "Creative Commons Attribution 4.0 International as stated on the Chuo City open data page.",
+      "address": "東京都中央区月島4-1-1",
+      "latitude": 35.661921,
+      "longitude": 139.78192,
+      "coordinateReferenceSystem": "EPSG:4326",
+      "disasterTypes": [
+        "flood",
+        "storm_surge",
+        "tsunami",
+        "inland_flooding"
+      ],
+      "officialDesignationStatus": "official_designated",
+      "safeFloor": null,
+      "capacity": 2026,
+      "notes": "Normalized from official Chuo City open data. Original municipality code: 131024. 東京都防災マップ 避難場所一覧データCSV match count: 1 国土地理院 指定緊急避難場所データ 東京都中央区 match count: 1",
+      "manualReviewNeeded": false,
+      "evidenceSources": [
+        {
+          "sourceId": "chuo_open_data_designated_emergency_shelters",
+          "sourceFamily": "official_shelter_facility",
+          "sourceName": "指定緊急避難所一覧",
+          "officialStatus": "official_primary",
+          "sourceUrl": "https://www.city.chuo.lg.jp/documents/984/shiteikinkyuuhinan.csv",
+          "sourceUpdatedAt": "2025-03-31",
+          "evidenceNote": "Primary Chuo City open-data record for a designated emergency evacuation shelter/place."
+        },
+        {
+          "sourceId": "tokyo_bosai_map_evacuation_area",
+          "sourceFamily": "official_shelter_facility",
+          "sourceName": "東京都防災マップ 避難場所一覧データCSV",
+          "officialStatus": "official_reference",
+          "sourceUrl": "https://www.opendata.metro.tokyo.lg.jp/soumu/130001_evacuation_area.csv",
+          "sourceUpdatedAt": "2025-12-12",
+          "evidenceNote": "Supporting official source has 1 record(s) with matching normalized facility name."
+        },
+        {
+          "sourceId": "gsi_chuo_designated_emergency_evacuation_places",
+          "sourceFamily": "official_shelter_facility",
+          "sourceName": "国土地理院 指定緊急避難場所データ 東京都中央区",
+          "officialStatus": "official_reference",
+          "sourceUrl": "https://hinanmap.gsi.go.jp/hinanjocp/defaultFtpData/csv/13102_2.csv",
+          "sourceUpdatedAt": "2025-09-02",
+          "evidenceNote": "Supporting official source has 1 record(s) with matching normalized facility name."
+        }
+      ]
+    },
+    {
+      "shelterId": "chuo_official_emergency_027",
+      "shelterName": "(旧)ほっとプラザはるみ",
+      "officialSourceName": "指定緊急避難所一覧",
+      "sourceOwner": "東京都中央区",
+      "sourceUrl": "https://www.city.chuo.lg.jp/documents/984/shiteikinkyuuhinan.csv",
+      "sourceUpdatedAt": "2025-03-31",
+      "downloadedAt": "2026-05-19T00:00:00+09:00",
+      "licenseOrTerms": "Creative Commons Attribution 4.0 International as stated on the Chuo City open data page.",
+      "address": "東京都中央区晴海5-2-3",
+      "latitude": 35.652023,
+      "longitude": 139.774843,
+      "coordinateReferenceSystem": "EPSG:4326",
+      "disasterTypes": [
+        "flood",
+        "storm_surge",
+        "earthquake",
+        "inland_flooding"
+      ],
+      "officialDesignationStatus": "official_designated",
+      "safeFloor": null,
+      "capacity": 479,
+      "notes": "Normalized from official Chuo City open data. Original municipality code: 131024. Source marks overlap with designated shelter address.",
+      "manualReviewNeeded": true,
+      "evidenceSources": [
+        {
+          "sourceId": "chuo_open_data_designated_emergency_shelters",
+          "sourceFamily": "official_shelter_facility",
+          "sourceName": "指定緊急避難所一覧",
+          "officialStatus": "official_primary",
+          "sourceUrl": "https://www.city.chuo.lg.jp/documents/984/shiteikinkyuuhinan.csv",
+          "sourceUpdatedAt": "2025-03-31",
+          "evidenceNote": "Primary Chuo City open-data record for a designated emergency evacuation shelter/place."
+        }
+      ]
+    },
+    {
+      "shelterId": "chuo_official_emergency_028",
+      "shelterName": "あかつき公園一帯",
+      "officialSourceName": "指定緊急避難所一覧",
+      "sourceOwner": "東京都中央区",
+      "sourceUrl": "https://www.city.chuo.lg.jp/documents/984/shiteikinkyuuhinan.csv",
+      "sourceUpdatedAt": "2025-03-31",
+      "downloadedAt": "2026-05-19T00:00:00+09:00",
+      "licenseOrTerms": "Creative Commons Attribution 4.0 International as stated on the Chuo City open data page.",
+      "address": "東京都中央区築地；中央区明石町",
+      "latitude": 35.665155,
+      "longitude": 139.770788,
+      "coordinateReferenceSystem": "EPSG:4326",
+      "disasterTypes": [
+        "large_fire"
+      ],
+      "officialDesignationStatus": "official_designated",
+      "safeFloor": null,
+      "capacity": 9895,
+      "notes": "Normalized from official Chuo City open data. Original municipality code: 131024. Name appears to describe a broad evacuation area rather than a single building. 国土地理院 指定緊急避難場所データ 東京都中央区 match count: 1",
+      "manualReviewNeeded": true,
+      "evidenceSources": [
+        {
+          "sourceId": "chuo_open_data_designated_emergency_shelters",
+          "sourceFamily": "official_shelter_facility",
+          "sourceName": "指定緊急避難所一覧",
+          "officialStatus": "official_primary",
+          "sourceUrl": "https://www.city.chuo.lg.jp/documents/984/shiteikinkyuuhinan.csv",
+          "sourceUpdatedAt": "2025-03-31",
+          "evidenceNote": "Primary Chuo City open-data record for a designated emergency evacuation shelter/place."
+        },
+        {
+          "sourceId": "gsi_chuo_designated_emergency_evacuation_places",
+          "sourceFamily": "official_shelter_facility",
+          "sourceName": "国土地理院 指定緊急避難場所データ 東京都中央区",
+          "officialStatus": "official_reference",
+          "sourceUrl": "https://hinanmap.gsi.go.jp/hinanjocp/defaultFtpData/csv/13102_2.csv",
+          "sourceUpdatedAt": "2025-09-02",
+          "evidenceNote": "Supporting official source has 1 record(s) with matching normalized facility name."
+        }
+      ]
+    },
+    {
+      "shelterId": "chuo_official_emergency_029",
+      "shelterName": "新川ツインビル地区",
+      "officialSourceName": "指定緊急避難所一覧",
+      "sourceOwner": "東京都中央区",
+      "sourceUrl": "https://www.city.chuo.lg.jp/documents/984/shiteikinkyuuhinan.csv",
+      "sourceUpdatedAt": "2025-03-31",
+      "downloadedAt": "2026-05-19T00:00:00+09:00",
+      "licenseOrTerms": "Creative Commons Attribution 4.0 International as stated on the Chuo City open data page.",
+      "address": "東京都中央区新川",
+      "latitude": 35.677069,
+      "longitude": 139.782438,
+      "coordinateReferenceSystem": "EPSG:4326",
+      "disasterTypes": [
+        "large_fire"
+      ],
+      "officialDesignationStatus": "official_designated",
+      "safeFloor": null,
+      "capacity": 30650,
+      "notes": "Normalized from official Chuo City open data. Original municipality code: 131024. Name appears to describe a broad evacuation area rather than a single building. 国土地理院 指定緊急避難場所データ 東京都中央区 match count: 1",
+      "manualReviewNeeded": true,
+      "evidenceSources": [
+        {
+          "sourceId": "chuo_open_data_designated_emergency_shelters",
+          "sourceFamily": "official_shelter_facility",
+          "sourceName": "指定緊急避難所一覧",
+          "officialStatus": "official_primary",
+          "sourceUrl": "https://www.city.chuo.lg.jp/documents/984/shiteikinkyuuhinan.csv",
+          "sourceUpdatedAt": "2025-03-31",
+          "evidenceNote": "Primary Chuo City open-data record for a designated emergency evacuation shelter/place."
+        },
+        {
+          "sourceId": "gsi_chuo_designated_emergency_evacuation_places",
+          "sourceFamily": "official_shelter_facility",
+          "sourceName": "国土地理院 指定緊急避難場所データ 東京都中央区",
+          "officialStatus": "official_reference",
+          "sourceUrl": "https://hinanmap.gsi.go.jp/hinanjocp/defaultFtpData/csv/13102_2.csv",
+          "sourceUpdatedAt": "2025-09-02",
+          "evidenceNote": "Supporting official source has 1 record(s) with matching normalized facility name."
+        }
+      ]
+    },
+    {
+      "shelterId": "chuo_official_emergency_030",
+      "shelterName": "佃リバーシティ地区",
+      "officialSourceName": "指定緊急避難所一覧",
+      "sourceOwner": "東京都中央区",
+      "sourceUrl": "https://www.city.chuo.lg.jp/documents/984/shiteikinkyuuhinan.csv",
+      "sourceUpdatedAt": "2025-03-31",
+      "downloadedAt": "2026-05-19T00:00:00+09:00",
+      "licenseOrTerms": "Creative Commons Attribution 4.0 International as stated on the Chuo City open data page.",
+      "address": "東京都中央区佃",
+      "latitude": 35.666185,
+      "longitude": 139.784641,
+      "coordinateReferenceSystem": "EPSG:4326",
+      "disasterTypes": [
+        "large_fire"
+      ],
+      "officialDesignationStatus": "official_designated",
+      "safeFloor": null,
+      "capacity": 22208,
+      "notes": "Normalized from official Chuo City open data. Original municipality code: 131024. Name appears to describe a broad evacuation area rather than a single building. 国土地理院 指定緊急避難場所データ 東京都中央区 match count: 1",
+      "manualReviewNeeded": true,
+      "evidenceSources": [
+        {
+          "sourceId": "chuo_open_data_designated_emergency_shelters",
+          "sourceFamily": "official_shelter_facility",
+          "sourceName": "指定緊急避難所一覧",
+          "officialStatus": "official_primary",
+          "sourceUrl": "https://www.city.chuo.lg.jp/documents/984/shiteikinkyuuhinan.csv",
+          "sourceUpdatedAt": "2025-03-31",
+          "evidenceNote": "Primary Chuo City open-data record for a designated emergency evacuation shelter/place."
+        },
+        {
+          "sourceId": "gsi_chuo_designated_emergency_evacuation_places",
+          "sourceFamily": "official_shelter_facility",
+          "sourceName": "国土地理院 指定緊急避難場所データ 東京都中央区",
+          "officialStatus": "official_reference",
+          "sourceUrl": "https://hinanmap.gsi.go.jp/hinanjocp/defaultFtpData/csv/13102_2.csv",
+          "sourceUpdatedAt": "2025-09-02",
+          "evidenceNote": "Supporting official source has 1 record(s) with matching normalized facility name."
+        }
+      ]
+    },
+    {
+      "shelterId": "chuo_official_emergency_031",
+      "shelterName": "晴海地区",
+      "officialSourceName": "指定緊急避難所一覧",
+      "sourceOwner": "東京都中央区",
+      "sourceUrl": "https://www.city.chuo.lg.jp/documents/984/shiteikinkyuuhinan.csv",
+      "sourceUpdatedAt": "2025-03-31",
+      "downloadedAt": "2026-05-19T00:00:00+09:00",
+      "licenseOrTerms": "Creative Commons Attribution 4.0 International as stated on the Chuo City open data page.",
+      "address": "東京都中央区晴海",
+      "latitude": 35.653904,
+      "longitude": 139.780439,
+      "coordinateReferenceSystem": "EPSG:4326",
+      "disasterTypes": [
+        "large_fire"
+      ],
+      "officialDesignationStatus": "official_designated",
+      "safeFloor": null,
+      "capacity": 48529,
+      "notes": "Normalized from official Chuo City open data. Original municipality code: 131024. Name appears to describe a broad evacuation area rather than a single building. 国土地理院 指定緊急避難場所データ 東京都中央区 match count: 1",
+      "manualReviewNeeded": true,
+      "evidenceSources": [
+        {
+          "sourceId": "chuo_open_data_designated_emergency_shelters",
+          "sourceFamily": "official_shelter_facility",
+          "sourceName": "指定緊急避難所一覧",
+          "officialStatus": "official_primary",
+          "sourceUrl": "https://www.city.chuo.lg.jp/documents/984/shiteikinkyuuhinan.csv",
+          "sourceUpdatedAt": "2025-03-31",
+          "evidenceNote": "Primary Chuo City open-data record for a designated emergency evacuation shelter/place."
+        },
+        {
+          "sourceId": "gsi_chuo_designated_emergency_evacuation_places",
+          "sourceFamily": "official_shelter_facility",
+          "sourceName": "国土地理院 指定緊急避難場所データ 東京都中央区",
+          "officialStatus": "official_reference",
+          "sourceUrl": "https://hinanmap.gsi.go.jp/hinanjocp/defaultFtpData/csv/13102_2.csv",
+          "sourceUpdatedAt": "2025-09-02",
+          "evidenceNote": "Supporting official source has 1 record(s) with matching normalized facility name."
+        }
+      ]
+    }
+  ]
+}

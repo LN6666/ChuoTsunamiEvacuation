@@ -1,0 +1,327 @@
+{
+  "datasetId": "p5_b1_controlled_building_qualification_output",
+  "generatedAt": "2026-05-19T13:30:00Z",
+  "coordinateReferenceSystem": "EPSG:4326",
+  "rulebookVersion": "p5-a2-qualification-rulebook-v1",
+  "notes": "Controlled P5-B1 output generated from synthetic fixtures only. Matching and route fields are placeholders for P5-B2 and are not real PLATEAU matches or official evacuation routes.",
+  "records": [
+    {
+      "qualificationId": "controlled_qualification_001",
+      "plateauBuildingId": "controlled_plateau_bldg_001",
+      "shelterId": "controlled_shelter_official_contains_001",
+      "shelterName": "Controlled Official Building Contains Example",
+      "officialDesignationStatus": "official_designated",
+      "qualificationStatus": "official_confirmed",
+      "qualificationReason": "Official evidence is present and the controlled source point is contained by one synthetic PLATEAU-like building.",
+      "evidenceSources": [
+        {
+          "sourceId": "controlled_official_evacuation_building_list",
+          "sourceFamily": "official_evacuation_building",
+          "sourceName": "Controlled Official Evacuation Building Fixture",
+          "officialStatus": "official_primary",
+          "sourceUrl": null,
+          "sourceUpdatedAt": "2026-05-01",
+          "evidenceNote": "Synthetic official-like source for controlled pipeline testing only."
+        },
+        {
+          "sourceId": "controlled_plateau_geometry_fixture",
+          "sourceFamily": "plateau_building_geometry",
+          "sourceName": "Controlled PLATEAU-like Geometry Fixture",
+          "officialStatus": "derived",
+          "sourceUrl": null,
+          "sourceUpdatedAt": null,
+          "evidenceNote": "Synthetic geometry fixture; not real PLATEAU data."
+        }
+      ],
+      "matchMethod": "contains",
+      "matchDistanceMeters": 0.0,
+      "confidence": "high",
+      "manualReviewNeeded": false,
+      "warnings": [],
+      "disasterTypes": [
+        "tsunami",
+        "flood"
+      ],
+      "safeFloor": 4,
+      "capacity": 420,
+      "sourceUpdatedAt": "2026-05-01",
+      "routeAvailability": "available",
+      "nearestRouteDistanceMeters": 65.0,
+      "estimatedTravelTimeSeconds": 80.0,
+      "notes": "Official-like point is controlled as inside a single synthetic building footprint. Route fields are controlled prototype estimates only and are not official evacuation routes. Controlled placeholder route estimate only; not an official evacuation route."
+    },
+    {
+      "qualificationId": "controlled_qualification_002",
+      "plateauBuildingId": "controlled_plateau_bldg_002",
+      "shelterId": "controlled_shelter_official_nearest_002",
+      "shelterName": "Controlled Official Nearest Review Example",
+      "officialDesignationStatus": "official_designated_with_review",
+      "qualificationStatus": "official_confirmed_with_review",
+      "qualificationReason": "Official evidence is present, but the controlled point uses a nearest-building match and requires manual review.",
+      "evidenceSources": [
+        {
+          "sourceId": "controlled_official_shelter_facility_list",
+          "sourceFamily": "official_shelter_facility",
+          "sourceName": "Controlled Official Shelter Facility Fixture",
+          "officialStatus": "official_primary",
+          "sourceUrl": null,
+          "sourceUpdatedAt": "2026-05-02",
+          "evidenceNote": "Synthetic official-like source with point outside the controlled building footprint."
+        },
+        {
+          "sourceId": "controlled_plateau_geometry_fixture",
+          "sourceFamily": "plateau_building_geometry",
+          "sourceName": "Controlled PLATEAU-like Geometry Fixture",
+          "officialStatus": "derived",
+          "sourceUrl": null,
+          "sourceUpdatedAt": null,
+          "evidenceNote": "Synthetic nearest-match target; not real PLATEAU data."
+        }
+      ],
+      "matchMethod": "nearest",
+      "matchDistanceMeters": 18.0,
+      "confidence": "medium",
+      "manualReviewNeeded": true,
+      "warnings": [
+        "nearest match requires manual review",
+        "nearest match distance exceeds high-confidence threshold",
+        "route is a controlled prototype estimate, not an official evacuation route"
+      ],
+      "disasterTypes": [
+        "flood"
+      ],
+      "safeFloor": 3,
+      "capacity": 180,
+      "sourceUpdatedAt": "2026-05-02",
+      "routeAvailability": "available",
+      "nearestRouteDistanceMeters": 120.0,
+      "estimatedTravelTimeSeconds": 160.0,
+      "notes": "Nearest match is deliberately outside the controlled footprint and requires manual review. Route fields are controlled prototype estimates only and are not official evacuation routes. Controlled placeholder route estimate paired with nearest-match review."
+    },
+    {
+      "qualificationId": "controlled_qualification_003",
+      "plateauBuildingId": "controlled_plateau_bldg_003",
+      "shelterId": "controlled_candidate_strong_003",
+      "shelterName": "Controlled Non-Official Strong Candidate Example",
+      "officialDesignationStatus": "not_official",
+      "qualificationStatus": "strong_candidate",
+      "qualificationReason": "Controlled non-official evidence meets safe-floor and capacity thresholds, but it cannot confirm official designation.",
+      "evidenceSources": [
+        {
+          "sourceId": "controlled_literature_vertical_criteria",
+          "sourceFamily": "literature_vertical_evacuation_criteria",
+          "sourceName": "Controlled Vertical Evacuation Criteria Fixture",
+          "officialStatus": "secondary_reference",
+          "sourceUrl": null,
+          "sourceUpdatedAt": null,
+          "evidenceNote": "Candidate-only evidence. This cannot confirm official designation."
+        },
+        {
+          "sourceId": "controlled_plateau_attribute_fixture",
+          "sourceFamily": "plateau_building_attribute",
+          "sourceName": "Controlled PLATEAU-like Attribute Fixture",
+          "officialStatus": "derived",
+          "sourceUrl": null,
+          "sourceUpdatedAt": null,
+          "evidenceNote": "Synthetic height/floor attributes meet controlled candidate thresholds."
+        }
+      ],
+      "matchMethod": "contains",
+      "matchDistanceMeters": 0.0,
+      "confidence": "medium",
+      "manualReviewNeeded": true,
+      "warnings": [
+        "candidate is non-official",
+        "literature criteria cannot confirm official designation",
+        "route is a controlled prototype estimate, not an official evacuation route"
+      ],
+      "disasterTypes": [
+        "tsunami"
+      ],
+      "safeFloor": 5,
+      "capacity": 90,
+      "sourceUpdatedAt": null,
+      "routeAvailability": "available",
+      "nearestRouteDistanceMeters": 140.0,
+      "estimatedTravelTimeSeconds": 190.0,
+      "notes": "Candidate-only example with safe floor and capacity above the controlled thresholds. Route fields are controlled prototype estimates only and are not official evacuation routes. Controlled placeholder route estimate for a non-official candidate."
+    },
+    {
+      "qualificationId": "controlled_qualification_004",
+      "plateauBuildingId": "controlled_plateau_bldg_004",
+      "shelterId": "controlled_candidate_weak_missing_004",
+      "shelterName": "Controlled Weak Candidate Missing Fields Example",
+      "officialDesignationStatus": "not_official",
+      "qualificationStatus": "weak_candidate",
+      "qualificationReason": "Controlled candidate evidence exists, but safe-floor or capacity evidence is missing or below threshold.",
+      "evidenceSources": [
+        {
+          "sourceId": "controlled_literature_accessibility_criteria",
+          "sourceFamily": "literature_accessibility_criteria",
+          "sourceName": "Controlled Accessibility Criteria Fixture",
+          "officialStatus": "secondary_reference",
+          "sourceUrl": null,
+          "sourceUpdatedAt": null,
+          "evidenceNote": "Candidate-only evidence with missing safe floor and capacity."
+        },
+        {
+          "sourceId": "controlled_plateau_attribute_fixture",
+          "sourceFamily": "plateau_building_attribute",
+          "sourceName": "Controlled PLATEAU-like Attribute Fixture",
+          "officialStatus": "derived",
+          "sourceUrl": null,
+          "sourceUpdatedAt": null,
+          "evidenceNote": "Synthetic attributes are incomplete."
+        }
+      ],
+      "matchMethod": "contains",
+      "matchDistanceMeters": 0.0,
+      "confidence": "low",
+      "manualReviewNeeded": true,
+      "warnings": [
+        "candidate is non-official",
+        "literature criteria cannot confirm official designation",
+        "missing safe floor / capacity",
+        "route unavailable in controlled fixture",
+        "route is a controlled prototype estimate, not an official evacuation route"
+      ],
+      "disasterTypes": [
+        "tsunami"
+      ],
+      "safeFloor": null,
+      "capacity": null,
+      "sourceUpdatedAt": null,
+      "routeAvailability": "unavailable",
+      "nearestRouteDistanceMeters": null,
+      "estimatedTravelTimeSeconds": null,
+      "notes": "Weak candidate example because safeFloor and capacity are intentionally missing. Route fields are controlled prototype estimates only and are not official evacuation routes. Unavailable route placeholder for warning coverage."
+    },
+    {
+      "qualificationId": "controlled_qualification_005",
+      "plateauBuildingId": "controlled_plateau_bldg_005",
+      "shelterId": "controlled_unknown_insufficient_005",
+      "shelterName": "Controlled Unknown Insufficient Evidence Example",
+      "officialDesignationStatus": "unknown",
+      "qualificationStatus": "unknown",
+      "qualificationReason": "Insufficient evidence exists to qualify or reject this controlled building record.",
+      "evidenceSources": [],
+      "matchMethod": "not_evaluated",
+      "matchDistanceMeters": null,
+      "confidence": "unknown",
+      "manualReviewNeeded": true,
+      "warnings": [
+        "missing safe floor / capacity",
+        "insufficient evidence"
+      ],
+      "disasterTypes": [],
+      "safeFloor": null,
+      "capacity": null,
+      "sourceUpdatedAt": null,
+      "routeAvailability": "not_evaluated",
+      "nearestRouteDistanceMeters": null,
+      "estimatedTravelTimeSeconds": null,
+      "notes": "Unknown example with insufficient evidence for qualification or rejection. Route fields are controlled prototype estimates only and are not official evacuation routes. Route not evaluated because qualification evidence is insufficient."
+    },
+    {
+      "qualificationId": "controlled_qualification_006",
+      "plateauBuildingId": "controlled_plateau_bldg_006",
+      "shelterId": "controlled_conflict_not_qualified_006",
+      "shelterName": "Controlled Conflict Not Qualified Example",
+      "officialDesignationStatus": "conflicting",
+      "qualificationStatus": "not_qualified",
+      "qualificationReason": "Controlled conflict or canEnter=false indicates the building should not be treated as an evacuation building candidate.",
+      "evidenceSources": [
+        {
+          "sourceId": "controlled_official_conflict_reference",
+          "sourceFamily": "official_disaster_prevention_plan",
+          "sourceName": "Controlled Official Conflict Fixture",
+          "officialStatus": "official_reference",
+          "sourceUrl": null,
+          "sourceUpdatedAt": "2026-05-03",
+          "evidenceNote": "Synthetic conflict evidence for controlled pipeline testing only."
+        },
+        {
+          "sourceId": "controlled_manual_review_conflict",
+          "sourceFamily": "manual_review",
+          "sourceName": "Controlled Manual Review Conflict Note",
+          "officialStatus": "manual_review",
+          "sourceUrl": null,
+          "sourceUpdatedAt": null,
+          "evidenceNote": "Manual review note marks this controlled record as unsuitable."
+        },
+        {
+          "sourceId": "controlled_plateau_attribute_fixture",
+          "sourceFamily": "plateau_building_attribute",
+          "sourceName": "Controlled PLATEAU-like Attribute Fixture",
+          "officialStatus": "derived",
+          "sourceUrl": null,
+          "sourceUpdatedAt": null,
+          "evidenceNote": "Synthetic low-rise/unsuitable attributes used only for conflict coverage."
+        }
+      ],
+      "matchMethod": "manual_override",
+      "matchDistanceMeters": null,
+      "confidence": "low",
+      "manualReviewNeeded": true,
+      "warnings": [
+        "manual override match requires review",
+        "missing safe floor / capacity",
+        "source conflict",
+        "not qualified based on controlled conflict evidence",
+        "route failed in controlled fixture",
+        "route is a controlled prototype estimate, not an official evacuation route"
+      ],
+      "disasterTypes": [
+        "tsunami"
+      ],
+      "safeFloor": null,
+      "capacity": null,
+      "sourceUpdatedAt": "2026-05-03",
+      "routeAvailability": "failed",
+      "nearestRouteDistanceMeters": null,
+      "estimatedTravelTimeSeconds": null,
+      "notes": "Conflict example should produce not_qualified with manual review and warnings. Route fields are controlled prototype estimates only and are not official evacuation routes. Failed route placeholder for conflict coverage."
+    },
+    {
+      "qualificationId": "controlled_qualification_007",
+      "plateauBuildingId": null,
+      "shelterId": "controlled_unmatched_official_007",
+      "shelterName": "Controlled Official Unmatched Example",
+      "officialDesignationStatus": "official_designated_with_review",
+      "qualificationStatus": "unknown",
+      "qualificationReason": "Evidence exists, but no controlled PLATEAU building match is available; qualification remains unknown until manual review.",
+      "evidenceSources": [
+        {
+          "sourceId": "controlled_official_shelter_facility_list",
+          "sourceFamily": "official_shelter_facility",
+          "sourceName": "Controlled Official Shelter Facility Fixture",
+          "officialStatus": "official_primary",
+          "sourceUrl": null,
+          "sourceUpdatedAt": "2026-05-02",
+          "evidenceNote": "Synthetic official-like source with no controlled PLATEAU building match."
+        }
+      ],
+      "matchMethod": "unmatched",
+      "matchDistanceMeters": null,
+      "confidence": "low",
+      "manualReviewNeeded": true,
+      "warnings": [
+        "unmatched controlled PLATEAU building",
+        "official evidence unresolved because building match is unavailable",
+        "route failed in controlled fixture",
+        "route failed because no controlled PLATEAU building match exists",
+        "route is a controlled prototype estimate, not an official evacuation route"
+      ],
+      "disasterTypes": [
+        "flood"
+      ],
+      "safeFloor": 3,
+      "capacity": 75,
+      "sourceUpdatedAt": "2026-05-02",
+      "routeAvailability": "failed",
+      "nearestRouteDistanceMeters": null,
+      "estimatedTravelTimeSeconds": null,
+      "notes": "Official-like source is deliberately unmatched; output must remain unknown until review resolves the building match. Route fields are controlled prototype estimates only and are not official evacuation routes. Failed route placeholder for the unmatched shelter/building case."
+    }
+  ]
+}

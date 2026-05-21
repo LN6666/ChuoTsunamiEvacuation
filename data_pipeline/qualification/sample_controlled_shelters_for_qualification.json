@@ -1,0 +1,230 @@
+{
+  "datasetId": "p5_b1_sample_controlled_shelters_for_qualification",
+  "generatedAt": "2026-05-19T13:00:00Z",
+  "coordinateReferenceSystem": "EPSG:4326",
+  "notes": "Synthetic controlled shelter-like fixture for P5-B1 only. These records are not real Chuo shelter records and do not claim official designation.",
+  "shelters": [
+    {
+      "shelterId": "controlled_shelter_official_contains_001",
+      "shelterName": "Controlled Official Building Contains Example",
+      "sourceType": "controlled_official_fixture",
+      "officialEvidenceFamily": "official_evacuation_building",
+      "disasterTypes": [
+        "tsunami",
+        "flood"
+      ],
+      "latitude": 35.667101,
+      "longitude": 139.771201,
+      "coordinateReferenceSystem": "EPSG:4326",
+      "safeFloor": 4,
+      "capacity": 420,
+      "canEnter": true,
+      "controlledMatch": {
+        "plateauBuildingId": "controlled_plateau_bldg_001",
+        "matchMethod": "contains",
+        "matchDistanceMeters": 0.0
+      },
+      "evidenceSources": [
+        {
+          "sourceId": "controlled_official_evacuation_building_list",
+          "sourceFamily": "official_evacuation_building",
+          "sourceName": "Controlled Official Evacuation Building Fixture",
+          "officialStatus": "official_primary",
+          "sourceUrl": null,
+          "sourceUpdatedAt": "2026-05-01",
+          "evidenceNote": "Synthetic official-like source for controlled pipeline testing only."
+        }
+      ],
+      "notes": "Official-like point is controlled as inside a single synthetic building footprint."
+    },
+    {
+      "shelterId": "controlled_shelter_official_nearest_002",
+      "shelterName": "Controlled Official Nearest Review Example",
+      "sourceType": "controlled_official_fixture",
+      "officialEvidenceFamily": "official_shelter_facility",
+      "disasterTypes": [
+        "flood"
+      ],
+      "latitude": 35.667802,
+      "longitude": 139.772102,
+      "coordinateReferenceSystem": "EPSG:4326",
+      "safeFloor": 3,
+      "capacity": 180,
+      "canEnter": true,
+      "controlledMatch": {
+        "plateauBuildingId": "controlled_plateau_bldg_002",
+        "matchMethod": "nearest",
+        "matchDistanceMeters": 18.0
+      },
+      "evidenceSources": [
+        {
+          "sourceId": "controlled_official_shelter_facility_list",
+          "sourceFamily": "official_shelter_facility",
+          "sourceName": "Controlled Official Shelter Facility Fixture",
+          "officialStatus": "official_primary",
+          "sourceUrl": null,
+          "sourceUpdatedAt": "2026-05-02",
+          "evidenceNote": "Synthetic official-like source with point outside the controlled building footprint."
+        }
+      ],
+      "notes": "Nearest match is deliberately outside the controlled footprint and requires manual review."
+    },
+    {
+      "shelterId": "controlled_candidate_strong_003",
+      "shelterName": "Controlled Non-Official Strong Candidate Example",
+      "sourceType": "controlled_candidate_fixture",
+      "officialEvidenceFamily": null,
+      "disasterTypes": [
+        "tsunami"
+      ],
+      "latitude": 35.668301,
+      "longitude": 139.773001,
+      "coordinateReferenceSystem": "EPSG:4326",
+      "safeFloor": 5,
+      "capacity": 90,
+      "canEnter": true,
+      "controlledMatch": {
+        "plateauBuildingId": "controlled_plateau_bldg_003",
+        "matchMethod": "contains",
+        "matchDistanceMeters": 0.0
+      },
+      "evidenceSources": [
+        {
+          "sourceId": "controlled_literature_vertical_criteria",
+          "sourceFamily": "literature_vertical_evacuation_criteria",
+          "sourceName": "Controlled Vertical Evacuation Criteria Fixture",
+          "officialStatus": "secondary_reference",
+          "sourceUrl": null,
+          "sourceUpdatedAt": null,
+          "evidenceNote": "Candidate-only evidence. This cannot confirm official designation."
+        }
+      ],
+      "notes": "Candidate-only example with safe floor and capacity above the controlled thresholds."
+    },
+    {
+      "shelterId": "controlled_candidate_weak_missing_004",
+      "shelterName": "Controlled Weak Candidate Missing Fields Example",
+      "sourceType": "controlled_candidate_fixture",
+      "officialEvidenceFamily": null,
+      "disasterTypes": [
+        "tsunami"
+      ],
+      "latitude": 35.668901,
+      "longitude": 139.773701,
+      "coordinateReferenceSystem": "EPSG:4326",
+      "safeFloor": null,
+      "capacity": null,
+      "canEnter": true,
+      "controlledMatch": {
+        "plateauBuildingId": "controlled_plateau_bldg_004",
+        "matchMethod": "contains",
+        "matchDistanceMeters": 0.0
+      },
+      "evidenceSources": [
+        {
+          "sourceId": "controlled_literature_accessibility_criteria",
+          "sourceFamily": "literature_accessibility_criteria",
+          "sourceName": "Controlled Accessibility Criteria Fixture",
+          "officialStatus": "secondary_reference",
+          "sourceUrl": null,
+          "sourceUpdatedAt": null,
+          "evidenceNote": "Candidate-only evidence with missing safe floor and capacity."
+        }
+      ],
+      "notes": "Weak candidate example because safeFloor and capacity are intentionally missing."
+    },
+    {
+      "shelterId": "controlled_unknown_insufficient_005",
+      "shelterName": "Controlled Unknown Insufficient Evidence Example",
+      "sourceType": "controlled_unknown_fixture",
+      "officialEvidenceFamily": null,
+      "disasterTypes": [],
+      "latitude": 35.669401,
+      "longitude": 139.774401,
+      "coordinateReferenceSystem": "EPSG:4326",
+      "safeFloor": null,
+      "capacity": null,
+      "canEnter": null,
+      "controlledMatch": {
+        "plateauBuildingId": "controlled_plateau_bldg_005",
+        "matchMethod": "not_evaluated",
+        "matchDistanceMeters": null
+      },
+      "evidenceSources": [],
+      "notes": "Unknown example with insufficient evidence for qualification or rejection."
+    },
+    {
+      "shelterId": "controlled_conflict_not_qualified_006",
+      "shelterName": "Controlled Conflict Not Qualified Example",
+      "sourceType": "controlled_conflict_fixture",
+      "officialEvidenceFamily": "official_disaster_prevention_plan",
+      "disasterTypes": [
+        "tsunami"
+      ],
+      "latitude": 35.669901,
+      "longitude": 139.775101,
+      "coordinateReferenceSystem": "EPSG:4326",
+      "safeFloor": null,
+      "capacity": null,
+      "canEnter": false,
+      "controlledMatch": {
+        "plateauBuildingId": "controlled_plateau_bldg_006",
+        "matchMethod": "manual_override",
+        "matchDistanceMeters": null
+      },
+      "evidenceSources": [
+        {
+          "sourceId": "controlled_official_conflict_reference",
+          "sourceFamily": "official_disaster_prevention_plan",
+          "sourceName": "Controlled Official Conflict Fixture",
+          "officialStatus": "official_reference",
+          "sourceUrl": null,
+          "sourceUpdatedAt": "2026-05-03",
+          "evidenceNote": "Synthetic conflict evidence for controlled pipeline testing only."
+        },
+        {
+          "sourceId": "controlled_manual_review_conflict",
+          "sourceFamily": "manual_review",
+          "sourceName": "Controlled Manual Review Conflict Note",
+          "officialStatus": "manual_review",
+          "sourceUrl": null,
+          "sourceUpdatedAt": null,
+          "evidenceNote": "Manual review note marks this controlled record as unsuitable."
+        }
+      ],
+      "notes": "Conflict example should produce not_qualified with manual review and warnings."
+    },
+    {
+      "shelterId": "controlled_unmatched_official_007",
+      "shelterName": "Controlled Official Unmatched Example",
+      "sourceType": "controlled_official_fixture",
+      "officialEvidenceFamily": "official_shelter_facility",
+      "disasterTypes": [
+        "flood"
+      ],
+      "latitude": 35.670401,
+      "longitude": 139.775901,
+      "coordinateReferenceSystem": "EPSG:4326",
+      "safeFloor": 3,
+      "capacity": 75,
+      "canEnter": true,
+      "controlledMatch": {
+        "plateauBuildingId": null,
+        "matchMethod": "unmatched",
+        "matchDistanceMeters": null
+      },
+      "evidenceSources": [
+        {
+          "sourceId": "controlled_official_shelter_facility_list",
+          "sourceFamily": "official_shelter_facility",
+          "sourceName": "Controlled Official Shelter Facility Fixture",
+          "officialStatus": "official_primary",
+          "sourceUrl": null,
+          "sourceUpdatedAt": "2026-05-02",
+          "evidenceNote": "Synthetic official-like source with no controlled PLATEAU building match."
+        }
+      ],
+      "notes": "Official-like source is deliberately unmatched; output must remain unknown until review resolves the building match."
+    }
+  ]
+}

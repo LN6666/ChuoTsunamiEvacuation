@@ -1,0 +1,402 @@
+{
+  "datasetId": "p5_b4_real_chuo_shelter_building_matches",
+  "generatedAt": "2026-05-20T01:55:13+09:00",
+  "coordinateReferenceSystem": "EPSG:4326",
+  "metricCoordinateReferenceSystem": "EPSG:6677",
+  "records": [
+    {
+      "shelterId": "chuo_official_emergency_001",
+      "shelterName": "城東小学校",
+      "plateauBuildingId": "13102-bldg-3742",
+      "plateauGmlId": "bldg_25d370de-2c35-457b-b756-3444a3d02eb3",
+      "matchMethod": "contains",
+      "matchDistanceMeters": 0.0,
+      "confidence": "high",
+      "manualReviewNeeded": false,
+      "warnings": [],
+      "sourceMeshCode": "53394611"
+    },
+    {
+      "shelterId": "chuo_official_emergency_002",
+      "shelterName": "京橋プラザ",
+      "plateauBuildingId": "13102-bldg-8069",
+      "plateauGmlId": "bldg_b79d201f-b27b-4e20-b342-fb09087fb41d",
+      "matchMethod": "contains",
+      "matchDistanceMeters": 0.0,
+      "confidence": "high",
+      "manualReviewNeeded": false,
+      "warnings": [],
+      "sourceMeshCode": "53394601"
+    },
+    {
+      "shelterId": "chuo_official_emergency_003",
+      "shelterName": "泰明小学校",
+      "plateauBuildingId": "13102-bldg-5702",
+      "plateauGmlId": "bldg_932d32e9-22aa-492c-980d-c1bf7cc0f79b",
+      "matchMethod": "contains",
+      "matchDistanceMeters": 0.0,
+      "confidence": "high",
+      "manualReviewNeeded": false,
+      "warnings": [],
+      "sourceMeshCode": "53394600"
+    },
+    {
+      "shelterId": "chuo_official_emergency_004",
+      "shelterName": "銀座中学校",
+      "plateauBuildingId": "13102-bldg-3140",
+      "plateauGmlId": "bldg_0a55bdd2-72f8-4464-b4df-1da32ec57f02",
+      "matchMethod": "contains",
+      "matchDistanceMeters": 0.0,
+      "confidence": "high",
+      "manualReviewNeeded": false,
+      "warnings": [],
+      "sourceMeshCode": "53393691"
+    },
+    {
+      "shelterId": "chuo_official_emergency_005",
+      "shelterName": "中央小学校",
+      "plateauBuildingId": "13102-bldg-3228",
+      "plateauGmlId": "bldg_7c79b5e1-dddc-4c1b-acbf-694a96b559b7",
+      "matchMethod": "contains",
+      "matchDistanceMeters": 0.0,
+      "confidence": "high",
+      "manualReviewNeeded": false,
+      "warnings": [],
+      "sourceMeshCode": "53394602"
+    },
+    {
+      "shelterId": "chuo_official_emergency_006",
+      "shelterName": "明石小学校",
+      "plateauBuildingId": "13102-bldg-3751",
+      "plateauGmlId": "bldg_ccdc4e97-2b53-462a-b188-7b75c84d30b5",
+      "matchMethod": "contains",
+      "matchDistanceMeters": 0.0,
+      "confidence": "high",
+      "manualReviewNeeded": false,
+      "warnings": [],
+      "sourceMeshCode": "53394602"
+    },
+    {
+      "shelterId": "chuo_official_emergency_007",
+      "shelterName": "京橋築地小学校",
+      "plateauBuildingId": "13102-bldg-2853",
+      "plateauGmlId": "bldg_74bfe18f-c482-4385-b52f-02aaaf3dcc34",
+      "matchMethod": "contains",
+      "matchDistanceMeters": 0.0,
+      "confidence": "high",
+      "manualReviewNeeded": false,
+      "warnings": [],
+      "sourceMeshCode": "53394601"
+    },
+    {
+      "shelterId": "chuo_official_emergency_008",
+      "shelterName": "京華スクエア",
+      "plateauBuildingId": "13102-bldg-8277",
+      "plateauGmlId": "bldg_228dc70f-56a0-453b-bcd6-3eec08bb3504",
+      "matchMethod": "contains",
+      "matchDistanceMeters": 0.0,
+      "confidence": "high",
+      "manualReviewNeeded": false,
+      "warnings": [],
+      "sourceMeshCode": "53394602"
+    },
+    {
+      "shelterId": "chuo_official_emergency_009",
+      "shelterName": "明正小学校",
+      "plateauBuildingId": "13102-bldg-11364",
+      "plateauGmlId": "bldg_79e83e58-9d57-4934-b422-191a0d1a0727",
+      "matchMethod": "contains",
+      "matchDistanceMeters": 0.0,
+      "confidence": "high",
+      "manualReviewNeeded": false,
+      "warnings": [],
+      "sourceMeshCode": "53394612"
+    },
+    {
+      "shelterId": "chuo_official_emergency_010",
+      "shelterName": "常盤小学校",
+      "plateauBuildingId": "13102-bldg-2872",
+      "plateauGmlId": "bldg_be0b4c30-e006-40a6-8952-be27fbbc620e",
+      "matchMethod": "contains",
+      "matchDistanceMeters": 0.0,
+      "confidence": "high",
+      "manualReviewNeeded": false,
+      "warnings": [],
+      "sourceMeshCode": "53394621"
+    },
+    {
+      "shelterId": "chuo_official_emergency_011",
+      "shelterName": "十思スクエア",
+      "plateauBuildingId": "13102-bldg-15570",
+      "plateauGmlId": "bldg_692282aa-7aed-474a-8182-51b2b958c65a",
+      "matchMethod": "contains",
+      "matchDistanceMeters": 0.0,
+      "confidence": "high",
+      "manualReviewNeeded": false,
+      "warnings": [],
+      "sourceMeshCode": "53394622"
+    },
+    {
+      "shelterId": "chuo_official_emergency_012",
+      "shelterName": "日本橋小学校",
+      "plateauBuildingId": "13102-bldg-12810",
+      "plateauGmlId": "bldg_32def57b-ec59-414c-9748-f455b4a65a51",
+      "matchMethod": "nearest",
+      "matchDistanceMeters": 13.45,
+      "confidence": "medium",
+      "manualReviewNeeded": true,
+      "warnings": [
+        "shelter point is outside PLATEAU footprint; nearest-building match requires review"
+      ],
+      "sourceMeshCode": "53394622"
+    },
+    {
+      "shelterId": "chuo_official_emergency_013",
+      "shelterName": "有馬小学校",
+      "plateauBuildingId": "13102-bldg-12391",
+      "plateauGmlId": "bldg_4a32eca7-6527-4776-94a2-9f9fc0ed5930",
+      "matchMethod": "contains",
+      "matchDistanceMeters": 0.0,
+      "confidence": "high",
+      "manualReviewNeeded": false,
+      "warnings": [],
+      "sourceMeshCode": "53394613"
+    },
+    {
+      "shelterId": "chuo_official_emergency_014",
+      "shelterName": "久松小学校",
+      "plateauBuildingId": "13102-bldg-14859",
+      "plateauGmlId": "bldg_0cc7b33b-161f-4893-9753-3494f4d1ef69",
+      "matchMethod": "contains",
+      "matchDistanceMeters": 0.0,
+      "confidence": "high",
+      "manualReviewNeeded": false,
+      "warnings": [],
+      "sourceMeshCode": "53394622"
+    },
+    {
+      "shelterId": "chuo_official_emergency_015",
+      "shelterName": "日本橋中学校",
+      "plateauBuildingId": "13102-bldg-15963",
+      "plateauGmlId": "bldg_34c149ac-2d23-4c9a-bdf3-c32684ba631b",
+      "matchMethod": "contains",
+      "matchDistanceMeters": 0.0,
+      "confidence": "high",
+      "manualReviewNeeded": false,
+      "warnings": [],
+      "sourceMeshCode": "53394632"
+    },
+    {
+      "shelterId": "chuo_official_emergency_016",
+      "shelterName": "阪本小学校",
+      "plateauBuildingId": "13102-bldg-10474",
+      "plateauGmlId": "bldg_70594176-a51a-4425-b8b2-b75edbdef7a1",
+      "matchMethod": "contains",
+      "matchDistanceMeters": 0.0,
+      "confidence": "high",
+      "manualReviewNeeded": false,
+      "warnings": [],
+      "sourceMeshCode": "53394612"
+    },
+    {
+      "shelterId": "chuo_official_emergency_017",
+      "shelterName": "佃島小学校",
+      "plateauBuildingId": "13102-bldg-8511",
+      "plateauGmlId": "bldg_3ca362a4-293c-4ac2-bfbb-018a20677e1a",
+      "matchMethod": "contains",
+      "matchDistanceMeters": 0.0,
+      "confidence": "high",
+      "manualReviewNeeded": false,
+      "warnings": [],
+      "sourceMeshCode": "53394602"
+    },
+    {
+      "shelterId": "chuo_official_emergency_018",
+      "shelterName": "佃中学校",
+      "plateauBuildingId": "13102-bldg-8511",
+      "plateauGmlId": "bldg_3ca362a4-293c-4ac2-bfbb-018a20677e1a",
+      "matchMethod": "contains",
+      "matchDistanceMeters": 0.0,
+      "confidence": "high",
+      "manualReviewNeeded": false,
+      "warnings": [],
+      "sourceMeshCode": "53394602"
+    },
+    {
+      "shelterId": "chuo_official_emergency_019",
+      "shelterName": "月島第一小学校",
+      "plateauBuildingId": "13102-bldg-5099",
+      "plateauGmlId": "bldg_1b30504b-e662-41fb-8da6-219dcef2b1a4",
+      "matchMethod": "contains",
+      "matchDistanceMeters": 0.0,
+      "confidence": "high",
+      "manualReviewNeeded": false,
+      "warnings": [],
+      "sourceMeshCode": "53393692"
+    },
+    {
+      "shelterId": "chuo_official_emergency_020",
+      "shelterName": "月島第二小学校",
+      "plateauBuildingId": "13102-bldg-9813",
+      "plateauGmlId": "bldg_997fde71-9138-4d1a-ba84-6ff57047e6a7",
+      "matchMethod": "contains",
+      "matchDistanceMeters": 0.0,
+      "confidence": "high",
+      "manualReviewNeeded": false,
+      "warnings": [],
+      "sourceMeshCode": "53393692"
+    },
+    {
+      "shelterId": "chuo_official_emergency_021",
+      "shelterName": "月島第三小学校",
+      "plateauBuildingId": "13102-bldg-7675",
+      "plateauGmlId": "bldg_28476e16-ba7c-4fe3-bf1d-90cf577fe301",
+      "matchMethod": "nearest",
+      "matchDistanceMeters": 0.075,
+      "confidence": "high",
+      "manualReviewNeeded": true,
+      "warnings": [
+        "shelter point is outside PLATEAU footprint; nearest-building match requires review"
+      ],
+      "sourceMeshCode": "53393692"
+    },
+    {
+      "shelterId": "chuo_official_emergency_022",
+      "shelterName": "晴海中学校",
+      "plateauBuildingId": "13102-bldg-1478",
+      "plateauGmlId": "bldg_f843c6a2-8d52-4dcc-bc01-bc7d0ede2733",
+      "matchMethod": "contains",
+      "matchDistanceMeters": 0.0,
+      "confidence": "high",
+      "manualReviewNeeded": false,
+      "warnings": [],
+      "sourceMeshCode": "53393692"
+    },
+    {
+      "shelterId": "chuo_official_emergency_023",
+      "shelterName": "豊海小学校",
+      "plateauBuildingId": "13102-bldg-2954",
+      "plateauGmlId": "bldg_01c61dfd-c5c9-454f-afbc-662aa6709160",
+      "matchMethod": "nearest",
+      "matchDistanceMeters": 7.215,
+      "confidence": "medium",
+      "manualReviewNeeded": true,
+      "warnings": [
+        "shelter point is outside PLATEAU footprint; nearest-building match requires review",
+        "nearest_match_semantic_review_needed",
+        "nearest PLATEAU building height is missing",
+        "nearest PLATEAU building floor count is low or uncertain",
+        "nearest PLATEAU building usage is raw, unknown, or not semantically interpreted in P5-B"
+      ],
+      "sourceMeshCode": "53393681"
+    },
+    {
+      "shelterId": "chuo_official_emergency_024",
+      "shelterName": "中央区役所",
+      "plateauBuildingId": "13102-bldg-10473",
+      "plateauGmlId": "bldg_35741517-9a06-4d9b-81ed-d11ec2576b30",
+      "matchMethod": "contains",
+      "matchDistanceMeters": 0.0,
+      "confidence": "high",
+      "manualReviewNeeded": false,
+      "warnings": [],
+      "sourceMeshCode": "53394601"
+    },
+    {
+      "shelterId": "chuo_official_emergency_025",
+      "shelterName": "日本橋区民センター",
+      "plateauBuildingId": "13102-bldg-12306",
+      "plateauGmlId": "bldg_8df3166b-df28-4208-9fbd-883cf98547a8",
+      "matchMethod": "contains",
+      "matchDistanceMeters": 0.0,
+      "confidence": "high",
+      "manualReviewNeeded": false,
+      "warnings": [],
+      "sourceMeshCode": "53394612"
+    },
+    {
+      "shelterId": "chuo_official_emergency_026",
+      "shelterName": "月島区民センター",
+      "plateauBuildingId": "13102-bldg-3852",
+      "plateauGmlId": "bldg_fee39d2c-fd06-4f35-b0a1-a093a3e16fd5",
+      "matchMethod": "contains",
+      "matchDistanceMeters": 0.0,
+      "confidence": "high",
+      "manualReviewNeeded": false,
+      "warnings": [],
+      "sourceMeshCode": "53393692"
+    },
+    {
+      "shelterId": "chuo_official_emergency_027",
+      "shelterName": "(旧)ほっとプラザはるみ",
+      "plateauBuildingId": "13102-bldg-525",
+      "plateauGmlId": "bldg_c64d9bf2-61ed-48d8-8315-8efadf440863",
+      "matchMethod": "contains",
+      "matchDistanceMeters": 0.0,
+      "confidence": "high",
+      "manualReviewNeeded": false,
+      "warnings": [],
+      "sourceMeshCode": "53393681"
+    },
+    {
+      "shelterId": "chuo_official_emergency_028",
+      "shelterName": "あかつき公園一帯",
+      "plateauBuildingId": null,
+      "plateauGmlId": null,
+      "matchMethod": "unmatched",
+      "matchDistanceMeters": null,
+      "confidence": "low",
+      "manualReviewNeeded": true,
+      "warnings": [
+        "official source appears to describe a broad evacuation area rather than a single building",
+        "manual QGIS review required before assigning any PLATEAU building"
+      ],
+      "sourceMeshCode": "53393691"
+    },
+    {
+      "shelterId": "chuo_official_emergency_029",
+      "shelterName": "新川ツインビル地区",
+      "plateauBuildingId": null,
+      "plateauGmlId": null,
+      "matchMethod": "unmatched",
+      "matchDistanceMeters": null,
+      "confidence": "low",
+      "manualReviewNeeded": true,
+      "warnings": [
+        "official source appears to describe a broad evacuation area rather than a single building",
+        "manual QGIS review required before assigning any PLATEAU building"
+      ],
+      "sourceMeshCode": "53394612"
+    },
+    {
+      "shelterId": "chuo_official_emergency_030",
+      "shelterName": "佃リバーシティ地区",
+      "plateauBuildingId": null,
+      "plateauGmlId": null,
+      "matchMethod": "unmatched",
+      "matchDistanceMeters": null,
+      "confidence": "low",
+      "manualReviewNeeded": true,
+      "warnings": [
+        "official source appears to describe a broad evacuation area rather than a single building",
+        "manual QGIS review required before assigning any PLATEAU building"
+      ],
+      "sourceMeshCode": "53393692"
+    },
+    {
+      "shelterId": "chuo_official_emergency_031",
+      "shelterName": "晴海地区",
+      "plateauBuildingId": null,
+      "plateauGmlId": null,
+      "matchMethod": "unmatched",
+      "matchDistanceMeters": null,
+      "confidence": "low",
+      "manualReviewNeeded": true,
+      "warnings": [
+        "official source appears to describe a broad evacuation area rather than a single building",
+        "manual QGIS review required before assigning any PLATEAU building"
+      ],
+      "sourceMeshCode": "53393682"
+    }
+  ]
+}

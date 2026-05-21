@@ -1,0 +1,473 @@
+{
+  "datasetId": "p5_f_highrise_humanitarian_candidates_sample",
+  "generatedAt": "2026-05-21T00:00:00Z",
+  "coordinateReferenceSystem": "EPSG:4326",
+  "rulebookVersion": "p5-f-highrise-humanitarian-candidates-v1",
+  "notes": "Controlled sample fixture for P5-F schema and rule validation only. These are synthetic records and do not claim real Chuo buildings are official shelters or humanitarian candidates.",
+  "records": [
+    {
+      "candidateId": "p5f_sample_official_confirmed_001",
+      "buildingId": "sample_official_building_001",
+      "plateauBuildingId": "sample_plateau_bldg_official_001",
+      "buildingName": "Sample Official Tsunami Evacuation Building",
+      "address": "Sample address in Chuo Ward",
+      "latitude": 35.6661,
+      "longitude": 139.7701,
+      "heightMeters": 24.0,
+      "floorsAboveGround": 6,
+      "usageType": "public_facility",
+      "buildingUse": "official_evacuation_facility",
+      "estimatedCapacityProxy": 500,
+      "tsunamiRiskContext": {
+        "contextStatus": "official_hazard_context",
+        "inTsunamiRiskArea": true,
+        "expectedInundationDepthMeters": 2.0,
+        "safeFloorAssumption": "Official source indicates usable upper floors in this controlled fixture.",
+        "notes": "Synthetic hazard context for schema validation."
+      },
+      "distanceToOfficialShelter": 0.0,
+      "routeDistanceMeters": 120.0,
+      "routeTimeSeconds": 100.0,
+      "seismicEvidenceLevel": "confirmed",
+      "seismicEvidenceSource": "Synthetic official facility evidence for schema validation.",
+      "publicAccessStatus": "confirmed_public",
+      "managementAgreementStatus": "official_agreement_confirmed",
+      "officialDesignationStatus": "official_designated",
+      "candidateLayer": "official",
+      "humanitarianCandidateStatus": "official_confirmed",
+      "confidence": "high",
+      "manualReviewNeeded": false,
+      "warnings": [],
+      "reviewTriggers": [],
+      "reviewRisks": [],
+      "sourceRefs": [
+        {
+          "sourceId": "sample_p5_official_shelter_fixture",
+          "sourceFamily": "p5_official_shelter_data",
+          "sourceName": "Synthetic P5 Official Shelter Fixture",
+          "officialStatus": "official_primary",
+          "sourceUrl": null,
+          "sourcePath": null,
+          "sourceUpdatedAt": "2026-05-01",
+          "evidenceNote": "Official-like controlled fixture used only for validation."
+        },
+        {
+          "sourceId": "sample_plateau_attribute_fixture",
+          "sourceFamily": "plateau_building_attribute",
+          "sourceName": "Synthetic PLATEAU Attribute Fixture",
+          "officialStatus": "derived",
+          "sourceUrl": null,
+          "sourcePath": null,
+          "sourceUpdatedAt": null,
+          "evidenceNote": "Height and floors are synthetic."
+        }
+      ],
+      "physicalSuitabilityScore": 86,
+      "operationalUncertaintyScore": 8,
+      "classificationReason": "Official evidence and clear building identity support official_confirmed in this controlled fixture."
+    },
+    {
+      "candidateId": "p5f_sample_official_review_002",
+      "buildingId": "sample_official_building_review_002",
+      "plateauBuildingId": "sample_plateau_bldg_official_review_002",
+      "buildingName": "Sample Official Facility With Match Review",
+      "address": "Sample official facility review address",
+      "latitude": 35.6652,
+      "longitude": 139.7712,
+      "heightMeters": 21.0,
+      "floorsAboveGround": 5,
+      "usageType": "public_facility",
+      "buildingUse": "official_evacuation_facility",
+      "estimatedCapacityProxy": 280,
+      "tsunamiRiskContext": {
+        "contextStatus": "official_hazard_context",
+        "inTsunamiRiskArea": true,
+        "expectedInundationDepthMeters": 1.8,
+        "safeFloorAssumption": "Official source indicates vertical evacuation use, but the building match remains ambiguous in this controlled fixture.",
+        "notes": "Synthetic official-with-review hazard context."
+      },
+      "distanceToOfficialShelter": 0.0,
+      "routeDistanceMeters": 180.0,
+      "routeTimeSeconds": 150.0,
+      "seismicEvidenceLevel": "confirmed",
+      "seismicEvidenceSource": "Synthetic official facility evidence for schema validation.",
+      "publicAccessStatus": "confirmed_public",
+      "managementAgreementStatus": "official_agreement_confirmed",
+      "officialDesignationStatus": "official_designated_with_review",
+      "candidateLayer": "official",
+      "humanitarianCandidateStatus": "official_confirmed_with_review",
+      "confidence": "medium",
+      "manualReviewNeeded": true,
+      "warnings": [
+        "official designation evidence exists but building match requires review"
+      ],
+      "reviewTriggers": [
+        "official designation ambiguous"
+      ],
+      "reviewRisks": [
+        "official_match_ambiguous"
+      ],
+      "sourceRefs": [
+        {
+          "sourceId": "sample_p5_official_shelter_fixture_review",
+          "sourceFamily": "p5_official_shelter_data",
+          "sourceName": "Synthetic P5 Official Shelter Fixture With Review",
+          "officialStatus": "official_primary",
+          "sourceUrl": null,
+          "sourcePath": null,
+          "sourceUpdatedAt": "2026-05-01",
+          "evidenceNote": "Official-like controlled fixture with ambiguous building identity."
+        },
+        {
+          "sourceId": "sample_plateau_geometry_review_fixture",
+          "sourceFamily": "plateau_building_geometry",
+          "sourceName": "Synthetic PLATEAU Geometry Review Fixture",
+          "officialStatus": "derived",
+          "sourceUrl": null,
+          "sourcePath": null,
+          "sourceUpdatedAt": null,
+          "evidenceNote": "Controlled fixture marks the building match as review-needed."
+        }
+      ],
+      "physicalSuitabilityScore": 78,
+      "operationalUncertaintyScore": 28,
+      "classificationReason": "Official evidence is present, but building identity ambiguity requires official_confirmed_with_review."
+    },
+    {
+      "candidateId": "p5f_sample_humanitarian_strong_003",
+      "buildingId": "sample_private_tower_002",
+      "plateauBuildingId": "sample_plateau_bldg_tower_002",
+      "buildingName": "Sample High-Rise Office Tower",
+      "address": "Sample waterfront office district address",
+      "latitude": 35.6592,
+      "longitude": 139.7748,
+      "heightMeters": 118.0,
+      "floorsAboveGround": 32,
+      "usageType": "office",
+      "buildingUse": "private_office_tower",
+      "estimatedCapacityProxy": 1800,
+      "tsunamiRiskContext": {
+        "contextStatus": "estimated_context",
+        "inTsunamiRiskArea": true,
+        "expectedInundationDepthMeters": 2.5,
+        "safeFloorAssumption": "Upper floors appear far above modeled tsunami-risk context, but no official access agreement is verified.",
+        "notes": "Synthetic high-rise context."
+      },
+      "distanceToOfficialShelter": 620.0,
+      "routeDistanceMeters": 410.0,
+      "routeTimeSeconds": 342.0,
+      "seismicEvidenceLevel": "estimated",
+      "seismicEvidenceSource": "Estimated from synthetic high-rise construction-era attribute.",
+      "publicAccessStatus": "likely_public_or_lobby_access",
+      "managementAgreementStatus": "unknown",
+      "officialDesignationStatus": "not_official",
+      "candidateLayer": "humanitarian_candidate",
+      "humanitarianCandidateStatus": "humanitarian_strong_candidate",
+      "confidence": "medium",
+      "manualReviewNeeded": true,
+      "warnings": [
+        "not an official shelter; humanitarian emergency candidate only",
+        "management agreement unknown",
+        "seismic evidence is estimated, not certified"
+      ],
+      "reviewTriggers": [
+        "non-official humanitarian candidate",
+        "management agreement unknown",
+        "seismic evidence estimated"
+      ],
+      "reviewRisks": [
+        "non_official_status",
+        "management_agreement_unknown",
+        "seismic_evidence_estimated",
+        "route_or_capacity_proxy",
+        "private_building_use",
+        "life_first_access_not_legal_guarantee"
+      ],
+      "sourceRefs": [
+        {
+          "sourceId": "sample_plateau_attribute_fixture",
+          "sourceFamily": "plateau_building_attribute",
+          "sourceName": "Synthetic PLATEAU Attribute Fixture",
+          "officialStatus": "derived",
+          "sourceUrl": null,
+          "sourcePath": null,
+          "sourceUpdatedAt": null,
+          "evidenceNote": "Synthetic height/floor evidence supports high-rise screening only."
+        },
+        {
+          "sourceId": "sample_manual_review_fixture",
+          "sourceFamily": "manual_review",
+          "sourceName": "Synthetic Manual Review Note",
+          "officialStatus": "manual_review",
+          "sourceUrl": null,
+          "sourcePath": null,
+          "sourceUpdatedAt": null,
+          "evidenceNote": "No official designation or management agreement is present."
+        }
+      ],
+      "physicalSuitabilityScore": 92,
+      "operationalUncertaintyScore": 42,
+      "classificationReason": "Strong height, floor, and capacity proxy evidence supports high-rise humanitarian screening, but non-official status and management uncertainty require review."
+    },
+    {
+      "candidateId": "p5f_sample_humanitarian_review_004",
+      "buildingId": "sample_highrise_apartment_003",
+      "plateauBuildingId": "sample_plateau_bldg_apartment_003",
+      "buildingName": "Sample High-Rise Apartment Building",
+      "address": "Sample riverfront apartment address",
+      "latitude": 35.6615,
+      "longitude": 139.7805,
+      "heightMeters": 58.0,
+      "floorsAboveGround": 18,
+      "usageType": "residential",
+      "buildingUse": "private_highrise_apartment",
+      "estimatedCapacityProxy": 650,
+      "tsunamiRiskContext": {
+        "contextStatus": "estimated_context",
+        "inTsunamiRiskArea": true,
+        "expectedInundationDepthMeters": 2.2,
+        "safeFloorAssumption": "Upper floors appear sufficient in the controlled fixture, but access and seismic evidence are unknown.",
+        "notes": "Synthetic review-level candidate."
+      },
+      "distanceToOfficialShelter": 780.0,
+      "routeDistanceMeters": 690.0,
+      "routeTimeSeconds": 575.0,
+      "seismicEvidenceLevel": "unknown",
+      "seismicEvidenceSource": null,
+      "publicAccessStatus": "unknown",
+      "managementAgreementStatus": "unknown",
+      "officialDesignationStatus": "unknown",
+      "candidateLayer": "humanitarian_candidate",
+      "humanitarianCandidateStatus": "humanitarian_candidate_with_review",
+      "confidence": "low",
+      "manualReviewNeeded": true,
+      "warnings": [
+        "not an official shelter; humanitarian emergency candidate only",
+        "public access unknown but not an automatic exclusion in life-first emergency screening",
+        "management agreement unknown",
+        "seismic evidence unknown"
+      ],
+      "reviewTriggers": [
+        "non-official humanitarian candidate",
+        "public access unknown",
+        "management agreement unknown",
+        "seismic evidence unknown"
+      ],
+      "reviewRisks": [
+        "non_official_status",
+        "public_access_unknown",
+        "management_agreement_unknown",
+        "seismic_evidence_unknown",
+        "private_building_use",
+        "life_first_access_not_legal_guarantee"
+      ],
+      "sourceRefs": [
+        {
+          "sourceId": "sample_plateau_attribute_fixture",
+          "sourceFamily": "plateau_building_attribute",
+          "sourceName": "Synthetic PLATEAU Attribute Fixture",
+          "officialStatus": "derived",
+          "sourceUrl": null,
+          "sourcePath": null,
+          "sourceUpdatedAt": null,
+          "evidenceNote": "Synthetic height/floor evidence suggests vertical refuge potential."
+        }
+      ],
+      "physicalSuitabilityScore": 74,
+      "operationalUncertaintyScore": 78,
+      "classificationReason": "The building is tall enough to merit humanitarian review, but public access, management agreement, and seismic evidence are unknown."
+    },
+    {
+      "candidateId": "p5f_sample_humanitarian_weak_005",
+      "buildingId": "sample_midrise_commercial_004",
+      "plateauBuildingId": "sample_plateau_bldg_midrise_004",
+      "buildingName": "Sample Mid-Rise Commercial Building",
+      "address": "Sample inland commercial address",
+      "latitude": 35.6704,
+      "longitude": 139.7764,
+      "heightMeters": 18.0,
+      "floorsAboveGround": 5,
+      "usageType": "commercial",
+      "buildingUse": "private_commercial_midrise",
+      "estimatedCapacityProxy": 90,
+      "tsunamiRiskContext": {
+        "contextStatus": "estimated_context",
+        "inTsunamiRiskArea": true,
+        "expectedInundationDepthMeters": 1.4,
+        "safeFloorAssumption": "Only limited vertical refuge margin is visible in this controlled fixture.",
+        "notes": "Synthetic weak candidate."
+      },
+      "distanceToOfficialShelter": 430.0,
+      "routeDistanceMeters": 510.0,
+      "routeTimeSeconds": 425.0,
+      "seismicEvidenceLevel": "estimated",
+      "seismicEvidenceSource": "Synthetic attribute estimate only.",
+      "publicAccessStatus": "restricted_private",
+      "managementAgreementStatus": "no_agreement_found",
+      "officialDesignationStatus": "not_official",
+      "candidateLayer": "humanitarian_candidate",
+      "humanitarianCandidateStatus": "humanitarian_weak_candidate",
+      "confidence": "low",
+      "manualReviewNeeded": true,
+      "warnings": [
+        "not an official shelter; humanitarian emergency candidate only",
+        "limited height and floor margin",
+        "restricted private access",
+        "no management agreement found"
+      ],
+      "reviewTriggers": [
+        "non-official humanitarian candidate",
+        "public access restricted",
+        "management agreement not found",
+        "weak vertical refuge margin"
+      ],
+      "reviewRisks": [
+        "non_official_status",
+        "public_access_restricted",
+        "management_agreement_not_found",
+        "limited_vertical_refuge_margin",
+        "private_building_use",
+        "life_first_access_not_legal_guarantee"
+      ],
+      "sourceRefs": [
+        {
+          "sourceId": "sample_plateau_attribute_fixture",
+          "sourceFamily": "plateau_building_attribute",
+          "sourceName": "Synthetic PLATEAU Attribute Fixture",
+          "officialStatus": "derived",
+          "sourceUrl": null,
+          "sourcePath": null,
+          "sourceUpdatedAt": null,
+          "evidenceNote": "Synthetic mid-rise attributes."
+        }
+      ],
+      "physicalSuitabilityScore": 45,
+      "operationalUncertaintyScore": 82,
+      "classificationReason": "Some vertical refuge signal exists, but height margin, restricted access, and missing agreement make this only a weak humanitarian candidate."
+    },
+    {
+      "candidateId": "p5f_sample_unknown_006",
+      "buildingId": "sample_unresolved_building_005",
+      "plateauBuildingId": "sample_plateau_bldg_unknown_005",
+      "buildingName": null,
+      "address": null,
+      "latitude": 35.6677,
+      "longitude": 139.7822,
+      "heightMeters": null,
+      "floorsAboveGround": null,
+      "usageType": null,
+      "buildingUse": null,
+      "estimatedCapacityProxy": null,
+      "tsunamiRiskContext": {
+        "contextStatus": "unknown",
+        "inTsunamiRiskArea": null,
+        "expectedInundationDepthMeters": null,
+        "safeFloorAssumption": null,
+        "notes": "Insufficient evidence in controlled fixture."
+      },
+      "distanceToOfficialShelter": null,
+      "routeDistanceMeters": null,
+      "routeTimeSeconds": null,
+      "seismicEvidenceLevel": "unknown",
+      "seismicEvidenceSource": null,
+      "publicAccessStatus": "unknown",
+      "managementAgreementStatus": "unknown",
+      "officialDesignationStatus": "unknown",
+      "candidateLayer": "humanitarian_candidate",
+      "humanitarianCandidateStatus": "unknown",
+      "confidence": "unknown",
+      "manualReviewNeeded": true,
+      "warnings": [
+        "insufficient physical evidence",
+        "public access unknown",
+        "seismic evidence unknown"
+      ],
+      "reviewTriggers": [
+        "height/floor/capacity missing",
+        "public access unknown",
+        "management agreement unknown",
+        "seismic evidence unknown"
+      ],
+      "reviewRisks": [
+        "public_access_unknown",
+        "management_agreement_unknown",
+        "seismic_evidence_unknown",
+        "insufficient_physical_evidence",
+        "route_or_capacity_proxy",
+        "life_first_access_not_legal_guarantee"
+      ],
+      "sourceRefs": [],
+      "physicalSuitabilityScore": 0,
+      "operationalUncertaintyScore": 100,
+      "classificationReason": "No height, floor, use, access, route, or seismic evidence is available, so the record remains unknown."
+    },
+    {
+      "candidateId": "p5f_sample_not_recommended_007",
+      "buildingId": "sample_lowrise_building_006",
+      "plateauBuildingId": "sample_plateau_bldg_lowrise_006",
+      "buildingName": "Sample Low-Rise Building With Seismic Concern",
+      "address": "Sample low-rise address",
+      "latitude": 35.6633,
+      "longitude": 139.7688,
+      "heightMeters": 7.5,
+      "floorsAboveGround": 2,
+      "usageType": "small_shop",
+      "buildingUse": "lowrise_private_commercial",
+      "estimatedCapacityProxy": 20,
+      "tsunamiRiskContext": {
+        "contextStatus": "estimated_context",
+        "inTsunamiRiskArea": true,
+        "expectedInundationDepthMeters": 2.0,
+        "safeFloorAssumption": "Insufficient vertical refuge margin in this controlled fixture.",
+        "notes": "Synthetic not-recommended example."
+      },
+      "distanceToOfficialShelter": 240.0,
+      "routeDistanceMeters": 260.0,
+      "routeTimeSeconds": 217.0,
+      "seismicEvidenceLevel": "concern",
+      "seismicEvidenceSource": "Synthetic manual review concern.",
+      "publicAccessStatus": "restricted_private",
+      "managementAgreementStatus": "no_agreement_found",
+      "officialDesignationStatus": "not_official",
+      "candidateLayer": "humanitarian_candidate",
+      "humanitarianCandidateStatus": "not_recommended",
+      "confidence": "medium",
+      "manualReviewNeeded": true,
+      "warnings": [
+        "not an official shelter",
+        "low-rise building has insufficient vertical refuge margin",
+        "seismic concern present",
+        "no management agreement found"
+      ],
+      "reviewTriggers": [
+        "known seismic concern",
+        "height below minimum",
+        "management agreement not found"
+      ],
+      "reviewRisks": [
+        "non_official_status",
+        "public_access_restricted",
+        "management_agreement_not_found",
+        "seismic_concern",
+        "limited_vertical_refuge_margin",
+        "private_building_use",
+        "life_first_access_not_legal_guarantee"
+      ],
+      "sourceRefs": [
+        {
+          "sourceId": "sample_manual_review_fixture",
+          "sourceFamily": "manual_review",
+          "sourceName": "Synthetic Manual Review Note",
+          "officialStatus": "manual_review",
+          "sourceUrl": null,
+          "sourcePath": null,
+          "sourceUpdatedAt": null,
+          "evidenceNote": "Controlled fixture marks low height and seismic concern."
+        }
+      ],
+      "physicalSuitabilityScore": 12,
+      "operationalUncertaintyScore": 92,
+      "classificationReason": "Low height, two floors, and seismic concern make this not recommended for humanitarian vertical evacuation screening."
+    }
+  ]
+}

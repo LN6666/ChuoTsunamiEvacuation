@@ -1,0 +1,226 @@
+{
+  "planVersion": "p5-a1",
+  "createdFor": "Phase 5 evidence source family planning",
+  "planningOnly": true,
+  "downloadEnabled": false,
+  "scrapingEnabled": false,
+  "sourceFamilies": [
+    {
+      "familyId": "official_shelter_facility",
+      "description": "Official shelter or disaster facility lists from Chuo City, Tokyo Metropolitan Government, or other government source systems.",
+      "evidencePriority": 1,
+      "expectedUse": "Primary evidence for official shelter/facility records and supported disaster categories.",
+      "canConfirmOfficialStatus": true,
+      "canSupportCandidateStatus": true,
+      "requiresManualVerification": true,
+      "expectedFutureFields": [
+        "sourceId",
+        "sourceName",
+        "organization",
+        "facilityName",
+        "address",
+        "latitude",
+        "longitude",
+        "facilityCategory",
+        "disasterTypes",
+        "capacity",
+        "sourceUpdatedAt",
+        "sourceUrl"
+      ],
+      "risks": [
+        "license or attribution requirements may be unclear",
+        "coordinates or addresses may not align cleanly to PLATEAU buildings",
+        "facility categories may not map directly to evacuation building status"
+      ]
+    },
+    {
+      "familyId": "official_evacuation_building",
+      "description": "Official evacuation building or vertical evacuation facility records, if available separately from general shelter lists.",
+      "evidencePriority": 1,
+      "expectedUse": "Strongest evidence for official evacuation building designation.",
+      "canConfirmOfficialStatus": true,
+      "canSupportCandidateStatus": true,
+      "requiresManualVerification": true,
+      "expectedFutureFields": [
+        "sourceId",
+        "sourceName",
+        "organization",
+        "buildingName",
+        "address",
+        "latitude",
+        "longitude",
+        "designationType",
+        "safeFloor",
+        "capacity",
+        "sourceUpdatedAt",
+        "sourceUrl"
+      ],
+      "risks": [
+        "source may be map-only or PDF-only",
+        "building-level designation may be ambiguous for multi-building facilities",
+        "source update date may be missing"
+      ]
+    },
+    {
+      "familyId": "official_hazard_map",
+      "description": "Official tsunami, flood, storm surge, or related hazard map products and GIS layers.",
+      "evidencePriority": 2,
+      "expectedUse": "Hazard context for candidate screening, warnings, and safe-floor interpretation.",
+      "canConfirmOfficialStatus": false,
+      "canSupportCandidateStatus": true,
+      "requiresManualVerification": true,
+      "expectedFutureFields": [
+        "sourceId",
+        "hazardFamily",
+        "scenario",
+        "inundationDepthClass",
+        "geometryType",
+        "crs",
+        "publicationDate",
+        "sourceUrl"
+      ],
+      "risks": [
+        "map scope may not cover Chuo Ward",
+        "PDF maps may not provide reproducible geometry",
+        "hazard context can be mistaken for flood simulation if not labeled carefully"
+      ]
+    },
+    {
+      "familyId": "official_disaster_prevention_plan",
+      "description": "Administrative disaster prevention plans and official policy documents defining evacuation concepts, facility roles, or planning assumptions.",
+      "evidencePriority": 2,
+      "expectedUse": "Rule interpretation, terminology, and source-family semantics.",
+      "canConfirmOfficialStatus": false,
+      "canSupportCandidateStatus": true,
+      "requiresManualVerification": true,
+      "expectedFutureFields": [
+        "sourceId",
+        "documentTitle",
+        "organization",
+        "publicationDate",
+        "relevantSections",
+        "facilityDefinitions",
+        "sourceUrl"
+      ],
+      "risks": [
+        "policy text may not identify specific buildings",
+        "interpretation may require Japanese terminology review",
+        "older plans may conflict with newer facility data"
+      ]
+    },
+    {
+      "familyId": "plateau_building_geometry",
+      "description": "PLATEAU building footprints, geometry, and derived spatial representation available after controlled pipeline processing.",
+      "evidencePriority": 3,
+      "expectedUse": "Building matching, spatial containment, nearest-building checks, and Unity-ready geometry linkage.",
+      "canConfirmOfficialStatus": false,
+      "canSupportCandidateStatus": true,
+      "requiresManualVerification": true,
+      "expectedFutureFields": [
+        "plateauBuildingId",
+        "geometry",
+        "centroid",
+        "footprintArea",
+        "height",
+        "lod",
+        "crs",
+        "matchMethod"
+      ],
+      "risks": [
+        "CityGML parsing is not allowed in P5-A1",
+        "building IDs and geometry may not align with official facility points",
+        "multi-part facilities may map to multiple buildings"
+      ]
+    },
+    {
+      "familyId": "plateau_building_attribute",
+      "description": "PLATEAU building attributes that may support matching or candidate review after controlled extraction.",
+      "evidencePriority": 3,
+      "expectedUse": "Secondary support for candidate suitability, building type, height, floors, and matching confidence.",
+      "canConfirmOfficialStatus": false,
+      "canSupportCandidateStatus": true,
+      "requiresManualVerification": true,
+      "expectedFutureFields": [
+        "plateauBuildingId",
+        "measuredHeight",
+        "storeysAboveGround",
+        "buildingUse",
+        "buildingName",
+        "addressLikeAttribute",
+        "attributeSource"
+      ],
+      "risks": [
+        "attributes may be missing or inconsistent",
+        "height/floor fields may not be available for all buildings",
+        "attributes do not prove official evacuation designation"
+      ]
+    },
+    {
+      "familyId": "literature_vertical_evacuation_criteria",
+      "description": "Academic, policy, or technical report criteria for vertical evacuation building suitability.",
+      "evidencePriority": 4,
+      "expectedUse": "Candidate qualification rules and warning logic.",
+      "canConfirmOfficialStatus": false,
+      "canSupportCandidateStatus": true,
+      "requiresManualVerification": true,
+      "expectedFutureFields": [
+        "citationId",
+        "criterionName",
+        "minimumFloorOrHeight",
+        "hazardAssumption",
+        "applicabilityNotes",
+        "confidence"
+      ],
+      "risks": [
+        "criteria may not be specific to Chuo Ward",
+        "paper assumptions may not match official disaster scenarios",
+        "criteria can be overinterpreted as official designation"
+      ]
+    },
+    {
+      "familyId": "literature_accessibility_criteria",
+      "description": "Academic, policy, or technical report criteria for walking distance, evacuation time, accessibility, and vulnerable population constraints.",
+      "evidencePriority": 4,
+      "expectedUse": "Route accessibility and manual review warning rules.",
+      "canConfirmOfficialStatus": false,
+      "canSupportCandidateStatus": true,
+      "requiresManualVerification": true,
+      "expectedFutureFields": [
+        "citationId",
+        "walkingSpeedAssumption",
+        "maximumDistance",
+        "timeToEvacuate",
+        "populationGroup",
+        "applicabilityNotes"
+      ],
+      "risks": [
+        "route estimates may not reflect real emergency behavior",
+        "vulnerable population assumptions may require careful interpretation",
+        "accessibility criteria do not prove official designation"
+      ]
+    },
+    {
+      "familyId": "osm_routing_network",
+      "description": "OSM-derived pedestrian network data used as auxiliary routing input for prototype route estimates.",
+      "evidencePriority": 5,
+      "expectedUse": "Prototype route estimation, accessibility warnings, and route confidence metadata.",
+      "canConfirmOfficialStatus": false,
+      "canSupportCandidateStatus": false,
+      "requiresManualVerification": true,
+      "expectedFutureFields": [
+        "networkSource",
+        "retrievedAt",
+        "licenseAttribution",
+        "routeId",
+        "distanceMeters",
+        "estimatedTravelTimeSeconds",
+        "routeWarnings"
+      ],
+      "risks": [
+        "OSM routes are not official evacuation routes",
+        "network completeness and pedestrian tags may be inconsistent",
+        "OSM data changes over time and needs reproducibility controls"
+      ]
+    }
+  ]
+}

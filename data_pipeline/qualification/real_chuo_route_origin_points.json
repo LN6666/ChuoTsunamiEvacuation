@@ -1,0 +1,53 @@
+{
+  "datasetId": "p5_b5_real_chuo_route_origin_points",
+  "createdAt": "2026-05-20T00:00:00+09:00",
+  "coordinateReferenceSystem": "EPSG:4326",
+  "notes": "Controlled P5-B5 route test origins only. These are not official evacuation origins and do not imply gameplay spawn points.",
+  "origins": [
+    {
+      "originId": "route_origin_ginza_001",
+      "originName": "Ginza controlled route test origin",
+      "latitude": 35.6719,
+      "longitude": 139.7651,
+      "coordinateReferenceSystem": "EPSG:4326",
+      "sourceType": "controlled_route_test_origin",
+      "notes": "Representative Ginza/Yurakucho-side origin for walking-route QA."
+    },
+    {
+      "originId": "route_origin_nihonbashi_001",
+      "originName": "Nihonbashi controlled route test origin",
+      "latitude": 35.6826,
+      "longitude": 139.7752,
+      "coordinateReferenceSystem": "EPSG:4326",
+      "sourceType": "controlled_route_test_origin",
+      "notes": "Representative Nihonbashi area origin for northern Chuo route QA."
+    },
+    {
+      "originId": "route_origin_hatchobori_tsukiji_001",
+      "originName": "Hatchobori Tsukiji controlled route test origin",
+      "latitude": 35.6682,
+      "longitude": 139.7774,
+      "coordinateReferenceSystem": "EPSG:4326",
+      "sourceType": "controlled_route_test_origin",
+      "notes": "Representative Hatchobori/Tsukiji area origin for central-east Chuo route QA."
+    },
+    {
+      "originId": "route_origin_tsukishima_kachidoki_001",
+      "originName": "Tsukishima Kachidoki controlled route test origin",
+      "latitude": 35.6587,
+      "longitude": 139.7769,
+      "coordinateReferenceSystem": "EPSG:4326",
+      "sourceType": "controlled_route_test_origin",
+      "notes": "Representative Tsukishima/Kachidoki island-side origin for bridge and waterfront route QA."
+    },
+    {
+      "originId": "route_origin_harumi_waterfront_far_001",
+      "originName": "Harumi waterfront far controlled route test origin",
+      "latitude": 35.6503,
+      "longitude": 139.7906,
+      "coordinateReferenceSystem": "EPSG:4326",
+      "sourceType": "controlled_route_test_origin",
+      "notes": "Waterfront origin likely far from many northern shelters; included to exercise longer routes."
+    }
+  ]
+}

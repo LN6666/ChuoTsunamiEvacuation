@@ -443,7 +443,7 @@ public class EvacuationGameManager : MonoBehaviour
         }
 
         shelterSourceConfig = ShelterSourceConfigLoader.Load();
-        Debug.Log($"Shelter source mode: {ShelterSourceMode}. Current P2 gameplay uses test_shelters.json.");
+        Debug.Log($"Shelter source mode: {ShelterSourceMode}. Runtime shelter data is resolved from configured Assets/Data sources.");
 
         activeScenario = ScenarioPresetLoader.LoadActiveScenario();
         ScenarioPresetLoader.ApplyScenarioOverrides(activeScenario, tsunamiEventConfig, antiCampingConfig);
@@ -560,6 +560,7 @@ public class EvacuationGameManager : MonoBehaviour
 
         resultMetrics.selectedShelterId = shelter.ShelterId;
         resultMetrics.selectedShelterName = shelter.ShelterName;
+        resultMetrics.selectedShelterSourceType = shelter.SourceType;
         resultMetrics.shelterRank = shelter.ShelterRank;
         resultMetrics.isOfficialShelter = shelter.IsOfficialShelter;
         resultMetrics.shelterEntryTime = resultMetrics.shelterEntryTime <= 0f ? Time.time : resultMetrics.shelterEntryTime;
@@ -567,6 +568,48 @@ public class EvacuationGameManager : MonoBehaviour
         resultMetrics.climbTimeSeconds = shelter.ClimbTimeSeconds;
         resultMetrics.crowdingDelaySeconds = shelter.CrowdingDelaySeconds;
         resultMetrics.wasCampingDetected = resultMetrics.wasCampingDetected || campedShelterIds.Contains(shelter.ShelterId);
+
+        if (string.Equals(shelter.SourceType, RealQualifiedShelterDataLoader.SourceType, System.StringComparison.OrdinalIgnoreCase))
+        {
+            resultMetrics.p5dDecisionFeedback = BuildP5DDecisionFeedbackSafe(shelter.ShelterId);
+        }
+        else if (string.Equals(shelter.SourceType, HumanitarianCandidateDataLoader.SourceType, System.StringComparison.OrdinalIgnoreCase))
+        {
+            resultMetrics.p5gHumanitarianCandidateFeedback =
+                BuildP5GHumanitarianCandidateFeedbackSafe(shelter.ShelterId);
+        }
+        else if (P5CDecisionFeedbackFormatter.ShouldShowForSourceType(shelter.SourceType))
+        {
+            resultMetrics.p5cDecisionFeedback = P5CDecisionFeedbackFormatter.BuildForShelterId(shelter.ShelterId);
+        }
+    }
+
+    private static string BuildP5DDecisionFeedbackSafe(string shelterId)
+    {
+        try
+        {
+            return RealQualifiedShelterFeedbackFormatter.BuildForShelterId(shelterId);
+        }
+        catch (System.Exception exception)
+        {
+            Debug.LogWarning(
+                $"P5-D real-qualified shelter feedback fallback used for '{shelterId}': {exception.Message}");
+            return RealQualifiedShelterDataLoader.UnavailableMessage;
+        }
+    }
+
+    private static string BuildP5GHumanitarianCandidateFeedbackSafe(string candidateId)
+    {
+        try
+        {
+            return HumanitarianCandidateFeedbackFormatter.BuildForCandidateId(candidateId);
+        }
+        catch (System.Exception exception)
+        {
+            Debug.LogWarning(
+                $"P5-GH humanitarian candidate feedback fallback used for '{candidateId}': {exception.Message}");
+            return "P5-GH humanitarian candidate data unavailable for this candidate";
+        }
     }
 
     private void SetPlayerControlEnabled(bool isEnabled, GameState reasonState)

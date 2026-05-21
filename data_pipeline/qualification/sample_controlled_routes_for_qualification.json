@@ -1,0 +1,105 @@
+{
+  "datasetId": "p5_b1_sample_controlled_routes_for_qualification",
+  "generatedAt": "2026-05-19T13:00:00Z",
+  "coordinateReferenceSystem": "EPSG:4326",
+  "notes": "Synthetic controlled route-like fixture for P5-B1 only. Route values are prototype estimates and are not official evacuation routes.",
+  "routes": [
+    {
+      "originId": "controlled_origin_001",
+      "shelterId": "controlled_shelter_official_contains_001",
+      "plateauBuildingId": "controlled_plateau_bldg_001",
+      "routeAvailability": "available",
+      "nearestRouteDistanceMeters": 65.0,
+      "estimatedTravelTimeSeconds": 80.0,
+      "routeSource": "controlled_prototype_estimate",
+      "routeType": "estimated_pedestrian_placeholder",
+      "warnings": [],
+      "notes": "Controlled placeholder route estimate only; not an official evacuation route."
+    },
+    {
+      "originId": "controlled_origin_001",
+      "shelterId": "controlled_shelter_official_nearest_002",
+      "plateauBuildingId": "controlled_plateau_bldg_002",
+      "routeAvailability": "available",
+      "nearestRouteDistanceMeters": 120.0,
+      "estimatedTravelTimeSeconds": 160.0,
+      "routeSource": "controlled_prototype_estimate",
+      "routeType": "estimated_pedestrian_placeholder",
+      "warnings": [
+        "route is a controlled prototype estimate, not an official evacuation route"
+      ],
+      "notes": "Controlled placeholder route estimate paired with nearest-match review."
+    },
+    {
+      "originId": "controlled_origin_001",
+      "shelterId": "controlled_candidate_strong_003",
+      "plateauBuildingId": "controlled_plateau_bldg_003",
+      "routeAvailability": "available",
+      "nearestRouteDistanceMeters": 140.0,
+      "estimatedTravelTimeSeconds": 190.0,
+      "routeSource": "controlled_prototype_estimate",
+      "routeType": "estimated_pedestrian_placeholder",
+      "warnings": [
+        "route is a controlled prototype estimate, not an official evacuation route"
+      ],
+      "notes": "Controlled placeholder route estimate for a non-official candidate."
+    },
+    {
+      "originId": "controlled_origin_001",
+      "shelterId": "controlled_candidate_weak_missing_004",
+      "plateauBuildingId": "controlled_plateau_bldg_004",
+      "routeAvailability": "unavailable",
+      "nearestRouteDistanceMeters": null,
+      "estimatedTravelTimeSeconds": null,
+      "routeSource": "controlled_prototype_estimate",
+      "routeType": "estimated_pedestrian_placeholder",
+      "warnings": [
+        "route unavailable in controlled fixture",
+        "route is a controlled prototype estimate, not an official evacuation route"
+      ],
+      "notes": "Unavailable route placeholder for warning coverage."
+    },
+    {
+      "originId": "controlled_origin_001",
+      "shelterId": "controlled_unknown_insufficient_005",
+      "plateauBuildingId": "controlled_plateau_bldg_005",
+      "routeAvailability": "not_evaluated",
+      "nearestRouteDistanceMeters": null,
+      "estimatedTravelTimeSeconds": null,
+      "routeSource": "not_evaluated",
+      "routeType": "not_evaluated",
+      "warnings": [],
+      "notes": "Route not evaluated because qualification evidence is insufficient."
+    },
+    {
+      "originId": "controlled_origin_001",
+      "shelterId": "controlled_conflict_not_qualified_006",
+      "plateauBuildingId": "controlled_plateau_bldg_006",
+      "routeAvailability": "failed",
+      "nearestRouteDistanceMeters": null,
+      "estimatedTravelTimeSeconds": null,
+      "routeSource": "controlled_prototype_estimate",
+      "routeType": "estimated_pedestrian_placeholder",
+      "warnings": [
+        "route failed in controlled fixture",
+        "route is a controlled prototype estimate, not an official evacuation route"
+      ],
+      "notes": "Failed route placeholder for conflict coverage."
+    },
+    {
+      "originId": "controlled_origin_001",
+      "shelterId": "controlled_unmatched_official_007",
+      "plateauBuildingId": null,
+      "routeAvailability": "failed",
+      "nearestRouteDistanceMeters": null,
+      "estimatedTravelTimeSeconds": null,
+      "routeSource": "controlled_prototype_estimate",
+      "routeType": "estimated_pedestrian_placeholder",
+      "warnings": [
+        "route failed because no controlled PLATEAU building match exists",
+        "route is a controlled prototype estimate, not an official evacuation route"
+      ],
+      "notes": "Failed route placeholder for the unmatched shelter/building case."
+    }
+  ]
+}

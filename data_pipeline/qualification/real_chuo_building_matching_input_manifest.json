@@ -1,0 +1,53 @@
+{
+  "manifestVersion": "p5-b4-building-matching-input-manifest-v1",
+  "generatedAt": "2026-05-19T23:36:42+09:00",
+  "shelterInputPath": "data_pipeline/processed/qualification/real_chuo_official_shelters_normalized.json",
+  "buildingInputPath": "D:\\PLATEAU_DATA\\Chuo_2025_CityGML\\udx\\bldg",
+  "buildingInputOrigin": "existing local PLATEAU CityGML building files, limited to shelter-point mesh codes",
+  "buildingInputIsProcessed": false,
+  "processedBuildingFootprintOutputPath": "data_pipeline/processed/qgis_qa/real_chuo_building_footprints.geojson",
+  "coordinateReferenceSystem": "EPSG:4326",
+  "metricCoordinateReferenceSystem": "EPSG:6677",
+  "selectedMeshCodes": [
+    "53393681",
+    "53393682",
+    "53393691",
+    "53393692",
+    "53394600",
+    "53394601",
+    "53394602",
+    "53394611",
+    "53394612",
+    "53394613",
+    "53394621",
+    "53394622",
+    "53394632"
+  ],
+  "selectedMeshFileCount": 13,
+  "candidateBuildingCount": 4447,
+  "matchedBuildingCount": 26,
+  "shelterRecordCount": 31,
+  "matchMethodCounts": {
+    "contains": 24,
+    "nearest": 3,
+    "unmatched": 4
+  },
+  "qualificationStatusCounts": {
+    "official_confirmed": 24,
+    "official_confirmed_with_review": 3,
+    "unknown": 4
+  },
+  "manualReviewNeededCount": 7,
+  "rawDataPolicy": "Raw official downloads and raw local PLATEAU CityGML files are local inputs only and are not committed.",
+  "limitations": [
+    "B4 extracts only building footprints within a fixed buffer around official shelter points.",
+    "Broad evacuation areas are not assigned to a PLATEAU building without manual QGIS review.",
+    "Route fields remain not_evaluated until P5-B5.",
+    "Building attributes are limited to fields available in the parsed local CityGML building elements."
+  ],
+  "manualReviewNotes": [
+    "Review nearest matches and all broad evacuation-area records in QGIS.",
+    "Check for coordinate shifts between official shelter points and PLATEAU footprints.",
+    "Confirm whether open evacuation places should remain unmatched for building qualification."
+  ]
+}

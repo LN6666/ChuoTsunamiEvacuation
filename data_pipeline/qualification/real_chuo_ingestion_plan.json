@@ -1,0 +1,161 @@
+{
+  "planVersion": "p5-b2-real-chuo-ingestion-plan-v1",
+  "createdAt": "2026-05-19T14:30:00Z",
+  "planningOnly": true,
+  "downloadEnabled": false,
+  "scrapingEnabled": false,
+  "sourceFamilies": [
+    {
+      "familyId": "official_shelter_facility",
+      "displayName": "Official shelter/facility records",
+      "expectedUse": "Primary official facility evidence and supported disaster categories.",
+      "canConfirmOfficialDesignation": true,
+      "manualReviewExpected": true
+    },
+    {
+      "familyId": "official_evacuation_building",
+      "displayName": "Official evacuation building records if available",
+      "expectedUse": "Strongest direct evidence for official evacuation building designation.",
+      "canConfirmOfficialDesignation": true,
+      "manualReviewExpected": true
+    },
+    {
+      "familyId": "official_hazard_map",
+      "displayName": "Official hazard/disaster maps",
+      "expectedUse": "Hazard context, warnings, and safe-floor interpretation.",
+      "canConfirmOfficialDesignation": false,
+      "manualReviewExpected": true
+    },
+    {
+      "familyId": "official_disaster_prevention_plan",
+      "displayName": "Administrative disaster prevention plans",
+      "expectedUse": "Terminology, facility role definitions, and policy context.",
+      "canConfirmOfficialDesignation": false,
+      "manualReviewExpected": true
+    },
+    {
+      "familyId": "plateau_building_geometry",
+      "displayName": "PLATEAU building geometry",
+      "expectedUse": "Building footprints, contains checks, nearest-building checks, and match lines.",
+      "canConfirmOfficialDesignation": false,
+      "manualReviewExpected": true
+    },
+    {
+      "familyId": "plateau_building_attribute",
+      "displayName": "PLATEAU building attributes",
+      "expectedUse": "Candidate suitability support through height, floor, use, or identifier attributes.",
+      "canConfirmOfficialDesignation": false,
+      "manualReviewExpected": true
+    },
+    {
+      "familyId": "osm_routing_network",
+      "displayName": "OSM pedestrian road network",
+      "expectedUse": "Prototype route estimates and accessibility warnings only.",
+      "canConfirmOfficialDesignation": false,
+      "manualReviewExpected": true
+    },
+    {
+      "familyId": "literature_report_criteria",
+      "displayName": "Literature/report criteria",
+      "expectedUse": "Candidate threshold proposals and review warnings only.",
+      "canConfirmOfficialDesignation": false,
+      "manualReviewExpected": true
+    }
+  ],
+  "ingestionStages": [
+    {
+      "stageId": "p5-b3",
+      "name": "Controlled official source fixture ingestion",
+      "description": "Create a small manually reviewed fixture after source/license review.",
+      "downloadsAllowed": false,
+      "fullDatasetProcessingAllowed": false
+    },
+    {
+      "stageId": "p5-b4",
+      "name": "PLATEAU building footprint/attribute preparation",
+      "description": "Prepare a controlled small building footprint/attribute sample and matching policy.",
+      "downloadsAllowed": false,
+      "fullDatasetProcessingAllowed": false
+    },
+    {
+      "stageId": "p5-b5",
+      "name": "OSM route network sample preparation",
+      "description": "Prepare a small route sample only after OSMnx/cache/attribution policy is approved.",
+      "downloadsAllowed": false,
+      "fullDatasetProcessingAllowed": false
+    },
+    {
+      "stageId": "p5-b6",
+      "name": "QGIS QA and expanded processing",
+      "description": "Use QGIS for visual QA of small processed layers and ambiguous cases.",
+      "downloadsAllowed": false,
+      "fullDatasetProcessingAllowed": false
+    }
+  ],
+  "provenanceFields": [
+    "sourceName",
+    "sourceType",
+    "sourceUrl",
+    "sourceUpdatedAt",
+    "downloadedAt",
+    "licenseTerms",
+    "reliabilityLevel",
+    "manualReviewNeeded"
+  ],
+  "rawDataPolicy": {
+    "commitRawLargeFilesAllowed": false,
+    "forbiddenCommitPatterns": [
+      "*.citygml",
+      "*.gml",
+      "*.shp",
+      "*.dbf",
+      "*.shx",
+      "*.prj",
+      "*.gpkg",
+      "*.tif",
+      "*.tiff",
+      "*.zip",
+      "*.7z",
+      "*.tar",
+      "*.osm",
+      "*.pbf"
+    ],
+    "forbiddenDirectories": [
+      "data_pipeline/raw/",
+      "data_pipeline/cache/",
+      "data_pipeline/tmp/",
+      "Assets/Scenes/",
+      "ProjectSettings/",
+      "Packages/"
+    ],
+    "policyNote": "Do not commit raw large files or full real GIS/source downloads. Unity runtime must not read raw GIS archives, raw PLATEAU data, raw CityGML, QGIS project state, or manual-only intermediates."
+  },
+  "processedOutputPolicy": {
+    "mustBeSmall": true,
+    "mustBeReproducible": true,
+    "mustIncludeCrsMetadata": true,
+    "mustIncludeSourceProvenance": true,
+    "mustIncludeManualReviewFields": true,
+    "unityIntegrationDeferredToP5C": true
+  },
+  "validationRequirements": [
+    "JSON syntax validation for planning/config/output JSON files.",
+    "JSON Schema validation when jsonschema is available.",
+    "Focused tests for official/candidate claim boundaries.",
+    "CRS metadata checks before spatial output is accepted.",
+    "Manual review flags for ambiguous, unmatched, missing-field, and source-conflict records."
+  ],
+  "risks": [
+    "Official source license or attribution terms may block ingestion.",
+    "Official facility points may be address-only or spatially ambiguous.",
+    "Official evacuation building records may not exist as a separate machine-readable source.",
+    "PLATEAU building IDs and source facility points may not align cleanly.",
+    "Hazard map scope may not apply cleanly to Chuo tsunami decision logic.",
+    "OSM route estimates may be incomplete or misleading if treated as official guidance."
+  ],
+  "nextActions": [
+    "P5-B3 should verify the local Python validation/GIS environment.",
+    "P5-B3 should create a small controlled real-source fixture only after manual source/license review.",
+    "P5-B3 should preserve provenance fields and official/candidate boundaries before any expanded ingestion."
+  ]
+}

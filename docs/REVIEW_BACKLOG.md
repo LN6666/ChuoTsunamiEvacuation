@@ -14,6 +14,281 @@ This file only records actionable review items that should guide Codex fixes.
 
 ---
 
+## P6-E Final Closeout Review
+
+Source report:
+
+review_reports/deepseek_review_20260522_010241.md
+
+Context:
+
+P6-E closes PBL6 after P6-0 reference review, P6-A display-only navigation guidance, P6-B lightweight NPC evacuation prototype, P6-C integration validation, and P6-D generated playable behavior validation.
+
+Overall verdict:
+
+PASS. No A-level blockers. P6 is ready for final commit/push after closeout.
+
+Validation:
+
+- EditMode GUI/headful: 142 total / 142 passed / 0 failed / 0 skipped / 0 inconclusive
+- PlayMode GUI/headful: 27 total / 27 passed / 0 failed / 0 skipped / 0 inconclusive
+
+### Items To Review
+
+| ID | Priority | Status | Target File | Issue | Required Review |
+|---|---|---|---|---|---|
+| P6E-R01 | High | Confirmed | `docs/P6_FINAL_CLOSEOUT.md` / `docs/TASKS.md` | Confirm every P6 stage is represented accurately and P6-E does not imply P6-F. | Final review found all expected files present and consistent; no P6-F or future work implied. |
+| P6E-R02 | High | Confirmed | Git diff / protected paths | Confirm no `ProjectSettings`, `Packages`, `Assets/Scenes/Chuo_BaseMap.unity`, PLATEAU imported file, raw PLATEAU data, or generated large scene changes are present. | Final review found no protected-file boundary concerns. |
+| P6E-R03 | High | Confirmed | `Assets/Data/shelter_source_config.json` / docs | Confirm `sourceMode = test`, `real_qualified` opt-in, and humanitarian flags default false remain protected. | Final review found no source-mode or default-flag regression in the closeout diff; current config was manually confirmed before review. |
+| P6E-R04 | High | Confirmed | P6 Navigation/NPC docs | Confirm navigation remains display-only and NPCs remain non-blocking with no player success/failure effect. | Final review found no unsafe official-navigation, simulation, or gameplay-rule overclaim. |
+| P6E-R05 | Medium | Confirmed | `docs/P6_FINAL_CLOSEOUT.md` | Confirm known limitations and deferred items preserve route-rendering, NPC, no-live-routing, no-flood, and no-P7 boundaries. | Final review found safety disclaimers, deferred items, and P7 boundary clear. |
+| P6E-R06 | Medium | Confirmed | Test results / closeout docs | Confirm final GUI EditMode and PlayMode XML counts are recorded accurately. | Final review confirmed the closeout docs consistently record EditMode 142 passed / 0 failed and PlayMode 27 passed / 0 failed. |
+
+Decision:
+
+Final DeepSeek review passed with no A-level blockers. P6-E remains documentation and validation only; P7 begins later with Full Chuo Asset Loading + Underground/Bridge + LOD Upgrade + Game Optimization.
+
+---
+
+## P6-0 Reference Review Deferred Decisions
+
+Source report:
+
+Pending DeepSeek review of `deepseek_review_prompt_p60.md`.
+
+Context:
+
+P6-0 is a documentation-only reference review and technical selection stage for P6-A navigation guidance and P6-B NPC evacuation. No implementation, dependency import, package change, ProjectSettings change, scene change, PLATEAU change, source-mode change, or gameplay success/failure change is approved by P6-0.
+
+Overall verdict:
+
+Pending review.
+
+### Deferred Risks And Decisions
+
+| ID | Severity | Status | Limitation / Decision | Follow-up |
+|---|---|---|---|---|
+| P60-B01 | Medium | Deferred | Real route line rendering remains blocked because WGS84 to Unity/PLATEAU transform validation is still unverified. | Keep route rendering fail-closed until a dedicated transform validation plan and tests exist. |
+| P60-B02 | Medium | Deferred | NavMesh / AI Navigation workflow adoption could create scene, bake, package, or ProjectSettings risk. | Reconsider only after explicit approval and a package/project-settings/scene risk review. |
+| P60-B03 | Medium | Deferred | A* Pathfinding Project has license/package footprint considerations. | Keep `reference_only` until license and dependency approval are complete. |
+| P60-B04 | Medium | Deferred | Recast, DOTS/ECS, ML-Agents, and external pedestrian simulation tools are too heavy for P6-A/P6-B. | Treat as future research references only unless a later phase approves a technical spike. |
+| P60-B05 | Medium | Deferred | Public crowd/evacuation sample repositories with unclear license files must not be copied. | Use behavior/visual inspiration only and avoid code/assets unless license clearance is documented. |
+| P60-B06 | High | Deferred | P6-B NPCs could be misread as validated evacuation behavior or could accidentally influence player success/failure. | Keep NPC state labels/disclaimers clear and ensure future implementation cannot mutate player result logic. |
+
+Decision:
+
+P6-0 selects reference-only review first and custom lightweight prototypes for P6-A/P6-B. DeepSeek should confirm there are no A-level blockers before committing P6-0.
+
+---
+
+## P5 Final Closeout Review
+
+Source report:
+
+review_reports/deepseek_review_20260521_212540.md
+
+Context:
+
+P5 final closeout reviews the combined P5-D/E/F/GH integration and confirms Phase 5 is complete as a prototype/research integration stage.
+
+Overall verdict:
+
+PASS WITH B-level follow-ups. No A-level blockers.
+
+Validation:
+
+- EditMode GUI/headful: 121 passed, 0 failed
+- PlayMode GUI/headful: 18 passed, 0 failed
+
+Final DeepSeek review items:
+
+| ID | Priority | Status | Target File | Issue | Required Review |
+|---|---|---|---|---|---|
+| P5FINAL-R01 | High | Confirmed | `Assets/Data/shelter_source_config.json` / source loaders | Confirm default `test`, opt-in `real_qualified`, and default-off humanitarian flags. | No source-mode or flag default regression found. |
+| P5FINAL-R02 | High | Confirmed | P5-D/P5-GH loaders | Confirm Unity runtime reads copied static `Assets/Data` JSON only. | Path guards reject data_pipeline/raw/download/cache/tmp/.venv and no live routing/web calls exist. |
+| P5FINAL-R03 | High | Fixed | Humanitarian candidate loader/generator/metadata | Confirm official vs humanitarian separation. | Loader now warns/diagnoses missing or non-humanitarian `candidateLayer`; candidates remain non-official; life-first mode is double opt-in. |
+| P5FINAL-R04 | High | Fixed | Route parser/validator/generator | Confirm route fail-closed behavior. | Added explicit validator summary comment; EPSG:4326 route geometry remains blocked without a verified Unity/PLATEAU transform and distance/time feedback remains informational. |
+| P5FINAL-R05 | Medium | Fixed | Docs | Confirm limitations and next phases are documented. | Known limitations now carry severity labels and cross-references; no official navigation claim, no full real high-rise screening claim, and P6/P7 remain deferred. |
+
+### B-Level Closeout Action Items
+
+| ID | Priority | Status | Target File | Issue | Required Fix |
+|---|---|---|---|---|---|
+| P5FINAL-BH01 | Medium | Fixed | `docs/P5_FINAL_CLOSEOUT_REVIEW.md` / `docs/REVIEW_BACKLOG.md` | Known limitations needed dedicated severity-labeled documentation and backlog cross-references. | Added severity-labeled Known Limitations entries for route-coordinate heuristics, WGS84 span precision, `AllFinite` cleanup, QGIS recheck, and manual `real_qualified` smoke. |
+| P5FINAL-BH02 | Medium | Fixed | `Assets/Scripts/Data/HumanitarianCandidateDataLoader.cs` | Missing or wrong `candidateLayer` needed a fault-tolerant warning/diagnostic skip path. | Missing layers are skipped with warning/diagnostic; non-`humanitarian_candidate` layers continue to be skipped with warning/diagnostic. |
+| P5FINAL-BH03 | Low | Fixed | `Assets/Scripts/Data/P5DRoutePreviewTransformValidator.cs` | Route transform validator needed a top-level comment clarifying fail-closed EPSG:4326 behavior. | Added summary comment: real EPSG:4326 to Unity/PLATEAU conversion is future work, rendering is blocked until verified, and distance/time feedback is informational. |
+| P5FINAL-BH04 | Medium | Fixed | `Assets/Scripts/Gameplay/P5GHHumanitarianCandidateRuntimeGenerator.cs` / PlayMode tests | Life-first humanitarian proxies must never look official. | Proxies are explicitly mapped with `isOfficialShelter = false`; tests assert no `Official shelter` display label. |
+| P5FINAL-BH05 | Medium | Fixed | `Assets/Tests/PlayMode/P5GHHumanitarianCandidatePlayModeTests.cs` | Double opt-in display-only mode needed explicit verification that selectable proxies remain empty. | Display-only test covers no `BuildingShelter`, no `ShelterEntranceTrigger`, no colliders/Rigidbodies, and no life-first marker/entrance objects. |
+| P5FINAL-BH06 | Medium | Fixed | `docs/P5G_HUMANITARIAN_CANDIDATE_UNITY_INTEGRATION.md` | Display-only marker docs needed a prominent disclaimer. | Added bold Display Markers disclaimer that display-only markers are not shelters, cannot be entered, and do not alter evacuation scoring. |
+
+### Known Limitations
+
+| ID | Severity | Status | Limitation | Cross-reference / follow-up |
+|---|---|---|---|---|
+| P5FINAL-B01 | Medium | Deferred | Route-coordinate heuristic limitations: WGS84 coordinate-order and broad Chuo bounds checks are conservative heuristics, not a verified EPSG:4326 to Unity/PLATEAU transform. | Keep route rendering fail-closed until verified transform work; related to `P5FINAL-R04` and `P5C-B04`. |
+| P5FINAL-B02 | Medium | Deferred | WGS84 span precision limitation: current span validation uses approximate latitude/longitude meter conversion for broad plausibility, not survey-grade geodesic distance. | Replace with tighter geodesic validation only if future route rendering/publication QA requires it. |
+| P5FINAL-B03 | Low | Deferred | `AllFinite` duplication cleanup: finite-coordinate validation is duplicated across route/data validators. | Cleanup-only refactor if route validation grows. |
+| P5FINAL-B04 | Medium | Deferred | QGIS recheck status before publication/demo use: P5-B QGIS QA passed for this milestone, but should be repeated before external/user-facing publication or demo use. | Re-run shelter/building and route QA layers with an OSM basemap; related to `P5C-B03`. |
+| P5FINAL-B05 | Medium | Deferred | Manual `real_qualified` smoke follow-up: automated tests cover the path, but one manual gameplay pass remains recommended before public/demo use. | Temporarily enable `real_qualified`, enter a selectable real shelter, complete result flow, verify warnings/route/OSM feedback, then restore `test`; related to `P5D-CLOSE-B05`. |
+
+Decision:
+
+Final DeepSeek review passed with no A-level blockers. GUI/headful automated tests passed for this B-level hardening pass, so Phase 5 is ready for commit/push/merge at human discretion; P6/P7 work remains deferred.
+
+---
+
+## P5-GH Closeout Follow-Ups
+
+Source report:
+
+review_reports/deepseek_review_20260521_203334.md
+
+Context:
+
+P5-GH integrates the P5-F controlled humanitarian high-rise candidate sample into Unity with display-only markers and an explicit life-first selectable mode. DeepSeek review was conditionally approved with moderate B-level follow-ups and no A-level blockers.
+
+Overall verdict:
+
+Ready after closeout hardening and GUI/headful automated validation.
+
+### Action Items
+
+| ID | Priority | Status | Target File | Issue | Required Fix |
+|---|---|---|---|---|---|
+| P5GH-R01 | High | Fixed | Assets/Scripts/Data/HumanitarianCandidateDataLoader.cs | Confirm `candidateLayer = official` records cannot enter the humanitarian layer and non-official candidates cannot become official shelters. | Loader accepts only `candidateLayer = humanitarian_candidate`, skips `official`, records diagnostics, and tests mixed official/humanitarian JSON. |
+| P5GH-R02 | High | Fixed | Assets/Scripts/Gameplay/P5GHHumanitarianCandidateRuntimeGenerator.cs | Confirm display-only mode has no `BuildingShelter`, no `ShelterEntranceTrigger`, no colliders, and no success/failure effect. | PlayMode coverage verifies display-only markers have no gameplay components, no collider, no `Rigidbody`, no runtime registration, and no raycast hit. |
+| P5GH-R03 | High | Fixed | Assets/Scripts/Gameplay/P5GHHumanitarianCandidateRuntimeGenerator.cs / Assets/Scripts/Core/EvacuationGameManager.cs | Confirm life-first selectable mode is explicit opt-in, non-official, warning-heavy, and does not use candidate status as a success/failure rule. | PlayMode coverage verifies the life-first flag alone creates no markers, first flag alone remains display-only, selectable proxies are non-official, and candidate metadata remains feedback-only for result flow. |
+| P5GH-R04 | Medium | Fixed | Assets/Scripts/Data/HumanitarianCandidateDataLoader.cs | Confirm runtime path guards reject `data_pipeline/raw/download/cache/tmp/.venv` and require copied `Assets/Data` JSON. | Loader uses an `Application.dataPath + "/Data/"` whitelist plus forbidden runtime path rejection; EditMode tests cover raw, downloads, cache, tmp, and `.venv` paths. |
+| P5GH-R05 | Medium | Fixed | docs/P5G_HUMANITARIAN_CANDIDATE_UNITY_INTEGRATION.md | Confirm docs clearly state controlled sample data, non-official status, uncertainty, and future real Chuo screening gap. | Docs state display-only non-interaction, double opt-in, non-official status, controlled P5-F sample limits, and feedback-only success/failure semantics. |
+| P5GH-R06 | Medium | Fixed | Assets/Scripts/Data/HumanitarianCandidateFeedbackFormatter.cs | Result feedback should prominently warn that candidates are not official shelters even with minimal data. | Feedback now starts with `This building is NOT officially designated as an evacuation shelter.` and EditMode coverage verifies the warning with minimal record data. |
+
+Validation:
+
+- EditMode: 121 passed, 0 failed
+- PlayMode: 18 passed, 0 failed
+
+Decision:
+
+Closeout hardening stays within P5-GH review scope. Display-only candidates remain non-interactive, life-first selectable candidates require double opt-in, and candidate selection remains feedback-only with respect to success/failure rules.
+
+---
+
+## P5-E Review Preparation
+
+Source report:
+
+Pending DeepSeek review.
+
+Context:
+
+P5-E verified route geometry rendering QA on branch `p5e-route-geometry-rendering`.
+
+Overall verdict:
+
+Pending review after GUI/headful automated validation passed.
+
+### Items To Review
+
+| ID | Priority | Status | Target File | Issue | Required Fix |
+|---|---|---|---|---|---|
+| P5E-R01 | Medium | Open | Assets/Scripts/Data/P5CStaticDataLoader.cs | Route geometry parser should fail safely for missing, malformed, unsupported, or invalid WGS84 geometry. | Confirm parser leaves `HasGeometry` false without crashing and still preserves route metadata. |
+| P5E-R02 | Medium | Open | Assets/Scripts/Data/P5DRoutePreviewTransformValidator.cs / Assets/Scripts/Gameplay/P5DRealQualifiedShelterRuntimeGenerator.cs | Current real routes are WGS84 and must not render unless a verified Unity/PLATEAU transform passes validation. | Confirm current EPSG:4326 route lines render zero objects and selected-route limits remain in place. |
+| P5E-R03 | Medium | Open | Assets/Tests/EditMode/P5DRealQualifiedGameplayDataTests.cs / Assets/Tests/PlayMode/P5DRealQualifiedGameplayPlayModeTests.cs | real_qualified QA must preserve selectable-status policy, feedback metadata, OSM/ODbL attribution, and no gameplay rule effect. | Confirm GUI/headful EditMode and PlayMode tests cover these boundaries. |
+
+Decision:
+
+GUI/headful Unity validation passed:
+
+- EditMode: 107 passed, 0 failed
+- PlayMode: 13 passed, 0 failed
+
+Send `deepseek_review_prompt_p5e.md` for review.
+
+---
+
+## P5-D Closeout Review Follow-Ups
+
+Source report:
+
+review_reports/deepseek_review_20260521_051736.md
+
+Context:
+
+P5-D real qualified gameplay closeout after DeepSeek PASS with B-level follow-ups only.
+
+Overall verdict:
+
+PASS with B-level follow-ups. No A-level blockers.
+
+### Action Items
+
+| ID | Priority | Status | Target File | Issue | Required Fix |
+|---|---|---|---|---|---|
+| P5D-CLOSE-B01 | Medium | Fixed | Assets/Scripts/Data/RealQualifiedShelterFeedbackFormatter.cs / Assets/Scripts/Core/EvacuationGameManager.cs | P5-D feedback formatting should not throw on missing records, malformed optional fields, null/empty shelter IDs, or missing route/qualification records. | Keep formatter and GameManager fallback exception-safe and use concise unavailable feedback without affecting success/failure. |
+| P5D-CLOSE-B02 | Medium | Fixed | Assets/Scripts/Shelter/BuildingShelter.cs | `real_qualified` shelters missing `RealQualifiedShelterMetadata` should warn but continue safely. | Log a warning and keep the base shelter prompt/interaction usable. |
+| P5D-CLOSE-B03 | Medium | Confirmed | Assets/Scripts/Data/P5DRoutePreviewTransformValidator.cs / Assets/Scripts/Gameplay/P5DRealQualifiedShelterRuntimeGenerator.cs | WGS84 route geometry must not render until WGS84-to-Unity/PLATEAU transform validation passes. | Current runtime route line rendering remains disabled for `EPSG:4326` data; no implementation change. |
+| P5D-CLOSE-B04 | Medium | Fixed | Assets/Tests/EditMode/P5DRealQualifiedGameplayDataTests.cs | `real_qualified` source-mode smoke coverage should verify playable vs debug-only statuses and metadata preservation. | Added focused EditMode smoke coverage. |
+| P5D-CLOSE-B05 | Medium | Deferred | Manual Unity validation | A one-run `real_qualified` gameplay smoke remains recommended before public/demo use. | Temporarily enable `real_qualified`, enter a selectable real shelter, complete result flow, confirm qualification/warnings/route/OSM feedback, confirm candidate/unknown records are not playable, then restore `test`. |
+| P5D-CLOSE-B06 | Medium | Confirmed | tools/run_unity_tests.ps1 / docs | GUI/headful automated testing is the current approved fallback in this cloud Administrator environment. | Continue using GUI/headful EditMode and PlayMode commands that produce XML and pass/fail counts without manual Test Runner clicking. |
+
+Decision:
+
+Closeout fixes stay within P5-D scope. Route/qualification/hazard metadata remain feedback-only and do not affect gameplay success/failure.
+
+---
+
+## P5-C Unity Integration Follow-Ups
+
+Context:
+
+P5-B5 DeepSeek review passed with no A-level blockers, and P5-C Unity read-only integration has been implemented.
+
+Deferred B-level items:
+
+| ID | Priority | Status | Target | Issue | Required Fix |
+|---|---|---|---|---|---|
+| P5C-B01 | Medium | Deferred | P5 matching pipeline / docs | Nearest-match semantic confidence logic is conservative but can be refined. | Improve semantic confidence rules in a future data-pipeline pass. |
+| P5C-B02 | Medium | Deferred | data_pipeline tests | Route tests do not yet include an artificial out-of-network failure case. | Add a controlled route failure fixture/test. |
+| P5C-B03 | Medium | Deferred | QGIS QA process | QGIS spot checks should be repeated before publication or user-facing use. | Re-run shelter/building and route QA layers with an OSM basemap before external use. |
+| P5C-B04 | Medium | Deferred | Unity visualization | Current route geometry is WGS84 and has no verified Unity/PLATEAU coordinate transform. | Define and validate a coordinate transform before rendering route lines. |
+
+Decision:
+
+No immediate Codex fix is required for these B-level items before P5-C review. They should be included in the next DeepSeek review prompt.
+
+---
+
+### P5-C Closeout Review 2026-05-20
+
+Source report:
+
+DeepSeek V4 Pro P5-C review.
+
+Context:
+
+P5-C read-only Unity integration for qualified building evidence, estimated route metadata, and decision feedback.
+
+Overall verdict:
+
+PASS with B-level issues only. No A-level blockers. P5-C can be marked complete as a read-only informational Unity integration.
+
+### Action Items
+
+| ID | Priority | Status | Target File | Issue | Required Fix |
+|---|---|---|---|---|---|
+| P5C-CLOSE-B01 | Medium | Deferred | ResultPanel / P5-C debug metadata flow | P5-C evidence may currently be visible only through debug, `GetDebugText`, or `M` metadata/debug flow. If intended for all players, the main ResultPanel visibility should be verified. | Future UI pass may move or duplicate P5-C evidence into the main result panel if player-facing visibility is required. |
+| P5C-CLOSE-B02 | Medium | Deferred | Assets/Scripts/Core/EvacuationGameManager.cs / Assets/Scripts/Data/P5CDecisionFeedbackFormatter.cs | `EvacuationGameManager` calls `P5CDecisionFeedbackFormatter` methods. Current assembly setup should make this available, but the dependency should remain explicit and safe. | Add a defensive guard or confirm asmdef dependency guarantees availability if assembly boundaries change. |
+| P5C-CLOSE-B03 | Medium | Deferred | Route tests / data_pipeline tests | Route tests do not yet include an artificial out-of-network route failure fixture. | Add a controlled out-of-network route failure fixture/test in a future route coverage pass. |
+| P5C-CLOSE-B04 | Medium | Deferred | Unity route visualization | WGS84 route geometry to Unity/PLATEAU coordinate transform has not been verified. | Keep route rendering disabled/deferred until the coordinate transform is validated. |
+| P5C-CLOSE-B05 | Medium | Deferred | real_sample mapping / P5-C docs | `real_sample` shelter IDs do not safely map to P5-B official shelter IDs. The unavailable evidence fallback is intentional and should stay explicit. | Do not invent unsafe shelter/building mappings; explain the expected fallback in docs and UI/debug text where relevant. |
+| P5C-CLOSE-B06 | Medium | Fixed | Assets/Scripts/Data/P5CStaticDataLoader.cs | Loader path safety needed manual confirmation that runtime reads only copied `Assets/Data` files and does not touch pipeline/raw/cache/temp environments. | Manual audit completed on 2026-05-20. Runtime reads use `Application.dataPath + "/Data/"`; no code change required unless loader paths change. |
+
+Decision:
+
+No implementation change is required for P5-C closeout. The remaining items are deferred follow-ups, except the loader path safety audit, which is complete with no code changes.
+
+---
+
 ## Why This File Exists
 
 The project uses a semi-automatic AI development workflow:
@@ -167,6 +442,30 @@ After fixing:
 ## Active Reviews
 
 No active blocking review items.
+
+---
+
+### Review Pending 2026-05-21-P5F
+
+Source report:
+
+Pending DeepSeek review for P5-F high-rise humanitarian candidate screening.
+
+Context:
+
+P5-F creates data-only rulebook, schema, source-plan, sample fixture, and tests for life-first high-rise humanitarian vertical evacuation candidate screening.
+
+Overall verdict:
+
+Pending review.
+
+### Known P5-F Review Questions
+
+| ID | Priority | Status | Target File | Issue | Required Fix |
+|---|---|---|---|---|---|
+| P5F-RQ01 | Medium | Open | docs/P5F_HIGHRISE_HUMANITARIAN_CANDIDATES.md / data_pipeline/qualification/highrise_humanitarian_candidate_rulebook.json | Confirm the official/designated layer and humanitarian candidate layer are separated clearly enough to prevent non-official candidates being treated as official shelters. | DeepSeek should review taxonomy and warning policy. |
+| P5F-RQ02 | Medium | Open | data_pipeline/qualification/highrise_humanitarian_candidate_schema.json / data_pipeline/qualification/highrise_humanitarian_candidates_sample.json | Confirm schema fields are sufficient for future real Chuo high-rise screening without overclaiming seismic, access, or management agreement evidence. | DeepSeek should identify missing evidence fields or unsafe assumptions. |
+| P5F-RQ03 | Medium | Open | data_pipeline/tests/test_highrise_humanitarian_candidates.py | Focused pytest exists but was not executed in system Python because `pytest` and `jsonschema` are unavailable. | Run in project-approved Python environment before commit if dependencies are available. |
 
 ---
 

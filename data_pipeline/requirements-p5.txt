@@ -1,0 +1,21 @@
+# Phase 5 project-local validation and GIS dependencies.
+# Install these only inside a project-local virtual environment such as data_pipeline/.venv.
+
+# Qualification schema validation and Python test execution.
+jsonschema
+pytest
+
+# CRS-aware GIS processing and geometry operations for future controlled matching.
+geopandas
+shapely
+pyproj
+
+# Routing graph support for future controlled route samples.
+networkx
+osmnx
+
+# Notes:
+# - data_pipeline/requirements.txt remains the general data-pipeline baseline.
+# - This file layers P5 validation/GIS/routing dependencies on top of that baseline.
+# - GDAL/Fiona/pyogrio may be installed transitively by GeoPandas or may need later
+#   Windows-specific handling before real GIS processing is approved.

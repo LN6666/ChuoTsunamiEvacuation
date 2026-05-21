@@ -28,6 +28,9 @@ public class BuildingShelter : MonoBehaviour
     [SerializeField] private string sourceUpdatedAt;
     [SerializeField] private string notes;
 
+    private bool warnedMissingRealQualifiedMetadata;
+    private bool warnedMissingHumanitarianCandidateMetadata;
+
     public string ShelterId => shelterId;
     public string ShelterName => string.IsNullOrWhiteSpace(shelterName) ? gameObject.name : shelterName;
     public string ShelterRank => shelterRank;
@@ -101,12 +104,44 @@ public class BuildingShelter : MonoBehaviour
         string officialText = isOfficialShelter ? "Official shelter" : "Candidate shelter";
         string enterText = canEnter ? "Enterable" : "Not enterable";
         string blockedText = canEnter ? string.Empty : $"\nReason: {FailureReason}";
+        RealQualifiedShelterMetadata realQualifiedMetadata = GetComponent<RealQualifiedShelterMetadata>();
+        HumanitarianCandidateMetadata humanitarianCandidateMetadata = GetComponent<HumanitarianCandidateMetadata>();
+        string realQualifiedText = string.Empty;
+        string humanitarianCandidateText = string.Empty;
+        if (realQualifiedMetadata != null)
+        {
+            realQualifiedText = $"\n{realQualifiedMetadata.BuildPromptText()}";
+        }
+        else if (string.Equals(sourceType, RealQualifiedShelterDataLoader.SourceType, System.StringComparison.OrdinalIgnoreCase) &&
+            !warnedMissingRealQualifiedMetadata)
+        {
+            Debug.LogWarning(
+                $"real_qualified shelter '{ShelterId}' is missing RealQualifiedShelterMetadata. Continuing with base shelter prompt.",
+                this);
+            warnedMissingRealQualifiedMetadata = true;
+        }
+
+        if (humanitarianCandidateMetadata != null)
+        {
+            humanitarianCandidateText = $"\n{humanitarianCandidateMetadata.BuildPromptText()}";
+        }
+        else if (string.Equals(sourceType, HumanitarianCandidateDataLoader.SourceType, System.StringComparison.OrdinalIgnoreCase) &&
+            !warnedMissingHumanitarianCandidateMetadata)
+        {
+            Debug.LogWarning(
+                $"P5-GH humanitarian candidate '{ShelterId}' is missing HumanitarianCandidateMetadata. Continuing with base shelter prompt.",
+                this);
+            warnedMissingHumanitarianCandidateMetadata = true;
+        }
+
         return
             $"{ShelterName}\n" +
             $"ID: {shelterId}\n" +
             $"Rank: {shelterRank} | {officialText}\n" +
             $"{enterText}\n" +
             $"Entry: {EntryDelaySeconds:0.#}s | Climb: {ClimbTimeSeconds:0.#}s | Crowd: {CrowdingDelaySeconds:0.#}s" +
-            blockedText;
+            blockedText +
+            realQualifiedText +
+            humanitarianCandidateText;
     }
 }

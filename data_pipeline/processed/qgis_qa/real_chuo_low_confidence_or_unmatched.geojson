@@ -1,0 +1,138 @@
+{
+  "type": "FeatureCollection",
+  "name": "real_chuo_low_confidence_or_unmatched",
+  "crs": {
+    "type": "name",
+    "properties": {
+      "name": "EPSG:4326"
+    }
+  },
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          139.78123,
+          35.684273
+        ]
+      },
+      "properties": {
+        "shelterId": "chuo_official_emergency_012",
+        "shelterName": "日本橋小学校",
+        "matchMethod": "nearest",
+        "qualificationStatus": "official_confirmed_with_review",
+        "confidence": "medium",
+        "manualReviewNeeded": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          139.785703,
+          35.658848
+        ]
+      },
+      "properties": {
+        "shelterId": "chuo_official_emergency_021",
+        "shelterName": "月島第三小学校",
+        "matchMethod": "nearest",
+        "qualificationStatus": "official_confirmed_with_review",
+        "confidence": "high",
+        "manualReviewNeeded": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          139.773051,
+          35.654366
+        ]
+      },
+      "properties": {
+        "shelterId": "chuo_official_emergency_023",
+        "shelterName": "豊海小学校",
+        "matchMethod": "nearest",
+        "qualificationStatus": "official_confirmed_with_review",
+        "confidence": "medium",
+        "manualReviewNeeded": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          139.770788,
+          35.665155
+        ]
+      },
+      "properties": {
+        "shelterId": "chuo_official_emergency_028",
+        "shelterName": "あかつき公園一帯",
+        "matchMethod": "unmatched",
+        "qualificationStatus": "unknown",
+        "confidence": "low",
+        "manualReviewNeeded": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          139.782438,
+          35.677069
+        ]
+      },
+      "properties": {
+        "shelterId": "chuo_official_emergency_029",
+        "shelterName": "新川ツインビル地区",
+        "matchMethod": "unmatched",
+        "qualificationStatus": "unknown",
+        "confidence": "low",
+        "manualReviewNeeded": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          139.784641,
+          35.666185
+        ]
+      },
+      "properties": {
+        "shelterId": "chuo_official_emergency_030",
+        "shelterName": "佃リバーシティ地区",
+        "matchMethod": "unmatched",
+        "qualificationStatus": "unknown",
+        "confidence": "low",
+        "manualReviewNeeded": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          139.780439,
+          35.653904
+        ]
+      },
+      "properties": {
+        "shelterId": "chuo_official_emergency_031",
+        "shelterName": "晴海地区",
+        "matchMethod": "unmatched",
+        "qualificationStatus": "unknown",
+        "confidence": "low",
+        "manualReviewNeeded": true
+      }
+    }
+  ]
+}

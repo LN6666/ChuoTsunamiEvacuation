@@ -36,6 +36,74 @@ public static class ShelterGameplayDataMapper
         return mappedShelters.ToArray();
     }
 
+    public static ShelterDataLoader.ShelterData[] MapRealQualifiedSheltersToGameplayData(
+        RealQualifiedShelterDataLoader.RealQualifiedShelterRecord[] realQualifiedShelters)
+    {
+        if (realQualifiedShelters == null || realQualifiedShelters.Length == 0)
+        {
+            return new ShelterDataLoader.ShelterData[0];
+        }
+
+        var mappedShelters = new List<ShelterDataLoader.ShelterData>();
+        int selectableIndex = 0;
+
+        foreach (RealQualifiedShelterDataLoader.RealQualifiedShelterRecord realQualifiedShelter in realQualifiedShelters)
+        {
+            if (realQualifiedShelter == null || !realQualifiedShelter.isSelectable)
+            {
+                continue;
+            }
+
+            mappedShelters.Add(MapRealQualifiedShelterToGameplayData(realQualifiedShelter, selectableIndex));
+            selectableIndex++;
+        }
+
+        return mappedShelters.ToArray();
+    }
+
+    public static ShelterDataLoader.ShelterData MapRealQualifiedShelterToGameplayData(
+        RealQualifiedShelterDataLoader.RealQualifiedShelterRecord realQualifiedShelter,
+        int index)
+    {
+        if (realQualifiedShelter == null || string.IsNullOrWhiteSpace(realQualifiedShelter.gameplayShelterId))
+        {
+            return null;
+        }
+
+        int safeFloor = Mathf.Max(0, realQualifiedShelter.safeFloor);
+        int capacity = Mathf.Max(0, realQualifiedShelter.capacity);
+
+        return new ShelterDataLoader.ShelterData
+        {
+            shelterId = realQualifiedShelter.gameplayShelterId,
+            shelterName = string.IsNullOrWhiteSpace(realQualifiedShelter.displayName)
+                ? realQualifiedShelter.gameplayShelterId
+                : realQualifiedShelter.displayName,
+            shelterRank = "Real",
+            isOfficialShelter = true,
+            canEnter = true,
+            entryDelaySeconds = 0f,
+            climbTimeSeconds = 10f,
+            crowdingDelaySeconds = 0f,
+            failureReason = "This real qualified shelter proxy is not available.",
+            sourceType = RealQualifiedShelterDataLoader.SourceType,
+            facilityType = "qualified_tsunami_evacuation_building",
+            layoutPosition = CreateDeterministicFallbackLayout(index),
+            realFacilityName = realQualifiedShelter.officialShelterName,
+            address = string.Empty,
+            latitude = realQualifiedShelter.hasSourceCoordinate ? realQualifiedShelter.latitude : 0f,
+            longitude = realQualifiedShelter.hasSourceCoordinate ? realQualifiedShelter.longitude : 0f,
+            coordinateSystem = RealQualifiedShelterDataLoader.PrototypeDebugLayoutCoordinateSystem,
+            plateauBuildingId = realQualifiedShelter.plateauBuildingId,
+            safeFloor = safeFloor,
+            capacity = capacity,
+            dataSource = "P5-D Assets/Data real qualified static data",
+            sourceUrl = realQualifiedShelter.sourceUrl,
+            sourceUpdatedAt = realQualifiedShelter.sourceUpdatedAt,
+            notes = RealQualifiedShelterDataLoader.NoVerifiedGeospatialPlacementNote
+        };
+    }
+
     public static ShelterDataLoader.ShelterData MapRealShelterToGameplayData(
         RealShelterDataLoader.RealShelterRecord realShelter,
         int index)

@@ -1,0 +1,570 @@
+{
+  "type": "FeatureCollection",
+  "name": "real_chuo_shelter_points",
+  "crs": {
+    "type": "name",
+    "properties": {
+      "name": "EPSG:4326"
+    }
+  },
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          139.769114,
+          35.679059
+        ]
+      },
+      "properties": {
+        "shelterId": "chuo_official_emergency_001",
+        "shelterName": "城東小学校",
+        "matchMethod": "contains",
+        "qualificationStatus": "official_confirmed",
+        "confidence": "high",
+        "manualReviewNeeded": false
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          139.771593,
+          35.673121
+        ]
+      },
+      "properties": {
+        "shelterId": "chuo_official_emergency_002",
+        "shelterName": "京橋プラザ",
+        "matchMethod": "contains",
+        "qualificationStatus": "official_confirmed",
+        "confidence": "high",
+        "manualReviewNeeded": false
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          139.761495,
+          35.672383
+        ]
+      },
+      "properties": {
+        "shelterId": "chuo_official_emergency_003",
+        "shelterName": "泰明小学校",
+        "matchMethod": "contains",
+        "qualificationStatus": "official_confirmed",
+        "confidence": "high",
+        "manualReviewNeeded": false
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          139.764854,
+          35.665512
+        ]
+      },
+      "properties": {
+        "shelterId": "chuo_official_emergency_004",
+        "shelterName": "銀座中学校",
+        "matchMethod": "contains",
+        "qualificationStatus": "official_confirmed",
+        "confidence": "high",
+        "manualReviewNeeded": false
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          139.77876,
+          35.672171
+        ]
+      },
+      "properties": {
+        "shelterId": "chuo_official_emergency_005",
+        "shelterName": "中央小学校",
+        "matchMethod": "contains",
+        "qualificationStatus": "official_confirmed",
+        "confidence": "high",
+        "manualReviewNeeded": false
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          139.776472,
+          35.668734
+        ]
+      },
+      "properties": {
+        "shelterId": "chuo_official_emergency_006",
+        "shelterName": "明石小学校",
+        "matchMethod": "contains",
+        "qualificationStatus": "official_confirmed",
+        "confidence": "high",
+        "manualReviewNeeded": false
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          139.771173,
+          35.667975
+        ]
+      },
+      "properties": {
+        "shelterId": "chuo_official_emergency_007",
+        "shelterName": "京橋築地小学校",
+        "matchMethod": "contains",
+        "qualificationStatus": "official_confirmed",
+        "confidence": "high",
+        "manualReviewNeeded": false
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          139.775575,
+          35.674999
+        ]
+      },
+      "properties": {
+        "shelterId": "chuo_official_emergency_008",
+        "shelterName": "京華スクエア",
+        "matchMethod": "contains",
+        "qualificationStatus": "official_confirmed",
+        "confidence": "high",
+        "manualReviewNeeded": false
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          139.781852,
+          35.676011
+        ]
+      },
+      "properties": {
+        "shelterId": "chuo_official_emergency_009",
+        "shelterName": "明正小学校",
+        "matchMethod": "contains",
+        "qualificationStatus": "official_confirmed",
+        "confidence": "high",
+        "manualReviewNeeded": false
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          139.770509,
+          35.688038
+        ]
+      },
+      "properties": {
+        "shelterId": "chuo_official_emergency_010",
+        "shelterName": "常盤小学校",
+        "matchMethod": "contains",
+        "qualificationStatus": "official_confirmed",
+        "confidence": "high",
+        "manualReviewNeeded": false
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          139.776991,
+          35.690907
+        ]
+      },
+      "properties": {
+        "shelterId": "chuo_official_emergency_011",
+        "shelterName": "十思スクエア",
+        "matchMethod": "contains",
+        "qualificationStatus": "official_confirmed",
+        "confidence": "high",
+        "manualReviewNeeded": false
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          139.78123,
+          35.684273
+        ]
+      },
+      "properties": {
+        "shelterId": "chuo_official_emergency_012",
+        "shelterName": "日本橋小学校",
+        "matchMethod": "nearest",
+        "qualificationStatus": "official_confirmed_with_review",
+        "confidence": "medium",
+        "manualReviewNeeded": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          139.787989,
+          35.683219
+        ]
+      },
+      "properties": {
+        "shelterId": "chuo_official_emergency_013",
+        "shelterName": "有馬小学校",
+        "matchMethod": "contains",
+        "qualificationStatus": "official_confirmed",
+        "confidence": "high",
+        "manualReviewNeeded": false
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          139.784355,
+          35.689056
+        ]
+      },
+      "properties": {
+        "shelterId": "chuo_official_emergency_014",
+        "shelterName": "久松小学校",
+        "matchMethod": "contains",
+        "qualificationStatus": "official_confirmed",
+        "confidence": "high",
+        "manualReviewNeeded": false
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          139.786993,
+          35.691933
+        ]
+      },
+      "properties": {
+        "shelterId": "chuo_official_emergency_015",
+        "shelterName": "日本橋中学校",
+        "matchMethod": "contains",
+        "qualificationStatus": "official_confirmed",
+        "confidence": "high",
+        "manualReviewNeeded": false
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          139.776687,
+          35.679538
+        ]
+      },
+      "properties": {
+        "shelterId": "chuo_official_emergency_016",
+        "shelterName": "阪本小学校",
+        "matchMethod": "contains",
+        "qualificationStatus": "official_confirmed",
+        "confidence": "high",
+        "manualReviewNeeded": false
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          139.784518,
+          35.668599
+        ]
+      },
+      "properties": {
+        "shelterId": "chuo_official_emergency_017",
+        "shelterName": "佃島小学校",
+        "matchMethod": "contains",
+        "qualificationStatus": "official_confirmed",
+        "confidence": "high",
+        "manualReviewNeeded": false
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          139.785025,
+          35.667941
+        ]
+      },
+      "properties": {
+        "shelterId": "chuo_official_emergency_018",
+        "shelterName": "佃中学校",
+        "matchMethod": "contains",
+        "qualificationStatus": "official_confirmed",
+        "confidence": "high",
+        "manualReviewNeeded": false
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          139.780093,
+          35.660674
+        ]
+      },
+      "properties": {
+        "shelterId": "chuo_official_emergency_019",
+        "shelterName": "月島第一小学校",
+        "matchMethod": "contains",
+        "qualificationStatus": "official_confirmed",
+        "confidence": "high",
+        "manualReviewNeeded": false
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          139.775931,
+          35.66017
+        ]
+      },
+      "properties": {
+        "shelterId": "chuo_official_emergency_020",
+        "shelterName": "月島第二小学校",
+        "matchMethod": "contains",
+        "qualificationStatus": "official_confirmed",
+        "confidence": "high",
+        "manualReviewNeeded": false
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          139.785703,
+          35.658848
+        ]
+      },
+      "properties": {
+        "shelterId": "chuo_official_emergency_021",
+        "shelterName": "月島第三小学校",
+        "matchMethod": "nearest",
+        "qualificationStatus": "official_confirmed_with_review",
+        "confidence": "high",
+        "manualReviewNeeded": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          139.784908,
+          35.659743
+        ]
+      },
+      "properties": {
+        "shelterId": "chuo_official_emergency_022",
+        "shelterName": "晴海中学校",
+        "matchMethod": "contains",
+        "qualificationStatus": "official_confirmed",
+        "confidence": "high",
+        "manualReviewNeeded": false
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          139.773051,
+          35.654366
+        ]
+      },
+      "properties": {
+        "shelterId": "chuo_official_emergency_023",
+        "shelterName": "豊海小学校",
+        "matchMethod": "nearest",
+        "qualificationStatus": "official_confirmed_with_review",
+        "confidence": "medium",
+        "manualReviewNeeded": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          139.77201,
+          35.670599
+        ]
+      },
+      "properties": {
+        "shelterId": "chuo_official_emergency_024",
+        "shelterName": "中央区役所",
+        "matchMethod": "contains",
+        "qualificationStatus": "official_confirmed",
+        "confidence": "high",
+        "manualReviewNeeded": false
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          139.784287,
+          35.682479
+        ]
+      },
+      "properties": {
+        "shelterId": "chuo_official_emergency_025",
+        "shelterName": "日本橋区民センター",
+        "matchMethod": "contains",
+        "qualificationStatus": "official_confirmed",
+        "confidence": "high",
+        "manualReviewNeeded": false
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          139.78192,
+          35.661921
+        ]
+      },
+      "properties": {
+        "shelterId": "chuo_official_emergency_026",
+        "shelterName": "月島区民センター",
+        "matchMethod": "contains",
+        "qualificationStatus": "official_confirmed",
+        "confidence": "high",
+        "manualReviewNeeded": false
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          139.774843,
+          35.652023
+        ]
+      },
+      "properties": {
+        "shelterId": "chuo_official_emergency_027",
+        "shelterName": "(旧)ほっとプラザはるみ",
+        "matchMethod": "contains",
+        "qualificationStatus": "official_confirmed",
+        "confidence": "high",
+        "manualReviewNeeded": false
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          139.770788,
+          35.665155
+        ]
+      },
+      "properties": {
+        "shelterId": "chuo_official_emergency_028",
+        "shelterName": "あかつき公園一帯",
+        "matchMethod": "unmatched",
+        "qualificationStatus": "unknown",
+        "confidence": "low",
+        "manualReviewNeeded": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          139.782438,
+          35.677069
+        ]
+      },
+      "properties": {
+        "shelterId": "chuo_official_emergency_029",
+        "shelterName": "新川ツインビル地区",
+        "matchMethod": "unmatched",
+        "qualificationStatus": "unknown",
+        "confidence": "low",
+        "manualReviewNeeded": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          139.784641,
+          35.666185
+        ]
+      },
+      "properties": {
+        "shelterId": "chuo_official_emergency_030",
+        "shelterName": "佃リバーシティ地区",
+        "matchMethod": "unmatched",
+        "qualificationStatus": "unknown",
+        "confidence": "low",
+        "manualReviewNeeded": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          139.780439,
+          35.653904
+        ]
+      },
+      "properties": {
+        "shelterId": "chuo_official_emergency_031",
+        "shelterName": "晴海地区",
+        "matchMethod": "unmatched",
+        "qualificationStatus": "unknown",
+        "confidence": "low",
+        "manualReviewNeeded": true
+      }
+    }
+  ]
+}

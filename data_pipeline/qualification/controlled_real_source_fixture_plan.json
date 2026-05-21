@@ -1,0 +1,89 @@
+{
+  "planVersion": "p5-b3-controlled-real-source-fixture-plan-v1",
+  "createdAt": "2026-05-19T15:30:00Z",
+  "purpose": "Define how P5-B4 should prepare a small manually reviewed real-source fixture before any expanded real Chuo ingestion.",
+  "planningOnly": true,
+  "requiredPreconditions": [
+    "Project-local Python environment is created or verified with jsonschema and pytest available.",
+    "Source provenance review template entries are completed manually for selected candidate sources.",
+    "License or terms review is recorded before any real source fixture is committed.",
+    "No source is treated as official until manual review confirms owner, URL, terms, and update date semantics.",
+    "CRS strategy and processing CRS candidate are documented before spatial operations."
+  ],
+  "expectedInputTypes": [
+    "small manually reviewed official shelter/facility point table",
+    "small manually reviewed official evacuation building table if available",
+    "small manually reviewed hazard context reference table or QA note",
+    "manual source provenance review JSON"
+  ],
+  "fixtureSizeTarget": {
+    "shelterOrFacilityRecords": "3 to 10 manually reviewed records",
+    "hazardContextRecords": "0 to 3 manually reviewed references",
+    "plateauBuildingRecords": "controlled placeholder or small approved sample only",
+    "routeRecords": "none in P5-B4 unless separately approved"
+  },
+  "provenanceRequirements": [
+    "sourceId",
+    "sourceName",
+    "sourceFamily",
+    "officialOrReference",
+    "sourceUrl",
+    "sourceOwner",
+    "licenseOrTerms",
+    "sourceUpdatedAt",
+    "accessDate",
+    "plannedUse",
+    "manualReviewStatus",
+    "approvalStatus"
+  ],
+  "licenseReviewRequirements": [
+    "Confirm source owner and official authority.",
+    "Record license or terms URL/text summary.",
+    "Record whether attribution is required.",
+    "Record whether redistribution of a small derived fixture is allowed.",
+    "Record whether raw source files must remain local and uncommitted."
+  ],
+  "CRSRequirements": [
+    "Record source CRS for every fixture record or source batch.",
+    "Record original latitude/longitude when present.",
+    "Do not compute meter distances in EPSG:4326.",
+    "Use a projected CRS suitable for Tokyo/Chuo before any metric matching.",
+    "Keep Unity coordinate conversion deferred to P5-C."
+  ],
+  "validationRequirements": [
+    "JSON syntax validation for fixture and provenance files.",
+    "JSON Schema validation for qualification outputs when jsonschema is available.",
+    "Focused tests for official/candidate boundary behavior.",
+    "Manual review warnings for missing update dates, ambiguous source fields, or unclear license terms.",
+    "No raw large GIS files or full official datasets committed."
+  ],
+  "outputTargets": [
+    "data_pipeline/qualification/controlled_real_source_fixture.json",
+    "data_pipeline/qualification/controlled_real_source_provenance_review.json",
+    "data_pipeline/qualification/controlled_real_qualification_output.json",
+    "data_pipeline/qualification/controlled_real_qualification_output.csv"
+  ],
+  "manualReviewChecklist": [
+    "Source owner and URL verified.",
+    "License or terms recorded.",
+    "Access date recorded.",
+    "Source update date recorded or explicitly unknown.",
+    "Official designation meaning reviewed.",
+    "Supported disaster types reviewed.",
+    "CRS and coordinate fields reviewed.",
+    "Attribution requirements recorded.",
+    "Approval status remains not_approved until review is complete."
+  ],
+  "risks": [
+    "Official records may be address-only or spatially ambiguous.",
+    "License terms may allow use but not redistribution.",
+    "Source update dates may be missing or unclear.",
+    "A facility may span multiple PLATEAU buildings.",
+    "Small manually reviewed fixtures can overfit early assumptions."
+  ],
+  "nextActions": [
+    "P5-B4 should complete source provenance review entries for selected sources.",
+    "P5-B4 should create a small controlled real-source fixture only after review.",
+    "P5-B4 should generate schema-shaped controlled real qualification outputs without full dataset processing."
+  ]
+}
