@@ -8,11 +8,11 @@ The first playable prototype has been Unity-tested, DeepSeek V4 Pro max-thinking
 
 Current branch focus:
 
-P6-0 Open-source Reference Review + Technical Selection is a documentation-only planning stage for the upcoming P6-A Navigation Guidance Prototype and P6-B NPC Evacuation Prototype. Phase 5 remains the stable baseline: default `sourceMode = test`, `real_qualified` opt-in, humanitarian candidate flags default false, OSM routes estimated only, route rendering fail-closed until WGS84 to Unity/PLATEAU transform validation exists, and no navigation/crowd reference is an official evacuation guidance source.
+P6-D Playable Behavior Validation is the final implementation/validation stage inside P6. P6-0, P6-A, P6-B, and P6-C are complete. Phase 5 remains the stable baseline: default `sourceMode = test`, `real_qualified` opt-in, humanitarian candidate flags default false, OSM routes estimated only, route rendering fail-closed until WGS84 to Unity/PLATEAU transform validation exists, and no navigation/crowd reference is an official evacuation guidance source.
 
 ## Phase 6: Navigation Guidance and NPC Evacuation Prototype
 
-Status: P6-0 reference review and technical selection documented. No implementation, dependency import, package change, ProjectSettings change, scene change, PLATEAU change, data-pipeline raw/download/cache/tmp/.venv change, source-mode default change, or gameplay success/failure logic change has been made for P6-0.
+Status: P6-D playable behavior validation is in progress as a generated/test-only integration layer. No dependency import, package change, ProjectSettings change, scene change, PLATEAU change, data-pipeline raw/download/cache/tmp/.venv change, source-mode default change, or gameplay success/failure logic change is allowed in P6-D.
 
 Planned tasks:
 
@@ -20,6 +20,25 @@ Planned tasks:
 - P6-A: lightweight player navigation guidance prototype under `Assets/Scripts/Navigation/` after a confirmed Markdown plan.
 - P6-B: small NPC evacuation prototype under `Assets/Scripts/NPC/` and/or `Assets/Scripts/Simulation/` after a confirmed Markdown plan.
 - P6-C: integrate P6-A and P6-B only after both are reviewed and tested independently.
+- P6-D: final playable behavior validation using generated/runtime test harnesses only; no P7 work.
+- P6-E: final P6 review and closeout. Do not create P6-F or later stages.
+
+P6-D implemented outputs:
+
+- added generated behavior validation scripts under `Assets/Scripts/Simulation/`
+- added EditMode validation/source-boundary tests for P6-D
+- added PlayMode generated scenario coexistence tests for player navigation plus NPC movement
+- created `docs/P6D_PLAYABLE_BEHAVIOR_VALIDATION.md`
+- created `deepseek_review_prompt_p6d.md`
+- validated EditMode GUI tests: 142 total / 142 passed / 0 failed
+- validated PlayMode GUI tests: 27 total / 27 passed / 0 failed
+
+P6-D scope notes:
+
+- validates target awareness, NPC coexistence, NPC arrival, guidance distance trend, required warnings, non-blocking NPCs, and result-manager absence
+- keeps navigation display-only and NPCs ambient/non-blocking
+- keeps `Chuo_BaseMap.unity` wiring deferred
+- does not start P7 full Chuo asset loading, underground/bridge assets, LOD upgrade, or optimization
 
 P6-0 completed outputs:
 
