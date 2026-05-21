@@ -88,6 +88,8 @@ public class P5GHHumanitarianCandidatePlayModeTests
         Assert.AreEqual(0, root.GetComponentsInChildren<ShelterEntranceTrigger>().Length);
         Assert.AreEqual(0, root.GetComponentsInChildren<Collider>().Length);
         Assert.AreEqual(0, root.GetComponentsInChildren<Rigidbody>().Length);
+        Assert.AreEqual(0, CountTransformsWithPrefix(root, "P5GH_LifeFirstCandidateMarker_"));
+        Assert.AreEqual(0, CountTransformsWithPrefix(root, "P5GH_LifeFirstCandidateEntrance_"));
         Assert.IsFalse(P5GHHumanitarianCandidateRuntimeGenerator.AffectsGameplayRules);
         AssertNoHumanitarianRuntimeShelterRegistration();
         AssertDisplayOnlyMarkersHaveNoRaycastHit(root);
@@ -157,6 +159,7 @@ public class P5GHHumanitarianCandidatePlayModeTests
             StringAssert.Contains(HumanitarianCandidateDataLoader.HumanitarianCandidateLabel, shelter.GetDisplayText());
             StringAssert.Contains(HumanitarianCandidateDataLoader.NotOfficiallyDesignatedLabel, shelter.GetDisplayText());
             StringAssert.Contains(HumanitarianCandidateDataLoader.LifeFirstAssumptionLabel, shelter.GetDisplayText());
+            Assert.IsFalse(shelter.GetDisplayText().Contains("Official shelter"));
         }
 
         foreach (HumanitarianCandidateMetadata item in metadata)
@@ -275,6 +278,20 @@ public class P5GHHumanitarianCandidatePlayModeTests
         }
 
         return false;
+    }
+
+    private static int CountTransformsWithPrefix(Transform root, string prefix)
+    {
+        int count = 0;
+        foreach (Transform transform in root.GetComponentsInChildren<Transform>())
+        {
+            if (transform != null && transform.name.StartsWith(prefix))
+            {
+                count++;
+            }
+        }
+
+        return count;
     }
 
     private static void AssertNoHumanitarianRuntimeShelterRegistration()

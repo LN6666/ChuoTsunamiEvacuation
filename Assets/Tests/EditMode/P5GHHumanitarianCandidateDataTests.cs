@@ -84,6 +84,8 @@ public class P5GHHumanitarianCandidateDataTests
     [Test]
     public void CandidateLayerSeparationSkipsOfficialLayerRecords()
     {
+        LogAssert.Expect(LogType.Warning, new Regex("candidateLayer 'official' is not 'humanitarian_candidate'"));
+
         HumanitarianCandidateDataLoader.HumanitarianCandidateLoadResult result =
             HumanitarianCandidateDataLoader.LoadFromJson(
                 BuildInlineDataset(
@@ -99,6 +101,44 @@ public class P5GHHumanitarianCandidateDataTests
         Assert.AreEqual(HumanitarianCandidateDataLoader.CandidateLayer, result.records[0].candidateLayer);
         StringAssert.Contains("candidateLayer 'official'", result.diagnostics);
         Assert.AreNotEqual("official_fixture", result.records[0].candidateId);
+    }
+
+    [Test]
+    public void MissingCandidateLayerSkipsRecordWithDiagnostic()
+    {
+        LogAssert.Expect(LogType.Warning, new Regex("candidateLayer is missing"));
+
+        HumanitarianCandidateDataLoader.HumanitarianCandidateLoadResult result =
+            HumanitarianCandidateDataLoader.LoadFromJson(
+                BuildInlineDataset(
+                    BuildRecord(
+                        "missing_layer",
+                        string.Empty,
+                        "humanitarian_strong_candidate",
+                        "not_official",
+                        "likely_public_or_lobby_access",
+                        "unknown",
+                        "estimated",
+                        true,
+                        includeCandidateLayer: false),
+                    BuildRecord(
+                        "human_fixture",
+                        "humanitarian_candidate",
+                        "humanitarian_strong_candidate",
+                        "not_official",
+                        "likely_public_or_lobby_access",
+                        "unknown",
+                        "estimated",
+                        true)),
+                "inline missing candidate layer fixture");
+
+        Assert.IsTrue(result.success);
+        Assert.AreEqual(2, result.rawRecordCount);
+        Assert.AreEqual(1, result.recordCount);
+        Assert.AreEqual(1, result.skippedMalformedCount);
+        Assert.AreEqual("human_fixture", result.records[0].candidateId);
+        StringAssert.Contains("candidateLayer is missing", result.diagnostics);
+        Assert.AreNotEqual("missing_layer", result.records[0].candidateId);
     }
 
     [Test]
@@ -252,7 +292,8 @@ public class P5GHHumanitarianCandidateDataTests
         string publicAccessStatus,
         string managementAgreementStatus,
         string seismicEvidenceLevel,
-        bool manualReviewNeeded)
+        bool manualReviewNeeded,
+        bool includeCandidateLayer = true)
     {
         return
             "{" +
@@ -277,7 +318,7 @@ public class P5GHHumanitarianCandidateDataTests
             $"\"publicAccessStatus\":\"{publicAccessStatus}\"," +
             $"\"managementAgreementStatus\":\"{managementAgreementStatus}\"," +
             $"\"officialDesignationStatus\":\"{officialDesignationStatus}\"," +
-            $"\"candidateLayer\":\"{candidateLayer}\"," +
+            (includeCandidateLayer ? $"\"candidateLayer\":\"{candidateLayer}\"," : string.Empty) +
             $"\"humanitarianCandidateStatus\":\"{status}\"," +
             "\"confidence\":\"medium\"," +
             $"\"manualReviewNeeded\":{manualReviewNeeded.ToString().ToLowerInvariant()}," +

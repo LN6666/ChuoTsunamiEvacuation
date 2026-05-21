@@ -411,6 +411,31 @@ Latest P5-GH GUI/headful automated validation:
 - EditMode: 115 passed, 0 failed
 - PlayMode: 17 passed, 0 failed
 
+## P5 Final Closeout Review
+
+P5 final closeout confirms Phase 5 is complete as a prototype/research integration stage and ready for final DeepSeek review.
+
+Closeout artifacts:
+
+- `docs/P5_FINAL_CLOSEOUT_REVIEW.md`
+- `deepseek_review_prompt_p5_final.md`
+
+Closeout safety boundaries:
+
+- `sourceMode = test` remains the committed default
+- `real_qualified` remains opt-in
+- humanitarian candidates are opt-in and non-official
+- life-first selectable humanitarian candidates require both default-off flags
+- route rendering remains fail-closed until a verified Unity/PLATEAU transform exists
+- no official navigation, official route guidance, or official non-designated shelter claim is made
+- P5-F high-rise candidate data remains controlled/sample foundation data, not full real Chuo high-rise screening
+- GUI/headful automated testing is the validated automation path in this cloud Administrator environment
+
+Latest P5 final closeout GUI/headful automated validation:
+
+- EditMode: 120 passed, 0 failed
+- PlayMode: 18 passed, 0 failed
+
 ## Testing And Review Strategy
 
 - P5-A: documentation review, evidence-source review, taxonomy review, and DeepSeek architecture review.

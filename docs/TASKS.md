@@ -8,11 +8,11 @@ The first playable prototype has been Unity-tested, DeepSeek V4 Pro max-thinking
 
 Current branch focus:
 
-Phase 5-GH integrates the completed P5-E route geometry validation work with the completed P5-F high-rise humanitarian candidate foundation. Display-only humanitarian candidate markers and an explicit life-first selectable candidate mode are implemented behind default-off flags.
+Phase 5 final closeout is complete as a prototype/research integration stage and is ready for final DeepSeek review. P5-GH integrates the completed P5-E route geometry validation work with the completed P5-F high-rise humanitarian candidate foundation. Display-only humanitarian candidate markers and an explicit life-first selectable candidate mode are implemented behind default-off flags.
 
 ## Phase 5: Qualification, Routing, PLATEAU Matching, and Unity Integration
 
-Status: P5-D completed the opt-in `real_qualified` gameplay source first, P5-E completed route geometry validation and fail-closed route-preview QA next, P5-F completed the data-only high-rise humanitarian candidate foundation, and P5-GH now integrates the controlled candidate sample into Unity behind explicit default-off flags.
+Status: P5-D completed the opt-in `real_qualified` gameplay source first, P5-E completed route geometry validation and fail-closed route-preview QA next, P5-F completed the data-only high-rise humanitarian candidate foundation, P5-GH integrates the controlled candidate sample into Unity behind explicit default-off flags, and P5 final closeout is ready for final DeepSeek review.
 
 Planned tasks:
 
@@ -34,7 +34,7 @@ Planned tasks:
 - P5-E: verified route geometry parsing, WGS84 transform validation gate, selected/limited route-preview safety, and real_qualified gameplay QA. Implemented in current worktree.
 - P5-F: high-rise humanitarian vertical evacuation candidate rulebook, schema, source plan, controlled fixture, validation tests, and DeepSeek prompt. Implemented in current worktree.
 - P5-GH: integrate P5-E route validation and P5-F humanitarian candidate foundation with display-only markers and explicit life-first selectable candidates without changing official shelter semantics or enabling unverified route rendering. Implemented in current worktree.
-- P5 final review: validation summary, DeepSeek review, scope boundary confirmation, and merge decision.
+- P5 final review: Codex closeout validation summary, scope boundary confirmation, and final DeepSeek prompt complete. Final DeepSeek review and merge decision pending.
 
 Scope boundaries:
 
@@ -153,6 +153,18 @@ P5-GH implemented outputs:
 - GUI/headful validation passed: EditMode 115 passed / 0 failed; PlayMode 17 passed / 0 failed
 - created `docs/P5G_HUMANITARIAN_CANDIDATE_UNITY_INTEGRATION.md`
 - created `deepseek_review_prompt_p5g.md`
+
+P5 final closeout outputs:
+
+- confirmed current branch and clean baseline before closeout docs
+- confirmed P5-E and P5-F merge/content presence on the P5-GH branch
+- confirmed key P5-D/P5-E/P5-F/P5-GH files exist
+- confirmed safety boundaries: default `test`, opt-in `real_qualified`, default-off humanitarian flags, Assets/Data-only runtime reads, no live routing/web requests, no official navigation claims, and no success/failure rules based directly on route/qualification/hazard/candidate status
+- confirmed route rendering remains fail-closed until verified Unity/PLATEAU transform validation exists
+- confirmed P5-F/P5-GH candidate data is controlled/sample foundation data, not full real Chuo high-rise screening
+- reran GUI/headful automated validation: EditMode 120 passed / 0 failed; PlayMode 18 passed / 0 failed
+- created `docs/P5_FINAL_CLOSEOUT_REVIEW.md`
+- created `deepseek_review_prompt_p5_final.md`
 
 P5-B review prep completed outputs:
 

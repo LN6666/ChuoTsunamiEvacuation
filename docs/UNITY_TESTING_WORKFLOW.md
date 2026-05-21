@@ -18,6 +18,14 @@ The approved cloud-desktop fallback is GUI/headful automation. Unity opens witho
 `-batchmode`, but the tests are still started by `-executeMethod`; no Test Runner
 clicking is required.
 
+Phase 5 final closeout uses this GUI/headful path as the validated automation path
+for the current cloud Administrator environment.
+
+Latest Phase 5 closeout results:
+
+- EditMode XML: `test-results/editmode-results.xml`, 120 passed, 0 failed
+- PlayMode XML: `test-results/playmode-results.xml`, 18 passed, 0 failed
+
 From the project root:
 
 ```powershell

@@ -1,5 +1,39 @@
 ---
 
+## 2026-05-21 | P5 Final Integration Closeout Review
+
+Completed the final Codex closeout review for Phase 5 as a prototype/research integration stage.
+
+Confirmed:
+- branch `p5g-humanitarian-candidate-unity-integration`
+- P5-E merge/content present through `8731f12`
+- P5-F merge/content present through `1421abf`
+- `sourceMode = test` remains the committed default
+- `real_qualified` remains opt-in
+- humanitarian candidate display and life-first selection are default-off
+- life-first selectable candidates require both humanitarian flags
+- route rendering remains fail-closed for current EPSG:4326 route geometry
+- OSM routes remain estimated prototype routes, not official evacuation routes
+- OSM/ODbL attribution remains preserved
+- P5-F/P5-GH candidate data is a controlled/sample foundation, not full real Chuo high-rise screening
+- no P6/P7 gameplay, NPC, navigation, full environment, or official navigation claim was added
+
+Validation:
+- EditMode GUI/headful: `test-results/editmode-results.xml`, 120 passed, 0 failed
+- PlayMode GUI/headful: `test-results/playmode-results.xml`, 18 passed, 0 failed
+- no manual Test Runner clicking
+- Unity-generated InitTestScene artifacts were removed after the PlayMode run
+- `ProjectSettings/ProjectSettings.asset` had no content diff and was left unchanged
+
+Created:
+- `docs/P5_FINAL_CLOSEOUT_REVIEW.md`
+- `deepseek_review_prompt_p5_final.md`
+
+Next step:
+- run final DeepSeek review with `python tools\deepseek_review.py --prompt-file deepseek_review_prompt_p5_final.md`
+
+---
+
 ## 2026-05-21 | P5-GH Humanitarian Candidate Unity Integration Implemented
 
 Implemented combined P5-GH Unity integration for the P5-F high-rise humanitarian candidate foundation.

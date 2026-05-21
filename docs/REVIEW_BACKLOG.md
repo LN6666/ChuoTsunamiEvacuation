@@ -14,6 +14,62 @@ This file only records actionable review items that should guide Codex fixes.
 
 ---
 
+## P5 Final Closeout Review
+
+Source report:
+
+review_reports/deepseek_review_20260521_212540.md
+
+Context:
+
+P5 final closeout reviews the combined P5-D/E/F/GH integration and confirms Phase 5 is complete as a prototype/research integration stage.
+
+Overall verdict:
+
+PASS WITH B-level follow-ups. No A-level blockers.
+
+Validation:
+
+- EditMode GUI/headful: 121 passed, 0 failed
+- PlayMode GUI/headful: 18 passed, 0 failed
+
+Final DeepSeek review items:
+
+| ID | Priority | Status | Target File | Issue | Required Review |
+|---|---|---|---|---|---|
+| P5FINAL-R01 | High | Confirmed | `Assets/Data/shelter_source_config.json` / source loaders | Confirm default `test`, opt-in `real_qualified`, and default-off humanitarian flags. | No source-mode or flag default regression found. |
+| P5FINAL-R02 | High | Confirmed | P5-D/P5-GH loaders | Confirm Unity runtime reads copied static `Assets/Data` JSON only. | Path guards reject data_pipeline/raw/download/cache/tmp/.venv and no live routing/web calls exist. |
+| P5FINAL-R03 | High | Fixed | Humanitarian candidate loader/generator/metadata | Confirm official vs humanitarian separation. | Loader now warns/diagnoses missing or non-humanitarian `candidateLayer`; candidates remain non-official; life-first mode is double opt-in. |
+| P5FINAL-R04 | High | Fixed | Route parser/validator/generator | Confirm route fail-closed behavior. | Added explicit validator summary comment; EPSG:4326 route geometry remains blocked without a verified Unity/PLATEAU transform and distance/time feedback remains informational. |
+| P5FINAL-R05 | Medium | Fixed | Docs | Confirm limitations and next phases are documented. | Known limitations now carry severity labels and cross-references; no official navigation claim, no full real high-rise screening claim, and P6/P7 remain deferred. |
+
+### B-Level Closeout Action Items
+
+| ID | Priority | Status | Target File | Issue | Required Fix |
+|---|---|---|---|---|---|
+| P5FINAL-BH01 | Medium | Fixed | `docs/P5_FINAL_CLOSEOUT_REVIEW.md` / `docs/REVIEW_BACKLOG.md` | Known limitations needed dedicated severity-labeled documentation and backlog cross-references. | Added severity-labeled Known Limitations entries for route-coordinate heuristics, WGS84 span precision, `AllFinite` cleanup, QGIS recheck, and manual `real_qualified` smoke. |
+| P5FINAL-BH02 | Medium | Fixed | `Assets/Scripts/Data/HumanitarianCandidateDataLoader.cs` | Missing or wrong `candidateLayer` needed a fault-tolerant warning/diagnostic skip path. | Missing layers are skipped with warning/diagnostic; non-`humanitarian_candidate` layers continue to be skipped with warning/diagnostic. |
+| P5FINAL-BH03 | Low | Fixed | `Assets/Scripts/Data/P5DRoutePreviewTransformValidator.cs` | Route transform validator needed a top-level comment clarifying fail-closed EPSG:4326 behavior. | Added summary comment: real EPSG:4326 to Unity/PLATEAU conversion is future work, rendering is blocked until verified, and distance/time feedback is informational. |
+| P5FINAL-BH04 | Medium | Fixed | `Assets/Scripts/Gameplay/P5GHHumanitarianCandidateRuntimeGenerator.cs` / PlayMode tests | Life-first humanitarian proxies must never look official. | Proxies are explicitly mapped with `isOfficialShelter = false`; tests assert no `Official shelter` display label. |
+| P5FINAL-BH05 | Medium | Fixed | `Assets/Tests/PlayMode/P5GHHumanitarianCandidatePlayModeTests.cs` | Double opt-in display-only mode needed explicit verification that selectable proxies remain empty. | Display-only test covers no `BuildingShelter`, no `ShelterEntranceTrigger`, no colliders/Rigidbodies, and no life-first marker/entrance objects. |
+| P5FINAL-BH06 | Medium | Fixed | `docs/P5G_HUMANITARIAN_CANDIDATE_UNITY_INTEGRATION.md` | Display-only marker docs needed a prominent disclaimer. | Added bold Display Markers disclaimer that display-only markers are not shelters, cannot be entered, and do not alter evacuation scoring. |
+
+### Known Limitations
+
+| ID | Severity | Status | Limitation | Cross-reference / follow-up |
+|---|---|---|---|---|
+| P5FINAL-B01 | Medium | Deferred | Route-coordinate heuristic limitations: WGS84 coordinate-order and broad Chuo bounds checks are conservative heuristics, not a verified EPSG:4326 to Unity/PLATEAU transform. | Keep route rendering fail-closed until verified transform work; related to `P5FINAL-R04` and `P5C-B04`. |
+| P5FINAL-B02 | Medium | Deferred | WGS84 span precision limitation: current span validation uses approximate latitude/longitude meter conversion for broad plausibility, not survey-grade geodesic distance. | Replace with tighter geodesic validation only if future route rendering/publication QA requires it. |
+| P5FINAL-B03 | Low | Deferred | `AllFinite` duplication cleanup: finite-coordinate validation is duplicated across route/data validators. | Cleanup-only refactor if route validation grows. |
+| P5FINAL-B04 | Medium | Deferred | QGIS recheck status before publication/demo use: P5-B QGIS QA passed for this milestone, but should be repeated before external/user-facing publication or demo use. | Re-run shelter/building and route QA layers with an OSM basemap; related to `P5C-B03`. |
+| P5FINAL-B05 | Medium | Deferred | Manual `real_qualified` smoke follow-up: automated tests cover the path, but one manual gameplay pass remains recommended before public/demo use. | Temporarily enable `real_qualified`, enter a selectable real shelter, complete result flow, verify warnings/route/OSM feedback, then restore `test`; related to `P5D-CLOSE-B05`. |
+
+Decision:
+
+Final DeepSeek review passed with no A-level blockers. GUI/headful automated tests passed for this B-level hardening pass, so Phase 5 is ready for commit/push/merge at human discretion; P6/P7 work remains deferred.
+
+---
+
 ## P5-GH Closeout Follow-Ups
 
 Source report:
@@ -41,7 +97,7 @@ Ready after closeout hardening and GUI/headful automated validation.
 
 Validation:
 
-- EditMode: 120 passed, 0 failed
+- EditMode: 121 passed, 0 failed
 - PlayMode: 18 passed, 0 failed
 
 Decision:

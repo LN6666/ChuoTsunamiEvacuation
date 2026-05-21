@@ -1,5 +1,11 @@
 using UnityEngine;
 
+/// <summary>
+/// Validates whether route preview geometry is allowed to render. Actual EPSG:4326 to
+/// Unity/PLATEAU coordinate conversion is future work; until a verified transform exists,
+/// route geometry rendering is intentionally blocked/fail-closed while distance/time
+/// feedback remains informational.
+/// </summary>
 public static class P5DRoutePreviewTransformValidator
 {
     public const string UnityDebugCoordinateSystem = "UNITY_DEBUG";

@@ -211,6 +211,7 @@ public class P5GHHumanitarianCandidateRuntimeGenerator : MonoBehaviour
                 ? record.candidateId
                 : record.buildingName,
             shelterRank = "Life-first",
+            // Humanitarian proxies must never appear as official shelters.
             isOfficialShelter = false,
             canEnter = true,
             entryDelaySeconds = 0f,

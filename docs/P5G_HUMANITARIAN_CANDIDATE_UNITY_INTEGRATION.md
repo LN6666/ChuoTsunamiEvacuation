@@ -60,6 +60,12 @@ Humanitarian candidate labels and result feedback include:
 
 Route/candidate evidence remains feedback only. OSM/ODbL attribution is preserved where route fields use OSM-derived prototype routing, and candidate route fields are not official evacuation routes.
 
+## Display Markers
+
+**Display-only markers are not shelters, cannot be entered, and do not alter evacuation scoring.**
+
+They are visual metadata markers only. They have no `BuildingShelter`, no `ShelterEntranceTrigger`, no collider, no `Rigidbody`, and no runtime shelter registration.
+
 ## Gameplay Safety
 
 Display-only markers have no `BuildingShelter`, no `ShelterEntranceTrigger`, no colliders, no `Rigidbody`, and no runtime shelter registration.
@@ -79,7 +85,7 @@ GUI/headful automated tests passed:
 
 - EditMode command: `powershell -ExecutionPolicy Bypass -File tools/run_unity_tests.ps1 -Mode EditMode -LaunchMode Gui`
   - XML: `test-results/editmode-results.xml`
-  - result: 120 passed, 0 failed
+  - result: 121 passed, 0 failed
 - PlayMode command: `powershell -ExecutionPolicy Bypass -File tools/run_unity_tests.ps1 -Mode PlayMode -LaunchMode Gui`
   - XML: `test-results/playmode-results.xml`
   - result: 18 passed, 0 failed

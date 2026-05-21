@@ -307,13 +307,16 @@ public static class HumanitarianCandidateDataLoader
         if (string.IsNullOrWhiteSpace(candidateLayer))
         {
             result.skippedMalformedCount++;
+            WarnAndAppendDiagnostic(
+                result,
+                $"{result.sourcePath} skipped candidateId '{FirstNonEmpty(raw.candidateId, "unknown")}' because candidateLayer is missing; expected '{CandidateLayer}'.");
             return null;
         }
 
         if (!string.Equals(candidateLayer, CandidateLayer, StringComparison.OrdinalIgnoreCase))
         {
             result.skippedNonHumanitarianLayerCount++;
-            AppendDiagnostic(
+            WarnAndAppendDiagnostic(
                 result,
                 $"{result.sourcePath} skipped candidateId '{FirstNonEmpty(raw.candidateId, "unknown")}' because candidateLayer '{candidateLayer}' is not '{CandidateLayer}'.");
             return null;
@@ -618,6 +621,17 @@ public static class HumanitarianCandidateDataLoader
         result.diagnostics = string.IsNullOrWhiteSpace(result.diagnostics)
             ? message.Trim()
             : $"{result.diagnostics}\n{message.Trim()}";
+    }
+
+    private static void WarnAndAppendDiagnostic(HumanitarianCandidateLoadResult result, string message)
+    {
+        if (string.IsNullOrWhiteSpace(message))
+        {
+            return;
+        }
+
+        AppendDiagnostic(result, message);
+        Debug.LogWarning(message);
     }
 
     private static string NormalizeNullableNumbers(string json)
