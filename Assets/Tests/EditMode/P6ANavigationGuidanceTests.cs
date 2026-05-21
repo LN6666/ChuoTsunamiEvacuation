@@ -80,6 +80,40 @@ public class P6ANavigationGuidanceTests
     }
 
     [Test]
+    public void WarningTextCanOmitRouteLineRenderingWarning()
+    {
+        var targetInfo = new NavigationTargetInfo
+        {
+            routeDisclaimer = P5CStaticDataLoader.EstimatedPrototypeRouteLabel,
+            routeStatusNote = "Custom route rendering warning"
+        };
+
+        string warningText = NavigationGuidanceCalculator.BuildWarningText(targetInfo, false);
+
+        StringAssert.Contains("Estimated prototype route", warningText);
+        StringAssert.Contains("Not official navigation", warningText);
+        StringAssert.Contains("Not official evacuation guidance", warningText);
+        StringAssert.Contains("estimated prototype route, not an official evacuation route", warningText);
+        StringAssert.DoesNotContain("Custom route rendering warning", warningText);
+        StringAssert.DoesNotContain("Route line rendering disabled until coordinate transform is validated", warningText);
+    }
+
+    [Test]
+    public void WarningTextFlagsHumanitarianCandidatesAsNotOfficialDesignatedShelters()
+    {
+        var targetInfo = new NavigationTargetInfo
+        {
+            isHumanitarianCandidate = true
+        };
+
+        string warningText = NavigationGuidanceCalculator.BuildWarningText(targetInfo, true);
+
+        StringAssert.Contains("Not official navigation", warningText);
+        StringAssert.Contains("Not official evacuation guidance", warningText);
+        StringAssert.Contains("Humanitarian candidates are not official designated shelters", warningText);
+    }
+
+    [Test]
     public void MissingTargetFailsSafeWithoutThrowing()
     {
         NavigationGuidanceResult result = null;
