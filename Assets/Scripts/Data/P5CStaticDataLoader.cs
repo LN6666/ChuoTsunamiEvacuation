@@ -14,8 +14,11 @@ public static class P5CStaticDataLoader
     public const string P5CSourceType = "p5c_static";
     public const string EstimatedPrototypeRouteLabel = "estimated prototype route, not an official evacuation route";
     public const string UnavailableMessage = "P5-C qualification/route data unavailable for this shelter";
+    public const string Wgs84CoordinateSystem = "EPSG:4326";
+    public const string GeoJsonLineStringType = "LineString";
+    public const string RouteGeometryCoordinateOrder = "longitude, latitude";
 
-    private const string DefaultCoordinateSystem = "EPSG:4326";
+    private const string DefaultCoordinateSystem = Wgs84CoordinateSystem;
     private const string DefaultMetricCoordinateSystem = "EPSG:6677";
     private const string DefaultOsmAttribution =
         "Route network data from OpenStreetMap contributors; use under the Open Database License.";
@@ -729,7 +732,7 @@ public static class P5CStaticDataLoader
             return false;
         }
 
-        // P4 real_sample has no verified WGS84-to-Unity/PLATEAU transform. Rendering
+        // P4/P5 real data has no verified WGS84-to-Unity/PLATEAU transform. Rendering
         // EPSG:4326 OSM line strings in the schematic debug layout would be misleading.
         return string.Equals(route.geometry.coordinateReferenceSystem, "UNITY_DEBUG", StringComparison.OrdinalIgnoreCase);
     }
@@ -1059,14 +1062,26 @@ public static class P5CStaticDataLoader
         }
 
         string type = ExtractJsonStringProperty(geometryJson, "type");
+        string normalizedCoordinateReferenceSystem = FirstNonEmpty(coordinateReferenceSystem, DefaultCoordinateSystem);
+        if (!string.Equals(type, GeoJsonLineStringType, StringComparison.OrdinalIgnoreCase))
+        {
+            return null;
+        }
+
         string coordinatesJson = ExtractJsonArrayProperty(geometryJson, "coordinates");
         Vector2[] coordinates = ParseCoordinatePairs(coordinatesJson);
+        if (coordinates.Length < 2 ||
+            !AllFinite(coordinates) ||
+            (IsWgs84(normalizedCoordinateReferenceSystem) && !AllWgs84CoordinatesUseLonLatOrder(coordinates)))
+        {
+            return null;
+        }
 
         return new RouteGeometryRecord
         {
             type = Trim(type),
             coordinates = coordinates,
-            coordinateReferenceSystem = FirstNonEmpty(coordinateReferenceSystem, DefaultCoordinateSystem)
+            coordinateReferenceSystem = normalizedCoordinateReferenceSystem
         };
     }
 
@@ -1097,6 +1112,44 @@ public static class P5CStaticDataLoader
         }
 
         return coordinates.ToArray();
+    }
+
+    private static bool AllFinite(Vector2[] coordinates)
+    {
+        if (coordinates == null || coordinates.Length == 0)
+        {
+            return false;
+        }
+
+        foreach (Vector2 coordinate in coordinates)
+        {
+            if (float.IsNaN(coordinate.x) || float.IsInfinity(coordinate.x) ||
+                float.IsNaN(coordinate.y) || float.IsInfinity(coordinate.y))
+            {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    private static bool AllWgs84CoordinatesUseLonLatOrder(Vector2[] coordinates)
+    {
+        foreach (Vector2 coordinate in coordinates)
+        {
+            if (coordinate.x < -180f || coordinate.x > 180f ||
+                coordinate.y < -90f || coordinate.y > 90f)
+            {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    private static bool IsWgs84(string coordinateReferenceSystem)
+    {
+        return string.Equals(coordinateReferenceSystem, Wgs84CoordinateSystem, StringComparison.OrdinalIgnoreCase);
     }
 
     private static string ExtractJsonObjectProperty(string json, string propertyName)
