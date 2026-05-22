@@ -17,7 +17,7 @@ Status: P7-0 in progress. P7 has exactly five stages: P7-0, P7-A, P7-B, P7-C, an
 Planned tasks:
 
 - P7-0: Scope Freeze + Reference Review + Automation Foundation. Create docs/tools/prompts only; run `tools/p7/run_p7_preflight.ps1`; prepare DeepSeek review. In progress.
-- P7-A: Chuo Asset Inventory + LOD / Area Selection. Scan local asset/source folders without importing assets; record file counts, extensions, likely PLATEAU categories, candidate LOD levels, large files, and area priorities. Pending.
+- P7-A: Chuo Asset Inventory + LOD / Area Selection. Command-line scanner and report scripts inventory local asset/source folders without importing assets; reports record file counts, extensions, likely PLATEAU categories, candidate LOD path/name indicators, large files, and benchmark candidate categories. Implemented in current P7-A work; pending review.
 - P7-B: Small-Area High-Detail Benchmark + Underground / Bridge / Road Feasibility. Benchmark selected small areas before any full Chuo import; record Editor and Windows x64 metrics where available. Pending.
 - P7-C: Streaming / Chunk Loading + Visual Quality + Performance Optimization. Implement only approved chunk/LOD/optimization work after benchmark evidence and a confirmed Markdown plan. Pending.
 - P7-D: Windows EXE Profiling + P7 Final Closeout. Record Windows x64 profiling, final decision log, DeepSeek review, and closeout. Pending.
