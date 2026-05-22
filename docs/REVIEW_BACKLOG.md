@@ -14,6 +14,36 @@ This file only records actionable review items that should guide Codex fixes.
 
 ---
 
+## P7-B Wave 2-A Benchmark Skeleton And Metrics Harness
+
+Source report:
+
+Pending DeepSeek review using `deepseek_review_prompt_p7b_wave2a.md`.
+
+Context:
+
+P7-B Wave 2-A is approved only for an isolated benchmark scene skeleton and prototype metrics harness under `P7Benchmark` paths. It does not import real PLATEAU assets, does not modify `Chuo_BaseMap.unity`, and does not change gameplay rules.
+
+Overall verdict:
+
+Pending review.
+
+### P7-B Wave 2-A Risks
+
+| ID | Priority | Status | Target | Issue | Required Review |
+|---|---|---|---|---|---|
+| P7B-W2A-R01 | Medium | Open | Metrics harness | Metrics recorder FPS and approximate 1 percent low values are sample-based and are not a replacement for Unity Profiler. | Confirm docs and code do not treat recorder output as final profiler evidence. |
+| P7B-W2A-R02 | Medium | Open | Benchmark scene skeleton | The skeleton scene has no real PLATEAU geometry yet. | Confirm scene docs and object names make this clear and no visual-quality claims are made. |
+| P7B-W2A-R03 | High | Open | Future LOD3 import | Wave 2-B needs explicit approval before importing LOD3 candidate data or copying real assets. | Confirm tasks, docs, and review prompt preserve the approval gate. |
+| P7B-W2A-R04 | Medium | Open | Unity scene creation | Unity scene creation may need GUI or batchmode validation depending on local Unity environment behavior. | Confirm preflight and test results record success or explain failures. |
+| P7B-W2A-R05 | High | Open | Project settings churn | Unity launches may create ProjectSettings or Packages line-ending/serialization churn. | Confirm any such churn is reverted unless explicitly approved. |
+
+Decision:
+
+Pending DeepSeek review after Wave 2-A preflight and GUI Unity tests pass or failures are documented.
+
+---
+
 ## P7-B Area Feasibility And Candidate Selection
 
 Source report:

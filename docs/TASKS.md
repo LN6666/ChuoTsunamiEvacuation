@@ -12,13 +12,13 @@ P7-0 begins the PBL7 high-detail city foundation. P7-0 is docs/tools/prompts onl
 
 ## Phase 7: High-Detail Chuo Asset Loading, LOD, Streaming, and Windows EXE Optimization
 
-Status: P7-0 in progress. P7 has exactly five stages: P7-0, P7-A, P7-B, P7-C, and P7-D. Do not create P7-E, P7-F, or P7-G.
+Status: P7-B Wave 2-A implemented pending validation. P7 has exactly five stages: P7-0, P7-A, P7-B, P7-C, and P7-D. Do not create P7-E, P7-F, or P7-G.
 
 Planned tasks:
 
 - P7-0: Scope Freeze + Reference Review + Automation Foundation. Create docs/tools/prompts only; run `tools/p7/run_p7_preflight.ps1`; prepare DeepSeek review. In progress.
 - P7-A: Chuo Asset Inventory + LOD / Area Selection. Command-line scanner and report scripts inventory local asset/source folders without importing assets; reports record file counts, extensions, likely PLATEAU categories, candidate LOD path/name indicators, large files, and benchmark candidate categories. Implemented in current P7-A work; pending review.
-- P7-B: Small-Area High-Detail Benchmark + Underground / Bridge / Road Feasibility. Wave 1 is docs/tools/prompts only: command-line feasibility, candidate-area selection, benchmark harness design, rollback/test planning, and review prep. Wave 2 requires explicit human approval before any Unity scene, script, asset, import, package, `Assets/Data`, or `ProjectSettings` change.
+- P7-B: Small-Area High-Detail Benchmark + Underground / Bridge / Road Feasibility. Wave 1 is docs/tools/prompts only: command-line feasibility, candidate-area selection, benchmark harness design, rollback/test planning, and review prep. Wave 2-A is approved only for an isolated benchmark scene skeleton and metrics harness under `P7Benchmark` paths; it does not import real assets. Any Wave 2-B LOD3 candidate import still requires explicit human approval.
 - P7-C: Streaming / Chunk Loading + Visual Quality + Performance Optimization. Implement only approved chunk/LOD/optimization work after benchmark evidence and a confirmed Markdown plan. Pending.
 - P7-D: Windows EXE Profiling + P7 Final Closeout. Record Windows x64 profiling, final decision log, DeepSeek review, and closeout. Pending.
 
@@ -96,6 +96,34 @@ Validation:
 
 - Run `powershell -ExecutionPolicy Bypass -File tools/p7/run_p7_preflight.ps1`.
 - Unity tests are intentionally not run for Wave 1 because no Unity code, asset, scene, or gameplay-facing data changes are made.
+
+### P7-B Wave 2-A Benchmark Scene Skeleton
+
+Status: Implemented pending validation.
+
+Tasks:
+
+- Add isolated benchmark marker and metrics recorder under `Assets/Scripts/P7Benchmark/`.
+- Add editor scene builder under `Assets/Editor/P7Benchmark/`.
+- Create isolated skeleton scene at `Assets/Scenes/P7Benchmark/P7_Benchmark_Skeleton.unity`.
+- Add focused EditMode and PlayMode tests under `Assets/Tests/*/P7Benchmark/`.
+- Add Wave 2-A scene creation and preflight scripts under `tools/p7/`.
+- Document the scene skeleton, metrics harness, validation results, known limitations, and DeepSeek review prompt.
+
+Scope:
+
+- Wave 2-A does not import real PLATEAU assets.
+- Wave 2-A does not modify `Chuo_BaseMap.unity`, existing Unity scenes, existing gameplay scripts, `Assets/Data`, `Assets/PLATEAU`, `ProjectSettings`, or `Packages`.
+- Metrics are prototype benchmark metrics, not a Unity Profiler replacement.
+- LOD3 candidate import is deferred to Wave 2-B or a later explicitly approved task.
+- LOD4 is not assumed available.
+- Windows EXE profiling remains later P7 work, not completed here.
+
+Validation:
+
+- Run `powershell -ExecutionPolicy Bypass -File tools/p7/run_p7b_wave2a_preflight.ps1`.
+- Run `powershell -ExecutionPolicy Bypass -File tools/run_unity_tests.ps1 -Mode EditMode -LaunchMode Gui`.
+- Run `powershell -ExecutionPolicy Bypass -File tools/run_unity_tests.ps1 -Mode PlayMode -LaunchMode Gui`.
 
 ## Phase 6: Navigation Guidance and NPC Evacuation Prototype
 

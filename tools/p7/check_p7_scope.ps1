@@ -1,5 +1,8 @@
 [CmdletBinding()]
 param(
+    [ValidateSet("Default", "P7BWave2A")]
+    [string]$Mode = "Default",
+
     [int64]$LargeFileThresholdBytes = 5242880,
     [string]$WarningSummaryPath = ""
 )
@@ -74,6 +77,81 @@ function Test-AllowedLargePath {
     }
 
     return $false
+}
+
+function Test-P7BWave2AAllowedUnityPath {
+    param([string]$Path)
+
+    $allowedPrefixes = @(
+        "Assets/Scripts/P7Benchmark/",
+        "Assets/Editor/P7Benchmark/",
+        "Assets/Tests/EditMode/P7Benchmark/",
+        "Assets/Tests/PlayMode/P7Benchmark/",
+        "Assets/Scenes/P7Benchmark/"
+    )
+
+    $allowedExactPaths = @(
+        "Assets/Scripts/P7Benchmark.meta",
+        "Assets/Editor/P7Benchmark.meta",
+        "Assets/Tests/EditMode/P7Benchmark.meta",
+        "Assets/Tests/PlayMode/P7Benchmark.meta",
+        "Assets/Scenes/P7Benchmark.meta"
+    )
+
+    foreach ($allowedExactPath in $allowedExactPaths) {
+        if ($Path.Equals($allowedExactPath, [System.StringComparison]::OrdinalIgnoreCase)) {
+            return $true
+        }
+    }
+
+    foreach ($prefix in $allowedPrefixes) {
+        if (Test-PathStartsWith -Path $Path -Prefix $prefix) {
+            return $true
+        }
+    }
+
+    return $false
+}
+
+function Get-P7BWave2AProtectedViolation {
+    param([string]$Path)
+
+    if (Test-P7BWave2AAllowedUnityPath -Path $Path) {
+        return $null
+    }
+
+    $alwaysForbiddenPrefixes = @(
+        "ProjectSettings/",
+        "Packages/",
+        "Assets/PLATEAU/",
+        "Assets/Data/"
+    )
+
+    foreach ($prefix in $alwaysForbiddenPrefixes) {
+        if (Test-PathStartsWith -Path $Path -Prefix $prefix) {
+            return "$Path matches forbidden Wave 2-A prefix $prefix"
+        }
+    }
+
+    if (Test-PathStartsWith -Path $Path -Prefix "Assets/Scenes/Chuo_BaseMap.unity") {
+        return "$Path matches forbidden Wave 2-A base-map scene path"
+    }
+
+    $wave2AUnityPrefixes = @(
+        "Assets/Scripts/",
+        "Assets/Editor/",
+        "Assets/Tests/EditMode/",
+        "Assets/Tests/PlayMode/",
+        "Assets/Scenes/"
+    )
+
+    foreach ($prefix in $wave2AUnityPrefixes) {
+        if (Test-PathStartsWith -Path $Path -Prefix $prefix) {
+            return "$Path is outside the P7-B Wave 2-A allowlist for $prefix"
+        }
+    }
+
+    return $null
 }
 
 function Test-TextFilePath {
@@ -218,13 +296,22 @@ try {
             Sort-Object -Unique
     )
 
+    Write-Host "P7 scope guard: mode $Mode"
     Write-Host "P7 scope guard: checking $($changedFiles.Count) changed/untracked files against HEAD."
 
     $protectedViolations = New-Object System.Collections.Generic.List[string]
     foreach ($file in $changedFiles) {
-        foreach ($prefix in $protectedPrefixes) {
-            if (Test-PathStartsWith -Path $file -Prefix $prefix) {
-                $protectedViolations.Add("$file matches protected prefix $prefix")
+        if ($Mode -eq "P7BWave2A") {
+            $wave2AViolation = Get-P7BWave2AProtectedViolation -Path $file
+            if (-not [string]::IsNullOrWhiteSpace($wave2AViolation)) {
+                $protectedViolations.Add($wave2AViolation)
+            }
+        }
+        else {
+            foreach ($prefix in $protectedPrefixes) {
+                if (Test-PathStartsWith -Path $file -Prefix $prefix) {
+                    $protectedViolations.Add("$file matches protected prefix $prefix")
+                }
             }
         }
     }

@@ -103,3 +103,17 @@ This file stores P7 decisions that affect scope, dependencies, assets, Unity set
 | Verification | Run `tools/p7/run_p7_preflight.ps1`; inspect `git diff --name-only`; confirm protected paths remain untouched. |
 | Follow-up | P7-B Wave 2 requires explicit approval before creating benchmark scenes, scripts, assets, imports, or generated Unity artifacts. |
 | Approved by | P7-B Wave 1 prompt. |
+
+### P7-DL-007 - P7-B Wave 2-A Allows Only Isolated Benchmark Skeleton
+
+| Field | Value |
+|---|---|
+| Date | 2026-05-22 |
+| Stage | P7-B |
+| Decision | P7-B Wave 2-A is approved only for an isolated benchmark scene skeleton and prototype metrics harness under `P7Benchmark` paths. No real asset import is approved. |
+| Options considered | Import LOD3 candidate assets now; modify `Chuo_BaseMap.unity`; create only a primitive benchmark skeleton and metrics harness. |
+| Reason | Wave 2-A needs a Unity-side harness foundation before risking real PLATEAU asset import, scene growth, or project-wide settings changes. |
+| Risk | The skeleton scene cannot validate real geometry quality or performance. Unity launch may create unwanted `ProjectSettings` or `Packages` churn that must be reverted. |
+| Verification | Run `tools/p7/run_p7b_wave2a_preflight.ps1`; run GUI EditMode and PlayMode tests; inspect `git diff --name-only`; confirm protected paths are untouched. |
+| Follow-up | Wave 2-B or later must receive explicit approval before importing LOD3 candidate data, copying real assets, or generating PLATEAU-derived Unity assets. |
+| Approved by | P7-B Wave 2-A prompt. |
