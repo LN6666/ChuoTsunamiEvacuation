@@ -45,6 +45,31 @@ DeepSeek review requirement:
 - Use `deepseek_review_prompt_p70.md` for P7-0.
 - DeepSeek must confirm P7-0 is docs/tools/prompts only, protected paths are untouched, no dependencies or gameplay changes were added, automation scripts exist and run, P7/P8/P9/P10 boundaries are clear, and P7 has only five stages.
 
+### P7-B Benchmark Harness Prep (Codex B)
+
+Status: Implemented in Wave 1 as docs/prompts only.
+
+Tasks:
+
+- Create the P7-B small-area benchmark harness design.
+- Create the future Unity change proposal with explicit approval gate.
+- Create the Wave 2 test plan and rollback plan.
+- Add P7-B benchmark risks to the review backlog.
+- Add a P7-B decision log entry confirming Wave 1 does not mutate Unity.
+- Update benchmark protocol and automation notes for the gated P7-B harness workflow.
+- Create the DeepSeek review prompt for P7-B harness prep.
+
+Scope:
+
+- P7-B Wave 1 must not modify Unity scenes, scripts, assets, `Assets/Data`, PLATEAU imports, `ProjectSettings`, or `Packages`.
+- P7-B Wave 2 must receive explicit approval before creating benchmark scenes, scripts, imported assets, or generated Unity artifacts.
+- `Chuo_BaseMap.unity` remains protected.
+
+Validation:
+
+- Run `powershell -ExecutionPolicy Bypass -File tools/p7/run_p7_preflight.ps1`.
+- Unity tests are intentionally not run for Wave 1 because no Unity code, asset, scene, or gameplay-facing data changes are made.
+
 ## Phase 6: Navigation Guidance and NPC Evacuation Prototype
 
 Status: P6-E final closeout is complete after GUI automated validation and final DeepSeek review. No dependency import, package change, ProjectSettings change, scene change, PLATEAU change, data-pipeline raw/download/cache/tmp/.venv change, source-mode default change, gameplay success/failure logic change, P6-F work, or P7 work is allowed in P6-E.

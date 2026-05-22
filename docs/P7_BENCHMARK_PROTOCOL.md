@@ -8,6 +8,21 @@ Status: Protocol only. No benchmark import or Unity build is created in P7-0.
 
 P7-B and later stages must benchmark high-detail city asset decisions before broad/full Chuo import. Benchmarks must be repeatable, recorded in Markdown, and separated between Unity Editor and Windows x64 EXE measurements.
 
+## P7-B Wave 1 Harness Gate
+
+P7-B Wave 1 is design-only. It prepares the benchmark harness design, future Unity change proposal, test plan, rollback plan, and review prompt without creating Unity content.
+
+Before P7-B Wave 2 may create a benchmark scene or helper scripts, the stage prompt or approved Markdown plan must state:
+
+- exact allowed Unity paths
+- selected small area source filter or mesh-code slice
+- target LOD and PLATEAU categories
+- whether editor-only helpers are allowed
+- whether Windows x64 EXE measurement is in scope
+- rollback criteria for generated scene/import outputs
+
+`Chuo_BaseMap.unity`, `ProjectSettings/`, `Packages/`, broad imported Chuo assets, and raw PLATEAU source data remain protected unless a later prompt explicitly says otherwise.
+
 ## Benchmark Area Selection
 
 Select small areas that represent P7 risk:

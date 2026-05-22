@@ -75,3 +75,17 @@ This file stores P7 decisions that affect scope, dependencies, assets, Unity set
 | Verification | Run `tools/p7/run_p7_benchmark_preflight.ps1`; validate any created benchmark record with `tools/p7/validate_p7_performance_log.ps1`; confirm protected paths remain untouched. |
 | Follow-up | P7-B should use the schema for small-area Editor benchmarks and optional Windows EXE benchmarks when a build exists. P7-D must record Windows EXE profiling before closeout. |
 | Approved by | P7-A implementation prompt. |
+
+### P7-DL-005 - P7-B Wave 1 Does Not Mutate Unity
+
+| Field | Value |
+|---|---|
+| Date | 2026-05-22 |
+| Stage | P7-B |
+| Decision | P7-B Wave 1 prepares benchmark harness design, future Unity change proposal, test plan, rollback plan, task/backlog/protocol updates, and review prompt only. It does not create or modify Unity scenes, scripts, assets, data, packages, project settings, or imported PLATEAU assets. |
+| Options considered | Create the benchmark scene immediately; import a small PLATEAU cluster immediately; prepare docs/prompts and approval gate first. |
+| Reason | P7-B needs a safe implementation design before any Unity mutation because benchmark scene creation and asset import can affect protected paths and large generated files. |
+| Risk | Wave 2 may still require Unity Editor interaction, heavier-than-expected imports, or separate Editor and EXE metric collection. |
+| Verification | Run `tools/p7/run_p7_preflight.ps1`; inspect `git diff --name-only`; confirm protected paths remain untouched. |
+| Follow-up | P7-B Wave 2 requires explicit approval before creating benchmark scenes, scripts, assets, imports, or generated Unity artifacts. |
+| Approved by | P7-B Wave 1 prompt. |
