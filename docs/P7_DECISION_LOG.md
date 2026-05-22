@@ -145,3 +145,17 @@ This file stores P7 decisions that affect scope, dependencies, assets, Unity set
 | Verification | Run `tools/p7/run_p7b_wave2c_preflight.ps1`; run GUI EditMode and PlayMode tests; verify `Chuo_BaseMap.unity`, `ProjectSettings`, `Packages`, `Assets/Data`, `Assets/PLATEAU`, production scenes, and existing gameplay scripts are untouched; request DeepSeek review with `deepseek_review_prompt_p7b_wave2c.md`. |
 | Follow-up | Any CityGML conversion, visual verification, production scene integration, full Chuo import, or P8/P9 work requires separate explicit approval. |
 | Approved by | P7-B Wave 2-C prompt. |
+
+### P7-DL-010 - P7-C Allows Only P7Benchmark Chunk Loading And Performance Foundation
+
+| Field | Value |
+|---|---|
+| Date | 2026-05-23 |
+| Stage | P7-C |
+| Decision | P7-C is approved only for P7Benchmark sandbox chunk/loading, visual-quality review, and approximate performance telemetry. It does not approve production scene integration, full Chuo import, `ProjectSettings` changes, `Packages` changes, P8 systems, or P9 systems. |
+| Options considered | Integrate `53393690` into production scenes; attempt full Chuo streaming; create a metadata-first benchmark foundation. |
+| Reason | The imported candidate is still raw CityGML and texture source data. A safe benchmark registry and placeholder chunk controller can prepare profiling without overclaiming renderability or touching protected production paths. |
+| Risk | CityGML conversion, visual verification, authoritative profiling, and full production streaming remain unresolved. |
+| Verification | Run `tools/p7/run_p7c_preflight.ps1`; run GUI EditMode and PlayMode tests; verify `Chuo_BaseMap.unity`, `ProjectSettings`, `Packages`, `Assets/Data`, `Assets/PLATEAU`, production scenes, and existing gameplay scripts are untouched; request DeepSeek review with `deepseek_review_prompt_p7c.md`. |
+| Follow-up | P7-D must perform Windows EXE profiling and final closeout. CityGML conversion and production streaming require separate approval. |
+| Approved by | P7-C implementation prompt. |

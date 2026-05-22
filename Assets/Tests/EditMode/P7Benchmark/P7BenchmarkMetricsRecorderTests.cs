@@ -20,8 +20,9 @@ public class P7BenchmarkMetricsRecorderTests
         string summary = recorder.ExportSummaryString();
 
         Assert.That(summary, Does.Contain("P7BenchmarkMetricsSummary"));
-        Assert.That(summary, Does.Contain("stage=P7-B Wave 2-A"));
+        Assert.That(summary, Does.Contain("stage=P7-C"));
         Assert.That(summary, Does.Contain("samples=3"));
+        Assert.That(summary, Does.Contain("activeChunks=0"));
         Assert.Greater(recorder.AverageFps, 0f);
         Assert.Greater(recorder.ApproximateOnePercentLowFps, 0f);
         Assert.Greater(recorder.ElapsedSeconds, 0f);
@@ -62,12 +63,12 @@ public class P7BenchmarkMetricsRecorderTests
         GameObject gameObject = CreateObject("P7BenchmarkMarker_EditModeTest");
         P7BenchmarkMarker marker = gameObject.AddComponent<P7BenchmarkMarker>();
 
-        Assert.AreEqual("P7-B Wave 2-A", P7BenchmarkMarker.BenchmarkStage);
-        Assert.AreEqual("P7 Benchmark Skeleton", P7BenchmarkMarker.BenchmarkLabel);
+        Assert.AreEqual("P7-C", P7BenchmarkMarker.BenchmarkStage);
+        Assert.AreEqual("P7 Benchmark Streaming Chunk Loading", P7BenchmarkMarker.BenchmarkLabel);
         Assert.AreEqual("P7_Benchmark_Skeleton", P7BenchmarkMarker.BenchmarkSceneName);
         Assert.AreEqual("Assets/Scenes/P7Benchmark/P7_Benchmark_Skeleton.unity", P7BenchmarkMarker.BenchmarkScenePath);
         Assert.AreEqual("P7BenchmarkRoot", P7BenchmarkMarker.BenchmarkRootName);
-        Assert.AreEqual("isolated_skeleton_no_real_assets", P7BenchmarkMarker.BenchmarkScope);
+        Assert.AreEqual("p7benchmark_sandbox_chunk_loading_metadata_only", P7BenchmarkMarker.BenchmarkScope);
         Assert.AreEqual(P7BenchmarkMarker.BenchmarkStage, marker.Stage);
         Assert.AreEqual(P7BenchmarkMarker.BenchmarkLabel, marker.Label);
     }

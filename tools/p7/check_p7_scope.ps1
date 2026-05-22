@@ -1,6 +1,6 @@
 [CmdletBinding()]
 param(
-    [ValidateSet("Default", "P7BWave2A", "P7BWave2C")]
+    [ValidateSet("Default", "P7BWave2A", "P7BWave2C", "P7C")]
     [string]$Mode = "Default",
 
     [int64]$LargeFileThresholdBytes = 5242880,
@@ -219,6 +219,120 @@ function Test-P7BWave2CAllowedPath {
     return $false
 }
 
+function Test-P7CAllowedPath {
+    param([string]$Path)
+
+    $allowedPrefixes = @(
+        "Assets/P7Benchmark/",
+        "Assets/Scenes/P7Benchmark/",
+        "Assets/Scripts/P7Benchmark/",
+        "Assets/Editor/P7Benchmark/",
+        "Assets/Tests/EditMode/P7Benchmark/",
+        "Assets/Tests/PlayMode/P7Benchmark/",
+        "docs/P7C_"
+    )
+
+    $allowedExactPaths = @(
+        "Assets/P7Benchmark.meta",
+        "Assets/Scenes/P7Benchmark.meta",
+        "Assets/Scripts/P7Benchmark.meta",
+        "Assets/Editor/P7Benchmark.meta",
+        "Assets/Tests/EditMode/P7Benchmark.meta",
+        "Assets/Tests/PlayMode/P7Benchmark.meta",
+        "tools/p7/check_p7_scope.ps1",
+        "codex_prompts/p7c_streaming_visual_performance.md",
+        "deepseek_review_prompt_p7c.md",
+        "docs/TASKS.md",
+        "docs/REVIEW_BACKLOG.md",
+        "docs/P7_DECISION_LOG.md"
+    )
+
+    foreach ($allowedExactPath in $allowedExactPaths) {
+        if ($Path.Equals($allowedExactPath, [System.StringComparison]::OrdinalIgnoreCase)) {
+            return $true
+        }
+    }
+
+    foreach ($prefix in $allowedPrefixes) {
+        if (Test-PathStartsWith -Path $Path -Prefix $prefix) {
+            return $true
+        }
+    }
+
+    if (Test-PathStartsWith -Path $Path -Prefix "tools/p7/") {
+        $fileName = [System.IO.Path]::GetFileName($Path)
+        return $fileName.IndexOf("p7c", [System.StringComparison]::OrdinalIgnoreCase) -ge 0
+    }
+
+    return $false
+}
+
+function Get-P7CProtectedViolation {
+    param([string]$Path)
+
+    if (Test-P7CAllowedPath -Path $Path) {
+        return $null
+    }
+
+    $alwaysForbiddenPrefixes = @(
+        "ProjectSettings/",
+        "Packages/",
+        "Assets/PLATEAU/",
+        "Assets/Data/"
+    )
+
+    foreach ($prefix in $alwaysForbiddenPrefixes) {
+        if (Test-PathStartsWith -Path $Path -Prefix $prefix) {
+            return "$Path matches forbidden P7-C prefix $prefix"
+        }
+    }
+
+    if (Test-PathStartsWith -Path $Path -Prefix "Assets/Scenes/Chuo_BaseMap.unity") {
+        return "$Path matches forbidden P7-C base-map scene path"
+    }
+
+    if (
+        $(Test-PathStartsWith -Path $Path -Prefix "Assets/Scenes/") -and
+        -not $(Test-PathStartsWith -Path $Path -Prefix "Assets/Scenes/P7Benchmark/")
+    ) {
+        return "$Path is a production scene change outside the P7Benchmark sandbox"
+    }
+
+    if (
+        $(Test-PathStartsWith -Path $Path -Prefix "Assets/Scripts/") -and
+        -not $(Test-PathStartsWith -Path $Path -Prefix "Assets/Scripts/P7Benchmark/")
+    ) {
+        return "$Path is an existing gameplay script change outside the P7Benchmark sandbox"
+    }
+
+    $restrictedUnityPrefixes = @(
+        "Assets/Editor/",
+        "Assets/Tests/",
+        "Assets/Scenes/",
+        "Assets/Scripts/"
+    )
+
+    foreach ($prefix in $restrictedUnityPrefixes) {
+        if (Test-PathStartsWith -Path $Path -Prefix $prefix) {
+            return "$Path is outside the P7-C Unity allowlist for $prefix"
+        }
+    }
+
+    if (Test-PathStartsWith -Path $Path -Prefix "Assets/") {
+        return "$Path is outside the P7-C P7Benchmark sandbox allowlist"
+    }
+
+    if (Test-PathStartsWith -Path $Path -Prefix "tools/p7/") {
+        return "$Path is outside the P7-C tools allowlist"
+    }
+
+    if (Test-PathStartsWith -Path $Path -Prefix "docs/") {
+        return "$Path is outside the P7-C docs allowlist"
+    }
+
+    return "$Path is outside the P7-C file allowlist"
+}
+
 function Get-P7BWave2CProtectedViolation {
     param([string]$Path)
 
@@ -429,6 +543,12 @@ try {
             $wave2CViolation = Get-P7BWave2CProtectedViolation -Path $file
             if (-not [string]::IsNullOrWhiteSpace($wave2CViolation)) {
                 $protectedViolations.Add($wave2CViolation)
+            }
+        }
+        elseif ($Mode -eq "P7C") {
+            $p7CViolation = Get-P7CProtectedViolation -Path $file
+            if (-not [string]::IsNullOrWhiteSpace($p7CViolation)) {
+                $protectedViolations.Add($p7CViolation)
             }
         }
         else {

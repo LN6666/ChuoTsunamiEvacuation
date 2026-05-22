@@ -10,6 +10,8 @@ public sealed class P7BenchmarkMetricsRecorder : MonoBehaviour
 
     [SerializeField] private bool recordOnEnable;
     [SerializeField] private int maxSamples = DefaultMaxSamples;
+    [SerializeField] private P7BenchmarkChunkRegistry chunkRegistry;
+    [SerializeField] private P7BenchmarkChunkController chunkController;
 
     private readonly List<float> frameTimeSamples = new List<float>();
     private bool isRecording;
@@ -20,6 +22,10 @@ public sealed class P7BenchmarkMetricsRecorder : MonoBehaviour
     public float ElapsedSeconds => elapsedSeconds;
     public float AverageFps => CalculateAverageFps(frameTimeSamples);
     public float ApproximateOnePercentLowFps => CalculateApproximateOnePercentLowFps(frameTimeSamples);
+    public int ActiveChunkCount => chunkController != null ? chunkController.ActiveChunkCount : 0;
+    public int ChunkBindingCount => chunkController != null ? chunkController.BindingCount : 0;
+    public int ImportedCandidateFileCount => chunkRegistry != null ? chunkRegistry.TotalSourceFileCount : 0;
+    public long ImportedCandidateBytes => chunkRegistry != null ? chunkRegistry.TotalSourceBytes : 0L;
 
     public void BeginRecording(bool clearExistingSamples = true)
     {
@@ -42,6 +48,12 @@ public sealed class P7BenchmarkMetricsRecorder : MonoBehaviour
         elapsedSeconds = 0f;
     }
 
+    public void ConfigureChunkContext(P7BenchmarkChunkRegistry registry, P7BenchmarkChunkController controller)
+    {
+        chunkRegistry = registry;
+        chunkController = controller;
+    }
+
     public void RecordFrameTime(float deltaSeconds)
     {
         if (!IsValidFrameTime(deltaSeconds))
@@ -58,7 +70,7 @@ public sealed class P7BenchmarkMetricsRecorder : MonoBehaviour
     {
         return string.Format(
             CultureInfo.InvariantCulture,
-            "P7BenchmarkMetricsSummary stage={0}; label={1}; scope={2}; samples={3}; elapsedSeconds={4:0.###}; averageFps={5:0.###}; onePercentLowFps={6:0.###}; averageFrameMs={7:0.###}",
+            "P7BenchmarkMetricsSummary stage={0}; label={1}; scope={2}; samples={3}; elapsedSeconds={4:0.###}; averageFps={5:0.###}; onePercentLowFps={6:0.###}; averageFrameMs={7:0.###}; activeChunks={8}; chunkBindings={9}; importedCandidate={10}; importedFiles={11}; importedBytes={12}; chunkStates={13}",
             P7BenchmarkMarker.BenchmarkStage,
             P7BenchmarkMarker.BenchmarkLabel,
             P7BenchmarkMarker.BenchmarkScope,
@@ -66,7 +78,13 @@ public sealed class P7BenchmarkMetricsRecorder : MonoBehaviour
             ElapsedSeconds,
             AverageFps,
             ApproximateOnePercentLowFps,
-            CalculateAverageFrameTimeSeconds(frameTimeSamples) * 1000f);
+            CalculateAverageFrameTimeSeconds(frameTimeSamples) * 1000f,
+            ActiveChunkCount,
+            ChunkBindingCount,
+            chunkRegistry != null ? chunkRegistry.CandidateId : P7BenchmarkChunkInfo.DefaultCandidateId,
+            ImportedCandidateFileCount,
+            ImportedCandidateBytes,
+            chunkController != null ? chunkController.GetChunkStateSummaryText() : "none");
     }
 
     public IReadOnlyList<float> GetFrameTimeSamples()

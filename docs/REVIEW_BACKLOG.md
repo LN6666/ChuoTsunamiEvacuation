@@ -14,6 +14,50 @@ This file only records actionable review items that should guide Codex fixes.
 
 ---
 
+## P7-C Streaming / Chunk Loading + Visual Quality + Performance
+
+Source report:
+
+DeepSeek review saved locally as `review_reports/deepseek_review_20260523_032116.md`.
+
+Context:
+
+P7-C is approved only for P7Benchmark sandbox chunk/loading, visual-quality review, and approximate performance telemetry. It does not approve production scene integration, full Chuo import, `ProjectSettings` changes, `Packages` changes, `Assets/PLATEAU` changes, `Assets/Data` changes, or P8/P9 systems.
+
+Findings to preserve:
+
+- Candidate `53393690` remains under `Assets/P7Benchmark/Imported/53393690/`.
+- Imported non-meta file count: `5,843`.
+- Imported bytes: `634,782,243`.
+- Imported size: `605.38 MB`.
+- Extension summary: `6` `.gml` files and `5,837` `.jpg` files.
+- Renderable Unity/model/prefab assets detected by extension scan: `0`.
+- Chunk registry groups: `bldg`, `brid`, `fld`, `frn`, `tran`, and `veg`.
+- CityGML remains raw/unconverted until a separate conversion workflow is approved and implemented.
+- Metrics are approximate telemetry and do not replace Unity Profiler evidence.
+
+Overall verdict:
+
+CONDITIONAL PASS - no A-level blockers.
+
+### P7-C Risks And Follow-Ups
+
+| ID | Priority | Status | Target | Issue | Required Review |
+|---|---|---|---|---|---|
+| P7C-R01 | High | Open | CityGML conversion | Raw CityGML is not verified as renderable Unity mesh content. | Confirm docs and code use metadata placeholders and avoid visual-production claims. |
+| P7C-R02 | High | Open | Protected paths | P7-C must not modify `Chuo_BaseMap.unity`, production scenes, existing gameplay scripts, `ProjectSettings`, `Packages`, `Assets/PLATEAU`, or `Assets/Data`. | Confirm preflight and git status enforce protected path cleanliness. |
+| P7C-R03 | Medium | Confirmed follow-up | Full production streaming | Metadata chunk toggling is not full Chuo streaming or async loading. | Full production streaming remains deferred. |
+| P7C-R04 | Medium | Confirmed follow-up | Windows EXE profiling | Editor and approximate telemetry are not final performance evidence. | P7-D remains Windows EXE profiling and closeout. |
+| P7C-R05 | Medium | Open | Visual quality claims | Visual quality remains limited to placeholder evidence until conversion and screenshots/profiler checks exist. | Confirm docs do not overclaim visual readiness. |
+| P7C-R06 | Medium | Open | Unity Profiler | Approximate FPS summaries cannot diagnose CPU/GPU/memory bottlenecks authoritatively. | Confirm Unity Profiler, Frame Debugger, and Memory Profiler remain required for final diagnosis. |
+| P7C-R07 | Low | Confirmed follow-up | Editor builder rebuild hygiene | Repeated P7-C scene builder runs may accumulate unused embedded placeholder materials in the scene over time. | Clean up or reuse generated materials if the builder becomes a frequent workflow. |
+
+Decision:
+
+DeepSeek conditional PASS after P7-C preflight, Unity GUI EditMode tests, and Unity GUI PlayMode tests passed. B-level follow-ups remain documented for P7-D and future production streaming work.
+
+---
+
 ## P7-B Wave 2-C 53393690 Sandbox Import
 
 Source report:

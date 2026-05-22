@@ -12,14 +12,14 @@ P7-0 begins the PBL7 high-detail city foundation. P7-0 is docs/tools/prompts onl
 
 ## Phase 7: High-Detail Chuo Asset Loading, LOD, Streaming, and Windows EXE Optimization
 
-Status: P7-B Wave 2-C 53393690 sandbox import implemented pending validation. P7 has exactly five stages: P7-0, P7-A, P7-B, P7-C, and P7-D. Do not create P7-E, P7-F, or P7-G.
+Status: P7-C benchmark streaming/chunk/loading foundation implemented and validated. P7-B is complete. P7 has exactly five stages: P7-0, P7-A, P7-B, P7-C, and P7-D. Do not create P7-E, P7-F, or P7-G.
 
 Planned tasks:
 
 - P7-0: Scope Freeze + Reference Review + Automation Foundation. Create docs/tools/prompts only; run `tools/p7/run_p7_preflight.ps1`; prepare DeepSeek review. In progress.
 - P7-A: Chuo Asset Inventory + LOD / Area Selection. Command-line scanner and report scripts inventory local asset/source folders without importing assets; reports record file counts, extensions, likely PLATEAU categories, candidate LOD path/name indicators, large files, and benchmark candidate categories. Implemented in current P7-A work; pending review.
 - P7-B: Small-Area High-Detail Benchmark + Underground / Bridge / Road Feasibility. Wave 1 is docs/tools/prompts only: command-line feasibility, candidate-area selection, benchmark harness design, rollback/test planning, and review prep. Wave 2-A is approved only for an isolated benchmark scene skeleton and metrics harness under `P7Benchmark` paths; it does not import real assets. Wave 2-B is approved only for read-only LOD3 candidate metadata dry-run inspection. Wave 2-C is approved only for full `53393690` candidate import under `Assets/P7Benchmark/Imported/53393690/`; it does not approve full PLATEAU import, production scene integration, `Assets/PLATEAU` changes, or `Chuo_BaseMap.unity` changes.
-- P7-C: Streaming / Chunk Loading + Visual Quality + Performance Optimization. Implement only approved chunk/LOD/optimization work after benchmark evidence and a confirmed Markdown plan. Pending.
+- P7-C: Streaming / Chunk Loading + Visual Quality + Performance Optimization. Implement only approved P7Benchmark sandbox chunk/loading/visual/performance work after benchmark evidence and a confirmed Markdown plan. Implemented and validated.
 - P7-D: Windows EXE Profiling + P7 Final Closeout. Record Windows x64 profiling, final decision log, DeepSeek review, and closeout. Pending.
 
 ### P7-A Automation / Performance Prep (Codex B)
@@ -185,6 +185,40 @@ Validation:
 - Run `powershell -ExecutionPolicy Bypass -File tools/run_unity_tests.ps1 -Mode EditMode -LaunchMode Gui`.
 - Run `powershell -ExecutionPolicy Bypass -File tools/run_unity_tests.ps1 -Mode PlayMode -LaunchMode Gui`.
 - Use `deepseek_review_prompt_p7b_wave2c.md` for DeepSeek review.
+
+### P7-C Streaming / Chunk Loading + Visual Quality + Performance Optimization
+
+Status: Implemented and validated.
+
+Tasks:
+
+- Add strict P7-C mode to the P7 scope guard.
+- Inspect `Assets/P7Benchmark/Imported/53393690/` for file counts, bytes, extensions, logical groups, and renderable asset evidence.
+- Add a metadata-driven P7Benchmark chunk registry for candidate `53393690`.
+- Add a P7Benchmark chunk controller that can enable or disable logical placeholder chunk roots.
+- Extend the P7Benchmark metrics recorder with active chunk count, chunk binding count, imported file/byte summary, and chunk state summary.
+- Update only `Assets/Scenes/P7Benchmark/P7_Benchmark_Skeleton.unity` with P7-C metadata and placeholder chunk groups.
+- Document visual-quality, draw-call, batching, texture/material memory, mesh memory, LOD, culling, collision, and P7-D Windows EXE profiling handoff risks.
+- Add focused EditMode and PlayMode tests under `Assets/Tests/*/P7Benchmark/`.
+
+Scope:
+
+- P7-C is benchmark sandbox optimization only.
+- Candidate `53393690` remains confined to `Assets/P7Benchmark/Imported/53393690/`.
+- Raw CityGML remains unconverted if no renderable Unity mesh/model/prefab assets are detected.
+- P7-C does not modify `Chuo_BaseMap.unity`, production scenes, existing gameplay scripts, `Assets/Data`, `Assets/PLATEAU`, `ProjectSettings`, or `Packages`.
+- P7-C does not add dependencies.
+- P7-C must not implement P8 hazard, inundation, flood, light curtain, or risk-front systems.
+- P7-C must not implement P9 crowd, real spawn, indoor evacuation, congestion, indoor shelter gameplay, or failure systems.
+- Metrics are approximate benchmark telemetry, not a Unity Profiler replacement.
+- P7-D remains Windows EXE profiling and final P7 closeout.
+
+Validation:
+
+- Run `powershell -ExecutionPolicy Bypass -File tools/p7/run_p7c_preflight.ps1`.
+- Run `powershell -ExecutionPolicy Bypass -File tools/run_unity_tests.ps1 -Mode EditMode -LaunchMode Gui`.
+- Run `powershell -ExecutionPolicy Bypass -File tools/run_unity_tests.ps1 -Mode PlayMode -LaunchMode Gui`.
+- Use `deepseek_review_prompt_p7c.md` for DeepSeek review.
 
 ## Phase 6: Navigation Guidance and NPC Evacuation Prototype
 
