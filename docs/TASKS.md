@@ -18,7 +18,7 @@ Planned tasks:
 
 - P7-0: Scope Freeze + Reference Review + Automation Foundation. Create docs/tools/prompts only; run `tools/p7/run_p7_preflight.ps1`; prepare DeepSeek review. In progress.
 - P7-A: Chuo Asset Inventory + LOD / Area Selection. Command-line scanner and report scripts inventory local asset/source folders without importing assets; reports record file counts, extensions, likely PLATEAU categories, candidate LOD path/name indicators, large files, and benchmark candidate categories. Implemented in current P7-A work; pending review.
-- P7-B: Small-Area High-Detail Benchmark + Underground / Bridge / Road Feasibility. Benchmark selected small areas before any full Chuo import; record Editor and Windows x64 metrics where available. Pending.
+- P7-B: Small-Area High-Detail Benchmark + Underground / Bridge / Road Feasibility. Start with command-line feasibility and candidate-area selection before any full Chuo import; record Editor and Windows x64 metrics only after a later approved benchmark/import plan. Feasibility package in progress.
 - P7-C: Streaming / Chunk Loading + Visual Quality + Performance Optimization. Implement only approved chunk/LOD/optimization work after benchmark evidence and a confirmed Markdown plan. Pending.
 - P7-D: Windows EXE Profiling + P7 Final Closeout. Record Windows x64 profiling, final decision log, DeepSeek review, and closeout. Pending.
 
@@ -44,6 +44,29 @@ DeepSeek review requirement:
 
 - Use `deepseek_review_prompt_p70.md` for P7-0.
 - DeepSeek must confirm P7-0 is docs/tools/prompts only, protected paths are untouched, no dependencies or gameplay changes were added, automation scripts exist and run, P7/P8/P9/P10 boundaries are clear, and P7 has only five stages.
+
+### P7-B Small-Area Feasibility (Codex A)
+
+Status: Implemented for review.
+
+Tasks:
+
+- Create conservative P7-B feasibility reports for small-area selection, LOD3 candidate interpretation, underground/bridge/road feasibility, and benchmark-area decision.
+- Add read-only candidate selection helper under `tools/p7/`.
+- Add P7-B orchestration script that runs candidate selection and P7 preflight.
+- Keep final Unity benchmark area selection pending until human review and a confirmed Markdown import/benchmark plan.
+
+Scope notes:
+
+- P7-B Codex A does not import assets, modify Unity scenes, modify gameplay scripts, modify `Assets/Data`, modify `ProjectSettings`, modify `Packages`, or modify imported PLATEAU assets.
+- LOD3 and LOD4 findings remain path/name/file-metadata inference only.
+- LOD4 is not assumed available from the current inventory.
+- Unity tests are intentionally not run for this Codex A feasibility package because no Unity code, assets, scenes, or gameplay-facing configuration are changed.
+
+DeepSeek review requirement:
+
+- Use `deepseek_review_prompt_p7b_area.md` for P7-B Codex A.
+- DeepSeek must confirm protected paths are untouched, helper scripts are read-only, P7-B stays pre-import feasibility only, LOD claims are marked unverified, and the benchmark-area decision is conservative.
 
 ## Phase 6: Navigation Guidance and NPC Evacuation Prototype
 
