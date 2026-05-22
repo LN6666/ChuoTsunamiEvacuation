@@ -14,6 +14,43 @@ This file only records actionable review items that should guide Codex fixes.
 
 ---
 
+## P7-0 Reference Review And Automation Foundation
+
+Source report:
+
+Pending DeepSeek review using `deepseek_review_prompt_p70.md`.
+
+Context:
+
+P7-0 creates documentation, scope guards, status/preflight tooling, reference review, LOD strategy, benchmark protocol, two-Codex workflow, and review prompt records for the PBL7 high-detail Chuo city foundation. P7-0 is docs/tools/prompts only and must not change Unity gameplay, scenes, assets, ProjectSettings, Packages, PLATEAU imports, or Assets/Data.
+
+Overall verdict:
+
+Pending review.
+
+### P7 Risks To Review
+
+| ID | Priority | Status | Target | Issue | Required Review |
+|---|---|---|---|---|---|
+| P70-R01 | High | Open | Asset strategy / future P7-A | High LOD asset size may make broad Chuo import impractical. | Confirm P7-A inventory and P7-B benchmark are required before full import. |
+| P70-R02 | High | Open | Full Chuo import planning | Full Chuo import can create oversized scenes/assets and unstable Editor performance. | Confirm P7-0 blocks full import until benchmark evidence exists. |
+| P70-R03 | High | Open | Dependencies / `Packages/` | Streaming or profiling candidates could require package additions. | Confirm all optional dependencies remain reference-only unless approved. |
+| P70-R04 | High | Open | `ProjectSettings/` | Render pipeline, quality, occlusion, batching, or player settings could affect the whole project. | Confirm ProjectSettings remain untouched in P7-0 and future changes need decisions. |
+| P70-R05 | High | Open | Windows EXE performance | Editor performance may not match Windows x64 EXE behavior. | Confirm P7 benchmark protocol separates Editor and Windows EXE metrics. |
+| P70-R06 | Medium | Open | LOD strategy | LOD popping may harm presentation quality. | Confirm P7 requires visual checks and benchmark records before LOD rollout. |
+| P70-R07 | Medium | Open | Collision strategy | High-detail visual geometry can create excessive collision overhead. | Confirm default policy avoids broad MeshCollider use and separates gameplay collision. |
+| P70-R08 | Medium | Open | Materials/textures | Texture/material explosion can increase memory, draw calls, and build size. | Confirm material and texture counts are required benchmark metrics. |
+| P70-R09 | Medium | Open | Underground/bridge data | Underground, bridge, and road data availability may be uncertain in local PLATEAU data. | Confirm P7-A inventory records category and LOD availability before promises. |
+| P70-R10 | High | Open | Phase boundaries | P8/P9 scope creep could add hazard, light curtain, inundation depth, or indoor evacuation work to P7. | Confirm boundaries docs and guard warnings are clear. |
+| P70-R11 | Medium | Open | Automation workflow | Manual-only process risks missed protected-path or large-file changes. | Confirm preflight and status report scripts work and are documented. |
+| P70-R12 | Medium | Open | Two-Codex workflow | Parallel Codex work can cause merge conflicts in shared docs or protected files. | Confirm file ownership and integration rules are documented. |
+
+Decision:
+
+Pending DeepSeek review after P7-0 preflight.
+
+---
+
 ## P6-E Final Closeout Review
 
 Source report:

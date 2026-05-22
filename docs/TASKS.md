@@ -8,7 +8,30 @@ The first playable prototype has been Unity-tested, DeepSeek V4 Pro max-thinking
 
 Current branch focus:
 
-P6-E Final Closeout is the final documentation, validation, and review stage inside P6. P6-0, P6-A, P6-B, P6-C, P6-D, and P6-E are complete. Phase 5 remains the stable baseline: default `sourceMode = test`, `real_qualified` opt-in, humanitarian candidate flags default false, OSM routes estimated only, route rendering fail-closed until WGS84 to Unity/PLATEAU transform validation exists, and no navigation/crowd reference is an official evacuation guidance source.
+P7-0 begins the PBL7 high-detail city foundation. P7-0 is docs/tools/prompts only: reference review, LOD strategy, asset inventory protocol, benchmark protocol, automation guard scripts, two-Codex workflow planning, and DeepSeek review preparation. P7-0 must not modify Unity scenes, ProjectSettings, Packages, PLATEAU imports, gameplay scripts, or Assets/Data. Phase 5 and Phase 6 remain the stable behavior baseline: default `sourceMode = test`, `real_qualified` opt-in, humanitarian candidate flags default false, OSM routes estimated only, route rendering fail-closed until WGS84 to Unity/PLATEAU transform validation exists, navigation display-only, and NPCs non-blocking.
+
+## Phase 7: High-Detail Chuo Asset Loading, LOD, Streaming, and Windows EXE Optimization
+
+Status: P7-0 in progress. P7 has exactly five stages: P7-0, P7-A, P7-B, P7-C, and P7-D. Do not create P7-E, P7-F, or P7-G.
+
+Planned tasks:
+
+- P7-0: Scope Freeze + Reference Review + Automation Foundation. Create docs/tools/prompts only; run `tools/p7/run_p7_preflight.ps1`; prepare DeepSeek review. In progress.
+- P7-A: Chuo Asset Inventory + LOD / Area Selection. Scan local asset/source folders without importing assets; record file counts, extensions, likely PLATEAU categories, candidate LOD levels, large files, and area priorities. Pending.
+- P7-B: Small-Area High-Detail Benchmark + Underground / Bridge / Road Feasibility. Benchmark selected small areas before any full Chuo import; record Editor and Windows x64 metrics where available. Pending.
+- P7-C: Streaming / Chunk Loading + Visual Quality + Performance Optimization. Implement only approved chunk/LOD/optimization work after benchmark evidence and a confirmed Markdown plan. Pending.
+- P7-D: Windows EXE Profiling + P7 Final Closeout. Record Windows x64 profiling, final decision log, DeepSeek review, and closeout. Pending.
+
+Automation requirement:
+
+- Run `powershell -ExecutionPolicy Bypass -File tools/p7/run_p7_preflight.ps1` before P7-0 review/commit.
+- P7-A/P7-B/P7-C/P7-D must run automated Unity tests whenever Unity code/assets/scenes are changed.
+- P7-0 intentionally does not run Unity tests because it is docs/tools/prompts only.
+
+DeepSeek review requirement:
+
+- Use `deepseek_review_prompt_p70.md` for P7-0.
+- DeepSeek must confirm P7-0 is docs/tools/prompts only, protected paths are untouched, no dependencies or gameplay changes were added, automation scripts exist and run, P7/P8/P9/P10 boundaries are clear, and P7 has only five stages.
 
 ## Phase 6: Navigation Guidance and NPC Evacuation Prototype
 
