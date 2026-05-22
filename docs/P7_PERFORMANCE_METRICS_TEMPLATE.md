@@ -2,6 +2,8 @@
 
 Copy this template for P7-B, P7-C, and P7-D benchmark records.
 
+P7-A also provides `tools/p7/new_p7_benchmark_record.ps1` for a smaller timestamped skeleton and `tools/p7/validate_p7_performance_log.ps1` for required-field checks. Required fields are defined in `docs/P7_PERFORMANCE_LOG_SCHEMA.md`.
+
 ## Benchmark Summary
 
 | Field | Value |

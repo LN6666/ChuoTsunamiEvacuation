@@ -112,4 +112,14 @@ Fail or rollback if:
 
 ## Required Markdown Record
 
-Use `docs/P7_PERFORMANCE_METRICS_TEMPLATE.md` for each benchmark run. Attach or reference screenshots only if they are small and approved for tracking. Large captures and profiler files should remain local unless explicitly approved.
+Use `docs/P7_PERFORMANCE_METRICS_TEMPLATE.md` or `tools/p7/new_p7_benchmark_record.ps1` for each benchmark run. Benchmark records should be stored under `docs/p7_benchmark_records/`.
+
+Validate a record with:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File tools/p7/validate_p7_performance_log.ps1 -Path docs/p7_benchmark_records/example.md
+```
+
+The required field schema is documented in `docs/P7_PERFORMANCE_LOG_SCHEMA.md`.
+
+Attach or reference screenshots only if they are small and approved for tracking. Large captures and profiler files should remain local unless explicitly approved.

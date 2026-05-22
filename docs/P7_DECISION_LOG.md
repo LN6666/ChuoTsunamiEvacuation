@@ -32,7 +32,7 @@ This file stores P7 decisions that affect scope, dependencies, assets, Unity set
 | Risk | P7-A may still uncover asset sizes or missing LOD/category data that require scope reduction. |
 | Verification | Run `tools/p7/run_p7_preflight.ps1`; verify protected paths are untouched; request DeepSeek review. |
 | Follow-up | P7-A asset inventory and area/LOD selection. |
-| Approved by | Pending human review. |
+| Approved by | User approval after P7-0 DeepSeek PASS. |
 
 ### P7-DL-002 - P7 Has Exactly Five Stages
 
@@ -46,4 +46,18 @@ This file stores P7 decisions that affect scope, dependencies, assets, Unity set
 | Risk | Future prompts or generated docs may accidentally create extra stages. |
 | Verification | Scope guard warns on P7-E/P7-F/P7-G keywords; DeepSeek review checks stage count. |
 | Follow-up | Keep all P7 task records aligned to five stages. |
-| Approved by | User instruction. |
+| Approved by | User approval after P7-0 DeepSeek PASS. |
+
+### P7-DL-003 - Prepare Benchmark And Performance Automation Before Asset Decisions
+
+| Field | Value |
+|---|---|
+| Date | 2026-05-22 |
+| Stage | P7-A |
+| Decision | Add command-line benchmark record creation, Markdown performance-log validation, benchmark preflight orchestration, warning-summary traceability, and Windows EXE profiling preparation before P7-B/C/D asset-performance decisions. |
+| Options considered | Leave benchmark records manual only; create Unity benchmark automation immediately; add docs/tools-only preparation first. |
+| Reason | P7-B and later stages need repeatable performance records, but P7-A Codex B must not import assets, change Unity files, create builds, or add dependencies. |
+| Risk | Early benchmark records may contain placeholders until Unity benchmark scenes or EXE builds exist. |
+| Verification | Run `tools/p7/run_p7_benchmark_preflight.ps1`; validate any created benchmark record with `tools/p7/validate_p7_performance_log.ps1`; confirm protected paths remain untouched. |
+| Follow-up | P7-B should use the schema for small-area Editor benchmarks and optional Windows EXE benchmarks when a build exists. P7-D must record Windows EXE profiling before closeout. |
+| Approved by | P7-A implementation prompt. |
