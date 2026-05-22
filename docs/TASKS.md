@@ -975,3 +975,16 @@ Current P7-C continuation tasks:
 - Validate bridge, road, underground, P2-P6 compatibility, and P7-D profiling readiness through docs and read-only tools.
 - Confirm P7 remains five stages: P7-0, P7-A, P7-B, P7-C, P7-D.
 - Defer final Windows EXE profiling and baseline confirmation to P7-D.
+
+## Phase P7-D - Final High-Detail Import / Profiling Closeout
+
+Status: Blocked on manual PLATEAU SDK import.
+
+P7-D inspected the local PLATEAU SDK and found a code import API, but autonomous full high-detail import is not safe under current project policy because local SDK import may create side-effect files beside raw source data, the requested categories total about 6.49 GB before conversion, generated output size is not approved for normal Git history, and final visual/profiler validation needs Unity-side manual verification.
+
+Current decision:
+
+- `Assets/Scenes/P7HighDetail/P7_HighDetail_Chuo.unity` remains the intended baseline candidate.
+- It is not approved as P8/P9/P10 baseline yet.
+- P7 final closeout is not complete.
+- Complete `docs/P7D_MANUAL_PLATEAU_IMPORT_CHECKLIST.md` before rerunning P7-D validation.

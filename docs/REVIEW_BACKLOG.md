@@ -1047,3 +1047,15 @@ Reason:
 | P7C-B04 | Medium | Deferred to P7-D | P2-P6 compatibility | Compatibility is prepared through markers/docs/tools, but full runtime smoke testing needs actual high-detail assets. | Run player, camera, GameManager, shelter, result panel, P5 loader, P6 guidance, and P6 NPC smoke checks. |
 | P7C-B05 | Medium | Deferred to P10/release | Asset persistence | Large city assets and final EXE packages should not be blindly committed to normal Git history. | Archive final assets and EXE to cloud drive/release package or approved LFS strategy before VM deletion. |
 
+---
+
+### P7-D Blocked Follow-Ups
+
+| ID | Priority | Status | Target | Issue | Required Follow-Up |
+|---|---|---|---|---|---|
+| P7D-A01 | High | Blocked | PLATEAU SDK import | Full high-detail import was not safely automated. | Complete `docs/P7D_MANUAL_PLATEAU_IMPORT_CHECKLIST.md` in Unity. |
+| P7D-A02 | High | Blocked | `Assets/Scenes/P7HighDetail/P7_HighDetail_Chuo.unity` | Scene remains a shell/import target with no renderable PLATEAU evidence. | Import target categories, save the scene, and rerun P7-D validators. |
+| P7D-A03 | High | Blocked | Windows EXE profiling | EXE profiling would be misleading before actual assets are loaded. | Run Windows x64 profiling after manual import. |
+| P7D-A04 | High | Blocked | Baseline decision | New high-detail scene is not approved for P8/P9/P10 yet. | Reopen baseline decision after import, compatibility smoke tests, and profiling. |
+| P7D-B01 | Medium | Deferred | Asset archive | Large imported assets/builds need cloud/LFS/release strategy. | Archive required assets and final EXE before VM deletion. |
+

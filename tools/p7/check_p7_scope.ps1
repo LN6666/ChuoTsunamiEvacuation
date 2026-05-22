@@ -1,6 +1,6 @@
 [CmdletBinding()]
 param(
-    [ValidateSet("Default", "P7BWave2A", "P7BWave2C", "P7C")]
+    [ValidateSet("Default", "P7BWave2A", "P7BWave2C", "P7C", "P7D")]
     [string]$Mode = "Default",
 
     [int64]$LargeFileThresholdBytes = 5242880,
@@ -340,6 +340,128 @@ function Get-P7CProtectedViolation {
     return "$Path is outside the P7-C file allowlist"
 }
 
+function Test-P7DAllowedPath {
+    param([string]$Path)
+
+    $allowedPrefixes = @(
+        "Assets/P7Benchmark/",
+        "Assets/P7HighDetail/",
+        "Assets/Scenes/P7Benchmark/",
+        "Assets/Scenes/P7HighDetail/",
+        "Assets/Scripts/P7Benchmark/",
+        "Assets/Editor/P7Benchmark/",
+        "Assets/Tests/EditMode/P7Benchmark/",
+        "Assets/Tests/PlayMode/P7Benchmark/",
+        "docs/P7D_",
+        "docs/P7_FINAL_"
+    )
+
+    $allowedExactPaths = @(
+        "Assets/P7Benchmark.meta",
+        "Assets/P7HighDetail.meta",
+        "Assets/P7HighDetail/PLATEAU.meta",
+        "Assets/P7HighDetail/Imported.meta",
+        "Assets/Scenes/P7Benchmark.meta",
+        "Assets/Scenes/P7HighDetail.meta",
+        "Assets/Scripts/P7Benchmark.meta",
+        "Assets/Editor/P7Benchmark.meta",
+        "Assets/Tests/EditMode/P7Benchmark.meta",
+        "Assets/Tests/PlayMode/P7Benchmark.meta",
+        "tools/p7/check_p7_scope.ps1",
+        "codex_prompts/p7d_final_high_detail_import_optimization_closeout.md",
+        "deepseek_review_prompt_p7d_final.md",
+        "docs/TASKS.md",
+        "docs/REVIEW_BACKLOG.md",
+        "docs/P7_DECISION_LOG.md"
+    )
+
+    foreach ($allowedExactPath in $allowedExactPaths) {
+        if ($Path.Equals($allowedExactPath, [System.StringComparison]::OrdinalIgnoreCase)) {
+            return $true
+        }
+    }
+
+    foreach ($prefix in $allowedPrefixes) {
+        if (Test-PathStartsWith -Path $Path -Prefix $prefix) {
+            return $true
+        }
+    }
+
+    if (Test-PathStartsWith -Path $Path -Prefix "tools/p7/") {
+        $fileName = [System.IO.Path]::GetFileName($Path)
+        return $fileName.IndexOf("p7d", [System.StringComparison]::OrdinalIgnoreCase) -ge 0
+    }
+
+    return $false
+}
+
+function Get-P7DProtectedViolation {
+    param([string]$Path)
+
+    if (Test-P7DAllowedPath -Path $Path) {
+        return $null
+    }
+
+    $alwaysForbiddenPrefixes = @(
+        "ProjectSettings/",
+        "Packages/",
+        "Assets/PLATEAU/",
+        "Assets/Data/"
+    )
+
+    foreach ($prefix in $alwaysForbiddenPrefixes) {
+        if (Test-PathStartsWith -Path $Path -Prefix $prefix) {
+            return "$Path matches forbidden P7-D prefix $prefix"
+        }
+    }
+
+    if (Test-PathStartsWith -Path $Path -Prefix "Assets/Scenes/Chuo_BaseMap.unity") {
+        return "$Path matches forbidden P7-D base-map scene path"
+    }
+
+    if (
+        $(Test-PathStartsWith -Path $Path -Prefix "Assets/Scenes/") -and
+        -not $(Test-PathStartsWith -Path $Path -Prefix "Assets/Scenes/P7Benchmark/") -and
+        -not $(Test-PathStartsWith -Path $Path -Prefix "Assets/Scenes/P7HighDetail/")
+    ) {
+        return "$Path is a production scene change outside the P7Benchmark/P7HighDetail sandbox"
+    }
+
+    if (
+        $(Test-PathStartsWith -Path $Path -Prefix "Assets/Scripts/") -and
+        -not $(Test-PathStartsWith -Path $Path -Prefix "Assets/Scripts/P7Benchmark/")
+    ) {
+        return "$Path is an existing gameplay script change outside the P7Benchmark sandbox"
+    }
+
+    $restrictedUnityPrefixes = @(
+        "Assets/Editor/",
+        "Assets/Tests/",
+        "Assets/Scenes/",
+        "Assets/Scripts/"
+    )
+
+    foreach ($prefix in $restrictedUnityPrefixes) {
+        if (Test-PathStartsWith -Path $Path -Prefix $prefix) {
+            return "$Path is outside the P7-D Unity allowlist for $prefix"
+        }
+    }
+
+    if (Test-PathStartsWith -Path $Path -Prefix "Assets/") {
+        return "$Path is outside the P7-D high-detail/P7Benchmark allowlist"
+    }
+
+    if (Test-PathStartsWith -Path $Path -Prefix "tools/p7/") {
+        return "$Path is outside the P7-D tools allowlist"
+    }
+
+    if (Test-PathStartsWith -Path $Path -Prefix "docs/") {
+        return "$Path is outside the P7-D docs allowlist"
+    }
+
+    return "$Path is outside the P7-D file allowlist"
+}
+
 function Get-P7BWave2CProtectedViolation {
     param([string]$Path)
 
@@ -556,6 +678,12 @@ try {
             $p7CViolation = Get-P7CProtectedViolation -Path $file
             if (-not [string]::IsNullOrWhiteSpace($p7CViolation)) {
                 $protectedViolations.Add($p7CViolation)
+            }
+        }
+        elseif ($Mode -eq "P7D") {
+            $p7DViolation = Get-P7DProtectedViolation -Path $file
+            if (-not [string]::IsNullOrWhiteSpace($p7DViolation)) {
+                $protectedViolations.Add($p7DViolation)
             }
         }
         else {

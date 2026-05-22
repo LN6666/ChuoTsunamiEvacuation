@@ -173,3 +173,17 @@ This file stores P7 decisions that affect scope, dependencies, assets, Unity set
 | Verification | Run `tools/p7/run_p7c_preflight.ps1`; run GUI EditMode and PlayMode tests because Unity scripts/tests/scene change; verify protected paths are clean; request DeepSeek review with `deepseek_review_prompt_p7c.md`. |
 | Follow-up | P7-D must perform Windows EXE profiling on `Assets/Scenes/P7HighDetail/P7_HighDetail_Chuo.unity` after actual assets are loaded or explicitly document the import blocker. P8/P9/P10 should use this new scene as baseline only after P7-D confirmation. |
 | Approved by | P7-C continuation prompt. |
+
+### P7-DL-012 - P7-D Blocks On Manual PLATEAU SDK Import
+
+| Field | Value |
+|---|---|
+| Date | 2026-05-23 |
+| Stage | P7-D |
+| Decision | P7-D cannot safely complete autonomous full high-detail PLATEAU import. It records a manual Unity PLATEAU SDK import checklist and blocks final closeout until import, compatibility smoke checks, and Windows EXE profiling are completed. |
+| Options considered | Run SDK code import against raw local source; copy full source into `Assets/P7HighDetail`; stop with manual import checklist. |
+| Reason | The requested categories total about 6.49 GB before conversion, the SDK local import path can create side-effect files beside source data, generated scene/assets may be large, and there is no approved Git/LFS/cloud archive decision for those generated outputs. |
+| Risk | P8/P9 cannot start on the high-detail scene until manual import and P7-D validation are completed. |
+| Verification | Run `tools/p7/run_p7d_preflight.ps1`; run Unity GUI EditMode and PlayMode tests; verify protected paths are clean; request DeepSeek final review with `deepseek_review_prompt_p7d_final.md`. |
+| Follow-up | Complete `docs/P7D_MANUAL_PLATEAU_IMPORT_CHECKLIST.md`, then rerun P7-D validation and profiling. |
+| Approved by | P7-D execution prompt plus project safety constraints. |
