@@ -24,6 +24,13 @@ Context:
 
 P7-B Codex A creates command-line-first feasibility reports and read-only selector tooling for small-area benchmark candidate selection. It does not import assets, modify Unity scenes, modify Unity scripts, modify `Assets/Data`, modify `ProjectSettings`, modify `Packages`, or modify imported PLATEAU assets.
 
+Area feasibility findings to preserve:
+
+- Preferred planning candidate: `53393690` for LOD3 path/name feasibility.
+- Fallback candidates: `53393672` for compact bridge/road feasibility and `53394611` for underground feasibility.
+- LOD4 path/name hits: `0`.
+- Findings are path/name/file-metadata based only, not geometry-quality verified.
+
 Overall verdict:
 
 Pending review.
@@ -41,6 +48,43 @@ Pending review.
 Decision:
 
 Pending DeepSeek review after P7-B area feasibility script and P7 preflight pass.
+
+---
+
+## P7-B Benchmark Harness Prep
+
+Source report:
+
+Pending DeepSeek review using `deepseek_review_prompt_p7b_harness.md`.
+
+Context:
+
+P7-B Wave 1 prepares the small-area high-detail benchmark harness design, future Unity change proposal, test plan, rollback plan, task entry, decision entry, and review prompt. It is docs/prompts only and does not mutate Unity scenes, scripts, assets, data, packages, project settings, or imported PLATEAU assets.
+
+Harness prep findings to preserve:
+
+- The isolated benchmark scene is only a future proposal.
+- No `Chuo_BaseMap.unity` change is made or approved.
+- No Unity mutation occurs in Wave 1.
+- Wave 2 needs explicit approval before any Unity scene, script, asset, import, package, data, or `ProjectSettings` change.
+- The rollback plan, test plan, benchmark harness design, and Unity change proposal are preserved.
+
+Overall verdict:
+
+Pending review.
+
+### P7-B Harness Risks
+
+| ID | Priority | Status | Target | Issue | Required Review |
+|---|---|---|---|---|---|
+| P7B-HARNESS-R01 | Medium | Open | Future benchmark scene | Benchmark scene creation may require Unity Editor interaction and cannot be proven by docs-only Wave 1. | Confirm Wave 2 requires explicit approval, Unity tests when Unity files change, and P7 preflight. |
+| P7B-HARNESS-R02 | High | Open | Future asset import | Asset import may be heavier than expected even for a small selected cluster. | Confirm the design requires small path-cluster scope, rollback criteria, and no broad Chuo import. |
+| P7B-HARNESS-R03 | Medium | Open | LOD3/LOD4 visual quality | LOD3/LOD4 visual quality is not yet verified by imported geometry or screenshots. | Confirm no visual-quality claims are made before Wave 2 benchmark evidence. |
+| P7B-HARNESS-R04 | Medium | Open | Editor vs Windows x64 | EXE benchmark may differ from Editor benchmark. | Confirm Editor and optional Windows EXE metrics are recorded separately, with P7-D retaining final EXE profiling responsibility. |
+
+Decision:
+
+Pending DeepSeek review after P7-B Wave 1 preflight.
 
 ---
 

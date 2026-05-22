@@ -18,7 +18,7 @@ Planned tasks:
 
 - P7-0: Scope Freeze + Reference Review + Automation Foundation. Create docs/tools/prompts only; run `tools/p7/run_p7_preflight.ps1`; prepare DeepSeek review. In progress.
 - P7-A: Chuo Asset Inventory + LOD / Area Selection. Command-line scanner and report scripts inventory local asset/source folders without importing assets; reports record file counts, extensions, likely PLATEAU categories, candidate LOD path/name indicators, large files, and benchmark candidate categories. Implemented in current P7-A work; pending review.
-- P7-B: Small-Area High-Detail Benchmark + Underground / Bridge / Road Feasibility. Start with command-line feasibility and candidate-area selection before any full Chuo import; record Editor and Windows x64 metrics only after a later approved benchmark/import plan. Feasibility package in progress.
+- P7-B: Small-Area High-Detail Benchmark + Underground / Bridge / Road Feasibility. Wave 1 is docs/tools/prompts only: command-line feasibility, candidate-area selection, benchmark harness design, rollback/test planning, and review prep. Wave 2 requires explicit human approval before any Unity scene, script, asset, import, package, `Assets/Data`, or `ProjectSettings` change.
 - P7-C: Streaming / Chunk Loading + Visual Quality + Performance Optimization. Implement only approved chunk/LOD/optimization work after benchmark evidence and a confirmed Markdown plan. Pending.
 - P7-D: Windows EXE Profiling + P7 Final Closeout. Record Windows x64 profiling, final decision log, DeepSeek review, and closeout. Pending.
 
@@ -59,14 +59,43 @@ Tasks:
 Scope notes:
 
 - P7-B Codex A does not import assets, modify Unity scenes, modify gameplay scripts, modify `Assets/Data`, modify `ProjectSettings`, modify `Packages`, or modify imported PLATEAU assets.
-- LOD3 and LOD4 findings remain path/name/file-metadata inference only.
-- LOD4 is not assumed available from the current inventory.
+- Preferred planning candidate is `53393690` for LOD3 path/name feasibility.
+- Fallback candidates are `53393672` and `53394611`.
+- LOD3 and LOD4 findings remain path/name/file-metadata inference only, not geometry-quality verified.
+- LOD4 path/name hits are `0`; LOD4 is not assumed available from the current inventory.
 - Unity tests are intentionally not run for this Codex A feasibility package because no Unity code, assets, scenes, or gameplay-facing configuration are changed.
 
 DeepSeek review requirement:
 
 - Use `deepseek_review_prompt_p7b_area.md` for P7-B Codex A.
 - DeepSeek must confirm protected paths are untouched, helper scripts are read-only, P7-B stays pre-import feasibility only, LOD claims are marked unverified, and the benchmark-area decision is conservative.
+
+### P7-B Benchmark Harness Prep (Codex B)
+
+Status: Implemented in Wave 1 as docs/prompts only.
+
+Tasks:
+
+- Create the P7-B small-area benchmark harness design.
+- Create the future Unity change proposal with explicit approval gate.
+- Create the Wave 2 test plan and rollback plan.
+- Add P7-B benchmark risks to the review backlog.
+- Add a P7-B decision log entry confirming Wave 1 does not mutate Unity.
+- Update benchmark protocol and automation notes for the gated P7-B harness workflow.
+- Create the DeepSeek review prompt for P7-B harness prep.
+
+Scope:
+
+- P7-B Wave 1 must not modify Unity scenes, scripts, assets, `Assets/Data`, PLATEAU imports, `ProjectSettings`, or `Packages`.
+- P7-B Wave 2 must receive explicit approval before creating benchmark scenes, scripts, imported assets, or generated Unity artifacts.
+- `Chuo_BaseMap.unity` remains protected.
+- The isolated benchmark scene is only a future proposal, not a Wave 1 Unity change.
+- Rollback plan, test plan, benchmark harness design, and Unity change proposal are preserved for review before any Wave 2 approval.
+
+Validation:
+
+- Run `powershell -ExecutionPolicy Bypass -File tools/p7/run_p7_preflight.ps1`.
+- Unity tests are intentionally not run for Wave 1 because no Unity code, asset, scene, or gameplay-facing data changes are made.
 
 ## Phase 6: Navigation Guidance and NPC Evacuation Prototype
 

@@ -87,5 +87,19 @@ This file stores P7 decisions that affect scope, dependencies, assets, Unity set
 | Reason | P7-A found large source folders, mostly unknown LOD tokens, limited LOD3 path/name signals, and no LOD4 path/name evidence. A small candidate set must be reviewed before import risk is accepted. |
 | Risk | LOD3 path/name signals may not correspond to usable geometry; underground, bridge, road, and riverfront categories may not import into useful Unity context. |
 | Verification | Run `tools/p7/run_p7b_area_feasibility.ps1`; verify protected paths are untouched; request DeepSeek review with `deepseek_review_prompt_p7b_area.md`. |
-| Follow-up | Human review should choose one candidate and approve a Markdown import/benchmark plan before Unity import work starts. |
+| Follow-up | Human review should choose one candidate and approve a Markdown import/benchmark plan before Unity import work starts. Current path/name-only planning prefers `53393690`, keeps `53393672` and `53394611` as fallbacks, and records zero LOD4 path/name hits. |
 | Approved by | P7-B area feasibility prompt. |
+
+### P7-DL-006 - P7-B Wave 1 Does Not Mutate Unity
+
+| Field | Value |
+|---|---|
+| Date | 2026-05-22 |
+| Stage | P7-B |
+| Decision | P7-B Wave 1 prepares benchmark harness design, future Unity change proposal, test plan, rollback plan, task/backlog/protocol updates, and review prompt only. It does not create or modify Unity scenes, scripts, assets, data, packages, project settings, or imported PLATEAU assets. |
+| Options considered | Create the benchmark scene immediately; import a small PLATEAU cluster immediately; prepare docs/prompts and approval gate first. |
+| Reason | P7-B needs a safe implementation design before any Unity mutation because benchmark scene creation and asset import can affect protected paths and large generated files. |
+| Risk | Wave 2 may still require Unity Editor interaction, heavier-than-expected imports, or separate Editor and EXE metric collection. |
+| Verification | Run `tools/p7/run_p7_preflight.ps1`; inspect `git diff --name-only`; confirm protected paths remain untouched. |
+| Follow-up | P7-B Wave 2 requires explicit approval before creating benchmark scenes, scripts, assets, imports, or generated Unity artifacts. |
+| Approved by | P7-B Wave 1 prompt. |

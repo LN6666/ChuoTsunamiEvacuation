@@ -10,6 +10,18 @@ Status: Automation preparation only. No Unity benchmark scene, asset import, or 
 
 P7 benchmark work should be repeatable from the command line where practical, with Markdown records as the first source of truth. P7 has exactly five stages: P7-0, P7-A, P7-B, P7-C, and P7-D.
 
+## P7-B Wave 1 Harness Prep
+
+P7-B Wave 1 adds design and review documentation only. It does not add a Unity benchmark runner, create a benchmark scene, import assets, create builds, or change dependencies.
+
+Validation for Wave 1 is:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File tools/p7/run_p7_preflight.ps1
+```
+
+Unity tests are intentionally skipped for Wave 1 because no Unity files are changed. If Wave 2 changes Unity content or runtime/editor scripts, run the appropriate Unity EditMode and PlayMode tests in addition to P7 preflight.
+
 ## Command-Line Helpers
 
 P7-A adds these helpers:
