@@ -2,7 +2,7 @@
 
 Date: 2026-05-22
 
-Status: Protocol only. P7-0 performs no asset import.
+Status: P7-A command-line inventory implemented. No asset import is performed.
 
 ## Purpose
 
@@ -12,11 +12,11 @@ P7-A must inventory local Chuo PLATEAU and Unity-generated asset candidates befo
 
 Candidate input roots:
 
-- Existing Unity project asset folders, excluding protected paths unless a future P7-A plan allows read-only inspection.
-- Local PLATEAU source data under `D:\PLATEAU_DATA\Chuo_2025_CityGML`.
+- Existing Unity project asset folders under `Assets/`, with protected scene/data/import folders listed read-only.
+- Local PLATEAU source data under `D:\PLATEAU_DATA\Chuo_2025_CityGML` when present.
 - Existing import logs and documentation.
 
-P7-0 does not scan or import large data. P7-A may scan local paths only after the stage prompt approves the exact command.
+P7-A scans file-system metadata only. It does not import assets, open Unity, parse geometry, or modify source data.
 
 ## Inventory Rules
 
@@ -58,14 +58,23 @@ Each inventory run should summarize:
 - Empty or missing expected category folders.
 - Paths that should remain local-only and untracked.
 
+## Implemented Scripts
+
+- `tools/p7/scan_p7_assets.ps1`
+- `tools/p7/write_p7_asset_inventory_report.ps1`
+- `tools/p7/run_p7_asset_inventory.ps1`
+
+The scanner emits structured JSON to stdout for orchestration. The report writer consumes that JSON and writes Markdown reports only.
+
 ## Output Paths
 
-Preferred P7-A output paths, subject to the P7-A stage prompt:
+Implemented P7-A output paths:
 
-- `docs/p7_inventory/P7_A_ASSET_INVENTORY_<date>.md`
-- `docs/p7_inventory/P7_A_ASSET_INVENTORY_<date>.csv`
+- `docs/P7_ASSET_INVENTORY_REPORT.md`
+- `docs/P7_LOD_AVAILABILITY_REPORT.md`
+- `docs/P7_BENCHMARK_AREA_CANDIDATES.md`
 
-If CSV output is not approved in a future prompt, record Markdown only.
+CSV output is not generated in P7-A because no CSV artifact path was approved by the P7-A prompt.
 
 ## Category Heuristics
 

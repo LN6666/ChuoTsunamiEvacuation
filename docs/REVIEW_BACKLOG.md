@@ -51,6 +51,37 @@ Pending DeepSeek review after P7-0 preflight.
 
 ---
 
+## P7-A Asset Inventory And LOD / Area Selection
+
+Source report:
+
+Pending DeepSeek review using `deepseek_review_prompt_p7a_asset.md`.
+
+Context:
+
+P7-A adds command-line-first asset inventory scripts and Markdown reports. The scanner is read-only, runs without Unity, records file metadata, and labels LOD/category findings as path/name-based inference only.
+
+Overall verdict:
+
+Pending review.
+
+### P7-A Risks To Review
+
+| ID | Priority | Status | Target | Issue | Required Review |
+|---|---|---|---|---|---|
+| P7A-R01 | High | Open | `tools/p7/scan_p7_assets.ps1` | Scanner must remain read-only and must not import, move, delete, or rewrite Unity or PLATEAU assets. | Confirm scanner uses file metadata reads only. |
+| P7A-R02 | High | Open | Reports | LOD findings are path/name-based and may miss actual CityGML content details. | Confirm reports clearly say geometry quality and actual LOD contents are unverified. |
+| P7A-R03 | High | Open | Git diff / protected paths | P7-A must not change scenes, gameplay scripts, `Assets/Data`, `Packages`, `ProjectSettings`, or existing PLATEAU imports. | Confirm protected paths are untouched after inventory and preflight. |
+| P7A-R04 | Medium | Open | Benchmark candidates | Candidate folders/categories are not final benchmark selections. | Confirm docs defer final area choice to P7-B planning and human review. |
+| P7A-R05 | Medium | Open | External PLATEAU source scan | Large local source files can make broad import risky. | Confirm large-file summary is used to narrow future benchmark area size. |
+| P7A-R06 | Medium | Open | `tools/p7/run_p7_asset_inventory.ps1` | Orchestration must fail non-zero if scan, report writing, or P7 preflight fails. | Confirm exit-code handling is strict enough for command-line use. |
+
+Decision:
+
+Pending DeepSeek review after P7-A inventory and preflight pass.
+
+---
+
 ## P6-E Final Closeout Review
 
 Source report:
