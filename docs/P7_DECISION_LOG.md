@@ -117,3 +117,17 @@ This file stores P7 decisions that affect scope, dependencies, assets, Unity set
 | Verification | Run `tools/p7/run_p7b_wave2a_preflight.ps1`; run GUI EditMode and PlayMode tests; inspect `git diff --name-only`; confirm protected paths are untouched. |
 | Follow-up | Wave 2-B or later must receive explicit approval before importing LOD3 candidate data, copying real assets, or generating PLATEAU-derived Unity assets. |
 | Approved by | P7-B Wave 2-A prompt. |
+
+### P7-DL-008 - P7-B Wave 2-B Allows Only Read-Only LOD3 Candidate Dry Run
+
+| Field | Value |
+|---|---|
+| Date | 2026-05-23 |
+| Stage | P7-B |
+| Decision | P7-B Wave 2-B is approved only for read-only LOD3 candidate dry-run metadata feasibility. It does not approve full PLATEAU import, production scene integration, or real asset import. |
+| Options considered | Import candidate `53393690`; copy candidate assets into Unity; run a command-line metadata dry run only. |
+| Reason | P7-B Wave 1 selected `53393690` as a path/name planning candidate, but LOD3 is not visually verified, LOD4 is not available from current evidence, and candidate footprint may still be too heavy. |
+| Risk | Candidate discovery may be incomplete, path/name metadata may not reflect geometry quality, and a future import may still exceed practical benchmark limits. |
+| Verification | Run `tools/p7/run_p7b_wave2b_preflight.ps1`; verify `Chuo_BaseMap.unity`, `ProjectSettings`, `Packages`, `Assets/Data`, `Assets/PLATEAU`, Unity scenes, and gameplay scripts are untouched; request DeepSeek review with `deepseek_review_prompt_p7b_wave2b.md`. |
+| Follow-up | Wave 2-C or any future real import step needs separate explicit human approval with a confirmed Markdown plan, rollback criteria, protected-path checks, and Unity tests for Unity changes. |
+| Approved by | P7-B Wave 2-B prompt. |

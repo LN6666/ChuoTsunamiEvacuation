@@ -12,13 +12,13 @@ P7-0 begins the PBL7 high-detail city foundation. P7-0 is docs/tools/prompts onl
 
 ## Phase 7: High-Detail Chuo Asset Loading, LOD, Streaming, and Windows EXE Optimization
 
-Status: P7-B Wave 2-A implemented pending validation. P7 has exactly five stages: P7-0, P7-A, P7-B, P7-C, and P7-D. Do not create P7-E, P7-F, or P7-G.
+Status: P7-B Wave 2-B LOD3 candidate dry-run package implemented with local preflight recorded. P7 has exactly five stages: P7-0, P7-A, P7-B, P7-C, and P7-D. Do not create P7-E, P7-F, or P7-G.
 
 Planned tasks:
 
 - P7-0: Scope Freeze + Reference Review + Automation Foundation. Create docs/tools/prompts only; run `tools/p7/run_p7_preflight.ps1`; prepare DeepSeek review. In progress.
 - P7-A: Chuo Asset Inventory + LOD / Area Selection. Command-line scanner and report scripts inventory local asset/source folders without importing assets; reports record file counts, extensions, likely PLATEAU categories, candidate LOD path/name indicators, large files, and benchmark candidate categories. Implemented in current P7-A work; pending review.
-- P7-B: Small-Area High-Detail Benchmark + Underground / Bridge / Road Feasibility. Wave 1 is docs/tools/prompts only: command-line feasibility, candidate-area selection, benchmark harness design, rollback/test planning, and review prep. Wave 2-A is approved only for an isolated benchmark scene skeleton and metrics harness under `P7Benchmark` paths; it does not import real assets. Any Wave 2-B LOD3 candidate import still requires explicit human approval.
+- P7-B: Small-Area High-Detail Benchmark + Underground / Bridge / Road Feasibility. Wave 1 is docs/tools/prompts only: command-line feasibility, candidate-area selection, benchmark harness design, rollback/test planning, and review prep. Wave 2-A is approved only for an isolated benchmark scene skeleton and metrics harness under `P7Benchmark` paths; it does not import real assets. Wave 2-B is approved only for read-only LOD3 candidate metadata dry-run inspection; it does not approve full PLATEAU import, production scene integration, or real asset import. Any future real LOD3 import requires explicit human approval.
 - P7-C: Streaming / Chunk Loading + Visual Quality + Performance Optimization. Implement only approved chunk/LOD/optimization work after benchmark evidence and a confirmed Markdown plan. Pending.
 - P7-D: Windows EXE Profiling + P7 Final Closeout. Record Windows x64 profiling, final decision log, DeepSeek review, and closeout. Pending.
 
@@ -124,6 +124,37 @@ Validation:
 - Run `powershell -ExecutionPolicy Bypass -File tools/p7/run_p7b_wave2a_preflight.ps1`.
 - Run `powershell -ExecutionPolicy Bypass -File tools/run_unity_tests.ps1 -Mode EditMode -LaunchMode Gui`.
 - Run `powershell -ExecutionPolicy Bypass -File tools/run_unity_tests.ps1 -Mode PlayMode -LaunchMode Gui`.
+
+### P7-B Wave 2-B LOD3 Candidate Dry Run
+
+Status: Implemented with local preflight recorded.
+
+Tasks:
+
+- Add read-only command-line inspection for preferred planning candidate `53393690`.
+- Inspect fallback planning candidates `53393672` and `53394611`.
+- Summarize file/path metadata, file sizes, extensions, likely LOD path/name indicators, category hints, and conservative import-footprint estimates.
+- Add Wave 2-B preflight that runs inspection, P7 scope guard, allowlist checks, and protected-path checks.
+- Document dry-run findings, import decision, visual feasibility gate, validation results, known limitations, and DeepSeek review prompt.
+
+Scope:
+
+- Wave 2-B does not import real PLATEAU assets.
+- Wave 2-B does not copy candidate assets into Unity.
+- Wave 2-B does not modify Unity scenes, existing gameplay scripts, `Assets/Data`, `Assets/PLATEAU`, `ProjectSettings`, or `Packages`.
+- `Chuo_BaseMap.unity` remains untouched.
+- Candidate `53393690` is a planning candidate only.
+- Fallback candidates are `53393672` and `53394611`.
+- LOD3 is not visually or geometry-quality verified.
+- LOD4 path/name hits remain `0`; LOD4 is not assumed available.
+- P8 hazard work and P9 crowd/interior-shelter work are excluded.
+- Any real LOD3 import requires a separate explicit human approval gate.
+
+Validation:
+
+- Run `powershell -ExecutionPolicy Bypass -File tools/p7/run_p7b_wave2b_preflight.ps1`.
+- Unity tests are intentionally skipped if no Unity files are changed.
+- Use `deepseek_review_prompt_p7b_wave2b.md` for DeepSeek review.
 
 ## Phase 6: Navigation Guidance and NPC Evacuation Prototype
 

@@ -14,6 +14,45 @@ This file only records actionable review items that should guide Codex fixes.
 
 ---
 
+## P7-B Wave 2-B LOD3 Candidate Dry Run
+
+Source report:
+
+Pending DeepSeek review using `deepseek_review_prompt_p7b_wave2b.md`.
+
+Context:
+
+P7-B Wave 2-B is approved only for read-only LOD3 candidate metadata dry-run inspection. It does not import real PLATEAU assets, does not copy external data into Unity, does not modify `Chuo_BaseMap.unity`, and does not integrate with production scenes or gameplay.
+
+Findings to preserve:
+
+- Preferred planning candidate: `53393690`.
+- Fallback planning candidates: `53393672` and `53394611`.
+- `53393690` remains a planning candidate only, not a real import approval.
+- LOD3 is not visually or geometry-quality verified.
+- LOD4 path/name hits remain `0`; LOD4 is not assumed available.
+- Future real import requires a separate explicit human approval gate.
+
+Overall verdict:
+
+Pending review.
+
+### P7-B Wave 2-B Risks
+
+| ID | Priority | Status | Target | Issue | Required Review |
+|---|---|---|---|---|---|
+| P7B-W2B-R01 | Medium | Open | Candidate discovery | Candidate file discovery may be incomplete or too broad because it relies on same-mesh-code path/name metadata only. | Confirm docs label discovery as metadata-only and do not treat it as a complete source manifest. |
+| P7B-W2B-R02 | High | Open | LOD3 quality | Path/name metadata may not reflect geometry quality or usable Unity output. | Confirm no doc claims visual verification, geometry quality, material correctness, or gameplay suitability. |
+| P7B-W2B-R03 | High | Open | Import size | Candidate import size may still be too heavy even for a small-area experiment. | Confirm `53393690` is not treated as small and future import requires narrowing plus approval. |
+| P7B-W2B-R04 | Medium | Open | Visual verification | Real visual verification is deferred. | Confirm no screenshots, scene integration, or visual-quality claims are introduced. |
+| P7B-W2B-R05 | High | Open | Future approval gate | Wave 2-C or any future import step needs separate approval. | Confirm this package does not approve full PLATEAU import, production scene integration, or real asset import. |
+
+Decision:
+
+Pending DeepSeek review after Wave 2-B preflight passes.
+
+---
+
 ## P7-B Wave 2-A Benchmark Skeleton And Metrics Harness
 
 Source report:
