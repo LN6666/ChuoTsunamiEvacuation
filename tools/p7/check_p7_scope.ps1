@@ -1,6 +1,7 @@
 [CmdletBinding()]
 param(
-    [int64]$LargeFileThresholdBytes = 5242880
+    [int64]$LargeFileThresholdBytes = 5242880,
+    [string]$WarningSummaryPath = ""
 )
 
 $ErrorActionPreference = "Stop"
@@ -101,6 +102,81 @@ function Test-TextFilePath {
     return $textExtensions -contains $extension
 }
 
+function Test-ExpectedKeywordPath {
+    param([string]$Path)
+
+    $normalized = Normalize-RepoPath $Path
+    $lowerPath = $normalized.ToLowerInvariant()
+    $fileName = [System.IO.Path]::GetFileName($lowerPath)
+
+    if (Test-PathStartsWith -Path $lowerPath -Prefix "codex_prompts/") {
+        return $true
+    }
+
+    if ($fileName.StartsWith("deepseek_review_prompt", [System.StringComparison]::OrdinalIgnoreCase)) {
+        return $true
+    }
+
+    $expectedBoundaryFiles = @(
+        "docs/p7_boundaries.md",
+        "docs/p7_stage_plan.md",
+        "docs/p7_decision_log.md",
+        "docs/review_backlog.md"
+    )
+
+    if ($expectedBoundaryFiles -contains $lowerPath) {
+        return $true
+    }
+
+    if (Test-PathStartsWith -Path $lowerPath -Prefix "docs/") {
+        if ($fileName.Contains("boundary") -or
+            $fileName.Contains("boundaries") -or
+            $fileName.Contains("prompt") -or
+            $fileName.Contains("review")) {
+            return $true
+        }
+    }
+
+    return $false
+}
+
+function Test-ExpectedKeywordLine {
+    param(
+        [string]$Path,
+        [string]$Line
+    )
+
+    if (Test-ExpectedKeywordPath -Path $Path) {
+        return $true
+    }
+
+    $lowerLine = $Line.ToLowerInvariant()
+    $expectedLineFragments = @(
+        "do not create",
+        "must not create",
+        "must not implement",
+        "must not add",
+        "reserved for",
+        "scope guard",
+        "warns on",
+        "warning",
+        "no dependency import",
+        "not allowed",
+        "did not create",
+        "exactly five stages",
+        "has exactly five stages",
+        "only five stages"
+    )
+
+    foreach ($fragment in $expectedLineFragments) {
+        if ($lowerLine.Contains($fragment)) {
+            return $true
+        }
+    }
+
+    return $false
+}
+
 Push-Location $repoRoot
 try {
     $gitRoot = (& git rev-parse --show-toplevel).Trim()
@@ -178,7 +254,12 @@ try {
     }
 
     $keywordWarnings = New-Object System.Collections.Generic.List[string]
+    $expectedKeywordWarnings = New-Object System.Collections.Generic.List[string]
     foreach ($file in $changedFiles) {
+        if (Test-PathStartsWith -Path $file -Prefix "docs/p7_status/") {
+            continue
+        }
+
         if (-not (Test-TextFilePath -Path $file)) {
             continue
         }
@@ -188,16 +269,42 @@ try {
             continue
         }
 
-        $content = Get-Content -LiteralPath $fullPath -Raw -ErrorAction SilentlyContinue
-        if ($null -eq $content) {
+        $contentLines = @(Get-Content -LiteralPath $fullPath -ErrorAction SilentlyContinue)
+        if ($null -eq $contentLines) {
             continue
         }
 
-        foreach ($keyword in $forbiddenKeywords) {
-            if ($content.IndexOf($keyword, [System.StringComparison]::OrdinalIgnoreCase) -ge 0) {
-                $keywordWarnings.Add("$file contains keyword '$keyword'")
+        $insideForbiddenKeywordArray = $false
+        for ($lineIndex = 0; $lineIndex -lt $contentLines.Count; $lineIndex++) {
+            $line = [string]$contentLines[$lineIndex]
+            if ($file -eq "tools/p7/check_p7_scope.ps1" -and $line -match '^\s*\$forbiddenKeywords\s*=\s*@\(') {
+                $insideForbiddenKeywordArray = $true
+            }
+
+            foreach ($keyword in $forbiddenKeywords) {
+                if ($line.IndexOf($keyword, [System.StringComparison]::OrdinalIgnoreCase) -ge 0) {
+                    $warning = "$file line $($lineIndex + 1) contains keyword '$keyword'"
+                    if ($insideForbiddenKeywordArray -or (Test-ExpectedKeywordLine -Path $file -Line $line)) {
+                        $expectedKeywordWarnings.Add($warning)
+                    }
+                    else {
+                        $keywordWarnings.Add($warning)
+                    }
+                }
+            }
+
+            if ($insideForbiddenKeywordArray -and $line -match '^\s*\)\s*$') {
+                $insideForbiddenKeywordArray = $false
             }
         }
+    }
+
+    $warningSummaryLines = New-Object System.Collections.Generic.List[string]
+    foreach ($warning in $keywordWarnings) {
+        $warningSummaryLines.Add("WARN: $warning")
+    }
+    foreach ($warning in $expectedKeywordWarnings) {
+        $warningSummaryLines.Add("INFO: expected-context keyword: $warning")
     }
 
     if ($keywordWarnings.Count -gt 0) {
@@ -205,6 +312,33 @@ try {
         Write-Host "P7 scope guard warnings:"
         foreach ($warning in $keywordWarnings) {
             Write-Host "WARN: $warning"
+        }
+    }
+
+    if ($expectedKeywordWarnings.Count -gt 0) {
+        Write-Host ""
+        Write-Host "P7 scope guard expected-context keyword notices:"
+        foreach ($warning in $expectedKeywordWarnings) {
+            Write-Host "INFO: expected-context keyword: $warning"
+        }
+    }
+
+    if (-not [string]::IsNullOrWhiteSpace($WarningSummaryPath)) {
+        $summaryFullPath = $WarningSummaryPath
+        if (-not [System.IO.Path]::IsPathRooted($summaryFullPath)) {
+            $summaryFullPath = Join-Path $repoRoot $summaryFullPath
+        }
+
+        $summaryDir = Split-Path -Parent $summaryFullPath
+        if (-not [string]::IsNullOrWhiteSpace($summaryDir)) {
+            New-Item -ItemType Directory -Force -Path $summaryDir | Out-Null
+        }
+
+        if ($warningSummaryLines.Count -gt 0) {
+            Set-Content -LiteralPath $summaryFullPath -Value $warningSummaryLines -Encoding UTF8
+        }
+        else {
+            Set-Content -LiteralPath $summaryFullPath -Value "No P7 scope guard keyword warnings." -Encoding UTF8
         }
     }
 

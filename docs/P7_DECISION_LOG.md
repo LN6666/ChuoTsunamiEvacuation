@@ -61,3 +61,17 @@ This file stores P7 decisions that affect scope, dependencies, assets, Unity set
 | Verification | Run `tools/p7/run_p7_asset_inventory.ps1`, then verify reports and P7 preflight result. |
 | Follow-up | Use the inventory to narrow P7-B benchmark area planning before any Unity import work. |
 | Approved by | P7-A prompt. |
+
+### P7-DL-004 - Prepare Benchmark And Performance Automation Before Asset Decisions
+
+| Field | Value |
+|---|---|
+| Date | 2026-05-22 |
+| Stage | P7-A |
+| Decision | Add command-line benchmark record creation, Markdown performance-log validation, benchmark preflight orchestration, warning-summary traceability, and Windows EXE profiling preparation before P7-B/C/D asset-performance decisions. |
+| Options considered | Leave benchmark records manual only; create Unity benchmark automation immediately; add docs/tools-only preparation first. |
+| Reason | P7-B and later stages need repeatable performance records, but P7-A Codex B must not import assets, change Unity files, create builds, or add dependencies. |
+| Risk | Early benchmark records may contain placeholders until Unity benchmark scenes or EXE builds exist. |
+| Verification | Run `tools/p7/run_p7_benchmark_preflight.ps1`; validate any created benchmark record with `tools/p7/validate_p7_performance_log.ps1`; confirm protected paths remain untouched. |
+| Follow-up | P7-B should use the schema for small-area Editor benchmarks and optional Windows EXE benchmarks when a build exists. P7-D must record Windows EXE profiling before closeout. |
+| Approved by | P7-A implementation prompt. |

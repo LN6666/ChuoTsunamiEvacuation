@@ -22,6 +22,18 @@ Planned tasks:
 - P7-C: Streaming / Chunk Loading + Visual Quality + Performance Optimization. Implement only approved chunk/LOD/optimization work after benchmark evidence and a confirmed Markdown plan. Pending.
 - P7-D: Windows EXE Profiling + P7 Final Closeout. Record Windows x64 profiling, final decision log, DeepSeek review, and closeout. Pending.
 
+### P7-A Automation / Performance Prep (Codex B)
+
+Status: Implemented.
+
+Tasks:
+
+- Add command-line benchmark record skeleton creation under `docs/p7_benchmark_records/`.
+- Add Markdown benchmark record required-field validation.
+- Add benchmark preflight orchestration on top of the base P7 preflight.
+- Document benchmark automation, performance log schema, and Windows x64 EXE profiling readiness.
+- Preserve docs/tools/prompts-only scope and avoid Unity tests unless Unity files change.
+
 Automation requirement:
 
 - Run `powershell -ExecutionPolicy Bypass -File tools/p7/run_p7_preflight.ps1` before P7-0 review/commit.

@@ -21,6 +21,23 @@ The preflight script:
 3. Prints final PASS/FAIL.
 4. Exits non-zero if the scope guard fails.
 
+## P7-A Benchmark Preflight
+
+Run from the repository root:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File tools/p7/run_p7_benchmark_preflight.ps1
+```
+
+The benchmark preflight script:
+
+1. Runs `tools/p7/run_p7_preflight.ps1`.
+2. Optionally creates a Markdown benchmark skeleton with `-CreateRecord`.
+3. Optionally validates a Markdown benchmark record with `-ValidateRecordPath`.
+4. Prints a clear benchmark preflight PASS/FAIL result.
+
+It does not run Unity and does not create a Windows build.
+
 ## Scope Guard
 
 `tools/p7/check_p7_scope.ps1` checks changed and untracked files against HEAD.
@@ -30,7 +47,9 @@ It fails on:
 - Changes under protected paths.
 - Newly added large files outside explicitly allowed docs/log paths.
 
-It warns on forbidden scope keywords such as P7-E/P7-F/P7-G, tsunami height, inundation depth, light curtain, indoor evacuation, real spawn, building collapse, road block gameplay, and crowd failure. Warnings must be reviewed, but warnings do not fail the guard unless they correspond to actual scope changes.
+It warns on forbidden scope keywords such as stage names beyond P7-D, tsunami height, inundation depth, light curtain, indoor evacuation, real spawn, building collapse, road block gameplay, and crowd failure. Warnings must be reviewed, but warnings do not fail the guard unless they correspond to actual scope changes.
+
+Boundary, prompt, review, and stage-decision contexts may be reported as expected-context keyword notices. This reduces noise from files whose purpose is to document scope boundaries while preserving warnings for unsafe additions in ordinary files.
 
 ## Markdown Status Report
 
@@ -42,6 +61,7 @@ It warns on forbidden scope keywords such as P7-E/P7-F/P7-G, tsunami height, inu
 - Changed files.
 - Latest commit.
 - Scope guard result summary if available.
+- Warning summary if the preflight provides one.
 - Notes placeholder.
 
 The status report is a coordination record. It is not a substitute for tests or DeepSeek review.

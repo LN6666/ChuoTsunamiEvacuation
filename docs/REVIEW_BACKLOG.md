@@ -14,6 +14,34 @@ This file only records actionable review items that should guide Codex fixes.
 
 ---
 
+## P7-A Benchmark And Performance Automation Prep
+
+Source report:
+
+Pending DeepSeek review using `deepseek_review_prompt_p7a_perf.md`.
+
+Context:
+
+P7-A Codex B adds docs/tools/prompts only for benchmark record skeletons, Markdown performance-log validation, benchmark preflight orchestration, warning-summary traceability, Windows EXE profiling readiness, and P7-B/C/D performance preparation.
+
+Overall verdict:
+
+Pending review.
+
+### P7-A Performance-Prep Risks
+
+| ID | Priority | Status | Target | Issue | Required Review |
+|---|---|---|---|---|---|
+| P7A-PERF-R01 | Medium | Open | Benchmark records | Metrics may remain placeholders until a Unity benchmark scene or measurement process exists. | Confirm placeholders cannot support pass/fail decisions without measured evidence. |
+| P7A-PERF-R02 | Medium | Open | Windows EXE profiling | EXE profiling depends on a later build stage and cannot be completed by docs/tools-only P7-A prep. | Confirm P7-D remains the mandatory EXE profiling closeout stage. |
+| P7A-PERF-R03 | High | Open | Scope guard warning filtering | Warning filtering must not weaken protected-path strictness or hide real unsafe changes. | Confirm protected paths and large-file failures remain strict, and unsafe ordinary-file keyword warnings still appear. |
+
+Decision:
+
+Pending DeepSeek review after benchmark preflight passes.
+
+---
+
 ## P7-0 Reference Review And Automation Foundation
 
 Source report:

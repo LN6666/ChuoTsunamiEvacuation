@@ -49,6 +49,9 @@ Preferred file ownership:
 - `docs/P7_AUTOMATION_WORKFLOW.md`
 - `docs/P7_BENCHMARK_PROTOCOL.md`
 - `docs/P7_PERFORMANCE_METRICS_TEMPLATE.md`
+- `docs/P7_BENCHMARK_AUTOMATION_PLAN.md`
+- `docs/P7_EXE_PROFILING_PREP.md`
+- `docs/P7_PERFORMANCE_LOG_SCHEMA.md`
 - Future benchmark/profiling records.
 
 Codex B must not modify protected paths unless a later stage prompt explicitly approves the exact change.
