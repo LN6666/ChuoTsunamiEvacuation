@@ -6,15 +6,55 @@ P7-C follows a measure-first workflow:
 
 1. Identify likely CPU, GPU, memory, and loading bottleneck categories.
 2. Record approximate sandbox telemetry only.
-3. Avoid final optimization claims until Unity Profiler and Windows EXE evidence exists.
+3. Separate target settings from actual scene/renderable evidence.
+4. Avoid final optimization claims until Unity Profiler and Windows EXE evidence exists.
 
 `P7BenchmarkMetricsRecorder` records average FPS, approximate 1 percent low FPS, sample count, elapsed time, active chunk count, imported file count, imported byte count, and chunk state summary.
 
 This recorder is approximate benchmark telemetry. It is not a replacement for Unity Profiler, Frame Debugger, Memory Profiler, or Windows EXE profiling.
 
+For the high-detail scene continuation, `Assets/Scenes/P7HighDetail/P7_HighDetail_Chuo.unity` is the P7-D profiling target. Current P7-C evidence is a scene shell and import checklist unless actual PLATEAU SDK import has populated renderable assets.
+
+## Unity Profiler Workflow
+
+P7-D should use Unity Profiler thinking even before optimizing:
+
+- CPU main thread: identify scripting, culling, rendering setup, physics, and loading costs.
+- Render thread: identify batching, material changes, and draw submission costs.
+- GPU: identify fragment, vertex, shadow, overdraw, and post-processing costs where GPU timing is available.
+- Memory: identify texture, mesh, material, scene, and managed allocations.
+- Loading: identify import activation, scene load, and chunk enable-disable spikes.
+
+No final optimization success should be claimed without measured evidence.
+
+## Memory Profiler Workflow
+
+P7-D should capture memory snapshots or profiler memory data after the high-detail scene is loaded. The review should classify:
+
+- texture count and runtime texture memory
+- material count and material variants
+- mesh count, vertex/index memory, and submesh count
+- static batching memory impact if used
+- scene object count and renderer count
+
+P7-C only records source file counts and byte sizes.
+
+## Frame Debugger Workflow
+
+P7-D should use Frame Debugger or RenderDoc-style inspection to confirm:
+
+- draw-call count
+- batch breaks
+- material/shader variants
+- shadow caster cost
+- transparent or special render queues
+- whether SRP Batcher is helping or being defeated by material state
+
 ## Draw Call / Batching Risk
 
 Current imported evidence is raw `.gml` plus `.jpg`, so draw calls cannot be measured yet.
+
+The new high-detail scene shell has metadata roots only until PLATEAU assets are imported. It must not be used to claim draw-call success.
 
 Expected risks after conversion:
 
@@ -65,6 +105,8 @@ P7-C adds a benchmark registry and controller:
 - the registry records candidate metadata even when no renderable mesh exists
 - the scene avoids a full-scene always-on production assumption
 
+The same strategy informs `P7_HighDetail_Chuo.unity`: imported layers should remain grouped by category or spatial chunk so P7-D can test enable-disable cost and avoid full-scene always-on assumptions.
+
 This is not async streaming, Addressables, or production city paging. It is a safe foundation for later profiling.
 
 ## LOD Policy
@@ -80,6 +122,7 @@ Current state:
 - LOD3 candidate is benchmark-only.
 - LOD4 is not available based on current evidence.
 - LODGroup strategy is documented but not claimed as implemented because raw CityGML is not renderable mesh yet.
+- Average LOD3 is not claimed for the new high-detail scene until actual renderable scene evidence exists.
 
 ## Culling Strategy
 
@@ -121,6 +164,7 @@ Measured now:
 - logical group summary
 - active placeholder chunk count
 - approximate runtime FPS telemetry in P7Benchmark tests/runs
+- high-detail scene shell readiness and expected layer roots
 
 Deferred to P7-D:
 
@@ -130,3 +174,4 @@ Deferred to P7-D:
 - Windows EXE performance
 - converted mesh/material visual quality
 - occlusion, LODGroup, batching, and collider performance validation
+- final confirmation that `P7_HighDetail_Chuo.unity` contains actual high-detail city assets and can become the P8/P9/P10 baseline

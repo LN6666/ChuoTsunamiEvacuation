@@ -960,3 +960,18 @@ Completed:
 
 Next:
 - P5-C Unity read-only integration of qualified buildings, route lines, confidence, warnings, and decision feedback
+
+## Phase P7-C - High-Detail Chuo Scene Readiness Continuation
+
+Status: In progress in local continuation commit.
+
+Current P7-C continuation tasks:
+
+- Preserve local P7-C benchmark chunk/loading foundation commit `627e131`.
+- Create `Assets/Scenes/P7HighDetail/P7_HighDetail_Chuo.unity` as the high-detail Chuo scene shell and P7-D profiling target.
+- Keep `Chuo_BaseMap.unity`, production scenes, existing gameplay scripts, `Assets/Data`, `Assets/PLATEAU`, `ProjectSettings`, and `Packages` untouched.
+- Document PLATEAU SDK target import settings and manual checklist.
+- Document target versus actual LOD coverage without claiming average LOD3 until renderable evidence exists.
+- Validate bridge, road, underground, P2-P6 compatibility, and P7-D profiling readiness through docs and read-only tools.
+- Confirm P7 remains five stages: P7-0, P7-A, P7-B, P7-C, P7-D.
+- Defer final Windows EXE profiling and baseline confirmation to P7-D.

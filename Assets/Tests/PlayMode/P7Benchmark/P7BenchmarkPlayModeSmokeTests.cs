@@ -55,6 +55,25 @@ public class P7BenchmarkPlayModeSmokeTests
         Assert.IsNull(testObject.GetComponent("EvacuationGameManager"));
     }
 
+    [UnityTest]
+    public IEnumerator HighDetailSceneMetadataIsRuntimeSafeAndPendingImportIsExplicit()
+    {
+        testObject = new GameObject("P7HighDetailSceneMetadata_PlayModeTest");
+        P7HighDetailSceneMetadata metadata = testObject.AddComponent<P7HighDetailSceneMetadata>();
+        metadata.ResetToDefaults();
+
+        yield return null;
+
+        Assert.IsTrue(metadata.IsP7DProfilingTarget);
+        Assert.IsFalse(metadata.ActualPlateauAssetsLoaded);
+        Assert.IsFalse(metadata.AffectsGameplaySuccessFailure);
+        Assert.IsTrue(P7HighDetailSceneMetadata.IsPendingImportStatus(metadata.ImportStatus));
+        Assert.IsTrue(P7HighDetailSceneMetadata.IsExpectedLayerRootName("Buildings"));
+        Assert.IsTrue(P7HighDetailSceneMetadata.IsExpectedLayerRootName("P2P6Compatibility"));
+        Assert.IsFalse(P7HighDetailSceneMetadata.ScenePath.Contains("Chuo_BaseMap"));
+        Assert.IsNull(testObject.GetComponent("EvacuationGameManager"));
+    }
+
     [UnityTearDown]
     public IEnumerator TearDown()
     {

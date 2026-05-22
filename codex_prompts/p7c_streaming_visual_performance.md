@@ -41,3 +41,15 @@ Performance methodology supplement:
 - Do not add packages.
 - Do not modify ProjectSettings.
 - Do not claim final optimization success without measured benchmark evidence.
+
+Continuation supplement:
+
+- Continue from local commit `627e131 feat(p7-c): add benchmark chunk loading and performance optimization foundation`.
+- Do not push the partial P7-C commit alone.
+- Prepare `Assets/Scenes/P7HighDetail/P7_HighDetail_Chuo.unity` as the P7-C high-detail Chuo scene shell and intended P7-D Windows EXE profiling target.
+- Treat PLATEAU SDK screenshots/settings as target import settings, not evidence that assets are loaded.
+- Target buildings LOD3, roads LOD3, urban planning decision LOD1, land use import, underground LOD3 if available, city furniture LOD2/LOD3, water LOD1, vegetation LOD3 if available, bridges LOD3, disaster risk import, and relief/terrain import.
+- Add LOD coverage, bridge/underground/road feasibility, P2-P6 compatibility, P7-D profiling target, P8/P9/P10 baseline preparation, test tooling, and asset persistence documentation.
+- Add read-only validators for high-detail scene readiness, PLATEAU/LOD coverage, and P2-P6 compatibility.
+- Keep `Chuo_BaseMap.unity`, production scenes, existing gameplay scripts, `Assets/Data`, `Assets/PLATEAU`, `ProjectSettings`, and `Packages` untouched.
+- Do not implement P8, P9, or P10 systems.

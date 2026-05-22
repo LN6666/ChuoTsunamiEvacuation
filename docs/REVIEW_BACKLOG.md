@@ -1035,3 +1035,15 @@ Reason:
 - The remaining issues are maintainability or future cleanup items.
 - The prototype should be committed now as a stable milestone.
 
+---
+
+### P7-C Continuation Backlog
+
+| ID | Priority | Status | Target | Issue | Required Follow-Up |
+|---|---|---|---|---|---|
+| P7C-B01 | Medium | Deferred to P7-D/import step | `Assets/Scenes/P7HighDetail/P7_HighDetail_Chuo.unity` | High-detail scene shell exists before actual PLATEAU assets are verified as renderable. | Complete or validate PLATEAU SDK import before final Windows EXE profiling. |
+| P7C-B02 | Medium | Deferred | PLATEAU import workflow | Bridge, road, underground, water, terrain, vegetation, city furniture, disaster risk, land use, and urban planning decision layers remain target settings until scene evidence exists. | Run SDK import checklist and read-only LOD readiness validator. |
+| P7C-B03 | Medium | Deferred to P7-D | Profiling | Unity Profiler, Memory Profiler, Frame Debugger, and Windows EXE evidence are still required for authoritative diagnosis. | Capture P7-D profiler evidence against the populated high-detail scene. |
+| P7C-B04 | Medium | Deferred to P7-D | P2-P6 compatibility | Compatibility is prepared through markers/docs/tools, but full runtime smoke testing needs actual high-detail assets. | Run player, camera, GameManager, shelter, result panel, P5 loader, P6 guidance, and P6 NPC smoke checks. |
+| P7C-B05 | Medium | Deferred to P10/release | Asset persistence | Large city assets and final EXE packages should not be blindly committed to normal Git history. | Archive final assets and EXE to cloud drive/release package or approved LFS strategy before VM deletion. |
+

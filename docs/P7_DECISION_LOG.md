@@ -159,3 +159,17 @@ This file stores P7 decisions that affect scope, dependencies, assets, Unity set
 | Verification | Run `tools/p7/run_p7c_preflight.ps1`; run GUI EditMode and PlayMode tests; verify `Chuo_BaseMap.unity`, `ProjectSettings`, `Packages`, `Assets/Data`, `Assets/PLATEAU`, production scenes, and existing gameplay scripts are untouched; request DeepSeek review with `deepseek_review_prompt_p7c.md`. |
 | Follow-up | P7-D must perform Windows EXE profiling and final closeout. CityGML conversion and production streaming require separate approval. |
 | Approved by | P7-C implementation prompt. |
+
+### P7-DL-011 - P7-C Continuation Prepares High-Detail Chuo Baseline
+
+| Field | Value |
+|---|---|
+| Date | 2026-05-23 |
+| Stage | P7-C |
+| Decision | P7-C continuation is approved for a separate high-detail Chuo scene shell, PLATEAU SDK target checklist, LOD coverage assessment, P2-P6 compatibility validation plan, P7-D profiling target definition, upgraded validators, and asset persistence documentation. |
+| Options considered | Continue with benchmark-only P7-C; modify `Chuo_BaseMap.unity`; create a separate high-detail P7 scene target. |
+| Reason | P7-D must profile the real high-detail scene target, not only the old benchmark skeleton. The new scene must be prepared without mutating `Chuo_BaseMap.unity`, production gameplay scenes, `Assets/Data`, `Assets/PLATEAU`, `ProjectSettings`, or `Packages`. |
+| Risk | The scene shell can still be metadata-only until PLATEAU SDK import succeeds. Average LOD3, road/bridge/underground renderability, and P2-P6 runtime compatibility remain pending until actual assets are loaded and profiled. |
+| Verification | Run `tools/p7/run_p7c_preflight.ps1`; run GUI EditMode and PlayMode tests because Unity scripts/tests/scene change; verify protected paths are clean; request DeepSeek review with `deepseek_review_prompt_p7c.md`. |
+| Follow-up | P7-D must perform Windows EXE profiling on `Assets/Scenes/P7HighDetail/P7_HighDetail_Chuo.unity` after actual assets are loaded or explicitly document the import blocker. P8/P9/P10 should use this new scene as baseline only after P7-D confirmation. |
+| Approved by | P7-C continuation prompt. |

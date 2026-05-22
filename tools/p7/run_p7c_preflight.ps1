@@ -7,6 +7,9 @@ $scriptRoot = Split-Path -Parent $MyInvocation.MyCommand.Path
 $repoRoot = (Resolve-Path (Join-Path $scriptRoot "..\..")).ProviderPath
 $scopeGuardScript = Join-Path $scriptRoot "check_p7_scope.ps1"
 $inspectionScript = Join-Path $scriptRoot "inspect_p7c_benchmark_import.ps1"
+$highDetailSceneInspectionScript = Join-Path $scriptRoot "inspect_p7c_high_detail_scene.ps1"
+$plateauReadinessInspectionScript = Join-Path $scriptRoot "inspect_p7c_plateau_import_readiness.ps1"
+$p2P6CompatibilityInspectionScript = Join-Path $scriptRoot "inspect_p7c_p2_p6_compatibility.ps1"
 $sceneRelativePath = "Assets/Scenes/P7Benchmark/P7_Benchmark_Skeleton.unity"
 $scenePath = Join-Path $repoRoot ($sceneRelativePath -replace "/", "\")
 
@@ -103,9 +106,11 @@ function Assert-ProtectedPathsClean {
         if (
             $(Test-PathStartsWith -Path $file -Prefix "Assets/Scenes/") -and
             -not $(Test-PathStartsWith -Path $file -Prefix "Assets/Scenes/P7Benchmark/") -and
-            -not $file.Equals("Assets/Scenes/P7Benchmark.meta", [System.StringComparison]::OrdinalIgnoreCase)
+            -not $(Test-PathStartsWith -Path $file -Prefix "Assets/Scenes/P7HighDetail/") -and
+            -not $file.Equals("Assets/Scenes/P7Benchmark.meta", [System.StringComparison]::OrdinalIgnoreCase) -and
+            -not $file.Equals("Assets/Scenes/P7HighDetail.meta", [System.StringComparison]::OrdinalIgnoreCase)
         ) {
-            $violations.Add("$file is a production scene change outside P7Benchmark") | Out-Null
+            $violations.Add("$file is a production scene change outside P7Benchmark/P7HighDetail") | Out-Null
         }
         if (
             $(Test-PathStartsWith -Path $file -Prefix "Assets/Scripts/") -and
@@ -164,6 +169,60 @@ function Assert-BenchmarkSceneSandboxed {
     Write-Host "Benchmark scene sandbox check passed: $sceneRelativePath"
 }
 
+function Assert-FiveStageAndNoP8P9RuntimeScope {
+    $changedFiles = @(Get-ChangedFiles)
+    $violations = New-Object System.Collections.Generic.List[string]
+
+    foreach ($file in $changedFiles) {
+        $fileName = [System.IO.Path]::GetFileName($file)
+        if ($fileName -match "P7[-_ ]?[EFG]" -or $fileName -match "p7[-_ ]?[efg]") {
+            $violations.Add("$file appears to create a stage outside P7-0/P7-A/P7-B/P7-C/P7-D") | Out-Null
+        }
+
+        $isRuntimeUnityFile = (Test-PathStartsWith -Path $file -Prefix "Assets/Scripts/") -or
+            (Test-PathStartsWith -Path $file -Prefix "Assets/Scenes/")
+        if (-not $isRuntimeUnityFile) {
+            continue
+        }
+
+        $fullPath = Join-Path $repoRoot ($file -replace "/", "\")
+        if (-not (Test-Path -LiteralPath $fullPath -PathType Leaf)) {
+            continue
+        }
+
+        $text = Get-Content -Raw -LiteralPath $fullPath -ErrorAction SilentlyContinue
+        if ([string]::IsNullOrWhiteSpace($text)) {
+            continue
+        }
+
+        $forbiddenRuntimeFragments = @(
+            "LightCurtain",
+            "InundationDepth",
+            "MovingTsunamiWall",
+            "RiskFront",
+            "IndoorEvacuation",
+            "CrowdFailure",
+            "RealSpawn"
+        )
+
+        foreach ($fragment in $forbiddenRuntimeFragments) {
+            if ($text.IndexOf($fragment, [System.StringComparison]::OrdinalIgnoreCase) -ge 0) {
+                $violations.Add("$file contains forbidden P8/P9 runtime fragment: $fragment") | Out-Null
+            }
+        }
+    }
+
+    if ($violations.Count -gt 0) {
+        foreach ($violation in ($violations | Sort-Object -Unique)) {
+            Write-Host "FAIL: $violation"
+        }
+
+        throw "Five-stage or P8/P9 runtime scope check failed."
+    }
+
+    Write-Host "Five-stage and P8/P9 runtime scope check passed for $($changedFiles.Count) changed/untracked files."
+}
+
 Write-Host "P7-C preflight: starting"
 Write-Host "P7-C preflight: repo root $repoRoot"
 
@@ -182,6 +241,29 @@ try {
             throw "P7-C import inspection failed."
         }
     }
+
+    Invoke-Step "high-detail scene readiness inspection" {
+        & powershell -ExecutionPolicy Bypass -File $highDetailSceneInspectionScript
+        if ($LASTEXITCODE -ne 0) {
+            throw "P7-C high-detail scene readiness inspection failed."
+        }
+    }
+
+    Invoke-Step "PLATEAU and LOD coverage readiness inspection" {
+        & powershell -ExecutionPolicy Bypass -File $plateauReadinessInspectionScript
+        if ($LASTEXITCODE -ne 0) {
+            throw "P7-C PLATEAU import readiness inspection failed."
+        }
+    }
+
+    Invoke-Step "P2-P6 compatibility inspection" {
+        & powershell -ExecutionPolicy Bypass -File $p2P6CompatibilityInspectionScript
+        if ($LASTEXITCODE -ne 0) {
+            throw "P7-C P2-P6 compatibility inspection failed."
+        }
+    }
+
+    Invoke-Step "five-stage and P8/P9 scope guard" { Assert-FiveStageAndNoP8P9RuntimeScope }
 
     Invoke-Step "protected path check" { Assert-ProtectedPathsClean }
 

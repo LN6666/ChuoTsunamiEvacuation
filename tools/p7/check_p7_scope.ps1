@@ -224,7 +224,9 @@ function Test-P7CAllowedPath {
 
     $allowedPrefixes = @(
         "Assets/P7Benchmark/",
+        "Assets/P7HighDetail/",
         "Assets/Scenes/P7Benchmark/",
+        "Assets/Scenes/P7HighDetail/",
         "Assets/Scripts/P7Benchmark/",
         "Assets/Editor/P7Benchmark/",
         "Assets/Tests/EditMode/P7Benchmark/",
@@ -234,7 +236,11 @@ function Test-P7CAllowedPath {
 
     $allowedExactPaths = @(
         "Assets/P7Benchmark.meta",
+        "Assets/P7HighDetail.meta",
+        "Assets/P7HighDetail/PLATEAU.meta",
+        "Assets/P7HighDetail/Imported.meta",
         "Assets/Scenes/P7Benchmark.meta",
+        "Assets/Scenes/P7HighDetail.meta",
         "Assets/Scripts/P7Benchmark.meta",
         "Assets/Editor/P7Benchmark.meta",
         "Assets/Tests/EditMode/P7Benchmark.meta",
@@ -293,9 +299,10 @@ function Get-P7CProtectedViolation {
 
     if (
         $(Test-PathStartsWith -Path $Path -Prefix "Assets/Scenes/") -and
-        -not $(Test-PathStartsWith -Path $Path -Prefix "Assets/Scenes/P7Benchmark/")
+        -not $(Test-PathStartsWith -Path $Path -Prefix "Assets/Scenes/P7Benchmark/") -and
+        -not $(Test-PathStartsWith -Path $Path -Prefix "Assets/Scenes/P7HighDetail/")
     ) {
-        return "$Path is a production scene change outside the P7Benchmark sandbox"
+        return "$Path is a production scene change outside the P7Benchmark/P7HighDetail sandbox"
     }
 
     if (
