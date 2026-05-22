@@ -14,6 +14,36 @@ This file only records actionable review items that should guide Codex fixes.
 
 ---
 
+## P7-B Area Feasibility And Candidate Selection
+
+Source report:
+
+Pending DeepSeek review using `deepseek_review_prompt_p7b_area.md`.
+
+Context:
+
+P7-B Codex A creates command-line-first feasibility reports and read-only selector tooling for small-area benchmark candidate selection. It does not import assets, modify Unity scenes, modify Unity scripts, modify `Assets/Data`, modify `ProjectSettings`, modify `Packages`, or modify imported PLATEAU assets.
+
+Overall verdict:
+
+Pending review.
+
+### P7-B Feasibility Risks
+
+| ID | Priority | Status | Target | Issue | Required Review |
+|---|---|---|---|---|---|
+| P7B-AREA-R01 | High | Open | LOD3 candidate selection | LOD3 path/name signals may not equal usable geometry or acceptable Unity import output. | Confirm reports label LOD3 findings as unverified path/name/file-metadata inference only. |
+| P7B-AREA-R02 | High | Open | LOD4 availability | LOD4 was not found by current path/name scan and must not be assumed available. | Confirm no report or task entry claims LOD4 exists. |
+| P7B-AREA-R03 | High | Open | Underground / bridge / road feasibility | Underground, bridge, road, and riverfront feasibility remains unverified until Unity and geometry inspection. | Confirm docs do not claim visual correctness, walkability, route validity, entrance validity, or gameplay suitability. |
+| P7B-AREA-R04 | Medium | Open | External PLATEAU source | External PLATEAU source is only enumerated; it must not be modified or committed. | Confirm helper scripts use read-only file metadata commands and do not write into `D:\PLATEAU_DATA\Chuo_2025_CityGML`. |
+| P7B-AREA-R05 | Medium | Open | Benchmark decision | The preferred candidate is a planning candidate, not an approved Unity import. | Confirm final benchmark area selection remains pending until human review and a Markdown import/benchmark plan. |
+
+Decision:
+
+Pending DeepSeek review after P7-B area feasibility script and P7 preflight pass.
+
+---
+
 ## P7-A Benchmark And Performance Automation Prep
 
 Source report:
