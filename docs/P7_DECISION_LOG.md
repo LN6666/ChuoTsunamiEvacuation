@@ -131,3 +131,17 @@ This file stores P7 decisions that affect scope, dependencies, assets, Unity set
 | Verification | Run `tools/p7/run_p7b_wave2b_preflight.ps1`; verify `Chuo_BaseMap.unity`, `ProjectSettings`, `Packages`, `Assets/Data`, `Assets/PLATEAU`, Unity scenes, and gameplay scripts are untouched; request DeepSeek review with `deepseek_review_prompt_p7b_wave2b.md`. |
 | Follow-up | Wave 2-C or any future real import step needs separate explicit human approval with a confirmed Markdown plan, rollback criteria, protected-path checks, and Unity tests for Unity changes. |
 | Approved by | P7-B Wave 2-B prompt. |
+
+### P7-DL-009 - P7-B Wave 2-C Allows Only 53393690 P7Benchmark Sandbox Import
+
+| Field | Value |
+|---|---|
+| Date | 2026-05-23 |
+| Stage | P7-B |
+| Decision | P7-B Wave 2-C is approved only for importing the full candidate package `53393690` into `Assets/P7Benchmark/Imported/53393690/`. |
+| Options considered | Keep dry-run only; import narrowed subset; import the full approved `53393690` package into a sandbox. |
+| Reason | The human developer explicitly approved the full `53393690` candidate footprint of 605.38 MB for sandbox feasibility because the size is acceptable for P7Benchmark isolation. |
+| Risk | Raw CityGML and texture source files may not be directly renderable in Unity; Git storage needs narrow LFS tracking; Unity refresh may create unwanted protected-path churn. |
+| Verification | Run `tools/p7/run_p7b_wave2c_preflight.ps1`; run GUI EditMode and PlayMode tests; verify `Chuo_BaseMap.unity`, `ProjectSettings`, `Packages`, `Assets/Data`, `Assets/PLATEAU`, production scenes, and existing gameplay scripts are untouched; request DeepSeek review with `deepseek_review_prompt_p7b_wave2c.md`. |
+| Follow-up | Any CityGML conversion, visual verification, production scene integration, full Chuo import, or P8/P9 work requires separate explicit approval. |
+| Approved by | P7-B Wave 2-C prompt. |

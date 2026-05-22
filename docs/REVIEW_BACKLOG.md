@@ -14,6 +14,46 @@ This file only records actionable review items that should guide Codex fixes.
 
 ---
 
+## P7-B Wave 2-C 53393690 Sandbox Import
+
+Source report:
+
+Pending DeepSeek review using `deepseek_review_prompt_p7b_wave2c.md`.
+
+Context:
+
+P7-B Wave 2-C is approved only for importing the full candidate package `53393690` into `Assets/P7Benchmark/Imported/53393690/`. It does not approve full Chuo import, production scene integration, `Assets/PLATEAU` changes, `Assets/Data` changes, `Chuo_BaseMap.unity` changes, `ProjectSettings` or `Packages` changes, fallback candidate import, or P8/P9 systems.
+
+Findings to preserve:
+
+- Candidate `53393690` imported file count: `5,843`.
+- Candidate `53393690` imported bytes: `634,782,243`.
+- Candidate `53393690` imported size: `605.38 MB`.
+- Import target: `Assets/P7Benchmark/Imported/53393690/`.
+- Fallback candidates `53393672` and `53394611` remain documentation-only references.
+- LOD3 visual and geometry quality remain unverified.
+- LOD4 path/name hits remain `0`; LOD4 is not assumed available.
+
+Overall verdict:
+
+Pending review.
+
+### P7-B Wave 2-C Risks
+
+| ID | Priority | Status | Target | Issue | Required Review |
+|---|---|---|---|---|---|
+| P7B-W2C-R01 | High | Open | Sandbox import path | Imported files must remain only under `Assets/P7Benchmark/Imported/53393690/`. | Confirm preflight catches any file outside the approved sandbox target. |
+| P7B-W2C-R02 | High | Open | Git storage | The package contains files over normal GitHub blob limits. | Confirm the narrow Git LFS rule covers only the sandbox import path and does not change Unity dependencies. |
+| P7B-W2C-R03 | High | Open | Visual claims | Raw CityGML source is not automatically renderable Unity geometry. | Confirm docs do not claim visual quality, geometry quality, or production readiness. |
+| P7B-W2C-R04 | High | Open | Protected paths | Unity import refresh could create unwanted `ProjectSettings` or `Packages` churn. | Confirm such churn is absent or reverted before commit. |
+| P7B-W2C-R05 | Medium | Open | Future conversion | A later CityGML conversion/import workflow may require separate tooling and approval. | Confirm production integration remains gated. |
+
+Decision:
+
+Pending DeepSeek review after Wave 2-C preflight and Unity GUI tests pass.
+
+---
+
 ## P7-B Wave 2-B LOD3 Candidate Dry Run
 
 Source report:

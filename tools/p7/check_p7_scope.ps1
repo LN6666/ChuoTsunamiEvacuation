@@ -1,6 +1,6 @@
 [CmdletBinding()]
 param(
-    [ValidateSet("Default", "P7BWave2A")]
+    [ValidateSet("Default", "P7BWave2A", "P7BWave2C")]
     [string]$Mode = "Default",
 
     [int64]$LargeFileThresholdBytes = 5242880,
@@ -59,7 +59,10 @@ function Test-PathStartsWith {
 }
 
 function Test-AllowedLargePath {
-    param([string]$Path)
+    param(
+        [string]$Path,
+        [string]$Mode
+    )
 
     $allowedPrefixes = @(
         "docs/",
@@ -74,6 +77,13 @@ function Test-AllowedLargePath {
         if (Test-PathStartsWith -Path $Path -Prefix $prefix) {
             return $true
         }
+    }
+
+    if (
+        $Mode -eq "P7BWave2C" -and
+        $(Test-PathStartsWith -Path $Path -Prefix "Assets/P7Benchmark/Imported/53393690/")
+    ) {
+        return $true
     }
 
     return $false
@@ -152,6 +162,114 @@ function Get-P7BWave2AProtectedViolation {
     }
 
     return $null
+}
+
+function Test-P7BWave2CAllowedPath {
+    param([string]$Path)
+
+    $allowedPrefixes = @(
+        "Assets/P7Benchmark/Imported/53393690/",
+        "Assets/Scenes/P7Benchmark/",
+        "Assets/Scripts/P7Benchmark/",
+        "Assets/Editor/P7Benchmark/",
+        "Assets/Tests/EditMode/P7Benchmark/",
+        "Assets/Tests/PlayMode/P7Benchmark/",
+        "docs/P7B_WAVE2C_",
+        "tools/p7/"
+    )
+
+    $allowedExactPaths = @(
+        ".gitattributes",
+        "Assets/P7Benchmark.meta",
+        "Assets/P7Benchmark/Imported.meta",
+        "Assets/P7Benchmark/Imported/53393690.meta",
+        "Assets/Scenes/P7Benchmark.meta",
+        "Assets/Scripts/P7Benchmark.meta",
+        "Assets/Editor/P7Benchmark.meta",
+        "Assets/Tests/EditMode/P7Benchmark.meta",
+        "Assets/Tests/PlayMode/P7Benchmark.meta",
+        "tools/p7/import_p7b_53393690_sandbox.ps1",
+        "tools/p7/run_p7b_wave2c_preflight.ps1",
+        "tools/p7/check_p7_scope.ps1",
+        "codex_prompts/p7b_wave2c_53393690_sandbox_import.md",
+        "deepseek_review_prompt_p7b_wave2c.md",
+        "docs/TASKS.md",
+        "docs/REVIEW_BACKLOG.md",
+        "docs/P7_DECISION_LOG.md"
+    )
+
+    foreach ($allowedExactPath in $allowedExactPaths) {
+        if ($Path.Equals($allowedExactPath, [System.StringComparison]::OrdinalIgnoreCase)) {
+            return $true
+        }
+    }
+
+    foreach ($prefix in $allowedPrefixes) {
+        if (Test-PathStartsWith -Path $Path -Prefix $prefix) {
+            if ($prefix -eq "tools/p7/") {
+                $fileName = [System.IO.Path]::GetFileName($Path)
+                return $fileName.IndexOf("wave2c", [System.StringComparison]::OrdinalIgnoreCase) -ge 0 -or
+                    $fileName.Equals("check_p7_scope.ps1", [System.StringComparison]::OrdinalIgnoreCase)
+            }
+
+            return $true
+        }
+    }
+
+    return $false
+}
+
+function Get-P7BWave2CProtectedViolation {
+    param([string]$Path)
+
+    if (Test-P7BWave2CAllowedPath -Path $Path) {
+        return $null
+    }
+
+    $alwaysForbiddenPrefixes = @(
+        "ProjectSettings/",
+        "Packages/",
+        "Assets/PLATEAU/",
+        "Assets/Data/"
+    )
+
+    foreach ($prefix in $alwaysForbiddenPrefixes) {
+        if (Test-PathStartsWith -Path $Path -Prefix $prefix) {
+            return "$Path matches forbidden Wave 2-C prefix $prefix"
+        }
+    }
+
+    if (Test-PathStartsWith -Path $Path -Prefix "Assets/Scenes/Chuo_BaseMap.unity") {
+        return "$Path matches forbidden Wave 2-C base-map scene path"
+    }
+
+    $restrictedUnityPrefixes = @(
+        "Assets/Scenes/",
+        "Assets/Scripts/",
+        "Assets/Editor/",
+        "Assets/Tests/"
+    )
+
+    foreach ($prefix in $restrictedUnityPrefixes) {
+        if (Test-PathStartsWith -Path $Path -Prefix $prefix) {
+            return "$Path is outside the P7-B Wave 2-C allowlist for $prefix"
+        }
+    }
+
+    if (
+        $(Test-PathStartsWith -Path $Path -Prefix "Assets/P7Benchmark/Imported/") -and
+        -not $(Test-PathStartsWith -Path $Path -Prefix "Assets/P7Benchmark/Imported/53393690/") -and
+        -not $Path.Equals("Assets/P7Benchmark/Imported.meta", [System.StringComparison]::OrdinalIgnoreCase) -and
+        -not $Path.Equals("Assets/P7Benchmark/Imported/53393690.meta", [System.StringComparison]::OrdinalIgnoreCase)
+    ) {
+        return "$Path is outside the approved 53393690 sandbox import path"
+    }
+
+    if (Test-PathStartsWith -Path $Path -Prefix "Assets/") {
+        return "$Path is outside the P7-B Wave 2-C Unity allowlist"
+    }
+
+    return "$Path is outside the P7-B Wave 2-C file allowlist"
 }
 
 function Test-TextFilePath {
@@ -307,6 +425,12 @@ try {
                 $protectedViolations.Add($wave2AViolation)
             }
         }
+        elseif ($Mode -eq "P7BWave2C") {
+            $wave2CViolation = Get-P7BWave2CProtectedViolation -Path $file
+            if (-not [string]::IsNullOrWhiteSpace($wave2CViolation)) {
+                $protectedViolations.Add($wave2CViolation)
+            }
+        }
         else {
             foreach ($prefix in $protectedPrefixes) {
                 if (Test-PathStartsWith -Path $file -Prefix $prefix) {
@@ -333,7 +457,7 @@ try {
         }
 
         $length = (Get-Item -LiteralPath $fullPath).Length
-        if ($length -gt $LargeFileThresholdBytes -and -not (Test-AllowedLargePath -Path $file)) {
+        if ($length -gt $LargeFileThresholdBytes -and -not (Test-AllowedLargePath -Path $file -Mode $Mode)) {
             $sizeMb = [Math]::Round($length / 1MB, 2)
             $thresholdMb = [Math]::Round($LargeFileThresholdBytes / 1MB, 2)
             $largeFileViolations.Add("$file is $sizeMb MB, above $thresholdMb MB")
