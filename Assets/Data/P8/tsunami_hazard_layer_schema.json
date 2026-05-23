@@ -220,7 +220,9 @@
         "underground": { "type": "boolean" },
         "entrances": { "type": "boolean" },
         "waterfront": { "type": "boolean" },
-        "open_space": { "type": "boolean" }
+        "open_space": { "type": "boolean" },
+        "shelter_proxy": { "type": "boolean" },
+        "navigation_target_proxy": { "type": "boolean" }
       }
     },
     "point2": {

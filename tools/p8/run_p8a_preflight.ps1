@@ -315,7 +315,10 @@ function Test-AllowedP8RuntimeScript {
     return $name -eq "P8RiskFrontController.cs" -or
            $name -eq "P8RiskFrontLightCurtainRenderer.cs" -or
            $name -eq "P8RiskFrontTimeDriver.cs" -or
-           $name -eq "P8RiskFrontDebugStatus.cs"
+           $name -eq "P8RiskFrontDebugStatus.cs" -or
+           $name -eq "P8InfrastructureHazardTarget.cs" -or
+           $name -eq "P8InfrastructureHazardMarker.cs" -or
+           $name -eq "P8InfrastructureHazardDebugSummary.cs"
 }
 
 function Assert-NoUnauthorizedP8RuntimeImplementation {

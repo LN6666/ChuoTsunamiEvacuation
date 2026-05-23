@@ -99,6 +99,8 @@ public class P8AffectedInfrastructureTypes
     public bool entrances;
     public bool waterfront;
     public bool open_space;
+    public bool shelter_proxy;
+    public bool navigation_target_proxy;
 }
 
 [Serializable]

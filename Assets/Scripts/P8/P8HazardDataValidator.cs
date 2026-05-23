@@ -194,10 +194,20 @@ public static class P8HazardDataValidator
             result.MarkFailSafe();
         }
 
-        if (config.collapseProxyEnabledInP8A || config.collapseGameplayEnabledInP8A || config.hazardDrivenCollapse)
+        if (config.collapseProxyEnabledInP8A ||
+            config.collapseGameplayEnabledInP8A ||
+            config.collapseProxyEnabledInP8C ||
+            config.collapseGameplayEnabledInP8C ||
+            config.hazardDrivenCollapse)
         {
-            result.AddError("P8-A must keep collapse proxy behavior disabled.");
+            result.AddError("P8-C must keep collapse proxy/gameplay behavior disabled until P8-D.");
             result.MarkFailSafe();
+        }
+
+        if (config.interactionEnabledInP8C &&
+            string.IsNullOrWhiteSpace(config.p8cInteractionDriver))
+        {
+            result.AddError("P8-C infrastructure interaction requires p8cInteractionDriver.");
         }
 
         if (config.collapseProbability < 0f || config.collapseProbability > 1f)
