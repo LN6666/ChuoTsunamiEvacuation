@@ -96,14 +96,18 @@ function Test-AllowedP8Path {
     if ($Path -eq "Assets/Data/P8.meta") { return $true }
     if ($Path -eq "Assets/Scripts/P8.meta") { return $true }
     if ($Path -eq "Assets/Tests/EditMode/P8.meta") { return $true }
+    if ($Path -eq "Assets/Tests/PlayMode/P8.meta") { return $true }
     if (Test-PathStartsWith $Path "docs/P8") { return $true }
     if (Test-PathStartsWith $Path "docs/P8A") { return $true }
     if (Test-PathStartsWith $Path "tools/p8/") { return $true }
     if (Test-PathStartsWith $Path "Assets/Data/P8/") { return $true }
     if (Test-PathStartsWith $Path "Assets/Scripts/P8/") { return $true }
     if (Test-PathStartsWith $Path "Assets/Tests/EditMode/P8/") { return $true }
+    if (Test-PathStartsWith $Path "Assets/Tests/PlayMode/P8/") { return $true }
     if ($Path -eq "codex_prompts/p8a_baseline_hazard_data_layer.md") { return $true }
+    if ($Path -eq "codex_prompts/p8a_scene_compatibility_gate.md") { return $true }
     if ($Path -eq "deepseek_review_prompt_p8a.md") { return $true }
+    if ($Path -eq "deepseek_review_prompt_p8a_compat.md") { return $true }
     return $false
 }
 
@@ -227,12 +231,19 @@ function Assert-P8Artifacts {
         "Assets/Scripts/P8/P8HazardLayerLoader.cs",
         "Assets/Scripts/P8/P8RiskFrontConfig.cs",
         "Assets/Scripts/P8/P8HazardDataValidator.cs",
+        "Assets/Scripts/P8/P8SceneCompatibilityReport.cs",
         "Assets/Tests/EditMode/P8/P8HazardLayerFoundationTests.cs",
+        "Assets/Tests/EditMode/P8/P8SceneCompatibilityGateTests.cs",
+        "Assets/Tests/PlayMode/P8/P8SceneCompatibilityPlayModeTests.cs",
         "tools/p8/inspect_p8a_p2_p6_compatibility.ps1",
         "tools/p8/inspect_p8a_baseline_scene.ps1",
+        "tools/p8/inspect_p8a_scene_compatibility.ps1",
+        "tools/p8/run_p8a_compat_preflight.ps1",
         "tools/p8/validate_p8_hazard_json.ps1",
         "codex_prompts/p8a_baseline_hazard_data_layer.md",
-        "deepseek_review_prompt_p8a.md"
+        "codex_prompts/p8a_scene_compatibility_gate.md",
+        "deepseek_review_prompt_p8a.md",
+        "deepseek_review_prompt_p8a_compat.md"
     )) {
         Assert-FileExists $file
     }
@@ -285,6 +296,11 @@ try {
     & powershell -ExecutionPolicy Bypass -File (Join-Path $scriptRoot "inspect_p8a_p2_p6_compatibility.ps1")
     if ($LASTEXITCODE -ne 0) {
         throw "P2-P6 compatibility inspection failed."
+    }
+
+    & powershell -ExecutionPolicy Bypass -File (Join-Path $scriptRoot "inspect_p8a_scene_compatibility.ps1")
+    if ($LASTEXITCODE -ne 0) {
+        throw "Scene compatibility inspection failed."
     }
 }
 catch {
