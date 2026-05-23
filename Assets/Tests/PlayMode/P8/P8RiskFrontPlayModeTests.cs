@@ -23,6 +23,10 @@ public class P8RiskFrontPlayModeTests
         Assert.IsTrue(initialized, controller.LastStatus);
         Assert.IsFalse(controller.IsFailSafeHidden);
         Assert.IsTrue(controller.IsVisualVisible);
+        Assert.IsNotNull(controller.LastCurveResult);
+        Assert.AreEqual(P8RiskFrontCurveGenerator.FrontDriverSource, controller.LastCurveResult.frontDriverSource);
+        Assert.IsFalse(string.IsNullOrWhiteSpace(controller.LastCurveResult.evidenceSourceId));
+        StringAssert.Contains("hazard-layer-driven v1", controller.LastStatus);
         Assert.IsFalse(P8RiskFrontController.AffectsGameplaySuccessFailure);
         Assert.AreEqual(0, Object.FindObjectsOfType<EvacuationGameManager>().Length);
         Assert.AreEqual(0, Object.FindObjectsOfType<ResultPanelController>().Length);
@@ -44,6 +48,46 @@ public class P8RiskFrontPlayModeTests
     }
 
     [UnityTest]
+    public IEnumerator ControllerRefreshUsesHazardArrivalTimes()
+    {
+        testObject = new GameObject("P8B_HazardDrivenArrival_PlayModeTest");
+        P8RiskFrontController controller = testObject.AddComponent<P8RiskFrontController>();
+
+        yield return null;
+
+        bool initialized = controller.Initialize(
+            P8HazardLayerLoader.LoadSampleHazardLayer().data,
+            P8HazardLayerLoader.LoadRiskFrontConfig().config);
+        Assert.IsTrue(initialized, controller.LastStatus);
+
+        Assert.IsTrue(controller.ForceRefreshVisual(1100f), controller.LastStatus);
+        Assert.AreEqual("p8b_sumida_riverfront_front_v1_manual_sample", controller.LastCurveResult.selectedFeatureId);
+
+        Assert.IsTrue(controller.ForceRefreshVisual(1300f), controller.LastStatus);
+        Assert.AreEqual("p8b_harumi_waterfront_front_v1_manual_sample", controller.LastCurveResult.selectedFeatureId);
+
+        Assert.IsTrue(controller.ForceRefreshVisual(2500f), controller.LastStatus);
+        Assert.AreEqual("p8b_tsukishima_inland_front_v1_manual_sample", controller.LastCurveResult.selectedFeatureId);
+    }
+
+    [UnityTest]
+    public IEnumerator ControllerFailsSafeWithInvalidHazardData()
+    {
+        testObject = new GameObject("P8B_InvalidHazardData_PlayModeTest");
+        P8RiskFrontController controller = testObject.AddComponent<P8RiskFrontController>();
+
+        yield return null;
+
+        bool initialized = controller.Initialize(
+            new P8HazardLayerData { features = new P8HazardFeature[0] },
+            P8HazardLayerLoader.LoadRiskFrontConfig().config);
+
+        Assert.IsFalse(initialized);
+        Assert.IsTrue(controller.IsFailSafeHidden);
+        StringAssert.Contains("Missing hazard data", controller.LastStatus);
+    }
+
+    [UnityTest]
     public IEnumerator LightCurtainRendererCanBeEnabledAndDisabled()
     {
         testObject = new GameObject("P8B_LightCurtainRenderer_PlayModeTest");
@@ -61,6 +105,10 @@ public class P8RiskFrontPlayModeTests
         renderer.UpdateCurtain(points, config);
         Assert.IsTrue(renderer.IsVisible);
         Assert.Greater(renderer.LastVertexCount, 0);
+
+        renderer.UpdateCurtain(points, config, 1f);
+        Assert.AreEqual(1f, renderer.LastVisualIntensity01, 0.001f);
+        Assert.Greater(renderer.LastAppliedAlpha, 0f);
 
         renderer.SetVisible(false);
         Assert.IsFalse(renderer.IsVisible);

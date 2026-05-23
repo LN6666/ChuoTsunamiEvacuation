@@ -10,10 +10,10 @@ public class P8HazardLayerFoundationTests
 
         Assert.IsTrue(result.success, string.Join("\n", result.validation.errorsArray));
         Assert.IsFalse(result.failSafe);
-        Assert.AreEqual("p8a_chuo_manual_sample", result.data.scenarioId);
+        Assert.AreEqual("p8b_chuo_hazard_layer_v1_manual_sample", result.data.scenarioId);
         Assert.AreEqual("manual_sample", result.data.sourceMode);
-        Assert.AreEqual(2, result.data.features.Length);
-        Assert.IsTrue(result.summary.Contains("features=2"));
+        Assert.AreEqual(3, result.data.features.Length);
+        Assert.IsTrue(result.summary.Contains("features=3"));
     }
 
     [Test]

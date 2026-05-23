@@ -5,6 +5,7 @@ public static class P8RiskFrontCurveGenerator
 {
     public const bool AffectsGameplaySuccessFailure = false;
     public const bool GeneratesVisualBoundaryOnly = true;
+    public const string FrontDriverSource = "hazard_layer_arrival_depth_boundary_v1";
 
     public static P8RiskFrontCurveResult Generate(
         P8HazardLayerData hazardLayer,
@@ -28,29 +29,44 @@ public static class P8RiskFrontCurveGenerator
         }
 
         P8HazardFeature feature = SelectFeature(hazardLayer, simulationTimeSeconds);
-        if (feature == null || feature.inundationBoundary == null || feature.inundationBoundary.Length == 0)
+        if (feature == null)
         {
             result.failSafe = true;
-            result.summary = "Selected hazard feature has no data boundary.";
+            result.summary = "No usable hazard feature. Risk-front visual hidden.";
             return result;
         }
 
         Vector3[] dataBoundary = ConvertBoundaryToLocal(feature.inundationBoundary, visualConfig.coordinateScaleMeters);
         if (dataBoundary.Length == 0)
         {
-            result.failSafe = true;
-            result.summary = "Data boundary conversion produced no points.";
-            return result;
+            dataBoundary = GenerateFallbackBoundary(feature, visualConfig, hazardLayer.timeOriginSeconds, simulationTimeSeconds);
+            result.usedFallbackBoundary = true;
         }
 
         result.dataBoundary = dataBoundary;
-        result.visualBoundary = GenerateVisualBoundary(dataBoundary, visualConfig, hazardLayer.timeOriginSeconds, feature.arrivalTimeSeconds, simulationTimeSeconds);
+        result.visualIntensity01 = CalculateVisualIntensity(feature);
+        result.warningLevel = CalculateWarningLevel(result.visualIntensity01);
+        result.visualBoundary = GenerateVisualBoundary(
+            dataBoundary,
+            visualConfig,
+            hazardLayer.timeOriginSeconds,
+            feature.arrivalTimeSeconds,
+            simulationTimeSeconds,
+            result.visualIntensity01);
         result.selectedFeatureId = feature.featureId;
         result.arrivalProgress = CalculateArrivalProgress(hazardLayer.timeOriginSeconds, feature.arrivalTimeSeconds, simulationTimeSeconds);
+        result.arrivalTimeSeconds = feature.arrivalTimeSeconds;
+        result.inundationDepthMeters = feature.inundationDepthMeters;
+        result.hazardIntensity = feature.hazardIntensity;
+        result.confidence = feature.confidence;
+        result.evidenceSourceId = feature.evidenceSourceId ?? string.Empty;
+        result.sourceMode = feature.sourceMode ?? string.Empty;
+        result.geometryType = feature.geometryType ?? string.Empty;
+        result.frontDriverSource = FrontDriverSource;
         result.success = result.visualBoundary.Length >= 2;
         result.failSafe = !result.success;
         result.summary = result.success
-            ? "Generated P8-B cinematic visual boundary from data boundary. " + P8RiskFrontVisualConfig.CinematicDisclaimer
+            ? CreateSummary(result)
             : "P8-B visual boundary generation failed safe.";
         return result;
     }
@@ -78,12 +94,18 @@ public static class P8RiskFrontCurveGenerator
         return points;
     }
 
+    public static P8HazardFeature SelectFeatureForTime(P8HazardLayerData hazardLayer, float simulationTimeSeconds)
+    {
+        return SelectFeature(hazardLayer, simulationTimeSeconds);
+    }
+
     private static Vector3[] GenerateVisualBoundary(
         Vector3[] dataBoundary,
         P8RiskFrontVisualConfig visualConfig,
         float timeOriginSeconds,
         float arrivalTimeSeconds,
-        float simulationTimeSeconds)
+        float simulationTimeSeconds,
+        float visualIntensity01)
     {
         Bounds bounds = CalculateBounds(dataBoundary);
         float width = Mathf.Max(bounds.size.x, 20f);
@@ -95,14 +117,17 @@ public static class P8RiskFrontCurveGenerator
         float baseZ = Mathf.Lerp(minZ, maxZ, progress);
         int count = Mathf.Clamp(visualConfig.segmentCount, 2, 256);
         var points = new Vector3[count];
+        float intensityMultiplier = Mathf.Lerp(0.75f, 1.35f, Mathf.Clamp01(visualIntensity01));
+        float waveAmplitude = visualConfig.waveAmplitudeMeters * intensityMultiplier;
+        float noiseStrength = visualConfig.noiseStrengthMeters * intensityMultiplier;
 
         for (int i = 0; i < count; i++)
         {
             float t = count == 1 ? 0f : i / (float)(count - 1);
             float x = Mathf.Lerp(minX, maxX, t);
             float phase = (t * Mathf.PI * 2f * visualConfig.waveFrequency) + (progress * Mathf.PI * 2f);
-            float wave = Mathf.Sin(phase) * visualConfig.waveAmplitudeMeters;
-            float noise = (Mathf.PerlinNoise(t * 3.17f, progress * 5.11f) - 0.5f) * 2f * visualConfig.noiseStrengthMeters;
+            float wave = Mathf.Sin(phase) * waveAmplitude;
+            float noise = (Mathf.PerlinNoise(t * 3.17f, progress * 5.11f) - 0.5f) * 2f * noiseStrength;
             points[i] = new Vector3(x, 0f, baseZ + wave + noise);
         }
 
@@ -111,8 +136,15 @@ public static class P8RiskFrontCurveGenerator
 
     private static P8HazardFeature SelectFeature(P8HazardLayerData hazardLayer, float simulationTimeSeconds)
     {
-        P8HazardFeature selected = null;
-        float selectedArrival = float.MaxValue;
+        if (hazardLayer == null || hazardLayer.features == null || hazardLayer.features.Length == 0)
+        {
+            return null;
+        }
+
+        P8HazardFeature next = null;
+        P8HazardFeature latest = null;
+        float nextArrival = float.MaxValue;
+        float latestArrival = float.MinValue;
 
         for (int i = 0; i < hazardLayer.features.Length; i++)
         {
@@ -122,14 +154,64 @@ public static class P8RiskFrontCurveGenerator
                 continue;
             }
 
-            if (simulationTimeSeconds <= feature.arrivalTimeSeconds && feature.arrivalTimeSeconds < selectedArrival)
+            if (simulationTimeSeconds <= feature.arrivalTimeSeconds && feature.arrivalTimeSeconds < nextArrival)
             {
-                selected = feature;
-                selectedArrival = feature.arrivalTimeSeconds;
+                next = feature;
+                nextArrival = feature.arrivalTimeSeconds;
+            }
+
+            if (feature.arrivalTimeSeconds <= simulationTimeSeconds && feature.arrivalTimeSeconds >= latestArrival)
+            {
+                latest = feature;
+                latestArrival = feature.arrivalTimeSeconds;
             }
         }
 
-        return selected ?? hazardLayer.features[0];
+        return next ?? latest;
+    }
+
+    private static Vector3[] GenerateFallbackBoundary(
+        P8HazardFeature feature,
+        P8RiskFrontVisualConfig visualConfig,
+        float timeOriginSeconds,
+        float simulationTimeSeconds)
+    {
+        float progress = CalculateArrivalProgress(timeOriginSeconds, feature.arrivalTimeSeconds, simulationTimeSeconds);
+        float halfWidth = Mathf.Max(10f, visualConfig.frontTravelMeters * 0.25f);
+        float z = Mathf.Lerp(0f, visualConfig.frontTravelMeters, progress);
+
+        return new[]
+        {
+            new Vector3(-halfWidth, 0f, z),
+            new Vector3(halfWidth, 0f, z)
+        };
+    }
+
+    private static float CalculateVisualIntensity(P8HazardFeature feature)
+    {
+        if (feature == null)
+        {
+            return 0f;
+        }
+
+        float depthSignal = Mathf.Clamp01(feature.inundationDepthMeters / 2.5f);
+        float intensitySignal = Mathf.Clamp01(feature.hazardIntensity);
+        return Mathf.Clamp01(Mathf.Max(depthSignal, intensitySignal));
+    }
+
+    private static string CalculateWarningLevel(float visualIntensity01)
+    {
+        if (visualIntensity01 >= 0.66f)
+        {
+            return "high";
+        }
+
+        if (visualIntensity01 >= 0.33f)
+        {
+            return "medium";
+        }
+
+        return "low";
     }
 
     private static float CalculateArrivalProgress(float timeOriginSeconds, float arrivalTimeSeconds, float simulationTimeSeconds)
@@ -148,13 +230,40 @@ public static class P8RiskFrontCurveGenerator
 
         return bounds;
     }
+
+    private static string CreateSummary(P8RiskFrontCurveResult result)
+    {
+        string boundaryMode = result.usedFallbackBoundary ? "fallback_procedural_boundary" : "hazard_boundary";
+        return "Generated P8-B hazard-layer-driven v1 visual boundary. driver=" + result.frontDriverSource +
+               " boundary=" + boundaryMode +
+               " selectedFeature=" + result.selectedFeatureId +
+               " arrivalTimeSeconds=" + result.arrivalTimeSeconds.ToString("0.##") +
+               " inundationDepthMeters=" + result.inundationDepthMeters.ToString("0.##") +
+               " hazardIntensity=" + result.hazardIntensity.ToString("0.##") +
+               " confidence=" + result.confidence.ToString("0.##") +
+               " warningLevel=" + result.warningLevel +
+               " sourceMode=" + result.sourceMode +
+               " evidenceSourceId=" + result.evidenceSourceId +
+               ". " + P8RiskFrontVisualConfig.CinematicDisclaimer;
+    }
 }
 public class P8RiskFrontCurveResult
 {
     public bool success;
     public bool failSafe;
     public string selectedFeatureId = string.Empty;
+    public string frontDriverSource = string.Empty;
+    public string warningLevel = string.Empty;
+    public string evidenceSourceId = string.Empty;
+    public string sourceMode = string.Empty;
+    public string geometryType = string.Empty;
     public float arrivalProgress;
+    public float arrivalTimeSeconds;
+    public float inundationDepthMeters;
+    public float hazardIntensity;
+    public float confidence;
+    public float visualIntensity01;
+    public bool usedFallbackBoundary;
     public Vector3[] dataBoundary = new Vector3[0];
     public Vector3[] visualBoundary = new Vector3[0];
     public string summary = string.Empty;

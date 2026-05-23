@@ -24,6 +24,7 @@ public class P8RiskFrontController : MonoBehaviour
     public bool IsFailSafeHidden { get; private set; } = true;
     public bool IsVisualVisible => lightCurtainRenderer != null && lightCurtainRenderer.IsVisible;
     public string LastStatus { get; private set; } = "Not initialized.";
+    public P8RiskFrontCurveResult LastCurveResult { get; private set; }
     public P8RiskFrontVisualConfig VisualConfig => visualConfig;
 
     private void Awake()
@@ -109,6 +110,7 @@ public class P8RiskFrontController : MonoBehaviour
         }
 
         P8RiskFrontCurveResult curve = P8RiskFrontCurveGenerator.Generate(hazardLayer, visualConfig, simulationTimeSeconds);
+        LastCurveResult = curve;
         if (!curve.success)
         {
             HideFailSafe(curve.summary);
@@ -116,7 +118,7 @@ public class P8RiskFrontController : MonoBehaviour
         }
 
         EnsureRuntimeObjects();
-        lightCurtainRenderer.UpdateCurtain(curve.visualBoundary, visualConfig);
+        lightCurtainRenderer.UpdateCurtain(curve.visualBoundary, visualConfig, curve.visualIntensity01);
         IsFailSafeHidden = false;
         LastStatus = curve.summary + " selectedFeature=" + curve.selectedFeatureId;
         if (debugStatus != null)

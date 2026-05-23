@@ -1,9 +1,9 @@
 {
-  "scenarioId": "p8a_chuo_manual_sample",
+  "scenarioId": "p8b_chuo_hazard_layer_v1_manual_sample",
   "sourceMode": "manual_sample",
-  "evidenceSourceId": "p8a_manual_placeholder",
-  "configVersion": "p8a.0.1",
-  "hazardLayerVersion": "p8a.0.1",
+  "evidenceSourceId": "p8b_manual_hazard_layer_v1_placeholder",
+  "configVersion": "p8b.1.0",
+  "hazardLayerVersion": "p8b.1.0",
   "geometryType": "synthetic",
   "timeOriginSeconds": 0,
   "riskFrontEnabledInP8A": false,
@@ -56,5 +56,5 @@
     "usesSharedMeshOrInstancePool": true
   },
   "manualSampleIsOfficial": false,
-  "notes": "P8-B renders a cinematic risk-front light curtain from manual sample data. Manual sample placeholder only; not official. Kilometer-scale visual height is cinematic-only and not physical tsunami height."
+  "notes": "P8-B renders a cinematic risk-front light curtain from hazard-layer v1 manual sample data. Arrival time, prototype boundary, depth, intensity, confidence, sourceMode, and evidenceSourceId drive the front. Manual sample placeholder only; not official. Kilometer-scale visual height is cinematic-only and not physical tsunami height."
 }

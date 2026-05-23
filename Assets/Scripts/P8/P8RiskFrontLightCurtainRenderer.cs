@@ -16,6 +16,8 @@ public class P8RiskFrontLightCurtainRenderer : MonoBehaviour
     private Material generatedMaterial;
 
     public int LastVertexCount { get; private set; }
+    public float LastVisualIntensity01 { get; private set; }
+    public float LastAppliedAlpha { get; private set; }
     public bool IsVisible => meshRenderer != null && meshRenderer.enabled;
 
     private void Awake()
@@ -25,6 +27,11 @@ public class P8RiskFrontLightCurtainRenderer : MonoBehaviour
     }
 
     public void UpdateCurtain(Vector3[] visualBoundary, P8RiskFrontVisualConfig config)
+    {
+        UpdateCurtain(visualBoundary, config, 0f);
+    }
+
+    public void UpdateCurtain(Vector3[] visualBoundary, P8RiskFrontVisualConfig config, float visualIntensity01)
     {
         EnsureComponents();
 
@@ -41,8 +48,12 @@ public class P8RiskFrontLightCurtainRenderer : MonoBehaviour
         var vertices = new Vector3[pointCount * 2];
         var colors = new Color[vertices.Length];
         var triangles = new int[(pointCount - 1) * 6];
-        Color color = curtainColor;
-        color.a = Mathf.Clamp01(config.materialAlpha);
+        float intensity = Mathf.Clamp01(visualIntensity01);
+        Color highIntensityColor = new Color(1f, 0.26f, 0.05f, curtainColor.a);
+        Color color = Color.Lerp(curtainColor, highIntensityColor, intensity);
+        color.a = Mathf.Clamp01(config.materialAlpha * Mathf.Lerp(0.55f, 1.35f, intensity));
+        LastVisualIntensity01 = intensity;
+        LastAppliedAlpha = color.a;
 
         for (int i = 0; i < pointCount; i++)
         {
@@ -91,6 +102,8 @@ public class P8RiskFrontLightCurtainRenderer : MonoBehaviour
         }
 
         LastVertexCount = 0;
+        LastVisualIntensity01 = 0f;
+        LastAppliedAlpha = 0f;
     }
 
     private void EnsureComponents()
