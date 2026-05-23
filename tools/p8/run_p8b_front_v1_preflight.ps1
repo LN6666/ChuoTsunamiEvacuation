@@ -171,23 +171,23 @@ function Assert-RequiredArtifacts {
 
 function Assert-Docs {
     Assert-FileContains "docs/P8B_HAZARD_LAYER_V1_STATUS.md" @(
-        "evidence_planned",
+        "official_tsunami_metropolitan",
         "Tokyo Metropolitan Government",
-        "manual_extraction_required",
+        "extracted",
         "arrivalTimeSeconds",
         "inundationBoundary",
         "inundationDepthMeters",
         "hazardIntensity",
         "maxTsunamiHeightMeters",
         "evidenceSourceId",
-        "CONDITIONAL PASS",
+        "PASS",
         "P8-C"
     )
 
     Assert-FileContains "docs/P8B_EVIDENCE_BACKED_FRONT_MODEL.md" @(
         "hazard-layer v1",
         "Tokyo Metropolitan Government",
-        "complete official Chuo spatial inundation layer",
+        "official_spatial",
         "visualHeightMeters",
         "P8-C"
     )
@@ -214,12 +214,12 @@ function Assert-HazardLayerV1Data {
         throw "P8-B hazard layer v1 must remain manual_sample, evidence_planned, or official_tsunami_metropolitan."
     }
 
-    if ([bool]$hazard.completeOfficialSpatialLayerExtracted -eq $true -and [string]$hazard.spatialExtractionStatus -ne "extracted_reviewed") {
-        throw "P8-B hazard layer must not claim complete official spatial extraction without reviewed extraction status."
+    if ([bool]$hazard.completeOfficialSpatialLayerExtracted -eq $true -and [string]$hazard.spatialExtractionStatus -ne "extracted") {
+        throw "P8-B hazard layer must not claim complete official spatial extraction unless spatialExtractionStatus=extracted."
     }
 
-    if ($hazard.features.Count -lt 3) {
-        throw "P8-B hazard layer v1 must include multiple front/boundary records; expected at least 3."
+    if ($hazard.features.Count -lt 2) {
+        throw "P8-B hazard layer v1 must include multiple front/boundary records; expected at least 2."
     }
 
     $registeredEvidenceSourceIds = New-Object 'System.Collections.Generic.HashSet[string]' ([System.StringComparer]::OrdinalIgnoreCase)
@@ -253,8 +253,16 @@ function Assert-HazardLayerV1Data {
         if (-not $registeredEvidenceSourceIds.Contains([string]$feature.evidenceSourceId)) {
             throw "Hazard feature $($feature.featureId) references unregistered evidenceSourceId: $($feature.evidenceSourceId)"
         }
-        if ([double]$feature.maxTsunamiHeightMeters -gt 0 -and [string]$feature.inundationDepthStatus -notmatch "not_spatial_depth|height_reference_only|pending") {
-            throw "Hazard feature $($feature.featureId) must keep maximum tsunami height separate from spatial inundation depth."
+        if ([double]$feature.maxTsunamiHeightMeters -le 0) {
+            throw "Hazard feature $($feature.featureId) must include maxTsunamiHeightMeters from the official source."
+        }
+        if ([string]$feature.inundationDepthStatus -notmatch "extracted_spatial") {
+            throw "Hazard feature $($feature.featureId) must use an extracted spatial inundation-depth field."
+        }
+        if ($feature.PSObject.Properties.Name -contains "spatialSampleCount" -and $feature.PSObject.Properties.Name -contains "spatialSamples") {
+            if ([int]$feature.spatialSampleCount -le 0 -or [int]$feature.spatialSampleCount -ne $feature.spatialSamples.Count) {
+                throw "Hazard feature $($feature.featureId) spatialSampleCount must match non-empty spatialSamples."
+            }
         }
         if ([double]$feature.visualHeightMeters -gt 10.0 -and [bool]$feature.visualHeightIsCinematicOnly -ne $true) {
             throw "Hazard feature $($feature.featureId) has large visualHeightMeters without visualHeightIsCinematicOnly=true."
@@ -278,7 +286,7 @@ function Assert-RiskFrontConfig {
     if ($config.visualLayerFields -contains "tsunamiHeightMeters" -or $config.visualLayerFields -contains "waterLevelMeters") {
         throw "visualLayerFields must not contain physical tsunami/water fields."
     }
-    foreach ($fragment in @("arrival", "depth", "intensity", "evidenceSourceId", "not official", "cinematic-only")) {
+    foreach ($fragment in @("arrival", "depth", "intensity", "evidenceSourceId", "official_spatial", "cinematic-only")) {
         if ([string]$config.notes -notmatch [regex]::Escape($fragment)) {
             throw "risk-front config notes must document $fragment."
         }

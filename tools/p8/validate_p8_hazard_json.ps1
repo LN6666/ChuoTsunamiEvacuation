@@ -6,8 +6,8 @@ $ErrorActionPreference = "Stop"
 $scriptRoot = Split-Path -Parent $MyInvocation.MyCommand.Path
 $repoRoot = (Resolve-Path (Join-Path $scriptRoot "..\..")).ProviderPath
 $dataRoot = Join-Path $repoRoot "Assets\Data\P8"
-$allowedSourceModes = @("test", "evidence_planned", "manual_sample")
-$evidenceRequiredSourceModes = @("evidence_planned", "manual_sample")
+$allowedSourceModes = @("test", "evidence_planned", "manual_sample", "official_tsunami_metropolitan")
+$evidenceRequiredSourceModes = @("evidence_planned", "manual_sample", "official_tsunami_metropolitan")
 $allowedGeometryTypes = @("grid", "polygon", "polyline", "point", "synthetic")
 $allowedBoundaryKinds = @("evidence_based", "prototype")
 $allowedSourceCategories = @(
@@ -15,6 +15,13 @@ $allowedSourceCategories = @(
     "tokyo_chuo_hazard_map",
     "cabinet_office_mlit_local_government",
     "academic_tsunami_simulation_paper",
+    "official_tsunami_metropolitan",
+    "official_tsunami_report_reference",
+    "official_flood_proxy",
+    "academic_model_candidate",
+    "manual_extraction_required",
+    "evidence_planned",
+    "official_admin_boundary",
     "plateau_citygml_category",
     "osm_route_context",
     "manual_sample"
@@ -81,8 +88,8 @@ function Assert-AllowedSourceMode {
     )
 
     Assert-NonEmptyString $SourceMode "$Label sourceMode"
-    if ($SourceMode -like "*official*") {
-        throw "$Label uses an official-looking sourceMode that is not allowed in P8-A: $SourceMode"
+    if ($SourceMode -like "*official*" -and $SourceMode -ne "official_tsunami_metropolitan") {
+        throw "$Label uses an unsupported official-looking sourceMode: $SourceMode"
     }
     if ($allowedSourceModes -notcontains $SourceMode) {
         throw "$Label sourceMode must be one of: $($allowedSourceModes -join ', ')"

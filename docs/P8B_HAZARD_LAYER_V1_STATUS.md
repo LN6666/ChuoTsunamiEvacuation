@@ -4,64 +4,55 @@ Date: 2026-05-24.
 
 ## Current Data Status
 
-`Assets/Data/P8/tsunami_hazard_layer_v1_chuo.json` is the P8-B evidence-aware hazard-layer v1 input. The older `tsunami_hazard_sample_chuo.json` remains only as a legacy P8-A compatibility sample.
+`Assets/Data/P8/tsunami_hazard_layer_v1_chuo.json` is now the P8-B official metropolitan spatial hazard-layer v1 input. The older `tsunami_hazard_sample_chuo.json` remains only as a legacy P8-A compatibility sample.
 
 Current P8-B status:
 
-- `sourceMode`: `evidence_planned`
-- `hazardLayerVersion`: `p8b.1.1`
+- `sourceMode`: `official_tsunami_metropolitan`
+- `sourceCategory`: `official_tsunami_metropolitan`
+- `hazardLayerVersion`: `p8b.1.2`
 - `evidenceRegistryFile`: `tsunami_hazard_evidence_registry.json`
-- `p8cGateDecision`: `CONDITIONAL PASS`
+- `p8cGateDecision`: `PASS`
 - `officialMetropolitanEvidenceIdentified`: `true`
-- `completeOfficialSpatialLayerExtracted`: `false`
-- Spatial extraction status: `manual_extraction_required`
+- `completeOfficialSpatialLayerExtracted`: `true`
+- Spatial extraction status: `extracted`
 
-This is no longer treated as a generic manual sample. It is an evidence-aware layer that prioritizes Tokyo Metropolitan Government tsunami damage estimation sources for Chuo. It still must not be described as a complete official Chuo inundation-depth raster, polygon layer, or final tsunami simulation.
+Tokyo Metropolitan Government Open Data tsunami 10m mesh CSVs were accessible through direct HTTPS download with no API token, login, or manual browser-only download. The mesh points were clipped to the official MLIT N03 Chuo City administrative polygon.
 
 ## Evidence Position
 
 Chuo City does not appear to provide a standalone tsunami hazard map equivalent to its flood hazard maps. That is not evidence absence.
 
-The primary evidence candidate is Tokyo Metropolitan Government damage estimation material:
+The primary P8-B source is Tokyo Metropolitan Government tsunami damage estimation data:
 
-- The Tokyo damage estimation digital map is the primary candidate for tsunami layers such as maximum tsunami height and maximum inundation depth.
-- The Tokyo 2022 damage estimation report page lists tsunami height and tsunami inundation distribution sections.
-- Chuo City references Tokyo's damage estimation report as the source for tsunami numerical simulation results.
-- Supplementary public PDF references report Chuo maximum tsunami height around 2.4m to 2.46m, depending on source/scenario.
+- Maximum inundation depth CSVs provide spatial `inundationDepthMeters` values.
+- Maximum tsunami height CSVs provide spatial `maxTsunamiHeightMeters` / `tsunamiHeightMeters` values.
+- Arrival-time CSVs provide arrival time values; P8-B uses earliest valid 30cm arrival as `arrivalTimeSeconds`.
+- Chuo City references Tokyo's 2022 damage estimation report for tsunami numerical simulation results.
+- Supplementary public PDF values around 2.4m to 2.46m remain references, not the source used as the depth grid.
 
-Maximum tsunami height references around 2.4m to 2.46m are evidence references, but they are not a full spatial inundation-depth grid by themselves.
+The current extracted layer includes two Tokyo scenarios:
+
+- Taisho Kanto earthquake: 1123 clipped Chuo mesh samples, maximum spatial inundation depth 2.0436m, maximum tsunami height 2.1287m.
+- Nankai Trough megathrust earthquake case 1: 1256 clipped Chuo mesh samples, maximum spatial inundation depth 2.2629m, maximum tsunami height 2.4223m.
+
+`maxTsunamiHeightMeters` is not the same as a full `inundationDepthMeters` grid. The layer stores both fields separately.
 
 ## What Drives The Risk Front
 
-The P8-B risk front uses hazard-layer feature fields where available:
+The P8-B risk front uses hazard-layer feature fields:
 
 - `arrivalTimeSeconds` selects and advances the active front record.
-- `inundationBoundary` supplies a data boundary or prototype boundary.
-- `inundationDepthMeters` contributes to visual warning intensity only when a spatial depth value is actually available; current v1 Chuo values are marked pending/placeholder.
-- `hazardIntensity` contributes to visual warning intensity as a prototype normalized signal.
-- `maxTsunamiHeightMeters` stores reported municipal maximum-height references and must not be confused with a depth grid.
-- `confidence` is surfaced in debug/status output.
-- `evidenceSourceId` and `sourceMode` identify data provenance.
-- `geometryType` controls whether the boundary is point, polyline, polygon, grid, or synthetic input.
-- `boundaryIsEvidenceBasedOrPrototype` prevents prototype geometry from being mistaken for reviewed evidence.
+- `inundationBoundary` supplies a data boundary derived from the clipped grid extent.
+- `inundationDepthMeters` and `maxInundationDepthMeters` drive warning intensity.
+- `hazardIntensity` contributes to warning intensity as a normalized signal.
+- `maxTsunamiHeightMeters` is reported for provenance/status and must not be used as a substitute for inundation depth.
+- `confidence`, `evidenceSourceId`, `sourceMode`, `sourceCategory`, and `extractionStatus` are surfaced in status output.
+- `geometryType=grid` records that the driver comes from extracted mesh samples.
+- `boundaryIsEvidenceBasedOrPrototype=evidence_based` is allowed because the feature records are extracted, but the stored boundary is a derived grid extent bbox, not an official inundation contour.
 
 `visualHeightMeters` remains cinematic-only and is not a physical tsunami height, water level, or inundation depth.
 
-## Pending Evidence Review
+## Remaining Limits
 
-Before any complete official spatial-layer claim, P8 needs reviewed extraction records for:
-
-- source authority, license, and dataset/API availability,
-- scenario selection and source date/version,
-- coordinate reference system,
-- Chuo municipality filter and waterfront extent,
-- arrival time derivation,
-- depth/water-level/tsunami-height definitions,
-- polygon/polyline/grid extraction method,
-- uncertainty and confidence notes.
-
-Until extraction is complete, P8-B may proceed as official metropolitan evidence-planned / manual-extraction-required. The runtime must show that official metropolitan source is known, spatial extraction is pending, and the current boundary/depth is prototype/manual.
-
-## P8-C Use
-
-P8-C may consume this hazard-layer shape under `CONDITIONAL PASS`: Tokyo metropolitan tsunami evidence is identified, but spatial extraction is manual/pending. P8-C can use prototype geometry with explicit labels and must not assume a complete official hazard surface.
+This is not a full real-time fluid simulation, not an academic hydrodynamic model, and not a gameplay success/failure rule change. The derived boundary is not an official inundation contour; it is the bounding extent of clipped official grid points. P8-C can use the extracted layer for infrastructure interaction design, but it must preserve provenance labels and avoid treating visual curtain height as science.

@@ -60,16 +60,19 @@ public class P8RiskFrontPlayModeTests
             P8HazardLayerLoader.LoadRiskFrontConfig().config);
         Assert.IsTrue(initialized, controller.LastStatus);
 
-        Assert.IsTrue(controller.ForceRefreshVisual(2600f), controller.LastStatus);
-        Assert.AreEqual("p8b_chuo_taisho_kanto_tokyo_front_evidence_planned", controller.LastCurveResult.selectedFeatureId);
+        Assert.IsTrue(controller.ForceRefreshVisual(40000f), controller.LastStatus);
+        Assert.AreEqual("p8b_chuo_taisho_kanto_tokyo_open_data_spatial", controller.LastCurveResult.selectedFeatureId);
         StringAssert.Contains("spatialExtractionStatus", controller.LastCurveResult.summary);
+        Assert.AreEqual("extracted", controller.LastCurveResult.extractionStatus);
+        Assert.AreEqual("official_tsunami_metropolitan", controller.LastCurveResult.sourceCategory);
 
-        Assert.IsTrue(controller.ForceRefreshVisual(6300f), controller.LastStatus);
-        Assert.AreEqual("p8b_chuo_nankai_tokyo_front_evidence_planned", controller.LastCurveResult.selectedFeatureId);
+        Assert.IsTrue(controller.ForceRefreshVisual(43383.6f), controller.LastStatus);
+        Assert.AreEqual("p8b_chuo_taisho_kanto_tokyo_open_data_spatial", controller.LastCurveResult.selectedFeatureId);
+        Assert.GreaterOrEqual(controller.LastCurveResult.maxTsunamiHeightMeters, 2.1f);
+
+        Assert.IsTrue(controller.ForceRefreshVisual(60000f), controller.LastStatus);
+        Assert.AreEqual("p8b_chuo_nankai_case1_tokyo_open_data_spatial", controller.LastCurveResult.selectedFeatureId);
         Assert.GreaterOrEqual(controller.LastCurveResult.maxTsunamiHeightMeters, 2.4f);
-
-        Assert.IsTrue(controller.ForceRefreshVisual(9500f), controller.LastStatus);
-        Assert.AreEqual("p8b_chuo_nankai_supplementary_height_reference", controller.LastCurveResult.selectedFeatureId);
     }
 
     [UnityTest]

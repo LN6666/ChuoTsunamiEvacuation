@@ -7,31 +7,32 @@ Date: 2026-05-24.
 P8-C may proceed only if the P8-B evidence gate is one of:
 
 - `PASS`: actual spatial hazard layer extracted.
-- `CONDITIONAL PASS`: Tokyo metropolitan tsunami evidence identified, but spatial extraction is manual/pending; P8-C can use prototype geometry with explicit labels.
-- `BLOCKED`: no acceptable evidence source identified.
+- `CONDITIONAL PASS`: Tokyo metropolitan tsunami evidence identified, but spatial extraction is manual/pending; P8-C can use prototype geometry only with explicit user acceptance.
+- `BLOCKED`: no acceptable evidence source identified, or extraction could not be completed and no user override allows proxy/manual geometry.
 
 ## Current Decision
 
-Current decision: `CONDITIONAL PASS`.
+Current decision: `PASS`.
 
 Reason:
 
-- Tokyo Metropolitan Government tsunami damage estimation map/report sources are identified as primary Chuo evidence candidates.
-- Chuo City references Tokyo's damage estimation report for tsunami numerical simulation results.
-- Public source review includes Chuo maximum tsunami-height references around 2.4m to 2.46m.
-- Exact geospatial extraction for Chuo may require manual GIS/web-map extraction if no direct downloadable dataset/API is available.
-- A complete Chuo official spatial inundation-depth raster or polygon layer has not yet been extracted into project data.
+- Tokyo Metropolitan Government tsunami Open Data CSV layers were available by direct HTTPS download with no token, login, registration, or browser-only manual download.
+- The official Tokyo maximum inundation depth, maximum tsunami height, and arrival-time 10m mesh CSVs were inspected and used.
+- Official MLIT N03 administrative boundary data was available by direct HTTPS ZIP download and used to clip mesh points to Chuo City.
+- `Assets/Data/P8/tsunami_hazard_layer_v1_chuo.json` now contains extracted Chuo spatial mesh samples for Taisho Kanto earthquake and Nankai Trough case 1.
+- `maxTsunamiHeightMeters` remains separate from `inundationDepthMeters`; maximum tsunami height is not used as the inundation-depth grid.
 
-Do not mark `BLOCKED` solely because Chuo lacks a standalone tsunami hazard map equivalent to flood hazard maps.
+Do not mark `BLOCKED` solely because Chuo lacks a standalone tsunami hazard map equivalent to flood hazard maps. Tokyo metropolitan evidence is the primary source candidate for Chuo.
 
 Plain gate rule: Do not mark BLOCKED solely because Chuo lacks a standalone tsunami hazard map.
 
 ## P8-C Conditions
 
-P8-C may start infrastructure hazard interaction only under these conditions:
+P8-C may proceed to infrastructure hazard interaction using this extracted hazard layer, with these constraints:
 
-- Treat current boundary/depth as prototype/manual unless extraction is reviewed.
-- Display or log that official metropolitan source is known and spatial extraction is pending.
-- Do not claim complete official spatial inundation data.
-- Do not use maximum tsunami height as an inundation-depth grid.
-- Keep gameplay success/failure rules unchanged unless a later approved stage changes them.
+- P8-C may rely on the extracted spatial sample records and scenario provenance.
+- P8-C must keep the derived grid-extent boundary labeled as derived, not as an official inundation contour.
+- P8-C must not claim full real-time fluid simulation or academic hydrodynamic modeling; this remains no full fluid simulation.
+- P8-C must not use `maxTsunamiHeightMeters` as an inundation-depth grid.
+- P8-C must keep gameplay success/failure rules unchanged unless a later approved stage changes them.
+- P8-C must not implement P8-D collapse proxy behavior, P9 crowd/spawn/indoor systems, or P10 packaging.

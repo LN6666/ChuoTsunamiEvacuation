@@ -1,6 +1,6 @@
 # P8-B Next To P8-C Handoff
 
-Date: 2026-05-23.
+Date: 2026-05-24.
 
 ## P8-B Output
 
@@ -8,12 +8,12 @@ P8-B provides a data-driven cinematic risk-front visualization layer:
 
 - hazard/config loading through P8-A data files
 - hazard-layer v1 front selection by `arrivalTimeSeconds`
-- boundary/prototype geometry from `inundationBoundary`
-- visual warning intensity from `inundationDepthMeters` and `hazardIntensity`
-- maximum tsunami-height references in `maxTsunamiHeightMeters`, kept separate from spatial inundation depth
-- provenance reporting through `confidence`, `sourceMode`, and `evidenceSourceId`
-- Tokyo Metropolitan Government tsunami damage estimation prioritized as the primary Chuo evidence candidate
-- P8-C gate decision: `CONDITIONAL PASS`
+- extracted grid-extent boundary from `inundationBoundary`
+- visual warning intensity from extracted `inundationDepthMeters` and `hazardIntensity`
+- maximum tsunami-height source values in `maxTsunamiHeightMeters`, kept separate from spatial inundation depth
+- provenance reporting through `confidence`, `sourceMode`, `sourceCategory`, `extractionStatus`, and `evidenceSourceId`
+- Tokyo Metropolitan Government tsunami Open Data prioritized and extracted for Chuo
+- P8-C gate decision: `PASS`
 - time-driven risk-front progression
 - non-linear visual curve generation
 - lightweight mesh light curtain rendering
@@ -30,4 +30,4 @@ P8-B provides a data-driven cinematic risk-front visualization layer:
 
 P8-C may connect hazard data to road/building/bridge/underground hazard interaction where P7 scene evidence exists.
 
-P8-B does not implement P8-C. P8-B remains not physical tsunami height, no real-time fluid simulation, and no complete official spatial inundation-layer claim. Current v1 data is official metropolitan evidence-planned with prototype/manual boundary and depth until reviewed spatial extraction is supplied.
+P8-B does not implement P8-C. P8-B remains not physical tsunami height and no real-time fluid simulation. Current v1 data is official metropolitan spatial mesh data clipped to Chuo; the derived bbox boundary is not a Tokyo-issued official inundation contour.

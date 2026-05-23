@@ -38,6 +38,7 @@ public static class P8HazardDataValidator
         ValidateScenarioFields(data.scenarioId, data.sourceMode, data.hazardLayerVersion, result);
         ValidateLayerFieldSeparation(data.scienceLayerFields, data.visualLayerFields, "hazard layer", result);
         HashSet<string> evidenceSourceIds = ValidateEvidenceSources(data.evidenceSources, data.sourceMode, result);
+        ValidateLayerSpatialGateMetadata(data, result);
 
         if (data.timeOriginSeconds < 0f)
         {
@@ -58,6 +59,49 @@ public static class P8HazardDataValidator
         }
 
         result.checkedFeatureCount = data.features == null ? 0 : data.features.Length;
+        result.Finish();
+        return result;
+    }
+
+    public static P8HazardValidationResult ValidateP8CSpatialGate(P8HazardLayerData data, bool userAcceptedProxyManualLayer)
+    {
+        P8HazardValidationResult result = ValidateHazardLayer(data);
+        if (data == null)
+        {
+            return result;
+        }
+
+        string gateDecision = data.p8cGateDecision ?? string.Empty;
+        bool extracted = string.Equals(data.extractionStatus, "extracted", StringComparison.OrdinalIgnoreCase) ||
+                         string.Equals(data.spatialExtractionStatus, "extracted", StringComparison.OrdinalIgnoreCase);
+
+        if (string.Equals(gateDecision, "PASS", StringComparison.OrdinalIgnoreCase))
+        {
+            if (!extracted || !data.completeOfficialSpatialLayerExtracted)
+            {
+                result.AddError("P8-C gate PASS requires extractionStatus/spatialExtractionStatus=extracted and completeOfficialSpatialLayerExtracted=true.");
+                result.MarkFailSafe();
+            }
+        }
+        else if (string.Equals(gateDecision, "CONDITIONAL PASS", StringComparison.OrdinalIgnoreCase))
+        {
+            if (!userAcceptedProxyManualLayer)
+            {
+                result.AddError("P8-C gate CONDITIONAL PASS requires explicit user override for proxy/manual geometry.");
+                result.MarkFailSafe();
+            }
+        }
+        else if (string.Equals(gateDecision, "BLOCKED", StringComparison.OrdinalIgnoreCase))
+        {
+            result.AddError("P8-C gate is BLOCKED pending Chuo tsunami spatial extraction.");
+            result.MarkFailSafe();
+        }
+        else
+        {
+            result.AddError("P8-C gate decision must be PASS, CONDITIONAL PASS, or BLOCKED.");
+            result.MarkFailSafe();
+        }
+
         result.Finish();
         return result;
     }
@@ -279,6 +323,34 @@ public static class P8HazardDataValidator
         return ids;
     }
 
+    private static void ValidateLayerSpatialGateMetadata(P8HazardLayerData data, P8HazardValidationResult result)
+    {
+        if (!string.IsNullOrWhiteSpace(data.p8cGateDecision) && !IsAllowedP8CGateDecision(data.p8cGateDecision))
+        {
+            result.AddError("p8cGateDecision must be PASS, CONDITIONAL PASS, or BLOCKED.");
+            result.MarkFailSafe();
+        }
+
+        if (!string.IsNullOrWhiteSpace(data.extractionStatus) && !IsAllowedExtractionStatus(data.extractionStatus))
+        {
+            result.AddError("extractionStatus is not recognized: " + data.extractionStatus);
+            result.MarkFailSafe();
+        }
+
+        if (!string.IsNullOrWhiteSpace(data.spatialExtractionStatus) && !IsAllowedExtractionStatus(data.spatialExtractionStatus))
+        {
+            result.AddError("spatialExtractionStatus is not recognized: " + data.spatialExtractionStatus);
+            result.MarkFailSafe();
+        }
+
+        if (string.Equals(data.p8cGateDecision, "PASS", StringComparison.OrdinalIgnoreCase) &&
+            !data.completeOfficialSpatialLayerExtracted)
+        {
+            result.AddError("p8cGateDecision=PASS requires completeOfficialSpatialLayerExtracted=true.");
+            result.MarkFailSafe();
+        }
+    }
+
     private static void ValidateFeature(
         P8HazardFeature feature,
         int index,
@@ -314,6 +386,23 @@ public static class P8HazardDataValidator
         if (!IsAllowedGeometryType(feature.geometryType))
         {
             result.AddError(prefix + ".geometryType must be grid, polygon, polyline, point, or synthetic.");
+        }
+
+        if (!string.IsNullOrWhiteSpace(feature.sourceCategory) && !IsAllowedSourceCategory(feature.sourceCategory))
+        {
+            result.AddError(prefix + ".sourceCategory is not a recognized P8 evidence category.");
+        }
+
+        if (!string.IsNullOrWhiteSpace(feature.extractionStatus) && !IsAllowedExtractionStatus(feature.extractionStatus))
+        {
+            result.AddError(prefix + ".extractionStatus is not recognized: " + feature.extractionStatus);
+            result.MarkFailSafe();
+        }
+
+        if (!string.IsNullOrWhiteSpace(feature.spatialExtractionStatus) && !IsAllowedExtractionStatus(feature.spatialExtractionStatus))
+        {
+            result.AddError(prefix + ".spatialExtractionStatus is not recognized: " + feature.spatialExtractionStatus);
+            result.MarkFailSafe();
         }
 
         if (feature.arrivalTimeSeconds < 0f)
@@ -365,6 +454,20 @@ public static class P8HazardDataValidator
         if (!IsAllowedBoundaryKind(feature.boundaryIsEvidenceBasedOrPrototype))
         {
             result.AddError(prefix + ".boundaryIsEvidenceBasedOrPrototype must be evidence_based or prototype.");
+        }
+        else if (string.Equals(feature.boundaryIsEvidenceBasedOrPrototype, "evidence_based", StringComparison.OrdinalIgnoreCase) &&
+                 !string.Equals(feature.spatialExtractionStatus, "extracted", StringComparison.OrdinalIgnoreCase))
+        {
+            result.AddError(prefix + ".boundaryIsEvidenceBasedOrPrototype=evidence_based requires spatialExtractionStatus=extracted.");
+            result.MarkFailSafe();
+        }
+
+        if (feature.spatialSampleCount > 0 &&
+            feature.spatialSamples != null &&
+            feature.spatialSamples.Length > 0 &&
+            feature.spatialSampleCount != feature.spatialSamples.Length)
+        {
+            result.AddError(prefix + ".spatialSampleCount must match spatialSamples length.");
         }
 
         if (feature.collapseProbability < 0f || feature.collapseProbability > 1f)
@@ -474,6 +577,7 @@ public static class P8HazardDataValidator
                string.Equals(sourceCategory, "academic_model_candidate", StringComparison.OrdinalIgnoreCase) ||
                string.Equals(sourceCategory, "manual_extraction_required", StringComparison.OrdinalIgnoreCase) ||
                string.Equals(sourceCategory, "evidence_planned", StringComparison.OrdinalIgnoreCase) ||
+               string.Equals(sourceCategory, "official_admin_boundary", StringComparison.OrdinalIgnoreCase) ||
                string.Equals(sourceCategory, "tokyo_chuo_hazard_map", StringComparison.OrdinalIgnoreCase) ||
                string.Equals(sourceCategory, "cabinet_office_mlit_local_government", StringComparison.OrdinalIgnoreCase) ||
                string.Equals(sourceCategory, "academic_tsunami_simulation_paper", StringComparison.OrdinalIgnoreCase) ||
@@ -488,6 +592,22 @@ public static class P8HazardDataValidator
                string.Equals(reviewedStatus, "attached_unreviewed", StringComparison.OrdinalIgnoreCase) ||
                string.Equals(reviewedStatus, "reviewed_for_planning", StringComparison.OrdinalIgnoreCase) ||
                string.Equals(reviewedStatus, "reviewed_for_values", StringComparison.OrdinalIgnoreCase);
+    }
+
+    private static bool IsAllowedExtractionStatus(string extractionStatus)
+    {
+        return string.Equals(extractionStatus, "extracted", StringComparison.OrdinalIgnoreCase) ||
+               string.Equals(extractionStatus, "manual_extraction_required", StringComparison.OrdinalIgnoreCase) ||
+               string.Equals(extractionStatus, "blocked", StringComparison.OrdinalIgnoreCase) ||
+               string.Equals(extractionStatus, "reference_only", StringComparison.OrdinalIgnoreCase) ||
+               string.Equals(extractionStatus, "not_used_for_tsunami_front", StringComparison.OrdinalIgnoreCase);
+    }
+
+    private static bool IsAllowedP8CGateDecision(string gateDecision)
+    {
+        return string.Equals(gateDecision, "PASS", StringComparison.OrdinalIgnoreCase) ||
+               string.Equals(gateDecision, "CONDITIONAL PASS", StringComparison.OrdinalIgnoreCase) ||
+               string.Equals(gateDecision, "BLOCKED", StringComparison.OrdinalIgnoreCase);
     }
 
     private static bool ContainsField(string[] fields, string expected)

@@ -62,7 +62,9 @@ public static class P8RiskFrontCurveGenerator
         result.confidence = feature.confidence;
         result.evidenceSourceId = feature.evidenceSourceId ?? string.Empty;
         result.sourceMode = feature.sourceMode ?? string.Empty;
+        result.sourceCategory = feature.sourceCategory ?? string.Empty;
         result.geometryType = feature.geometryType ?? string.Empty;
+        result.extractionStatus = feature.extractionStatus ?? string.Empty;
         result.scenarioName = feature.scenarioName ?? string.Empty;
         result.inundationDepthStatus = feature.inundationDepthStatus ?? string.Empty;
         result.boundaryStatus = feature.boundaryStatus ?? string.Empty;
@@ -251,7 +253,9 @@ public static class P8RiskFrontCurveGenerator
                " confidence=" + result.confidence.ToString("0.##") +
                " warningLevel=" + result.warningLevel +
                " sourceMode=" + result.sourceMode +
+               " sourceCategory=" + result.sourceCategory +
                " evidenceSourceId=" + result.evidenceSourceId +
+               " extractionStatus=" + result.extractionStatus +
                " spatialExtractionStatus=" + result.spatialExtractionStatus +
                " boundaryStatus=" + result.boundaryStatus +
                ". " + P8RiskFrontVisualConfig.CinematicDisclaimer;
@@ -266,7 +270,9 @@ public class P8RiskFrontCurveResult
     public string warningLevel = string.Empty;
     public string evidenceSourceId = string.Empty;
     public string sourceMode = string.Empty;
+    public string sourceCategory = string.Empty;
     public string geometryType = string.Empty;
+    public string extractionStatus = string.Empty;
     public string scenarioName = string.Empty;
     public string inundationDepthStatus = string.Empty;
     public string boundaryStatus = string.Empty;

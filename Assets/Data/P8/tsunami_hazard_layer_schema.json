@@ -15,7 +15,18 @@
   "properties": {
     "scenarioId": { "type": "string", "minLength": 1 },
     "sourceMode": { "$ref": "#/$defs/sourceMode" },
+    "sourceCategory": { "$ref": "#/$defs/sourceCategory" },
     "hazardLayerVersion": { "type": "string", "minLength": 1 },
+    "evidenceRegistryFile": { "type": "string" },
+    "p8cGateDecision": {
+      "type": "string",
+      "enum": [ "PASS", "CONDITIONAL PASS", "BLOCKED" ]
+    },
+    "spatialExtractionStatus": { "$ref": "#/$defs/extractionStatus" },
+    "extractionStatus": { "$ref": "#/$defs/extractionStatus" },
+    "extractionMethod": { "type": "string" },
+    "officialMetropolitanEvidenceIdentified": { "type": "boolean" },
+    "completeOfficialSpatialLayerExtracted": { "type": "boolean" },
     "timeOriginSeconds": { "type": "number", "minimum": 0 },
     "scienceLayerFields": {
       "type": "array",
@@ -50,6 +61,35 @@
       "type": "string",
       "enum": [ "grid", "polygon", "polyline", "point", "synthetic" ]
     },
+    "extractionStatus": {
+      "type": "string",
+      "enum": [
+        "extracted",
+        "manual_extraction_required",
+        "blocked",
+        "reference_only",
+        "not_used_for_tsunami_front"
+      ]
+    },
+    "sourceCategory": {
+      "type": "string",
+      "enum": [
+        "official_tsunami_inundation_map",
+        "official_tsunami_metropolitan",
+        "official_tsunami_report_reference",
+        "official_flood_proxy",
+        "academic_model_candidate",
+        "manual_extraction_required",
+        "evidence_planned",
+        "official_admin_boundary",
+        "tokyo_chuo_hazard_map",
+        "cabinet_office_mlit_local_government",
+        "academic_tsunami_simulation_paper",
+        "plateau_citygml_category",
+        "osm_route_context",
+        "manual_sample"
+      ]
+    },
     "scienceFieldName": {
       "type": "string",
       "enum": [
@@ -79,9 +119,12 @@
         "featureId",
         "scenarioName",
         "sourceMode",
+        "sourceCategory",
         "geometryType",
+        "extractionStatus",
         "arrivalTimeSeconds",
         "inundationDepthMeters",
+        "maxInundationDepthMeters",
         "waterLevelMeters",
         "tsunamiHeightMeters",
         "maxTsunamiHeightMeters",
@@ -106,19 +149,34 @@
         "featureId": { "type": "string", "minLength": 1 },
         "scenarioName": { "type": "string" },
         "sourceMode": { "$ref": "#/$defs/sourceMode" },
+        "sourceCategory": { "$ref": "#/$defs/sourceCategory" },
         "geometryType": { "$ref": "#/$defs/geometryType" },
+        "extractionStatus": { "$ref": "#/$defs/extractionStatus" },
+        "extractionMethod": { "type": "string" },
         "arrivalTimeSeconds": { "type": "number", "minimum": 0 },
+        "arrivalTimeStatus": { "type": "string" },
         "inundationDepthMeters": { "type": "number", "minimum": 0 },
+        "maxInundationDepthMeters": { "type": "number", "minimum": 0 },
+        "averageInundationDepthMeters": { "type": "number", "minimum": 0 },
         "waterLevelMeters": { "type": "number" },
+        "waterLevelStatus": { "type": "string" },
         "tsunamiHeightMeters": { "type": "number", "minimum": 0 },
         "maxTsunamiHeightMeters": { "type": "number", "minimum": 0 },
         "inundationDepthStatus": { "type": "string" },
         "boundaryStatus": { "type": "string" },
-        "spatialExtractionStatus": { "type": "string" },
+        "spatialExtractionStatus": { "$ref": "#/$defs/extractionStatus" },
+        "spatialSampleCount": { "type": "integer", "minimum": 0 },
+        "minArrivalTime1cmSeconds": { "type": "number" },
+        "minArrivalTime30cmSeconds": { "type": "number" },
+        "maxArrivalTimeMaxWaterLevelSeconds": { "type": "number" },
         "inundationBoundary": {
           "type": "array",
           "items": { "$ref": "#/$defs/point2" },
           "minItems": 1
+        },
+        "spatialSamples": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/spatialSample" }
         },
         "hazardIntensity": { "type": "number", "minimum": 0, "maximum": 1 },
         "confidence": { "type": "number", "minimum": 0, "maximum": 1 },
@@ -173,6 +231,29 @@
         "y": { "type": "number" }
       }
     },
+    "spatialSample": {
+      "type": "object",
+      "required": [
+        "xMeters",
+        "yMeters",
+        "longitude",
+        "latitude",
+        "inundationDepthMeters",
+        "tsunamiHeightMeters"
+      ],
+      "properties": {
+        "xMeters": { "type": "number" },
+        "yMeters": { "type": "number" },
+        "longitude": { "type": "number" },
+        "latitude": { "type": "number" },
+        "inundationDepthMeters": { "type": "number", "minimum": 0 },
+        "tsunamiHeightMeters": { "type": "number", "minimum": 0 },
+        "arrivalTime1cmSeconds": { "type": "number" },
+        "arrivalTime30cmSeconds": { "type": "number" },
+        "arrivalTime1mSeconds": { "type": "number" },
+        "arrivalTimeMaxWaterLevelSeconds": { "type": "number" }
+      }
+    },
     "evidenceSource": {
       "type": "object",
       "required": [
@@ -185,30 +266,16 @@
       "properties": {
         "evidenceSourceId": { "type": "string", "minLength": 1 },
         "sourceMode": { "$ref": "#/$defs/sourceMode" },
-        "sourceCategory": {
-          "type": "string",
-          "enum": [
-            "official_tsunami_inundation_map",
-            "official_tsunami_metropolitan",
-            "official_tsunami_report_reference",
-            "official_flood_proxy",
-            "academic_model_candidate",
-            "manual_extraction_required",
-            "evidence_planned",
-            "tokyo_chuo_hazard_map",
-            "cabinet_office_mlit_local_government",
-            "academic_tsunami_simulation_paper",
-            "plateau_citygml_category",
-            "osm_route_context",
-            "manual_sample"
-          ]
-        },
+        "sourceCategory": { "$ref": "#/$defs/sourceCategory" },
         "title": { "type": "string", "minLength": 1 },
         "url": { "type": "string" },
         "reviewedStatus": {
           "type": "string",
           "enum": [ "not_attached", "attached_unreviewed", "reviewed_for_planning", "reviewed_for_values" ]
         },
+        "accessMethod": { "type": "string" },
+        "requiresTokenOrLogin": { "type": "boolean" },
+        "expectedFileType": { "type": "string" },
         "notes": { "type": "string" }
       }
     }

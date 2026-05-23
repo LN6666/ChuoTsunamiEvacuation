@@ -1,16 +1,21 @@
 {
-  "scenarioId": "p8b_chuo_tokyo_tsunami_evidence_layer_v1",
-  "sourceMode": "evidence_planned",
+  "scenarioId": "p8b_chuo_tokyo_tsunami_official_spatial_v1",
+  "sourceMode": "official_tsunami_metropolitan",
+  "sourceCategory": "official_tsunami_metropolitan",
   "evidenceSourceId": "tokyo_damage_estimation_map_tsunami",
-  "configVersion": "p8b.1.1",
-  "hazardLayerVersion": "p8b.1.1",
-  "geometryType": "synthetic",
+  "configVersion": "p8b.1.2",
+  "hazardLayerVersion": "p8b.1.2",
+  "geometryType": "grid",
+  "riskFrontDriverMode": "official_spatial",
+  "officialMetropolitanSourceIdentified": true,
+  "spatialDepthBoundaryExtracted": true,
+  "completeOfficialSpatialLayerClaim": true,
   "timeOriginSeconds": 0,
   "riskFrontEnabledInP8A": false,
   "riskFrontEnabledInP8B": true,
   "visualHeightMeters": 1000.0,
   "visualHeightIsCinematicOnly": true,
-  "boundaryIsEvidenceBasedOrPrototype": "prototype",
+  "boundaryIsEvidenceBasedOrPrototype": "evidence_based",
   "visualLayerPurpose": "cinematic risk-front readability only",
   "scienceLayerFields": [
     "sourceMode",
@@ -56,5 +61,5 @@
     "usesSharedMeshOrInstancePool": true
   },
   "manualSampleIsOfficial": false,
-  "notes": "P8-B renders a cinematic risk-front light curtain from hazard-layer v1 evidence-planned data. Tokyo Metropolitan Government tsunami damage estimation is the primary source candidate for Chuo. Official metropolitan source known; spatial extraction pending; current boundary/depth is prototype/manual; not final official inundation surface and not official complete spatial inundation data. Arrival time, prototype boundary, depth status, intensity, confidence, sourceMode, and evidenceSourceId drive the front. Kilometer-scale visual height is cinematic-only and not physical tsunami height."
+  "notes": "P8-B renders a cinematic risk-front light curtain from hazard-layer v1 official_spatial data. Tokyo Metropolitan Government tsunami Open Data 10m mesh is the primary source for Chuo and was clipped to the official MLIT N03 Chuo polygon. Official metropolitan source identified; spatial depth/boundary extracted: yes; current risk front driver: official_spatial. This is an official extracted spatial hazard layer, but it is not a full real-time fluid simulation and the stored boundary is a derived grid-extent bbox rather than an official inundation contour. maxTsunamiHeightMeters is separate from inundationDepthMeters and is not used as the inundation-depth grid. Arrival time, boundary, depth, intensity, confidence, sourceMode, extractionStatus, and evidenceSourceId drive the front. Kilometer-scale visualHeightMeters is cinematic-only and not physical tsunami height."
 }

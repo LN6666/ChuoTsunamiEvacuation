@@ -5,10 +5,15 @@ public class P8RiskFrontConfig
 {
     public string scenarioId = string.Empty;
     public string sourceMode = string.Empty;
+    public string sourceCategory = string.Empty;
     public string evidenceSourceId = string.Empty;
     public string configVersion = string.Empty;
     public string hazardLayerVersion = string.Empty;
     public string geometryType = string.Empty;
+    public string riskFrontDriverMode = string.Empty;
+    public bool officialMetropolitanSourceIdentified;
+    public bool spatialDepthBoundaryExtracted;
+    public bool completeOfficialSpatialLayerClaim;
     public float timeOriginSeconds;
     public bool riskFrontEnabledInP8A;
     public bool riskFrontEnabledInP8B;

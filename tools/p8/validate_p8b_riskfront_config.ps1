@@ -5,8 +5,8 @@ $ErrorActionPreference = "Stop"
 
 $scriptRoot = Split-Path -Parent $MyInvocation.MyCommand.Path
 $repoRoot = (Resolve-Path (Join-Path $scriptRoot "..\..")).ProviderPath
-$allowedSourceModes = @("test", "evidence_planned", "manual_sample")
-$evidenceRequiredSourceModes = @("evidence_planned", "manual_sample")
+$allowedSourceModes = @("test", "evidence_planned", "manual_sample", "official_tsunami_metropolitan")
+$evidenceRequiredSourceModes = @("evidence_planned", "manual_sample", "official_tsunami_metropolitan")
 $allowedGeometryTypes = @("grid", "polygon", "polyline", "point", "synthetic")
 $allowedBoundaryKinds = @("evidence_based", "prototype")
 $requiredScienceFields = @(
@@ -65,8 +65,8 @@ function Assert-AllowedSourceMode {
     )
 
     Assert-NonEmptyString $SourceMode "$Label sourceMode"
-    if ($SourceMode -like "*official*" -or $SourceMode -like "*authoritative*") {
-        throw "$Label sourceMode must not claim official or authoritative hazard values: $SourceMode"
+    if (($SourceMode -like "*official*" -and $SourceMode -ne "official_tsunami_metropolitan") -or $SourceMode -like "*authoritative*") {
+        throw "$Label sourceMode must not make unsupported official or authoritative hazard claims: $SourceMode"
     }
     if ($allowedSourceModes -notcontains $SourceMode) {
         throw "$Label sourceMode must be one of: $($allowedSourceModes -join ', ')"
@@ -254,7 +254,7 @@ function Assert-RiskFrontConfig {
     }
 
     $notes = [string]$Config.notes
-    foreach ($fragment in @("cinematic", "not physical tsunami height", "not official")) {
+    foreach ($fragment in @("cinematic", "not physical tsunami height", "official_spatial")) {
         if ($notes.IndexOf($fragment, [System.StringComparison]::OrdinalIgnoreCase) -lt 0) {
             throw "risk front config notes must include: $fragment"
         }

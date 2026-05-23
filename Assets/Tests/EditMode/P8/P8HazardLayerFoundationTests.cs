@@ -11,13 +11,14 @@ public class P8HazardLayerFoundationTests
 
         Assert.IsTrue(result.success, string.Join("\n", result.validation.errorsArray));
         Assert.IsFalse(result.failSafe);
-        Assert.AreEqual("p8b_chuo_tokyo_tsunami_evidence_layer_v1", result.data.scenarioId);
-        Assert.AreEqual("evidence_planned", result.data.sourceMode);
-        Assert.AreEqual("CONDITIONAL PASS", result.data.p8cGateDecision);
+        Assert.AreEqual("p8b_chuo_tokyo_tsunami_official_spatial_v1", result.data.scenarioId);
+        Assert.AreEqual("official_tsunami_metropolitan", result.data.sourceMode);
+        Assert.AreEqual("PASS", result.data.p8cGateDecision);
         Assert.IsTrue(result.data.officialMetropolitanEvidenceIdentified);
-        Assert.IsFalse(result.data.completeOfficialSpatialLayerExtracted);
-        Assert.AreEqual(3, result.data.features.Length);
-        Assert.IsTrue(result.summary.Contains("features=3"));
+        Assert.IsTrue(result.data.completeOfficialSpatialLayerExtracted);
+        Assert.AreEqual("extracted", result.data.spatialExtractionStatus);
+        Assert.AreEqual(2, result.data.features.Length);
+        Assert.IsTrue(result.summary.Contains("features=2"));
     }
 
     [Test]
@@ -31,9 +32,11 @@ public class P8HazardLayerFoundationTests
         Assert.IsTrue(result.data.evidenceSources.Any(source => source.evidenceSourceId == "chuo_city_tsunami_liquefaction_page"));
         Assert.IsTrue(result.data.evidenceSources.Any(source => source.evidenceSourceId == "supplementary_pdf_tokyo_bay_tsunami_height_chuo"));
         Assert.IsTrue(result.data.evidenceSources.Any(source => source.evidenceSourceId == "flood_proxy_chuo_hazard_map"));
+        Assert.IsTrue(result.data.evidenceSources.Any(source => source.evidenceSourceId == "mlit_n03_chuo_admin_boundary"));
         Assert.IsTrue(result.data.evidenceSources.Any(source => source.sourceCategory == "official_tsunami_metropolitan"));
         Assert.IsTrue(result.data.evidenceSources.Any(source => source.sourceCategory == "official_tsunami_report_reference"));
         Assert.IsTrue(result.data.evidenceSources.Any(source => source.sourceCategory == "official_flood_proxy"));
+        Assert.IsTrue(result.data.evidenceSources.Any(source => source.sourceCategory == "official_admin_boundary"));
     }
 
     [Test]
@@ -43,10 +46,50 @@ public class P8HazardLayerFoundationTests
 
         Assert.IsTrue(result.success, string.Join("\n", result.validation.errorsArray));
         Assert.IsTrue(result.data.features.Any(feature => feature.maxTsunamiHeightMeters >= 2.4f));
-        Assert.IsTrue(result.data.features.All(feature => feature.inundationDepthStatus.Contains("not_spatial_depth") ||
-                                                          feature.inundationDepthStatus.Contains("height_reference_only") ||
-                                                          feature.inundationDepthStatus.Contains("pending")));
-        Assert.IsTrue(result.data.features.All(feature => feature.boundaryIsEvidenceBasedOrPrototype == "prototype"));
+        Assert.IsTrue(result.data.features.All(feature => feature.extractionStatus == "extracted"));
+        Assert.IsTrue(result.data.features.All(feature => feature.spatialSampleCount > 1000));
+        Assert.IsTrue(result.data.features.All(feature => feature.spatialSamples.Length == feature.spatialSampleCount));
+        Assert.IsTrue(result.data.features.All(feature => feature.maxInundationDepthMeters > 0f));
+        Assert.IsTrue(result.data.features.All(feature => feature.maxTsunamiHeightMeters > 0f));
+        Assert.IsTrue(result.data.features.All(feature => feature.inundationDepthStatus.Contains("extracted_spatial")));
+        Assert.IsTrue(result.data.features.All(feature => feature.notes.Contains("not used as the inundation-depth grid")));
+        Assert.IsTrue(result.data.features.All(feature => feature.boundaryIsEvidenceBasedOrPrototype == "evidence_based"));
+    }
+
+    [Test]
+    public void P8CGateBlocksManualExtractionWithoutUserOverride()
+    {
+        P8HazardLayerLoadResult loaded = P8HazardLayerLoader.LoadSampleHazardLayer();
+        Assert.IsTrue(loaded.success, string.Join("\n", loaded.validation.errorsArray));
+
+        P8HazardValidationResult passGate = P8HazardDataValidator.ValidateP8CSpatialGate(loaded.data, false);
+        Assert.IsTrue(passGate.isValid, string.Join("\n", passGate.errorsArray));
+
+        P8HazardLayerData manualLayer = CreateMinimalValidLayer("evidence_planned");
+        manualLayer.p8cGateDecision = "CONDITIONAL PASS";
+        manualLayer.extractionStatus = "manual_extraction_required";
+        manualLayer.spatialExtractionStatus = "manual_extraction_required";
+        manualLayer.completeOfficialSpatialLayerExtracted = false;
+        manualLayer.features[0].spatialExtractionStatus = "manual_extraction_required";
+
+        P8HazardValidationResult blocked = P8HazardDataValidator.ValidateP8CSpatialGate(manualLayer, false);
+
+        Assert.IsFalse(blocked.isValid);
+        Assert.IsTrue(blocked.isFailSafe);
+        StringAssert.Contains("explicit user override", string.Join("\n", blocked.errorsArray));
+    }
+
+    [Test]
+    public void HazardLayerValidatesExtractionStatus()
+    {
+        P8HazardLayerData data = CreateMinimalValidLayer();
+        data.features[0].extractionStatus = "not_a_real_status";
+
+        P8HazardValidationResult result = P8HazardDataValidator.ValidateHazardLayer(data);
+
+        Assert.IsFalse(result.isValid);
+        Assert.IsTrue(result.isFailSafe);
+        StringAssert.Contains("extractionStatus", string.Join("\n", result.errorsArray));
     }
 
     [Test]

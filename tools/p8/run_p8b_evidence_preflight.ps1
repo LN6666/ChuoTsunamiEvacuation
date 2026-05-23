@@ -175,24 +175,24 @@ function Assert-Docs {
         "Tokyo Metropolitan Government",
         "maximum tsunami height",
         "maximum inundation depth",
-        "2.4m to 2.46m",
+        "2.12m to 2.46m",
         "not a full spatial inundation-depth grid"
     )
 
     Assert-FileContains "docs/P8B_CHUO_TSUNAMI_EXTRACTION_PLAN.md" @(
-        "manual GIS/web-map extraction",
+        "Tokyo Open Data",
         "maxTsunamiHeightMeters",
-        "inundationDepthMeters only for spatial depth values",
+        "inundationDepthMeters",
         "boundaryIsEvidenceBasedOrPrototype=evidence_based",
-        "CONDITIONAL PASS"
+        "PASS"
     )
 
     Assert-FileContains "docs/P8B_HAZARD_LAYER_V1_STATUS.md" @(
-        "evidence_planned",
+        "official_tsunami_metropolitan",
         "Tokyo Metropolitan Government",
-        "manual_extraction_required",
+        "extracted",
         "completeOfficialSpatialLayerExtracted",
-        "Maximum tsunami height references around 2.4m to 2.46m",
+        "maxTsunamiHeightMeters",
         "P8-C"
     )
 
@@ -246,8 +246,8 @@ function Assert-Registry {
         throw "flood_proxy_chuo_hazard_map must be non-tsunami proxy fallback only."
     }
 
-    if ([string]$registry.currentGateDecision -ne "CONDITIONAL PASS") {
-        throw "Current P8-C gate decision must be CONDITIONAL PASS for this evidence state."
+    if ([string]$registry.currentGateDecision -ne "PASS") {
+        throw "Current P8-C gate decision must be PASS after official spatial extraction."
     }
 }
 
@@ -259,23 +259,23 @@ function Assert-HazardLayer {
         throw "P8-B evidence layer sourceMode must be evidence_planned or official_tsunami_metropolitan."
     }
 
-    if ([string]$layer.p8cGateDecision -ne "CONDITIONAL PASS") {
-        throw "P8-B evidence layer must expose P8-C gate decision CONDITIONAL PASS."
+    if ([string]$layer.p8cGateDecision -ne "PASS") {
+        throw "P8-B evidence layer must expose P8-C gate decision PASS after extraction."
     }
 
     if ([bool]$layer.officialMetropolitanEvidenceIdentified -ne $true) {
         throw "P8-B evidence layer must identify Tokyo metropolitan tsunami evidence."
     }
 
-    if ([bool]$layer.completeOfficialSpatialLayerExtracted -ne $false) {
-        throw "P8-B evidence layer must not claim a complete official spatial layer."
+    if ([bool]$layer.completeOfficialSpatialLayerExtracted -ne $true) {
+        throw "P8-B evidence layer must claim completeOfficialSpatialLayerExtracted=true only after official extraction."
     }
 
-    if ([string]$layer.spatialExtractionStatus -ne "manual_extraction_required") {
-        throw "P8-B evidence layer must mark spatial extraction as manual_extraction_required."
+    if ([string]$layer.spatialExtractionStatus -ne "extracted") {
+        throw "P8-B evidence layer must mark spatial extraction as extracted."
     }
 
-    if ($layer.features.Count -lt 3) {
+    if ($layer.features.Count -lt 2) {
         throw "P8-B evidence layer should keep multiple front records for front driving tests."
     }
 
@@ -309,12 +309,20 @@ function Assert-HazardLayer {
             throw "Hazard feature $($feature.featureId) references unregistered evidenceSourceId: $($feature.evidenceSourceId)"
         }
 
-        if ([double]$feature.maxTsunamiHeightMeters -gt 0 -and [string]$feature.inundationDepthStatus -notmatch "not_spatial_depth|height_reference_only|pending") {
-            throw "Hazard feature $($feature.featureId) has maxTsunamiHeightMeters but does not distinguish it from spatial depth."
+        if ([double]$feature.maxTsunamiHeightMeters -le 0) {
+            throw "Hazard feature $($feature.featureId) must include a source maxTsunamiHeightMeters value."
         }
 
-        if ([string]$feature.boundaryIsEvidenceBasedOrPrototype -eq "evidence_based" -and [bool]$layer.completeOfficialSpatialLayerExtracted -ne $true) {
-            throw "Hazard feature $($feature.featureId) must not mark boundary evidence_based before extraction is complete."
+        if ([string]$feature.inundationDepthStatus -notmatch "extracted_spatial") {
+            throw "Hazard feature $($feature.featureId) must use an extracted spatial inundation-depth value."
+        }
+
+        if ([string]$feature.boundaryIsEvidenceBasedOrPrototype -eq "evidence_based" -and [string]$feature.spatialExtractionStatus -ne "extracted") {
+            throw "Hazard feature $($feature.featureId) must mark spatialExtractionStatus=extracted for evidence-based boundary use."
+        }
+
+        if ($feature.PSObject.Properties.Name -contains "spatialSampleCount" -and [int]$feature.spatialSampleCount -le 0) {
+            throw "Hazard feature $($feature.featureId) must expose extracted spatialSampleCount."
         }
 
         if ([double]$feature.visualHeightMeters -gt 10.0 -and [bool]$feature.visualHeightIsCinematicOnly -ne $true) {
@@ -327,10 +335,10 @@ function Assert-RiskFrontConfig {
     $config = Read-Json "Assets/Data/P8/risk_front_visualization_config.json"
     foreach ($fragment in @(
         "Tokyo Metropolitan Government",
-        "official metropolitan source known",
-        "spatial extraction pending",
-        "prototype/manual",
-        "not final official inundation surface",
+        "Official metropolitan source identified",
+        "spatial depth/boundary extracted: yes",
+        "official_spatial",
+        "not a full real-time fluid simulation",
         "cinematic-only"
     )) {
         if ([string]$config.notes -notmatch [regex]::Escape($fragment)) {

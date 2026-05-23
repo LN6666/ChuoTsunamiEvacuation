@@ -7,10 +7,13 @@ public class P8HazardLayerData
 
     public string scenarioId = string.Empty;
     public string sourceMode = string.Empty;
+    public string sourceCategory = string.Empty;
     public string hazardLayerVersion = string.Empty;
     public string evidenceRegistryFile = string.Empty;
     public string p8cGateDecision = string.Empty;
     public string spatialExtractionStatus = string.Empty;
+    public string extractionStatus = string.Empty;
+    public string extractionMethod = string.Empty;
     public bool officialMetropolitanEvidenceIdentified;
     public bool completeOfficialSpatialLayerExtracted;
     public float timeOriginSeconds;
@@ -27,16 +30,28 @@ public class P8HazardFeature
     public string featureId = string.Empty;
     public string scenarioName = string.Empty;
     public string sourceMode = string.Empty;
+    public string sourceCategory = string.Empty;
     public string geometryType = string.Empty;
+    public string extractionStatus = string.Empty;
+    public string extractionMethod = string.Empty;
     public float arrivalTimeSeconds;
+    public string arrivalTimeStatus = string.Empty;
     public float inundationDepthMeters;
+    public float maxInundationDepthMeters;
+    public float averageInundationDepthMeters;
     public float waterLevelMeters;
+    public string waterLevelStatus = string.Empty;
     public float tsunamiHeightMeters;
     public float maxTsunamiHeightMeters;
     public string inundationDepthStatus = string.Empty;
     public string boundaryStatus = string.Empty;
     public string spatialExtractionStatus = string.Empty;
+    public int spatialSampleCount;
+    public float minArrivalTime1cmSeconds;
+    public float minArrivalTime30cmSeconds;
+    public float maxArrivalTimeMaxWaterLevelSeconds;
     public P8BoundaryPoint[] inundationBoundary = new P8BoundaryPoint[0];
+    public P8HazardSpatialSample[] spatialSamples = new P8HazardSpatialSample[0];
     public float hazardIntensity;
     public float confidence;
     public string evidenceSourceId = string.Empty;
@@ -50,6 +65,21 @@ public class P8HazardFeature
     public float collapseProbability;
     public int collapseRandomSeed;
     public bool hazardDrivenCollapse;
+}
+
+[Serializable]
+public class P8HazardSpatialSample
+{
+    public float xMeters;
+    public float yMeters;
+    public float longitude;
+    public float latitude;
+    public float inundationDepthMeters;
+    public float tsunamiHeightMeters;
+    public float arrivalTime1cmSeconds;
+    public float arrivalTime30cmSeconds;
+    public float arrivalTime1mSeconds;
+    public float arrivalTimeMaxWaterLevelSeconds;
 }
 
 [Serializable]
@@ -80,5 +110,8 @@ public class P8EvidenceSource
     public string title = string.Empty;
     public string url = string.Empty;
     public string reviewedStatus = string.Empty;
+    public string accessMethod = string.Empty;
+    public bool requiresTokenOrLogin;
+    public string expectedFileType = string.Empty;
     public string notes = string.Empty;
 }

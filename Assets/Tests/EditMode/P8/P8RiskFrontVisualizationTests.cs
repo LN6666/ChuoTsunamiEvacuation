@@ -60,15 +60,15 @@ public class P8RiskFrontVisualizationTests
         P8HazardLayerLoadResult result = P8HazardLayerLoader.LoadSampleHazardLayer();
 
         Assert.IsTrue(result.success, string.Join("\n", result.validation.errorsArray));
-        Assert.AreEqual("p8b.1.1", result.data.hazardLayerVersion);
-        Assert.AreEqual("CONDITIONAL PASS", result.data.p8cGateDecision);
-        Assert.GreaterOrEqual(result.data.features.Length, 3);
+        Assert.AreEqual("p8b.1.2", result.data.hazardLayerVersion);
+        Assert.AreEqual("PASS", result.data.p8cGateDecision);
+        Assert.GreaterOrEqual(result.data.features.Length, 2);
         Assert.IsTrue(result.data.features.All(feature => feature.arrivalTimeSeconds > 0f));
         Assert.IsTrue(result.data.features.All(feature => feature.inundationBoundary.Length >= 1));
         Assert.IsTrue(result.data.features.All(feature => !string.IsNullOrWhiteSpace(feature.evidenceSourceId)));
-        Assert.IsTrue(result.data.features.Any(feature => feature.geometryType == "polyline"));
-        Assert.IsTrue(result.data.features.Any(feature => feature.geometryType == "point"));
-        Assert.IsTrue(result.data.features.Any(feature => feature.sourceMode == "evidence_planned"));
+        Assert.IsTrue(result.data.features.All(feature => feature.geometryType == "grid"));
+        Assert.IsTrue(result.data.features.All(feature => feature.extractionStatus == "extracted"));
+        Assert.IsTrue(result.data.features.All(feature => feature.sourceMode == "official_tsunami_metropolitan"));
         Assert.IsTrue(result.data.evidenceSources.Any(source => source.sourceMode == "official_tsunami_metropolitan"));
     }
 
@@ -78,19 +78,21 @@ public class P8RiskFrontVisualizationTests
         P8HazardLayerData data = P8HazardLayerLoader.LoadSampleHazardLayer().data;
         P8RiskFrontVisualConfig visualConfig = P8RiskFrontVisualConfig.FromRiskFrontConfig(P8HazardLayerLoader.LoadRiskFrontConfig().config);
 
-        P8RiskFrontCurveResult early = P8RiskFrontCurveGenerator.Generate(data, visualConfig, 2600f);
-        P8RiskFrontCurveResult middle = P8RiskFrontCurveGenerator.Generate(data, visualConfig, 6300f);
-        P8RiskFrontCurveResult late = P8RiskFrontCurveGenerator.Generate(data, visualConfig, 9500f);
+        P8RiskFrontCurveResult early = P8RiskFrontCurveGenerator.Generate(data, visualConfig, 40000f);
+        P8RiskFrontCurveResult middle = P8RiskFrontCurveGenerator.Generate(data, visualConfig, 43383.6f);
+        P8RiskFrontCurveResult late = P8RiskFrontCurveGenerator.Generate(data, visualConfig, 60000f);
 
         Assert.IsTrue(early.success, early.summary);
         Assert.IsTrue(middle.success, middle.summary);
         Assert.IsTrue(late.success, late.summary);
-        Assert.AreEqual("p8b_chuo_taisho_kanto_tokyo_front_evidence_planned", early.selectedFeatureId);
-        Assert.AreEqual("p8b_chuo_nankai_tokyo_front_evidence_planned", middle.selectedFeatureId);
-        Assert.AreEqual("p8b_chuo_nankai_supplementary_height_reference", late.selectedFeatureId);
+        Assert.AreEqual("p8b_chuo_taisho_kanto_tokyo_open_data_spatial", early.selectedFeatureId);
+        Assert.AreEqual("p8b_chuo_taisho_kanto_tokyo_open_data_spatial", middle.selectedFeatureId);
+        Assert.AreEqual("p8b_chuo_nankai_case1_tokyo_open_data_spatial", late.selectedFeatureId);
         Assert.AreEqual(P8RiskFrontCurveGenerator.FrontDriverSource, early.frontDriverSource);
         StringAssert.Contains("spatialExtractionStatus", early.summary);
         StringAssert.Contains("maxTsunamiHeightMeters", middle.summary);
+        Assert.AreEqual("extracted", late.extractionStatus);
+        Assert.AreEqual("official_tsunami_metropolitan", late.sourceCategory);
     }
 
     [Test]
@@ -156,7 +158,7 @@ public class P8RiskFrontVisualizationTests
 
         P8RiskFrontVisualConfig visualConfig = P8RiskFrontVisualConfig.FromRiskFrontConfig(config);
         Assert.IsTrue(visualConfig.visualHeightIsCinematicOnly);
-        Assert.AreEqual("prototype", visualConfig.boundaryIsEvidenceBasedOrPrototype);
+        Assert.AreEqual("evidence_based", visualConfig.boundaryIsEvidenceBasedOrPrototype);
         Assert.IsFalse(config.scienceLayerFields.Contains("visualHeightMeters"));
         Assert.IsFalse(config.visualLayerFields.Contains("tsunamiHeightMeters"));
         Assert.IsFalse(config.visualLayerFields.Contains("waterLevelMeters"));

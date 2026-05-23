@@ -70,6 +70,8 @@ function Test-AllowedP8BPath {
 
     if ($Path -like "docs/P8B_*.md") { return $true }
     if ($Path -like "tools/p8/*p8b*.ps1") { return $true }
+    if ($Path -like "tools/p8/*p8b*.py") { return $true }
+    if ($Path -eq "tools/p8/validate_p8_hazard_json.ps1") { return $true }
     if (Test-PathStartsWith $Path "Assets/Scripts/P8/") { return $true }
     if (Test-PathStartsWith $Path "Assets/Tests/EditMode/P8/") { return $true }
     if (Test-PathStartsWith $Path "Assets/Tests/PlayMode/P8/") { return $true }
@@ -79,6 +81,7 @@ function Test-AllowedP8BPath {
     if ($Path -eq "deepseek_review_prompt_p8b_integration.md") { return $true }
     if ($Path -eq "deepseek_review_prompt_p8b_front_v1.md") { return $true }
     if ($Path -eq "deepseek_review_prompt_p8b_evidence_hazard_layer.md") { return $true }
+    if ($Path -eq "deepseek_review_prompt_p8b_spatial_extraction_gate.md") { return $true }
     return $false
 }
 
