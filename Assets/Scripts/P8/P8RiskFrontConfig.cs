@@ -8,6 +8,7 @@ public class P8RiskFrontConfig
     public string evidenceSourceId = string.Empty;
     public string configVersion = string.Empty;
     public string hazardLayerVersion = string.Empty;
+    public string geometryType = string.Empty;
     public float timeOriginSeconds;
     public bool riskFrontEnabledInP8A;
     public float visualHeightMeters;
@@ -16,6 +17,10 @@ public class P8RiskFrontConfig
     public string visualLayerPurpose = string.Empty;
     public string[] scienceLayerFields = new string[0];
     public string[] visualLayerFields = new string[0];
+    public bool p8bVisualSceneObjectsImplemented;
+    public bool p8cInfrastructureInteractionImplemented;
+    public bool p8dCollapseProxyGameplayImplemented;
+    public P8RiskFrontPerformanceSettings performanceSettings = new P8RiskFrontPerformanceSettings();
     public bool manualSampleIsOfficial;
     public string notes = string.Empty;
 }

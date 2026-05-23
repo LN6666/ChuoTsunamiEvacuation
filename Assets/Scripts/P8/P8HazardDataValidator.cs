@@ -78,6 +78,12 @@ public static class P8HazardDataValidator
         ValidateEvidenceSourceIdRequired(config.sourceMode, config.evidenceSourceId, "risk front config", result);
         ValidateLayerFieldSeparation(config.scienceLayerFields, config.visualLayerFields, "risk front config", result);
 
+        if (!IsAllowedGeometryType(config.geometryType))
+        {
+            result.AddError("risk front config.geometryType must be grid, polygon, polyline, point, or synthetic.");
+            result.MarkFailSafe();
+        }
+
         if (config.visualHeightMeters > CinematicHeightThresholdMeters && !config.visualHeightIsCinematicOnly)
         {
             result.AddError("Large visualHeightMeters requires visualHeightIsCinematicOnly=true.");
@@ -90,9 +96,27 @@ public static class P8HazardDataValidator
             result.MarkFailSafe();
         }
 
+        if (config.p8bVisualSceneObjectsImplemented)
+        {
+            result.AddError("This P8-B guard package must not implement visual scene objects.");
+            result.MarkFailSafe();
+        }
+
+        if (config.p8cInfrastructureInteractionImplemented || config.p8dCollapseProxyGameplayImplemented)
+        {
+            result.AddError("P8-B guard config must not enable P8-C infrastructure interaction or P8-D collapse gameplay.");
+            result.MarkFailSafe();
+        }
+
         if (!IsAllowedBoundaryKind(config.boundaryIsEvidenceBasedOrPrototype))
         {
             result.AddError("boundaryIsEvidenceBasedOrPrototype must be evidence_based or prototype.");
+        }
+
+        if (string.IsNullOrWhiteSpace(config.visualLayerPurpose) ||
+            config.visualLayerPurpose.IndexOf("cinematic", StringComparison.OrdinalIgnoreCase) < 0)
+        {
+            result.AddError("visualLayerPurpose must explicitly describe the P8-B visual layer as cinematic.");
         }
 
         if (IsEvidenceRequiredSourceMode(config.sourceMode) && config.manualSampleIsOfficial)
