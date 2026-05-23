@@ -2,9 +2,9 @@
 
 ## Current Verdict
 
-Performance verdict: CONDITIONAL PASS, not production-approved.
+Performance verdict: USER-APPROVED PRACTICAL BASELINE, EXE PROFILING FOLLOW-UP REQUIRED.
 
-The scene has enough renderable PLATEAU content for profiling preparation, but not enough measured runtime evidence for final P8/P9/P10 approval.
+The scene has enough renderable PLATEAU content for practical P8/P9/P10 continuation. Measured Windows EXE runtime evidence is still required before P10 release packaging or final performance claims.
 
 ## Measured Static Evidence
 
@@ -28,4 +28,4 @@ The scene has enough renderable PLATEAU content for profiling preparation, but n
 
 ## Decision Impact
 
-P8/P9 may proceed only under the conditional baseline limits in `docs/P7D_NEW_MAP_BASELINE_DECISION.md`. EXE profiling should be the first follow-up before adding costly gameplay systems.
+P8/P9 should proceed on `P7_HighDetail_Chuo` under the accepted practical baseline limits in `docs/P7D_NEW_MAP_BASELINE_DECISION.md`. EXE profiling should remain an early follow-up before adding costly gameplay systems and is required before final P10 packaging.

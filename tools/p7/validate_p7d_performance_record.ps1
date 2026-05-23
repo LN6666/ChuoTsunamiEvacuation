@@ -41,5 +41,5 @@ if ($baselineDecision.IndexOf("Decision: BLOCKED", [System.StringComparison]::Or
     exit 1
 }
 
-Write-Host "P7-D performance record validation: PASS_WITH_BLOCKER_STATUS"
+Write-Host "P7-D performance record validation: PASS_WITH_PROFILING_FOLLOWUP_STATUS"
 exit 0

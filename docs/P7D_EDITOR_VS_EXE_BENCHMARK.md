@@ -6,7 +6,7 @@ Validation date: 2026-05-23.
 
 Editor vs EXE benchmark status: PREPARED, EXE DATA NOT COLLECTED.
 
-The imported scene is renderable and heavy enough that Editor behavior should not be used as final performance evidence. Windows x64 profiling remains required before final baseline approval.
+The imported scene is renderable and heavy enough that Editor behavior should not be used as final performance evidence. Windows x64 profiling remains required before final release/performance claims, but the scene is already user-approved as the practical P8/P9/P10 baseline.
 
 ## Editor-Side Static Evidence
 
@@ -32,4 +32,4 @@ The imported scene is renderable and heavy enough that Editor behavior should no
 
 ## Interpretation
 
-The current evidence supports only a conditional baseline decision. EXE profiling must be run before P8/P9 systems increase scene load, renderer count, runtime logic, or data overlays.
+The current evidence supports the practical baseline decision and preserves the profiling limitation. EXE profiling should be run early in P8 before systems increase scene load, renderer count, runtime logic, or data overlays, and must be completed before P10 release packaging.

@@ -1,6 +1,6 @@
 # P7 Final Closeout
 
-P7 final status: CONDITIONAL PASS.
+P7 final status: PASS - PRACTICAL HIGH-DETAIL BASELINE ACCEPTED.
 
 ## P7 Stage Count
 
@@ -23,8 +23,9 @@ Do not create P7-E, P7-F, or P7-G.
 - Detected 117,728 renderable PLATEAU city-object groups with MeshRenderer/MeshFilter/MeshCollider evidence.
 - Documented that actual LOD is LOD0-LOD2, not average LOD3.
 - Documented missing/partial categories and P8/P9 handoff limits.
+- Recorded the user decision that current LOD/category coverage is accepted as the practical baseline for P8/P9/P10 continuation.
 
-## What P7 Did Not Achieve
+## Known Limitations
 
 - Average LOD3 is not achieved.
 - Full high-detail Chuo category coverage is not achieved.
@@ -33,9 +34,13 @@ Do not create P7-E, P7-F, or P7-G.
 - Windows EXE profiling is prepared but not completed.
 - The 22.55 GB imported scene is local-only and not safe to blindly commit to normal GitHub.
 
+These are accepted limitations for future phases, not blockers to closing P7 as the practical high-detail baseline stage.
+
 ## Baseline Decision
 
-`P7_HighDetail_Chuo` is a conditional local baseline for early P8/P9/P10 continuation. P8 can start only with the documented limitations. P9 crowd, indoor, congestion, real-spawn, and underground gameplay systems must not start from this evidence alone.
+`P7_HighDetail_Chuo` is the user-approved practical local baseline for P8/P9/P10. P8 should start from this scene. P9 should also use this scene, with markers, rule-based nodes, proxy colliders, and representative interior templates where detailed assets are missing.
+
+No false average LOD3 or full-category import claim is allowed.
 
 ## P8/P9 Systems
 

@@ -6,7 +6,9 @@ Windows EXE profiling status: PREPARED, NOT RUN.
 
 `Assets/Scenes/P7HighDetail/P7_HighDetail_Chuo.unity` now contains renderable PLATEAU content, so EXE profiling is meaningful enough to attempt.
 
-Profiling was not completed in this Codex pass because the project does not currently have a committed P7-D Windows build/profiling automation path, and generating large build/profiler outputs must not be committed blindly.
+Automated profiling was checked at the tool/documentation level. The project does not currently have a committed P7-D Windows build/profiling automation path, and generating large build/profiler outputs is outside the safe docs/tools postcheck scope. No EXE metrics are fabricated.
+
+This is a release-readiness follow-up, not a blocker to starting P8 on the user-approved practical high-detail baseline. P10 release packaging still requires final Windows EXE profiling.
 
 ## Available Scene Metrics
 
@@ -34,7 +36,7 @@ Profiling was not completed in this Codex pass because the project does not curr
 | Draw calls/batches | Not collected |
 | Build size | Not collected |
 | Bottleneck observations | Pending |
-| Acceptable for P8/P9 baseline | Not proven |
+| Acceptable for P8/P9 baseline | User-approved practical baseline; runtime performance still needs profiling |
 
 ## Manual Profiling Checklist
 
@@ -45,3 +47,7 @@ Profiling was not completed in this Codex pass because the project does not curr
 5. Record memory usage from Task Manager or Unity Profiler.
 6. Record draw calls/batches and mesh/texture memory from Unity Profiler if available.
 7. Archive only final release/build artifacts to cloud drive; do not commit build output or profiler binaries.
+
+## Current Decision
+
+P8/P9 may proceed on `P7_HighDetail_Chuo` as the accepted practical baseline. Before P10 release or public packaging, run the Windows x64 profiling checklist and archive the final package to cloud drive.

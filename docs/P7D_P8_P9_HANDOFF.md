@@ -4,9 +4,9 @@ Validation date: 2026-05-23.
 
 ## Baseline Recommendation
 
-Use `Assets/Scenes/P7HighDetail/P7_HighDetail_Chuo.unity` as a conditional local baseline only.
+Use `Assets/Scenes/P7HighDetail/P7_HighDetail_Chuo.unity` as the user-approved practical high-detail baseline for P8/P9/P10.
 
-It is useful for early visual/context work because it contains renderable PLATEAU geometry. It is not a final P8/P9/P10 production baseline because average LOD3 was not achieved, many categories are missing, and EXE profiling has not completed.
+The current imported level is accepted for continuation even though average LOD3 was not achieved, several categories are missing, and EXE profiling has not completed. Those items are known limitations and follow-ups, not blockers to starting P8/P9/P10 on this scene.
 
 ## Reliable
 
@@ -27,13 +27,15 @@ It is useful for early visual/context work because it contains renderable PLATEA
 
 ## P8 Guidance
 
-P8 may begin only if work is scoped as conditional map-baseline work. Do not implement tsunami fluid simulation. Do not claim official inundation/hazard correctness from this import.
+P8 should begin from `P7_HighDetail_Chuo` unless a future blocker appears. Do not implement tsunami fluid simulation. Do not claim official inundation/hazard correctness from this import.
 
-If P8 needs water, terrain, disaster-risk polygons, or validated hazard placement, resolve those category gaps first.
+If P8 needs water, terrain, disaster-risk polygons, or validated hazard placement, handle those gaps with data-layer, proxy, or rule-based approaches first, or schedule a focused follow-up import. The gaps do not invalidate the accepted baseline.
 
 ## P9 Guidance
 
-Do not implement P9 crowd, real spawn, indoor evacuation, congestion, underground evacuation, or failure systems from this P7-D result. The road/bridge/underground evidence is too limited for those claims.
+P9 should also use `P7_HighDetail_Chuo` as the baseline. Where detailed entrances, underground spaces, interiors, or crowd-related geometry are missing or low-detail, use markers, rule-based nodes, proxy colliders, and representative interior templates.
+
+Do not claim complete real-spawn, indoor evacuation, congestion, underground evacuation, or official route validity from geometry that is not present or verified.
 
 ## Legacy Fallback
 

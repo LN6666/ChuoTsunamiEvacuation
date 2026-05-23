@@ -174,30 +174,30 @@ This file stores P7 decisions that affect scope, dependencies, assets, Unity set
 | Follow-up | P7-D must perform Windows EXE profiling on `Assets/Scenes/P7HighDetail/P7_HighDetail_Chuo.unity` after actual assets are loaded or explicitly document the import blocker. P8/P9/P10 should use this new scene as baseline only after P7-D confirmation. |
 | Approved by | P7-C continuation prompt. |
 
-### P7-DL-012 - P7-D Blocks On Manual PLATEAU SDK Import
+### P7-DL-012 - P7-D Manual Import Gate Superseded By Practical Baseline Approval
 
 | Field | Value |
 |---|---|
 | Date | 2026-05-23 |
 | Stage | P7-D |
-| Decision | P7-D cannot safely complete autonomous full high-detail PLATEAU import. It records a manual Unity PLATEAU SDK import checklist and blocks final closeout until import, compatibility smoke checks, and Windows EXE profiling are completed. |
+| Decision | P7-D could not safely complete autonomous full high-detail PLATEAU import, so it recorded a manual Unity PLATEAU SDK import checklist. This earlier blocker framing is superseded by P7-DL-013 after the user accepted the actual manual import as the practical baseline. |
 | Options considered | Run SDK code import against raw local source; copy full source into `Assets/P7HighDetail`; stop with manual import checklist. |
 | Reason | The requested categories total about 6.49 GB before conversion, the SDK local import path can create side-effect files beside source data, generated scene/assets may be large, and there is no approved Git/LFS/cloud archive decision for those generated outputs. |
-| Risk | P8/P9 cannot start on the high-detail scene until manual import and P7-D validation are completed. |
+| Risk | Superseded risk: before manual import validation, P8/P9 could not start on the high-detail scene. After P7-DL-013, P8/P9 can start on the accepted practical baseline with documented limitations. |
 | Verification | Run `tools/p7/run_p7d_preflight.ps1`; run Unity GUI EditMode and PlayMode tests; verify protected paths are clean; request DeepSeek final review with `deepseek_review_prompt_p7d_final.md`. |
-| Follow-up | Complete `docs/P7D_MANUAL_PLATEAU_IMPORT_CHECKLIST.md`, then rerun P7-D validation and profiling. |
+| Follow-up | See P7-DL-013 for final practical baseline approval and remaining profiling/runtime-smoke follow-ups. |
 | Approved by | P7-D execution prompt plus project safety constraints. |
 
-### P7-DL-013 - Manual Import Is Accepted Only As Conditional Local Baseline
+### P7-DL-013 - P7-D Practical Baseline Approval
 
 | Field | Value |
 |---|---|
 | Date | 2026-05-23 |
 | Stage | P7-D |
-| Decision | After user manual PLATEAU SDK import, `P7_HighDetail_Chuo` is accepted as a conditional local baseline, not a full high-detail or production-ready baseline. |
-| Options considered | Mark PASS; mark BLOCKED; mark CONDITIONAL PASS with documented limitations. |
-| Reason | The scene contains renderable PLATEAU evidence, but actual LOD is LOD0-LOD2, average LOD3 is false, several requested categories are missing, EXE profiling is not complete, and P2-P6 runtime smoke is pending. |
+| Decision | The user reviewed the lower-than-original-target LOD/category coverage and explicitly accepts the current imported `P7_HighDetail_Chuo` scene as the practical baseline for P8/P9/P10. Remaining LOD/category gaps are limitations, not blockers. No false average LOD3 claim is allowed. |
+| Options considered | Keep conditional/blocker framing; accept the current import as practical baseline with documented limitations; require another import before P8. |
+| Reason | The scene contains renderable PLATEAU evidence and is sufficient for practical continuation. Actual LOD is LOD0-LOD2, average LOD3 is false, several requested categories are missing, EXE profiling is not complete, and P2-P6 runtime smoke is pending, but the user accepts those as known limitations. |
 | Risk | P8/P9 work may overclaim map quality if limitations are ignored. The 22.55 GB scene also requires cloud-drive/archive handling before VM deletion. |
-| Verification | Run `tools/p7/run_p7d_preflight.ps1`; run Unity GUI EditMode and PlayMode tests; run DeepSeek final review; keep the 22.55 GB scene out of staged diff unless a large-asset strategy is approved. |
-| Follow-up | Run Windows x64 EXE profiling and populated-scene P2-P6 smoke before expanding P8/P9 systems. |
-| Approved by | P7-D manual import validation evidence. |
+| Verification | Run `tools/p7/run_p7d_postcheck_preflight.ps1`; run Unity GUI EditMode and PlayMode tests; run DeepSeek final postcheck review; keep the 22.55 GB scene out of staged diff unless a large-asset strategy is approved. |
+| Follow-up | Start P8 on `P7_HighDetail_Chuo`; run Windows x64 EXE profiling and populated-scene P2-P6 smoke early in P8; archive local-only assets before VM deletion. |
+| Approved by | Explicit user P7-D practical baseline decision. |

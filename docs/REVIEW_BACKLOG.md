@@ -1049,13 +1049,13 @@ Reason:
 
 ---
 
-### P7-D Conditional Follow-Ups
+### P7-D Practical Baseline Follow-Ups
 
 | ID | Priority | Status | Target | Issue | Required Follow-Up |
 |---|---|---|---|---|---|
-| P7D-B01 | Medium | Deferred to P8/P9 | LOD coverage | Manual import produced LOD0-LOD2 only; average LOD3 is false. | Revisit PLATEAU SDK settings/source availability if P8/P9 require LOD3 geometry. |
-| P7D-B02 | Medium | Deferred to P8 | Missing categories | Water, relief/terrain, disaster risk, land use, urban planning, vegetation, and city furniture are missing from converted scene evidence. | Import or substitute required layers before hazard/terrain-dependent P8 claims. |
-| P7D-B03 | Medium | Deferred to P8 first task | Windows EXE profiling | Renderable scene exists, but Windows EXE profiling was prepared/not run. | Run Windows x64 profiling before adding expensive P8/P9 systems. |
-| P7D-B04 | Medium | Deferred to P8/P9 | P2-P6 runtime smoke | Source compatibility is conditional; populated-scene runtime smoke is pending. | Smoke player, camera, shelter, result panel, P5 loaders, P6 guidance, and P6 NPC staging on `P7_HighDetail_Chuo`. |
+| P7D-B01 | Medium | Deferred to P8/P9 | LOD coverage | Manual import produced LOD0-LOD2 only; average LOD3 is false. This is an accepted limitation, not a P8/P9 blocker. | Revisit PLATEAU SDK settings/source availability only if P8/P9 require LOD3 geometry. |
+| P7D-B02 | Medium | Deferred to P8 | Missing categories | Water, relief/terrain, disaster risk, land use, urban planning, vegetation, and city furniture are missing from converted scene evidence. This is an accepted limitation. | Use data-layer/proxy/rule-based substitutes or targeted follow-up import before hazard/terrain-dependent final claims. |
+| P7D-B03 | Medium | Deferred to P8 first task | Windows EXE profiling | Renderable scene exists, but Windows EXE profiling was prepared/not run. P8 may start; P10 release still needs profiling. | Run Windows x64 profiling before adding expensive P8/P9 systems and before final release packaging. |
+| P7D-B04 | Medium | Deferred to P8/P9 | P2-P6 runtime smoke | Source compatibility is accepted for handoff; populated-scene runtime smoke is pending. | Smoke player, camera, shelter, result panel, P5 loaders, P6 guidance, and P6 NPC staging on `P7_HighDetail_Chuo`. |
 | P7D-B05 | Medium | Deferred to release/archive | Asset archive | The imported scene is 22.55 GB and local-only unless archived outside normal Git. | Archive required assets and final EXE to cloud drive before VM deletion. |
 

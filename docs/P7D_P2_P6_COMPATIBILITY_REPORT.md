@@ -4,9 +4,9 @@ Validation date: 2026-05-23.
 
 ## Status
 
-Compatibility status: CONDITIONAL PASS, runtime scene smoke still pending.
+Compatibility status: ACCEPTED FOR PRACTICAL BASELINE HANDOFF, runtime scene smoke still pending.
 
-The new high-detail scene contains renderable PLATEAU objects, so compatibility can be assessed beyond the old shell state. P2-P6 source systems remain scene-independent enough to adapt, but P7-D did not wire production gameplay into the new map and did not change success/failure rules.
+The new high-detail scene contains renderable PLATEAU objects, so compatibility can be assessed beyond the old shell state. P2-P6 source systems remain scene-independent enough to adapt, and no system is hard-bound to `Chuo_BaseMap`. P7-D did not wire production gameplay into the new map and did not change success/failure rules.
 
 ## P2
 
@@ -38,7 +38,15 @@ Qualified shelters, route metadata, and high-rise/humanitarian candidate display
 
 Navigation guidance and NPC prototype code target objects rather than `Chuo_BaseMap` directly. They can be staged against the new scene, but P7-D did not perform a full runtime smoke with high-detail scene targets and did not add P9 crowd, real spawn, indoor evacuation, congestion, or failure systems.
 
-## Pending Runtime Smoke
+## Validated
+
+- Source systems for P2-P6 remain present.
+- Source/data patterns are scene-independent and not hard-bound to `Chuo_BaseMap`.
+- `sourceMode = test` and P5 candidate flags remain opt-in/fail-safe.
+- Gameplay success/failure rules were not changed.
+- No P8 or P9 systems were implemented.
+
+## Remaining Limitations
 
 - Player spawn height and collision on the imported map.
 - Gameplay camera framing in the imported map.
@@ -46,3 +54,5 @@ Navigation guidance and NPC prototype code target objects rather than `Chuo_Base
 - Result panel flow after a staged shelter interaction.
 - P5 real-data loaders with high-detail marker placement.
 - P6 guidance/NPC staging against imported target objects.
+
+These limitations should be handled during P8/P9 integration and do not block starting P8 on the user-approved practical baseline unless a concrete runtime safety issue appears.
