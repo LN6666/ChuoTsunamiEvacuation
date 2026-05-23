@@ -1,4 +1,5 @@
 using System.IO;
+using System.Linq;
 using NUnit.Framework;
 
 public class P8HazardLayerFoundationTests
@@ -10,10 +11,42 @@ public class P8HazardLayerFoundationTests
 
         Assert.IsTrue(result.success, string.Join("\n", result.validation.errorsArray));
         Assert.IsFalse(result.failSafe);
-        Assert.AreEqual("p8b_chuo_hazard_layer_v1_manual_sample", result.data.scenarioId);
-        Assert.AreEqual("manual_sample", result.data.sourceMode);
+        Assert.AreEqual("p8b_chuo_tokyo_tsunami_evidence_layer_v1", result.data.scenarioId);
+        Assert.AreEqual("evidence_planned", result.data.sourceMode);
+        Assert.AreEqual("CONDITIONAL PASS", result.data.p8cGateDecision);
+        Assert.IsTrue(result.data.officialMetropolitanEvidenceIdentified);
+        Assert.IsFalse(result.data.completeOfficialSpatialLayerExtracted);
         Assert.AreEqual(3, result.data.features.Length);
         Assert.IsTrue(result.summary.Contains("features=3"));
+    }
+
+    [Test]
+    public void EvidenceLayerPrioritizesTokyoMetropolitanSources()
+    {
+        P8HazardLayerLoadResult result = P8HazardLayerLoader.LoadSampleHazardLayer();
+
+        Assert.IsTrue(result.success, string.Join("\n", result.validation.errorsArray));
+        Assert.IsTrue(result.data.evidenceSources.Any(source => source.evidenceSourceId == "tokyo_damage_estimation_map_tsunami"));
+        Assert.IsTrue(result.data.evidenceSources.Any(source => source.evidenceSourceId == "tokyo_damage_estimation_report_tsunami"));
+        Assert.IsTrue(result.data.evidenceSources.Any(source => source.evidenceSourceId == "chuo_city_tsunami_liquefaction_page"));
+        Assert.IsTrue(result.data.evidenceSources.Any(source => source.evidenceSourceId == "supplementary_pdf_tokyo_bay_tsunami_height_chuo"));
+        Assert.IsTrue(result.data.evidenceSources.Any(source => source.evidenceSourceId == "flood_proxy_chuo_hazard_map"));
+        Assert.IsTrue(result.data.evidenceSources.Any(source => source.sourceCategory == "official_tsunami_metropolitan"));
+        Assert.IsTrue(result.data.evidenceSources.Any(source => source.sourceCategory == "official_tsunami_report_reference"));
+        Assert.IsTrue(result.data.evidenceSources.Any(source => source.sourceCategory == "official_flood_proxy"));
+    }
+
+    [Test]
+    public void MaxTsunamiHeightReferenceIsSeparateFromSpatialDepth()
+    {
+        P8HazardLayerLoadResult result = P8HazardLayerLoader.LoadSampleHazardLayer();
+
+        Assert.IsTrue(result.success, string.Join("\n", result.validation.errorsArray));
+        Assert.IsTrue(result.data.features.Any(feature => feature.maxTsunamiHeightMeters >= 2.4f));
+        Assert.IsTrue(result.data.features.All(feature => feature.inundationDepthStatus.Contains("not_spatial_depth") ||
+                                                          feature.inundationDepthStatus.Contains("height_reference_only") ||
+                                                          feature.inundationDepthStatus.Contains("pending")));
+        Assert.IsTrue(result.data.features.All(feature => feature.boundaryIsEvidenceBasedOrPrototype == "prototype"));
     }
 
     [Test]

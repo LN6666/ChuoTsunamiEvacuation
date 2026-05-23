@@ -6,7 +6,10 @@ public static class P8HazardLayerLoader
 {
     public const bool AffectsGameplaySuccessFailure = false;
     public const bool AppliesHazardInteractionsInP8A = false;
-    public const string SampleHazardFileName = "tsunami_hazard_sample_chuo.json";
+    public const string HazardLayerV1FileName = "tsunami_hazard_layer_v1_chuo.json";
+    public const string SampleHazardFileName = HazardLayerV1FileName;
+    public const string LegacySampleHazardFileName = "tsunami_hazard_sample_chuo.json";
+    public const string EvidenceRegistryFileName = "tsunami_hazard_evidence_registry.json";
     public const string RiskFrontConfigFileName = "risk_front_visualization_config.json";
     public const string InfrastructureConfigFileName = "infrastructure_hazard_interaction_config.json";
 

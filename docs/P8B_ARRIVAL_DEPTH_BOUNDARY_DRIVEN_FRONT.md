@@ -4,7 +4,7 @@ Date: 2026-05-24.
 
 ## Front Selection
 
-The active front is selected from hazard-layer records:
+The active front is selected from hazard-layer records. In the current P8-B layer, some arrival values come from reviewed Tokyo/Chuo report references while exact spatial extraction remains pending:
 
 - before a record arrives, the next upcoming `arrivalTimeSeconds` record is selected;
 - after all records have arrived, the latest arrived record remains selected;
@@ -25,6 +25,8 @@ P8-B combines:
 
 The larger normalized value becomes `visualIntensity01`. This drives warning level and light-curtain color/alpha. It does not change gameplay success/failure.
 
+For Chuo evidence-layer v1, `maxTsunamiHeightMeters` records maximum tsunami-height references around 2.4m to 2.46m where available. These references are not a full inundation-depth grid. Until actual spatial depth extraction is complete, `inundationDepthMeters` values remain placeholder/pending and the front uses `hazardIntensity` plus explicit provenance labels for visualization.
+
 Warning levels:
 
 - low: below 0.33
@@ -33,4 +35,11 @@ Warning levels:
 
 ## Non-Claims
 
-The current v1 front is not a hydrodynamic simulation, not an official inundation contour, and not final academic tsunami modeling. It is an evidence-shaped, manual-sample hazard-layer driver ready for reviewed source replacement.
+The current v1 front is not a hydrodynamic simulation, not an official inundation contour, and not final academic tsunami modeling. It is an evidence-aware hazard-layer driver prioritizing Tokyo metropolitan tsunami evidence while spatial extraction remains pending.
+
+Do not claim:
+
+- the current prototype boundary is official inundation geometry;
+- the current pending depth is official inundation depth;
+- Chuo lacks tsunami evidence because it lacks a standalone tsunami map;
+- a maximum tsunami-height reference is a spatial inundation-depth grid.

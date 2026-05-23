@@ -18,7 +18,7 @@ P8-B remains a bounded dynamic risk-front visualization stage. It must preserve 
 
 `visualHeightMeters` exists for readable visual scale. It is not an official tsunami height, water level, inundation depth, or hazard evidence value.
 
-`sourceMode` remains limited to controlled test, manual sample, or evidence-planned states until an approved evidence review upgrades data status.
+`sourceMode` remains limited to controlled test, manual sample, evidence-planned, or reviewed official metropolitan tsunami evidence states. Even when Tokyo Metropolitan Government evidence is identified, P8-B must not claim a complete official Chuo spatial inundation surface until extraction is reviewed.
 
 ## P8 Stage Boundary
 

@@ -4,24 +4,25 @@ Date: 2026-05-23.
 
 ## Purpose
 
-P8-B adds a dynamic tsunami risk-front / cinematic light curtain visualization driven by the P8-A hazard data layer.
+P8-B adds a dynamic tsunami risk-front / cinematic light curtain visualization driven by the P8 hazard data layer. The current P8-B driver prioritizes Tokyo Metropolitan Government tsunami damage estimation evidence for Chuo while marking spatial extraction as pending/manual.
 
 The risk front is visual and communicative only. It is not physical tsunami height, no real-time fluid simulation, and no official hazard claim.
 
 ## Runtime Components
 
-- `P8RiskFrontController`: loads P8-A hazard/config data, drives the visual boundary, and fails safe when data is missing.
+- `P8RiskFrontController`: loads P8 hazard/config data, drives the visual boundary, and fails safe when data is missing.
 - `P8RiskFrontVisualConfig`: converts P8-A/P8-B config into a validated visual runtime config.
 - `P8RiskFrontCurveGenerator`: separates the data boundary from a non-linear visual curtain boundary.
 - `P8RiskFrontLightCurtainRenderer`: builds a lightweight vertical mesh strip using built-in material fallback.
-- `P8RiskFrontTimeDriver`: advances sample visualization time without moving gameplay objects.
+- `P8RiskFrontTimeDriver`: advances evidence-aware prototype visualization time without moving gameplay objects.
 - `P8RiskFrontDebugStatus`: provides the label text: "Cinematic risk-front visualization, not physical tsunami height."
 
 ## Data Flow
 
 P8-B reads:
 
-- `Assets/Data/P8/tsunami_hazard_sample_chuo.json`
+- `Assets/Data/P8/tsunami_hazard_layer_v1_chuo.json`
+- `Assets/Data/P8/tsunami_hazard_evidence_registry.json`
 - `Assets/Data/P8/risk_front_visualization_config.json`
 
 The science/data layer remains:
@@ -32,6 +33,8 @@ The science/data layer remains:
 - tsunami height where supported
 - data inundation boundary
 - hazard intensity and confidence
+- maximum tsunami-height reference where available, kept separate from inundation depth
+- evidence source and spatial extraction status
 
 The visual layer remains:
 
@@ -52,6 +55,7 @@ P8-B does not:
 - implement P9 crowd/spawn/indoor systems
 - perform live web requests or live routing
 - claim official tsunami route or hazard values
+- claim a complete official Chuo spatial inundation-depth layer before extraction is reviewed
 
 ## Failure Behavior
 

@@ -44,7 +44,7 @@
   "$defs": {
     "sourceMode": {
       "type": "string",
-      "enum": [ "test", "evidence_planned", "manual_sample" ]
+      "enum": [ "test", "evidence_planned", "manual_sample", "official_tsunami_metropolitan" ]
     },
     "geometryType": {
       "type": "string",
@@ -77,12 +77,17 @@
       "type": "object",
       "required": [
         "featureId",
+        "scenarioName",
         "sourceMode",
         "geometryType",
         "arrivalTimeSeconds",
         "inundationDepthMeters",
         "waterLevelMeters",
         "tsunamiHeightMeters",
+        "maxTsunamiHeightMeters",
+        "inundationDepthStatus",
+        "boundaryStatus",
+        "spatialExtractionStatus",
         "inundationBoundary",
         "hazardIntensity",
         "confidence",
@@ -99,12 +104,17 @@
       ],
       "properties": {
         "featureId": { "type": "string", "minLength": 1 },
+        "scenarioName": { "type": "string" },
         "sourceMode": { "$ref": "#/$defs/sourceMode" },
         "geometryType": { "$ref": "#/$defs/geometryType" },
         "arrivalTimeSeconds": { "type": "number", "minimum": 0 },
         "inundationDepthMeters": { "type": "number", "minimum": 0 },
         "waterLevelMeters": { "type": "number" },
         "tsunamiHeightMeters": { "type": "number", "minimum": 0 },
+        "maxTsunamiHeightMeters": { "type": "number", "minimum": 0 },
+        "inundationDepthStatus": { "type": "string" },
+        "boundaryStatus": { "type": "string" },
+        "spatialExtractionStatus": { "type": "string" },
         "inundationBoundary": {
           "type": "array",
           "items": { "$ref": "#/$defs/point2" },
@@ -179,6 +189,12 @@
           "type": "string",
           "enum": [
             "official_tsunami_inundation_map",
+            "official_tsunami_metropolitan",
+            "official_tsunami_report_reference",
+            "official_flood_proxy",
+            "academic_model_candidate",
+            "manual_extraction_required",
+            "evidence_planned",
             "tokyo_chuo_hazard_map",
             "cabinet_office_mlit_local_government",
             "academic_tsunami_simulation_paper",

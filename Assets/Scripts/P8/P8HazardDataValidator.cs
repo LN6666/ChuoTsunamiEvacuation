@@ -175,7 +175,8 @@ public static class P8HazardDataValidator
     {
         return string.Equals(sourceMode, "test", StringComparison.OrdinalIgnoreCase) ||
                string.Equals(sourceMode, "manual_sample", StringComparison.OrdinalIgnoreCase) ||
-               string.Equals(sourceMode, "evidence_planned", StringComparison.OrdinalIgnoreCase);
+               string.Equals(sourceMode, "evidence_planned", StringComparison.OrdinalIgnoreCase) ||
+               string.Equals(sourceMode, "official_tsunami_metropolitan", StringComparison.OrdinalIgnoreCase);
     }
 
     private static void ValidateScenarioFields(
@@ -197,12 +198,16 @@ public static class P8HazardDataValidator
         }
         else if (!IsAllowedSourceMode(sourceMode))
         {
-            result.AddError("sourceMode must be test, manual_sample, or evidence_planned.");
+            result.AddError("sourceMode must be test, manual_sample, evidence_planned, or official_tsunami_metropolitan.");
             result.MarkFailSafe();
         }
         else if (string.Equals(sourceMode, "evidence_planned", StringComparison.OrdinalIgnoreCase))
         {
             result.AddWarning("sourceMode=evidence_planned still requires source review before official hazard claims.");
+        }
+        else if (string.Equals(sourceMode, "official_tsunami_metropolitan", StringComparison.OrdinalIgnoreCase))
+        {
+            result.AddWarning("sourceMode=official_tsunami_metropolitan requires reviewed source metadata and extracted spatial data before final official surface claims.");
         }
 
         if (string.IsNullOrWhiteSpace(version))
@@ -220,7 +225,7 @@ public static class P8HazardDataValidator
 
         if ((evidenceSources == null || evidenceSources.Length == 0) && IsEvidenceRequiredSourceMode(layerSourceMode))
         {
-            result.AddError("manual_sample and evidence_planned hazard layers require at least one evidence source entry.");
+            result.AddError("manual_sample, evidence_planned, and official_tsunami_metropolitan hazard layers require at least one evidence source entry.");
             result.MarkFailSafe();
             return ids;
         }
@@ -251,7 +256,7 @@ public static class P8HazardDataValidator
 
             if (!IsAllowedSourceMode(source.sourceMode))
             {
-                result.AddError(prefix + ".sourceMode must be test, manual_sample, or evidence_planned.");
+                result.AddError(prefix + ".sourceMode must be test, manual_sample, evidence_planned, or official_tsunami_metropolitan.");
                 result.MarkFailSafe();
             }
 
@@ -296,7 +301,7 @@ public static class P8HazardDataValidator
 
         if (!IsAllowedSourceMode(feature.sourceMode))
         {
-            result.AddError(prefix + ".sourceMode must be test, manual_sample, or evidence_planned.");
+            result.AddError(prefix + ".sourceMode must be test, manual_sample, evidence_planned, or official_tsunami_metropolitan.");
             result.MarkFailSafe();
         }
         else if (!string.IsNullOrWhiteSpace(layerSourceMode) &&
@@ -382,7 +387,7 @@ public static class P8HazardDataValidator
     {
         if (IsEvidenceRequiredSourceMode(sourceMode) && string.IsNullOrWhiteSpace(evidenceSourceId))
         {
-            result.AddError(label + ".evidenceSourceId is required for manual_sample and evidence_planned records.");
+            result.AddError(label + ".evidenceSourceId is required for evidence-aware records.");
             result.MarkFailSafe();
         }
     }
@@ -441,7 +446,8 @@ public static class P8HazardDataValidator
     private static bool IsEvidenceRequiredSourceMode(string sourceMode)
     {
         return string.Equals(sourceMode, "manual_sample", StringComparison.OrdinalIgnoreCase) ||
-               string.Equals(sourceMode, "evidence_planned", StringComparison.OrdinalIgnoreCase);
+               string.Equals(sourceMode, "evidence_planned", StringComparison.OrdinalIgnoreCase) ||
+               string.Equals(sourceMode, "official_tsunami_metropolitan", StringComparison.OrdinalIgnoreCase);
     }
 
     private static bool IsAllowedGeometryType(string geometryType)
@@ -462,6 +468,12 @@ public static class P8HazardDataValidator
     private static bool IsAllowedSourceCategory(string sourceCategory)
     {
         return string.Equals(sourceCategory, "official_tsunami_inundation_map", StringComparison.OrdinalIgnoreCase) ||
+               string.Equals(sourceCategory, "official_tsunami_metropolitan", StringComparison.OrdinalIgnoreCase) ||
+               string.Equals(sourceCategory, "official_tsunami_report_reference", StringComparison.OrdinalIgnoreCase) ||
+               string.Equals(sourceCategory, "official_flood_proxy", StringComparison.OrdinalIgnoreCase) ||
+               string.Equals(sourceCategory, "academic_model_candidate", StringComparison.OrdinalIgnoreCase) ||
+               string.Equals(sourceCategory, "manual_extraction_required", StringComparison.OrdinalIgnoreCase) ||
+               string.Equals(sourceCategory, "evidence_planned", StringComparison.OrdinalIgnoreCase) ||
                string.Equals(sourceCategory, "tokyo_chuo_hazard_map", StringComparison.OrdinalIgnoreCase) ||
                string.Equals(sourceCategory, "cabinet_office_mlit_local_government", StringComparison.OrdinalIgnoreCase) ||
                string.Equals(sourceCategory, "academic_tsunami_simulation_paper", StringComparison.OrdinalIgnoreCase) ||

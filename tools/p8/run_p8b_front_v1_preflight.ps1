@@ -149,10 +149,14 @@ function Assert-RequiredArtifacts {
     foreach ($file in @(
         "docs/P8B_HAZARD_LAYER_V1_STATUS.md",
         "docs/P8B_EVIDENCE_BACKED_FRONT_MODEL.md",
+        "docs/P8B_TOKYO_TSUNAMI_EVIDENCE_REVIEW.md",
+        "docs/P8B_CHUO_TSUNAMI_EXTRACTION_PLAN.md",
+        "docs/P8B_TO_P8C_GATE_DECISION.md",
         "docs/P8B_RISK_FRONT_DATA_DRIVEN_BEHAVIOR.md",
         "docs/P8B_ARRIVAL_DEPTH_BOUNDARY_DRIVEN_FRONT.md",
         "docs/P8B_TO_P8C_HANDOFF_CHECKLIST.md",
-        "Assets/Data/P8/tsunami_hazard_sample_chuo.json",
+        "Assets/Data/P8/tsunami_hazard_layer_v1_chuo.json",
+        "Assets/Data/P8/tsunami_hazard_evidence_registry.json",
         "Assets/Data/P8/risk_front_visualization_config.json",
         "Assets/Scripts/P8/P8RiskFrontCurveGenerator.cs",
         "Assets/Scripts/P8/P8RiskFrontController.cs",
@@ -167,19 +171,23 @@ function Assert-RequiredArtifacts {
 
 function Assert-Docs {
     Assert-FileContains "docs/P8B_HAZARD_LAYER_V1_STATUS.md" @(
-        "manual_sample",
-        "official or academic inundation values: not present",
+        "evidence_planned",
+        "Tokyo Metropolitan Government",
+        "manual_extraction_required",
         "arrivalTimeSeconds",
         "inundationBoundary",
         "inundationDepthMeters",
         "hazardIntensity",
+        "maxTsunamiHeightMeters",
         "evidenceSourceId",
+        "CONDITIONAL PASS",
         "P8-C"
     )
 
     Assert-FileContains "docs/P8B_EVIDENCE_BACKED_FRONT_MODEL.md" @(
         "hazard-layer v1",
-        "not official values",
+        "Tokyo Metropolitan Government",
+        "complete official Chuo spatial inundation layer",
         "visualHeightMeters",
         "P8-C"
     )
@@ -199,15 +207,15 @@ function Assert-Docs {
 }
 
 function Assert-HazardLayerV1Data {
-    $hazardPath = Join-Path $repoRoot "Assets\Data\P8\tsunami_hazard_sample_chuo.json"
+    $hazardPath = Join-Path $repoRoot "Assets\Data\P8\tsunami_hazard_layer_v1_chuo.json"
     $hazard = Get-Content -Raw -LiteralPath $hazardPath | ConvertFrom-Json
 
-    if ($hazard.sourceMode -ne "manual_sample" -and $hazard.sourceMode -ne "evidence_planned") {
-        throw "P8-B hazard layer v1 must remain manual_sample or evidence_planned unless reviewed official data is supplied."
+    if ($hazard.sourceMode -ne "manual_sample" -and $hazard.sourceMode -ne "evidence_planned" -and $hazard.sourceMode -ne "official_tsunami_metropolitan") {
+        throw "P8-B hazard layer v1 must remain manual_sample, evidence_planned, or official_tsunami_metropolitan."
     }
 
-    if ([string]$hazard.sourceMode -like "*official*") {
-        throw "P8-B hazard layer sourceMode must not claim official values."
+    if ([bool]$hazard.completeOfficialSpatialLayerExtracted -eq $true -and [string]$hazard.spatialExtractionStatus -ne "extracted_reviewed") {
+        throw "P8-B hazard layer must not claim complete official spatial extraction without reviewed extraction status."
     }
 
     if ($hazard.features.Count -lt 3) {
@@ -218,9 +226,6 @@ function Assert-HazardLayerV1Data {
     foreach ($source in $hazard.evidenceSources) {
         if ([string]::IsNullOrWhiteSpace([string]$source.evidenceSourceId)) {
             throw "Hazard evidence source is missing evidenceSourceId."
-        }
-        if ([string]$source.sourceMode -like "*official*") {
-            throw "Hazard evidence sourceMode must not claim official values."
         }
         $registeredEvidenceSourceIds.Add([string]$source.evidenceSourceId) | Out-Null
     }
@@ -234,7 +239,11 @@ function Assert-HazardLayerV1Data {
             "evidenceSourceId",
             "confidence",
             "geometryType",
-            "boundaryIsEvidenceBasedOrPrototype"
+            "boundaryIsEvidenceBasedOrPrototype",
+            "maxTsunamiHeightMeters",
+            "inundationDepthStatus",
+            "boundaryStatus",
+            "spatialExtractionStatus"
         )) {
             if (-not ($feature.PSObject.Properties.Name -contains $field)) {
                 throw "Hazard feature $($feature.featureId) missing $field."
@@ -244,8 +253,8 @@ function Assert-HazardLayerV1Data {
         if (-not $registeredEvidenceSourceIds.Contains([string]$feature.evidenceSourceId)) {
             throw "Hazard feature $($feature.featureId) references unregistered evidenceSourceId: $($feature.evidenceSourceId)"
         }
-        if ([string]$feature.sourceMode -like "*official*") {
-            throw "Hazard feature $($feature.featureId) sourceMode must not claim official values."
+        if ([double]$feature.maxTsunamiHeightMeters -gt 0 -and [string]$feature.inundationDepthStatus -notmatch "not_spatial_depth|height_reference_only|pending") {
+            throw "Hazard feature $($feature.featureId) must keep maximum tsunami height separate from spatial inundation depth."
         }
         if ([double]$feature.visualHeightMeters -gt 10.0 -and [bool]$feature.visualHeightIsCinematicOnly -ne $true) {
             throw "Hazard feature $($feature.featureId) has large visualHeightMeters without visualHeightIsCinematicOnly=true."

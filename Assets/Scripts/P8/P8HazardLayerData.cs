@@ -8,6 +8,11 @@ public class P8HazardLayerData
     public string scenarioId = string.Empty;
     public string sourceMode = string.Empty;
     public string hazardLayerVersion = string.Empty;
+    public string evidenceRegistryFile = string.Empty;
+    public string p8cGateDecision = string.Empty;
+    public string spatialExtractionStatus = string.Empty;
+    public bool officialMetropolitanEvidenceIdentified;
+    public bool completeOfficialSpatialLayerExtracted;
     public float timeOriginSeconds;
     public string[] scienceLayerFields = new string[0];
     public string[] visualLayerFields = new string[0];
@@ -20,12 +25,17 @@ public class P8HazardLayerData
 public class P8HazardFeature
 {
     public string featureId = string.Empty;
+    public string scenarioName = string.Empty;
     public string sourceMode = string.Empty;
     public string geometryType = string.Empty;
     public float arrivalTimeSeconds;
     public float inundationDepthMeters;
     public float waterLevelMeters;
     public float tsunamiHeightMeters;
+    public float maxTsunamiHeightMeters;
+    public string inundationDepthStatus = string.Empty;
+    public string boundaryStatus = string.Empty;
+    public string spatialExtractionStatus = string.Empty;
     public P8BoundaryPoint[] inundationBoundary = new P8BoundaryPoint[0];
     public float hazardIntensity;
     public float confidence;

@@ -77,6 +77,8 @@ function Test-AllowedP8BPath {
     if ($Path -eq "codex_prompts/p8b_riskfront_validation_hardening.md") { return $true }
     if ($Path -eq "deepseek_review_prompt_p8b_guard.md") { return $true }
     if ($Path -eq "deepseek_review_prompt_p8b_integration.md") { return $true }
+    if ($Path -eq "deepseek_review_prompt_p8b_front_v1.md") { return $true }
+    if ($Path -eq "deepseek_review_prompt_p8b_evidence_hazard_layer.md") { return $true }
     return $false
 }
 

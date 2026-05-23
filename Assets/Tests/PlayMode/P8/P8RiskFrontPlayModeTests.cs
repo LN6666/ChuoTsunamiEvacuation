@@ -60,14 +60,16 @@ public class P8RiskFrontPlayModeTests
             P8HazardLayerLoader.LoadRiskFrontConfig().config);
         Assert.IsTrue(initialized, controller.LastStatus);
 
-        Assert.IsTrue(controller.ForceRefreshVisual(1100f), controller.LastStatus);
-        Assert.AreEqual("p8b_sumida_riverfront_front_v1_manual_sample", controller.LastCurveResult.selectedFeatureId);
+        Assert.IsTrue(controller.ForceRefreshVisual(2600f), controller.LastStatus);
+        Assert.AreEqual("p8b_chuo_taisho_kanto_tokyo_front_evidence_planned", controller.LastCurveResult.selectedFeatureId);
+        StringAssert.Contains("spatialExtractionStatus", controller.LastCurveResult.summary);
 
-        Assert.IsTrue(controller.ForceRefreshVisual(1300f), controller.LastStatus);
-        Assert.AreEqual("p8b_harumi_waterfront_front_v1_manual_sample", controller.LastCurveResult.selectedFeatureId);
+        Assert.IsTrue(controller.ForceRefreshVisual(6300f), controller.LastStatus);
+        Assert.AreEqual("p8b_chuo_nankai_tokyo_front_evidence_planned", controller.LastCurveResult.selectedFeatureId);
+        Assert.GreaterOrEqual(controller.LastCurveResult.maxTsunamiHeightMeters, 2.4f);
 
-        Assert.IsTrue(controller.ForceRefreshVisual(2500f), controller.LastStatus);
-        Assert.AreEqual("p8b_tsukishima_inland_front_v1_manual_sample", controller.LastCurveResult.selectedFeatureId);
+        Assert.IsTrue(controller.ForceRefreshVisual(9500f), controller.LastStatus);
+        Assert.AreEqual("p8b_chuo_nankai_supplementary_height_reference", controller.LastCurveResult.selectedFeatureId);
     }
 
     [UnityTest]

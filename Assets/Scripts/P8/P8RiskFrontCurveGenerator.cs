@@ -57,11 +57,16 @@ public static class P8RiskFrontCurveGenerator
         result.arrivalProgress = CalculateArrivalProgress(hazardLayer.timeOriginSeconds, feature.arrivalTimeSeconds, simulationTimeSeconds);
         result.arrivalTimeSeconds = feature.arrivalTimeSeconds;
         result.inundationDepthMeters = feature.inundationDepthMeters;
+        result.maxTsunamiHeightMeters = feature.maxTsunamiHeightMeters;
         result.hazardIntensity = feature.hazardIntensity;
         result.confidence = feature.confidence;
         result.evidenceSourceId = feature.evidenceSourceId ?? string.Empty;
         result.sourceMode = feature.sourceMode ?? string.Empty;
         result.geometryType = feature.geometryType ?? string.Empty;
+        result.scenarioName = feature.scenarioName ?? string.Empty;
+        result.inundationDepthStatus = feature.inundationDepthStatus ?? string.Empty;
+        result.boundaryStatus = feature.boundaryStatus ?? string.Empty;
+        result.spatialExtractionStatus = feature.spatialExtractionStatus ?? string.Empty;
         result.frontDriverSource = FrontDriverSource;
         result.success = result.visualBoundary.Length >= 2;
         result.failSafe = !result.success;
@@ -237,13 +242,18 @@ public static class P8RiskFrontCurveGenerator
         return "Generated P8-B hazard-layer-driven v1 visual boundary. driver=" + result.frontDriverSource +
                " boundary=" + boundaryMode +
                " selectedFeature=" + result.selectedFeatureId +
+               " scenarioName=" + result.scenarioName +
                " arrivalTimeSeconds=" + result.arrivalTimeSeconds.ToString("0.##") +
+               " maxTsunamiHeightMeters=" + result.maxTsunamiHeightMeters.ToString("0.##") +
                " inundationDepthMeters=" + result.inundationDepthMeters.ToString("0.##") +
+               " inundationDepthStatus=" + result.inundationDepthStatus +
                " hazardIntensity=" + result.hazardIntensity.ToString("0.##") +
                " confidence=" + result.confidence.ToString("0.##") +
                " warningLevel=" + result.warningLevel +
                " sourceMode=" + result.sourceMode +
                " evidenceSourceId=" + result.evidenceSourceId +
+               " spatialExtractionStatus=" + result.spatialExtractionStatus +
+               " boundaryStatus=" + result.boundaryStatus +
                ". " + P8RiskFrontVisualConfig.CinematicDisclaimer;
     }
 }
@@ -257,9 +267,14 @@ public class P8RiskFrontCurveResult
     public string evidenceSourceId = string.Empty;
     public string sourceMode = string.Empty;
     public string geometryType = string.Empty;
+    public string scenarioName = string.Empty;
+    public string inundationDepthStatus = string.Empty;
+    public string boundaryStatus = string.Empty;
+    public string spatialExtractionStatus = string.Empty;
     public float arrivalProgress;
     public float arrivalTimeSeconds;
     public float inundationDepthMeters;
+    public float maxTsunamiHeightMeters;
     public float hazardIntensity;
     public float confidence;
     public float visualIntensity01;
