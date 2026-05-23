@@ -1,0 +1,88 @@
+{
+  "scenarioId": "p8a_chuo_manual_sample",
+  "sourceMode": "manual_sample",
+  "hazardLayerVersion": "p8a.0.1",
+  "timeOriginSeconds": 0,
+  "features": [
+    {
+      "featureId": "p8a_harumi_waterfront_sample",
+      "geometryType": "polygon",
+      "arrivalTimeSeconds": 1800,
+      "inundationDepthMeters": 1.2,
+      "waterLevelMeters": 2.1,
+      "tsunamiHeightMeters": 1.5,
+      "inundationBoundary": [
+        { "x": 139.7700, "y": 35.6460 },
+        { "x": 139.7760, "y": 35.6460 },
+        { "x": 139.7760, "y": 35.6510 },
+        { "x": 139.7700, "y": 35.6510 }
+      ],
+      "hazardIntensity": 0.65,
+      "confidence": 0.2,
+      "evidenceSourceId": "p8a_manual_placeholder",
+      "notes": "Synthetic placeholder for P8-A loader and validator tests. Not an official hazard value.",
+      "visualHeightMeters": 120.0,
+      "visualHeightIsCinematicOnly": true,
+      "boundaryIsEvidenceBasedOrPrototype": "prototype",
+      "affectedInfrastructureTypes": {
+        "roads": true,
+        "buildings": true,
+        "bridges": true,
+        "underground": false,
+        "entrances": true,
+        "waterfront": true,
+        "open_space": true
+      },
+      "buildingDamageState": "none",
+      "collapseProxyState": "data_only",
+      "collapseProbability": 0.0,
+      "collapseRandomSeed": 8001,
+      "hazardDrivenCollapse": false
+    },
+    {
+      "featureId": "p8a_tsukishima_inland_sample",
+      "geometryType": "synthetic",
+      "arrivalTimeSeconds": 2400,
+      "inundationDepthMeters": 0.4,
+      "waterLevelMeters": 1.1,
+      "tsunamiHeightMeters": 0.7,
+      "inundationBoundary": [
+        { "x": 139.7820, "y": 35.6600 },
+        { "x": 139.7870, "y": 35.6600 },
+        { "x": 139.7870, "y": 35.6650 },
+        { "x": 139.7820, "y": 35.6650 }
+      ],
+      "hazardIntensity": 0.35,
+      "confidence": 0.2,
+      "evidenceSourceId": "p8a_manual_placeholder",
+      "notes": "Synthetic inland placeholder for P8-A. Replace with reviewed evidence before claims.",
+      "visualHeightMeters": 80.0,
+      "visualHeightIsCinematicOnly": true,
+      "boundaryIsEvidenceBasedOrPrototype": "prototype",
+      "affectedInfrastructureTypes": {
+        "roads": true,
+        "buildings": true,
+        "bridges": false,
+        "underground": true,
+        "entrances": true,
+        "waterfront": false,
+        "open_space": true
+      },
+      "buildingDamageState": "none",
+      "collapseProxyState": "disabled",
+      "collapseProbability": 0.0,
+      "collapseRandomSeed": 8002,
+      "hazardDrivenCollapse": false
+    }
+  ],
+  "evidenceSources": [
+    {
+      "evidenceSourceId": "p8a_manual_placeholder",
+      "sourceMode": "manual_sample",
+      "title": "P8-A manual sample hazard placeholder",
+      "url": "",
+      "notes": "Development-only sample data. No official or academic hazard claim."
+    }
+  ],
+  "notes": "P8-A data-layer sample only. Values are intentionally non-authoritative."
+}

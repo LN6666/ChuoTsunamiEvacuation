@@ -1,0 +1,23 @@
+{
+  "scenarioId": "p8a_chuo_manual_sample",
+  "sourceMode": "manual_sample",
+  "configVersion": "p8a.0.1",
+  "hazardLayerVersion": "p8a.0.1",
+  "timeOriginSeconds": 0,
+  "riskFrontEnabledInP8A": false,
+  "visualHeightMeters": 120.0,
+  "visualHeightIsCinematicOnly": true,
+  "boundaryIsEvidenceBasedOrPrototype": "prototype",
+  "visualLayerPurpose": "cinematic risk-front readability only",
+  "scienceLayerFields": [
+    "arrivalTimeSeconds",
+    "inundationDepthMeters",
+    "waterLevelMeters",
+    "tsunamiHeightMeters",
+    "inundationBoundary",
+    "hazardIntensity",
+    "confidence",
+    "evidenceSourceId"
+  ],
+  "notes": "P8-A does not render the light curtain. Large visual height is cinematic-only and not physical tsunami height."
+}

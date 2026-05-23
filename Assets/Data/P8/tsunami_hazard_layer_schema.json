@@ -1,0 +1,134 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "P8 Tsunami Hazard Layer",
+  "type": "object",
+  "required": [
+    "scenarioId",
+    "sourceMode",
+    "hazardLayerVersion",
+    "timeOriginSeconds",
+    "features"
+  ],
+  "properties": {
+    "scenarioId": { "type": "string" },
+    "sourceMode": {
+      "type": "string",
+      "enum": [ "test", "evidence_planned", "manual_sample" ]
+    },
+    "hazardLayerVersion": { "type": "string" },
+    "timeOriginSeconds": { "type": "number" },
+    "features": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/hazardFeature" },
+      "minItems": 1
+    },
+    "evidenceSources": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/evidenceSource" }
+    },
+    "notes": { "type": "string" }
+  },
+  "$defs": {
+    "hazardFeature": {
+      "type": "object",
+      "required": [
+        "featureId",
+        "geometryType",
+        "arrivalTimeSeconds",
+        "inundationDepthMeters",
+        "waterLevelMeters",
+        "tsunamiHeightMeters",
+        "inundationBoundary",
+        "hazardIntensity",
+        "confidence",
+        "evidenceSourceId",
+        "visualHeightMeters",
+        "visualHeightIsCinematicOnly",
+        "boundaryIsEvidenceBasedOrPrototype",
+        "affectedInfrastructureTypes",
+        "buildingDamageState",
+        "collapseProxyState",
+        "collapseProbability",
+        "collapseRandomSeed",
+        "hazardDrivenCollapse"
+      ],
+      "properties": {
+        "featureId": { "type": "string" },
+        "geometryType": {
+          "type": "string",
+          "enum": [ "grid", "polygon", "polyline", "point", "synthetic" ]
+        },
+        "arrivalTimeSeconds": { "type": "number", "minimum": 0 },
+        "inundationDepthMeters": { "type": "number", "minimum": 0 },
+        "waterLevelMeters": { "type": "number" },
+        "tsunamiHeightMeters": { "type": "number", "minimum": 0 },
+        "inundationBoundary": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/point2" }
+        },
+        "hazardIntensity": { "type": "number", "minimum": 0, "maximum": 1 },
+        "confidence": { "type": "number", "minimum": 0, "maximum": 1 },
+        "evidenceSourceId": { "type": "string" },
+        "notes": { "type": "string" },
+        "visualHeightMeters": { "type": "number", "minimum": 0 },
+        "visualHeightIsCinematicOnly": { "type": "boolean" },
+        "boundaryIsEvidenceBasedOrPrototype": {
+          "type": "string",
+          "enum": [ "evidence_based", "prototype" ]
+        },
+        "affectedInfrastructureTypes": { "$ref": "#/$defs/affectedInfrastructureTypes" },
+        "buildingDamageState": {
+          "type": "string",
+          "enum": [ "none", "warn", "damaged", "collapse_proxy_candidate" ]
+        },
+        "collapseProxyState": {
+          "type": "string",
+          "enum": [ "disabled", "data_only", "candidate" ]
+        },
+        "collapseProbability": { "type": "number", "minimum": 0, "maximum": 1 },
+        "collapseRandomSeed": { "type": "integer" },
+        "hazardDrivenCollapse": { "type": "boolean" }
+      }
+    },
+    "affectedInfrastructureTypes": {
+      "type": "object",
+      "required": [
+        "roads",
+        "buildings",
+        "bridges",
+        "underground",
+        "entrances",
+        "waterfront",
+        "open_space"
+      ],
+      "properties": {
+        "roads": { "type": "boolean" },
+        "buildings": { "type": "boolean" },
+        "bridges": { "type": "boolean" },
+        "underground": { "type": "boolean" },
+        "entrances": { "type": "boolean" },
+        "waterfront": { "type": "boolean" },
+        "open_space": { "type": "boolean" }
+      }
+    },
+    "point2": {
+      "type": "object",
+      "required": [ "x", "y" ],
+      "properties": {
+        "x": { "type": "number" },
+        "y": { "type": "number" }
+      }
+    },
+    "evidenceSource": {
+      "type": "object",
+      "required": [ "evidenceSourceId", "sourceMode", "title" ],
+      "properties": {
+        "evidenceSourceId": { "type": "string" },
+        "sourceMode": { "type": "string" },
+        "title": { "type": "string" },
+        "url": { "type": "string" },
+        "notes": { "type": "string" }
+      }
+    }
+  }
+}

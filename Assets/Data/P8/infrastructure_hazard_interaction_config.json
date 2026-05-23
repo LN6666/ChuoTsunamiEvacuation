@@ -1,0 +1,27 @@
+{
+  "scenarioId": "p8a_chuo_manual_sample",
+  "sourceMode": "manual_sample",
+  "configVersion": "p8a.0.1",
+  "interactionEnabledInP8A": false,
+  "affectedInfrastructureTypes": {
+    "roads": true,
+    "buildings": true,
+    "bridges": true,
+    "underground": true,
+    "entrances": true,
+    "waterfront": true,
+    "open_space": true
+  },
+  "roadInteractionMode": "data_only",
+  "buildingInteractionMode": "data_only",
+  "bridgeInteractionMode": "data_only",
+  "undergroundInteractionMode": "data_only",
+  "entranceInteractionMode": "data_only",
+  "collapseProxyEnabledInP8A": false,
+  "buildingDamageState": "none",
+  "collapseProxyState": "data_only",
+  "collapseProbability": 0.0,
+  "collapseRandomSeed": 8000,
+  "hazardDrivenCollapse": false,
+  "notes": "P8-A parses infrastructure/collapse fields only. No gameplay damage, collapse, success, or failure behavior is triggered."
+}
