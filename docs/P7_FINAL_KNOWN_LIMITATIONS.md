@@ -1,25 +1,27 @@
 # P7 Final Known Limitations
 
-## Blockers
+Validation date: 2026-05-23.
 
-- Manual PLATEAU SDK import is required.
-- High-detail scene remains a shell/import target.
-- Average LOD3 is not achieved.
-- Windows EXE profiling is blocked.
-- P2-P6 runtime compatibility on the high-detail map is blocked.
-- P8/P9/P10 baseline approval is blocked.
+## A-Level Blockers
 
-## Evidence Limits
+No A-level safety blocker is currently documented for committing P7-D reports/tools if preflight, Unity tests, and DeepSeek review pass.
 
-- P7Benchmark candidate `53393690` is raw CityGML/JPG data.
-- Current high-detail scene roots are metadata and import targets, not renderable proof.
-- Source folder existence is not LOD/renderability evidence.
-- Target SDK settings are not completion evidence.
+## B-Level Follow-Ups
 
-## Deferred Work
+- Average LOD3 is not achieved; actual evidence is LOD0-LOD2.
+- Buildings are renderable but below target.
+- Roads/transport are renderable but LOD0-LOD1 only.
+- Bridges are renderable but only 13 LOD1 objects were detected.
+- Underground evidence is limited to one LOD1 object.
+- City furniture, water, vegetation, relief/terrain, disaster risk, land use, and urban planning decision categories are missing from converted scene evidence.
+- Windows EXE profiling is prepared but not complete.
+- P2-P6 runtime smoke validation on the populated high-detail scene is pending.
+- The imported scene is 22.55 GB and local-only unless later archived outside normal Git.
 
-- Actual high-detail import.
-- Visual quality review after import.
-- Unity Profiler, Memory Profiler, and Frame Debugger inspection after import.
-- Windows EXE profiling.
-- Cloud archive/recovery package for final game assets.
+## Scope Limits
+
+- No real tsunami fluid simulation.
+- No P8 hazard/inundation/light-curtain/flood/risk-front system.
+- No P9 crowd, real spawn, indoor evacuation, underground evacuation, congestion, or new failure system.
+- No gameplay success/failure rule changes.
+- No unsafe official-route claims.

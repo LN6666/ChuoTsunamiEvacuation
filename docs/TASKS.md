@@ -12,7 +12,7 @@ P7-0 begins the PBL7 high-detail city foundation. P7-0 is docs/tools/prompts onl
 
 ## Phase 7: High-Detail Chuo Asset Loading, LOD, Streaming, and Windows EXE Optimization
 
-Status: P7-C benchmark streaming/chunk/loading foundation implemented and validated. P7-B is complete. P7 has exactly five stages: P7-0, P7-A, P7-B, P7-C, and P7-D. Do not create P7-E, P7-F, or P7-G.
+Status: P7-D manual high-detail import validation is conditionally complete. The actual `P7_HighDetail_Chuo` scene contains renderable PLATEAU objects, but average LOD3 is not achieved, category coverage is incomplete, P2-P6 runtime smoke remains pending, and Windows EXE profiling is prepared but not complete. P7 has exactly five stages: P7-0, P7-A, P7-B, P7-C, and P7-D. Do not create P7-E, P7-F, or P7-G.
 
 Planned tasks:
 
@@ -20,7 +20,7 @@ Planned tasks:
 - P7-A: Chuo Asset Inventory + LOD / Area Selection. Command-line scanner and report scripts inventory local asset/source folders without importing assets; reports record file counts, extensions, likely PLATEAU categories, candidate LOD path/name indicators, large files, and benchmark candidate categories. Implemented in current P7-A work; pending review.
 - P7-B: Small-Area High-Detail Benchmark + Underground / Bridge / Road Feasibility. Wave 1 is docs/tools/prompts only: command-line feasibility, candidate-area selection, benchmark harness design, rollback/test planning, and review prep. Wave 2-A is approved only for an isolated benchmark scene skeleton and metrics harness under `P7Benchmark` paths; it does not import real assets. Wave 2-B is approved only for read-only LOD3 candidate metadata dry-run inspection. Wave 2-C is approved only for full `53393690` candidate import under `Assets/P7Benchmark/Imported/53393690/`; it does not approve full PLATEAU import, production scene integration, `Assets/PLATEAU` changes, or `Chuo_BaseMap.unity` changes.
 - P7-C: Streaming / Chunk Loading + Visual Quality + Performance Optimization. Implement only approved P7Benchmark sandbox chunk/loading/visual/performance work after benchmark evidence and a confirmed Markdown plan. Implemented and validated.
-- P7-D: Windows EXE Profiling + P7 Final Closeout. Record Windows x64 profiling, final decision log, DeepSeek review, and closeout. Pending.
+- P7-D: Windows EXE Profiling + P7 Final Closeout. Manual PLATEAU import was validated as a conditional local baseline: renderable buildings/roads/bridges/one underground object exist, actual LOD is LOD0-LOD2, average LOD3 is false, several target categories are missing, and EXE profiling remains prepared/not run pending a Windows build profiling pass.
 
 ### P7-A Automation / Performance Prep (Codex B)
 

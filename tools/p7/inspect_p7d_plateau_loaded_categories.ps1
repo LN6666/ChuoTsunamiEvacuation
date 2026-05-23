@@ -7,93 +7,54 @@ $ErrorActionPreference = "Stop"
 
 $scriptRoot = Split-Path -Parent $MyInvocation.MyCommand.Path
 $repoRoot = (Resolve-Path (Join-Path $scriptRoot "..\..")).ProviderPath
-$sceneRelativePath = "Assets/Scenes/P7HighDetail/P7_HighDetail_Chuo.unity"
-$scenePath = Join-Path $repoRoot ($sceneRelativePath -replace "/", "\")
-$unityRoots = @(
-    "Assets/P7HighDetail/Imported",
-    "Assets/P7HighDetail/PLATEAU",
-    "Assets/Scenes/P7HighDetail"
-)
+. (Join-Path $scriptRoot "get_p7d_scene_evidence.ps1")
 
-$categories = @(
-    @{ Category = "Buildings"; TargetLod = "LOD3"; SourceFolder = "bldg"; SceneRoot = "Buildings" },
-    @{ Category = "Roads"; TargetLod = "LOD3"; SourceFolder = "tran"; SceneRoot = "Roads" },
-    @{ Category = "Bridges"; TargetLod = "LOD3"; SourceFolder = "brid"; SceneRoot = "Bridges" },
-    @{ Category = "Underground"; TargetLod = "LOD3 if available"; SourceFolder = "ubld"; SceneRoot = "Underground" },
-    @{ Category = "CityFurniture"; TargetLod = "LOD2/LOD3"; SourceFolder = "frn"; SceneRoot = "CityFurniture" },
-    @{ Category = "Water"; TargetLod = "LOD1"; SourceFolder = "wtr"; SceneRoot = "Water" },
-    @{ Category = "Vegetation"; TargetLod = "LOD3 if available"; SourceFolder = "veg"; SceneRoot = "Vegetation" },
-    @{ Category = "Relief"; TargetLod = "import terrain"; SourceFolder = "dem"; SceneRoot = "Relief" },
-    @{ Category = "DisasterRisk"; TargetLod = "import"; SourceFolder = "fld"; SceneRoot = "DisasterRisk" },
-    @{ Category = "LandUse"; TargetLod = "import"; SourceFolder = "luse"; SceneRoot = "LandUse" },
-    @{ Category = "UrbanPlanningDecision"; TargetLod = "LOD1"; SourceFolder = "urf"; SceneRoot = "UrbanPlanningDecision" }
-)
-
-$renderableExtensions = @(".prefab", ".fbx", ".obj", ".dae", ".gltf", ".glb", ".asset", ".mesh")
-$sceneText = if (Test-Path -LiteralPath $scenePath -PathType Leaf) { Get-Content -Raw -LiteralPath $scenePath } else { "" }
-$udxRoot = Join-Path $PlateauDataRoot "udx"
-$allLoaded = $true
-
-function Get-UnityEvidence {
-    param(
-        [string]$Category,
-        [string]$SourceFolder
-    )
-
-    $matches = New-Object System.Collections.Generic.List[string]
-    foreach ($unityRoot in $unityRoots) {
-        $fullRoot = Join-Path $repoRoot ($unityRoot -replace "/", "\")
-        if (-not (Test-Path -LiteralPath $fullRoot)) {
-            continue
-        }
-
-        $files = Get-ChildItem -LiteralPath $fullRoot -Recurse -File -ErrorAction SilentlyContinue |
-            Where-Object {
-                $renderableExtensions -contains $_.Extension.ToLowerInvariant() -and
-                ($_.FullName.IndexOf($SourceFolder, [System.StringComparison]::OrdinalIgnoreCase) -ge 0 -or
-                 $_.FullName.IndexOf($Category, [System.StringComparison]::OrdinalIgnoreCase) -ge 0)
-            } |
-            Select-Object -First 4
-
-        foreach ($file in $files) {
-            $matches.Add(($file.FullName.Substring($repoRoot.Length).TrimStart("\", "/") -replace "\\", "/")) | Out-Null
-        }
-    }
-
-    if ($matches.Count -eq 0) {
-        return "none"
-    }
-
-    return $matches -join "; "
-}
+$evidence = Get-P7DSceneEvidence -RepoRoot $repoRoot -PlateauDataRoot $PlateauDataRoot
+$failed = $false
 
 Write-Host "P7-D PLATEAU loaded category inspection"
-Write-Host ("{0,-26} {1,-18} {2,-18} {3,-34} {4}" -f "category", "target", "source", "unity evidence", "status")
+Write-Host "Scene: $($evidence.SceneRelativePath)"
 
-foreach ($category in $categories) {
-    $sourcePath = Join-Path $udxRoot $category.SourceFolder
-    $sourceEvidence = if (Test-Path -LiteralPath $sourcePath -PathType Container) { "source:$($category.SourceFolder)" } else { "missing:$($category.SourceFolder)" }
-    $rootExists = $sceneText.IndexOf("m_Name: $($category.SceneRoot)", [System.StringComparison]::OrdinalIgnoreCase) -ge 0
-    $unityEvidence = Get-UnityEvidence -Category $category.Category -SourceFolder $category.SourceFolder
-    $status = "BLOCKED_pending_manual_import"
+if (-not $evidence.SceneExists) {
+    Write-Host "FAIL: missing high-detail scene."
+    exit 1
+}
 
-    if ($unityEvidence -ne "none" -and $rootExists) {
-        $status = "loaded_candidate_needs_visual_profiler_check"
+Write-Host ("{0,-24} {1,-18} {2,-12} {3,-10} {4,8} {5,8} {6,8} {7,8} {8,-32} {9}" -f "category", "target", "actual", "source", "objects", "renderer", "filter", "gml", "status", "flat/attribute evidence")
+foreach ($categoryName in $evidence.Categories.Keys) {
+    $stats = $evidence.Categories[$categoryName]
+    $range = Get-P7DDetectedLodRange -Stats $stats
+    $status = Get-P7DCategoryStatus -Stats $stats
+    $flatEvidence = Get-P7DFlatOrAttributeEvidence -Stats $stats
+    $sourceStatus = if ($stats.SourceFolderExists) { "source" } else { "noSource" }
+
+    Write-Host ("{0,-24} {1,-18} {2,-12} {3,-10} {4,8} {5,8} {6,8} {7,8} {8,-32} {9}" -f $stats.Category, $stats.TargetLod, $range, $sourceStatus, $stats.GameObjectNameHits, $stats.MeshRendererHits, $stats.MeshFilterHits, $stats.GmlRootNameHits, $status, $flatEvidence)
+
+    if ($stats.Category -in @("Buildings", "Roads") -and $stats.CityObjectGroupHits -eq 0) {
+        $failed = $true
     }
-    else {
-        $allLoaded = $false
-    }
-
-    Write-Host ("{0,-26} {1,-18} {2,-18} {3,-34} {4}" -f $category.Category, $category.TargetLod, $sourceEvidence, $unityEvidence, $status)
 }
 
 Write-Host ""
-if ($allLoaded) {
-    Write-Host "Average LOD3 achieved: NOT CLAIMED. Scene evidence still requires LOD/object inspection."
-}
-else {
-    Write-Host "Average LOD3 achieved: FALSE. Current scene has target roots only; renderable category evidence is missing."
+Write-Host "Sample imported names:"
+foreach ($categoryName in $evidence.Categories.Keys) {
+    $stats = $evidence.Categories[$categoryName]
+    $samples = if ($stats.SampleNames.Count -gt 0) { $stats.SampleNames -join "; " } else { "none" }
+    Write-Host ("{0,-24} {1}" -f $stats.Category, $samples)
 }
 
-Write-Host "P7-D PLATEAU loaded category inspection: PASS_WITH_IMPORT_BLOCKER_STATUS" -ForegroundColor Green
+Write-Host ""
+if ($evidence.AverageLod3Achieved) {
+    Write-Host "Average LOD3 achieved: TRUE"
+}
+else {
+    Write-Host "Average LOD3 achieved: FALSE. Actual imported scene evidence includes LOD0-LOD2 and no verified LOD3 average." -ForegroundColor Yellow
+}
+
+if ($failed) {
+    Write-Host "P7-D PLATEAU loaded category inspection: FAIL" -ForegroundColor Red
+    exit 1
+}
+
+Write-Host "P7-D PLATEAU loaded category inspection: CONDITIONAL PASS - partial renderable import with LOD/category limitations" -ForegroundColor Yellow
 exit 0

@@ -2,7 +2,7 @@
 
 You are reviewing the P7-D git diff for the Unity + PLATEAU project ChuoTsunamiEvacuation.
 
-Review only the diff. Do not modify files.
+Review only the staged diff. Do not modify files.
 
 P7 has exactly five stages:
 
@@ -18,24 +18,24 @@ Please check:
 
 1. P7 has exactly five stages.
 2. No P7-E/F/G expansion is created.
-3. High-detail PLATEAU import is actually complete, or honestly blocked with a manual checklist.
-4. If import is blocked, P7 final closeout is not falsely marked complete.
-5. `P7_HighDetail_Chuo.unity` is not described as a complete high-detail baseline unless actual renderable assets exist.
-6. Average LOD3 is not claimed unless verified by evidence.
-7. Bridge, underground, road, water, terrain, city furniture, disaster risk, land use, and urban planning status is evidence-based.
-8. P2-P6 compatibility is validated or blockers are listed.
-9. Windows EXE profiling is done or blockers are honestly documented.
-10. New map baseline decision is explicit.
-11. P8/P9 handoff is clear.
-12. `Chuo_BaseMap.unity` remains untouched as legacy fallback.
-13. `ProjectSettings` and `Packages` are clean or justified.
-14. `Assets/Data` and `Assets/PLATEAU` are unchanged.
-15. No P8/P9 systems are implemented.
-16. Gameplay success/failure rules are unchanged.
-17. Tests/preflight results are documented.
-18. Protected paths are clean.
-19. Asset persistence/cloud archive strategy exists.
-20. No large generated/cache/build/profiler/temp outputs are committed.
+3. The manual PLATEAU import result is honestly validated.
+4. Actual LOD mismatch is documented; average LOD3 is not claimed unless verified.
+5. Categories imported/missing/partial are clearly listed.
+6. `P7_HighDetail_Chuo.unity` is not falsely approved as a full high-detail baseline.
+7. P2-P6 compatibility is validated or blockers are listed.
+8. Windows EXE profiling is done or blockers/prepared manual steps are honestly documented.
+9. New map baseline decision is explicit and evidence-based.
+10. P8/P9 handoff is clear.
+11. `Chuo_BaseMap.unity` remains untouched.
+12. `ProjectSettings` and `Packages` are clean or justified.
+13. `Assets/Data` and `Assets/PLATEAU` are unchanged.
+14. No P8/P9 systems are implemented.
+15. Gameplay success/failure rules are unchanged.
+16. Tests/preflight results are documented.
+17. Protected paths are clean.
+18. Asset persistence/cloud archive strategy exists.
+19. No large generated/cache/build/profiler/temp outputs are committed.
+20. The 22.55 GB imported scene is not included in the staged diff unless an explicit large-asset strategy is documented.
 
 Classify issues:
 

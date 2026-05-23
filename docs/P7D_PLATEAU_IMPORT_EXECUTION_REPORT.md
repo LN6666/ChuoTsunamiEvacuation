@@ -1,31 +1,56 @@
 # P7-D PLATEAU Import Execution Report
 
+Validation date: 2026-05-23.
+
 ## Execution Status
 
-High-detail PLATEAU import status: BLOCKED ON MANUAL IMPORT.
+High-detail PLATEAU import status: MANUAL IMPORT COMPLETED, PARTIAL RESULT VERIFIED.
 
-No new high-detail PLATEAU assets were imported by Codex in P7-D.
+The user manually performed the PLATEAU SDK import into `Assets/Scenes/P7HighDetail/P7_HighDetail_Chuo.unity`. Codex did not perform the import and does not treat the mismatch as user error.
+
+## Actual Output Scope
+
+- Modified output path: `Assets/Scenes/P7HighDetail/P7_HighDetail_Chuo.unity`.
+- Scene size after import: 22,554,882,711 bytes.
+- No converted imported asset roots were detected under:
+  - `Assets/P7HighDetail/`
+  - `Assets/P7HighDetail/PLATEAU/`
+  - `Assets/P7HighDetail/Imported/`
+  - `Assets/PLATEAU/`
+- `Assets/Data`, `Packages`, and `ProjectSettings` were not dirty after the manual import.
+- `Assets/Scenes/Chuo_BaseMap.unity` is not present/tracked in this checkout and was not modified.
 
 ## Target Versus Actual
 
-| Category | Target | Actual imported LOD | Scene/object evidence | Asset path evidence | Renderability |
-|---|---|---|---|---|---|
-| Buildings | LOD3 | Not imported | Root exists only | None | Not verified |
-| Roads | LOD3 | Not imported | Root exists only | None | Not verified |
-| Urban planning decision | LOD1 | Not imported | Root exists only | None | Not verified |
-| Land use | Import | Not imported | Root exists only | None | Not verified |
-| Underground | LOD3 if available | Not imported | Root exists only | None | Not verified |
-| City furniture | LOD2/LOD3 | Not imported | Root exists only | None | Not verified |
-| Water body | LOD1 | Not imported | Root exists only | None | Not verified |
-| Vegetation | LOD3 if available | Not imported | Root exists only | None | Not verified |
-| Bridges | LOD3 | Not imported | Root exists only | None | Not verified |
-| Disaster risk | Import | Not imported | Root exists only | None | Not verified |
-| Relief / terrain | Import | Not imported | Root exists only | None | Not verified |
+| Category | Target | Actual imported LOD | Scene/object evidence | Renderability |
+|---|---|---|---|---|
+| Buildings | LOD3 | LOD0-LOD2 | 103,190 PLATEAU city objects | Renderable, partial |
+| Roads / transport | LOD3 | LOD0-LOD1 | 14,524 PLATEAU city objects | Renderable, low detail |
+| Bridges | LOD3 | LOD1 | 13 PLATEAU city objects | Renderable, low detail |
+| Underground | LOD3 if available | LOD1 | 1 PLATEAU city object | Renderable, low detail |
+| City furniture | LOD2/LOD3 | None | None | Missing |
+| Water body | LOD1 | None | None | Missing |
+| Vegetation | LOD3 if available | None | None | Missing |
+| Relief / terrain | Import | None | None | Missing |
+| Disaster risk | Import | None | None | Missing |
+| Land use | Import | None | None | Missing |
+| Urban planning decision | LOD1 | None | None | Missing |
 
-## Scene Status
+## LOD Mismatch
 
-`Assets/Scenes/P7HighDetail/P7_HighDetail_Chuo.unity` exists and contains P7-C/P7-D metadata roots. It is not a populated high-detail scene.
+The import did not achieve the original average LOD3 target. Actual scene evidence is LOD0-LOD2:
 
-## Required Next Action
+- LOD0: 37,022
+- LOD1: 51,560
+- LOD2: 29,146
+- LOD3: 0
 
-Follow `docs/P7D_MANUAL_PLATEAU_IMPORT_CHECKLIST.md`, then rerun P7-D validation. Do not claim P7 final closeout complete until this report is replaced with actual scene/object evidence.
+## Sufficiency For Profiling
+
+The scene is no longer an empty shell. It is sufficient for a limited renderable-scene profiling attempt because it contains 117,728 MeshRenderer/MeshFilter/PLATEAU object groups.
+
+The scene is not sufficient for final P8/P9/P10 baseline approval because category coverage is incomplete, LOD3 is absent, EXE profiling has not completed, and P2-P6 runtime smoke validation on this scene is still pending.
+
+## Follow-Up Import Need
+
+Follow-up import or SDK configuration review is required if P8/P9/P10 need LOD3 buildings/roads/bridges, water, terrain, disaster risk layers, vegetation, city furniture, land-use, or urban-planning layers as renderable Unity objects.

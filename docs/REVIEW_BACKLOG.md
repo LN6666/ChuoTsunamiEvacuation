@@ -1049,13 +1049,13 @@ Reason:
 
 ---
 
-### P7-D Blocked Follow-Ups
+### P7-D Conditional Follow-Ups
 
 | ID | Priority | Status | Target | Issue | Required Follow-Up |
 |---|---|---|---|---|---|
-| P7D-A01 | High | Blocked | PLATEAU SDK import | Full high-detail import was not safely automated. | Complete `docs/P7D_MANUAL_PLATEAU_IMPORT_CHECKLIST.md` in Unity. |
-| P7D-A02 | High | Blocked | `Assets/Scenes/P7HighDetail/P7_HighDetail_Chuo.unity` | Scene remains a shell/import target with no renderable PLATEAU evidence. | Import target categories, save the scene, and rerun P7-D validators. |
-| P7D-A03 | High | Blocked | Windows EXE profiling | EXE profiling would be misleading before actual assets are loaded. | Run Windows x64 profiling after manual import. |
-| P7D-A04 | High | Blocked | Baseline decision | New high-detail scene is not approved for P8/P9/P10 yet. | Reopen baseline decision after import, compatibility smoke tests, and profiling. |
-| P7D-B01 | Medium | Deferred | Asset archive | Large imported assets/builds need cloud/LFS/release strategy. | Archive required assets and final EXE before VM deletion. |
+| P7D-B01 | Medium | Deferred to P8/P9 | LOD coverage | Manual import produced LOD0-LOD2 only; average LOD3 is false. | Revisit PLATEAU SDK settings/source availability if P8/P9 require LOD3 geometry. |
+| P7D-B02 | Medium | Deferred to P8 | Missing categories | Water, relief/terrain, disaster risk, land use, urban planning, vegetation, and city furniture are missing from converted scene evidence. | Import or substitute required layers before hazard/terrain-dependent P8 claims. |
+| P7D-B03 | Medium | Deferred to P8 first task | Windows EXE profiling | Renderable scene exists, but Windows EXE profiling was prepared/not run. | Run Windows x64 profiling before adding expensive P8/P9 systems. |
+| P7D-B04 | Medium | Deferred to P8/P9 | P2-P6 runtime smoke | Source compatibility is conditional; populated-scene runtime smoke is pending. | Smoke player, camera, shelter, result panel, P5 loaders, P6 guidance, and P6 NPC staging on `P7_HighDetail_Chuo`. |
+| P7D-B05 | Medium | Deferred to release/archive | Asset archive | The imported scene is 22.55 GB and local-only unless archived outside normal Git. | Archive required assets and final EXE to cloud drive before VM deletion. |
 

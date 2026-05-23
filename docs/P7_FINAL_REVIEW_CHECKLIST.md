@@ -1,29 +1,29 @@
 # P7 Final Review Checklist
 
-## Current Result
+Validation date: 2026-05-23.
 
-P7 final review status: BLOCKED.
-
-## Checklist
-
-| Item | Status |
+| Check | Status |
 |---|---|
-| P7 has exactly five stages | PASS |
-| No P7-E/F/G | PASS |
-| Chuo_BaseMap untouched | PASS |
-| ProjectSettings clean | PASS pending final status check |
-| Packages clean | PASS pending final status check |
-| Assets/Data unchanged | PASS pending final status check |
-| Assets/PLATEAU unchanged | PASS pending final status check |
-| High-detail scene exists | PASS |
-| Actual high-detail import complete | BLOCKED |
-| Average LOD3 verified | BLOCKED |
-| P2-P6 compatibility validated | BLOCKED |
-| Windows EXE profiling complete | BLOCKED |
-| New scene approved for P8/P9/P10 | BLOCKED |
-| No P8/P9 systems implemented | PASS |
-| Gameplay success/failure rules unchanged | PASS |
+| P7 has exactly five stages | Pass |
+| No P7-E/F/G created | Pass |
+| Manual PLATEAU import inspected | Pass |
+| Actual categories listed | Pass |
+| Target LOD vs actual LOD documented | Pass |
+| Average LOD3 not falsely claimed | Pass |
+| Missing/partial categories documented | Pass |
+| Road/bridge/underground status documented | Pass |
+| P2-P6 compatibility assessed | Conditional, runtime smoke pending |
+| Windows EXE profiling | Prepared, not run |
+| Baseline decision explicit | Conditional pass |
+| P8/P9 handoff explicit | Pass |
+| Chuo_BaseMap untouched | Pass; not present/tracked in this checkout |
+| ProjectSettings/Packages clean | Pass after reverting Unity test churn |
+| No P8/P9 systems implemented | Pass |
+| Gameplay success/failure unchanged | Pass |
+| P7-D preflight | Conditional pass |
+| Unity EditMode GUI tests | Pass: 155/155 |
+| Unity PlayMode GUI tests | Pass: 31/31 |
+| DeepSeek final review | Conditional pass, no A-level blockers |
+| Asset archive/cloud recovery plan | Pass |
 
-## Required Reviewer Decision
-
-Do not approve P7 final completion until the blocked items are resolved.
+Final commit/push approval gate passed for docs/tools: DeepSeek final review found no A-level blockers. B-level follow-ups remain documented.

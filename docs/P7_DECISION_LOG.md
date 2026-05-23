@@ -187,3 +187,17 @@ This file stores P7 decisions that affect scope, dependencies, assets, Unity set
 | Verification | Run `tools/p7/run_p7d_preflight.ps1`; run Unity GUI EditMode and PlayMode tests; verify protected paths are clean; request DeepSeek final review with `deepseek_review_prompt_p7d_final.md`. |
 | Follow-up | Complete `docs/P7D_MANUAL_PLATEAU_IMPORT_CHECKLIST.md`, then rerun P7-D validation and profiling. |
 | Approved by | P7-D execution prompt plus project safety constraints. |
+
+### P7-DL-013 - Manual Import Is Accepted Only As Conditional Local Baseline
+
+| Field | Value |
+|---|---|
+| Date | 2026-05-23 |
+| Stage | P7-D |
+| Decision | After user manual PLATEAU SDK import, `P7_HighDetail_Chuo` is accepted as a conditional local baseline, not a full high-detail or production-ready baseline. |
+| Options considered | Mark PASS; mark BLOCKED; mark CONDITIONAL PASS with documented limitations. |
+| Reason | The scene contains renderable PLATEAU evidence, but actual LOD is LOD0-LOD2, average LOD3 is false, several requested categories are missing, EXE profiling is not complete, and P2-P6 runtime smoke is pending. |
+| Risk | P8/P9 work may overclaim map quality if limitations are ignored. The 22.55 GB scene also requires cloud-drive/archive handling before VM deletion. |
+| Verification | Run `tools/p7/run_p7d_preflight.ps1`; run Unity GUI EditMode and PlayMode tests; run DeepSeek final review; keep the 22.55 GB scene out of staged diff unless a large-asset strategy is approved. |
+| Follow-up | Run Windows x64 EXE profiling and populated-scene P2-P6 smoke before expanding P8/P9 systems. |
+| Approved by | P7-D manual import validation evidence. |

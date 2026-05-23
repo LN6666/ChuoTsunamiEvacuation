@@ -1,26 +1,34 @@
 # P7-D New Map Baseline Decision
 
-Decision: BLOCKED.
+Decision: CONDITIONAL PASS.
 
-## Reason
+## Meaning
 
-`Assets/Scenes/P7HighDetail/P7_HighDetail_Chuo.unity` is the intended high-detail baseline candidate, but it is not ready to become the P8/P9/P10 baseline.
+`Assets/Scenes/P7HighDetail/P7_HighDetail_Chuo.unity` is accepted as the intended local baseline candidate for early P8/P9/P10 continuation on this cloud PC, but it is not a fully approved high-detail or production-ready baseline.
 
-The scene is currently a shell/import target. Actual high-detail PLATEAU assets are not loaded, average LOD3 is not achieved, P2-P6 runtime compatibility is not proven, and Windows EXE profiling is not complete.
-
-## Baseline Criteria
+## Evidence
 
 | Criterion | Status |
 |---|---|
-| Actual high-detail asset load | Blocked |
-| LOD coverage | Blocked |
-| Bridge/underground/road availability | Blocked |
-| P2-P6 compatibility | Blocked |
-| Windows EXE profiling | Blocked |
-| Performance acceptability | Blocked |
+| Actual manual import exists | Pass: 117,728 renderable PLATEAU city-object groups detected |
+| Average LOD3 target | Fail: actual evidence is LOD0-LOD2, with no verified LOD3 |
+| Buildings | Conditional: renderable, LOD0-LOD2 |
+| Roads / transport | Conditional: renderable, LOD0-LOD1 |
+| Bridges | Conditional: renderable, LOD1, 13 objects |
+| Underground | Conditional: renderable, LOD1, 1 object |
+| Water / terrain / disaster risk / land use / urban planning / vegetation / city furniture | Missing from converted scene evidence |
+| P2-P6 compatibility | Conditional: source-compatible, runtime scene smoke pending |
+| Windows EXE profiling | Prepared, not run |
+| GitHub persistence | Conditional: scene is 22.55 GB and local-only unless a later archive/release strategy stores it outside normal Git |
 
-## Policy
+## P8/P9 Start Decision
 
-P8 must not start on this scene until the manual import and validation blockers are resolved.
+P8 can start on `P7_HighDetail_Chuo` only for limited, clearly marked work that does not require full LOD3 coverage, water/terrain/risk layers, or final performance proof.
 
-`Chuo_BaseMap.unity` remains untouched as a legacy fallback.
+P9 should not start crowd, indoor evacuation, congestion, underground evacuation, or official route claims from this map evidence alone.
+
+If P8 requires final hazard placement over terrain/water/disaster-risk data, this scene is blocked until those categories are imported or another data source is accepted.
+
+## Fallback
+
+`Chuo_BaseMap.unity` remains the legacy fallback conceptually, but it is not present/tracked in this checkout. It must remain untouched if restored locally.

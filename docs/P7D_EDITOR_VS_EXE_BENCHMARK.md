@@ -1,31 +1,35 @@
-# P7-D Editor Vs EXE Benchmark
+# P7-D Editor vs EXE Benchmark
+
+Validation date: 2026-05-23.
 
 ## Status
 
-Editor/EXE comparison status: BLOCKED ON MANUAL IMPORT.
+Editor vs EXE benchmark status: PREPARED, EXE DATA NOT COLLECTED.
 
-## Policy
+The imported scene is renderable and heavy enough that Editor behavior should not be used as final performance evidence. Windows x64 profiling remains required before final baseline approval.
 
-Editor data is preliminary because Editor overhead, domain reload, scene view, asset refresh, and debug systems distort timing.
+## Editor-Side Static Evidence
 
-P7-D final performance must use Windows EXE profiling after the scene is populated with actual assets.
+| Metric | Value |
+|---|---:|
+| Scene size | 22,554,882,711 bytes |
+| MeshRenderer count | 117,728 |
+| MeshFilter count | 117,728 |
+| MeshCollider count | 117,728 |
+| LODGroup count | 0 |
+| PLATEAUCityObjectGroup count | 117,728 |
 
-## Current Evidence
+## Runtime Metrics
 
-Current evidence is scene-shell readiness only:
-
-- no renderable high-detail PLATEAU mesh evidence
-- no authoritative draw-call evidence
-- no mesh/texture memory evidence
-- no Windows EXE profiling data
-
-## Required Comparison After Import
-
-| Area | Editor | Windows EXE |
+| Metric | Editor | Windows EXE |
 |---|---|---|
-| load time | Pending | Pending |
-| average FPS | Pending | Pending |
-| 1 percent low FPS | Pending | Pending |
-| memory | Pending | Pending |
-| draw calls/batches | Pending | Pending |
-| scene activation spikes | Pending | Pending |
+| Average FPS | Not collected | Not collected |
+| 1 percent low FPS | Not collected | Not collected |
+| Loading time | Not collected | Not collected |
+| Memory usage | Not collected | Not collected |
+| Draw calls/batches | Not collected | Not collected |
+| Build size | N/A | Not collected |
+
+## Interpretation
+
+The current evidence supports only a conditional baseline decision. EXE profiling must be run before P8/P9 systems increase scene load, renderer count, runtime logic, or data overlays.

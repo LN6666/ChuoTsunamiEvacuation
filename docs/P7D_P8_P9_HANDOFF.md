@@ -1,38 +1,40 @@
 # P7-D P8/P9 Handoff
 
-## Status
+Validation date: 2026-05-23.
 
-Handoff status: BLOCKED.
+## Baseline Recommendation
 
-## Intended Scene Paths
+Use `Assets/Scenes/P7HighDetail/P7_HighDetail_Chuo.unity` as a conditional local baseline only.
 
-- P8 intended scene: `Assets/Scenes/P7HighDetail/P7_HighDetail_Chuo.unity`
-- P9 intended scene: `Assets/Scenes/P7HighDetail/P7_HighDetail_Chuo.unity`
-- Legacy fallback: `Assets/Scenes/Chuo_BaseMap.unity`
+It is useful for early visual/context work because it contains renderable PLATEAU geometry. It is not a final P8/P9/P10 production baseline because average LOD3 was not achieved, many categories are missing, and EXE profiling has not completed.
 
-## Baseline Decision
+## Reliable
 
-P7-D decision is BLOCKED. The high-detail scene is not yet approved as the P8/P9/P10 baseline.
+- Renderable buildings exist.
+- Renderable roads/transport objects exist.
+- A small number of renderable bridges exist.
+- One renderable underground object exists.
+- P2-P6 source systems are not hard-bound to `Chuo_BaseMap`.
+- Gameplay success/failure rules were not changed.
 
-## Current Layer Status
+## Incomplete
 
-| Area | Status |
-|---|---|
-| LOD coverage | Pending manual import |
-| Bridges | Pending manual import |
-| Underground | Pending manual import |
-| Roads | Pending manual import |
-| Water | Pending manual import |
-| Terrain/relief | Pending manual import |
-| City furniture | Pending manual import |
-| Disaster risk | Pending manual import |
-| P2-P6 compatibility | Pending runtime smoke |
-| Performance | Pending Windows EXE profiling |
+- No verified LOD3 objects.
+- No converted water, relief/terrain, disaster risk, land-use, urban-planning, vegetation, or city-furniture scene evidence.
+- No P2-P6 runtime smoke test in the populated map.
+- No Windows EXE profiling result.
+- No proof that the 22.55 GB scene can be committed to normal GitHub safely.
 
-## Forbidden Assumptions
+## P8 Guidance
 
-- Do not assume average LOD3.
-- Do not assume roads, bridges, underground, water, terrain, vegetation, or city furniture are loaded.
-- Do not implement P8 hazard systems before baseline import/profiling is resolved.
-- Must not implement P9 crowd or indoor evacuation systems before baseline import/profiling is resolved.
-- Do not change gameplay success/failure rules as part of baseline validation.
+P8 may begin only if work is scoped as conditional map-baseline work. Do not implement tsunami fluid simulation. Do not claim official inundation/hazard correctness from this import.
+
+If P8 needs water, terrain, disaster-risk polygons, or validated hazard placement, resolve those category gaps first.
+
+## P9 Guidance
+
+Do not implement P9 crowd, real spawn, indoor evacuation, congestion, underground evacuation, or failure systems from this P7-D result. The road/bridge/underground evidence is too limited for those claims.
+
+## Legacy Fallback
+
+`Chuo_BaseMap.unity` remains the legacy fallback policy, but this checkout does not currently contain or track that scene. If restored locally, it must remain untouched.

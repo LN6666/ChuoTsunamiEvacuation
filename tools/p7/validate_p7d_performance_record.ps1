@@ -28,8 +28,9 @@ $profilingReport = Get-Content -Raw -LiteralPath (Join-Path $repoRoot "docs\P7D_
 $baselineDecision = Get-Content -Raw -LiteralPath (Join-Path $repoRoot "docs\P7D_NEW_MAP_BASELINE_DECISION.md")
 
 if ($profilingReport.IndexOf("Windows EXE profiling status: BLOCKED", [System.StringComparison]::OrdinalIgnoreCase) -lt 0 -and
+    $profilingReport.IndexOf("Windows EXE profiling status: PREPARED", [System.StringComparison]::OrdinalIgnoreCase) -lt 0 -and
     $profilingReport.IndexOf("Windows EXE profiling status: COMPLETE", [System.StringComparison]::OrdinalIgnoreCase) -lt 0) {
-    Write-Host "FAIL: profiling report must say BLOCKED or COMPLETE."
+    Write-Host "FAIL: profiling report must say BLOCKED, PREPARED, or COMPLETE."
     exit 1
 }
 

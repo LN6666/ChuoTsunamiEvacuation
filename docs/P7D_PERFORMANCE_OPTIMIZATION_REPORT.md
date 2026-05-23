@@ -1,52 +1,33 @@
 # P7-D Performance Optimization Report
 
+Validation date: 2026-05-23.
+
 ## Status
 
-Optimization status: BLOCKED ON MANUAL IMPORT.
+Performance optimization status: LIMITED EVIDENCE, EXE PROFILING STILL REQUIRED.
 
-The high-detail scene does not yet contain actual renderable PLATEAU assets. P7-D cannot optimize an empty/shell scene and cannot claim performance success.
+The imported high-detail scene is renderable but heavy: 22.55 GB scene text, 117,728 MeshRenderers, 117,728 MeshFilters, 117,728 MeshColliders, and no LODGroup evidence.
 
-## Methodology
+## Current Observations
 
-P7-D follows measure first, optimize second:
+- The import appears to embed converted meshes/material references directly in the scene.
+- No converted asset output roots were detected under `Assets/P7HighDetail` or `Assets/PLATEAU`.
+- No LODGroup components were detected, so Unity-side distance switching is not evident from the scene text.
+- The scene contains many MeshColliders, which may be expensive for runtime loading and physics if enabled broadly.
+- Missing water/terrain/disaster-risk categories limit meaningful final P8 profiling.
 
-1. Populate the high-detail scene with actual PLATEAU assets.
-2. Measure Editor behavior only as preliminary data.
-3. Build and profile a Windows EXE.
-4. Identify CPU, GPU, memory, loading, rendering, culling, and collision bottlenecks.
-5. Optimize only after bottlenecks are measured.
+## Optimization Risks
 
-## Required Workflows
+- Loading time may be high due to the 22.55 GB scene file.
+- Draw calls and batches may be high because 117,728 renderers are present.
+- Collider cost may be high because MeshCollider count matches renderer count.
+- Scene serialization and Git diff tooling are already stressed by file size.
+- No EXE data exists yet for FPS, memory, loading time, or build size.
 
-- Unity Profiler: CPU main thread, render thread, memory, loading spikes.
-- Memory Profiler: texture memory, mesh memory, material count, scene object count.
-- Frame Debugger: draw calls, batches, shader/material state changes, shadow passes.
-- Windows EXE profiling: runtime FPS, 1 percent low FPS, loading time, RAM, build size.
+## Recommended P8/P9 Optimization Work
 
-## Risks To Measure After Import
-
-- draw calls and batches from many unique materials
-- triangle and vertex count from high-detail meshes
-- texture count and texture memory pressure
-- material explosion from per-surface textures
-- mesh count and submesh count
-- static batching memory tradeoff
-- SRP Batcher compatibility
-- GPU instancing only for repeated identical meshes
-- dynamic batching not suitable as the primary high-detail city strategy
-- frustum culling behavior on chunk roots
-- occlusion culling bake feasibility
-- collision simplification needs
-- loading time and memory peak during scene activation
-
-## Chunk / Scene Partition Strategy
-
-Layer roots in `P7_HighDetail_Chuo.unity` should remain separable by category and later by spatial chunk. P7Benchmark chunk enable/disable logic remains metadata-safe and can be adapted only after actual imported roots exist.
-
-## Collision Strategy
-
-High-detail geometry must not become complex MeshCollider content by default. Future production integration should use simplified colliders only where gameplay requires them.
-
-## Current Conclusion
-
-No optimization success is claimed. P7-D is blocked until actual assets are loaded and measured.
+- Profile a Windows x64 development build before adding P8/P9 gameplay systems.
+- Consider disabling or simplifying MeshColliders for non-interactable city objects.
+- Consider chunking/streaming or additive scenes before expanding content.
+- Keep P8/P9 systems opt-in until load time and memory are known.
+- Do not add new dependencies or broad rendering changes in P7-D.

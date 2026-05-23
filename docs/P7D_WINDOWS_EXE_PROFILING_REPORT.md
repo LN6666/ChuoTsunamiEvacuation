@@ -1,30 +1,47 @@
 # P7-D Windows EXE Profiling Report
 
-Windows EXE profiling status: BLOCKED.
+Windows EXE profiling status: PREPARED, NOT RUN.
 
-## Blocker
+## Current Evidence
 
-`Assets/Scenes/P7HighDetail/P7_HighDetail_Chuo.unity` is still a shell/import target. It has no actual renderable high-detail PLATEAU content to profile.
+`Assets/Scenes/P7HighDetail/P7_HighDetail_Chuo.unity` now contains renderable PLATEAU content, so EXE profiling is meaningful enough to attempt.
 
-P7-D must not profile an empty shell and call it final.
+Profiling was not completed in this Codex pass because the project does not currently have a committed P7-D Windows build/profiling automation path, and generating large build/profiler outputs must not be committed blindly.
 
-## Required Metrics After Manual Import
+## Available Scene Metrics
 
-| Metric | Status |
+| Metric | Value |
+|---|---:|
+| Scene size | 22,554,882,711 bytes |
+| MeshRenderer count | 117,728 |
+| MeshFilter count | 117,728 |
+| MeshCollider count | 117,728 |
+| PLATEAUCityObjectGroup count | 117,728 |
+| LODGroup count | 0 |
+| Average LOD3 achieved | No |
+
+## EXE Metrics
+
+| Metric | Result |
 |---|---|
-| Scene name | Pending |
-| Build target | Pending |
+| Build target | Pending Windows x64 |
 | Build type | Pending |
-| Average FPS | Pending |
-| Approximate 1 percent low FPS | Pending |
-| Loading time | Pending |
-| RAM/memory notes | Pending |
-| Texture/mesh memory notes | Pending |
-| Draw calls/batches | Pending |
-| Build size | Pending |
+| Average FPS | Not collected |
+| Approximate 1 percent low FPS | Not collected |
+| Loading time | Not collected |
+| RAM/memory notes | Not collected |
+| Texture/mesh memory notes | Not collected |
+| Draw calls/batches | Not collected |
+| Build size | Not collected |
 | Bottleneck observations | Pending |
-| Acceptable for P8/P9 baseline | Pending |
+| Acceptable for P8/P9 baseline | Not proven |
 
-## Required Next Step
+## Manual Profiling Checklist
 
-Complete manual PLATEAU SDK import first, then run Windows x64 EXE build/profiling against `P7_HighDetail_Chuo.unity`.
+1. Create a Windows x64 development build that opens `P7_HighDetail_Chuo`.
+2. Store the build outside Git, for example under a local `Builds/` folder or cloud-drive staging folder.
+3. Record load time from process launch to stable camera view.
+4. Record average FPS and approximate 1 percent low FPS over a fixed camera path or stationary view.
+5. Record memory usage from Task Manager or Unity Profiler.
+6. Record draw calls/batches and mesh/texture memory from Unity Profiler if available.
+7. Archive only final release/build artifacts to cloud drive; do not commit build output or profiler binaries.

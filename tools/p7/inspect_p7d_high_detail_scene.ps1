@@ -5,76 +5,58 @@ $ErrorActionPreference = "Stop"
 
 $scriptRoot = Split-Path -Parent $MyInvocation.MyCommand.Path
 $repoRoot = (Resolve-Path (Join-Path $scriptRoot "..\..")).ProviderPath
-$sceneRelativePath = "Assets/Scenes/P7HighDetail/P7_HighDetail_Chuo.unity"
-$scenePath = Join-Path $repoRoot ($sceneRelativePath -replace "/", "\")
+. (Join-Path $scriptRoot "get_p7d_scene_evidence.ps1")
 
-$expectedRootNames = @(
-    "Buildings",
-    "Roads",
-    "Bridges",
-    "Underground",
-    "CityFurniture",
-    "Water",
-    "Vegetation",
-    "Relief",
-    "DisasterRisk",
-    "LandUse",
-    "UrbanPlanningDecision",
-    "P2P6Compatibility"
-)
-
-function Test-SceneName {
-    param(
-        [string]$SceneText,
-        [string]$Name
-    )
-
-    return $SceneText.IndexOf("m_Name: $Name", [System.StringComparison]::OrdinalIgnoreCase) -ge 0
-}
+$evidence = Get-P7DSceneEvidence -RepoRoot $repoRoot
+$failed = $false
 
 Write-Host "P7-D high-detail scene inspection"
-Write-Host "Scene: $sceneRelativePath"
+Write-Host "Scene: $($evidence.SceneRelativePath)"
 
-if (-not (Test-Path -LiteralPath $scenePath -PathType Leaf)) {
-    Write-Host "FAIL: missing high-detail scene: $sceneRelativePath" -ForegroundColor Red
+if (-not $evidence.SceneExists) {
+    Write-Host "FAIL: missing high-detail scene: $($evidence.SceneRelativePath)" -ForegroundColor Red
     exit 1
 }
 
-$sceneText = Get-Content -Raw -LiteralPath $scenePath
-$failed = $false
+Write-Host "sceneBytes=$($evidence.SceneBytes)"
+Write-Host "sceneLastWriteTime=$($evidence.SceneLastWriteTime)"
+Write-Host "linesScanned=$($evidence.LinesScanned)"
+Write-Host "meshRendererCount=$($evidence.MeshRendererCount)"
+Write-Host "meshFilterCount=$($evidence.MeshFilterCount)"
+Write-Host "meshColliderCount=$($evidence.MeshColliderCount)"
+Write-Host "lodGroupCount=$($evidence.LodGroupCount)"
+Write-Host "plateauCityObjectGroupCount=$($evidence.PlateauCityObjectGroupCount)"
+Write-Host "averageLod3Achieved=$($evidence.AverageLod3Achieved)"
+Write-Host "chuoBaseMapExists=$($evidence.ChuoBaseMapExists)"
+Write-Host "chuoBaseMapTracked=$($evidence.ChuoBaseMapTracked)"
 
-foreach ($fragment in @("Chuo_BaseMap", "Assets/PLATEAU", "Assets/Data", "EvacuationGameManager", "MovingTsunamiWall", "LightCurtain", "RiskFront")) {
-    if ($sceneText.IndexOf($fragment, [System.StringComparison]::OrdinalIgnoreCase) -ge 0) {
-        Write-Host "FAIL: scene contains forbidden fragment: $fragment"
-        $failed = $true
-    }
+Write-Host ""
+Write-Host "Unity output roots:"
+foreach ($root in $evidence.UnityOutputRoots.Keys) {
+    Write-Host ("{0,-34} {1}" -f $root, $evidence.UnityOutputRoots[$root])
 }
 
 Write-Host ""
-Write-Host "Expected roots:"
-foreach ($rootName in $expectedRootNames) {
-    $status = if (Test-SceneName -SceneText $sceneText -Name $rootName) { "PASS" } else { "FAIL" }
-    if ($status -eq "FAIL") {
-        $failed = $true
-    }
+Write-Host "Detected categories:"
+Write-P7DCategoryTable -Evidence $evidence
 
-    Write-Host ("{0,-28} {1}" -f $rootName, $status)
+if ($evidence.MeshRendererCount -eq 0 -or $evidence.MeshFilterCount -eq 0 -or $evidence.PlateauCityObjectGroupCount -eq 0) {
+    Write-Host "FAIL: high-detail scene has no complete renderable PLATEAU evidence." -ForegroundColor Red
+    $failed = $true
 }
 
-$meshRendererCount = ([regex]::Matches($sceneText, "MeshRenderer:", [System.Text.RegularExpressions.RegexOptions]::IgnoreCase)).Count
-$meshFilterCount = ([regex]::Matches($sceneText, "MeshFilter:", [System.Text.RegularExpressions.RegexOptions]::IgnoreCase)).Count
-$plateauComponentEvidence = $sceneText.IndexOf("PLATEAUInstancedCityModel", [System.StringComparison]::OrdinalIgnoreCase) -ge 0
-$pendingMarker = $sceneText.IndexOf("ActualLoadedStatus_NotImported_RenderableEvidencePending", [System.StringComparison]::OrdinalIgnoreCase) -ge 0
+if ($evidence.AverageLod3Achieved) {
+    Write-Host "Average LOD3 claim: supported by detected scene LOD range."
+}
+else {
+    Write-Host "Average LOD3 claim: NOT SUPPORTED. Detected scene LOD includes levels below LOD3." -ForegroundColor Yellow
+}
 
-Write-Host ""
-Write-Host "Renderable evidence:"
-Write-Host "MeshRenderer count: $meshRendererCount"
-Write-Host "MeshFilter count: $meshFilterCount"
-Write-Host "PLATEAU component evidence: $plateauComponentEvidence"
-Write-Host "Pending import marker: $pendingMarker"
-
-if ($meshRendererCount -eq 0 -and $meshFilterCount -eq 0 -and -not $plateauComponentEvidence) {
-    Write-Host "BLOCKED: high-detail scene is still a shell/import target, not a populated profiling scene." -ForegroundColor Yellow
+if ($evidence.ForbiddenHits.Count -gt 0) {
+    foreach ($hit in $evidence.ForbiddenHits) {
+        Write-Host "FAIL: forbidden/protected fragment detected in scene text: $hit"
+    }
+    $failed = $true
 }
 
 if ($failed) {
@@ -84,5 +66,5 @@ if ($failed) {
 }
 
 Write-Host ""
-Write-Host "P7-D high-detail scene inspection: PASS_WITH_IMPORT_BLOCKER_STATUS" -ForegroundColor Green
+Write-Host "P7-D high-detail scene inspection: CONDITIONAL PASS - renderable import exists, but LOD/category coverage is limited" -ForegroundColor Yellow
 exit 0

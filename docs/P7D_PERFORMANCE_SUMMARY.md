@@ -2,22 +2,30 @@
 
 ## Current Verdict
 
-Performance verdict: BLOCKED.
+Performance verdict: CONDITIONAL PASS, not production-approved.
 
-P7-D cannot produce final optimization or Windows EXE profiling results until actual high-detail PLATEAU content is loaded into `P7_HighDetail_Chuo.unity`.
+The scene has enough renderable PLATEAU content for profiling preparation, but not enough measured runtime evidence for final P8/P9/P10 approval.
 
-## Current Measured Evidence
+## Measured Static Evidence
 
-- Scene shell exists.
-- P7Benchmark raw candidate `53393690` remains raw/unconverted.
-- No renderable high-detail scene evidence exists.
-- Windows EXE profiling was not run because profiling the shell would be misleading.
+- Scene: `Assets/Scenes/P7HighDetail/P7_HighDetail_Chuo.unity`
+- Scene size: 22,554,882,711 bytes.
+- MeshRenderer count: 117,728.
+- MeshFilter count: 117,728.
+- MeshCollider count: 117,728.
+- LODGroup count: 0.
+- Actual LOD range: LOD0-LOD2.
 
-## Required For Baseline Approval
+## Missing Runtime Evidence
 
-- Actual imported renderable categories.
-- LOD evidence.
-- P2-P6 runtime smoke checks.
-- Windows EXE profiling.
-- Draw-call, memory, and loading observations.
-- Baseline decision update from BLOCKED to PASS or CONDITIONAL PASS only if evidence supports it.
+- Average FPS.
+- Approximate 1 percent low FPS.
+- Loading time.
+- Runtime memory.
+- Texture/mesh memory.
+- Draw calls/batches.
+- Build size.
+
+## Decision Impact
+
+P8/P9 may proceed only under the conditional baseline limits in `docs/P7D_NEW_MAP_BASELINE_DECISION.md`. EXE profiling should be the first follow-up before adding costly gameplay systems.

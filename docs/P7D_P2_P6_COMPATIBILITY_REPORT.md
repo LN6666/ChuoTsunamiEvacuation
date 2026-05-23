@@ -1,40 +1,48 @@
 # P7-D P2-P6 Compatibility Report
 
+Validation date: 2026-05-23.
+
 ## Status
 
-Compatibility status: BLOCKED ON MANUAL IMPORT.
+Compatibility status: CONDITIONAL PASS, runtime scene smoke still pending.
 
-P7-D prepared compatibility validation, but cannot prove runtime compatibility against the new map until the high-detail scene contains actual PLATEAU assets.
+The new high-detail scene contains renderable PLATEAU objects, so compatibility can be assessed beyond the old shell state. P2-P6 source systems remain scene-independent enough to adapt, but P7-D did not wire production gameplay into the new map and did not change success/failure rules.
 
 ## P2
 
-- Player movement: source controller exists; runtime placement on high-detail terrain is pending.
-- Camera: scene has overview camera; gameplay camera smoke test is pending.
-- Shelter interaction: source scripts exist; representative shelter targets in the high-detail scene are pending.
-- ResultPanel / success-failure flow: no P7-D rule changes were made; old-scene independence still needs runtime smoke.
+| Area | Status | Evidence |
+|---|---|---|
+| Player movement | Compatible in source, pending map placement smoke | `Assets/Scripts/Player/SimplePlayerController.cs` is not bound to `Chuo_BaseMap`. |
+| Camera | Compatible in source, pending new-scene gameplay camera smoke | First playable builder creates cameras independently of the P7 scene. |
+| Shelter interaction | Compatible in source, pending representative high-detail target placement | `ShelterEntranceTrigger` and `BuildingShelter` do not require `Chuo_BaseMap`. |
+| Result panel / success-failure flow | Compatible, unchanged | P7-D did not modify result or game-state rules. |
 
 ## P3
 
-P3 data pipeline outputs remain data-oriented and do not require `Chuo_BaseMap`. Geospatial placement remains blocked by the existing verified-transform limitation.
+P3 data pipeline outputs remain compatible with runtime data assumptions because they are static JSON/CSV style data and not bound to the old base map scene. Coordinate transform and placement validation remain a known follow-up before official geospatial claims.
 
 ## P4
 
-Real shelter loading and marker systems can be adapted after map objects exist. P7-D does not modify production gameplay scripts.
+Real shelter loading and marker placement can adapt to the new map after coordinate-transform and representative marker placement validation. P7-D does not claim real shelters are already correctly placed on the imported scene.
 
 ## P5
 
-Qualified shelter, route metadata, high-rise, and humanitarian candidate display logic remains opt-in/fail-safe. P7-D does not create unsafe official-route claims and does not change success/failure rules.
+Qualified shelters, route metadata, and high-rise/humanitarian candidate display logic remain opt-in and fail-safe:
+
+- `Assets/Data/shelter_source_config.json` remains `sourceMode = test`.
+- `enableHumanitarianCandidates = false`.
+- `enableLifeFirstCandidateSelection = false`.
+- No unsafe official-route claims were added.
 
 ## P6
 
-Navigation guidance and NPC prototype scripts exist. They are not proven against the high-detail scene until target objects and walkable placement are staged after import.
+Navigation guidance and NPC prototype code target objects rather than `Chuo_BaseMap` directly. They can be staged against the new scene, but P7-D did not perform a full runtime smoke with high-detail scene targets and did not add P9 crowd, real spawn, indoor evacuation, congestion, or failure systems.
 
-## Required Runtime Smoke After Import
+## Pending Runtime Smoke
 
-1. Player spawn/movement works in the new scene.
-2. Gameplay camera works in the new scene.
-3. Shelter interaction can be staged.
-4. Result panel displays without old-scene dependency.
-5. P5 loaders run without old-scene dependency.
-6. P6 guidance targets high-detail scene objects.
-7. P6 NPC prototype can be staged without P9 systems.
+- Player spawn height and collision on the imported map.
+- Gameplay camera framing in the imported map.
+- Representative shelter trigger placement against imported buildings.
+- Result panel flow after a staged shelter interaction.
+- P5 real-data loaders with high-detail marker placement.
+- P6 guidance/NPC staging against imported target objects.
