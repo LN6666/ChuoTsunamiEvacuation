@@ -3,9 +3,27 @@
   "sourceMode": "manual_sample",
   "hazardLayerVersion": "p8a.0.1",
   "timeOriginSeconds": 0,
+  "scienceLayerFields": [
+    "arrivalTimeSeconds",
+    "inundationDepthMeters",
+    "waterLevelMeters",
+    "tsunamiHeightMeters",
+    "inundationBoundary",
+    "hazardIntensity",
+    "confidence",
+    "evidenceSourceId",
+    "geometryType",
+    "sourceMode",
+    "boundaryIsEvidenceBasedOrPrototype"
+  ],
+  "visualLayerFields": [
+    "visualHeightMeters",
+    "visualHeightIsCinematicOnly"
+  ],
   "features": [
     {
       "featureId": "p8a_harumi_waterfront_sample",
+      "sourceMode": "manual_sample",
       "geometryType": "polygon",
       "arrivalTimeSeconds": 1800,
       "inundationDepthMeters": 1.2,
@@ -41,6 +59,7 @@
     },
     {
       "featureId": "p8a_tsukishima_inland_sample",
+      "sourceMode": "manual_sample",
       "geometryType": "synthetic",
       "arrivalTimeSeconds": 2400,
       "inundationDepthMeters": 0.4,
@@ -79,8 +98,10 @@
     {
       "evidenceSourceId": "p8a_manual_placeholder",
       "sourceMode": "manual_sample",
+      "sourceCategory": "manual_sample",
       "title": "P8-A manual sample hazard placeholder",
       "url": "",
+      "reviewedStatus": "reviewed_for_planning",
       "notes": "Development-only sample data. No official or academic hazard claim."
     }
   ],

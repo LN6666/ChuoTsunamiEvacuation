@@ -5,6 +5,24 @@ public static class P8HazardDataValidator
 {
     public const float CinematicHeightThresholdMeters = 10f;
 
+    private static readonly string[] RequiredScienceFields =
+    {
+        "arrivalTimeSeconds",
+        "inundationDepthMeters",
+        "waterLevelMeters",
+        "tsunamiHeightMeters",
+        "inundationBoundary",
+        "hazardIntensity",
+        "confidence",
+        "evidenceSourceId"
+    };
+
+    private static readonly string[] RequiredVisualFields =
+    {
+        "visualHeightMeters",
+        "visualHeightIsCinematicOnly"
+    };
+
     public static P8HazardValidationResult ValidateHazardLayer(P8HazardLayerData data)
     {
         var result = new P8HazardValidationResult();
@@ -18,6 +36,8 @@ public static class P8HazardDataValidator
         }
 
         ValidateScenarioFields(data.scenarioId, data.sourceMode, data.hazardLayerVersion, result);
+        ValidateLayerFieldSeparation(data.scienceLayerFields, data.visualLayerFields, "hazard layer", result);
+        HashSet<string> evidenceSourceIds = ValidateEvidenceSources(data.evidenceSources, data.sourceMode, result);
 
         if (data.timeOriginSeconds < 0f)
         {
@@ -33,7 +53,7 @@ public static class P8HazardDataValidator
         {
             for (int i = 0; i < data.features.Length; i++)
             {
-                ValidateFeature(data.features[i], i, result);
+                ValidateFeature(data.features[i], i, data.sourceMode, evidenceSourceIds, result);
             }
         }
 
@@ -55,6 +75,8 @@ public static class P8HazardDataValidator
         }
 
         ValidateScenarioFields(config.scenarioId, config.sourceMode, config.configVersion, result);
+        ValidateEvidenceSourceIdRequired(config.sourceMode, config.evidenceSourceId, "risk front config", result);
+        ValidateLayerFieldSeparation(config.scienceLayerFields, config.visualLayerFields, "risk front config", result);
 
         if (config.visualHeightMeters > CinematicHeightThresholdMeters && !config.visualHeightIsCinematicOnly)
         {
@@ -68,9 +90,15 @@ public static class P8HazardDataValidator
             result.MarkFailSafe();
         }
 
-        if (string.IsNullOrWhiteSpace(config.boundaryIsEvidenceBasedOrPrototype))
+        if (!IsAllowedBoundaryKind(config.boundaryIsEvidenceBasedOrPrototype))
         {
-            result.AddError("boundaryIsEvidenceBasedOrPrototype is required.");
+            result.AddError("boundaryIsEvidenceBasedOrPrototype must be evidence_based or prototype.");
+        }
+
+        if (IsEvidenceRequiredSourceMode(config.sourceMode) && config.manualSampleIsOfficial)
+        {
+            result.AddError("Manual/sample risk-front config must not be marked official.");
+            result.MarkFailSafe();
         }
 
         result.Finish();
@@ -90,6 +118,7 @@ public static class P8HazardDataValidator
         }
 
         ValidateScenarioFields(config.scenarioId, config.sourceMode, config.configVersion, result);
+        ValidateEvidenceSourceIdRequired(config.sourceMode, config.evidenceSourceId, "infrastructure config", result);
 
         if (config.interactionEnabledInP8A)
         {
@@ -97,7 +126,7 @@ public static class P8HazardDataValidator
             result.MarkFailSafe();
         }
 
-        if (config.collapseProxyEnabledInP8A || config.hazardDrivenCollapse)
+        if (config.collapseProxyEnabledInP8A || config.collapseGameplayEnabledInP8A || config.hazardDrivenCollapse)
         {
             result.AddError("P8-A must keep collapse proxy behavior disabled.");
             result.MarkFailSafe();
@@ -106,6 +135,12 @@ public static class P8HazardDataValidator
         if (config.collapseProbability < 0f || config.collapseProbability > 1f)
         {
             result.AddError("collapseProbability must be between 0 and 1.");
+        }
+
+        if (IsEvidenceRequiredSourceMode(config.sourceMode) && config.manualSampleIsOfficial)
+        {
+            result.AddError("Manual/sample infrastructure config must not be marked official.");
+            result.MarkFailSafe();
         }
 
         result.Finish();
@@ -152,7 +187,75 @@ public static class P8HazardDataValidator
         }
     }
 
-    private static void ValidateFeature(P8HazardFeature feature, int index, P8HazardValidationResult result)
+    private static HashSet<string> ValidateEvidenceSources(
+        P8EvidenceSource[] evidenceSources,
+        string layerSourceMode,
+        P8HazardValidationResult result)
+    {
+        var ids = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+
+        if ((evidenceSources == null || evidenceSources.Length == 0) && IsEvidenceRequiredSourceMode(layerSourceMode))
+        {
+            result.AddError("manual_sample and evidence_planned hazard layers require at least one evidence source entry.");
+            result.MarkFailSafe();
+            return ids;
+        }
+
+        if (evidenceSources == null)
+        {
+            return ids;
+        }
+
+        for (int i = 0; i < evidenceSources.Length; i++)
+        {
+            P8EvidenceSource source = evidenceSources[i];
+            string prefix = "evidenceSources[" + i + "]";
+            if (source == null)
+            {
+                result.AddError(prefix + " is null.");
+                continue;
+            }
+
+            if (string.IsNullOrWhiteSpace(source.evidenceSourceId))
+            {
+                result.AddError(prefix + ".evidenceSourceId is required.");
+            }
+            else if (!ids.Add(source.evidenceSourceId))
+            {
+                result.AddError(prefix + ".evidenceSourceId is duplicated: " + source.evidenceSourceId);
+            }
+
+            if (!IsAllowedSourceMode(source.sourceMode))
+            {
+                result.AddError(prefix + ".sourceMode must be test, manual_sample, or evidence_planned.");
+                result.MarkFailSafe();
+            }
+
+            if (!IsAllowedSourceCategory(source.sourceCategory))
+            {
+                result.AddError(prefix + ".sourceCategory is not a recognized P8-A evidence category.");
+            }
+
+            if (!IsAllowedReviewedStatus(source.reviewedStatus))
+            {
+                result.AddError(prefix + ".reviewedStatus is not recognized.");
+            }
+
+            if (string.IsNullOrWhiteSpace(source.title))
+            {
+                result.AddError(prefix + ".title is required.");
+            }
+        }
+
+        return ids;
+    }
+
+    private static void ValidateFeature(
+        P8HazardFeature feature,
+        int index,
+        string layerSourceMode,
+        HashSet<string> evidenceSourceIds,
+        P8HazardValidationResult result)
     {
         string prefix = "features[" + index + "]";
 
@@ -165,6 +268,18 @@ public static class P8HazardDataValidator
         if (string.IsNullOrWhiteSpace(feature.featureId))
         {
             result.AddError(prefix + ".featureId is required.");
+        }
+
+        if (!IsAllowedSourceMode(feature.sourceMode))
+        {
+            result.AddError(prefix + ".sourceMode must be test, manual_sample, or evidence_planned.");
+            result.MarkFailSafe();
+        }
+        else if (!string.IsNullOrWhiteSpace(layerSourceMode) &&
+                 !string.Equals(feature.sourceMode, layerSourceMode, StringComparison.OrdinalIgnoreCase))
+        {
+            result.AddError(prefix + ".sourceMode must match the layer sourceMode in P8-A.");
+            result.MarkFailSafe();
         }
 
         if (!IsAllowedGeometryType(feature.geometryType))
@@ -187,6 +302,11 @@ public static class P8HazardDataValidator
             result.AddError(prefix + ".tsunamiHeightMeters must be zero or positive.");
         }
 
+        if (feature.inundationBoundary == null || feature.inundationBoundary.Length == 0)
+        {
+            result.AddError(prefix + ".inundationBoundary must contain at least one point.");
+        }
+
         if (feature.hazardIntensity < 0f || feature.hazardIntensity > 1f)
         {
             result.AddError(prefix + ".hazardIntensity must be between 0 and 1.");
@@ -197,9 +317,13 @@ public static class P8HazardDataValidator
             result.AddError(prefix + ".confidence must be between 0 and 1.");
         }
 
-        if (string.IsNullOrWhiteSpace(feature.evidenceSourceId))
+        ValidateEvidenceSourceIdRequired(feature.sourceMode, feature.evidenceSourceId, prefix, result);
+        if (!string.IsNullOrWhiteSpace(feature.evidenceSourceId) &&
+            evidenceSourceIds != null &&
+            evidenceSourceIds.Count > 0 &&
+            !evidenceSourceIds.Contains(feature.evidenceSourceId))
         {
-            result.AddError(prefix + ".evidenceSourceId is required.");
+            result.AddError(prefix + ".evidenceSourceId is not registered in evidenceSources: " + feature.evidenceSourceId);
         }
 
         if (feature.visualHeightMeters > Math.Max(CinematicHeightThresholdMeters, feature.tsunamiHeightMeters) &&
@@ -209,9 +333,9 @@ public static class P8HazardDataValidator
             result.MarkFailSafe();
         }
 
-        if (string.IsNullOrWhiteSpace(feature.boundaryIsEvidenceBasedOrPrototype))
+        if (!IsAllowedBoundaryKind(feature.boundaryIsEvidenceBasedOrPrototype))
         {
-            result.AddError(prefix + ".boundaryIsEvidenceBasedOrPrototype is required.");
+            result.AddError(prefix + ".boundaryIsEvidenceBasedOrPrototype must be evidence_based or prototype.");
         }
 
         if (feature.collapseProbability < 0f || feature.collapseProbability > 1f)
@@ -221,8 +345,79 @@ public static class P8HazardDataValidator
 
         if (feature.hazardDrivenCollapse)
         {
-            result.AddWarning(prefix + ".hazardDrivenCollapse is data only in P8-A and must not drive gameplay.");
+            result.AddError(prefix + ".hazardDrivenCollapse must remain false in P8-A.");
+            result.MarkFailSafe();
         }
+    }
+
+    private static void ValidateEvidenceSourceIdRequired(
+        string sourceMode,
+        string evidenceSourceId,
+        string label,
+        P8HazardValidationResult result)
+    {
+        if (IsEvidenceRequiredSourceMode(sourceMode) && string.IsNullOrWhiteSpace(evidenceSourceId))
+        {
+            result.AddError(label + ".evidenceSourceId is required for manual_sample and evidence_planned records.");
+            result.MarkFailSafe();
+        }
+    }
+
+    private static void ValidateLayerFieldSeparation(
+        string[] scienceLayerFields,
+        string[] visualLayerFields,
+        string label,
+        P8HazardValidationResult result)
+    {
+        if (scienceLayerFields == null || scienceLayerFields.Length == 0)
+        {
+            result.AddError(label + " scienceLayerFields are required.");
+        }
+
+        if (visualLayerFields == null || visualLayerFields.Length == 0)
+        {
+            result.AddError(label + " visualLayerFields are required.");
+        }
+
+        foreach (string requiredScienceField in RequiredScienceFields)
+        {
+            if (!ContainsField(scienceLayerFields, requiredScienceField))
+            {
+                result.AddError(label + " scienceLayerFields missing " + requiredScienceField + ".");
+            }
+        }
+
+        foreach (string requiredVisualField in RequiredVisualFields)
+        {
+            if (!ContainsField(visualLayerFields, requiredVisualField))
+            {
+                result.AddError(label + " visualLayerFields missing " + requiredVisualField + ".");
+            }
+        }
+
+        foreach (string visualField in RequiredVisualFields)
+        {
+            if (ContainsField(scienceLayerFields, visualField))
+            {
+                result.AddError(label + " scienceLayerFields must not contain visual field " + visualField + ".");
+                result.MarkFailSafe();
+            }
+        }
+
+        foreach (string scienceField in RequiredScienceFields)
+        {
+            if (ContainsField(visualLayerFields, scienceField))
+            {
+                result.AddError(label + " visualLayerFields must not contain science field " + scienceField + ".");
+                result.MarkFailSafe();
+            }
+        }
+    }
+
+    private static bool IsEvidenceRequiredSourceMode(string sourceMode)
+    {
+        return string.Equals(sourceMode, "manual_sample", StringComparison.OrdinalIgnoreCase) ||
+               string.Equals(sourceMode, "evidence_planned", StringComparison.OrdinalIgnoreCase);
     }
 
     private static bool IsAllowedGeometryType(string geometryType)
@@ -232,6 +427,49 @@ public static class P8HazardDataValidator
                string.Equals(geometryType, "polyline", StringComparison.OrdinalIgnoreCase) ||
                string.Equals(geometryType, "point", StringComparison.OrdinalIgnoreCase) ||
                string.Equals(geometryType, "synthetic", StringComparison.OrdinalIgnoreCase);
+    }
+
+    private static bool IsAllowedBoundaryKind(string boundaryKind)
+    {
+        return string.Equals(boundaryKind, "evidence_based", StringComparison.OrdinalIgnoreCase) ||
+               string.Equals(boundaryKind, "prototype", StringComparison.OrdinalIgnoreCase);
+    }
+
+    private static bool IsAllowedSourceCategory(string sourceCategory)
+    {
+        return string.Equals(sourceCategory, "official_tsunami_inundation_map", StringComparison.OrdinalIgnoreCase) ||
+               string.Equals(sourceCategory, "tokyo_chuo_hazard_map", StringComparison.OrdinalIgnoreCase) ||
+               string.Equals(sourceCategory, "cabinet_office_mlit_local_government", StringComparison.OrdinalIgnoreCase) ||
+               string.Equals(sourceCategory, "academic_tsunami_simulation_paper", StringComparison.OrdinalIgnoreCase) ||
+               string.Equals(sourceCategory, "plateau_citygml_category", StringComparison.OrdinalIgnoreCase) ||
+               string.Equals(sourceCategory, "osm_route_context", StringComparison.OrdinalIgnoreCase) ||
+               string.Equals(sourceCategory, "manual_sample", StringComparison.OrdinalIgnoreCase);
+    }
+
+    private static bool IsAllowedReviewedStatus(string reviewedStatus)
+    {
+        return string.Equals(reviewedStatus, "not_attached", StringComparison.OrdinalIgnoreCase) ||
+               string.Equals(reviewedStatus, "attached_unreviewed", StringComparison.OrdinalIgnoreCase) ||
+               string.Equals(reviewedStatus, "reviewed_for_planning", StringComparison.OrdinalIgnoreCase) ||
+               string.Equals(reviewedStatus, "reviewed_for_values", StringComparison.OrdinalIgnoreCase);
+    }
+
+    private static bool ContainsField(string[] fields, string expected)
+    {
+        if (fields == null)
+        {
+            return false;
+        }
+
+        for (int i = 0; i < fields.Length; i++)
+        {
+            if (string.Equals(fields[i], expected, StringComparison.OrdinalIgnoreCase))
+            {
+                return true;
+            }
+        }
+
+        return false;
     }
 }
 

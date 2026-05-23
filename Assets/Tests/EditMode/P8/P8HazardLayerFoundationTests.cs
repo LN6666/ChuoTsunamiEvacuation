@@ -34,6 +34,19 @@ public class P8HazardLayerFoundationTests
     }
 
     [Test]
+    public void ManualSampleFeatureRequiresEvidenceSourceId()
+    {
+        var data = CreateMinimalValidLayer("manual_sample");
+        data.features[0].evidenceSourceId = string.Empty;
+
+        P8HazardValidationResult result = P8HazardDataValidator.ValidateHazardLayer(data);
+
+        Assert.IsFalse(result.isValid);
+        Assert.IsTrue(result.isFailSafe);
+        StringAssert.Contains("evidenceSourceId is required", string.Join("\n", result.errorsArray));
+    }
+
+    [Test]
     public void CinematicVisualHeightRequiresCinematicOnlyFlag()
     {
         var data = CreateMinimalValidLayer();
@@ -53,6 +66,7 @@ public class P8HazardLayerFoundationTests
     {
         var data = CreateMinimalValidLayer();
         data.sourceMode = "official_claim_without_review";
+        data.features[0].sourceMode = "official_claim_without_review";
 
         P8HazardValidationResult result = P8HazardDataValidator.ValidateHazardLayer(data);
 
@@ -73,6 +87,7 @@ public class P8HazardLayerFoundationTests
         Assert.AreEqual(0f, layerResult.data.features[0].collapseProbability, 0.0001f);
         Assert.IsFalse(layerResult.data.features[0].hazardDrivenCollapse);
         Assert.IsFalse(infrastructureResult.config.collapseProxyEnabledInP8A);
+        Assert.IsFalse(infrastructureResult.config.collapseGameplayEnabledInP8A);
         Assert.IsFalse(P8HazardLayerLoader.AppliesHazardInteractionsInP8A);
         Assert.IsFalse(P8HazardLayerLoader.AffectsGameplaySuccessFailure);
     }
@@ -88,7 +103,33 @@ public class P8HazardLayerFoundationTests
         Assert.IsTrue(result.config.visualHeightIsCinematicOnly);
         CollectionAssert.Contains(result.config.scienceLayerFields, "arrivalTimeSeconds");
         CollectionAssert.Contains(result.config.scienceLayerFields, "inundationDepthMeters");
+        CollectionAssert.Contains(result.config.visualLayerFields, "visualHeightMeters");
+        CollectionAssert.Contains(result.config.visualLayerFields, "visualHeightIsCinematicOnly");
         StringAssert.Contains("cinematic", result.config.notes);
+    }
+
+    [Test]
+    public void ScienceAndVisualFieldListsRejectCrossLayerFields()
+    {
+        var data = CreateMinimalValidLayer();
+        data.scienceLayerFields = new[]
+        {
+            "arrivalTimeSeconds",
+            "inundationDepthMeters",
+            "waterLevelMeters",
+            "tsunamiHeightMeters",
+            "inundationBoundary",
+            "hazardIntensity",
+            "confidence",
+            "evidenceSourceId",
+            "visualHeightMeters"
+        };
+
+        P8HazardValidationResult result = P8HazardDataValidator.ValidateHazardLayer(data);
+
+        Assert.IsFalse(result.isValid);
+        Assert.IsTrue(result.isFailSafe);
+        StringAssert.Contains("scienceLayerFields must not contain visual field", string.Join("\n", result.errorsArray));
     }
 
     [Test]
@@ -130,17 +171,42 @@ public class P8HazardLayerFoundationTests
 
     private static P8HazardLayerData CreateMinimalValidLayer()
     {
+        return CreateMinimalValidLayer("test");
+    }
+
+    private static P8HazardLayerData CreateMinimalValidLayer(string sourceMode)
+    {
         return new P8HazardLayerData
         {
             scenarioId = "test_scenario",
-            sourceMode = "test",
+            sourceMode = sourceMode,
             hazardLayerVersion = "test.1",
             timeOriginSeconds = 0f,
+            scienceLayerFields = new[]
+            {
+                "arrivalTimeSeconds",
+                "inundationDepthMeters",
+                "waterLevelMeters",
+                "tsunamiHeightMeters",
+                "inundationBoundary",
+                "hazardIntensity",
+                "confidence",
+                "evidenceSourceId",
+                "geometryType",
+                "sourceMode",
+                "boundaryIsEvidenceBasedOrPrototype"
+            },
+            visualLayerFields = new[]
+            {
+                "visualHeightMeters",
+                "visualHeightIsCinematicOnly"
+            },
             features = new[]
             {
                 new P8HazardFeature
                 {
                     featureId = "test_feature",
+                    sourceMode = sourceMode,
                     geometryType = "synthetic",
                     arrivalTimeSeconds = 1f,
                     inundationDepthMeters = 0.1f,
@@ -162,6 +228,18 @@ public class P8HazardLayerFoundationTests
                     collapseProbability = 0f,
                     collapseRandomSeed = 1,
                     hazardDrivenCollapse = false
+                }
+            },
+            evidenceSources = new[]
+            {
+                new P8EvidenceSource
+                {
+                    evidenceSourceId = "test_source",
+                    sourceMode = sourceMode,
+                    sourceCategory = "manual_sample",
+                    title = "Test source",
+                    reviewedStatus = "reviewed_for_planning",
+                    notes = "Test-only source."
                 }
             }
         };

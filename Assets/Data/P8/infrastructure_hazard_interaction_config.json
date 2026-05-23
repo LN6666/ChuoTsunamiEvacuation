@@ -1,6 +1,7 @@
 {
   "scenarioId": "p8a_chuo_manual_sample",
   "sourceMode": "manual_sample",
+  "evidenceSourceId": "p8a_manual_placeholder",
   "configVersion": "p8a.0.1",
   "interactionEnabledInP8A": false,
   "affectedInfrastructureTypes": {
@@ -18,10 +19,12 @@
   "undergroundInteractionMode": "data_only",
   "entranceInteractionMode": "data_only",
   "collapseProxyEnabledInP8A": false,
+  "collapseGameplayEnabledInP8A": false,
   "buildingDamageState": "none",
   "collapseProxyState": "data_only",
   "collapseProbability": 0.0,
   "collapseRandomSeed": 8000,
   "hazardDrivenCollapse": false,
-  "notes": "P8-A parses infrastructure/collapse fields only. No gameplay damage, collapse, success, or failure behavior is triggered."
+  "manualSampleIsOfficial": false,
+  "notes": "P8-A manual sample placeholder only; not official. Parses infrastructure/collapse fields only. No gameplay damage, collapse, success, or failure behavior is triggered."
 }
