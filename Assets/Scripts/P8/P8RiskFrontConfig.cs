@@ -8,6 +8,7 @@ public class P8RiskFrontConfig
     public string evidenceSourceId = string.Empty;
     public string configVersion = string.Empty;
     public string hazardLayerVersion = string.Empty;
+    public string geometryType = string.Empty;
     public float timeOriginSeconds;
     public bool riskFrontEnabledInP8A;
     public bool riskFrontEnabledInP8B;
@@ -28,6 +29,10 @@ public class P8RiskFrontConfig
     public bool loopPlayback;
     public float playbackDurationSeconds = 3000f;
     public string p8bDisclaimer = string.Empty;
+    public bool p8bVisualSceneObjectsImplemented;
+    public bool p8cInfrastructureInteractionImplemented;
+    public bool p8dCollapseProxyGameplayImplemented;
+    public P8RiskFrontPerformanceSettings performanceSettings = new P8RiskFrontPerformanceSettings();
     public bool manualSampleIsOfficial;
     public string notes = string.Empty;
 }

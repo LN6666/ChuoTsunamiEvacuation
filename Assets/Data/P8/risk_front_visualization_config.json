@@ -4,6 +4,7 @@
   "evidenceSourceId": "p8a_manual_placeholder",
   "configVersion": "p8a.0.1",
   "hazardLayerVersion": "p8a.0.1",
+  "geometryType": "synthetic",
   "timeOriginSeconds": 0,
   "riskFrontEnabledInP8A": false,
   "riskFrontEnabledInP8B": true,
@@ -38,6 +39,22 @@
   "loopPlayback": false,
   "playbackDurationSeconds": 3000.0,
   "p8bDisclaimer": "Cinematic risk-front visualization, not physical tsunami height.",
+  "p8bVisualSceneObjectsImplemented": false,
+  "p8cInfrastructureInteractionImplemented": false,
+  "p8dCollapseProxyGameplayImplemented": false,
+  "performanceSettings": {
+    "segmentCount": 40,
+    "rebuildsMeshEveryFrame": false,
+    "transparentLayerCount": 1,
+    "lightCurtainObjectCount": 1,
+    "maxParticleCount": 0,
+    "particlesAreBounded": true,
+    "materialMode": "transparent_unlit",
+    "shaderRisk": "low",
+    "hasCullingStrategy": true,
+    "hasEnableDisableStrategy": true,
+    "usesSharedMeshOrInstancePool": true
+  },
   "manualSampleIsOfficial": false,
   "notes": "P8-B renders a cinematic risk-front light curtain from manual sample data. Manual sample placeholder only; not official. Kilometer-scale visual height is cinematic-only and not physical tsunami height."
 }
