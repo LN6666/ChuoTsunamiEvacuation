@@ -1,15 +1,17 @@
 {
   "scenarioId": "p8a_chuo_manual_sample",
   "sourceMode": "manual_sample",
+  "evidenceSourceId": "p8a_manual_placeholder",
   "configVersion": "p8a.0.1",
   "hazardLayerVersion": "p8a.0.1",
   "timeOriginSeconds": 0,
   "riskFrontEnabledInP8A": false,
-  "visualHeightMeters": 120.0,
+  "visualHeightMeters": 1000.0,
   "visualHeightIsCinematicOnly": true,
   "boundaryIsEvidenceBasedOrPrototype": "prototype",
   "visualLayerPurpose": "cinematic risk-front readability only",
   "scienceLayerFields": [
+    "sourceMode",
     "arrivalTimeSeconds",
     "inundationDepthMeters",
     "waterLevelMeters",
@@ -17,7 +19,13 @@
     "inundationBoundary",
     "hazardIntensity",
     "confidence",
-    "evidenceSourceId"
+    "evidenceSourceId",
+    "boundaryIsEvidenceBasedOrPrototype"
   ],
-  "notes": "P8-A does not render the light curtain. Large visual height is cinematic-only and not physical tsunami height."
+  "visualLayerFields": [
+    "visualHeightMeters",
+    "visualHeightIsCinematicOnly"
+  ],
+  "manualSampleIsOfficial": false,
+  "notes": "P8-A does not render the light curtain. Manual sample placeholder only; not official. Kilometer-scale visual height is cinematic-only and not physical tsunami height."
 }

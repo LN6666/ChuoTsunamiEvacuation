@@ -10,9 +10,12 @@ The P8 hazard layer records science/data fields separately from cinematic visual
 - `sourceMode`
 - `hazardLayerVersion`
 - `timeOriginSeconds`
+- `scienceLayerFields`
+- `visualLayerFields`
 
 ## Hazard Feature Fields
 
+- `sourceMode`
 - `arrivalTimeSeconds`
 - `inundationDepthMeters`
 - `waterLevelMeters`
@@ -28,9 +31,20 @@ The P8 hazard layer records science/data fields separately from cinematic visual
 
 - `visualHeightMeters`
 - `visualHeightIsCinematicOnly`
-- `boundaryIsEvidenceBasedOrPrototype`
 
 Large visual front heights must be marked cinematic-only and must not be read as real tsunami physical height.
+
+`scienceLayerFields` and `visualLayerFields` are explicit schema metadata. Science-layer field lists must not contain visual-only fields, and visual-layer field lists must not contain science fields.
+
+## Evidence Fields
+
+- `evidenceSourceId`
+- `sourceMode`
+- `sourceCategory`
+- `reviewedStatus`
+- `boundaryIsEvidenceBasedOrPrototype`
+
+P8-A accepts manual sample and evidence-planned records only as non-authoritative data. Unknown or official-looking source modes fail safe until a later approved stage defines them.
 
 ## Infrastructure Fields
 

@@ -92,7 +92,6 @@ function Assert-FileContains {
 function Test-AllowedP8Path {
     param([string]$Path)
 
-    if ($Path -eq "Assets/Scenes/P7HighDetail/P7_HighDetail_Chuo.unity") { return $true }
     if ($Path -eq "Assets/Data/P8.meta") { return $true }
     if ($Path -eq "Assets/Scripts/P8.meta") { return $true }
     if ($Path -eq "Assets/Tests/EditMode/P8.meta") { return $true }
@@ -106,8 +105,10 @@ function Test-AllowedP8Path {
     if (Test-PathStartsWith $Path "Assets/Tests/PlayMode/P8/") { return $true }
     if ($Path -eq "codex_prompts/p8a_baseline_hazard_data_layer.md") { return $true }
     if ($Path -eq "codex_prompts/p8a_scene_compatibility_gate.md") { return $true }
+    if ($Path -eq "codex_prompts/p8a_hazard_evidence_hardening.md") { return $true }
     if ($Path -eq "deepseek_review_prompt_p8a.md") { return $true }
     if ($Path -eq "deepseek_review_prompt_p8a_compat.md") { return $true }
+    if ($Path -eq "deepseek_review_prompt_p8a_evidence.md") { return $true }
     return $false
 }
 
@@ -143,6 +144,10 @@ function Assert-ProtectedPathsClean {
 
         if (Test-PathStartsWith $file "Assets/Scenes/Chuo_BaseMap.unity") {
             $violations.Add("$file modifies legacy fallback scene") | Out-Null
+        }
+
+        if ($file -eq "Assets/Scenes/P7HighDetail/P7_HighDetail_Chuo.unity") {
+            $violations.Add("$file modifies protected P7 high-detail baseline scene") | Out-Null
         }
 
         if (Test-PathStartsWith $file "Assets/Scripts/" -and -not (Test-PathStartsWith $file "Assets/Scripts/P8/")) {
@@ -211,7 +216,47 @@ function Assert-P8Docs {
     Assert-FileContains "docs/P8A_SCIENCE_VS_VISUAL_LAYER.md" @(
         "cinematic-only",
         "not a physical tsunami height",
-        "visualHeightIsCinematicOnly"
+        "visualHeightIsCinematicOnly",
+        "kilometer-scale",
+        "P8-A does not implement"
+    )
+
+    Assert-FileContains "docs/P8A_EVIDENCE_SOURCE_REGISTRY.md" @(
+        "official tsunami",
+        "Tokyo/Chuo hazard maps",
+        "Cabinet Office",
+        "MLIT",
+        "academic tsunami simulation papers",
+        "PLATEAU",
+        "OSM",
+        "manual sample"
+    )
+
+    Assert-FileContains "docs/P8A_OFFICIAL_SOURCE_REVIEW_PROTOCOL.md" @(
+        "must not fetch",
+        "reviewed_for_values",
+        "P8-A does not introduce an official runtime source mode"
+    )
+
+    Assert-FileContains "docs/P8A_HAZARD_VARIABLE_DEFINITIONS.md" @(
+        "arrivalTimeSeconds",
+        "inundationDepthMeters",
+        "tsunamiHeightMeters",
+        "visualHeightMeters",
+        "sourceMode"
+    )
+
+    Assert-FileContains "docs/P8A_ARRIVAL_DEPTH_BOUNDARY_MODEL.md" @(
+        "arrival front",
+        "visual risk front",
+        "data boundary",
+        "visual curtain boundary"
+    )
+
+    Assert-FileContains "docs/P8A_CINEMATIC_LIGHT_CURTAIN_RULES.md" @(
+        "kilometer-scale",
+        "visualHeightIsCinematicOnly=true",
+        "P8-A does not implement"
     )
 
     Assert-FileContains "docs/P8A_P2_P6_COMPATIBILITY_GATE.md" @(
@@ -242,8 +287,10 @@ function Assert-P8Artifacts {
         "tools/p8/validate_p8_hazard_json.ps1",
         "codex_prompts/p8a_baseline_hazard_data_layer.md",
         "codex_prompts/p8a_scene_compatibility_gate.md",
+        "codex_prompts/p8a_hazard_evidence_hardening.md",
         "deepseek_review_prompt_p8a.md",
-        "deepseek_review_prompt_p8a_compat.md"
+        "deepseek_review_prompt_p8a_compat.md",
+        "deepseek_review_prompt_p8a_evidence.md"
     )) {
         Assert-FileExists $file
     }

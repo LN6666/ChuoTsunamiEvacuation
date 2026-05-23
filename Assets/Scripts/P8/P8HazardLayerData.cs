@@ -9,6 +9,8 @@ public class P8HazardLayerData
     public string sourceMode = string.Empty;
     public string hazardLayerVersion = string.Empty;
     public float timeOriginSeconds;
+    public string[] scienceLayerFields = new string[0];
+    public string[] visualLayerFields = new string[0];
     public P8HazardFeature[] features = new P8HazardFeature[0];
     public P8EvidenceSource[] evidenceSources = new P8EvidenceSource[0];
     public string notes = string.Empty;
@@ -18,6 +20,7 @@ public class P8HazardLayerData
 public class P8HazardFeature
 {
     public string featureId = string.Empty;
+    public string sourceMode = string.Empty;
     public string geometryType = string.Empty;
     public float arrivalTimeSeconds;
     public float inundationDepthMeters;
@@ -63,7 +66,9 @@ public class P8EvidenceSource
 {
     public string evidenceSourceId = string.Empty;
     public string sourceMode = string.Empty;
+    public string sourceCategory = string.Empty;
     public string title = string.Empty;
     public string url = string.Empty;
+    public string reviewedStatus = string.Empty;
     public string notes = string.Empty;
 }

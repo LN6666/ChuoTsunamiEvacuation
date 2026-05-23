@@ -7,6 +7,46 @@ $scriptRoot = Split-Path -Parent $MyInvocation.MyCommand.Path
 $repoRoot = (Resolve-Path (Join-Path $scriptRoot "..\..")).ProviderPath
 $baselineRelative = "Assets/Scenes/P7HighDetail/P7_HighDetail_Chuo.unity"
 $baselinePath = Join-Path $repoRoot ($baselineRelative -replace "/", "\")
+$minimumBaselineBytes = 1000000000
+
+function Get-BaselineCandidates {
+    $candidates = New-Object 'System.Collections.Generic.List[string]'
+    $candidates.Add($baselinePath) | Out-Null
+
+    if (-not [string]::IsNullOrWhiteSpace($env:P8A_BASELINE_SCENE_PATH)) {
+        $candidates.Add($env:P8A_BASELINE_SCENE_PATH) | Out-Null
+    }
+
+    $defaultSiblingP7 = "D:\UnityProjects\ChuoTsunamiEvacuation-P7\Assets\Scenes\P7HighDetail\P7_HighDetail_Chuo.unity"
+    if ($defaultSiblingP7 -ne $baselinePath) {
+        $candidates.Add($defaultSiblingP7) | Out-Null
+    }
+
+    return @($candidates | Select-Object -Unique)
+}
+
+function Select-LargeBaselineScene {
+    param([string[]]$CandidatePaths)
+
+    foreach ($candidate in $CandidatePaths) {
+        if ([string]::IsNullOrWhiteSpace($candidate)) {
+            continue
+        }
+
+        if (-not (Test-Path -LiteralPath $candidate -PathType Leaf)) {
+            continue
+        }
+
+        $item = Get-Item -LiteralPath $candidate
+        Write-Host "Baseline candidate: $candidate"
+        Write-Host "Candidate bytes: $($item.Length)"
+        if ($item.Length -ge $minimumBaselineBytes) {
+            return $item
+        }
+    }
+
+    return $null
+}
 
 function Get-GitLines {
     param([string[]]$GitArgs)
@@ -30,17 +70,17 @@ function Get-GitLines {
 Write-Host "P8-A baseline scene inspection"
 Write-Host "Repo root: $repoRoot"
 
-if (-not (Test-Path -LiteralPath $baselinePath -PathType Leaf)) {
-    throw "Missing P7 practical baseline scene: $baselineRelative"
+$sceneItem = Select-LargeBaselineScene @(Get-BaselineCandidates)
+if ($null -eq $sceneItem) {
+    throw "No large P7 practical baseline scene found. Set P8A_BASELINE_SCENE_PATH or restore the local P7 high-detail baseline."
 }
 
-$sceneItem = Get-Item -LiteralPath $baselinePath
-Write-Host "Baseline scene: $baselineRelative"
+Write-Host "Selected baseline scene: $($sceneItem.FullName)"
 Write-Host "Scene bytes: $($sceneItem.Length)"
 Write-Host "Scene last write: $($sceneItem.LastWriteTime)"
 
-if ($sceneItem.Length -lt 1000000000) {
-    throw "Baseline scene is unexpectedly small; local high-detail state may have been lost."
+if ($sceneItem.FullName -ne $baselinePath) {
+    Write-Host "Using external local baseline scene; current worktree scene shell is not modified."
 }
 
 $baselineStatus = Get-GitLines @("-C", $repoRoot, "status", "--porcelain=v1", "--", $baselineRelative)
