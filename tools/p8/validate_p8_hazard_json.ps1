@@ -314,6 +314,17 @@ Assert-VisualHeightGuard $riskFront "risk front config"
 if ([bool]$riskFront.riskFrontEnabledInP8A -ne $false) {
     throw "risk front config must keep riskFrontEnabledInP8A=false."
 }
+Assert-HasProperty $riskFront "riskFrontEnabledInP8B" "risk front config"
+Assert-HasProperty $riskFront "segmentCount" "risk front config"
+Assert-HasProperty $riskFront "waveAmplitudeMeters" "risk front config"
+Assert-HasProperty $riskFront "noiseStrengthMeters" "risk front config"
+Assert-HasProperty $riskFront "p8bDisclaimer" "risk front config"
+if ([int]$riskFront.segmentCount -lt 2) {
+    throw "risk front config segmentCount must be at least 2."
+}
+if ([string]$riskFront.p8bDisclaimer -notlike "*not physical tsunami height*") {
+    throw "risk front config must include the P8-B cinematic-not-physical disclaimer."
+}
 if ([bool]$riskFront.manualSampleIsOfficial -ne $false) {
     throw "risk front config manualSampleIsOfficial must be false."
 }

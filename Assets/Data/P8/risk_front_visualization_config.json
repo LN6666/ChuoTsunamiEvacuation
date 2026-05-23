@@ -6,6 +6,7 @@
   "hazardLayerVersion": "p8a.0.1",
   "timeOriginSeconds": 0,
   "riskFrontEnabledInP8A": false,
+  "riskFrontEnabledInP8B": true,
   "visualHeightMeters": 1000.0,
   "visualHeightIsCinematicOnly": true,
   "boundaryIsEvidenceBasedOrPrototype": "prototype",
@@ -26,6 +27,17 @@
     "visualHeightMeters",
     "visualHeightIsCinematicOnly"
   ],
+  "segmentCount": 40,
+  "waveAmplitudeMeters": 35.0,
+  "waveFrequency": 2.5,
+  "noiseStrengthMeters": 4.0,
+  "frontTravelMeters": 650.0,
+  "coordinateScaleMeters": 100000.0,
+  "meshRebuildIntervalSeconds": 0.15,
+  "materialAlpha": 0.42,
+  "loopPlayback": false,
+  "playbackDurationSeconds": 3000.0,
+  "p8bDisclaimer": "Cinematic risk-front visualization, not physical tsunami height.",
   "manualSampleIsOfficial": false,
-  "notes": "P8-A does not render the light curtain. Manual sample placeholder only; not official. Kilometer-scale visual height is cinematic-only and not physical tsunami height."
+  "notes": "P8-B renders a cinematic risk-front light curtain from manual sample data. Manual sample placeholder only; not official. Kilometer-scale visual height is cinematic-only and not physical tsunami height."
 }

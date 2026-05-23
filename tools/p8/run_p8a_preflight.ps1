@@ -106,10 +106,12 @@ function Test-AllowedP8Path {
     if ($Path -eq "codex_prompts/p8a_baseline_hazard_data_layer.md") { return $true }
     if ($Path -eq "codex_prompts/p8a_scene_compatibility_gate.md") { return $true }
     if ($Path -eq "codex_prompts/p8a_hazard_evidence_hardening.md") { return $true }
+    if ($Path -eq "codex_prompts/p8b_dynamic_risk_front.md") { return $true }
     if ($Path -eq "deepseek_review_prompt_p8a.md") { return $true }
     if ($Path -eq "deepseek_review_prompt_p8a_compat.md") { return $true }
     if ($Path -eq "deepseek_review_prompt_p8a_evidence.md") { return $true }
     if ($Path -eq "deepseek_review_prompt_p8a_integration.md") { return $true }
+    if ($Path -eq "deepseek_review_prompt_p8b_riskfront.md") { return $true }
     return $false
 }
 
@@ -306,7 +308,17 @@ function Assert-P8Artifacts {
     }
 }
 
-function Assert-NoP8RuntimeImplementation {
+function Test-AllowedP8RuntimeScript {
+    param([string]$Path)
+
+    $name = [System.IO.Path]::GetFileName($Path)
+    return $name -eq "P8RiskFrontController.cs" -or
+           $name -eq "P8RiskFrontLightCurtainRenderer.cs" -or
+           $name -eq "P8RiskFrontTimeDriver.cs" -or
+           $name -eq "P8RiskFrontDebugStatus.cs"
+}
+
+function Assert-NoUnauthorizedP8RuntimeImplementation {
     $scriptPath = Join-Path $repoRoot "Assets\Scripts\P8"
     if (Test-Path -LiteralPath $scriptPath -PathType Container) {
         $matches = @(
@@ -314,11 +326,12 @@ function Assert-NoP8RuntimeImplementation {
                 Select-String -Pattern "MonoBehaviour|void Update\s*\("
         )
 
-        if ($matches.Count -gt 0) {
-            foreach ($match in $matches) {
-                Write-Host "FAIL: P8-A runtime implementation marker at $($match.Path):$($match.LineNumber)"
+        $unauthorized = @($matches | Where-Object { -not (Test-AllowedP8RuntimeScript $_.Path) })
+        if ($unauthorized.Count -gt 0) {
+            foreach ($match in $unauthorized) {
+                Write-Host "FAIL: unauthorized P8 runtime marker at $($match.Path):$($match.LineNumber)"
             }
-            throw "P8-A must remain loader/validator foundation only."
+            throw "Only approved P8-B risk-front runtime scripts may contain MonoBehaviour/Update in P8."
         }
     }
 }
@@ -342,7 +355,7 @@ try {
     Assert-ProtectedPathsClean
     Assert-P8Artifacts
     Assert-P8Docs
-    Assert-NoP8RuntimeImplementation
+    Assert-NoUnauthorizedP8RuntimeImplementation
     Assert-NoP9P10Systems
 
     & powershell -ExecutionPolicy Bypass -File (Join-Path $scriptRoot "validate_p8_hazard_json.ps1")

@@ -10,12 +10,24 @@ public class P8RiskFrontConfig
     public string hazardLayerVersion = string.Empty;
     public float timeOriginSeconds;
     public bool riskFrontEnabledInP8A;
+    public bool riskFrontEnabledInP8B;
     public float visualHeightMeters;
     public bool visualHeightIsCinematicOnly;
     public string boundaryIsEvidenceBasedOrPrototype = string.Empty;
     public string visualLayerPurpose = string.Empty;
     public string[] scienceLayerFields = new string[0];
     public string[] visualLayerFields = new string[0];
+    public int segmentCount = 32;
+    public float waveAmplitudeMeters = 35f;
+    public float waveFrequency = 2f;
+    public float noiseStrengthMeters = 4f;
+    public float frontTravelMeters = 650f;
+    public float coordinateScaleMeters = 100000f;
+    public float meshRebuildIntervalSeconds = 0.15f;
+    public float materialAlpha = 0.42f;
+    public bool loopPlayback;
+    public float playbackDurationSeconds = 3000f;
+    public string p8bDisclaimer = string.Empty;
     public bool manualSampleIsOfficial;
     public string notes = string.Empty;
 }

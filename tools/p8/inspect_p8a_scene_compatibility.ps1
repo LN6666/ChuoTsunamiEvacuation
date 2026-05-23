@@ -244,7 +244,17 @@ function Assert-ProjectSettingsAndPackagesClean {
     Write-Host "PASS: ProjectSettings and Packages have no git status changes."
 }
 
-function Assert-NoLaterP8RuntimeBehavior {
+function Test-AllowedP8RuntimeScript {
+    param([string]$Path)
+
+    $name = [System.IO.Path]::GetFileName($Path)
+    return $name -eq "P8RiskFrontController.cs" -or
+           $name -eq "P8RiskFrontLightCurtainRenderer.cs" -or
+           $name -eq "P8RiskFrontTimeDriver.cs" -or
+           $name -eq "P8RiskFrontDebugStatus.cs"
+}
+
+function Assert-NoUnauthorizedP8RuntimeBehavior {
     $scriptPath = Join-Path $repoRoot "Assets\Scripts\P8"
     if (-not (Test-Path -LiteralPath $scriptPath -PathType Container)) {
         throw "Missing P8 script folder: Assets/Scripts/P8"
@@ -255,15 +265,16 @@ function Assert-NoLaterP8RuntimeBehavior {
             Select-String -Pattern "MonoBehaviour|void Update\s*\("
     )
 
-    if ($matches.Count -gt 0) {
-        foreach ($match in $matches) {
-            Write-Host "FAIL: Later-stage/runtime marker at $($match.Path):$($match.LineNumber)"
+    $unauthorized = @($matches | Where-Object { -not (Test-AllowedP8RuntimeScript $_.Path) })
+    if ($unauthorized.Count -gt 0) {
+        foreach ($match in $unauthorized) {
+            Write-Host "FAIL: unauthorized later-stage/runtime marker at $($match.Path):$($match.LineNumber)"
         }
 
-        throw "P8-A compatibility code must remain report/loader/validator only."
+        throw "Only approved P8-B risk-front runtime scripts may contain MonoBehaviour/Update in P8."
     }
 
-    Write-Host "PASS: P8-A code has no MonoBehaviour or Update implementation."
+    Write-Host "PASS: no unauthorized P8 runtime behavior detected."
 }
 
 Write-Host "P8-A scene compatibility inspection"
@@ -278,7 +289,7 @@ try {
     Assert-CompatibilityDocsExist
     Assert-NoP9P10SystemsAdded
     Assert-ProjectSettingsAndPackagesClean
-    Assert-NoLaterP8RuntimeBehavior
+    Assert-NoUnauthorizedP8RuntimeBehavior
 }
 catch {
     $failed = $true
