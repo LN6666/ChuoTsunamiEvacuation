@@ -17,6 +17,7 @@ Current decision: `PASS`.
 Reason:
 
 - Tokyo Metropolitan Government tsunami Open Data CSV layers were available by direct HTTPS download with no token, login, registration, or browser-only manual download.
+- 東京都「首都直下地震等による東京の被害想定」 is used as the broader official damage-estimation source family/report context, not as a claim that every earthquake scenario in that family has an extracted tsunami layer.
 - The official Tokyo maximum inundation depth, maximum tsunami height, and arrival-time 10m mesh CSVs were inspected and used.
 - Official MLIT N03 administrative boundary data was available by direct HTTPS ZIP download and used to clip mesh points to Chuo City (`中央区` / `13102`).
 - `Assets/Data/P8/tsunami_hazard_layer_v1_chuo.json` contains extracted Chuo spatial mesh samples for Taisho Kanto earthquake and Nankai Trough case 1.
@@ -37,6 +38,8 @@ Do not mark BLOCKED solely because Chuo lacks a standalone tsunami hazard map. T
 
 Nankai Trough case 5 and case 8 are not present in the generated P8-B Chuo layer or extractor scenario list, so they remain not extracted for this gate.
 
+都心南部直下地震 is not present as a tsunami scenario in the current extracted layers. P8-B does not claim 都心南部直下地震-specific tsunami inundation-depth, arrival-time, or tsunami-height extraction.
+
 ## P8-C Conditions
 
 P8-C may proceed to infrastructure hazard interaction using this extracted hazard layer, with these constraints:
@@ -44,6 +47,7 @@ P8-C may proceed to infrastructure hazard interaction using this extracted hazar
 - P8-C may rely on extracted spatial sample records and scenario provenance.
 - P8-C must keep the derived grid-extent boundary labeled as derived, not as an official inundation contour.
 - P8-C must not claim complete official inundation contour precision.
+- P8-C must not describe the extracted P8-B tsunami layers as 都心南部直下地震 tsunami inundation data.
 - P8-C must preserve the no full fluid simulation boundary.
 - P8-C must not claim full real-time fluid simulation or academic hydrodynamic modeling.
 - P8-C must not use `maxTsunamiHeightMeters` as an inundation-depth grid.

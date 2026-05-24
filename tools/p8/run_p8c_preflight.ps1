@@ -163,6 +163,8 @@ function Test-AllowedP8CPath {
     if ($Path -eq "tools/p8/run_p8b_riskfront_preflight.ps1") { return $true }
     if ($Path -eq "tools/p8/run_p8b_front_v1_preflight.ps1") { return $true }
     if ($Path -eq "tools/p8/run_p8b_evidence_spatial_gate.ps1") { return $true }
+    if ($Path -eq "tools/p8/build_p8_humanitarian_candidate_audit.py") { return $true }
+    if ($Path -eq "tools/p8/run_p8_humanitarian_candidate_audit_preflight.ps1") { return $true }
     if (Test-PathStartsWith $Path "Assets/Scripts/P8/") { return $true }
     if (Test-PathStartsWith $Path "Assets/Tests/EditMode/P8/") { return $true }
     if (Test-PathStartsWith $Path "Assets/Tests/PlayMode/P8/") { return $true }

@@ -13,6 +13,18 @@
   "officialTokyoTsunamiDatasetCheck": {
     "usesTokyoMetropolitanGovernmentDamageEstimationTsunamiDatasets": true,
     "usesChuoFloodHazardMapAsTsunamiData": false,
+    "broaderReportContext": "東京都「首都直下地震等による東京の被害想定」 / Tokyo Metropolitan Government damage-estimation source family/report context",
+    "extractedTsunamiSpatialScenarios": [
+      "大正関東地震",
+      "南海トラフ巨大地震 case 1"
+    ],
+    "notExtractedTsunamiScenarios": [
+      {
+        "scenarioName": "都心南部直下地震",
+        "status": "not_available_not_a_tsunami_scenario_in_current_extracted_layers",
+        "notes": "No current P8-B Tokyo tsunami CSV/layer extraction exists for this scenario. Do not describe P8-B as extracting 都心南部直下地震-specific tsunami inundation-depth, arrival-time, or tsunami-height data."
+      }
+    ],
     "chuoExtractionArea": "Tokyo ward-area / 区部 mesh clipped to 中央区 using MLIT N03 administrative boundary",
     "inundationDepthSource": "Tokyo official tsunami maximum inundation-depth CSVs",
     "arrivalTimeSource": "Tokyo official tsunami arrival-time CSVs",
@@ -85,7 +97,7 @@
       "scenarioName": "Taisho Kanto earthquake, Tokyo 10m tsunami mesh clipped to Chuo City",
       "sourceMode": "official_tsunami_metropolitan",
       "sourceCategory": "official_tsunami_metropolitan",
-      "officialScenarioFamily": "Tokyo Metropolitan Government damage-estimation tsunami dataset",
+      "officialScenarioFamily": "Tokyo Metropolitan Government damage-estimation tsunami dataset; broader source-family/report context is 東京都「首都直下地震等による東京の被害想定」",
       "officialScenarioKey": "kubu_taisyoukanntoujisinn",
       "officialScenarioJapaneseName": "大正関東地震",
       "chuoExtractionArea": "区部 / 中央区",
@@ -13638,7 +13650,7 @@
       "scenarioName": "Nankai Trough megathrust earthquake case 1, Tokyo 10m tsunami mesh clipped to Chuo City",
       "sourceMode": "official_tsunami_metropolitan",
       "sourceCategory": "official_tsunami_metropolitan",
-      "officialScenarioFamily": "Tokyo Metropolitan Government damage-estimation tsunami dataset",
+      "officialScenarioFamily": "Tokyo Metropolitan Government damage-estimation tsunami dataset; broader source-family/report context is 東京都「首都直下地震等による東京の被害想定」",
       "officialScenarioKey": "kubu_nannkaitorafucase1",
       "officialScenarioJapaneseName": "南海トラフ巨大地震 case 1",
       "chuoExtractionArea": "区部 / 中央区",
@@ -28759,7 +28771,7 @@
       "hazardIntensity": 0.9052,
       "confidence": 0.9,
       "evidenceSourceId": "tokyo_damage_estimation_map_tsunami",
-      "notes": "Official Tokyo Metropolitan Government tsunami damage-estimation 10m mesh CSV data clipped to official MLIT N03 Chuo City polygon. inundationDepthMeters is an extracted spatial maximum from clipped official inundation-depth grid points. arrivalTimeSeconds comes from the official arrival-time CSV. maxTsunamiHeightMeters is a tsunami-height field and is not used as the inundation-depth grid. inundationBoundary is a derived grid extent bbox, not an official inundation contour.",
+      "notes": "Official Tokyo Metropolitan Government tsunami damage-estimation 10m mesh CSV data clipped to official MLIT N03 Chuo City polygon. The broader source-family/report context is 東京都「首都直下地震等による東京の被害想定」; this feature is not a 都心南部直下地震 tsunami layer. inundationDepthMeters is an extracted spatial maximum from clipped official inundation-depth grid points. arrivalTimeSeconds comes from the official arrival-time CSV. maxTsunamiHeightMeters is a tsunami-height field and is not used as the inundation-depth grid. inundationBoundary is a derived grid extent bbox, not an official inundation contour.",
       "visualHeightMeters": 120.0,
       "visualHeightIsCinematicOnly": true,
       "boundaryIsEvidenceBasedOrPrototype": "evidence_based",
@@ -28812,13 +28824,13 @@
       "evidenceSourceId": "tokyo_damage_estimation_report_tsunami",
       "sourceMode": "official_tsunami_metropolitan",
       "sourceCategory": "official_tsunami_report_reference",
-      "title": "Tokyo Metropolitan Government 2022 damage estimation report tsunami sections",
+      "title": "Tokyo Metropolitan Government damage-estimation report tsunami sections / 東京都「首都直下地震等による東京の被害想定」 source-family context",
       "url": "https://www.bousai.metro.tokyo.lg.jp/taisaku/torikumi/1000902/1021571.html",
       "reviewedStatus": "reviewed_for_planning",
       "accessMethod": "public_web_page_no_token",
       "requiresTokenOrLogin": false,
       "expectedFileType": "HTML/PDF references",
-      "notes": "Report provenance for Tokyo tsunami simulation context. The spatial grid comes from Tokyo Open Data CSV resources."
+      "notes": "Report provenance for Tokyo tsunami simulation context. The spatial grid comes from Tokyo Open Data CSV resources. Current extracted layers are 大正関東地震 and 南海トラフ巨大地震 case 1; no 都心南部直下地震 tsunami layer is extracted or claimed."
     },
     {
       "evidenceSourceId": "chuo_city_tsunami_liquefaction_page",
@@ -28857,5 +28869,5 @@
       "notes": "Non-tsunami flood proxy. Not used by P8-B now that official Tokyo tsunami spatial CSV data is extracted."
     }
   ],
-  "notes": "P8-B official spatial hazard layer v1. Tokyo Open Data tsunami 10m mesh CSV resources from Tokyo Metropolitan Government damage-estimation tsunami datasets were clipped to the official MLIT N03 Chuo City polygon. Maximum inundation depth is spatially extracted from tsunami CSVs, not Chuo flood proxy data. Maximum tsunami height remains a separate height field. The derived boundary is a grid extent bbox, not an official inundation contour. No P8-D damage/collapse or P9 gameplay behavior is implemented by this layer."
+  "notes": "P8-B official spatial hazard layer v1. Tokyo Open Data tsunami 10m mesh CSV resources from Tokyo Metropolitan Government damage-estimation tsunami datasets were clipped to the official MLIT N03 Chuo City polygon. 東京都「首都直下地震等による東京の被害想定」 is the broader source-family/report context; the actual extracted tsunami spatial layers are 大正関東地震 and 南海トラフ巨大地震 case 1. No 都心南部直下地震 tsunami inundation-depth, arrival-time, or tsunami-height layer is extracted or claimed. Maximum inundation depth is spatially extracted from tsunami CSVs, not Chuo flood proxy data. Maximum tsunami height remains a separate height field. The derived boundary is a grid extent bbox, not an official inundation contour. No P8-D damage/collapse or P9 gameplay behavior is implemented by this layer."
 }
