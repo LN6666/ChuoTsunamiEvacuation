@@ -1,0 +1,40 @@
+{
+  "schemaVersion": "p9a.crowd_agents.sample.v1",
+  "sourceMode": "test",
+  "notes": "P9-A simple proxy profiles only. No psychology model, real crowd simulation claim, or player-failure effect.",
+  "agentProfiles": [
+    {
+      "agentProfileId": "p9_test_resident_proxy",
+      "agentType": "resident",
+      "speedMetersPerSecond": 1.2,
+      "targetPreference": "nearest_available_proxy_entrance",
+      "evacuationBehaviorMode": "direct_to_entrance_proxy_no_failure_effect",
+      "crowdRadius": 0.35,
+      "panicLevelProxy": 0.2,
+      "sourceMode": "test",
+      "notes": "Resident proxy profile for safe loader tests only."
+    },
+    {
+      "agentProfileId": "p9_test_office_worker_proxy",
+      "agentType": "office_worker",
+      "speedMetersPerSecond": 1.35,
+      "targetPreference": "nearest_official_or_candidate_proxy",
+      "evacuationBehaviorMode": "direct_to_entrance_proxy_no_failure_effect",
+      "crowdRadius": 0.35,
+      "panicLevelProxy": 0.25,
+      "sourceMode": "manual_sample",
+      "notes": "Office-worker proxy profile. Not a behavioral model."
+    },
+    {
+      "agentProfileId": "p9_test_elderly_proxy",
+      "agentType": "elderly_proxy",
+      "speedMetersPerSecond": 0.8,
+      "targetPreference": "nearest_low_congestion_proxy",
+      "evacuationBehaviorMode": "slower_direct_to_entrance_proxy_no_failure_effect",
+      "crowdRadius": 0.4,
+      "panicLevelProxy": 0.15,
+      "sourceMode": "test",
+      "notes": "Accessibility-paced proxy profile for future scenario tests only."
+    }
+  ]
+}

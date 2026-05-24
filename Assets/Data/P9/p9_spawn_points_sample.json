@@ -1,0 +1,79 @@
+{
+  "schemaVersion": "p9a.spawn_points.sample.v1",
+  "sourceMode": "test",
+  "notes": "P9-A small test/sample only. Not real Chuo spawn data and not used for final gameplay failure.",
+  "spawnPoints": [
+    {
+      "spawnPointId": "p9_test_player_start_001",
+      "spawnType": "player_start",
+      "position": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "coordinates": {
+        "coordinateSystem": "unity_test",
+        "latitude": 0.0,
+        "longitude": 0.0,
+        "sourceId": "manual_sample",
+        "areaName": "P9 temporary test area"
+      },
+      "sourceMode": "test",
+      "capacity": 1,
+      "weight": 1.0,
+      "activeScenarioIds": [
+        "p9a_sample"
+      ],
+      "notes": "Player start for P9-A loader and component tests only.",
+      "deterministicSeed": 9001
+    },
+    {
+      "spawnPointId": "p9_test_station_exit_001",
+      "spawnType": "station_exit",
+      "position": {
+        "x": 12.0,
+        "y": 0.0,
+        "z": -4.0
+      },
+      "coordinates": {
+        "coordinateSystem": "unity_test",
+        "latitude": 0.0,
+        "longitude": 0.0,
+        "sourceId": "manual_sample",
+        "areaName": "P9 temporary station-exit proxy"
+      },
+      "sourceMode": "manual_sample",
+      "capacity": 8,
+      "weight": 0.65,
+      "activeScenarioIds": [
+        "p9a_sample"
+      ],
+      "notes": "Manual sample station-exit proxy. Not a real station entrance.",
+      "deterministicSeed": 9002
+    },
+    {
+      "spawnPointId": "p9_test_waterfront_origin_001",
+      "spawnType": "waterfront_origin",
+      "position": {
+        "x": -10.0,
+        "y": 0.0,
+        "z": 16.0
+      },
+      "coordinates": {
+        "coordinateSystem": "unity_test",
+        "latitude": 0.0,
+        "longitude": 0.0,
+        "sourceId": "manual_sample",
+        "areaName": "P9 temporary waterfront-origin proxy"
+      },
+      "sourceMode": "test",
+      "capacity": 5,
+      "weight": 0.35,
+      "activeScenarioIds": [
+        "p9a_sample"
+      ],
+      "notes": "Waterfront-origin proxy for future rule-based placement tests only.",
+      "deterministicSeed": 9003
+    }
+  ]
+}
