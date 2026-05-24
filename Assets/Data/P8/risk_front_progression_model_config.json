@@ -1,0 +1,16 @@
+{
+  "configId": "p8e_risk_front_progression_model_v1",
+  "baseOnshoreSpeedMetersPerSecond": 2.2,
+  "minOnshoreSpeedMetersPerSecond": 0.4,
+  "maxOnshoreSpeedMetersPerSecond": 6.0,
+  "shallowDepthSlowdownEnabled": true,
+  "shallowDepthThresholdMeters": 0.3,
+  "depthSpeedFactor": 0.45,
+  "arrivalTimeOverridePriority": true,
+  "useArrivalTimeWhenAvailable": true,
+  "useDerivedBoundaryWhenOfficialContourMissing": true,
+  "visualHeightIsCinematicOnlyRequired": true,
+  "affectsGameplaySuccessFailure": false,
+  "implementsP9Gameplay": false,
+  "notes": "P8-E hardening model. arrivalTimeSeconds drives the front when present. baseOnshoreSpeedMetersPerSecond is a fallback only. inundationDepthMeters and hazardIntensity control visual/risk strength and shallow-depth slowdown. visualHeightMeters is cinematic only. maxTsunamiHeightMeters is reference metadata only."
+}

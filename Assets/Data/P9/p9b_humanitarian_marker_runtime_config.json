@@ -1,0 +1,16 @@
+{
+  "schemaVersion": "p9b.humanitarian_marker_runtime_config.v1",
+  "p8PersistentMarkerPath": "Assets/Data/P8/humanitarian_candidate_persistent_marker_v1.json",
+  "p8VisibilityHandoffPath": "Assets/Data/P8/humanitarian_candidate_persistent_visibility_handoff.json",
+  "expectedTotalCandidates": 110,
+  "expectedNamedCandidateCount": 28,
+  "expectedIdOnlyCandidateCount": 82,
+  "generateMarkersForAllAvailableCandidates": true,
+  "markerCoordinateMode": "wgs84_proxy_projection",
+  "isOfficialShelter": false,
+  "nonOfficialWarningRequired": true,
+  "selectableGameplayEnabled": false,
+  "affectsGameplaySuccessFailure": false,
+  "requiredWarningLabel": "Non-official humanitarian high-rise candidate. Not an official evacuation shelter.",
+  "notes": "P9-B consumes P8-E candidate marker handoff. Runtime markers remain non-official, warning-required, not safe/approved by default, and not final selectable evacuation targets."
+}

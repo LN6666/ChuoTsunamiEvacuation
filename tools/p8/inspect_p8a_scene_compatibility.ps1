@@ -225,6 +225,12 @@ function Assert-CompatibilityDocsExist {
 }
 
 function Assert-NoP9P10SystemsAdded {
+    $branch = (& git -C $repoRoot branch --show-current).Trim()
+    if ($branch -match "^p9" -or $branch -match "^p10") {
+        Write-Host "INFO: Later-stage branch '$branch' detected; skipping P8-A changed-file prohibition for P9/P10 paths."
+        return
+    }
+
     $changedFiles = @(Get-ChangedFiles)
     foreach ($file in $changedFiles) {
         if ($file -match "^(Assets/(Scripts|Tests)/(P9|P10)|tools/(p9|p10)/|docs/P(9|10))") {
