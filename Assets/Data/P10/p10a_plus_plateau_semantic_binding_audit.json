@@ -1,0 +1,150 @@
+﻿{
+    "schemaVersion":  "p10a_plus.plateau_semantic_binding_audit.v1",
+    "stage":  "P10-A+ hardening sprint under P10-A",
+    "sourceFiles":  [
+                        "Assets/Data/P8/p8e_semantic_binding_v1.json"
+                    ],
+    "bindingTotal":  10,
+    "provenSceneObjectBindingCount":  0,
+    "exactPlateauUnityObjectIdentityProven":  false,
+    "fullSceneSemanticCoverageProven":  false,
+    "classifications":  [
+                            "proven_scene_object_binding",
+                            "coordinate_proxy_binding",
+                            "metadata_proxy_binding",
+                            "data_only_binding",
+                            "insufficient_evidence"
+                        ],
+    "records":  [
+                    {
+                        "category":  "road",
+                        "sourceBindingMode":  "plateau_metadata",
+                        "classification":  "metadata_proxy_binding",
+                        "confidence":  "medium",
+                        "p9Usable":  true,
+                        "isProxy":  true,
+                        "actualPlateauSemanticEvidenceFound":  true,
+                        "sceneObjectEvidenceFound":  false,
+                        "objectId":  "53393690_tran_6697_op",
+                        "blocker":  "",
+                        "limitation":  "Usable as road-category hazard/status metadata only; individual Unity road scene objects are not proven bound."
+                    },
+                    {
+                        "category":  "building",
+                        "sourceBindingMode":  "plateau_metadata",
+                        "classification":  "metadata_proxy_binding",
+                        "confidence":  "medium",
+                        "p9Usable":  true,
+                        "isProxy":  true,
+                        "actualPlateauSemanticEvidenceFound":  true,
+                        "sceneObjectEvidenceFound":  false,
+                        "objectId":  "53393690_bldg_6697_op",
+                        "blocker":  "",
+                        "limitation":  "Usable for building/hazard proxy status and candidate marker readiness; not an official safety or damage assessment."
+                    },
+                    {
+                        "category":  "bridge",
+                        "sourceBindingMode":  "plateau_metadata",
+                        "classification":  "metadata_proxy_binding",
+                        "confidence":  "medium",
+                        "p9Usable":  true,
+                        "isProxy":  true,
+                        "actualPlateauSemanticEvidenceFound":  true,
+                        "sceneObjectEvidenceFound":  false,
+                        "objectId":  "53393690_brid_6697_op",
+                        "blocker":  "",
+                        "limitation":  "Usable for bridge restricted-proxy status; not validated as navigable route geometry."
+                    },
+                    {
+                        "category":  "underground",
+                        "sourceBindingMode":  "data_only",
+                        "classification":  "data_only_binding",
+                        "confidence":  "low",
+                        "p9Usable":  true,
+                        "isProxy":  true,
+                        "actualPlateauSemanticEvidenceFound":  false,
+                        "sceneObjectEvidenceFound":  false,
+                        "objectId":  "",
+                        "blocker":  "missing_explicit_underground_semantic_metadata",
+                        "limitation":  "Usable only as category-level underground avoid proxy. P9 must not assume real subway entrance geometry."
+                    },
+                    {
+                        "category":  "entrance",
+                        "sourceBindingMode":  "proxy_marker",
+                        "classification":  "coordinate_proxy_binding",
+                        "confidence":  "low",
+                        "p9Usable":  true,
+                        "isProxy":  true,
+                        "actualPlateauSemanticEvidenceFound":  false,
+                        "sceneObjectEvidenceFound":  false,
+                        "objectId":  "",
+                        "blocker":  "missing_building_entrance_geometry",
+                        "limitation":  "Usable as entrance blocked proxy and future entrance/safe-floor gameplay placeholder. P9 must not assume real entrance placement."
+                    },
+                    {
+                        "category":  "waterfront",
+                        "sourceBindingMode":  "plateau_metadata",
+                        "classification":  "metadata_proxy_binding",
+                        "confidence":  "low",
+                        "p9Usable":  true,
+                        "isProxy":  true,
+                        "actualPlateauSemanticEvidenceFound":  false,
+                        "sceneObjectEvidenceFound":  false,
+                        "objectId":  "53393690_fld_pref_6697_op",
+                        "blocker":  "",
+                        "limitation":  "Usable for waterfront hazard/status proxy. P9 must verify scene placement before gameplay collision or route blocking."
+                    },
+                    {
+                        "category":  "shelter_proxy",
+                        "sourceBindingMode":  "proxy_marker",
+                        "classification":  "coordinate_proxy_binding",
+                        "confidence":  "medium",
+                        "p9Usable":  true,
+                        "isProxy":  true,
+                        "actualPlateauSemanticEvidenceFound":  false,
+                        "sceneObjectEvidenceFound":  false,
+                        "objectId":  "p8_shelter_proxy",
+                        "blocker":  "",
+                        "limitation":  "Usable for P8 shelter-marker compatibility only. P9 must keep official shelters separate from non-official candidates."
+                    },
+                    {
+                        "category":  "navigation_target_proxy",
+                        "sourceBindingMode":  "proxy_marker",
+                        "classification":  "coordinate_proxy_binding",
+                        "confidence":  "medium",
+                        "p9Usable":  true,
+                        "isProxy":  true,
+                        "actualPlateauSemanticEvidenceFound":  false,
+                        "sceneObjectEvidenceFound":  false,
+                        "objectId":  "p8_navigation_target_proxy",
+                        "blocker":  "",
+                        "limitation":  "Usable for navigation guidance proxy. P9 must implement final route/crowd gameplay separately."
+                    },
+                    {
+                        "category":  "humanitarian_candidate_proxy",
+                        "sourceBindingMode":  "data_only",
+                        "classification":  "data_only_binding",
+                        "confidence":  "high",
+                        "p9Usable":  true,
+                        "isProxy":  true,
+                        "actualPlateauSemanticEvidenceFound":  true,
+                        "sceneObjectEvidenceFound":  false,
+                        "objectId":  "p8_humanitarian_candidate_audit_v1",
+                        "blocker":  "",
+                        "limitation":  "Usable for non-official hazard status and future marker generation. P9 must not present candidates as official shelters."
+                    },
+                    {
+                        "category":  "highrise_candidate_marker",
+                        "sourceBindingMode":  "proxy_marker",
+                        "classification":  "coordinate_proxy_binding",
+                        "confidence":  "high",
+                        "p9Usable":  true,
+                        "isProxy":  true,
+                        "actualPlateauSemanticEvidenceFound":  true,
+                        "sceneObjectEvidenceFound":  false,
+                        "objectId":  "p8_highrise_candidate_marker_v1",
+                        "blocker":  "",
+                        "limitation":  "Usable for persistent marker readiness with explicit non-official labels. P9 decides any selectable life-first behavior."
+                    }
+                ]
+}
