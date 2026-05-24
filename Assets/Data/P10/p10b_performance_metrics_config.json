@@ -12,5 +12,6 @@
   "collectLightCurtainImpact": true,
   "collectResultPanelImpact": true,
   "maxSamples": 600,
+  "frameSpikeThresholdMs": 50.0,
   "notes": "P10-B records lightweight Editor/runtime proxy metrics and prepares manual profiling. Final Windows EXE build/profiling is deferred to P10-C."
 }

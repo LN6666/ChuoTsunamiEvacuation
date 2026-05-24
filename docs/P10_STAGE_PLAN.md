@@ -2,7 +2,7 @@
 
 P10 is final QA, manual playtest readiness, Windows EXE release packaging, and project closeout.
 
-P10 has exactly four official stages. P10-A+ and P10-B+ are polish/hardening sprints under the existing P10 flow, not additional official stages. Do not create P10-E, P10-F, or P10-G unless explicitly approved.
+P10 has exactly four official stages. P10-A+, P10-B+, and P10-B++ are polish/hardening sprints under the existing P10 flow, not additional official stages. Do not create P10-E, P10-F, or P10-G unless explicitly approved.
 
 ## P10-A
 
@@ -48,6 +48,21 @@ Scope:
 - keep Windows EXE build deferred to P10-C
 
 P10-B+ is not an official additional stage and does not create P10-E/F/G.
+
+### P10-B++ Hardening Sprint
+
+Final Optimization Attempt Before P10-C.
+
+Scope:
+
+- audit streaming/chunk loading status honestly
+- audit anti-aliasing and quality status without changing ProjectSettings or URP assets
+- inspect CPU, memory, GC, stutter, and disk paging risks
+- apply only low-risk runtime optimization hardening
+- strengthen metrics, profiler checklist, and P10-C readiness
+- keep Windows EXE build, release packaging, and archive work deferred to P10-C
+
+P10-B++ is not an official additional stage and does not create P10-E/F/G.
 
 ## P10-C
 

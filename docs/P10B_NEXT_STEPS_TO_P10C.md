@@ -19,3 +19,4 @@ P10-C should carry forward:
 - memory and loading time observations
 - ResultPanel warning readability status
 - light curtain visibility/performance status
+- P10-B++ final optimization audit results, including honest no-production-streaming status, AA verification requirements, frame spike counts, GC counts, and disk paging observation steps

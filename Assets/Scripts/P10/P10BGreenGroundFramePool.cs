@@ -8,6 +8,20 @@ public class P10BGreenGroundFramePool
 
     public int CreatedCount => frameObjects.Count;
 
+    public int Prewarm(int count, Transform parent)
+    {
+        count = Mathf.Max(0, count);
+        int targetCount = Mathf.Max(CreatedCount, count);
+        while (CreatedCount < targetCount)
+        {
+            GameObject frame = CreateFrameObject(parent);
+            frame.SetActive(false);
+            frameObjects.Add(frame);
+        }
+
+        return CreatedCount;
+    }
+
     public GameObject Acquire(Transform parent)
     {
         for (int i = 0; i < frameObjects.Count; i++)
@@ -21,6 +35,13 @@ public class P10BGreenGroundFramePool
             }
         }
 
+        GameObject frameObject = CreateFrameObject(parent);
+        frameObjects.Add(frameObject);
+        return frameObject;
+    }
+
+    private GameObject CreateFrameObject(Transform parent)
+    {
         var frameObject = new GameObject("P10B_GreenGroundFrame");
         frameObject.transform.SetParent(parent, false);
         var line = frameObject.AddComponent<LineRenderer>();
@@ -34,7 +55,6 @@ public class P10BGreenGroundFramePool
             line.sharedMaterial = material;
         }
 
-        frameObjects.Add(frameObject);
         return frameObject;
     }
 

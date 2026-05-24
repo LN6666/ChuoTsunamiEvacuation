@@ -24,6 +24,9 @@ public class P10BGreenGroundFrameConfig
     public float lineWidthMeters = 0.18f;
     public bool transparentFillEnabled;
     public bool debugLabelsEnabled;
+    public bool warmupPoolBeforeTsunamiStart = true;
+    public int warmupFrameCount = 64;
+    public int activationBudgetPerFrame = 32;
     public bool rejectInvalidCoordinates = true;
     public bool rejectZeroProxyPosition = true;
     public string frameMeaning = "evacuation_related_building_marker";
@@ -40,6 +43,8 @@ public class P10BGreenGroundFrameConfig
             !claimsExactBuildingFootprint &&
             !claimsOfficialApprovalForHumanitarianCandidates &&
             maxFrameCount > 0 &&
+            warmupFrameCount >= 0 &&
+            activationBudgetPerFrame > 0 &&
             defaultProxyFootprintWidthMeters > 0f &&
             defaultProxyFootprintDepthMeters > 0f;
     }
@@ -191,6 +196,8 @@ public class P10BGreenGroundFrameMetrics
     public int generatedFrameCount;
     public int activeFrameCount;
     public int createdPoolObjectCount;
+    public int warmedPoolObjectCount;
+    public int activationBudgetPerFrame;
     public bool allHumanitarianCandidatesRemainNonOfficial;
     public bool allHumanitarianWarningsPreserved;
     public bool noPerFrameObjectCreationRequired = true;

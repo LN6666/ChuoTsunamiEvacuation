@@ -111,6 +111,7 @@ public static class P10BGreenGroundFrameGenerator
             tsunamiStarted = tsunamiStarted,
             debugPreviewEnabled = debugPreview,
             requestedTargetCount = requestedTargetCount,
+            activationBudgetPerFrame = Mathf.Max(1, config.activationBudgetPerFrame),
             allHumanitarianCandidatesRemainNonOfficial = true,
             allHumanitarianWarningsPreserved = true
         };
@@ -133,20 +134,15 @@ public static class P10BGreenGroundFrameGenerator
 
         float halfWidth = target.GetWidth(config) * 0.5f;
         float halfDepth = target.GetDepth(config) * 0.5f;
-        var positions = new[]
-        {
-            new Vector3(-halfWidth, 0f, -halfDepth),
-            new Vector3(halfWidth, 0f, -halfDepth),
-            new Vector3(halfWidth, 0f, halfDepth),
-            new Vector3(-halfWidth, 0f, halfDepth),
-            new Vector3(-halfWidth, 0f, -halfDepth)
-        };
-
         LineRenderer line = frame.GetComponent<LineRenderer>();
         if (line != null)
         {
-            line.positionCount = positions.Length;
-            line.SetPositions(positions);
+            line.positionCount = 5;
+            line.SetPosition(0, new Vector3(-halfWidth, 0f, -halfDepth));
+            line.SetPosition(1, new Vector3(halfWidth, 0f, -halfDepth));
+            line.SetPosition(2, new Vector3(halfWidth, 0f, halfDepth));
+            line.SetPosition(3, new Vector3(-halfWidth, 0f, halfDepth));
+            line.SetPosition(4, new Vector3(-halfWidth, 0f, -halfDepth));
             line.startColor = config.frameColor;
             line.endColor = config.frameColor;
             line.widthMultiplier = Mathf.Max(0.01f, config.lineWidthMeters);

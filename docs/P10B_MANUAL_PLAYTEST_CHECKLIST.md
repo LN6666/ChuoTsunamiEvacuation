@@ -21,5 +21,11 @@ Use this after P10-B validation and before P10-C build packaging.
 17. Verify weather modes: clear day, rainy day, night clear, night rain.
 18. Verify stamina appears when sprinting, drains, locks sprint after exhaustion, and recovers.
 19. Verify avatar presentation does not impose a hard-coded gender speed penalty by default.
+20. Record FPS before tsunami start, at tsunami start, when green frames appear, when light curtain appears, and when ResultPanel opens.
+21. Record FPS and visible stutter in crowd/congestion, rain, night, and night rain scenarios.
+22. Record memory after scene load, after 5 minutes, and after scenario restart if supported.
+23. Watch Task Manager or Resource Monitor for CPU, memory, disk active time, hard faults/sec, or paging symptoms.
+24. Confirm anti-aliasing status visually in the built player during P10-C; do not assume TAA, FXAA, or MSAA is active from P10-B++.
+25. Confirm debug labels and debug layers remain off unless explicitly testing them.
 
 Do not commit the high-detail scene after manual smoke unless there is an explicit safe scene-change request.

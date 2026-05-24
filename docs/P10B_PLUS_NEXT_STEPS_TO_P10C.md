@@ -13,3 +13,4 @@ Carry forward:
 - ResultPanel warning readability issues
 - weather/stamina balancing notes
 - any manual performance observations with green frames, light curtain, and night overlay
+- P10-B++ optimization findings: no confirmed production chunk streaming, AA status requires P10-C verification, and built-player profiling must record CPU, memory, stutter, loading, logs, and disk paging symptoms

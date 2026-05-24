@@ -1132,3 +1132,14 @@ Reason:
 | P10BPLUS-B03 | Medium | Deferred to manual playtest | Stamina balance | Stamina rules are deterministic, but balance/feel needs user playtest. | Check sprint depletion, lockout, and recovery pacing before P10-C. |
 | P10BPLUS-B04 | Medium | Deferred to P10-C docs | Background image | No unlicensed image is committed. A licensed or project-generated background may still be selected later. | If replacing the placeholder, document source URL, license, author/provider, and permission. |
 
+---
+
+### P10-B++ Optimization Follow-Ups
+
+| ID | Priority | Status | Target | Issue | Required Follow-Up |
+|---|---|---|---|---|---|
+| P10BPP-B01 | Medium | Deferred to P10-C profiling | High-detail loading | Production chunk streaming is not implemented; high-detail scene loading and memory peak remain unknown until built-player profiling. | Measure load time, memory peak, working set, and disk activity in P10-C. |
+| P10BPP-B02 | Medium | Deferred to P10-C visual QA | Anti-aliasing | P10-B++ found mixed readable settings and does not claim a final AA mode. | Verify final AA mode visually and with runtime/project settings in the P10-C player. |
+| P10BPP-B03 | Medium | Deferred to P10-C profiling | Frame spikes | Green-frame warmup and bounded metrics reduce risk, but high-detail stutter must be measured. | Record frame spike count at tsunami start, green frames, light curtain, ResultPanel, and night/rain mode. |
+| P10BPP-B04 | Medium | Deferred to P10-C profiling | Disk paging | P10-B++ adds a checklist only; no OS pagefile changes are made. | Use Task Manager, Resource Monitor, or PowerShell to record memory pressure and disk paging symptoms. |
+

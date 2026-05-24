@@ -11,15 +11,18 @@ public class P10BGreenGroundFrameRuntime : MonoBehaviour
     private readonly P10BGreenGroundFramePool pool = new P10BGreenGroundFramePool();
     private P10BGreenGroundFrameMetrics lastMetrics = new P10BGreenGroundFrameMetrics();
     private Transform frameRoot;
+    private int warmedPoolObjectCount;
 
     public P10BGreenGroundFrameMetrics LastMetrics => lastMetrics;
     public int CreatedPoolObjectCount => pool.CreatedCount;
+    public int WarmedPoolObjectCount => warmedPoolObjectCount;
     public bool TsunamiStarted => tsunamiStarted;
 
     private void Start()
     {
         if (generateOnStart)
         {
+            WarmupFramePoolIfSafe();
             RefreshFrames();
         }
     }
@@ -28,6 +31,7 @@ public class P10BGreenGroundFrameRuntime : MonoBehaviour
     {
         config = newConfig ?? new P10BGreenGroundFrameConfig();
         targets = newTargets ?? Array.Empty<P10BGreenGroundFrameTarget>();
+        WarmupFramePoolIfSafe();
         RefreshFrames();
     }
 
@@ -54,6 +58,7 @@ public class P10BGreenGroundFrameRuntime : MonoBehaviour
             pool,
             tsunamiStarted,
             debugPreview);
+        lastMetrics.warmedPoolObjectCount = warmedPoolObjectCount;
         return lastMetrics;
     }
 
@@ -61,7 +66,17 @@ public class P10BGreenGroundFrameRuntime : MonoBehaviour
     {
         config = newConfig ?? new P10BGreenGroundFrameConfig();
         targets = P10BGreenGroundFrameGenerator.BuildTargetsFromAnchoringReport(report, config);
+        WarmupFramePoolIfSafe();
         return RefreshFrames();
+    }
+
+    public int WarmupFramePool()
+    {
+        EnsureFrameRoot();
+        int targetCount = GetWarmupFrameCount();
+        warmedPoolObjectCount = pool.Prewarm(targetCount, frameRoot);
+        pool.ReleaseAll();
+        return warmedPoolObjectCount;
     }
 
     private void EnsureFrameRoot()
@@ -74,5 +89,23 @@ public class P10BGreenGroundFrameRuntime : MonoBehaviour
         var rootObject = new GameObject("P10B_GreenGroundFrameRoot");
         rootObject.transform.SetParent(transform, false);
         frameRoot = rootObject.transform;
+    }
+
+    private void WarmupFramePoolIfSafe()
+    {
+        if (config == null || !config.warmupPoolBeforeTsunamiStart || tsunamiStarted)
+        {
+            return;
+        }
+
+        WarmupFramePool();
+    }
+
+    private int GetWarmupFrameCount()
+    {
+        int targetCount = targets == null ? 0 : targets.Length;
+        int cap = config == null ? 0 : Mathf.Max(0, config.maxFrameCount);
+        int warmupCap = config == null ? 0 : Mathf.Max(0, config.warmupFrameCount);
+        return Mathf.Min(Mathf.Min(targetCount, cap), warmupCap);
     }
 }
