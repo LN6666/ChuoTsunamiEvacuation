@@ -1,0 +1,18 @@
+{
+  "schemaVersion": "p9c.outcome_rules_config.v1",
+  "scenarioPresetId": "p9c_default_proxy_gameplay",
+  "deterministicSeed": 9701,
+  "enableOutcomeMutationProxy": true,
+  "enableEntranceBlockedFailure": true,
+  "enableCrowdDelayFailure": true,
+  "enableHazardTimingFailure": true,
+  "baseTravelTimeSeconds": 120.0,
+  "baseVerticalEvacuationSeconds": 45.0,
+  "defaultHazardArrivalTimeSeconds": 420.0,
+  "hazardArrivalSafetyMarginSeconds": 15.0,
+  "maxTotalDelaySeconds": 180.0,
+  "claimsOfficialRouteStatus": false,
+  "importsExternalCrowdPackage": false,
+  "reimplementsP8HazardModel": false,
+  "notes": "P9-C deterministic rule-based gameplay proxy. Uses P8 handoff timings through adapters; does not reimplement P8 hazard/front simulation."
+}

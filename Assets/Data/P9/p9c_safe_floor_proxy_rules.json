@@ -1,0 +1,16 @@
+{
+  "schemaVersion": "p9c.safe_floor_proxy_rules.v1",
+  "failWhenUnavailable": true,
+  "failWhenBelowRequiredHeight": true,
+  "failWhenUnknown": false,
+  "failWhenHazardWarning": false,
+  "failWhenCrowdOverCapacity": true,
+  "supportedStatuses": [
+    "available",
+    "unavailable",
+    "unknown",
+    "below_required_height",
+    "hazard_warning",
+    "crowd_over_capacity"
+  ]
+}
