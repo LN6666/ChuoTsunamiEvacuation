@@ -14,6 +14,31 @@ This file only records actionable review items that should guide Codex fixes.
 
 ---
 
+## P10-A Gap Closure High-Detail QA
+
+Source report:
+
+Pending DeepSeek review using `deepseek_review_prompt_p10a.md`.
+
+Context:
+
+P10-A is QA/gap closure only. It prepares high-detail scene smoke readiness, coordinate anchoring final QA, humanitarian candidate warning verification, route limitation checks, ResultPanel QA, and P10-B performance/stress/optimization readiness. It does not build the Windows EXE, package release artifacts, archive the high-detail scene, or add new gameplay systems.
+
+Overall verdict:
+
+Pending review.
+
+### P10-A Risks And Follow-Ups
+
+| ID | Priority | Status | Target | Issue | Required Review |
+|---|---|---|---|---|---|
+| P10A-R01 | Medium | Open | High-detail scene smoke | P10-A can verify scene existence and scene-safe readiness, but full runtime smoke remains P10-B/P10-D. | Confirm no protected scene mutation is staged. |
+| P10A-R02 | Medium | Open | Performance profiling | CPU, memory, FPS, stutter, loading, Player.log warnings/errors, and before/after optimization metrics are prepared but not collected in P10-A. | Confirm P10-B readiness is clear and no build artifacts are committed. |
+| P10A-R03 | Medium | Open | Conservative claims | Coordinate anchoring and P5 routes must remain proxy/estimated guidance. | Confirm no GIS-grade, exact PLATEAU identity, or official-route claim appears. |
+| P10A-R04 | Medium | Open | Archive | High-detail scene archive and backup remain P10-C work. | Confirm P10-A did not perform archive/package work. |
+
+---
+
 ## P7-C Streaming / Chunk Loading + Visual Quality + Performance
 
 Source report:

@@ -31,3 +31,10 @@ P9 does not include:
 - official raw inundation contour refinement
 - Windows EXE profiling
 - release packaging
+
+P10-A follow-up status:
+
+- P10-A carries the P9-D limitations into a gap closure matrix.
+- Coordinate anchoring remains a gameplay proxy, not GIS-grade proof.
+- P5 routes remain estimated prototype guidance, not official routes.
+- High-detail scene smoke/profiling remains P10-B work after P10-A readiness checks.

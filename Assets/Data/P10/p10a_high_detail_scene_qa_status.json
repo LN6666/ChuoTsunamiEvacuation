@@ -1,0 +1,25 @@
+{
+  "schemaVersion": "p10a.high_detail_scene_qa_status.v1",
+  "stage": "P10-A",
+  "scenePath": "Assets/Scenes/P7HighDetail/P7_HighDetail_Chuo.unity",
+  "sceneExistsExpected": true,
+  "sceneMutationRequired": false,
+  "sceneMutationPerformed": false,
+  "protectedSceneMustNotBeCommittedDirty": true,
+  "sceneSafeRuntimeQaPrepared": true,
+  "automatedChecks": [
+    "file_exists",
+    "protected_path_clean",
+    "p9_runtime_scene_safe_marker_generation_reused",
+    "p9_final_flow_validator_reused",
+    "temporary_scene_or_proxy_scene_allowed"
+  ],
+  "manualQaChecklistRequired": true,
+  "manualQaDeferredToP10BOrP10D": true,
+  "knownRisks": [
+    "local-only high-detail scene may be dirty or untracked outside Git",
+    "manual runtime smoke may expose scene-specific missing references not visible in proxy tests",
+    "P10-C must archive or back up high-detail scene and import metadata"
+  ],
+  "p10bReady": true
+}

@@ -29,3 +29,10 @@ P10 known limitations:
 - coordinate/nearest-match anchors are not exact PLATEAU Unity object identity proof
 
 Do not create P9-E/F/G unless explicitly approved.
+
+P10-A intake:
+
+- `P10A_REMAINING_GAP_CLOSURE.md` classifies the remaining P9-D handoff items.
+- `P10A_HIGH_DETAIL_SCENE_QA.md` records scene-safe high-detail smoke readiness.
+- `P10A_P10B_READINESS.md` prepares Windows EXE build, profiling, stress-test, and low-risk optimization work for P10-B.
+- P10-A does not perform release packaging, archive work, or final EXE profiling.

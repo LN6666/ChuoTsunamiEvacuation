@@ -10,6 +10,23 @@ Current branch focus:
 
 P7-0 begins the PBL7 high-detail city foundation. P7-0 is docs/tools/prompts only: reference review, LOD strategy, asset inventory protocol, benchmark protocol, automation guard scripts, two-Codex workflow planning, and DeepSeek review preparation. P7-0 must not modify Unity scenes, ProjectSettings, Packages, PLATEAU imports, gameplay scripts, or Assets/Data. Phase 5 and Phase 6 remain the stable behavior baseline: default `sourceMode = test`, `real_qualified` opt-in, humanitarian candidate flags default false, OSM routes estimated only, route rendering fail-closed until WGS84 to Unity/PLATEAU transform validation exists, navigation display-only, and NPCs non-blocking.
 
+## Phase 10: Final QA, Windows EXE Release, And Project Closeout
+
+Status: P10 has started from the P9-D handoff. P10 has exactly four stages: P10-A, P10-B, P10-C, and P10-D. Do not create P10-E, P10-F, or P10-G unless explicitly approved.
+
+Planned tasks:
+
+- P10-A: Remaining Gap Closure + High-Detail Scene QA. Create gap closure matrix, high-detail scene QA readiness, coordinate anchoring final QA, humanitarian candidate final QA, route/geometry QA, hazard front/light curtain QA, ResultPanel QA, full gameplay smoke QA, and P10-B build/profiling/stress/optimization readiness. Do not build the final Windows EXE or create release/archive artifacts.
+- P10-B: Windows EXE Build + Performance Profiling + Stress Test + Optimization Pass. Build Windows x64, run high-detail scene smoke/stress, collect FPS, 1 percent low/stutter, CPU, memory, GC allocation if available, loading time, Player.log warnings/errors, NPC count, marker count, light curtain impact, and UI/ResultPanel impact. Apply low-risk optimization only with before/after metrics where possible.
+- P10-C: Release Package + Documentation + Archive. Assemble release package and archive/back up the local high-detail scene and import metadata outside normal Git unless explicitly approved.
+- P10-D: Final DeepSeek Review + Release Candidate Closeout. Verify final limitations, protected paths, release package, and no extra stage creation.
+
+P10-A validation:
+
+- Run `powershell -ExecutionPolicy Bypass -File tools/p10/run_p10a_preflight.ps1`.
+- Run Unity GUI EditMode and PlayMode tests.
+- Run DeepSeek with `deepseek_review_prompt_p10a.md`.
+
 ## Phase 7: High-Detail Chuo Asset Loading, LOD, Streaming, and Windows EXE Optimization
 
 Status: P7-D manual high-detail import validation is complete as a user-approved practical baseline. The actual `P7_HighDetail_Chuo` scene contains renderable PLATEAU objects and is the practical local baseline for P8/P9/P10, while average LOD3 is not achieved, category coverage is incomplete, P2-P6 runtime smoke remains a follow-up, and Windows EXE profiling is prepared but not complete. P7 has exactly five stages: P7-0, P7-A, P7-B, P7-C, and P7-D. Do not create P7-E, P7-F, or P7-G.

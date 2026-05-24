@@ -1,0 +1,100 @@
+{
+  "schemaVersion": "p10a.gap_closure_matrix.v1",
+  "stage": "P10-A",
+  "scope": "remaining_gap_closure_high_detail_scene_qa",
+  "noP10EfgCreated": true,
+  "newGameplaySystemAdded": false,
+  "p8P9Reimplemented": false,
+  "items": [
+    {
+      "id": "coordinate_anchoring_not_gis_grade",
+      "classification": "gameplay_usable_proxy",
+      "status": "coordinate anchoring remains gameplay proxy anchoring, not GIS-grade proof",
+      "p10Owner": "P10-A documentation and P10-D final review"
+    },
+    {
+      "id": "exact_plateau_object_identity_not_claimed",
+      "classification": "known_limitation",
+      "status": "exact PLATEAU Unity scene object identity is not claimed unless future evidence proves it",
+      "p10Owner": "P10-A documentation"
+    },
+    {
+      "id": "p5_route_road_geometry_validation",
+      "classification": "known_limitation",
+      "status": "P5 routes remain estimated prototype guidance and not official evacuation routes",
+      "p10Owner": "P10-A documentation and P10-D final review"
+    },
+    {
+      "id": "humanitarian_candidate_markers",
+      "classification": "closed_by_p10a",
+      "status": "110 non-official humanitarian candidate marker warnings and anchoring are verified through P9-D data and P10-A QA matrix",
+      "p10Owner": "P10-A"
+    },
+    {
+      "id": "candidate_to_building_binding_confidence",
+      "classification": "gameplay_usable_proxy",
+      "status": "binding uses coordinate and nearest-match confidence, with fallback/rejected statuses",
+      "p10Owner": "P10-A"
+    },
+    {
+      "id": "entrance_proxy_placement_interaction",
+      "classification": "gameplay_usable_proxy",
+      "status": "entrance proxies are runtime proxy anchors, not exact surveyed entrances",
+      "p10Owner": "P10-A"
+    },
+    {
+      "id": "safe_floor_vertical_evacuation_proxy",
+      "classification": "closed_by_p10a",
+      "status": "P9-C/P9-D tests cover safe-floor success and failure proxy outcomes without real indoor scenes",
+      "p10Owner": "P10-A"
+    },
+    {
+      "id": "p2_p9_full_gameplay_flow",
+      "classification": "closed_by_p10a",
+      "status": "P9-D final flow validates success, delay, blocked entrance, safe-floor failure, crowd-delay failure, collapse fatality, and disabled collapse success",
+      "p10Owner": "P10-A"
+    },
+    {
+      "id": "p8_hazard_risk_front_light_curtain_coordination",
+      "classification": "gameplay_usable_proxy",
+      "status": "hazard timing is consumed through handoff; light curtain remains cinematic/visual QA",
+      "p10Owner": "P10-A checklist and P10-D visual review"
+    },
+    {
+      "id": "result_panel_warning_display",
+      "classification": "closed_by_p10a",
+      "status": "formatter tests and docs preserve target type, final reason code, and non-official warning wording",
+      "p10Owner": "P10-A"
+    },
+    {
+      "id": "high_detail_scene_smoke",
+      "classification": "p10b_performance_qa",
+      "status": "P10-A confirms local scene existence and scene-safe QA plan; runtime stress belongs to P10-B",
+      "p10Owner": "P10-B"
+    },
+    {
+      "id": "windows_exe_profiling",
+      "classification": "p10b_performance_qa",
+      "status": "Windows x64 build, profiling, stress test, and low-risk optimization pass are prepared for P10-B",
+      "p10Owner": "P10-B"
+    },
+    {
+      "id": "release_package_archive",
+      "classification": "p10c_release_archive",
+      "status": "release package and high-detail scene archive remain P10-C work",
+      "p10Owner": "P10-C"
+    },
+    {
+      "id": "final_release_candidate_review",
+      "classification": "p10d_final_review",
+      "status": "final DeepSeek release-candidate closeout remains P10-D work",
+      "p10Owner": "P10-D"
+    },
+    {
+      "id": "scientific_validation",
+      "classification": "future_work",
+      "status": "GIS-grade validation, official route validation, calibrated crowd model, and scientific mortality model are future research",
+      "p10Owner": "Future"
+    }
+  ]
+}
