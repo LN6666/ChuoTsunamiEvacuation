@@ -101,6 +101,8 @@ public class P8AffectedInfrastructureTypes
     public bool open_space;
     public bool shelter_proxy;
     public bool navigation_target_proxy;
+    public bool humanitarian_candidate_proxy;
+    public bool highrise_candidate_marker;
 }
 
 [Serializable]

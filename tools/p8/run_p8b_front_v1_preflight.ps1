@@ -82,7 +82,7 @@ function Assert-FileContains {
 
     Assert-FileExists $RelativePath
     $path = Join-Path $repoRoot ($RelativePath -replace "/", "\")
-    $text = Get-Content -Raw -LiteralPath $path
+    $text = Get-Content -Raw -Encoding UTF8 -LiteralPath $path
     foreach ($fragment in $Fragments) {
         if ($text.IndexOf($fragment, [System.StringComparison]::OrdinalIgnoreCase) -lt 0) {
             throw "$RelativePath missing required wording: $fragment"
@@ -99,10 +99,10 @@ function Assert-P8StageCount {
             ForEach-Object { $Matches[1] }
     )
 
-    $expected = @("P8-A", "P8-B", "P8-C", "P8-D")
+    $expected = @("P8-A", "P8-B", "P8-C", "P8-D", "P8-E")
     $unexpected = @($stages | Where-Object { $expected -notcontains $_ })
-    if ($stages.Count -ne 4 -or $unexpected.Count -gt 0) {
-        throw "P8 must have exactly four stages: P8-A, P8-B, P8-C, P8-D. Found: $($stages -join ', ')"
+    if ($stages.Count -ne 5 -or $unexpected.Count -gt 0) {
+        throw "P8 must have exactly five stages: P8-A, P8-B, P8-C, P8-D, P8-E. Found: $($stages -join ', ')"
     }
 }
 
@@ -139,7 +139,7 @@ function Assert-NoOutOfScopeSystems {
             throw "P8-B front v1 must not add P9/P10 systems: $file"
         }
 
-        if ($file -match "^(Assets/(Scripts|Tests)/P8/.*CollapseProxy|tools/p8/.*p8d|docs/P8D_)" ) {
+        if ($file -match "^(Assets/(Scripts|Tests)/P8/.*CollapseProxy|tools/p8/.*p8d)" ) {
             throw "P8-B front v1 regression guard must not include P8-D collapse systems: $file"
         }
     }
@@ -208,7 +208,7 @@ function Assert-Docs {
 
 function Assert-HazardLayerV1Data {
     $hazardPath = Join-Path $repoRoot "Assets\Data\P8\tsunami_hazard_layer_v1_chuo.json"
-    $hazard = Get-Content -Raw -LiteralPath $hazardPath | ConvertFrom-Json
+    $hazard = Get-Content -Raw -Encoding UTF8 -LiteralPath $hazardPath | ConvertFrom-Json
 
     if ($hazard.sourceMode -ne "manual_sample" -and $hazard.sourceMode -ne "evidence_planned" -and $hazard.sourceMode -ne "official_tsunami_metropolitan") {
         throw "P8-B hazard layer v1 must remain manual_sample, evidence_planned, or official_tsunami_metropolitan."
@@ -272,7 +272,7 @@ function Assert-HazardLayerV1Data {
 
 function Assert-RiskFrontConfig {
     $configPath = Join-Path $repoRoot "Assets\Data\P8\risk_front_visualization_config.json"
-    $config = Get-Content -Raw -LiteralPath $configPath | ConvertFrom-Json
+    $config = Get-Content -Raw -Encoding UTF8 -LiteralPath $configPath | ConvertFrom-Json
 
     if ([bool]$config.riskFrontEnabledInP8B -ne $true) {
         throw "riskFrontEnabledInP8B must be true for P8-B front v1."

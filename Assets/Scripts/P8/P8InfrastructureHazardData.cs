@@ -11,7 +11,9 @@ public enum P8InfrastructureCategory
     Waterfront,
     OpenSpace,
     ShelterProxy,
-    NavigationTargetProxy
+    NavigationTargetProxy,
+    HumanitarianCandidateProxy,
+    HighriseCandidateMarker
 }
 
 [Serializable]
@@ -125,6 +127,10 @@ public static class P8InfrastructureCategoryUtility
                 return "shelter_proxy";
             case P8InfrastructureCategory.NavigationTargetProxy:
                 return "navigation_target_proxy";
+            case P8InfrastructureCategory.HumanitarianCandidateProxy:
+                return "humanitarian_candidate_proxy";
+            case P8InfrastructureCategory.HighriseCandidateMarker:
+                return "highrise_candidate_marker";
             default:
                 return "unknown";
         }
@@ -157,6 +163,10 @@ public static class P8InfrastructureCategoryUtility
                 return affected.shelter_proxy;
             case P8InfrastructureCategory.NavigationTargetProxy:
                 return affected.navigation_target_proxy;
+            case P8InfrastructureCategory.HumanitarianCandidateProxy:
+                return affected.humanitarian_candidate_proxy;
+            case P8InfrastructureCategory.HighriseCandidateMarker:
+                return affected.highrise_candidate_marker;
             default:
                 return false;
         }

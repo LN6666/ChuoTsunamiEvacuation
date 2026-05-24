@@ -26,8 +26,12 @@ P8-C provides:
 
 ## P8-D Recommended Scope
 
-P8-D should implement lightweight infrastructure damage/collapse proxy and P8 closeout.
+P8-D should implement lightweight infrastructure damage, blockage, and collapse proxy.
 
 P8-D should continue to use hazard-layer v1 provenance and should not treat cinematic risk-front height as physical water depth.
 
 P8-D should preserve proxy labels where PLATEAU semantic geometry remains incomplete.
+
+## P8-E Closeout Scope
+
+P8-E is now the final P8 closeout stage. It should verify P8-A through P8-D before P9 starts, confirm humanitarian/high-rise candidate persistent visibility or explicit handoff labeling, and make sure P9 focuses on final real gameplay landing instead of repairing missing P8 hazard/front/infrastructure foundations.

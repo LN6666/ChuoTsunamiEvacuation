@@ -113,6 +113,31 @@ public class P8InfrastructureHazardPlayModeTests
     }
 
     [UnityTest]
+    public IEnumerator HumanitarianCandidateProxyCanReceiveHazardStateWithoutBecomingOfficialShelter()
+    {
+        GameObject candidateObject = CreateObject("P8C_HumanitarianCandidateProxy_PlayMode");
+        P8InfrastructureHazardProxy proxy = candidateObject.AddComponent<P8InfrastructureHazardProxy>();
+        proxy.ConfigureForTests(
+            "p5g_humanitarian_candidate_proxy",
+            P8InfrastructureCategory.HumanitarianCandidateProxy,
+            true,
+            true,
+            0f,
+            0f);
+
+        yield return null;
+
+        P8InfrastructureHazardEvaluation evaluation = proxy.Evaluate(CreateLayer(100f, 0.8f, 0.5f), 300f);
+
+        Assert.IsTrue(evaluation.success, evaluation.summary);
+        Assert.AreEqual(P8InfrastructureHazardState.RestrictedProxy, evaluation.state);
+        Assert.AreEqual(0, candidateObject.GetComponents<BuildingShelter>().Length);
+        Assert.AreEqual(0, candidateObject.GetComponents<ShelterEntranceTrigger>().Length);
+        Assert.IsFalse(P8InfrastructureHazardProxy.AffectsGameplaySuccessFailure);
+        StringAssert.Contains("humanitarian_candidate_proxy", evaluation.summary);
+    }
+
+    [UnityTest]
     public IEnumerator NpcPrototypeCanStageAgainstP8CProxyTargetWithoutP9Systems()
     {
         GameObject npcObject = CreateObject("P8C_NpcPrototype_Agent");
@@ -241,7 +266,9 @@ public class P8InfrastructureHazardPlayModeTests
                         waterfront = true,
                         open_space = true,
                         shelter_proxy = true,
-                        navigation_target_proxy = true
+                        navigation_target_proxy = true,
+                        humanitarian_candidate_proxy = true,
+                        highrise_candidate_marker = true
                     },
                     buildingDamageState = "none",
                     collapseProxyState = "data_only",

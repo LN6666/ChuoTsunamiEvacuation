@@ -4,8 +4,8 @@ Review the current git diff for P8-C.
 
 Check A-level blockers:
 
-- P8 has exactly four stages: P8-A, P8-B, P8-C, P8-D.
-- No P8-E/F/G stages were introduced.
+- P8 has exactly five stages: P8-A, P8-B, P8-C, P8-D, P8-E.
+- No P8-0/F/G stages were introduced.
 - P2-P6 runtime adaptation gate exists and is tested or honestly marked proxy/pending.
 - Hazard layer/risk front drives infrastructure states.
 - `arrivalTimeSeconds`, `inundationDepthMeters`, `inundationBoundary`, `hazardIntensity`, `confidence`, `sourceMode`, and `evidenceSourceId` are used.

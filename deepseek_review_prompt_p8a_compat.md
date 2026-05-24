@@ -7,8 +7,8 @@ Review P8-A scene compatibility gate changes only.
 
 Project stage rules:
 
-- P8 has exactly four stages: P8-A, P8-B, P8-C, and P8-D.
-- Do not allow P8-0, P8-E, P8-F, or P8-G.
+- P8 has exactly five stages: P8-A, P8-B, P8-C, P8-D, and P8-E.
+- Do not allow P8-0, P8-F, or P8-G.
 - P8-A is a compatibility/documentation/tooling/test gate.
 - P8-B light curtain/risk-front visualization must not be implemented yet.
 - P8-C hazard interactions must not be implemented yet.
@@ -31,8 +31,8 @@ Review checks:
 5. Confirm no gameplay success/failure rules changed.
 6. Confirm no P8-B, P8-C, or P8-D runtime behavior was implemented.
 7. Confirm no P9 or P10 systems were implemented.
-8. Confirm tests and preflight scripts cover the compatibility gate and P8 four-stage boundary.
-9. Confirm P8 still has exactly four stages.
+8. Confirm tests and preflight scripts cover the compatibility gate and P8 five-stage boundary.
+9. Confirm P8 still has exactly five stages.
 10. Identify compile risks, Unity lifecycle risks, path handling risks, and test fragility.
 
 Expected validation before commit:

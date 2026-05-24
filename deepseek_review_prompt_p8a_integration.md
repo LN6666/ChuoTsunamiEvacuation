@@ -7,8 +7,8 @@ Review the integration of `origin/p8a-hazard-evidence-hardening` into `p8-tsunam
 
 Project stage rules:
 
-- P8 has exactly four stages: P8-A, P8-B, P8-C, and P8-D.
-- Do not allow P8-0, P8-E, P8-F, or P8-G.
+- P8 has exactly five stages: P8-A, P8-B, P8-C, P8-D, and P8-E.
+- Do not allow P8-0, P8-F, or P8-G.
 - P8-A is a data, evidence, compatibility, tooling, and test foundation.
 - P8-B dynamic risk front / cinematic light curtain visualization must not be implemented yet.
 - P8-C infrastructure hazard interaction must not be implemented yet.
@@ -25,7 +25,7 @@ Protected baseline:
 
 Review checks:
 
-1. Confirm P8 still has exactly four stages.
+1. Confirm P8 still has exactly five stages.
 2. Confirm P8Compat outputs are preserved:
    - `docs/P8A_SCENE_COMPATIBILITY_GATE.md`
    - `docs/P8A_P7_HIGHDETAIL_BASELINE_STATUS.md`

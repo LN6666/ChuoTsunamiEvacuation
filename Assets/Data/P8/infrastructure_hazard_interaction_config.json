@@ -14,7 +14,9 @@
     "waterfront": true,
     "open_space": true,
     "shelter_proxy": true,
-    "navigation_target_proxy": true
+    "navigation_target_proxy": true,
+    "humanitarian_candidate_proxy": true,
+    "highrise_candidate_marker": true
   },
   "roadInteractionMode": "data_only",
   "buildingInteractionMode": "data_only",
@@ -25,6 +27,8 @@
   "openSpaceInteractionMode": "hazard_state_proxy",
   "shelterProxyInteractionMode": "hazard_state_proxy",
   "navigationTargetProxyInteractionMode": "hazard_state_proxy",
+  "humanitarianCandidateProxyInteractionMode": "hazard_state_proxy_non_official",
+  "highriseCandidateMarkerInteractionMode": "hazard_state_proxy_non_official",
   "p8cInteractionDriver": "hazard_layer_arrival_depth_boundary_infrastructure_v1",
   "p8cRuntimeAdaptationMode": "proxy_smoke_on_p7_high_detail_baseline",
   "collapseProxyEnabledInP8A": false,
@@ -37,5 +41,5 @@
   "collapseRandomSeed": 8000,
   "hazardDrivenCollapse": false,
   "manualSampleIsOfficial": false,
-  "notes": "P8-C enables proxy/data-driven infrastructure hazard state evaluation from the official_tsunami_metropolitan hazard-layer v1 fields. Legacy P8-A/P8-B interactionMode fields remain data_only for historical guard compatibility; P8-C uses p8cInteractionDriver and proxy categories for road, building, bridge, underground, entrance, waterfront, open_space, shelter_proxy, and navigation_target_proxy. maxTsunamiHeightMeters is reference metadata only, visualHeightMeters is cinematic only, and no gameplay damage, collapse, success, or failure behavior is triggered."
+  "notes": "P8-C enables proxy/data-driven infrastructure hazard state evaluation from the official_tsunami_metropolitan hazard-layer v1 fields. Legacy P8-A/P8-B interactionMode fields remain data_only for historical guard compatibility; P8-C uses p8cInteractionDriver and proxy categories for road, building, bridge, underground, entrance, waterfront, open_space, shelter_proxy, navigation_target_proxy, humanitarian_candidate_proxy, and highrise_candidate_marker. Humanitarian/high-rise candidate categories are non-official data proxies only. maxTsunamiHeightMeters is reference metadata only, visualHeightMeters is cinematic only, and no gameplay damage, collapse, success, or failure behavior is triggered."
 }

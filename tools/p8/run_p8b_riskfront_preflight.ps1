@@ -62,10 +62,10 @@ function Assert-P8StageCount {
             Where-Object { $_ -match "^##\s+(P8-[A-Z0-9]+)\s*$" } |
             ForEach-Object { $Matches[1] }
     )
-    $expected = @("P8-A", "P8-B", "P8-C", "P8-D")
+    $expected = @("P8-A", "P8-B", "P8-C", "P8-D", "P8-E")
     $unexpected = @($stages | Where-Object { $expected -notcontains $_ })
-    if ($stages.Count -ne 4 -or $unexpected.Count -gt 0) {
-        throw "P8 must have exactly four stages: P8-A, P8-B, P8-C, P8-D. Found: $($stages -join ', ')"
+    if ($stages.Count -ne 5 -or $unexpected.Count -gt 0) {
+        throw "P8 must have exactly five stages: P8-A, P8-B, P8-C, P8-D, P8-E. Found: $($stages -join ', ')"
     }
 }
 
@@ -160,7 +160,7 @@ function Assert-NoOutOfScopeSystems {
         if ($file -match "^(Assets/(Scripts|Tests)/(P9|P10)|tools/(p9|p10)/|docs/P(9|10))") {
             throw "P8-B must not add P9/P10 systems: $file"
         }
-        if ($file -match "^(Assets/(Scripts|Tests)/P8/.*CollapseProxy|tools/p8/.*p8d|docs/P8D_)" ) {
+        if ($file -match "^(Assets/(Scripts|Tests)/P8/.*CollapseProxy|tools/p8/.*p8d)" ) {
             throw "P8-B regression guard must not include P8-D collapse systems: $file"
         }
     }

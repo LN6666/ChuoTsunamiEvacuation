@@ -13,6 +13,15 @@
   ],
   "currentGateDecision": "PASS",
   "gateReason": "Official Tokyo Open Data tsunami 10m mesh CSV resources were directly accessible without token or login and were clipped to the official MLIT N03 Chuo City polygon to produce an extracted Chuo spatial hazard layer v1.",
+  "officialTokyoTsunamiDatasetCheck": {
+    "usesTokyoMetropolitanGovernmentDamageEstimationTsunamiDatasets": true,
+    "usesChuoFloodHazardMapAsTsunamiData": false,
+    "chuoExtractionArea": "Tokyo ward-area / 区部 mesh clipped to 中央区 using MLIT N03 administrative boundary",
+    "inundationDepthSource": "Tokyo official tsunami maximum inundation-depth CSVs",
+    "arrivalTimeSource": "Tokyo official tsunami arrival-time CSVs",
+    "maxTsunamiHeightStoredSeparately": true,
+    "inundationBoundaryStatus": "derived_grid_extent_bbox_from_official_extracted_points_not_official_contour"
+  },
   "sources": [
     {
       "evidenceSourceId": "tokyo_damage_estimation_map_tsunami",
@@ -35,10 +44,50 @@
       ],
       "scenarioNames": [
         "Taisho Kanto earthquake",
-        "Nankai Trough megathrust earthquake case 1"
+        "Nankai Trough megathrust earthquake case 1",
+        "Nankai Trough megathrust earthquake case 5 (not present in current generated Chuo layer)",
+        "Nankai Trough megathrust earthquake case 8 (not present in current generated Chuo layer)"
+      ],
+      "scenarioExtractionSummary": [
+        {
+          "scenarioName": "Taisho Kanto earthquake / 大正関東地震",
+          "extractedForChuo": true,
+          "chuoSampleCount": 1123,
+          "maxInundationDepthMeters": 2.0436,
+          "maxTsunamiHeightMeters": 2.1287,
+          "arrivalTimeExists": true,
+          "boundaryStatus": "derived grid extent bbox, not official inundation contour"
+        },
+        {
+          "scenarioName": "Nankai Trough megathrust earthquake case 1 / 南海トラフ巨大地震 case 1",
+          "extractedForChuo": true,
+          "chuoSampleCount": 1256,
+          "maxInundationDepthMeters": 2.2629,
+          "maxTsunamiHeightMeters": 2.4223,
+          "arrivalTimeExists": true,
+          "boundaryStatus": "derived grid extent bbox, not official inundation contour"
+        },
+        {
+          "scenarioName": "Nankai Trough megathrust earthquake case 5 / 南海トラフ巨大地震 case 5",
+          "extractedForChuo": false,
+          "chuoSampleCount": 0,
+          "maxInundationDepthMeters": null,
+          "maxTsunamiHeightMeters": null,
+          "arrivalTimeExists": false,
+          "boundaryStatus": "not present in current generated Chuo layer"
+        },
+        {
+          "scenarioName": "Nankai Trough megathrust earthquake case 8 / 南海トラフ巨大地震 case 8",
+          "extractedForChuo": false,
+          "chuoSampleCount": 0,
+          "maxInundationDepthMeters": null,
+          "maxTsunamiHeightMeters": null,
+          "arrivalTimeExists": false,
+          "boundaryStatus": "not present in current generated Chuo layer"
+        }
       ],
       "municipalitySelection": "Chuo City is selected by clipping mesh points to the official MLIT N03 Chuo polygon.",
-      "notes": "Primary P8-B evidence source. Used to extract Chuo spatial maximum inundation depth, maximum tsunami height, and arrival-time sample points. Maximum tsunami height remains separate from the inundation-depth grid."
+      "notes": "Primary P8-B evidence source. Used to extract Chuo spatial maximum inundation depth, maximum tsunami height, and arrival-time sample points from Tokyo official tsunami CSVs. Maximum tsunami height remains separate from the inundation-depth grid. Case 5 and case 8 are listed as checked/not present in the current generated Chuo layer, not as extracted scenarios."
     },
     {
       "evidenceSourceId": "mlit_n03_chuo_admin_boundary",
@@ -140,5 +189,5 @@
       "notes": "Flood material is not the tsunami evidence source for P8-B. Keep only as a non-tsunami proxy fallback if Tokyo tsunami evidence cannot be extracted for a later prototype."
     }
   ],
-  "notes": "P8-B prioritizes Tokyo Metropolitan Government tsunami damage estimation evidence for Chuo. Chuo's lack of a standalone tsunami hazard map is not treated as absence of tsunami evidence."
+  "notes": "P8-B prioritizes Tokyo Metropolitan Government tsunami damage estimation evidence for Chuo. Chuo's lack of a standalone tsunami hazard map is not treated as absence of tsunami evidence. Chuo flood hazard map material is not used as tsunami data."
 }

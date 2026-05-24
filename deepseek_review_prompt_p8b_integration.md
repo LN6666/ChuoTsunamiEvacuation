@@ -30,7 +30,7 @@ Give a final verdict: blocked, safe to push, or safe to push with B/C follow-up.
 
 ## Must Check
 
-- P8 has exactly four stages: P8-A, P8-B, P8-C, and P8-D.
+- P8 has exactly five stages: P8-A, P8-B, P8-C, P8-D, and P8-E.
 - P8RiskFront outputs are preserved:
   - `P8RiskFrontController`
   - `P8RiskFrontVisualConfig`

@@ -191,6 +191,8 @@ public static class P8InfrastructureHazardEvaluator
             case P8InfrastructureCategory.Underground:
             case P8InfrastructureCategory.Waterfront:
             case P8InfrastructureCategory.NavigationTargetProxy:
+            case P8InfrastructureCategory.HumanitarianCandidateProxy:
+            case P8InfrastructureCategory.HighriseCandidateMarker:
                 return P8InfrastructureHazardState.AvoidProxy;
             case P8InfrastructureCategory.Road:
             case P8InfrastructureCategory.Bridge:
@@ -210,6 +212,8 @@ public static class P8InfrastructureHazardEvaluator
             case P8InfrastructureCategory.Underground:
             case P8InfrastructureCategory.Waterfront:
             case P8InfrastructureCategory.NavigationTargetProxy:
+            case P8InfrastructureCategory.HumanitarianCandidateProxy:
+            case P8InfrastructureCategory.HighriseCandidateMarker:
                 return P8InfrastructureHazardState.AvoidProxy;
             case P8InfrastructureCategory.Road:
             case P8InfrastructureCategory.Bridge:
@@ -233,6 +237,8 @@ public static class P8InfrastructureHazardEvaluator
             case P8InfrastructureCategory.Bridge:
             case P8InfrastructureCategory.Entrance:
             case P8InfrastructureCategory.NavigationTargetProxy:
+            case P8InfrastructureCategory.HumanitarianCandidateProxy:
+            case P8InfrastructureCategory.HighriseCandidateMarker:
                 return P8InfrastructureHazardState.RestrictedProxy;
             default:
                 return P8InfrastructureHazardState.Warning;

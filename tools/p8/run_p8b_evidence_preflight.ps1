@@ -81,7 +81,7 @@ function Assert-FileContains {
     )
 
     Assert-FileExists $RelativePath
-    $text = Get-Content -Raw -LiteralPath (Join-Path $repoRoot ($RelativePath -replace "/", "\"))
+    $text = Get-Content -Raw -Encoding UTF8 -LiteralPath (Join-Path $repoRoot ($RelativePath -replace "/", "\"))
     foreach ($fragment in $Fragments) {
         if ($text.IndexOf($fragment, [System.StringComparison]::OrdinalIgnoreCase) -lt 0) {
             throw "$RelativePath missing required wording: $fragment"
@@ -93,7 +93,7 @@ function Read-Json {
     param([string]$RelativePath)
 
     Assert-FileExists $RelativePath
-    return Get-Content -Raw -LiteralPath (Join-Path $repoRoot ($RelativePath -replace "/", "\")) | ConvertFrom-Json
+    return Get-Content -Raw -Encoding UTF8 -LiteralPath (Join-Path $repoRoot ($RelativePath -replace "/", "\")) | ConvertFrom-Json
 }
 
 function Assert-P8StageCount {
@@ -104,10 +104,10 @@ function Assert-P8StageCount {
             ForEach-Object { $Matches[1] }
     )
 
-    $expected = @("P8-A", "P8-B", "P8-C", "P8-D")
+    $expected = @("P8-A", "P8-B", "P8-C", "P8-D", "P8-E")
     $unexpected = @($stages | Where-Object { $expected -notcontains $_ })
-    if ($stages.Count -ne 4 -or $unexpected.Count -gt 0) {
-        throw "P8 must have exactly four stages: P8-A, P8-B, P8-C, P8-D. Found: $($stages -join ', ')"
+    if ($stages.Count -ne 5 -or $unexpected.Count -gt 0) {
+        throw "P8 must have exactly five stages: P8-A, P8-B, P8-C, P8-D, P8-E. Found: $($stages -join ', ')"
     }
 }
 
@@ -144,7 +144,7 @@ function Assert-NoOutOfScopeSystems {
             throw "P8-B evidence work must not add P9/P10 systems: $file"
         }
 
-        if ($file -match "^(Assets/(Scripts|Tests)/P8/.*(InfrastructureInteraction|CollapseProxy)|tools/p8/.*p8(c|d)|docs/P8(C|D)_)" ) {
+        if ($file -match "^(Assets/(Scripts|Tests)/P8/.*(InfrastructureInteraction|CollapseProxy)|tools/p8/.*p8d)" ) {
             throw "P8-B evidence work must not implement P8-C/P8-D systems: $file"
         }
 

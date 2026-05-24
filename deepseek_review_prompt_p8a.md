@@ -21,7 +21,7 @@ Return:
 
 Flag as A-level if any item is true:
 
-- P8 does not have exactly four stages: P8-A, P8-B, P8-C, P8-D.
+- P8 does not have exactly five stages: P8-A, P8-B, P8-C, P8-D, P8-E.
 - Extra P8 stages are introduced.
 - `Assets/Scenes/P7HighDetail/P7_HighDetail_Chuo.unity` is reset, deleted, overwritten, staged unsafely, or no longer preserved as local baseline.
 - `Assets/Scenes/Chuo_BaseMap.unity` is modified.

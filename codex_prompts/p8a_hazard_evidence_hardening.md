@@ -27,13 +27,14 @@ Base:
 origin/p8-tsunami-hazard-risk-front-foundation
 
 P8 stage count:
-P8 has exactly four stages:
+P8 has exactly five stages:
 - P8-A
 - P8-B
 - P8-C
 - P8-D
+- P8-E
 
-Do not create P8-0, P8-E, P8-F, P8-G.
+Do not create P8-0, P8-F, P8-G.
 
 Strict scope:
 This task is evidence/schema/docs/tools hardening only.

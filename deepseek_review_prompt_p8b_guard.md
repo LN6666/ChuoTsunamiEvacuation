@@ -34,7 +34,7 @@ Give a final integration verdict: safe to commit/push, safe with B/C follow-up, 
   - `boundaryIsEvidenceBasedOrPrototype` remains explicit.
 - Collapse proxy remains disabled or data-only until P8-D.
 - P8-B does not implement P8-C road/building/bridge/underground interactions.
-- P8 has exactly four stages: P8-A, P8-B, P8-C, and P8-D.
+- P8 has exactly five stages: P8-A, P8-B, P8-C, P8-D, and P8-E.
 - Tests/preflight pass:
   - `powershell -ExecutionPolicy Bypass -File tools/p8/run_p8b_guard_preflight.ps1`
   - `powershell -ExecutionPolicy Bypass -File tools/p8/run_p8a_preflight.ps1`

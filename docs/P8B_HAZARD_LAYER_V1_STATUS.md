@@ -36,6 +36,8 @@ The current extracted layer includes two Tokyo scenarios:
 - Taisho Kanto earthquake: 1123 clipped Chuo mesh samples, maximum spatial inundation depth 2.0436m, maximum tsunami height 2.1287m.
 - Nankai Trough megathrust earthquake case 1: 1256 clipped Chuo mesh samples, maximum spatial inundation depth 2.2629m, maximum tsunami height 2.4223m.
 
+Nankai Trough case 5 and case 8 are not present in the current generated Chuo layer or extractor scenario list. They must not be claimed as extracted until official Tokyo CSV inputs are added and clipped.
+
 `maxTsunamiHeightMeters` is not the same as a full `inundationDepthMeters` grid. The layer stores both fields separately.
 
 ## What Drives The Risk Front

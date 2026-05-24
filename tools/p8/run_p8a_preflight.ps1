@@ -98,6 +98,8 @@ function Test-AllowedP8Path {
     if ($Path -eq "Assets/Tests/PlayMode/P8.meta") { return $true }
     if (Test-PathStartsWith $Path "docs/P8") { return $true }
     if (Test-PathStartsWith $Path "docs/P8A") { return $true }
+    if ($Path -eq "docs/TASKS.md") { return $true }
+    if ($Path -eq "docs/REVIEW_BACKLOG.md") { return $true }
     if (Test-PathStartsWith $Path "tools/p8/") { return $true }
     if (Test-PathStartsWith $Path "Assets/Data/P8/") { return $true }
     if (Test-PathStartsWith $Path "Assets/Scripts/P8/") { return $true }
@@ -112,6 +114,8 @@ function Test-AllowedP8Path {
     if ($Path -eq "deepseek_review_prompt_p8a_evidence.md") { return $true }
     if ($Path -eq "deepseek_review_prompt_p8a_integration.md") { return $true }
     if ($Path -eq "deepseek_review_prompt_p8b_riskfront.md") { return $true }
+    if ($Path -eq "codex_prompts/p8bc_consolidation_humanitarian_candidate_audit.md") { return $true }
+    if ($Path -eq "deepseek_review_prompt_p8bc_consolidation.md") { return $true }
     return $false
 }
 
@@ -182,13 +186,13 @@ function Assert-P8StageCount {
     $stageText = Get-Content -LiteralPath (Join-Path $repoRoot "docs\P8_STAGE_PLAN.md")
     $stages = @(
         $stageText |
-            Where-Object { $_ -match "^##\s+(P8-[A-D])\s*$" } |
+            Where-Object { $_ -match "^##\s+(P8-[A-E])\s*$" } |
             ForEach-Object { $Matches[1] }
     )
 
-    $expected = @("P8-A", "P8-B", "P8-C", "P8-D")
-    if ($stages.Count -ne 4) {
-        throw "P8_STAGE_PLAN must define exactly four P8 stage headings; found $($stages.Count)."
+    $expected = @("P8-A", "P8-B", "P8-C", "P8-D", "P8-E")
+    if ($stages.Count -ne 5) {
+        throw "P8_STAGE_PLAN must define exactly five P8 stage headings; found $($stages.Count)."
     }
 
     foreach ($stage in $expected) {

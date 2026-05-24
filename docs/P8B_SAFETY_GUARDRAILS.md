@@ -22,11 +22,12 @@ P8-B remains a bounded dynamic risk-front visualization stage. It must preserve 
 
 ## P8 Stage Boundary
 
-P8 has exactly four stages:
+P8 has exactly five stages:
 
 - P8-A
 - P8-B
 - P8-C
 - P8-D
+- P8-E
 
-Do not create P8-0, P8-E, P8-F, or P8-G.
+Do not create P8-0, P8-F, or P8-G.

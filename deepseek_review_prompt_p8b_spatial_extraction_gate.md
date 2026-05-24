@@ -4,14 +4,14 @@ Review the current git diff for P8-B spatial extraction gate hardening.
 
 Context:
 
-- P8 has exactly four stages: P8-A, P8-B, P8-C, P8-D.
+- P8 has exactly five stages: P8-A, P8-B, P8-C, P8-D, P8-E.
 - The task must not proceed to P8-C unless P8-B creates an evidence-backed Chuo tsunami spatial layer or explicitly marks P8-C blocked.
 - Tokyo Metropolitan Government tsunami evidence must be prioritized. Chuo standalone tsunami-map absence is not evidence absence.
 - The implementation found and used official Tokyo Open Data tsunami CSVs plus official MLIT N03 Chuo boundary data.
 
 Check for A-level blockers:
 
-- P8 stage count remains exactly four: P8-A, P8-B, P8-C, P8-D. No P8-E/F/G.
+- P8 stage count remains exactly five: P8-A, P8-B, P8-C, P8-D, P8-E. No P8-0/F/G.
 - No scene mutation, especially no reset/loss/staging of `Assets/Scenes/P7HighDetail/P7_HighDetail_Chuo.unity`.
 - `Assets/Scenes/Chuo_BaseMap.unity`, `ProjectSettings`, `Packages`, and `Assets/PLATEAU` are untouched.
 - No P8-C infrastructure hazard interaction implementation yet.

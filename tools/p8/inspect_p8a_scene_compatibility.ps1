@@ -131,11 +131,11 @@ function Assert-P8StageCount {
             ForEach-Object { $Matches[1] }
     )
 
-    $expected = @("P8-A", "P8-B", "P8-C", "P8-D")
+    $expected = @("P8-A", "P8-B", "P8-C", "P8-D", "P8-E")
     $unexpected = @($stageLines | Where-Object { $expected -notcontains $_ })
 
-    if ($stageLines.Count -ne 4 -or $unexpected.Count -gt 0) {
-        throw "P8 stage plan must contain exactly P8-A, P8-B, P8-C, and P8-D. Found: $($stageLines -join ', ')"
+    if ($stageLines.Count -ne 5 -or $unexpected.Count -gt 0) {
+        throw "P8 stage plan must contain exactly P8-A, P8-B, P8-C, P8-D, and P8-E. Found: $($stageLines -join ', ')"
     }
 
     foreach ($stage in $expected) {
@@ -144,7 +144,7 @@ function Assert-P8StageCount {
         }
     }
 
-    Write-Host "PASS: P8 has exactly four stages: $($expected -join ', ')"
+    Write-Host "PASS: P8 has exactly five stages: $($expected -join ', ')"
 }
 
 function Assert-BaselineScene {

@@ -27,6 +27,18 @@
     "extractionMethod": { "type": "string" },
     "officialMetropolitanEvidenceIdentified": { "type": "boolean" },
     "completeOfficialSpatialLayerExtracted": { "type": "boolean" },
+    "officialTokyoTsunamiDatasetCheck": {
+      "type": "object",
+      "properties": {
+        "usesTokyoMetropolitanGovernmentDamageEstimationTsunamiDatasets": { "type": "boolean" },
+        "usesChuoFloodHazardMapAsTsunamiData": { "type": "boolean" },
+        "chuoExtractionArea": { "type": "string" },
+        "inundationDepthSource": { "type": "string" },
+        "arrivalTimeSource": { "type": "string" },
+        "maxTsunamiHeightStoredSeparately": { "type": "boolean" },
+        "inundationBoundaryStatus": { "type": "string" }
+      }
+    },
     "timeOriginSeconds": { "type": "number", "minimum": 0 },
     "scienceLayerFields": {
       "type": "array",
@@ -222,7 +234,9 @@
         "waterfront": { "type": "boolean" },
         "open_space": { "type": "boolean" },
         "shelter_proxy": { "type": "boolean" },
-        "navigation_target_proxy": { "type": "boolean" }
+        "navigation_target_proxy": { "type": "boolean" },
+        "humanitarian_candidate_proxy": { "type": "boolean" },
+        "highrise_candidate_marker": { "type": "boolean" }
       }
     },
     "point2": {

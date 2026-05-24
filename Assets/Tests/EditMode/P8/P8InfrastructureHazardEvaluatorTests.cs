@@ -49,6 +49,43 @@ public class P8InfrastructureHazardEvaluatorTests
     }
 
     [Test]
+    public void HumanitarianCandidateProxyReceivesHazardStateWithoutOfficialShelterClaim()
+    {
+        P8HazardLayerData layer = CreateLayer(100f, 0.8f, 0.5f);
+        P8InfrastructureHazardEvaluation candidate =
+            P8InfrastructureHazardEvaluator.Evaluate(
+                P8InfrastructureHazardEvaluationInput.FromHazardCoordinates(
+                    "p5g_non_official_candidate",
+                    P8InfrastructureCategory.HumanitarianCandidateProxy,
+                    0f,
+                    0f,
+                    true),
+                layer,
+                300f);
+        P8InfrastructureHazardEvaluation marker =
+            P8InfrastructureHazardEvaluator.Evaluate(
+                P8InfrastructureHazardEvaluationInput.FromHazardCoordinates(
+                    "p5g_highrise_marker",
+                    P8InfrastructureCategory.HighriseCandidateMarker,
+                    0f,
+                    0f,
+                    true),
+                layer,
+                300f);
+
+        Assert.IsTrue(candidate.success, candidate.summary);
+        Assert.IsTrue(marker.success, marker.summary);
+        Assert.AreEqual(P8InfrastructureHazardState.RestrictedProxy, candidate.state);
+        Assert.AreEqual(P8InfrastructureHazardState.RestrictedProxy, marker.state);
+        Assert.IsTrue(candidate.proxyBased);
+        Assert.IsTrue(marker.proxyBased);
+        StringAssert.Contains("humanitarian_candidate_proxy", candidate.summary);
+        StringAssert.Contains("highrise_candidate_marker", marker.summary);
+        StringAssert.Contains("no gameplay success/failure rule changes", candidate.summary);
+        Assert.IsFalse(P8InfrastructureHazardEvaluator.AffectsGameplaySuccessFailure);
+    }
+
+    [Test]
     public void ArrivalTimeSecondsAffectsContactPhaseAndState()
     {
         P8HazardLayerData layer = CreateLayer(600f, 0.6f, 0.4f);
@@ -249,7 +286,9 @@ public class P8InfrastructureHazardEvaluatorTests
                         waterfront = true,
                         open_space = true,
                         shelter_proxy = true,
-                        navigation_target_proxy = true
+                        navigation_target_proxy = true,
+                        humanitarian_candidate_proxy = true,
+                        highrise_candidate_marker = true
                     },
                     buildingDamageState = "none",
                     collapseProxyState = "data_only",
