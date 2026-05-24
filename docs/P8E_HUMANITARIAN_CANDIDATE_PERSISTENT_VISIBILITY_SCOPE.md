@@ -2,21 +2,26 @@
 
 Date: 2026-05-24.
 
-This is a future P8-E scope/handoff note only. It is not a P8-E implementation.
+P8-E is reserved for final P8 closeout and handoff verification before P9.
 
-## P8-E Scope
+## Expanded Candidate Audit Input
 
-P8-E should verify that humanitarian/high-rise candidates are ready for persistent explicit visibility in the future game, or that P9 receives exact instructions for making them visible.
+P8-E should verify the expanded audit list:
 
-P8-E should require:
+- `Assets/Data/P8/humanitarian_highrise_candidate_audit_v1.json`
+- `docs/P8C_HUMANITARIAN_HIGHRISE_CANDIDATE_NAME_LIST.md`
 
-- explicit non-official warning/disclaimer
-- clear separation from official evacuation shelters
-- visible marker/candidate identity for user review
-- handoff instructions for P9 life-first selectable target decisions
+Audit v1 is expanded beyond the old five sample candidates. It includes PLATEAU-derived Chuo high-rise / office / commercial / hotel / mixed-use screening candidates where local attributes exist.
 
-## P9 Handoff Rule
+## Visibility Requirement
 
-P9 decides whether reviewed candidates become life-first selectable vertical evacuation targets in real gameplay.
+Future persistent visibility must:
 
-P9 must not present candidates as official shelters and must not use real indoor scene gameplay. Any vertical evacuation completion should use entrance / safe floor / evacuation-complete proxy flow.
+- make candidates visible only as non-official humanitarian candidates;
+- show explicit warnings/disclaimers;
+- avoid official shelter styling;
+- avoid safe/approved wording;
+- preserve manual review status;
+- tell P9 how to use entrance/safe-floor/evacuation-complete proxies if P9 makes any candidate selectable.
+
+P8-E must not implement P9 gameplay or real indoor scenes.

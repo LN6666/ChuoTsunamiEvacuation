@@ -127,9 +127,10 @@ function Assert-RequiredDocs {
     }
 
     Assert-FileContains "docs/P8B_PROBLEM1_OFFICIAL_HAZARD_LAYER_RESOLUTION.md" @(
-        "Tokyo Metropolitan Government tsunami damage-estimation",
+        "broader Tokyo damage-estimation source family",
         "Taisho Kanto earthquake",
         "Nankai Trough megathrust earthquake case 1",
+        "not a tsunami scenario in current extracted layers",
         "case 5",
         "case 8",
         "not official contour",
@@ -150,9 +151,13 @@ function Assert-RequiredDocs {
     )
 
     Assert-FileContains "docs/P8C_HUMANITARIAN_HIGHRISE_CANDIDATE_NAME_LIST.md" @(
-        "Total non-official humanitarian candidates found: 5",
+        "Total candidates found:",
+        "Total PLATEAU-derived candidates:",
+        "Candidate list expanded beyond original 5 sample candidates: yes",
         "These are not official evacuation shelters",
         "must not be displayed as official shelters",
+        "Table A: Named High-Rise / Office / Tower Candidates",
+        "Table C: PLATEAU ID-Only Candidates Requiring Manual Name Review",
         "p5f_sample_humanitarian_strong_003",
         "p5f_sample_not_recommended_007"
     )
@@ -225,7 +230,8 @@ function Assert-NoOutOfScopeImplementation {
 function Assert-NoFalseClaims {
     Assert-FileContains "docs/P8C_HUMANITARIAN_HIGHRISE_CANDIDATE_NAME_LIST.md" @(
         "isOfficialShelter=false",
-        "officialDesignationStatus=not_official",
+        "nonOfficialWarningRequired=true",
+        "manualReviewNeeded=true",
         "Future persistent visibility requires explicit non-official labeling"
     )
 

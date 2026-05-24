@@ -2,25 +2,27 @@
 
 Date: 2026-05-24.
 
-## P8-C Representation
+## Scope
 
-P8-C represents existing P5-F/P5-GH humanitarian/high-rise candidate data as:
+P8-C owns data/proxy representation only.
 
-- `humanitarian_candidate_proxy`
-- `highrise_candidate_marker`
+Expanded audit input:
 
-These categories can receive hazard status at data/proxy level from the P8-B/P8-C hazard interaction model.
-
-P8-C does not need to make candidates final always-visible scene objects if that requires scene mutation beyond the current scope.
-
-P8-C must provide a manually inspectable name list:
-
+- `Assets/Data/P8/humanitarian_highrise_candidate_audit_v1.json`
 - `docs/P8C_HUMANITARIAN_HIGHRISE_CANDIDATE_NAME_LIST.md`
 
-## Safety Rules
+## P8-C Allocation
 
-- These are non-official humanitarian / life-first high-rise candidates.
-- They are not official evacuation shelters.
-- They must not be displayed as official shelters.
-- Future persistent visibility requires explicit non-official labeling.
-- Current source data is the controlled P5-F/P5-GH sample, not full real Chuo high-rise screening.
+- Candidates are represented as `humanitarian_candidate_proxy` / `highrise_candidate_marker` in the hazard interaction model.
+- Candidates can receive hazard status at proxy/data level through `P8InfrastructureHazardEvaluator`.
+- Candidate name list is for user review before persistent visibility or gameplay use.
+- No final selectable gameplay is implemented.
+- No gameplay success/failure rule changes are introduced.
+
+## Future Allocation
+
+P8-D may use the audit records for building warning, entrance blocked, low-floor inundation warning, and lightweight damage-proxy status. P8-D must not implement real structural collapse or official shelter claims.
+
+P8-E verifies persistent explicit visibility, non-official warnings/disclaimers, and handoff to P9.
+
+P9 decides whether any candidates become life-first selectable vertical evacuation targets. They remain non-official, use entrance/safe-floor/evacuation-complete proxies, and do not use real indoor scenes.

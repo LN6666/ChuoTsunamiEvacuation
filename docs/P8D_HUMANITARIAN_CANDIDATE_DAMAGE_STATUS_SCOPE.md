@@ -2,19 +2,26 @@
 
 Date: 2026-05-24.
 
-This is a future allocation note only. It is not a P8-D implementation.
+P8-D allocation note only. Do not implement P8-D behavior in the candidate-audit task.
 
-## Future P8-D Scope
+## Scope
 
-P8-D may let humanitarian/high-rise candidate proxies participate in:
+The expanded audit data at `Assets/Data/P8/humanitarian_highrise_candidate_audit_v1.json` may be used by a future P8-D damage/blockage proxy as non-official building candidates.
 
-- building warning status
-- entrance blocked status
-- low-floor inundation warning status
-- lightweight damage proxy status
+Allowed future P8-D proxy states:
 
-P8-D must not implement real structural collapse.
+- building warning;
+- entrance blocked proxy;
+- low-floor inundation warning;
+- restricted/avoid proxy state from hazard data;
+- lightweight damage-status marker.
 
-P8-D must not claim non-official candidates are official shelters.
+Not allowed:
 
-P8-D must keep indoor gameplay cancelled; use entrance/safe-floor/completion proxy assumptions only.
+- real structural collapse simulation;
+- official shelter claim;
+- safe/approved candidate claim;
+- P9 selectable gameplay;
+- indoor stair/fire-route scene.
+
+Every candidate must keep `isOfficialShelter=false` and `nonOfficialWarningRequired=true`.
