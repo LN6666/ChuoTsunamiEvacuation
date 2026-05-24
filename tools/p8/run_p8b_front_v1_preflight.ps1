@@ -139,9 +139,6 @@ function Assert-NoOutOfScopeSystems {
             throw "P8-B front v1 must not add P9/P10 systems: $file"
         }
 
-        if ($file -match "^(Assets/(Scripts|Tests)/P8/.*CollapseProxy|tools/p8/.*p8d)" ) {
-            throw "P8-B front v1 regression guard must not include P8-D collapse systems: $file"
-        }
     }
 }
 

@@ -100,9 +100,6 @@ function Assert-NoOutOfScopeChangedFiles {
         if ($file -match "^(Assets/(Scripts|Tests)/(P9|P10)|tools/(p9|p10)/|docs/P(9|10))") {
             throw "Audit must not add P9/P10 systems: $file"
         }
-        if ($file -match "^(Assets/Scripts/P8/.*(Collapse|Damage).*|Assets/Tests/.*/P8/.*Collapse.*)") {
-            throw "Audit must not implement P8-D collapse/damage systems: $file"
-        }
     }
 }
 

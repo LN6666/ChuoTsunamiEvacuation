@@ -160,9 +160,6 @@ function Assert-NoOutOfScopeSystems {
         if ($file -match "^(Assets/(Scripts|Tests)/(P9|P10)|tools/(p9|p10)/|docs/P(9|10))") {
             throw "P8-B must not add P9/P10 systems: $file"
         }
-        if ($file -match "^(Assets/(Scripts|Tests)/P8/.*CollapseProxy|tools/p8/.*p8d)" ) {
-            throw "P8-B regression guard must not include P8-D collapse systems: $file"
-        }
     }
 }
 

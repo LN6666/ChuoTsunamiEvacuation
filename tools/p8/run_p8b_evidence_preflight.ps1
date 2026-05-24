@@ -144,8 +144,8 @@ function Assert-NoOutOfScopeSystems {
             throw "P8-B evidence work must not add P9/P10 systems: $file"
         }
 
-        if ($file -match "^(Assets/(Scripts|Tests)/P8/.*(InfrastructureInteraction|CollapseProxy)|tools/p8/.*p8d)" ) {
-            throw "P8-B evidence work must not implement P8-C/P8-D systems: $file"
+        if ($file -match "^(Assets/(Scripts|Tests)/P8/.*InfrastructureInteraction)" ) {
+            throw "P8-B evidence work must not implement P8-C infrastructure systems: $file"
         }
 
         if (Test-PathStartsWith $file "Assets/Scenes/") {

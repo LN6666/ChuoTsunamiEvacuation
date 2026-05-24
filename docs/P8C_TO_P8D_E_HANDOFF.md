@@ -13,9 +13,9 @@ P8-C provides:
 
 P8-C does not implement gameplay success/failure rule changes, P8-D collapse proxy, P8-E final closeout, P9 final gameplay, real indoor scenes, congestion, or P10 packaging.
 
-## P8-D Allocation
+## P8-D Allocation / Output
 
-P8-D should handle infrastructure damage, blockage, and lightweight collapse proxy only after the user reviews the humanitarian candidate name list.
+P8-D handles infrastructure damage, blockage, and lightweight collapse proxy as proxy/status outputs.
 
 Humanitarian/high-rise candidates may participate in:
 
@@ -23,6 +23,7 @@ Humanitarian/high-rise candidates may participate in:
 - entrance blocked proxy
 - low-floor inundation warning proxy
 - damage proxy status
+- deterministic low-probability `collapsed_proxy_visual`
 
 P8-D must not implement real structural collapse and must not claim candidate buildings are official shelters.
 

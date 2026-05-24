@@ -116,6 +116,8 @@ function Test-AllowedP8Path {
     if ($Path -eq "deepseek_review_prompt_p8b_riskfront.md") { return $true }
     if ($Path -eq "codex_prompts/p8bc_consolidation_humanitarian_candidate_audit.md") { return $true }
     if ($Path -eq "deepseek_review_prompt_p8bc_consolidation.md") { return $true }
+    if ($Path -like "codex_prompts/p8*.md") { return $true }
+    if ($Path -like "deepseek_review_prompt_p8*.md") { return $true }
     return $false
 }
 
@@ -322,7 +324,8 @@ function Test-AllowedP8RuntimeScript {
            $name -eq "P8RiskFrontDebugStatus.cs" -or
            $name -eq "P8InfrastructureHazardTarget.cs" -or
            $name -eq "P8InfrastructureHazardMarker.cs" -or
-           $name -eq "P8InfrastructureHazardDebugSummary.cs"
+           $name -eq "P8InfrastructureHazardDebugSummary.cs" -or
+           $name -eq "P8DamageProxyMarker.cs"
 }
 
 function Assert-NoUnauthorizedP8RuntimeImplementation {

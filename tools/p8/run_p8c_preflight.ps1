@@ -155,6 +155,7 @@ function Test-AllowedP8CPath {
     if ($Path -eq "docs/P8_STAGE_PLAN.md") { return $true }
     if ($Path -like "tools/p8/*p8bc*.ps1") { return $true }
     if ($Path -like "tools/p8/*p8c*.ps1") { return $true }
+    if ($Path -like "tools/p8/*p8d*.ps1") { return $true }
     if ($Path -eq "tools/p8/inspect_p8a_scene_compatibility.ps1") { return $true }
     if ($Path -eq "tools/p8/run_p8a_preflight.ps1") { return $true }
     if ($Path -eq "tools/p8/run_p8a_compat_preflight.ps1") { return $true }

@@ -254,7 +254,8 @@ function Test-AllowedP8RuntimeScript {
            $name -eq "P8RiskFrontDebugStatus.cs" -or
            $name -eq "P8InfrastructureHazardTarget.cs" -or
            $name -eq "P8InfrastructureHazardMarker.cs" -or
-           $name -eq "P8InfrastructureHazardDebugSummary.cs"
+           $name -eq "P8InfrastructureHazardDebugSummary.cs" -or
+           $name -eq "P8DamageProxyMarker.cs"
 }
 
 function Assert-NoUnauthorizedP8RuntimeBehavior {
