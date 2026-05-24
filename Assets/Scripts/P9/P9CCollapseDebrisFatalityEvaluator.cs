@@ -23,6 +23,13 @@ public static class P9CCollapseDebrisFatalityEvaluator
 
         if (!config.enableCollapseDebrisFatalityProxy)
         {
+            if (exposureEvent != null && exposureEvent.exposureTriggered)
+            {
+                result.exposureTriggered = true;
+                result.eventId = exposureEvent.eventId ?? string.Empty;
+                result.zoneId = exposureEvent.zoneId ?? string.Empty;
+            }
+
             result.reasonCode = P9COutcomeReasonCode.CollapseDebrisProxyDisabled;
             result.summary = "P9-C collapse/debris fatality proxy disabled.";
             return result;
