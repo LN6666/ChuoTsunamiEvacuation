@@ -12,13 +12,13 @@ P7-0 begins the PBL7 high-detail city foundation. P7-0 is docs/tools/prompts onl
 
 ## Phase 10: Final QA, Windows EXE Release, And Project Closeout
 
-Status: P10 has started from the P9-D handoff. P10 has exactly four stages: P10-A, P10-B, P10-C, and P10-D. Do not create P10-E, P10-F, or P10-G unless explicitly approved.
+Status: P10 has started from the P9-D handoff. P10 has exactly four official stages: P10-A, P10-B, P10-C, and P10-D. P10-A+ is a hardening sprint under P10-A, not a new official stage. Do not create P10-E, P10-F, or P10-G unless explicitly approved.
 
 Planned tasks:
 
 - P10-A: Remaining Gap Closure + High-Detail Scene QA. Create gap closure matrix, high-detail scene QA readiness, coordinate anchoring final QA, humanitarian candidate final QA, route/geometry QA, hazard front/light curtain QA, ResultPanel QA, full gameplay smoke QA, and P10-B build/profiling/stress/optimization readiness. Do not build the final Windows EXE or create release/archive artifacts.
-- P10-B: Windows EXE Build + Performance Profiling + Stress Test + Optimization Pass. Build Windows x64, run high-detail scene smoke/stress, collect FPS, 1 percent low/stutter, CPU, memory, GC allocation if available, loading time, Player.log warnings/errors, NPC count, marker count, light curtain impact, and UI/ResultPanel impact. Apply low-risk optimization only with before/after metrics where possible.
-- P10-C: Release Package + Documentation + Archive. Assemble release package and archive/back up the local high-detail scene and import metadata outside normal Git unless explicitly approved.
+- P10-B: High-Detail Runtime Smoke + Performance Profiling + Stress Test + Optimization + Manual Playtest Preparation. Do not build the final Windows EXE. Add runtime tsunami-start green ground frame markers for official and non-official evacuation-related building targets, run scene-safe smoke/stress tests, collect or prepare FPS/stutter, CPU/frame-time proxy, memory, GC, loading time, Player.log warnings/errors, NPC count, marker count, green frame count, light curtain impact, and UI/ResultPanel impact. Apply low-risk optimization only with before/after metrics where possible.
+- P10-C: Windows EXE Build + Release Package + Documentation + Archive. Build Windows x64 after user manual playtest and quick fixes, assemble release package, and archive/back up the local high-detail scene and import metadata outside normal Git unless explicitly approved.
 - P10-D: Final DeepSeek Review + Release Candidate Closeout. Verify final limitations, protected paths, release package, and no extra stage creation.
 
 P10-A validation:
@@ -33,6 +33,13 @@ P10-A+ hardening sprint:
 - P10-A+ attempts final evidence hardening before P10-B by generating candidate anchoring, nearest-match/proxy, entrance proxy, route proxy validation, PLATEAU semantic binding audit, and high-detail smoke readiness reports.
 - P10-A+ must not create P10-E/F/G, add new gameplay systems, reimplement P7/P8/P9, build the Windows EXE, or create release/archive artifacts.
 - Validate with `powershell -ExecutionPolicy Bypass -File tools/p10/run_p10a_plus_preflight.ps1`, Unity GUI EditMode/PlayMode, and DeepSeek using `deepseek_review_prompt_p10a_plus.md`.
+
+P10-B validation:
+
+- Run `powershell -ExecutionPolicy Bypass -File tools/p10/run_p10b_preflight.ps1`.
+- Run Unity GUI EditMode and PlayMode tests.
+- Run DeepSeek with `deepseek_review_prompt_p10b.md`.
+- Do not create final Windows EXE build outputs in P10-B.
 
 ## Phase 7: High-Detail Chuo Asset Loading, LOD, Streaming, and Windows EXE Optimization
 

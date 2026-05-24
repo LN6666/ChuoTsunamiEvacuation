@@ -1110,3 +1110,14 @@ Reason:
 | P7D-B04 | Medium | Deferred to P8/P9 | P2-P6 runtime smoke | Source compatibility is accepted for handoff; populated-scene runtime smoke is pending. | Smoke player, camera, shelter, result panel, P5 loaders, P6 guidance, and P6 NPC staging on `P7_HighDetail_Chuo`. |
 | P7D-B05 | Medium | Deferred to release/archive | Asset archive | The imported scene is 22.55 GB and local-only unless archived outside normal Git. | Archive required assets and final EXE to cloud drive before VM deletion. |
 
+---
+
+### P10-B Manual Playtest Follow-Ups
+
+| ID | Priority | Status | Target | Issue | Required Follow-Up |
+|---|---|---|---|---|---|
+| P10B-B01 | Medium | Deferred to user manual playtest | `P7_HighDetail_Chuo` runtime smoke | Full high-detail runtime playtest is intentionally manual because the protected scene must not be mutated or saved by automation. | Open the scene after P10-B, verify green frames, light curtain, ResultPanel, and performance feel, then request quick fixes before P10-C. |
+| P10B-B02 | Medium | Deferred to P10-C profiling/build | Windows x64 build | Final Windows EXE build moved from P10-B to P10-C. | Build and profile after user manual playtest and any approved quick fixes. |
+| P10B-B03 | Medium | Deferred to manual smoke | ResultPanel warning layout | Long non-official warning text is tested by formatter/metadata but still needs visual inspection on the target display. | Record layout issues and text clipping during P10-B manual playtest. |
+| P10B-B04 | Medium | Deferred to profiling | Green frame visual cost | Runtime frames are pooled and capped, but high-detail scene visual cost still needs measured evidence. | Compare FPS/stutter with frames and light curtain enabled/disabled. |
+

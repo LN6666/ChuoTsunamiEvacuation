@@ -1,8 +1,8 @@
 # P10 Stage Plan
 
-P10 is final QA, Windows EXE release preparation, release packaging, and project closeout.
+P10 is final QA, manual playtest readiness, Windows EXE release packaging, and project closeout.
 
-P10 has exactly four stages. Do not create additional P10 stages unless explicitly approved.
+P10 has exactly four official stages. P10-A+ is a hardening sprint under P10-A, not an additional official stage. Do not create P10-E, P10-F, or P10-G unless explicitly approved.
 
 ## P10-A
 
@@ -20,23 +20,24 @@ P10-A does not build the final Windows EXE, package release artifacts, archive h
 
 ## P10-B
 
-Windows EXE Build + Performance Profiling + Stress Test + Optimization Pass.
+High-Detail Runtime Smoke + Performance Profiling + Stress Test + Optimization + Manual Playtest Preparation.
 
 Scope:
 
-- build Windows x64 player
-- smoke and stress test the high-detail scene
+- prepare high-detail runtime smoke and manual playtest checklist
+- add tsunami-start green ground frame markers for official and non-official evacuation-related building targets
 - collect FPS, 1 percent low/stutter, CPU, memory, GC allocation when available, loading time, runtime warnings/errors, NPC count, marker count, light curtain impact, and UI/ResultPanel impact
 - run Low, Medium, and High quality preset checks
 - apply low-risk optimizations only when before/after metrics support them
-- export final benchmark results
+- keep Windows EXE build deferred to P10-C
 
 ## P10-C
 
-Release Package + Documentation + Archive.
+Windows EXE Build + Release Package + Documentation + Archive.
 
 Scope:
 
+- build Windows x64 player after user manual playtest and quick P10-B fixes
 - assemble release package
 - prepare player-facing and review-facing documentation
 - archive or back up local high-detail scene and import metadata

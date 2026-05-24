@@ -1,0 +1,32 @@
+{
+  "schemaVersion": "p10b.green_ground_frame_config.v1",
+  "featureEnabled": true,
+  "tsunamiStartTriggered": true,
+  "debugPreviewBeforeTsunamiStart": false,
+  "runtimeGenerated": true,
+  "mutatesPlateauAssets": false,
+  "mutatesHighDetailScene": false,
+  "claimsExactBuildingFootprint": false,
+  "claimsOfficialApprovalForHumanitarianCandidates": false,
+  "maxFrameCount": 140,
+  "defaultProxyFootprintWidthMeters": 24.0,
+  "defaultProxyFootprintDepthMeters": 18.0,
+  "officialShelterProxyWidthMeters": 28.0,
+  "officialShelterProxyDepthMeters": 20.0,
+  "minFootprintSizeMeters": 4.0,
+  "maxFootprintSizeMeters": 80.0,
+  "groundYOffsetMeters": 0.04,
+  "lineWidthMeters": 0.18,
+  "transparentFillEnabled": false,
+  "debugLabelsEnabled": false,
+  "rejectInvalidCoordinates": true,
+  "rejectZeroProxyPosition": true,
+  "frameMeaning": "evacuation_related_building_marker",
+  "humanitarianWarningText": "Non-official humanitarian vertical evacuation candidate. Not an official evacuation shelter. Use only when official shelter access is unsafe or unavailable.",
+  "frameColor": {
+    "r": 0.0,
+    "g": 1.0,
+    "b": 0.12,
+    "a": 0.95
+  }
+}

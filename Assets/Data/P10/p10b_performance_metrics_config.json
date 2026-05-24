@@ -1,0 +1,16 @@
+{
+  "schemaVersion": "p10b.performance_metrics_config.v1",
+  "finalWindowsExeBuildDeferredToP10C": true,
+  "collectAverageFps": true,
+  "collectOnePercentLowFps": true,
+  "collectFrameTimeMinAvgMax": true,
+  "collectMemoryUsage": true,
+  "collectGcProxy": true,
+  "collectLoadingTime": true,
+  "collectPlayerLogWarningsErrors": true,
+  "collectNpcMarkerAndGreenFrameCounts": true,
+  "collectLightCurtainImpact": true,
+  "collectResultPanelImpact": true,
+  "maxSamples": 600,
+  "notes": "P10-B records lightweight Editor/runtime proxy metrics and prepares manual profiling. Final Windows EXE build/profiling is deferred to P10-C."
+}
