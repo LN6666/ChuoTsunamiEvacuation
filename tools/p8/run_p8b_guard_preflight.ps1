@@ -75,6 +75,8 @@ function Test-AllowedP8BPath {
     if ($Path -like "tools/p8/*p8b*.py") { return $true }
     if ($Path -like "tools/p8/*p8c*.ps1") { return $true }
     if ($Path -like "tools/p8/*p8d*.ps1") { return $true }
+    if ($Path -like "tools/p8/*p8e*.ps1") { return $true }
+    if ($Path -eq "tools/p8/run_p8_final_preflight.ps1") { return $true }
     if ($Path -like "tools/p8/*humanitarian_candidate_audit*.ps1") { return $true }
     if ($Path -eq "tools/p8/validate_p8_hazard_json.ps1") { return $true }
     if ($Path -eq "tools/p8/inspect_p8a_scene_compatibility.ps1") { return $true }
