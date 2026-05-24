@@ -1,0 +1,18 @@
+{
+  "schemaVersion": "p10b_plus.movement_stamina_config.v1",
+  "normalWalkSpeedMetersPerSecond": 0.5,
+  "sprintSpeedMetersPerSecond": 2.5,
+  "initialStaminaFraction": 1.0,
+  "slowDrainPerSecond": 0.08,
+  "sustainedDrainPerSecond": 0.16,
+  "exhaustionDrainPerSecond": 0.24,
+  "sustainedSprintThresholdSeconds": 4.0,
+  "exhaustionSprintThresholdSeconds": 10.0,
+  "exhaustionLockSeconds": 15.0,
+  "recovery30Seconds": 15.0,
+  "recovery50Seconds": 45.0,
+  "recovery100Seconds": 90.0,
+  "recovery30Fraction": 0.3,
+  "recovery50Fraction": 0.5,
+  "recovery100Fraction": 1.0
+}

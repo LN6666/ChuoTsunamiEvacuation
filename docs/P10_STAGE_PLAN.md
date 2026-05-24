@@ -2,7 +2,7 @@
 
 P10 is final QA, manual playtest readiness, Windows EXE release packaging, and project closeout.
 
-P10 has exactly four official stages. P10-A+ is a hardening sprint under P10-A, not an additional official stage. Do not create P10-E, P10-F, or P10-G unless explicitly approved.
+P10 has exactly four official stages. P10-A+ and P10-B+ are polish/hardening sprints under the existing P10 flow, not additional official stages. Do not create P10-E, P10-F, or P10-G unless explicitly approved.
 
 ## P10-A
 
@@ -30,6 +30,24 @@ Scope:
 - run Low, Medium, and High quality preset checks
 - apply low-risk optimizations only when before/after metrics support them
 - keep Windows EXE build deferred to P10-C
+
+## P10-B+
+
+UI / Localization / Weather / Stamina / Manual Playtest Polish.
+
+Scope:
+
+- add lightweight English/Japanese localization
+- add runtime-ready start, pause, options, and rules UI
+- export English and Japanese game rules
+- prepare safe background image policy without committing unlicensed images
+- add weather/night movement modifiers
+- add deterministic stamina/sprint rules and HUD support
+- keep avatar presentation separate from mobility profile
+- keep optional gender speed modifier disabled by default and documented as a scenario assumption
+- keep Windows EXE build deferred to P10-C
+
+P10-B+ is not an official additional stage and does not create P10-E/F/G.
 
 ## P10-C
 

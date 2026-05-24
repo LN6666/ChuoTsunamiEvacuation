@@ -14,5 +14,12 @@ Use this after P10-B validation and before P10-C build packaging.
 10. Verify light curtain visibility and marker readability.
 11. Verify ResultPanel long warning text does not block play.
 12. Record FPS/stutter feel, memory, loading time, Player.log warnings/errors, NPC count, marker count, and green frame count.
+13. Select English and Japanese from the start menu.
+14. Open rules from start and pause menus and verify scroll/wrap behavior.
+15. Press `Esc` to pause and resume.
+16. Switch language from pause/options and verify text refresh.
+17. Verify weather modes: clear day, rainy day, night clear, night rain.
+18. Verify stamina appears when sprinting, drains, locks sprint after exhaustion, and recovers.
+19. Verify avatar presentation does not impose a hard-coded gender speed penalty by default.
 
 Do not commit the high-detail scene after manual smoke unless there is an explicit safe scene-change request.

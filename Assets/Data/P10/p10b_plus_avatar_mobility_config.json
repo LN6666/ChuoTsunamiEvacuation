@@ -1,0 +1,40 @@
+{
+  "schemaVersion": "p10b_plus.avatar_mobility_config.v1",
+  "avatarPresentationRandomizedFiftyFifty": true,
+  "mobilityProfileSeparateFromAvatarPresentation": true,
+  "enableGenderSpeedModifier": false,
+  "femalePresentationSpeedMultiplier": 0.85,
+  "genderSpeedModifierPolicy": "disabled_by_default_optional_scenario_assumption_not_real_world_claim",
+  "mobilityProfiles": [
+    {
+      "profileId": "standard",
+      "speedMultiplier": 1.0,
+      "notes": "Default mobility profile."
+    },
+    {
+      "profileId": "cautious",
+      "speedMultiplier": 0.9,
+      "notes": "Scenario/gameplay profile for cautious movement."
+    },
+    {
+      "profileId": "carrying_load",
+      "speedMultiplier": 0.8,
+      "notes": "Scenario/gameplay profile for carrying supplies or belongings."
+    },
+    {
+      "profileId": "injured",
+      "speedMultiplier": 0.65,
+      "notes": "Scenario/gameplay profile for injury simulation."
+    },
+    {
+      "profileId": "elderly",
+      "speedMultiplier": 0.7,
+      "notes": "Scenario/gameplay profile for slower mobility, separate from avatar presentation."
+    },
+    {
+      "profileId": "custom_slow",
+      "speedMultiplier": 0.85,
+      "notes": "Custom slow profile for experiments without tying speed to gender."
+    }
+  ]
+}

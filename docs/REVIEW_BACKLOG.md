@@ -1121,3 +1121,14 @@ Reason:
 | P10B-B03 | Medium | Deferred to manual smoke | ResultPanel warning layout | Long non-official warning text is tested by formatter/metadata but still needs visual inspection on the target display. | Record layout issues and text clipping during P10-B manual playtest. |
 | P10B-B04 | Medium | Deferred to profiling | Green frame visual cost | Runtime frames are pooled and capped, but high-detail scene visual cost still needs measured evidence. | Compare FPS/stutter with frames and light curtain enabled/disabled. |
 
+---
+
+### P10-B+ Manual Playtest Follow-Ups
+
+| ID | Priority | Status | Target | Issue | Required Follow-Up |
+|---|---|---|---|---|---|
+| P10BPLUS-B01 | Medium | Deferred to manual playtest | Start/pause/rules UI | Runtime UI is scene-safe and tested, but needs visual inspection on the final target resolution. | Check English/Japanese text, button fit, scroll behavior, and pause overlay readability. |
+| P10BPLUS-B02 | Medium | Deferred to manual playtest | Weather/night overlay | Night overlay and movement modifiers are tested as rules, but final high-detail visibility must be checked manually. | Verify night modes do not hide green frames, ResultPanel, or player controls. |
+| P10BPLUS-B03 | Medium | Deferred to manual playtest | Stamina balance | Stamina rules are deterministic, but balance/feel needs user playtest. | Check sprint depletion, lockout, and recovery pacing before P10-C. |
+| P10BPLUS-B04 | Medium | Deferred to P10-C docs | Background image | No unlicensed image is committed. A licensed or project-generated background may still be selected later. | If replacing the placeholder, document source URL, license, author/provider, and permission. |
+

@@ -37,10 +37,12 @@ public class SimplePlayerController : MonoBehaviour
     private string disabledByState = string.Empty;
     private float nextMovementLogTime;
     private float nextDisabledLogTime;
+    private IP10BPlusMovementSpeedProvider movementSpeedProvider;
 
     private void Awake()
     {
         characterController = GetComponent<CharacterController>();
+        movementSpeedProvider = GetComponent<IP10BPlusMovementSpeedProvider>();
         EnsureCameraRig();
 
         yaw = transform.eulerAngles.y;
@@ -175,8 +177,11 @@ public class SimplePlayerController : MonoBehaviour
         Vector2 rawInput = ReadMovementInput();
         Vector2 input = Vector2.ClampMagnitude(rawInput, 1f);
         Vector3 horizontalMove = GetCameraRelativeMovement(input);
-        bool sprintActive = Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift);
-        float speed = sprintActive ? sprintSpeed : moveSpeed;
+        bool sprintRequested = Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift);
+        bool sprintActive = sprintRequested;
+        float speed = movementSpeedProvider == null
+            ? (sprintRequested ? sprintSpeed : moveSpeed)
+            : movementSpeedProvider.ResolveMovementSpeed(moveSpeed, sprintSpeed, sprintRequested, Time.deltaTime, out sprintActive);
         Vector3 velocity = horizontalMove * speed;
         Vector3 beforePosition = transform.position;
 
