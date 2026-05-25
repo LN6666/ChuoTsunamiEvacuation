@@ -1,0 +1,41 @@
+﻿{
+    "schemaVersion":  "p10c_mm.player_log_summary.v1",
+    "status":  "parsed",
+    "p10cMinusMinusIsExtendedPerformanceGate":  true,
+    "officialP10CReleaseDeferred":  true,
+    "finalReleasePackageCreated":  false,
+    "finalArchiveCreated":  false,
+    "noP10EFG":  true,
+    "logPath":  "D:\\UnityProjects\\ChuoTsunamiEvacuation-Builds\\P10CPre\\P10CMM_Player_FpsCapture.log",
+    "parsedAtLocal":  "2026-05-25T19:43:20",
+    "lineCount":  72,
+    "warningsCount":  0,
+    "errorsCount":  0,
+    "exceptionsCount":  0,
+    "missingAssetReferenceCount":  0,
+    "shaderMaterialWarningCount":  0,
+    "performanceWarningCount":  0,
+    "repeatedLogSpamCount":  0,
+    "topRepeatedLines":  [
+
+                         ],
+    "warningSamples":  [
+
+                       ],
+    "errorSamples":  [
+
+                     ],
+    "exceptionSamples":  [
+
+                         ],
+    "missingAssetSamples":  [
+
+                            ],
+    "shaderMaterialSamples":  [
+
+                              ],
+    "performanceSamples":  [
+
+                           ],
+    "summary":  "Parsed Player.log warnings=0, errors=0, exceptions=0, repeated=0."
+}

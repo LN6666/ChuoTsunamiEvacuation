@@ -1168,3 +1168,12 @@ Reason:
 | P10BPP-B02 | Medium | Deferred to P10-C visual QA | Anti-aliasing | P10-B++ found mixed readable settings and does not claim a final AA mode. | Verify final AA mode visually and with runtime/project settings in the P10-C player. |
 | P10BPP-B03 | Medium | Deferred to P10-C profiling | Frame spikes | Green-frame warmup and bounded metrics reduce risk, but high-detail stutter must be measured. | Record frame spike count at tsunami start, green frames, light curtain, ResultPanel, and night/rain mode. |
 | P10BPP-B04 | Medium | Deferred to P10-C profiling | Disk paging | P10-B++ adds a checklist only; no OS pagefile changes are made. | Use Task Manager, Resource Monitor, or PowerShell to record memory pressure and disk paging symptoms. |
+
+---
+
+### P10-C-- Extended Performance Gate Follow-Ups
+
+| ID | Priority | Status | Target | Issue | Required Follow-Up |
+|---|---|---|---|---|---|
+| P10CMM-B01 | Medium | Deferred to manual scenario pass if still not observed | Scenario activation | Automated sampling can measure baseline idle and exporter state, but tsunami start/light curtain/crowd/ResultPanel/night-rain may still need manual activation in the temporary player. | If scenario rows remain `not_observed`, run a manual temporary-player pass before official P10-C packaging. |
+| P10CMM-B02 | Medium | Deferred to P10-C if counters unavailable | Disk paging counters | PowerShell performance counters can be unavailable or localized on some Windows images. | Use Resource Monitor/Task Manager manual steps recorded in the paging summary. |

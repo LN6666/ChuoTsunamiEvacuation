@@ -1,0 +1,41 @@
+﻿{
+    "schemaVersion":  "p10c_mm.paging_risk_summary.v1",
+    "status":  "summarized",
+    "p10cMinusMinusIsExtendedPerformanceGate":  true,
+    "officialP10CReleaseDeferred":  true,
+    "finalReleasePackageCreated":  false,
+    "finalArchiveCreated":  false,
+    "noP10EFG":  true,
+    "workingSetTrend":  "minor_upward",
+    "privateMemoryTrend":  "minor_upward",
+    "workingSetGrowthMb":  566.09,
+    "privateMemoryGrowthMb":  797.98,
+    "maxWorkingSetMb":  619.36,
+    "maxPrivateMemoryMb":  972.48,
+    "hardFaultsPerSecAvailable":  false,
+    "hardFaultsPerSecLimitation":  "PowerShell collected Memory\\\\Pages/sec and Page Reads/sec when available; exact per-process hard faults/sec was not collected.",
+    "pagesPerSecAvailable":  true,
+    "averagePagesPerSec":  0.56,
+    "maxPagesPerSec":  13,
+    "averagePageReadsPerSec":  0.18,
+    "maxPageReadsPerSec":  6,
+    "diskActiveTimeAvailable":  true,
+    "averageDiskActiveTimePercent":  0.05,
+    "maxDiskActiveTimePercent":  0.52,
+    "pagefileUsageAvailable":  true,
+    "averagePagingFileUsagePercent":  0,
+    "maxPagingFileUsagePercent":  0,
+    "resourceMonitorManualSteps":  [
+                                       "Open Resource Monitor \u003e Memory while the temporary player is running.",
+                                       "Watch Hard Faults/sec for ChuoTsunamiEvacuation_P10CPre.exe.",
+                                       "Open Disk tab and verify the player is not pinned by sustained disk active time/pagefile churn."
+                                   ],
+    "taskManagerManualSteps":  [
+                                   "Open Task Manager \u003e Details and add Working set, Commit size, CPU, and Status columns.",
+                                   "Confirm Status stays Running and memory does not climb without bound during a 10-minute Low profile run."
+                               ],
+    "limitations":  [
+
+                    ],
+    "summary":  "Paging risk summary: privateMemoryTrend=minor_upward, maxPrivate=972.48 MB, pages/sec available=True."
+}

@@ -6,6 +6,8 @@
 
 Reason: the temporary Windows x64 profiling/test build and process-level profile succeeded, but built-player FPS, 1 percent low, frame-time spike, and gameplay activation stutter evidence are still missing.
 
+P10-C-- follow-up: P10-C-- exists only as a second pre-release performance gate to close this missing evidence. It is not official P10-C, not the final release, and not a final release package/archive stage.
+
 ## Release Boundary
 
 - P10-C-Pre is a performance gate before official P10-C.
@@ -32,6 +34,14 @@ Reason: the temporary Windows x64 profiling/test build and process-level profile
 - Player.log warnings/errors: 0 / 0
 - final package/archive created: no
 - temporary build artifacts committed: no
+
+## P10-C-- Follow-Up Target
+
+- run 3-minute, 5-minute, and 10-minute temporary built-player process sampling
+- capture built-player FPS/frame-time/1 percent low/stutter evidence
+- attempt high-detail full-load validation without mutating `Assets/Scenes/P7HighDetail/P7_HighDetail_Chuo.unity`
+- parse Player.log and memory/paging evidence
+- keep P10-C as the official Windows EXE release package/archive stage
 
 ## Current Technical Decisions
 
