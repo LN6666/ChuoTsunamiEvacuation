@@ -161,13 +161,12 @@ public static class P9BDataLoader
 
     public static string GetP9DataPath(string fileName)
     {
-        return Path.Combine(Application.dataPath, "Data", "P9", fileName);
+        return RuntimeDataPathResolver.GetDataPath("P9", fileName);
     }
 
     public static string GetAssetRelativePath(string assetRelativePath)
     {
-        string projectRoot = Directory.GetParent(Application.dataPath).FullName;
-        return Path.Combine(projectRoot, assetRelativePath.Replace("/", Path.DirectorySeparatorChar.ToString()));
+        return RuntimeDataPathResolver.ResolveAssetRelativePath(assetRelativePath);
     }
 }
 

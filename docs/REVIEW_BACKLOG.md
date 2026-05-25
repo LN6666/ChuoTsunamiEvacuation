@@ -38,6 +38,14 @@ PASS - no A-level blockers.
 | P10CPRE-R04 | Medium | Confirmed follow-up | AA/visual quality | AA is not confirmed in the built player. | Confirm P10-C visual AA verification remains required. |
 | P10CPRE-R05 | High | Closed by preflight | Protected paths | P10-C-Pre must not mutate ProjectSettings, Packages, PLATEAU, Chuo_BaseMap, or P7 high-detail scene. | Preflight and git status confirmed protected paths clean after temporary build/test cleanup. |
 
+### P10-C-Pre Playable Startup Hotfix Follow-Ups
+
+| ID | Priority | Status | Target | Issue | Required Review |
+|---|---|---|---|---|---|
+| P10CPRE-HF-R01 | High | In progress | Temporary EXE startup | The temporary EXE must not open into a blank/exporter-only flow by default. | Confirm Start Menu, language selector, Rules UI, Start Game, Player.log diagnostics, and no default profiling auto-quit. |
+| P10CPRE-HF-R02 | High | In progress | Actual P7 scene integration | P9 currently has a small tracked `P7_HighDetail_Chuo` shell while the actual P7 source scene is 22.5 GB. | Confirm whether the built player uses the actual local scene or clearly reports the placeholder limitation. |
+| P10CPRE-HF-R03 | Medium | In progress | P2-P10 reachability | P2-P10 systems must be reachable from startup, not only present in tests. | Review startup diagnostics for P2 player/camera/E/ResultPanel, P4/P5 real/prototype markers, P6 NPC, P8 handoff, P9 outcome, and P10 UI/green frames. |
+
 ---
 
 ## P10-A Gap Closure High-Detail QA

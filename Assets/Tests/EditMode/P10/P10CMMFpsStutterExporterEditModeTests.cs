@@ -47,4 +47,14 @@ public class P10CMMFpsStutterExporterEditModeTests
         Assert.AreEqual(3, summary.sampleCount);
         Assert.AreEqual(0, summary.frameSpikeCountOver50Ms);
     }
+
+    [Test]
+    public void ExporterIsExplicitOptInAndAutoQuitDefaultsOff()
+    {
+        Assert.IsFalse(P10CMMFpsStutterExporter.ShouldInstallForCommandLine(new[] { "player.exe" }));
+        Assert.IsTrue(P10CMMFpsStutterExporter.ShouldInstallForCommandLine(new[] { "player.exe", P10CMMFpsStutterExporter.EnableArg }));
+        Assert.IsFalse(P10CMMFpsStutterExporter.ShouldInstallForCommandLine(new[] { "player.exe", P10CMMFpsStutterExporter.EnableArg, "-p10cMmDisableFpsExporter" }));
+        Assert.IsFalse(P10CMMFpsStutterExporter.ShouldAutoQuitForCommandLine(new[] { "player.exe", P10CMMFpsStutterExporter.EnableArg }));
+        Assert.IsTrue(P10CMMFpsStutterExporter.ShouldAutoQuitForCommandLine(new[] { "player.exe", P10CMMFpsStutterExporter.EnableArg, P10CMMFpsStutterExporter.AutoQuitArg }));
+    }
 }

@@ -93,6 +93,20 @@ Scope:
 
 P10-C-- is not official P10-C, not the final release, and not an official additional stage. No final release package is created here. No P10-E, P10-F, or P10-G is created. P10-C remains the official Windows EXE build and release package stage.
 
+### P10-C-Pre Playable Startup Hotfix
+
+Blocking hotfix before official P10-C.
+
+Scope:
+
+- make the temporary P10CPre EXE open to a visible playable startup flow by default
+- keep profiling/exporter startup paths optional and explicit
+- add startup diagnostics for scene, data, UI, player, camera, and P2-P10 integration reachability
+- verify whether `P7_HighDetail_Chuo` is the actual high-detail scene or the tracked placeholder/status shell
+- keep final release build/package/archive work deferred to official P10-C
+
+This hotfix is not official P10-C and does not create P10-E/F/G.
+
 ## P10-C
 
 Windows EXE Build + Release Package + Documentation + Archive.

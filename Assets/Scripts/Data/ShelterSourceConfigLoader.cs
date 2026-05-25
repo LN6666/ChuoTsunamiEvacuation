@@ -107,6 +107,6 @@ public static class ShelterSourceConfigLoader
 
     private static string GetDataPath(string fileName)
     {
-        return Application.dataPath + "/Data/" + fileName;
+        return RuntimeDataPathResolver.GetDataPath(fileName);
     }
 }

@@ -22,6 +22,7 @@ Planned tasks:
 - P10-B++: Final Optimization Attempt Before P10-C. Audit segmented/chunk loading and anti-aliasing honestly, harden CPU/memory/stutter metrics, add disk paging checklist, apply only low-risk runtime optimization fixes, and keep final Windows EXE build deferred to P10-C. P10-B++ is not a new official stage.
 - P10-C-Pre: Pre-release Performance Gate before official P10-C. Create or prepare a temporary Windows x64 profiling/test build, collect built-player or best-available profiling evidence, harden Low/Medium/High quality profiles, assess CPU, memory, GC, stutter, loading, disk paging, Player.log, streaming, and AA risks, and decide whether P10-C is ready. Do not create the final release package/archive and do not create P10-E/F/G.
 - P10-C--: Extended Built-Player Performance Sampling + High-Detail Full-Load Validation before official P10-C. Run 3/5/10 minute temporary player process sampling, capture FPS/frame-time/1 percent low/stutter evidence, parse Player.log, summarize paging/memory evidence, and document high-detail full-load/scenario coverage. P10-C-- is not official P10-C, not the final release, and not P10-E/F/G.
+- P10-C-Pre Playable Startup Hotfix: blocking hotfix before official P10-C to ensure the temporary EXE opens to Start Menu, language selector, Rules UI, and Start Game by default. Profiling/exporter paths remain optional. Actual P7 scene integration diagnostics must honestly report whether the P9 target scene is the real high-detail scene or only the tracked placeholder/status shell.
 - P10-C: Windows EXE Build + Release Package + Documentation + Archive. Build Windows x64 after user manual playtest and quick fixes, assemble release package, and archive/back up the local high-detail scene and import metadata outside normal Git unless explicitly approved.
 - P10-D: Final DeepSeek Review + Release Candidate Closeout. Verify final limitations, protected paths, release package, and no extra stage creation.
 
@@ -77,6 +78,15 @@ P10-C-- validation:
 - Run `powershell -ExecutionPolicy Bypass -File tools/p10/run_p10c_mm_fps_stutter_capture.ps1` if separate FPS capture is needed.
 - Run DeepSeek with `deepseek_review_prompt_p10c_mm.md`.
 - Do not commit build outputs, final release package/archive outputs, P10-E/F/G artifacts, ProjectSettings/Packages churn, Assets/PLATEAU changes, Chuo_BaseMap changes, or P7 high-detail scene changes.
+
+P10-C-Pre Playable Startup Hotfix validation:
+
+- Run `powershell -ExecutionPolicy Bypass -File tools/p10/run_p10c_pre_playable_hotfix_preflight.ps1`.
+- Run Unity GUI EditMode and PlayMode tests.
+- Rebuild the temporary P10CPre EXE with `tools/p10/build_p10c_pre_test_build.ps1`.
+- Run or manually perform actual P7 scene integration verification.
+- Run DeepSeek with `deepseek_review_prompt_p10c_pre_playable_hotfix.md`.
+- Do not create final release package/archive, P10-E/F/G, or commit build artifacts.
 
 ## Phase 7: High-Detail Chuo Asset Loading, LOD, Streaming, and Windows EXE Optimization
 

@@ -367,7 +367,7 @@ public static class ShelterDataLoader
         ShelterById.Clear();
         ShelterIdsInLoadOrder.Clear();
 
-        string path = Application.dataPath + "/Data/" + ShelterDataFileName;
+        string path = RuntimeDataPathResolver.GetDataPath(ShelterDataFileName);
 
         if (!File.Exists(path))
         {

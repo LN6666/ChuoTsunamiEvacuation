@@ -29,12 +29,12 @@ public static class ShelterDataSourceResolver
 
     public static ShelterDataSourceResult LoadConfiguredSource()
     {
-        return LoadFromConfig(ShelterSourceConfigLoader.Load(), GetAssetsDataDirectory());
+        return LoadFromConfig(ShelterSourceConfigLoader.Load(), RuntimeDataPathResolver.GetDataRoot());
     }
 
     public static ShelterDataSourceResult LoadFromConfig(ShelterSourceConfigLoader.ShelterSourceConfig config)
     {
-        return LoadFromConfig(config, GetAssetsDataDirectory());
+        return LoadFromConfig(config, RuntimeDataPathResolver.GetDataRoot());
     }
 
     public static ShelterDataSourceResult LoadFromConfig(
@@ -120,7 +120,7 @@ public static class ShelterDataSourceResolver
         var result = new ShelterDataSourceResult
         {
             sourceMode = ShelterSourceConfigLoader.TestSourceMode,
-            sourcePath = ResolveAssetsDataPath(config.testSheltersPath, GetAssetsDataDirectory())
+            sourcePath = ResolveAssetsDataPath(config.testSheltersPath, RuntimeDataPathResolver.GetDataRoot())
         };
 
         ShelterDataLoader.Reload();
@@ -170,6 +170,6 @@ public static class ShelterDataSourceResolver
 
     private static string GetAssetsDataDirectory()
     {
-        return Application.dataPath + "/Data";
+        return RuntimeDataPathResolver.GetDataRoot();
     }
 }

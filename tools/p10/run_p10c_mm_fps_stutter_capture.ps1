@@ -121,6 +121,7 @@ $arguments = @(
     "-screen-height", "1080",
     "-screen-fullscreen", "0",
     "-logFile", $playerLogPath,
+    "-p10cMmEnableFpsExporter",
     "-p10cMmFpsSummaryPath", $summaryPath,
     "-p10cMmCaptureSeconds", ([Math]::Max(1, $DurationSeconds)).ToString(),
     "-p10cMmScenario", $ScenarioLabel,
