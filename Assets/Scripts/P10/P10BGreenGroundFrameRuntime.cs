@@ -39,7 +39,6 @@ public class P10BGreenGroundFrameRuntime : MonoBehaviour
     {
         if (tsunamiStarted == started && lastMetrics.requestedTargetCount == (targets == null ? 0 : targets.Length))
         {
-            RefreshFrames();
             return;
         }
 

@@ -1,4 +1,4 @@
-﻿# Project Tasks
+# Project Tasks
 
 ## Current Phase
 
@@ -20,6 +20,7 @@ Planned tasks:
 - P10-B: High-Detail Runtime Smoke + Performance Profiling + Stress Test + Optimization + Manual Playtest Preparation. Do not build the final Windows EXE. Add runtime tsunami-start green ground frame markers for official and non-official evacuation-related building targets, run scene-safe smoke/stress tests, collect or prepare FPS/stutter, CPU/frame-time proxy, memory, GC, loading time, Player.log warnings/errors, NPC count, marker count, green frame count, light curtain impact, and UI/ResultPanel impact. Apply low-risk optimization only with before/after metrics where possible.
 - P10-B+: UI / Localization / Weather / Stamina / Manual Playtest Polish. Add lightweight English/Japanese localization, runtime-ready start/pause/rules UI, safe background asset policy, weather/night movement modifiers, deterministic stamina/sprint rules, and avatar/mobility policy. Do not build the final Windows EXE or create release/archive artifacts.
 - P10-B++: Final Optimization Attempt Before P10-C. Audit segmented/chunk loading and anti-aliasing honestly, harden CPU/memory/stutter metrics, add disk paging checklist, apply only low-risk runtime optimization fixes, and keep final Windows EXE build deferred to P10-C. P10-B++ is not a new official stage.
+- P10-C-Pre: Pre-release Performance Gate before official P10-C. Create or prepare a temporary Windows x64 profiling/test build, collect built-player or best-available profiling evidence, harden Low/Medium/High quality profiles, assess CPU, memory, GC, stutter, loading, disk paging, Player.log, streaming, and AA risks, and decide whether P10-C is ready. Do not create the final release package/archive and do not create P10-E/F/G.
 - P10-C: Windows EXE Build + Release Package + Documentation + Archive. Build Windows x64 after user manual playtest and quick fixes, assemble release package, and archive/back up the local high-detail scene and import metadata outside normal Git unless explicitly approved.
 - P10-D: Final DeepSeek Review + Release Candidate Closeout. Verify final limitations, protected paths, release package, and no extra stage creation.
 
@@ -56,6 +57,15 @@ P10-B++ validation:
 - Run Unity GUI EditMode and PlayMode tests.
 - Run DeepSeek with `deepseek_review_prompt_p10b_plus_plus.md`.
 - Do not create final Windows EXE build outputs, release package/archive outputs, P10-E/F/G artifacts, new packages, or risky ProjectSettings/PLATEAU/high-detail scene changes in P10-B++.
+
+P10-C-Pre validation:
+
+- Run `powershell -ExecutionPolicy Bypass -File tools/p10/run_p10c_pre_preflight.ps1`.
+- Run Unity GUI EditMode and PlayMode tests.
+- Optionally run `powershell -ExecutionPolicy Bypass -File tools/p10/build_p10c_pre_test_build.ps1` for a temporary profiling/test build.
+- Optionally run `powershell -ExecutionPolicy Bypass -File tools/p10/run_p10c_pre_built_player_profile.ps1` if the temporary build succeeds.
+- Run DeepSeek with `deepseek_review_prompt_p10c_pre.md`.
+- Do not commit temporary build outputs, final release package/archive outputs, P10-E/F/G artifacts, ProjectSettings/Packages churn, Assets/PLATEAU changes, Chuo_BaseMap changes, or P7 high-detail scene changes.
 
 ## Phase 7: High-Detail Chuo Asset Loading, LOD, Streaming, and Windows EXE Optimization
 

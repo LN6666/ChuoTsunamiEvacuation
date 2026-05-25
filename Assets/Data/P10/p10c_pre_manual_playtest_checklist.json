@@ -1,0 +1,62 @@
+{
+  "schemaVersion": "p10c_pre.manual_playtest_checklist.v1",
+  "branch": "p10c-pre-performance-gate-optimization",
+  "temporaryBuildOnly": true,
+  "finalReleasePackageCreated": false,
+  "temporaryBuildPath": "D:\\UnityProjects\\ChuoTsunamiEvacuation-Builds\\P10CPre\\ChuoTsunamiEvacuation_P10CPre.exe",
+  "launchSteps": [
+    {
+      "id": "launch_low_1080p",
+      "label": "Launch temporary player at 1080p Low profile.",
+      "blockingIfFailed": true,
+      "notes": "Use the P10-C-Pre build only; do not treat it as the final P10-C release package."
+    },
+    {
+      "id": "observe_startup_load",
+      "label": "Record startup and first playable time.",
+      "blockingIfFailed": false,
+      "notes": "Long load is acceptable only if it does not lead to memory exhaustion or unresponsive player behavior."
+    }
+  ],
+  "observations": [
+    {
+      "id": "fps_stutter",
+      "label": "Record FPS, 1 percent low proxy, and visible stutter.",
+      "blockingIfFailed": true,
+      "notes": "Low should be near or above 30 FPS and avoid fatal freezes during tsunami start."
+    },
+    {
+      "id": "green_frame_light_curtain",
+      "label": "Trigger green frames and light curtain separately.",
+      "blockingIfFailed": true,
+      "notes": "Activation may cost frames, but it must not freeze the player."
+    },
+    {
+      "id": "memory_paging",
+      "label": "Observe working set, private memory, disk activity, and hard-fault symptoms.",
+      "blockingIfFailed": true,
+      "notes": "Continuously rising memory or paging-heavy stalls block P10-C until fixed or scoped down."
+    },
+    {
+      "id": "player_log",
+      "label": "Check Player.log for error spam.",
+      "blockingIfFailed": true,
+      "notes": "Repeated errors or exception spam block release packaging."
+    }
+  ],
+  "blockingIssues": [
+    {
+      "id": "fatal_freeze",
+      "label": "Persistent freeze or unresponsive player during hazard start.",
+      "blockingIfFailed": true,
+      "notes": "Classify as needs_major_optimization_before_release unless a small quick fix is obvious."
+    },
+    {
+      "id": "unbounded_memory",
+      "label": "Memory grows continuously during short run.",
+      "blockingIfFailed": true,
+      "notes": "Do not proceed to P10-C release packaging without diagnosis."
+    }
+  ],
+  "quickFixReportTemplate": "Quality profile / scenario / timestamp / FPS or stutter symptom / memory working set / private memory / Player.log error count / exact action that triggered the issue."
+}
