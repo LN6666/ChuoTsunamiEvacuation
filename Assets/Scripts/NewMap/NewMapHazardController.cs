@@ -15,6 +15,7 @@ public sealed class NewMapHazardController : MonoBehaviour
     public bool RiskChecksActive => Stage == NewMapTsunamiStage.FrontApproaching;
     public float NormalizedFrontProgress => Mathf.Clamp01(stageElapsed / Mathf.Max(1f, frontDurationSeconds));
     public float DebrisExposureSeconds => debrisExposureSeconds;
+    public Vector3 DebrisCenterForDiagnostics => debrisBounds.center;
 
     public static NewMapHazardController Create(Transform hazardRoot, Transform debrisRoot, Vector3 spawnPosition)
     {

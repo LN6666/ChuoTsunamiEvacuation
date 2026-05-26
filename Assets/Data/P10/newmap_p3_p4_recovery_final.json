@@ -1,0 +1,12 @@
+{
+  "generatedAt": "2026-05-27T00:00:00+09:00",
+  "activeScene": "Assets/Scenes/Chuo_BaseMap.unity",
+  "shelterDatasetLoading": "available for audit only",
+  "officialShelterMarkerGeneration": "disabled",
+  "builtPlayerDataPath": "Assets/Data records are available to the project; no active P3/P4 runtime marker is spawned.",
+  "activeOfficialShelterCount": 0,
+  "disabledP3P4TargetCount": 5,
+  "disabledReason": "No P3/P4 sample shelter has a verified Chuo_BaseMap object anchor or coordinate transform after the map reset.",
+  "trainingProxyCreated": "P3/P4 official completion is not claimed; active local training targets remain P9/P10 non-official proxies.",
+  "finalStatus": "disabled_missing_from_new_map"
+}

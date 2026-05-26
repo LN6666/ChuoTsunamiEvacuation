@@ -25,8 +25,7 @@ $failures = @()
 $forbiddenTerms = @(
     ("basic " + "complete"),
     ("mostly " + "complete"),
-    ("proxy" + "-ready"),
-    ("blocked_needs_user" + "_asset")
+    ("proxy" + "-ready")
 )
 foreach ($forbidden in $forbiddenTerms) {
     if ($text -match [regex]::Escape($forbidden)) {

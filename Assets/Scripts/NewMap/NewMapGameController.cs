@@ -297,6 +297,34 @@ public sealed class NewMapGameController : MonoBehaviour
         SetTargetGuidanceVisible(mode == NewMapGameMode.Evacuation && forcedStage == NewMapTsunamiStage.FrontApproaching);
     }
 
+    public bool TryApplyDebrisExposureForDiagnostics(float exposureSeconds)
+    {
+        if (mode != NewMapGameMode.Evacuation ||
+            stage != NewMapTsunamiStage.FrontApproaching ||
+            player == null ||
+            hazard == null ||
+            resultLocked)
+        {
+            return false;
+        }
+
+        float remaining = Mathf.Max(0f, exposureSeconds);
+        string reason = string.Empty;
+        while (remaining > 0f)
+        {
+            float step = Mathf.Min(1f, remaining);
+            if (hazard.IsPlayerInDebrisExposure(player.transform.position, step, out reason))
+            {
+                Fail("collapse_debris_exposure", reason);
+                return true;
+            }
+
+            remaining -= step;
+        }
+
+        return false;
+    }
+
     private void SetTargetGuidanceVisible(bool visible)
     {
         foreach (NewMapRuntimeTarget target in targets)
@@ -347,7 +375,7 @@ public sealed class NewMapGameController : MonoBehaviour
         safeFloorSequenceActive = false;
         player?.SetControlEnabled(false);
         ui?.ShowResult(false, code, reason);
-        Debug.LogWarning($"NewMap failure: {code} - {reason}");
+        Debug.Log($"NewMap failure outcome: {code} - {reason}");
     }
 
     private void UpdateHud()

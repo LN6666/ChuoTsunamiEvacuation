@@ -1,0 +1,20 @@
+{
+  "generatedAt": "2026-05-27T00:00:00+09:00",
+  "activeScene": "Assets/Scenes/Chuo_BaseMap.unity",
+  "candidateDataLoads": true,
+  "routeDataLoads": true,
+  "activeQualifiedTargetCount": 0,
+  "disabledQualifiedTargetCount": 31,
+  "activeRouteGuideCount": 4,
+  "disabledRouteCount": 135,
+  "officialRouteClaim": false,
+  "routeWarning": "Route guidance is estimated prototype guidance, not an official evacuation route.",
+  "activeRouteTargets": [
+    "newmap_proxy_safe_floor",
+    "newmap_proxy_blocked_entrance",
+    "newmap_proxy_no_safe_floor",
+    "newmap_proxy_crowd_delay"
+  ],
+  "disabledReason": "Real route geometry remains WGS84/prototype and has no verified Unity/PLATEAU transform in the reset Chuo_BaseMap.",
+  "finalStatus": "completed_with_documented_runtime_proxy"
+}

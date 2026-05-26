@@ -7,8 +7,8 @@ Allowed statuses:
 - completed_on_new_chuo_basemap
 - completed_with_documented_runtime_proxy
 - disabled_missing_from_new_map
-- locked_needs_user_map_asset
-- ailed
+- blocked_needs_user_map_asset
+- failed
 
 Summary:
 
@@ -22,4 +22,8 @@ Summary:
 | P9 | completed_with_documented_runtime_proxy |
 | P10 | completed_with_documented_runtime_proxy |
 
-The matrix uses only the strict final classifications above.
+Active runtime targets: 4 local non-official training proxies.
+
+Disabled/out-of-map targets: 171.
+
+The matrix uses only the strict final classifications above and includes `targetUsed` plus `testEvidence` for every phase entry. P3/P4 remains disabled because no official shelter anchor is verified in the reset scene.

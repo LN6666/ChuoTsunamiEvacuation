@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -30,6 +31,7 @@ public sealed class NewMapRuntimeBootstrap : MonoBehaviour
     public int LastDisabledSceneMeshColliderCount { get; private set; }
     public int LastRendererCount { get; private set; }
     public int LastColliderCount { get; private set; }
+    public bool LastMeshColliderDisableComplete { get; private set; }
 
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
     private static void AutoBootstrap()
@@ -86,8 +88,8 @@ public sealed class NewMapRuntimeBootstrap : MonoBehaviour
         if (SuppressSceneMeshCollidersForManualTest)
         {
             EnsureRuntimeCollisionSupportProxy(roots["DebugDiagnosticsRoot"], spawn - Vector3.up * 1.15f);
-            LastDisabledSceneMeshColliderCount = DisableSceneMeshColliders();
             Physics.SyncTransforms();
+            StartCoroutine(DisableSceneMeshCollidersStaged());
         }
 
         NewMapPlayerController player = NewMapPlayerController.Create(roots["PlayerSpawnRoot"], spawn);
@@ -103,7 +105,7 @@ public sealed class NewMapRuntimeBootstrap : MonoBehaviour
         Debug.Log(
             $"NewMap runtime bootstrap completed. renderers={LastRendererCount} colliders={LastColliderCount} " +
             $"groundSupportProxy={LastUsedGroundSupportProxy} collisionSupportProxy={LastRuntimeCollisionSupportProxyActive} " +
-            $"disabledSceneMeshColliders={LastDisabledSceneMeshColliderCount} activeRuntimeTargets={targets.Count}");
+            $"meshColliderShutdown=staged activeRuntimeTargets={targets.Count}");
     }
 
     private string BuildDiagnosticText()
@@ -112,7 +114,7 @@ public sealed class NewMapRuntimeBootstrap : MonoBehaviour
             ? "Ground: runtime support proxy active"
             : "Ground: scene collider raycast spawn active";
         string collisionProxy = LastRuntimeCollisionSupportProxyActive
-            ? $" | Runtime collision support proxy active; scene MeshColliders disabled={LastDisabledSceneMeshColliderCount}"
+            ? " | Runtime collision support proxy active; scene MeshColliders are disabled in staged batches"
             : string.Empty;
         return $"{ground}{collisionProxy} | Old P3/P5 targets disabled unless remapped.";
     }
@@ -211,22 +213,52 @@ public sealed class NewMapRuntimeBootstrap : MonoBehaviour
         }
     }
 
-    private static int DisableSceneMeshColliders()
+    private IEnumerator DisableSceneMeshCollidersStaged()
     {
+        const int batchSize = 512;
         int disabled = 0;
-        MeshCollider[] meshColliders = FindObjectsOfType<MeshCollider>();
-        foreach (MeshCollider meshCollider in meshColliders)
+        int inspected = 0;
+        var stack = new Stack<Transform>();
+        foreach (GameObject root in SceneManager.GetActiveScene().GetRootGameObjects())
         {
-            if (meshCollider == null || !meshCollider.enabled)
+            if (root != null)
+            {
+                stack.Push(root.transform);
+            }
+        }
+
+        while (stack.Count > 0)
+        {
+            Transform current = stack.Pop();
+            if (current == null)
             {
                 continue;
             }
 
-            meshCollider.enabled = false;
-            disabled++;
+            for (int i = 0; i < current.childCount; i++)
+            {
+                stack.Push(current.GetChild(i));
+            }
+
+            MeshCollider meshCollider = current.GetComponent<MeshCollider>();
+            if (meshCollider != null && meshCollider.enabled)
+            {
+                meshCollider.enabled = false;
+                disabled++;
+            }
+
+            inspected++;
+            if (inspected % batchSize == 0)
+            {
+                LastDisabledSceneMeshColliderCount = disabled;
+                yield return null;
+            }
         }
 
-        return disabled;
+        LastDisabledSceneMeshColliderCount = disabled;
+        LastMeshColliderDisableComplete = true;
+        Physics.SyncTransforms();
+        Debug.Log($"NewMap staged MeshCollider shutdown completed. disabledSceneMeshColliders={disabled}");
     }
 
     private static List<NewMapRuntimeTarget> CreateLocalRuntimeTargets(Dictionary<string, Transform> roots, Vector3 spawn)
@@ -262,7 +294,17 @@ public sealed class NewMapRuntimeBootstrap : MonoBehaviour
                 false,
                 false,
                 false,
-                "Runtime safe-floor failure proxy: E triggers safe_floor_unavailable result.")
+                "Runtime safe-floor failure proxy: E triggers safe_floor_unavailable result."),
+            CreateTarget(
+                roots,
+                "newmap_proxy_crowd_delay",
+                "Local Training Proxy - Crowd Delay",
+                spawn,
+                spawn + new Vector3(8f, -1.05f, 4f),
+                false,
+                false,
+                true,
+                "Runtime crowd-delay proxy: E starts safe-floor climb with local NPC congestion delay.")
         };
 
         return targets;

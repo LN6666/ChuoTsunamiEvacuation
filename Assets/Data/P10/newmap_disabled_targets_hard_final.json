@@ -1,0 +1,14 @@
+{
+  "generatedAt": "2026-05-27T00:00:00+09:00",
+  "activeScene": "Assets/Scenes/Chuo_BaseMap.unity",
+  "sourceReport": "Assets/Data/P10/newmap_disabled_targets_final.json",
+  "disabledTargetCount": 171,
+  "disabledTargetsNotSpawned": true,
+  "disabledTargetsNotSelectable": true,
+  "disabledTargetsHaveNoGreenFrames": true,
+  "disabledRoutesNotShown": true,
+  "disabledTargetsExcludedFromResultPanelSuccess": true,
+  "disabledTargetsRemainInReportsOnly": true,
+  "preflightMustFailIfDisabledTargetActive": true,
+  "finalStatus": "disabled_missing_from_new_map"
+}

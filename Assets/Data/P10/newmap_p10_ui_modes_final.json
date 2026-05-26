@@ -27,7 +27,7 @@
                                   "night_rain":  0.65
                               },
     "nightOverlay":  "No opaque night overlay is applied; marker/UI visibility is preserved.",
-    "greenFrames":  "visible for active targets only during Evacuation Stage 2",
+    "greenFrames":  "visible for 4 active non-official training targets only during Evacuation Stage 2",
     "nonOfficialWarningsPreserved":  true,
     "resultPanelReadable":  true
 }

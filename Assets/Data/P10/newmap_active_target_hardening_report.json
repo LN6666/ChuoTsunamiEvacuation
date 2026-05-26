@@ -1,0 +1,37 @@
+{
+  "generatedAt": "2026-05-27T00:00:00+09:00",
+  "activeScene": "Assets/Scenes/Chuo_BaseMap.unity",
+  "activeTargetCount": 4,
+  "disabledTargetCount": 171,
+  "activeOfficialShelterCount": 0,
+  "activeNonOfficialTrainingTargetCount": 4,
+  "officialShelterAbsenceReason": "No active official shelter is claimed because official records lack verified Chuo_BaseMap anchors.",
+  "anchorRecoveryEvidence": [
+    "Scene text scan found no 13102-bldg identifier in Assets/Scenes/Chuo_BaseMap.unity.",
+    "Scene text scan found no 城東小学校 name anchor in Assets/Scenes/Chuo_BaseMap.unity.",
+    "Existing scene audit reports UUID-style imported object names and no PLATEAU id mapping."
+  ],
+  "activeTargets": [
+    {
+      "id": "newmap_proxy_safe_floor",
+      "classification": "non-official training proxy",
+      "targetFlow": "E starts safe-floor climb and can reach safe_floor_reached."
+    },
+    {
+      "id": "newmap_proxy_blocked_entrance",
+      "classification": "non-official training proxy",
+      "targetFlow": "E produces entrance_blocked."
+    },
+    {
+      "id": "newmap_proxy_no_safe_floor",
+      "classification": "non-official training proxy",
+      "targetFlow": "E produces safe_floor_unavailable."
+    },
+    {
+      "id": "newmap_proxy_crowd_delay",
+      "classification": "non-official training proxy",
+      "targetFlow": "E starts safe-floor climb with local NPC congestion delay."
+    }
+  ],
+  "finalStatus": "completed_with_documented_runtime_proxy"
+}

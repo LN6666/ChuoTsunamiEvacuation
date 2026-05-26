@@ -2,8 +2,8 @@
     "generatedAt":  "2026-05-26T17:22:10+09:00",
     "activeScene":  "Assets/Scenes/Chuo_BaseMap.unity",
     "policy":  "Do not spawn old targets unless anchored inside the new map.",
-    "totalTargets":  174,
-    "activeTargetCount":  3,
+    "totalTargets":  175,
+    "activeTargetCount":  4,
     "disabledTargetCount":  171,
     "targets":  [
                     {
@@ -2267,6 +2267,19 @@
                         "activeInGame":  true,
                         "disabledReason":  "",
                         "finalBehavior":  "Non-official runtime proxy. E interaction triggers safe_floor_unavailable result."
+                    },
+                    {
+                        "id":  "newmap_proxy_crowd_delay",
+                        "name":  "Local Training Proxy - Crowd Delay",
+                        "category":  "runtime_proxy_training_target",
+                        "sourcePhase":  "P6/P9/P10",
+                        "official":  false,
+                        "warningRequired":  true,
+                        "anchorStatus":  "runtime_spawn_zone_anchor",
+                        "insideNewMap":  true,
+                        "activeInGame":  true,
+                        "disabledReason":  "",
+                        "finalBehavior":  "Non-official runtime proxy. E interaction starts safe-floor climb with local NPC congestion delay."
                     }
                 ]
 }

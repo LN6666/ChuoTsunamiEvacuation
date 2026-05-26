@@ -5,11 +5,12 @@
     "npcHumanoidVisuals":  true,
     "playerNpcColorsDiffer":  true,
     "npcCap":  8,
-    "spawnArea":  "local runtime test area near PlayerSpawnRoot",
+    "spawnArea":  "local runtime test area near PlayerSpawnRoot and newmap_proxy_crowd_delay",
     "crowdCongestionMetrics":  true,
     "pathingCrash":  false,
     "hugeNpcCount":  false,
     "crowdDelayAffectsEvacuationMode":  true,
+    "crowdDelayTarget":  "newmap_proxy_crowd_delay",
     "tourismModeDisablesCrowdFailure":  true,
     "navigationBehavior":  "local spawn-zone wander proxy; road-aware pathfinding is unavailable and not claimed"
 }
