@@ -4,6 +4,8 @@ using UnityEngine.SceneManagement;
 
 public sealed class NewMapRuntimeBootstrap : MonoBehaviour
 {
+    private const bool SuppressSceneMeshCollidersForManualTest = true;
+
     private static readonly string[] RequiredRoots =
     {
         "MapRoot",
@@ -24,6 +26,8 @@ public sealed class NewMapRuntimeBootstrap : MonoBehaviour
     public Bounds LastMapBounds { get; private set; }
     public bool LastMapBoundsValid { get; private set; }
     public bool LastUsedGroundSupportProxy { get; private set; }
+    public bool LastRuntimeCollisionSupportProxyActive { get; private set; }
+    public int LastDisabledSceneMeshColliderCount { get; private set; }
     public int LastRendererCount { get; private set; }
     public int LastColliderCount { get; private set; }
 
@@ -79,7 +83,15 @@ public sealed class NewMapRuntimeBootstrap : MonoBehaviour
         LastColliderCount = colliderCount;
 
         Vector3 spawn = ResolveSpawnPosition(mapBounds, LastMapBoundsValid, roots["DebugDiagnosticsRoot"]);
+        if (SuppressSceneMeshCollidersForManualTest)
+        {
+            EnsureRuntimeCollisionSupportProxy(roots["DebugDiagnosticsRoot"], spawn - Vector3.up * 1.15f);
+            LastDisabledSceneMeshColliderCount = DisableSceneMeshColliders();
+            Physics.SyncTransforms();
+        }
+
         NewMapPlayerController player = NewMapPlayerController.Create(roots["PlayerSpawnRoot"], spawn);
+        NewMapRuntimeUI.EnsureRuntimeEventSystem();
         NewMapRuntimeUI ui = NewMapRuntimeUI.Create(roots["UIAnchorRoot"]);
         NewMapHazardController hazard = NewMapHazardController.Create(roots["HazardVisualRoot"], roots["CollapseDebrisRoot"], spawn);
         NewMapNpcCrowdPrototype crowd = NewMapNpcCrowdPrototype.Create(roots["CrowdRoot"], spawn);
@@ -90,15 +102,19 @@ public sealed class NewMapRuntimeBootstrap : MonoBehaviour
         controller.Configure(player, ui, hazard, crowd, targets, BuildDiagnosticText());
         Debug.Log(
             $"NewMap runtime bootstrap completed. renderers={LastRendererCount} colliders={LastColliderCount} " +
-            $"groundSupportProxy={LastUsedGroundSupportProxy} activeRuntimeTargets={targets.Count}");
+            $"groundSupportProxy={LastUsedGroundSupportProxy} collisionSupportProxy={LastRuntimeCollisionSupportProxyActive} " +
+            $"disabledSceneMeshColliders={LastDisabledSceneMeshColliderCount} activeRuntimeTargets={targets.Count}");
     }
 
     private string BuildDiagnosticText()
     {
         string ground = LastUsedGroundSupportProxy
             ? "Ground: runtime support proxy active"
-            : "Ground: scene collider raycast active";
-        return $"{ground} | Old P3/P5 targets disabled unless remapped.";
+            : "Ground: scene collider raycast spawn active";
+        string collisionProxy = LastRuntimeCollisionSupportProxyActive
+            ? $" | Runtime collision support proxy active; scene MeshColliders disabled={LastDisabledSceneMeshColliderCount}"
+            : string.Empty;
+        return $"{ground}{collisionProxy} | Old P3/P5 targets disabled unless remapped.";
     }
 
     private bool TryCalculateMapBounds(out Bounds bounds, out int rendererCount, out int colliderCount)
@@ -165,8 +181,19 @@ public sealed class NewMapRuntimeBootstrap : MonoBehaviour
 
         LastUsedGroundSupportProxy = true;
         Vector3 supportCenter = new Vector3(basePosition.x, hasBounds ? mapBounds.min.y : 0f, basePosition.z);
-        CreateGroundSupportProxy(diagnosticsRoot, supportCenter);
+        EnsureRuntimeCollisionSupportProxy(diagnosticsRoot, supportCenter);
         return supportCenter + Vector3.up * 1.5f;
+    }
+
+    private void EnsureRuntimeCollisionSupportProxy(Transform parent, Vector3 center)
+    {
+        if (LastRuntimeCollisionSupportProxyActive)
+        {
+            return;
+        }
+
+        CreateGroundSupportProxy(parent, center);
+        LastRuntimeCollisionSupportProxyActive = true;
     }
 
     private static void CreateGroundSupportProxy(Transform parent, Vector3 center)
@@ -176,12 +203,30 @@ public sealed class NewMapRuntimeBootstrap : MonoBehaviour
         support.name = "NewMap_RuntimeGroundSupport_DocumentedProxy";
         support.transform.SetParent(parent, true);
         support.transform.position = center - Vector3.up * 0.25f;
-        support.transform.localScale = new Vector3(160f, 0.5f, 160f);
+        support.transform.localScale = new Vector3(700f, 0.5f, 700f);
         Renderer renderer = support.GetComponent<Renderer>();
         if (renderer != null && material != null)
         {
             renderer.sharedMaterial = material;
         }
+    }
+
+    private static int DisableSceneMeshColliders()
+    {
+        int disabled = 0;
+        MeshCollider[] meshColliders = FindObjectsOfType<MeshCollider>();
+        foreach (MeshCollider meshCollider in meshColliders)
+        {
+            if (meshCollider == null || !meshCollider.enabled)
+            {
+                continue;
+            }
+
+            meshCollider.enabled = false;
+            disabled++;
+        }
+
+        return disabled;
     }
 
     private static List<NewMapRuntimeTarget> CreateLocalRuntimeTargets(Dictionary<string, Transform> roots, Vector3 spawn)
@@ -192,6 +237,7 @@ public sealed class NewMapRuntimeBootstrap : MonoBehaviour
                 roots,
                 "newmap_proxy_safe_floor",
                 "Local Training Proxy - Safe Floor",
+                spawn,
                 spawn + new Vector3(12f, -1.05f, 10f),
                 false,
                 false,
@@ -201,6 +247,7 @@ public sealed class NewMapRuntimeBootstrap : MonoBehaviour
                 roots,
                 "newmap_proxy_blocked_entrance",
                 "Local Training Proxy - Blocked Entrance",
+                spawn,
                 spawn + new Vector3(18f, -1.05f, -7f),
                 false,
                 true,
@@ -210,6 +257,7 @@ public sealed class NewMapRuntimeBootstrap : MonoBehaviour
                 roots,
                 "newmap_proxy_no_safe_floor",
                 "Local Training Proxy - No Safe Floor",
+                spawn,
                 spawn + new Vector3(-13f, -1.05f, 11f),
                 false,
                 false,
@@ -224,6 +272,7 @@ public sealed class NewMapRuntimeBootstrap : MonoBehaviour
         Dictionary<string, Transform> roots,
         string id,
         string displayName,
+        Vector3 spawn,
         Vector3 position,
         bool isOfficial,
         bool entranceBlocked,
@@ -251,6 +300,9 @@ public sealed class NewMapRuntimeBootstrap : MonoBehaviour
         NewMapVisualFactory.RemoveCollider(marker);
 
         GameObject frame = CreateGreenFrame(roots["GreenFrameRoot"], id + "_green_frame", position);
+        frame.SetActive(false);
+        GameObject routeGuide = CreateEstimatedRouteGuide(roots["NavigationRoot"], id + "_estimated_route_proxy", spawn, position);
+        routeGuide.SetActive(false);
         GameObject label = new GameObject(id + "_label");
         label.transform.SetParent(anchor.transform, false);
         label.transform.localPosition = new Vector3(0f, 2.1f, 0f);
@@ -277,6 +329,7 @@ public sealed class NewMapRuntimeBootstrap : MonoBehaviour
             Anchor = anchor.transform,
             Marker = marker,
             GreenFrame = frame,
+            RouteGuide = routeGuide,
             FinalBehavior = finalBehavior
         };
     }
@@ -299,5 +352,24 @@ public sealed class NewMapRuntimeBootstrap : MonoBehaviour
         line.SetPosition(2, new Vector3(half, 0f, half));
         line.SetPosition(3, new Vector3(-half, 0f, half));
         return frame;
+    }
+
+    private static GameObject CreateEstimatedRouteGuide(Transform parent, string name, Vector3 spawn, Vector3 target)
+    {
+        GameObject route = new GameObject(name);
+        route.transform.SetParent(parent, true);
+
+        LineRenderer line = route.AddComponent<LineRenderer>();
+        line.useWorldSpace = true;
+        line.widthMultiplier = 0.12f;
+        line.positionCount = 3;
+        line.sharedMaterial = NewMapVisualFactory.CreateMaterial(name + "_Material", new Color(1f, 0.86f, 0.16f, 0.78f), true);
+        Vector3 start = new Vector3(spawn.x, target.y + 0.16f, spawn.z);
+        Vector3 middle = Vector3.Lerp(start, target + Vector3.up * 0.16f, 0.5f) + Vector3.right * 1.8f;
+        Vector3 end = target + Vector3.up * 0.16f;
+        line.SetPosition(0, start);
+        line.SetPosition(1, middle);
+        line.SetPosition(2, end);
+        return route;
     }
 }

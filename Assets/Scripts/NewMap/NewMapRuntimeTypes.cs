@@ -39,6 +39,7 @@ public sealed class NewMapRuntimeTarget
     public Transform Anchor;
     public GameObject Marker;
     public GameObject GreenFrame;
+    public GameObject RouteGuide;
 
     public bool ActiveInGame => Anchor != null && string.IsNullOrWhiteSpace(DisabledReason);
 }

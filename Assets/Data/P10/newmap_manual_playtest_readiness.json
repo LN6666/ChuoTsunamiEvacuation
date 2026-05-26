@@ -1,0 +1,35 @@
+﻿{
+    "generatedAt":  "2026-05-26T23:45:30+09:00",
+    "workspace":  "D:\\UnityProjects\\ChuoTsunamiEvacuation",
+    "activeScene":  "Assets/Scenes/Chuo_BaseMap.unity",
+    "decision":  "ready_with_documented_limitations",
+    "reason":  "The new Chuo_BaseMap runtime baseline is playable through local non-official runtime proxies, while official shelters/routes remain disabled without verified new-map anchors and high memory is documented.",
+    "activeTargetCount":  3,
+    "disabledTargetCount":  171,
+    "p2Status":  "completed_with_documented_runtime_proxy",
+    "p3p4Status":  "disabled_missing_from_new_map",
+    "p5Status":  "completed_with_documented_runtime_proxy",
+    "p6Status":  "completed_with_documented_runtime_proxy",
+    "p8Status":  "completed_with_documented_runtime_proxy",
+    "p9Status":  "completed_with_documented_runtime_proxy",
+    "p10Status":  "completed_with_documented_runtime_proxy",
+    "tempPlayerBuildPath":  "D:\\UnityProjects\\ChuoTsunamiEvacuation-Builds\\NewMapFinalPre\\ChuoTsunamiEvacuation_NewMapFinalPre.exe",
+    "editModeResult":  "108 passed, 0 failed",
+    "playModeResult":  "18 passed, 0 failed",
+    "playerLogErrors":  0,
+    "playerLogWarnings":  0,
+    "performanceDecision":  "ready_with_memory_limitations",
+    "averageFps":  125.19,
+    "maxFrameMs":  6120.26,
+    "maxPrivateMemoryBytes":  21948108800,
+    "maxWorkingSetBytes":  7527911424,
+    "deepSeekReport":  "review_reports/deepseek_review_20260526_234458.md",
+    "deepSeekVerdict":  "No A-level blocker that prevents a manual playtest was identified.",
+    "blockers":  [
+
+                 ],
+    "limitations":  [
+                        "No ordinary-PC readiness claim because memory remains high.",
+                        "No official shelter/route activation without verified anchors."
+                    ]
+}

@@ -28,6 +28,7 @@ public sealed class NewMapGameController : MonoBehaviour
     public bool IsPaused => paused;
     public int ActiveTargetCount => targets.Count;
     public bool SafeFloorSequenceActive => safeFloorSequenceActive;
+    public IEnumerable<NewMapRuntimeTarget> RuntimeTargets => targets;
 
     public void Configure(
         NewMapPlayerController playerController,
@@ -50,6 +51,7 @@ public sealed class NewMapGameController : MonoBehaviour
 
         ui.TourismRequested += StartTourismMode;
         ui.EvacuationRequested += StartEvacuationMode;
+        ui.ResumeRequested += () => SetPaused(false);
         ui.ResetRequested += ResetToStartMenu;
         ui.ForceQuitRequested += ForceQuit;
         ui.WeatherRequested += SetWeather;
@@ -108,6 +110,7 @@ public sealed class NewMapGameController : MonoBehaviour
         player?.SetControlEnabled(true);
         hazard?.SetStage(NewMapTsunamiStage.Inactive);
         crowd?.SetCrowdFailuresEnabled(false);
+        SetTargetGuidanceVisible(false);
         ui?.HideResult();
         ui?.ShowHud();
         Debug.Log("NewMap Tourism Mode started. Hazards, crowd failure, collapse/debris failure, and stamina drain are disabled.");
@@ -127,6 +130,7 @@ public sealed class NewMapGameController : MonoBehaviour
         player?.SetControlEnabled(true);
         hazard?.SetStage(NewMapTsunamiStage.Warning);
         crowd?.SetCrowdFailuresEnabled(true);
+        SetTargetGuidanceVisible(false);
         ui?.HideResult();
         ui?.ShowHud();
         Debug.Log("NewMap Evacuation Mode started. Stage 1 warning is active; light curtain and hazard checks are hidden/ignored.");
@@ -152,6 +156,7 @@ public sealed class NewMapGameController : MonoBehaviour
         player?.SetControlEnabled(false);
         hazard?.SetStage(NewMapTsunamiStage.Inactive);
         crowd?.SetCrowdFailuresEnabled(false);
+        SetTargetGuidanceVisible(false);
         ui?.ShowStartMenu();
     }
 
@@ -180,6 +185,7 @@ public sealed class NewMapGameController : MonoBehaviour
 
         stage = NewMapTsunamiStage.FrontApproaching;
         hazard?.SetStage(stage);
+        SetTargetGuidanceVisible(true);
         Debug.Log("NewMap tsunami Stage 2 FrontApproaching started. Light curtain is visible and hazard checks are active.");
     }
 
@@ -188,12 +194,12 @@ public sealed class NewMapGameController : MonoBehaviour
         nearestTarget = FindNearestTarget();
         ui?.ShowInteraction(nearestTarget, mode);
 
-        if (nearestTarget == null || resultLocked || safeFloorSequenceActive || !Input.GetKeyDown(KeyCode.E))
+        if (!Input.GetKeyDown(KeyCode.E))
         {
             return;
         }
 
-        TryInteract(nearestTarget);
+        TryInteractWithNearestTargetFromInput();
     }
 
     private NewMapRuntimeTarget FindNearestTarget()
@@ -254,6 +260,63 @@ public sealed class NewMapGameController : MonoBehaviour
             true,
             "Entering shelter proxy",
             $"{target.DisplayName}\nSafe-floor proxy started. Crowd delay: {crowdDelay:0.0}s.");
+    }
+
+    public bool TryInteractWithNearestTargetFromInput()
+    {
+        if (nearestTarget == null)
+        {
+            nearestTarget = FindNearestTarget();
+        }
+
+        if (nearestTarget == null || resultLocked || safeFloorSequenceActive || mode == NewMapGameMode.None)
+        {
+            return false;
+        }
+
+        TryInteract(nearestTarget);
+        return true;
+    }
+
+    public bool TryInteractForDiagnostics(string targetId)
+    {
+        NewMapRuntimeTarget target = targets.Find(candidate => candidate != null && candidate.Id == targetId && candidate.ActiveInGame);
+        if (target == null || resultLocked || safeFloorSequenceActive || mode == NewMapGameMode.None)
+        {
+            return false;
+        }
+
+        TryInteract(target);
+        return true;
+    }
+
+    public void ForceStageForDiagnostics(NewMapTsunamiStage forcedStage)
+    {
+        stage = forcedStage;
+        hazard?.SetStage(forcedStage);
+        SetTargetGuidanceVisible(mode == NewMapGameMode.Evacuation && forcedStage == NewMapTsunamiStage.FrontApproaching);
+    }
+
+    private void SetTargetGuidanceVisible(bool visible)
+    {
+        foreach (NewMapRuntimeTarget target in targets)
+        {
+            if (target == null)
+            {
+                continue;
+            }
+
+            bool activeVisible = visible && target.ActiveInGame;
+            if (target.GreenFrame != null)
+            {
+                target.GreenFrame.SetActive(activeVisible);
+            }
+
+            if (target.RouteGuide != null)
+            {
+                target.RouteGuide.SetActive(activeVisible);
+            }
+        }
     }
 
     private void UpdateSafeFloorSequence()

@@ -34,9 +34,18 @@ public static class NewMapSceneSetupUtility
 
     public static void BuildNewMapTempPlayerCommandLine()
     {
-        string buildDirectory = "D:/UnityProjects/ChuoTsunamiEvacuation-Builds/NewMapPre";
+        BuildNewMapPlayer("D:/UnityProjects/ChuoTsunamiEvacuation-Builds/NewMapPre", "ChuoTsunamiEvacuation_NewMapPre.exe");
+    }
+
+    public static void BuildNewMapFinalTempPlayerCommandLine()
+    {
+        BuildNewMapPlayer("D:/UnityProjects/ChuoTsunamiEvacuation-Builds/NewMapFinalPre", "ChuoTsunamiEvacuation_NewMapFinalPre.exe");
+    }
+
+    private static void BuildNewMapPlayer(string buildDirectory, string executableName)
+    {
         Directory.CreateDirectory(buildDirectory);
-        string exePath = Path.Combine(buildDirectory, "ChuoTsunamiEvacuation_NewMapPre.exe");
+        string exePath = Path.Combine(buildDirectory, executableName);
 
         BuildPlayerOptions options = new BuildPlayerOptions
         {

@@ -20,14 +20,24 @@ public sealed class NewMapRuntimeUI : MonoBehaviour
     private Text modeTitleText;
     private Text forceQuitExplanationText;
     private bool japanese;
+    private string lastResultReason = string.Empty;
+    private string lastResultDetail = string.Empty;
 
     public Action TourismRequested;
     public Action EvacuationRequested;
+    public Action ResumeRequested;
     public Action ResetRequested;
     public Action ForceQuitRequested;
     public Action<NewMapWeatherPreset> WeatherRequested;
 
     public bool IsJapanese => japanese;
+    public bool IsStartMenuVisible => startPanel != null && startPanel.activeSelf;
+    public bool IsPauseVisible => pausePanel != null && pausePanel.activeSelf;
+    public bool IsRulesVisible => rulesPanel != null && rulesPanel.activeSelf;
+    public bool IsResultVisible => resultPanel != null && resultPanel.activeSelf;
+    public bool RulesPanelHasScrollRect => rulesPanel != null && rulesPanel.GetComponentInChildren<ScrollRect>(true) != null;
+    public string LastResultReason => lastResultReason;
+    public string LastResultDetail => lastResultDetail;
 
     public static NewMapRuntimeUI Create(Transform parent)
     {
@@ -115,6 +125,8 @@ public sealed class NewMapRuntimeUI : MonoBehaviour
     public void ShowResult(bool success, string reason, string detail)
     {
         SetActive(resultPanel, true);
+        lastResultReason = reason ?? string.Empty;
+        lastResultDetail = detail ?? string.Empty;
         if (resultTitleText != null)
         {
             resultTitleText.text = success
@@ -143,7 +155,7 @@ public sealed class NewMapRuntimeUI : MonoBehaviour
         scaler.referenceResolution = new Vector2(1920f, 1080f);
         scaler.matchWidthOrHeight = 0.5f;
         gameObject.AddComponent<GraphicRaycaster>();
-        EnsureEventSystem();
+        EnsureRuntimeEventSystem();
 
         hudText = CreateText("NewMap_HUD", transform, new Vector2(18f, -18f), new Vector2(740f, 160f), 20, TextAnchor.UpperLeft);
         interactionText = CreateText("NewMap_Interaction", transform, new Vector2(18f, -210f), new Vector2(620f, 130f), 20, TextAnchor.UpperLeft);
@@ -163,7 +175,7 @@ public sealed class NewMapRuntimeUI : MonoBehaviour
 
         pausePanel = CreatePanel("NewMap_PauseMenu", new Vector2(0f, 0f), new Vector2(760f, 580f), new Color(0.05f, 0.07f, 0.08f, 0.9f));
         CreateText("PauseTitle", pausePanel.transform, new Vector2(0f, -28f), new Vector2(680f, 60f), 28, TextAnchor.MiddleCenter).text = "Pause";
-        CreateButton("ResumeButton", pausePanel.transform, new Vector2(0f, -105f), new Vector2(260f, 50f), "Resume", () => SetPauseVisible(false));
+        CreateButton("ResumeButton", pausePanel.transform, new Vector2(0f, -105f), new Vector2(260f, 50f), "Resume", () => ResumeRequested?.Invoke());
         CreateButton("PauseLanguageButton", pausePanel.transform, new Vector2(0f, -175f), new Vector2(260f, 50f), "Language / 言語", () => SetLanguage(!japanese));
         CreateButton("PauseRulesButton", pausePanel.transform, new Vector2(0f, -245f), new Vector2(260f, 50f), "Rules", ToggleRules);
         CreateButton("QuitStartButton", pausePanel.transform, new Vector2(0f, -315f), new Vector2(260f, 50f), "Quit to Menu", () => ResetRequested?.Invoke());
@@ -171,7 +183,7 @@ public sealed class NewMapRuntimeUI : MonoBehaviour
         forceQuitExplanationText = CreateText("ForceQuitText", pausePanel.transform, new Vector2(0f, -470f), new Vector2(620f, 70f), 16, TextAnchor.UpperCenter);
 
         rulesPanel = CreatePanel("NewMap_RulesPanel", new Vector2(0f, 0f), new Vector2(980f, 700f), new Color(0.03f, 0.04f, 0.05f, 0.94f));
-        rulesText = CreateText("RulesText", rulesPanel.transform, new Vector2(0f, -20f), new Vector2(900f, 620f), 18, TextAnchor.UpperLeft);
+        rulesText = CreateRulesScrollArea(rulesPanel.transform);
         CreateButton("CloseRulesButton", rulesPanel.transform, new Vector2(0f, -325f), new Vector2(180f, 44f), "Close", ToggleRules);
 
         resultPanel = CreatePanel("NewMap_ResultPanel", new Vector2(0f, 0f), new Vector2(860f, 540f), new Color(0.04f, 0.05f, 0.06f, 0.92f));
@@ -203,6 +215,60 @@ public sealed class NewMapRuntimeUI : MonoBehaviour
                 ? "通常はメニューに戻ってください。Force Quit はプレイヤービルド終了用です。"
                 : "Use Quit to Menu normally. Force Quit exits a player build when needed.";
         }
+    }
+
+    private Text CreateRulesScrollArea(Transform parent)
+    {
+        GameObject scrollObject = new GameObject("RulesScrollView");
+        scrollObject.transform.SetParent(parent, false);
+        RectTransform scrollRectTransform = scrollObject.AddComponent<RectTransform>();
+        scrollRectTransform.anchorMin = new Vector2(0.5f, 1f);
+        scrollRectTransform.anchorMax = new Vector2(0.5f, 1f);
+        scrollRectTransform.pivot = new Vector2(0.5f, 1f);
+        scrollRectTransform.anchoredPosition = new Vector2(0f, -24f);
+        scrollRectTransform.sizeDelta = new Vector2(900f, 570f);
+
+        Image scrollImage = scrollObject.AddComponent<Image>();
+        scrollImage.color = new Color(0f, 0f, 0f, 0.12f);
+        ScrollRect scrollRect = scrollObject.AddComponent<ScrollRect>();
+        scrollRect.horizontal = false;
+        scrollRect.vertical = true;
+        scrollRect.movementType = ScrollRect.MovementType.Clamped;
+        scrollRect.scrollSensitivity = 34f;
+
+        GameObject viewport = new GameObject("Viewport");
+        viewport.transform.SetParent(scrollObject.transform, false);
+        RectTransform viewportRect = viewport.AddComponent<RectTransform>();
+        viewportRect.anchorMin = Vector2.zero;
+        viewportRect.anchorMax = Vector2.one;
+        viewportRect.pivot = new Vector2(0.5f, 0.5f);
+        viewportRect.offsetMin = new Vector2(12f, 12f);
+        viewportRect.offsetMax = new Vector2(-12f, -12f);
+        Image viewportImage = viewport.AddComponent<Image>();
+        viewportImage.color = new Color(0f, 0f, 0f, 0.01f);
+        Mask mask = viewport.AddComponent<Mask>();
+        mask.showMaskGraphic = false;
+
+        GameObject content = new GameObject("Content");
+        content.transform.SetParent(viewport.transform, false);
+        RectTransform contentRect = content.AddComponent<RectTransform>();
+        contentRect.anchorMin = new Vector2(0f, 1f);
+        contentRect.anchorMax = new Vector2(1f, 1f);
+        contentRect.pivot = new Vector2(0.5f, 1f);
+        contentRect.anchoredPosition = Vector2.zero;
+        contentRect.sizeDelta = new Vector2(0f, 900f);
+
+        Text text = CreateText("RulesText", content.transform, Vector2.zero, new Vector2(850f, 880f), 18, TextAnchor.UpperLeft);
+        text.rectTransform.anchorMin = new Vector2(0f, 1f);
+        text.rectTransform.anchorMax = new Vector2(1f, 1f);
+        text.rectTransform.pivot = new Vector2(0.5f, 1f);
+        text.rectTransform.anchoredPosition = Vector2.zero;
+        text.rectTransform.sizeDelta = new Vector2(0f, 880f);
+        text.verticalOverflow = VerticalWrapMode.Overflow;
+
+        scrollRect.viewport = viewportRect;
+        scrollRect.content = contentRect;
+        return text;
     }
 
     private GameObject CreatePanel(string name, Vector2 anchoredPosition, Vector2 size, Color color)
@@ -297,7 +363,7 @@ public sealed class NewMapRuntimeUI : MonoBehaviour
         text.rectTransform.sizeDelta = Vector2.zero;
     }
 
-    private static void EnsureEventSystem()
+    public static void EnsureRuntimeEventSystem()
     {
         if (FindObjectOfType<EventSystem>() != null)
         {

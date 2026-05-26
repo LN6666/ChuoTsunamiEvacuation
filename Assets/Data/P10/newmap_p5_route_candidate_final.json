@@ -1,0 +1,17 @@
+﻿{
+    "generatedAt":  "2026-05-26T21:46:23+09:00",
+    "activeScene":  "Assets/Scenes/Chuo_BaseMap.unity",
+    "qualifiedSheltersLoadFrom":  "Assets/Data/real_chuo_integrated_route_qualification.json",
+    "candidateDataLoads":  true,
+    "routesLoadFrom":  "Assets/Data/real_chuo_osm_routes_sample.json",
+    "activeQualifiedTargetCount":  0,
+    "disabledQualifiedTargetCount":  31,
+    "activeRouteCount":  3,
+    "disabledRouteCount":  135,
+    "activeRouteGuidance":  "local estimated prototype route guide lines for active runtime proxies only",
+    "officialRouteClaim":  false,
+    "warningText":  "Route guidance is estimated prototype guidance, not an official evacuation route.",
+    "routeCandidateUiVisible":  true,
+    "finalStatus":  "completed_with_documented_runtime_proxy",
+    "disabledReason":  "Real P5 records and OSM route geometry have no verified Unity/PLATEAU transform in the reset Chuo_BaseMap."
+}

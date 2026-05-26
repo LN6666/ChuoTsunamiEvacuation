@@ -8,7 +8,7 @@ $allowedStatuses = @(
     "completed_on_new_chuo_basemap",
     "completed_with_documented_runtime_proxy",
     "disabled_missing_from_new_map",
-    "blocked_needs_user_asset",
+    "blocked_needs_user_map_asset",
     "failed"
 )
 

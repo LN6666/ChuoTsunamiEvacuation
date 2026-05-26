@@ -23,6 +23,7 @@ public sealed class NewMapPlayerController : MonoBehaviour
     private bool controlEnabled;
     private Vector3 lastValidGroundPosition;
     private float stamina = 100f;
+    private int fallRecoveryCount;
 
     public float WalkSpeedMetersPerSecond { get; private set; }
     public float SprintSpeedMetersPerSecond { get; private set; }
@@ -34,6 +35,7 @@ public sealed class NewMapPlayerController : MonoBehaviour
     public bool ControlEnabled => controlEnabled;
     public bool HasActiveCamera => cameraTransform != null && cameraTransform.GetComponent<Camera>() != null;
     public Vector3 LastValidGroundPosition => lastValidGroundPosition;
+    public int FallRecoveryCount => fallRecoveryCount;
 
     public static NewMapPlayerController Create(Transform parent, Vector3 spawnPosition)
     {
@@ -139,6 +141,79 @@ public sealed class NewMapPlayerController : MonoBehaviour
         }
     }
 
+    public void MoveForDiagnostics(Vector3 worldDirection, float deltaTime, bool sprint)
+    {
+        if (characterController == null)
+        {
+            characterController = GetComponent<CharacterController>();
+        }
+
+        Vector3 direction = worldDirection;
+        direction.y = 0f;
+        if (direction.sqrMagnitude > 1f)
+        {
+            direction.Normalize();
+        }
+
+        float stepDelta = Mathf.Max(0f, deltaTime);
+        float speed = sprint ? SprintSpeedMetersPerSecond : WalkSpeedMetersPerSecond;
+        if (StaminaEnabled)
+        {
+            if (sprint && direction.sqrMagnitude > 0.01f && stamina > 1f)
+            {
+                stamina = Mathf.Max(0f, stamina - 24f * stepDelta);
+            }
+            else
+            {
+                stamina = Mathf.Min(100f, stamina + 16f * stepDelta);
+            }
+        }
+
+        if (characterController != null && characterController.isGrounded && verticalVelocity < 0f)
+        {
+            verticalVelocity = -2f;
+            lastValidGroundPosition = transform.position;
+        }
+
+        verticalVelocity += gravity * stepDelta;
+        Vector3 velocity = direction * speed;
+        velocity.y = verticalVelocity;
+        if (characterController != null)
+        {
+            characterController.Move(velocity * stepDelta);
+        }
+        else
+        {
+            transform.position += velocity * stepDelta;
+        }
+
+        if (direction.sqrMagnitude > 0.01f)
+        {
+            transform.rotation = Quaternion.LookRotation(direction, Vector3.up);
+        }
+
+        SnapToRuntimeGroundSupport(4f);
+        RecoverIfFalling();
+    }
+
+    private void SnapToRuntimeGroundSupport(float probeDistance)
+    {
+        Vector3 origin = transform.position + Vector3.up * 1f;
+        if (!Physics.Raycast(origin, Vector3.down, out RaycastHit hit, Mathf.Max(1f, probeDistance), ~0, QueryTriggerInteraction.Ignore))
+        {
+            return;
+        }
+
+        float groundedY = hit.point.y + 1.1f;
+        if (transform.position.y < groundedY)
+        {
+            transform.position = new Vector3(transform.position.x, groundedY, transform.position.z);
+            verticalVelocity = -2f;
+        }
+
+        lastValidGroundPosition = transform.position;
+    }
+
     private void CreateCameraRig()
     {
         if (cameraPivot == null)
@@ -216,6 +291,7 @@ public sealed class NewMapPlayerController : MonoBehaviour
         Vector3 velocity = direction * speed;
         velocity.y = verticalVelocity;
         characterController.Move(velocity * Time.deltaTime);
+        SnapToRuntimeGroundSupport(4f);
 
         if (direction.sqrMagnitude > 0.01f)
         {
@@ -235,6 +311,7 @@ public sealed class NewMapPlayerController : MonoBehaviour
 
         transform.position = lastValidGroundPosition + Vector3.up * 1.5f;
         verticalVelocity = 0f;
+        fallRecoveryCount++;
         Debug.LogWarning("NewMap player fall recovery returned the player to the last valid ground position.");
     }
 

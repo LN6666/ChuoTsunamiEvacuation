@@ -1,0 +1,102 @@
+﻿{
+    "generatedAt":  "2026-05-26T21:46:23+09:00",
+    "activeScene":  "Assets/Scenes/Chuo_BaseMap.unity",
+    "finalTriageDecision":  "ready_with_documented_limitations",
+    "aLevelBlockers":  [
+
+                       ],
+    "documentedLimitations":  [
+                                  {
+                                      "limitation":  "performance_frame_spike_over_2s",
+                                      "evidence":  "Previous Player.log FPS sample reported maxFrameMs=6363.29.",
+                                      "action":  "Manual test on high-memory cloud desktop; do not claim ordinary-PC readiness."
+                                  },
+                                  {
+                                      "limitation":  "memory_too_high_for_ordinary_pc",
+                                      "evidence":  "Previous process sample maxPrivateMemoryBytes=21928771584.",
+                                      "action":  "Manual test candidate is limited to high-memory hardware until map optimization or LOD work is planned."
+                                  }
+                              ],
+    "ordinaryPcDeploymentBlocked":  true,
+    "manualPlaytestBlocked":  false,
+    "checks":  [
+                   {
+                       "check":  "player falls through map",
+                       "result":  "pass",
+                       "evidence":  "runtime collision support proxy plus fall recovery; PlayMode sustained movement test added",
+                       "blocker":  false
+                   },
+                   {
+                       "check":  "no active camera",
+                       "result":  "pass",
+                       "evidence":  "runtime Main Camera created by NewMapPlayerController",
+                       "blocker":  false
+                   },
+                   {
+                       "check":  "player invisible",
+                       "result":  "pass",
+                       "evidence":  "runtime humanoid player visual created",
+                       "blocker":  false
+                   },
+                   {
+                       "check":  "Start Menu broken",
+                       "result":  "pass",
+                       "evidence":  "NewMapRuntimeUI start menu and mode buttons",
+                       "blocker":  false
+                   },
+                   {
+                       "check":  "Tourism/Evacuation modes broken",
+                       "result":  "pass",
+                       "evidence":  "NewMapGameController mode tests and UI buttons",
+                       "blocker":  false
+                   },
+                   {
+                       "check":  "E interaction unavailable",
+                       "result":  "pass",
+                       "evidence":  "three active runtime proxy targets support E interaction",
+                       "blocker":  false
+                   },
+                   {
+                       "check":  "ResultPanel unavailable",
+                       "result":  "pass",
+                       "evidence":  "runtime ResultPanel and result reason-code tests",
+                       "blocker":  false
+                   },
+                   {
+                       "check":  "no active shelter/candidate target",
+                       "result":  "pass",
+                       "evidence":  "3 active local non-official runtime targets",
+                       "blocker":  false
+                   },
+                   {
+                       "check":  "green frame not working",
+                       "result":  "pass",
+                       "evidence":  "green frames are Stage 2 only and tested",
+                       "blocker":  false
+                   },
+                   {
+                       "check":  "two-stage tsunami not working",
+                       "result":  "pass",
+                       "evidence":  "Stage 1 Warning and Stage 2 FrontApproaching runtime controller",
+                       "blocker":  false
+                   },
+                   {
+                       "check":  "Player.log errors/exceptions",
+                       "result":  "pass_previous_sample",
+                       "evidence":  "previous parse reported 0 errors and 0 warnings; final parser will update after final build",
+                       "blocker":  false
+                   },
+                   {
+                       "check":  "old map scene still active",
+                       "result":  "pass",
+                       "evidence":  "runtime constants and temp build target Chuo_BaseMap",
+                       "blocker":  false
+                   },
+                   {
+                       "check":  "missing/out-of-map targets still shown active",
+                       "result":  "pass",
+                       "evidence":  "171 disabled targets, disabled-target preflight enforced",
+                       "blocker":  false
+                   }
+               ]
+}

@@ -1,0 +1,13 @@
+﻿{
+    "generatedAt":  "2026-05-26T21:46:23+09:00",
+    "activeScene":  "Assets/Scenes/Chuo_BaseMap.unity",
+    "shelterDatasetLoadedForAudit":  true,
+    "shelterDataset":  "Assets/Data/real_chuo_shelters_sample.json and P3/P4 sample records preserved through target remap status",
+    "activeRealShelterCount":  0,
+    "disabledOldShelterCount":  5,
+    "runtimeMarkersForActiveTargets":  3,
+    "diagnosticsForDisabledTargets":  true,
+    "finalStatus":  "disabled_missing_from_new_map",
+    "disabledReason":  "No P3/P4 sample shelter has a verified Chuo_BaseMap object anchor or coordinate transform after the map reset.",
+    "proxyNote":  "The active runtime targets are local non-official training proxies for mechanics validation, not P3/P4 official shelters."
+}

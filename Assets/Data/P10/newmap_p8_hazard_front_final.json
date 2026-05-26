@@ -1,0 +1,13 @@
+﻿{
+    "generatedAt":  "2026-05-26T21:46:23+09:00",
+    "activeScene":  "Assets/Scenes/Chuo_BaseMap.unity",
+    "finalStatus":  "completed_with_documented_runtime_proxy",
+    "stage1Warning":  "UI/countdown active, light curtain hidden, hazard contact ignored",
+    "stage2FrontApproaching":  "light curtain visible/moving, hazard checks active",
+    "instantDeathAtStart":  false,
+    "hazardTriggerAvailable":  true,
+    "visualHeight":  "cinematic only",
+    "hazardDataStatus":  "old hazard grid not verified against new map",
+    "runtimeProxy":  "local test hazard front/light curtain and collapse/debris exposure band near spawn",
+    "tourismModeDisablesTsunamiHazard":  true
+}
