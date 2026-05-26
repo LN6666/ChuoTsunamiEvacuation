@@ -39,11 +39,15 @@ $requiredSceneRoots = @(
     "RuntimeSystemsRoot",
     "PlayerSpawnRoot",
     "ShelterMarkerRoot",
+    "CandidateMarkerRoot",
     "HazardVisualRoot",
     "NavigationRoot",
     "CrowdRoot",
+    "CollapseDebrisRoot",
+    "GreenFrameRoot",
     "UIAnchorRoot",
-    "DebugDiagnosticsRoot"
+    "DebugDiagnosticsRoot",
+    "PerformanceMetricsRoot"
 )
 
 $projectRootPath = Resolve-FullPath $ProjectRoot
@@ -127,10 +131,30 @@ Add-ReadinessCheck "Chuo_BaseMap scene meta" $sceneMetaExists $sceneMetaPath "Wa
 $presentSceneRoots = @()
 $missingSceneRoots = @()
 if ($sceneExists) {
-    $sceneText = Get-Content -LiteralPath $scenePath -Raw
+    $rootHits = @{}
     foreach ($root in $requiredSceneRoots) {
-        $rootPattern = "(?m)^\s*m_Name:\s*$([regex]::Escape($root))\s*$"
-        if ($sceneText -match $rootPattern) {
+        $rootHits[$root] = $false
+    }
+
+    $reader = [System.IO.StreamReader]::new($scenePath)
+    try {
+        while (($line = $reader.ReadLine()) -ne $null) {
+            if (-not $line.StartsWith("  m_Name: ")) {
+                continue
+            }
+
+            $name = $line.Substring(10).Trim()
+            if ($rootHits.ContainsKey($name)) {
+                $rootHits[$name] = $true
+            }
+        }
+    }
+    finally {
+        $reader.Close()
+    }
+
+    foreach ($root in $requiredSceneRoots) {
+        if ($rootHits[$root]) {
             $presentSceneRoots += $root
         } else {
             $missingSceneRoots += $root

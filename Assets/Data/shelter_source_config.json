@@ -1,9 +1,9 @@
-﻿{
-    "sourceMode":  "test",
-    "testSheltersPath":  "test_shelters.json",
-    "realSamplePath":  "real_chuo_shelters_sample.json",
-    "fallbackToTestOnError":  true,
-    "enableRealSampleLoading":  false,
-    "enableP5COverlay":  false,
-    "notes":  "P4-A1/P5-D data-layer source selection. Default gameplay source remains test; real_sample and real_qualified read copied Assets/Data static JSON only."
+{
+  "sourceMode": "test",
+  "testSheltersPath": "test_shelters.json",
+  "realSamplePath": "real_chuo_shelters_sample.json",
+  "fallbackToTestOnError": true,
+  "enableRealSampleLoading": false,
+  "enableP5COverlay": false,
+  "notes": "P4-A1/P5-D data-layer source selection. Default gameplay source remains test; real_sample and real_qualified read copied Assets/Data static JSON only."
 }

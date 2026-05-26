@@ -1,0 +1,19 @@
+﻿{
+    "generatedAt":  "2026-05-26T20:00:34",
+    "logPath":  "D:\\UnityProjects\\ChuoTsunamiEvacuation\\Logs\\newmap_temp_player_run.log",
+    "errorCount":  0,
+    "warningCount":  0,
+    "performanceSample":  {
+                              "elapsedSeconds":  30.01,
+                              "frameCount":  3718,
+                              "averageFps":  123.91,
+                              "maxFrameMs":  6363.29,
+                              "stutterFramesOver66ms":  2
+                          },
+    "firstErrors":  [
+
+                    ],
+    "firstWarnings":  [
+
+                      ]
+}

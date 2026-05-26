@@ -1,0 +1,34 @@
+﻿{
+    "generatedAt":  "2026-05-26T17:22:10+09:00",
+    "note":  "Green frames are prototype guidance only and never official safety approval.",
+    "activeGreenFrameCount":  3,
+    "targets":  [
+                    {
+                        "id":  "newmap_proxy_safe_floor",
+                        "name":  "Local Training Proxy - Safe Floor",
+                        "isOfficialShelter":  false,
+                        "nonOfficialWarningRequired":  true,
+                        "safeApprovedByDefault":  false,
+                        "activeInGame":  true,
+                        "greenFrameBehavior":  "Shown around local runtime training proxy in Evacuation Mode; does not imply official approval."
+                    },
+                    {
+                        "id":  "newmap_proxy_blocked_entrance",
+                        "name":  "Local Training Proxy - Blocked Entrance",
+                        "isOfficialShelter":  false,
+                        "nonOfficialWarningRequired":  true,
+                        "safeApprovedByDefault":  false,
+                        "activeInGame":  true,
+                        "greenFrameBehavior":  "Shown around local runtime training proxy in Evacuation Mode; does not imply official approval."
+                    },
+                    {
+                        "id":  "newmap_proxy_no_safe_floor",
+                        "name":  "Local Training Proxy - No Safe Floor",
+                        "isOfficialShelter":  false,
+                        "nonOfficialWarningRequired":  true,
+                        "safeApprovedByDefault":  false,
+                        "activeInGame":  true,
+                        "greenFrameBehavior":  "Shown around local runtime training proxy in Evacuation Mode; does not imply official approval."
+                    }
+                ]
+}

@@ -1,0 +1,349 @@
+﻿{
+    "sceneFileBytes":  12157291044,
+    "rendererCount":  44115,
+    "colliderCount":  44115,
+    "memoryMeasured":  true,
+    "playerBuildMeasured":  true,
+    "classification":  "ready_with_limitations",
+    "unityLoadedRendererCount":  18596,
+    "unityLoadedColliderCount":  18596,
+    "editorSceneLoadMemoryObservation":  "Unity log reported 6.11 GB memory after loading Chuo_BaseMap during editor setup.",
+    "generatedAt":  "2026-05-26T20:00:28",
+    "sampledProcess":  "ChuoTsunamiEvacuation_NewMapPre",
+    "durationSeconds":  40,
+    "maxPrivateMemoryBytes":  21928771584,
+    "maxWorkingSetBytes":  7504310272,
+    "ordinaryPcRisk":  true,
+    "samples":  [
+                    {
+                        "time":  "2026-05-26T19:59:48",
+                        "processName":  "ChuoTsunamiEvacuation_NewMapPre",
+                        "id":  17412,
+                        "workingSetBytes":  7499137024,
+                        "privateMemoryBytes":  21924708352,
+                        "cpuSeconds":  138.21875
+                    },
+                    {
+                        "time":  "2026-05-26T19:59:49",
+                        "processName":  "ChuoTsunamiEvacuation_NewMapPre",
+                        "id":  17412,
+                        "workingSetBytes":  7499419648,
+                        "privateMemoryBytes":  21924716544,
+                        "cpuSeconds":  148.53125
+                    },
+                    {
+                        "time":  "2026-05-26T19:59:50",
+                        "processName":  "ChuoTsunamiEvacuation_NewMapPre",
+                        "id":  17412,
+                        "workingSetBytes":  7499714560,
+                        "privateMemoryBytes":  21925011456,
+                        "cpuSeconds":  159.5625
+                    },
+                    {
+                        "time":  "2026-05-26T19:59:51",
+                        "processName":  "ChuoTsunamiEvacuation_NewMapPre",
+                        "id":  17412,
+                        "workingSetBytes":  7501000704,
+                        "privateMemoryBytes":  21926350848,
+                        "cpuSeconds":  170.1875
+                    },
+                    {
+                        "time":  "2026-05-26T19:59:52",
+                        "processName":  "ChuoTsunamiEvacuation_NewMapPre",
+                        "id":  17412,
+                        "workingSetBytes":  7501320192,
+                        "privateMemoryBytes":  21926666240,
+                        "cpuSeconds":  180.5
+                    },
+                    {
+                        "time":  "2026-05-26T19:59:53",
+                        "processName":  "ChuoTsunamiEvacuation_NewMapPre",
+                        "id":  17412,
+                        "workingSetBytes":  7501934592,
+                        "privateMemoryBytes":  21927084032,
+                        "cpuSeconds":  191
+                    },
+                    {
+                        "time":  "2026-05-26T19:59:54",
+                        "processName":  "ChuoTsunamiEvacuation_NewMapPre",
+                        "id":  17412,
+                        "workingSetBytes":  7502491648,
+                        "privateMemoryBytes":  21927219200,
+                        "cpuSeconds":  201.515625
+                    },
+                    {
+                        "time":  "2026-05-26T19:59:55",
+                        "processName":  "ChuoTsunamiEvacuation_NewMapPre",
+                        "id":  17412,
+                        "workingSetBytes":  7502565376,
+                        "privateMemoryBytes":  21927288832,
+                        "cpuSeconds":  212.46875
+                    },
+                    {
+                        "time":  "2026-05-26T19:59:56",
+                        "processName":  "ChuoTsunamiEvacuation_NewMapPre",
+                        "id":  17412,
+                        "workingSetBytes":  7502700544,
+                        "privateMemoryBytes":  21927428096,
+                        "cpuSeconds":  223.34375
+                    },
+                    {
+                        "time":  "2026-05-26T19:59:57",
+                        "processName":  "ChuoTsunamiEvacuation_NewMapPre",
+                        "id":  17412,
+                        "workingSetBytes":  7502802944,
+                        "privateMemoryBytes":  21927497728,
+                        "cpuSeconds":  234.203125
+                    },
+                    {
+                        "time":  "2026-05-26T19:59:58",
+                        "processName":  "ChuoTsunamiEvacuation_NewMapPre",
+                        "id":  17412,
+                        "workingSetBytes":  7502852096,
+                        "privateMemoryBytes":  21927526400,
+                        "cpuSeconds":  244.765625
+                    },
+                    {
+                        "time":  "2026-05-26T19:59:59",
+                        "processName":  "ChuoTsunamiEvacuation_NewMapPre",
+                        "id":  17412,
+                        "workingSetBytes":  7502983168,
+                        "privateMemoryBytes":  21927665664,
+                        "cpuSeconds":  255.578125
+                    },
+                    {
+                        "time":  "2026-05-26T20:00:00",
+                        "processName":  "ChuoTsunamiEvacuation_NewMapPre",
+                        "id":  17412,
+                        "workingSetBytes":  7503220736,
+                        "privateMemoryBytes":  21927870464,
+                        "cpuSeconds":  266.546875
+                    },
+                    {
+                        "time":  "2026-05-26T20:00:01",
+                        "processName":  "ChuoTsunamiEvacuation_NewMapPre",
+                        "id":  17412,
+                        "workingSetBytes":  7503405056,
+                        "privateMemoryBytes":  21928005632,
+                        "cpuSeconds":  277.296875
+                    },
+                    {
+                        "time":  "2026-05-26T20:00:02",
+                        "processName":  "ChuoTsunamiEvacuation_NewMapPre",
+                        "id":  17412,
+                        "workingSetBytes":  7503425536,
+                        "privateMemoryBytes":  21928005632,
+                        "cpuSeconds":  288.296875
+                    },
+                    {
+                        "time":  "2026-05-26T20:00:03",
+                        "processName":  "ChuoTsunamiEvacuation_NewMapPre",
+                        "id":  17412,
+                        "workingSetBytes":  7503491072,
+                        "privateMemoryBytes":  21928075264,
+                        "cpuSeconds":  299.546875
+                    },
+                    {
+                        "time":  "2026-05-26T20:00:04",
+                        "processName":  "ChuoTsunamiEvacuation_NewMapPre",
+                        "id":  17412,
+                        "workingSetBytes":  7503581184,
+                        "privateMemoryBytes":  21928075264,
+                        "cpuSeconds":  309.921875
+                    },
+                    {
+                        "time":  "2026-05-26T20:00:05",
+                        "processName":  "ChuoTsunamiEvacuation_NewMapPre",
+                        "id":  17412,
+                        "workingSetBytes":  7503642624,
+                        "privateMemoryBytes":  21928144896,
+                        "cpuSeconds":  320.265625
+                    },
+                    {
+                        "time":  "2026-05-26T20:00:06",
+                        "processName":  "ChuoTsunamiEvacuation_NewMapPre",
+                        "id":  17412,
+                        "workingSetBytes":  7503798272,
+                        "privateMemoryBytes":  21928288256,
+                        "cpuSeconds":  331.015625
+                    },
+                    {
+                        "time":  "2026-05-26T20:00:07",
+                        "processName":  "ChuoTsunamiEvacuation_NewMapPre",
+                        "id":  17412,
+                        "workingSetBytes":  7503798272,
+                        "privateMemoryBytes":  21928288256,
+                        "cpuSeconds":  341.3125
+                    },
+                    {
+                        "time":  "2026-05-26T20:00:08",
+                        "processName":  "ChuoTsunamiEvacuation_NewMapPre",
+                        "id":  17412,
+                        "workingSetBytes":  7503843328,
+                        "privateMemoryBytes":  21928288256,
+                        "cpuSeconds":  352
+                    },
+                    {
+                        "time":  "2026-05-26T20:00:09",
+                        "processName":  "ChuoTsunamiEvacuation_NewMapPre",
+                        "id":  17412,
+                        "workingSetBytes":  7503953920,
+                        "privateMemoryBytes":  21928357888,
+                        "cpuSeconds":  362.5625
+                    },
+                    {
+                        "time":  "2026-05-26T20:00:10",
+                        "processName":  "ChuoTsunamiEvacuation_NewMapPre",
+                        "id":  17412,
+                        "workingSetBytes":  7503958016,
+                        "privateMemoryBytes":  21928357888,
+                        "cpuSeconds":  373.453125
+                    },
+                    {
+                        "time":  "2026-05-26T20:00:11",
+                        "processName":  "ChuoTsunamiEvacuation_NewMapPre",
+                        "id":  17412,
+                        "workingSetBytes":  7503962112,
+                        "privateMemoryBytes":  21928357888,
+                        "cpuSeconds":  384.046875
+                    },
+                    {
+                        "time":  "2026-05-26T20:00:12",
+                        "processName":  "ChuoTsunamiEvacuation_NewMapPre",
+                        "id":  17412,
+                        "workingSetBytes":  7503966208,
+                        "privateMemoryBytes":  21928357888,
+                        "cpuSeconds":  395.203125
+                    },
+                    {
+                        "time":  "2026-05-26T20:00:13",
+                        "processName":  "ChuoTsunamiEvacuation_NewMapPre",
+                        "id":  17412,
+                        "workingSetBytes":  7504027648,
+                        "privateMemoryBytes":  21928427520,
+                        "cpuSeconds":  405.46875
+                    },
+                    {
+                        "time":  "2026-05-26T20:00:14",
+                        "processName":  "ChuoTsunamiEvacuation_NewMapPre",
+                        "id":  17412,
+                        "workingSetBytes":  7504035840,
+                        "privateMemoryBytes":  21928427520,
+                        "cpuSeconds":  415.984375
+                    },
+                    {
+                        "time":  "2026-05-26T20:00:15",
+                        "processName":  "ChuoTsunamiEvacuation_NewMapPre",
+                        "id":  17412,
+                        "workingSetBytes":  7504158720,
+                        "privateMemoryBytes":  21928566784,
+                        "cpuSeconds":  426.875
+                    },
+                    {
+                        "time":  "2026-05-26T20:00:16",
+                        "processName":  "ChuoTsunamiEvacuation_NewMapPre",
+                        "id":  17412,
+                        "workingSetBytes":  7504162816,
+                        "privateMemoryBytes":  21928566784,
+                        "cpuSeconds":  437.8125
+                    },
+                    {
+                        "time":  "2026-05-26T20:00:17",
+                        "processName":  "ChuoTsunamiEvacuation_NewMapPre",
+                        "id":  17412,
+                        "workingSetBytes":  7504162816,
+                        "privateMemoryBytes":  21928566784,
+                        "cpuSeconds":  448.046875
+                    },
+                    {
+                        "time":  "2026-05-26T20:00:18",
+                        "processName":  "ChuoTsunamiEvacuation_NewMapPre",
+                        "id":  17412,
+                        "workingSetBytes":  7504183296,
+                        "privateMemoryBytes":  21928566784,
+                        "cpuSeconds":  458.875
+                    },
+                    {
+                        "time":  "2026-05-26T20:00:19",
+                        "processName":  "ChuoTsunamiEvacuation_NewMapPre",
+                        "id":  17412,
+                        "workingSetBytes":  7504183296,
+                        "privateMemoryBytes":  21928566784,
+                        "cpuSeconds":  469.5625
+                    },
+                    {
+                        "time":  "2026-05-26T20:00:20",
+                        "processName":  "ChuoTsunamiEvacuation_NewMapPre",
+                        "id":  17412,
+                        "workingSetBytes":  7504183296,
+                        "privateMemoryBytes":  21928566784,
+                        "cpuSeconds":  480.140625
+                    },
+                    {
+                        "time":  "2026-05-26T20:00:21",
+                        "processName":  "ChuoTsunamiEvacuation_NewMapPre",
+                        "id":  17412,
+                        "workingSetBytes":  7504183296,
+                        "privateMemoryBytes":  21928566784,
+                        "cpuSeconds":  490.578125
+                    },
+                    {
+                        "time":  "2026-05-26T20:00:22",
+                        "processName":  "ChuoTsunamiEvacuation_NewMapPre",
+                        "id":  17412,
+                        "workingSetBytes":  7504183296,
+                        "privateMemoryBytes":  21928566784,
+                        "cpuSeconds":  500.875
+                    },
+                    {
+                        "time":  "2026-05-26T20:00:23",
+                        "processName":  "ChuoTsunamiEvacuation_NewMapPre",
+                        "id":  17412,
+                        "workingSetBytes":  7504183296,
+                        "privateMemoryBytes":  21928566784,
+                        "cpuSeconds":  511.765625
+                    },
+                    {
+                        "time":  "2026-05-26T20:00:24",
+                        "processName":  "ChuoTsunamiEvacuation_NewMapPre",
+                        "id":  17412,
+                        "workingSetBytes":  7504244736,
+                        "privateMemoryBytes":  21928636416,
+                        "cpuSeconds":  522.046875
+                    },
+                    {
+                        "time":  "2026-05-26T20:00:25",
+                        "processName":  "ChuoTsunamiEvacuation_NewMapPre",
+                        "id":  17412,
+                        "workingSetBytes":  7504244736,
+                        "privateMemoryBytes":  21928636416,
+                        "cpuSeconds":  532.859375
+                    },
+                    {
+                        "time":  "2026-05-26T20:00:26",
+                        "processName":  "ChuoTsunamiEvacuation_NewMapPre",
+                        "id":  17412,
+                        "workingSetBytes":  7504244736,
+                        "privateMemoryBytes":  21928636416,
+                        "cpuSeconds":  543.671875
+                    },
+                    {
+                        "time":  "2026-05-26T20:00:27",
+                        "processName":  "ChuoTsunamiEvacuation_NewMapPre",
+                        "id":  17412,
+                        "workingSetBytes":  7504310272,
+                        "privateMemoryBytes":  21928771584,
+                        "cpuSeconds":  554.5625
+                    }
+                ],
+    "fpsMeasured":  true,
+    "averageFps":  123.91,
+    "maxFrameMs":  6363.29,
+    "stutterFramesOver66ms":  2,
+    "fpsSampleElapsedSeconds":  30.01,
+    "limitations":  [
+                        "Private memory exceeds the 12 GB ordinary-PC risk gate.",
+                        "FPS/stutter sample was captured from Player.log during an automated minimized-window run; a manual visual check is still required."
+                    ],
+    "finalStatus":  "ready_with_limitations_memory_risk"
+}

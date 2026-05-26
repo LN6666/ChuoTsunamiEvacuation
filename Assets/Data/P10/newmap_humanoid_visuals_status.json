@@ -1,0 +1,8 @@
+﻿{
+    "generatedAt":  "2026-05-26T17:22:10+09:00",
+    "player":  "cylinder body, sphere head, two cylinder legs, blue material",
+    "npc":  "cylinder body, sphere head, two cylinder legs, orange material",
+    "heavyAssets":  false,
+    "magentaMaterialRisk":  "materials are created at runtime with URP Lit fallback to Standard",
+    "finalStatus":  "completed_with_documented_runtime_proxy"
+}

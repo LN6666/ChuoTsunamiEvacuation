@@ -1,0 +1,324 @@
+using System.Collections.Generic;
+using System.Text;
+using UnityEngine;
+
+public sealed class NewMapGameController : MonoBehaviour
+{
+    [SerializeField] private float stage1WarningSeconds = 12f;
+
+    private readonly List<NewMapRuntimeTarget> targets = new List<NewMapRuntimeTarget>();
+    private NewMapPlayerController player;
+    private NewMapRuntimeUI ui;
+    private NewMapHazardController hazard;
+    private NewMapNpcCrowdPrototype crowd;
+    private NewMapGameMode mode = NewMapGameMode.None;
+    private NewMapWeatherPreset weather = NewMapWeatherPreset.ClearDay;
+    private NewMapTsunamiStage stage = NewMapTsunamiStage.Inactive;
+    private NewMapRuntimeTarget nearestTarget;
+    private bool paused;
+    private bool resultLocked;
+    private bool safeFloorSequenceActive;
+    private float modeElapsedSeconds;
+    private float safeFloorRemainingSeconds;
+    private string diagnostics = string.Empty;
+
+    public NewMapGameMode Mode => mode;
+    public NewMapTsunamiStage Stage => stage;
+    public NewMapWeatherPreset Weather => weather;
+    public bool IsPaused => paused;
+    public int ActiveTargetCount => targets.Count;
+    public bool SafeFloorSequenceActive => safeFloorSequenceActive;
+
+    public void Configure(
+        NewMapPlayerController playerController,
+        NewMapRuntimeUI runtimeUi,
+        NewMapHazardController hazardController,
+        NewMapNpcCrowdPrototype crowdPrototype,
+        IEnumerable<NewMapRuntimeTarget> runtimeTargets,
+        string startupDiagnostics)
+    {
+        player = playerController;
+        ui = runtimeUi;
+        hazard = hazardController;
+        crowd = crowdPrototype;
+        diagnostics = startupDiagnostics ?? string.Empty;
+        targets.Clear();
+        if (runtimeTargets != null)
+        {
+            targets.AddRange(runtimeTargets);
+        }
+
+        ui.TourismRequested += StartTourismMode;
+        ui.EvacuationRequested += StartEvacuationMode;
+        ui.ResetRequested += ResetToStartMenu;
+        ui.ForceQuitRequested += ForceQuit;
+        ui.WeatherRequested += SetWeather;
+        ResetToStartMenu();
+    }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape) && mode != NewMapGameMode.None)
+        {
+            SetPaused(!paused);
+        }
+
+        if (paused || mode == NewMapGameMode.None)
+        {
+            return;
+        }
+
+        modeElapsedSeconds += Time.deltaTime;
+
+        if (mode == NewMapGameMode.Evacuation)
+        {
+            UpdateEvacuationStages();
+            hazard?.Tick(Time.deltaTime);
+            if (!resultLocked && player != null && hazard != null)
+            {
+                if (hazard.IsPlayerReachedByFront(player.transform.position))
+                {
+                    Fail("tsunami_front_contact", "The Stage 2 risk front reached the player.");
+                    return;
+                }
+
+                if (hazard.IsPlayerInDebrisExposure(player.transform.position, Time.deltaTime, out string debrisReason))
+                {
+                    Fail("collapse_debris_exposure", debrisReason);
+                    return;
+                }
+            }
+        }
+
+        UpdateInteraction();
+        UpdateSafeFloorSequence();
+        UpdateHud();
+    }
+
+    public void StartTourismMode()
+    {
+        mode = NewMapGameMode.Tourism;
+        stage = NewMapTsunamiStage.Inactive;
+        modeElapsedSeconds = 0f;
+        resultLocked = false;
+        safeFloorSequenceActive = false;
+        safeFloorRemainingSeconds = 0f;
+        paused = false;
+        player?.SetMode(mode, weather);
+        player?.SetControlEnabled(true);
+        hazard?.SetStage(NewMapTsunamiStage.Inactive);
+        crowd?.SetCrowdFailuresEnabled(false);
+        ui?.HideResult();
+        ui?.ShowHud();
+        Debug.Log("NewMap Tourism Mode started. Hazards, crowd failure, collapse/debris failure, and stamina drain are disabled.");
+    }
+
+    public void StartEvacuationMode()
+    {
+        mode = NewMapGameMode.Evacuation;
+        stage = NewMapTsunamiStage.Warning;
+        modeElapsedSeconds = 0f;
+        resultLocked = false;
+        safeFloorSequenceActive = false;
+        safeFloorRemainingSeconds = 0f;
+        paused = false;
+        player?.SetMode(mode, weather);
+        player?.ResetStamina();
+        player?.SetControlEnabled(true);
+        hazard?.SetStage(NewMapTsunamiStage.Warning);
+        crowd?.SetCrowdFailuresEnabled(true);
+        ui?.HideResult();
+        ui?.ShowHud();
+        Debug.Log("NewMap Evacuation Mode started. Stage 1 warning is active; light curtain and hazard checks are hidden/ignored.");
+    }
+
+    public void SetWeather(NewMapWeatherPreset preset)
+    {
+        weather = preset;
+        player?.SetMode(mode == NewMapGameMode.None ? NewMapGameMode.Tourism : mode, weather);
+        UpdateHud();
+    }
+
+    public void ResetToStartMenu()
+    {
+        mode = NewMapGameMode.None;
+        stage = NewMapTsunamiStage.Inactive;
+        modeElapsedSeconds = 0f;
+        paused = false;
+        resultLocked = false;
+        safeFloorSequenceActive = false;
+        nearestTarget = null;
+        player?.SetMode(NewMapGameMode.Tourism, weather);
+        player?.SetControlEnabled(false);
+        hazard?.SetStage(NewMapTsunamiStage.Inactive);
+        crowd?.SetCrowdFailuresEnabled(false);
+        ui?.ShowStartMenu();
+    }
+
+    public void SetPaused(bool value)
+    {
+        paused = value;
+        player?.SetControlEnabled(!paused && mode != NewMapGameMode.None && !safeFloorSequenceActive);
+        ui?.SetPauseVisible(paused);
+    }
+
+    private void ForceQuit()
+    {
+#if UNITY_EDITOR
+        UnityEditor.EditorApplication.isPlaying = false;
+#else
+        Application.Quit();
+#endif
+    }
+
+    private void UpdateEvacuationStages()
+    {
+        if (stage != NewMapTsunamiStage.Warning || modeElapsedSeconds < stage1WarningSeconds)
+        {
+            return;
+        }
+
+        stage = NewMapTsunamiStage.FrontApproaching;
+        hazard?.SetStage(stage);
+        Debug.Log("NewMap tsunami Stage 2 FrontApproaching started. Light curtain is visible and hazard checks are active.");
+    }
+
+    private void UpdateInteraction()
+    {
+        nearestTarget = FindNearestTarget();
+        ui?.ShowInteraction(nearestTarget, mode);
+
+        if (nearestTarget == null || resultLocked || safeFloorSequenceActive || !Input.GetKeyDown(KeyCode.E))
+        {
+            return;
+        }
+
+        TryInteract(nearestTarget);
+    }
+
+    private NewMapRuntimeTarget FindNearestTarget()
+    {
+        if (player == null)
+        {
+            return null;
+        }
+
+        NewMapRuntimeTarget best = null;
+        float bestDistance = float.MaxValue;
+        foreach (NewMapRuntimeTarget target in targets)
+        {
+            if (target == null || !target.ActiveInGame)
+            {
+                continue;
+            }
+
+            float distance = Vector3.Distance(player.transform.position, target.Anchor.position);
+            if (distance <= target.InteractionDistance && distance < bestDistance)
+            {
+                best = target;
+                bestDistance = distance;
+            }
+        }
+
+        return best;
+    }
+
+    private void TryInteract(NewMapRuntimeTarget target)
+    {
+        if (mode == NewMapGameMode.Tourism)
+        {
+            ui?.ShowResult(
+                true,
+                "Tourism inspection",
+                $"{target.DisplayName}\nThis is map exploration mode. No evacuation success/failure is applied.");
+            return;
+        }
+
+        if (target.EntranceBlocked)
+        {
+            Fail("entrance_blocked", $"{target.DisplayName}: entrance is blocked in this runtime test condition.");
+            return;
+        }
+
+        if (!target.SafeFloorAvailable)
+        {
+            Fail("safe_floor_unavailable", $"{target.DisplayName}: safe-floor proxy reports no usable vertical evacuation path.");
+            return;
+        }
+
+        float crowdDelay = crowd != null ? crowd.GetDelayForTarget(target) : 0f;
+        safeFloorRemainingSeconds = Mathf.Max(0.5f, target.ClimbSeconds + crowdDelay);
+        safeFloorSequenceActive = true;
+        player?.SetControlEnabled(false);
+        ui?.ShowResult(
+            true,
+            "Entering shelter proxy",
+            $"{target.DisplayName}\nSafe-floor proxy started. Crowd delay: {crowdDelay:0.0}s.");
+    }
+
+    private void UpdateSafeFloorSequence()
+    {
+        if (!safeFloorSequenceActive)
+        {
+            return;
+        }
+
+        safeFloorRemainingSeconds -= Time.deltaTime;
+        if (safeFloorRemainingSeconds > 0f)
+        {
+            return;
+        }
+
+        safeFloorSequenceActive = false;
+        resultLocked = true;
+        player?.SetControlEnabled(false);
+        ui?.ShowResult(
+            true,
+            "safe_floor_reached",
+            "Reached the runtime safe-floor proxy before the Stage 2 risk front arrived.");
+    }
+
+    private void Fail(string code, string reason)
+    {
+        resultLocked = true;
+        safeFloorSequenceActive = false;
+        player?.SetControlEnabled(false);
+        ui?.ShowResult(false, code, reason);
+        Debug.LogWarning($"NewMap failure: {code} - {reason}");
+    }
+
+    private void UpdateHud()
+    {
+        if (ui == null)
+        {
+            return;
+        }
+
+        var builder = new StringBuilder();
+        builder.AppendLine(mode == NewMapGameMode.Tourism ? "Tourism Mode / 観光モード" : "Evacuation Mode / 避難モード");
+        builder.AppendLine($"Stage: {stage}");
+        builder.AppendLine($"Weather: {NewMapRuntimeConstants.GetWeatherLabel(weather)} x{NewMapRuntimeConstants.GetWeatherModifier(weather):0.00}");
+        if (player != null)
+        {
+            builder.AppendLine($"Walk/Sprint: {player.WalkSpeedMetersPerSecond:0.00} / {player.SprintSpeedMetersPerSecond:0.00} m/s");
+            builder.AppendLine(player.StaminaEnabled ? $"Stamina: {player.Stamina:0}" : "Stamina: disabled");
+        }
+
+        if (crowd != null)
+        {
+            builder.AppendLine($"NPCs: {crowd.ActiveNpcCount}/{crowd.NpcCap} | Crowd delay: {crowd.CurrentCongestionDelaySeconds:0.0}s");
+        }
+
+        if (safeFloorSequenceActive)
+        {
+            builder.AppendLine($"Safe-floor proxy: {safeFloorRemainingSeconds:0.0}s remaining");
+        }
+
+        if (!string.IsNullOrWhiteSpace(diagnostics))
+        {
+            builder.AppendLine(diagnostics);
+        }
+
+        ui.SetHud(builder.ToString());
+    }
+}

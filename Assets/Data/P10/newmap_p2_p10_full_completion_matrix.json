@@ -1,0 +1,83 @@
+﻿{
+    "generatedAt":  "2026-05-26T20:01:00+09:00",
+    "allowedStatuses":  [
+                            "completed_on_new_chuo_basemap",
+                            "completed_with_documented_runtime_proxy",
+                            "disabled_missing_from_new_map",
+                            "blocked_needs_user_asset",
+                            "failed"
+                        ],
+    "activeScene":  "Assets/Scenes/Chuo_BaseMap.unity",
+    "entries":  [
+                    {
+                        "item":  "P2 player/camera/movement/E/ResultPanel",
+                        "requiredFeature":  "playable player on Chuo_BaseMap",
+                        "implementationStatus":  "runtime bootstrap with player, camera, UI, E interaction, result panel",
+                        "activeOnNewMap":  true,
+                        "testEvidence":  "PlayMode NewMapRuntimePlayModeTests plus full preflight",
+                        "disabledTargetCount":  0,
+                        "blocker":  "",
+                        "finalStatus":  "completed_with_documented_runtime_proxy"
+                    },
+                    {
+                        "item":  "P3/P4 shelter loading",
+                        "requiredFeature":  "load data and anchor shelters",
+                        "implementationStatus":  "data preserved, old targets disabled without verified anchors",
+                        "activeOnNewMap":  false,
+                        "testEvidence":  "target remap JSON and disabled-target preflight",
+                        "disabledTargetCount":  5,
+                        "blocker":  "new map exposes UUID object names and no verified coordinate transform",
+                        "finalStatus":  "disabled_missing_from_new_map"
+                    },
+                    {
+                        "item":  "P5 shelters/routes/candidates",
+                        "requiredFeature":  "qualified shelters/candidates/routes",
+                        "implementationStatus":  "data loads for evidence; active markers/routes disabled",
+                        "activeOnNewMap":  false,
+                        "testEvidence":  "P5 status JSON and no-official-route scan",
+                        "disabledTargetCount":  166,
+                        "blocker":  "no verified building-id/route transform after reset",
+                        "finalStatus":  "disabled_missing_from_new_map"
+                    },
+                    {
+                        "item":  "P6 navigation/NPC/crowd",
+                        "requiredFeature":  "NPC prototype and crowd metrics",
+                        "implementationStatus":  "local spawn-zone NPC humanoid crowd with congestion delay metrics",
+                        "activeOnNewMap":  true,
+                        "testEvidence":  "runtime bootstrap and P6 status JSON",
+                        "disabledTargetCount":  0,
+                        "blocker":  "road-aware navmesh unavailable",
+                        "finalStatus":  "completed_with_documented_runtime_proxy"
+                    },
+                    {
+                        "item":  "P8 hazard/risk front",
+                        "requiredFeature":  "two-stage warning/front",
+                        "implementationStatus":  "local two-stage front/light curtain connected to runtime controller",
+                        "activeOnNewMap":  true,
+                        "testEvidence":  "P8 status JSON and runtime code",
+                        "disabledTargetCount":  0,
+                        "blocker":  "old hazard grid has no verified transform",
+                        "finalStatus":  "completed_with_documented_runtime_proxy"
+                    },
+                    {
+                        "item":  "P9 gameplay",
+                        "requiredFeature":  "spawn, entrance, safe-floor, crowd, collapse/debris failures",
+                        "implementationStatus":  "three local non-official training proxies plus hazard/crowd failure reasons",
+                        "activeOnNewMap":  true,
+                        "testEvidence":  "P9 status JSON and runtime result codes",
+                        "disabledTargetCount":  0,
+                        "blocker":  "old building targets missing from new map",
+                        "finalStatus":  "completed_with_documented_runtime_proxy"
+                    },
+                    {
+                        "item":  "P10 UI/localization/rules/pause/weather/stamina/perf tools",
+                        "requiredFeature":  "full new-map UI and validation tooling",
+                        "implementationStatus":  "runtime EN/JA UI, pause, rules, weather/stamina, performance/preflight tools",
+                        "activeOnNewMap":  true,
+                        "testEvidence":  "EditMode tests, PlayMode tests, full preflight, temp player rebuild, 40-second memory sample, Player.log parse, 30-second runtime FPS/stutter probe",
+                        "disabledTargetCount":  0,
+                        "blocker":  "",
+                        "finalStatus":  "completed_with_documented_runtime_proxy"
+                    }
+                ]
+}

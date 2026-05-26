@@ -2,7 +2,10 @@
     "name": "ChuoTsunamiEvacuation.Runtime",
     "rootNamespace": "",
     "references": [
-        "UnityEngine.UI"
+        "UnityEngine.UI",
+        "UnityEngine.UIModule",
+        "UnityEngine.PhysicsModule",
+        "UnityEngine.TextRenderingModule"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

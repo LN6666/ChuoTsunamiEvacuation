@@ -1,0 +1,21 @@
+﻿{
+    "workspace":  "D:\\UnityProjects\\ChuoTsunamiEvacuation",
+    "branch":  "phase5-qualification-routing-plateau",
+    "unityVersion":  "6000.4.6f1",
+    "plateauSdk":  "file:D:/UnityPackages/PLATEAU-SDK-for-Unity-v4.2.0.3.tgz",
+    "scene":  "Assets/Scenes/Chuo_BaseMap.unity",
+    "sceneFileBytes":  12157291044,
+    "rendererCount":  44115,
+    "colliderCount":  44115,
+    "cameraCountBeforeRuntime":  0,
+    "canvasCountBeforeRuntime":  0,
+    "oldMapActiveTarget":  false,
+    "p10DataFolderCreated":  true,
+    "notes":  "Initial audit uses streaming scene scan because raw reads of 11GB scene are unsafe.",
+    "unityLoadedRendererCount":  18596,
+    "unityLoadedColliderCount":  18596,
+    "requiredRootCount":  13,
+    "missingRootCountAfterSetup":  0,
+    "editorSceneLoadMemoryObservation":  "Unity log reported 6.11 GB memory after loading Chuo_BaseMap during editor root setup.",
+    "generatedAt":  "2026-05-26T18:35:48+09:00"
+}
