@@ -1,0 +1,33 @@
+{
+  "generatedAt": "2026-05-27T04:00:17+09:00",
+  "activeScene": "Assets/Scenes/Chuo_BaseMap.unity",
+  "focus": "startup and frame spike reduction; memory is recorded as informational for this task",
+  "previousMaxFrameMs": 20655.05,
+  "previousAverageFps": 46.2,
+  "previousStutterFramesOver66ms": 2,
+  "previousMaxPrivateMemoryBytes": 21950038016,
+  "previousMaxWorkingSetBytes": 7523536896,
+  "implementedChanges": [
+    "Player runtime scene-wide renderer/collider bounds scan disabled; runtime uses lightweight origin/support placement.",
+    "Runtime collision support proxy remains active, but player-startup MeshCollider shutdown is disabled because it caused a measured 44,115-collider traversal spike.",
+    "Normal Debug.Log stack traces are disabled in player builds.",
+    "NPC humanoid crowd creation deferred until Evacuation mode or crowd-delay query enables crowd failures.",
+    "Official shelter activation uses one bounded exact-name scene traversal for eligible GML ids plus per-object renderer bounds.",
+    "Old route geometry validation remains report/preflight work and is not performed as a player startup scan."
+  ],
+  "memoryOptimizationPriority": "deprioritized_by_user_instruction",
+  "postRetest": {
+    "buildPath": "D:\\UnityProjects\\ChuoTsunamiEvacuation-Builds\\NewMapHardeningPre2\\ChuoTsunamiEvacuation_NewMapHardeningPre2.exe",
+    "launchSmoke": "passed",
+    "averageFps": 72.72,
+    "maxFrameMs": 11273.06,
+    "stutterFramesOver66ms": 2,
+    "playerLogErrors": 0,
+    "playerLogWarnings": 0,
+    "spikeDecision": "spike_remaining_but_documented",
+    "spikeReducedBelow2s": false,
+    "runtimeBootstrapTiming": "boundsMs=0 spawnSupportMs=13 systemsMs=49 targetsMs=105 configureMs=2 totalMs=169",
+    "attribution": "Runtime bootstrap measured 169 ms, so the remaining 11.273 s max frame is attributed to large Chuo_BaseMap Unity/PLATEAU scene activation/render startup before regular gameplay, not to NewMap target, route, crowd, or MeshCollider shutdown logic."
+  },
+  "finalStatus": "completed_with_documented_runtime_proxy"
+}

@@ -15,6 +15,7 @@ public sealed class NewMapGameController : MonoBehaviour
     private NewMapWeatherPreset weather = NewMapWeatherPreset.ClearDay;
     private NewMapTsunamiStage stage = NewMapTsunamiStage.Inactive;
     private NewMapRuntimeTarget nearestTarget;
+    private NewMapRuntimeTarget activeSequenceTarget;
     private bool paused;
     private bool resultLocked;
     private bool safeFloorSequenceActive;
@@ -104,6 +105,7 @@ public sealed class NewMapGameController : MonoBehaviour
         modeElapsedSeconds = 0f;
         resultLocked = false;
         safeFloorSequenceActive = false;
+        activeSequenceTarget = null;
         safeFloorRemainingSeconds = 0f;
         paused = false;
         player?.SetMode(mode, weather);
@@ -151,6 +153,7 @@ public sealed class NewMapGameController : MonoBehaviour
         paused = false;
         resultLocked = false;
         safeFloorSequenceActive = false;
+        activeSequenceTarget = null;
         nearestTarget = null;
         player?.SetMode(NewMapGameMode.Tourism, weather);
         player?.SetControlEnabled(false);
@@ -255,11 +258,16 @@ public sealed class NewMapGameController : MonoBehaviour
         float crowdDelay = crowd != null ? crowd.GetDelayForTarget(target) : 0f;
         safeFloorRemainingSeconds = Mathf.Max(0.5f, target.ClimbSeconds + crowdDelay);
         safeFloorSequenceActive = true;
+        activeSequenceTarget = target;
         player?.SetControlEnabled(false);
+        string reason = target.IsOfficialShelter ? "Entering official shelter anchor" : "Entering shelter proxy";
+        string sourceNote = target.IsOfficialShelter
+            ? "Official Chuo shelter anchor verified by exact PLATEAU GML object name. Safe-floor timing is a gameplay prototype; no official route is claimed."
+            : "Non-official runtime training target. This is not a safety approval.";
         ui?.ShowResult(
             true,
-            "Entering shelter proxy",
-            $"{target.DisplayName}\nSafe-floor proxy started. Crowd delay: {crowdDelay:0.0}s.");
+            reason,
+            $"{target.DisplayName}\n{sourceNote}\nCrowd delay: {crowdDelay:0.0}s.");
     }
 
     public bool TryInteractWithNearestTargetFromInput()
@@ -363,16 +371,21 @@ public sealed class NewMapGameController : MonoBehaviour
         safeFloorSequenceActive = false;
         resultLocked = true;
         player?.SetControlEnabled(false);
+        string detail = activeSequenceTarget != null && activeSequenceTarget.IsOfficialShelter
+            ? "Reached the verified official shelter anchor before the Stage 2 risk front arrived. Route geometry remains unclaimed because no WGS84-to-Unity transform is proven."
+            : "Reached the runtime safe-floor proxy before the Stage 2 risk front arrived.";
+        activeSequenceTarget = null;
         ui?.ShowResult(
             true,
             "safe_floor_reached",
-            "Reached the runtime safe-floor proxy before the Stage 2 risk front arrived.");
+            detail);
     }
 
     private void Fail(string code, string reason)
     {
         resultLocked = true;
         safeFloorSequenceActive = false;
+        activeSequenceTarget = null;
         player?.SetControlEnabled(false);
         ui?.ShowResult(false, code, reason);
         Debug.Log($"NewMap failure outcome: {code} - {reason}");

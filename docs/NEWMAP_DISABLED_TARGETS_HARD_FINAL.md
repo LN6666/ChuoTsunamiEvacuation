@@ -1,9 +1,7 @@
 # NewMap Disabled Targets Hard Final
 
-JSON: `Assets/Data/P10/newmap_disabled_targets_hard_final.json`
+Generated: 2026-05-27T04:00:17+09:00
 
-Disabled target count: 171.
+Disabled target count: 156
 
-Disabled targets are report-only. They are not spawned, not selectable, have no green frames, show no routes, and cannot produce ResultPanel success.
-
-The hardening preflight fails if any disabled target is active.
+Disabled targets are report-only. They are not selectable, do not spawn green frames, do not show route lines, and are not included in ResultPanel success flow.

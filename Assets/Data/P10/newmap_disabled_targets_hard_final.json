@@ -1,14 +1,18 @@
 {
-  "generatedAt": "2026-05-27T00:00:00+09:00",
+  "generatedAt": "2026-05-27T04:00:17+09:00",
   "activeScene": "Assets/Scenes/Chuo_BaseMap.unity",
-  "sourceReport": "Assets/Data/P10/newmap_disabled_targets_final.json",
-  "disabledTargetCount": 171,
-  "disabledTargetsNotSpawned": true,
-  "disabledTargetsNotSelectable": true,
-  "disabledTargetsHaveNoGreenFrames": true,
-  "disabledRoutesNotShown": true,
-  "disabledTargetsExcludedFromResultPanelSuccess": true,
-  "disabledTargetsRemainInReportsOnly": true,
-  "preflightMustFailIfDisabledTargetActive": true,
-  "finalStatus": "disabled_missing_from_new_map"
+  "totalTargetCount": 175,
+  "activeTargetCount": 19,
+  "disabledTargetCount": 156,
+  "disabledTargetsSelectable": false,
+  "disabledTargetsSpawned": false,
+  "disabledTargetsHaveGreenFrames": false,
+  "disabledRoutesShown": false,
+  "disabledTargetsIncludedInResultPanelSuccess": false,
+  "disabledBreakdown": {
+    "p3p4SyntheticSamples": 5,
+    "officialShelterRecords": 16,
+    "oldRouteRecords": 135
+  },
+  "finalStatus": "completed_on_new_chuo_basemap"
 }

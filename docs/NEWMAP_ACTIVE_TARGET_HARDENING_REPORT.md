@@ -1,16 +1,10 @@
-# NewMap Active Target Hardening Report
+# NewMap Active Target Final Report
 
-JSON: `Assets/Data/P10/newmap_active_target_hardening_report.json`
+Generated: 2026-05-27T04:00:17+09:00
 
-Active runtime targets: 4.
+- Active targets: 19
+- Active official shelters: 15
+- Active non-official training targets: 4
+- Disabled targets: 156
 
-All active targets are local non-official training targets. They validate gameplay mechanics only and do not represent official shelters, official routes, or safety approval.
-
-Verified active flows:
-
-- `newmap_proxy_safe_floor`: safe-floor success path.
-- `newmap_proxy_blocked_entrance`: blocked entrance failure path.
-- `newmap_proxy_no_safe_floor`: no safe-floor failure path.
-- `newmap_proxy_crowd_delay`: local NPC congestion delay path.
-
-Official shelters remain inactive because no official record has a verified anchor in the new `Chuo_BaseMap`.
+Only exact PLATEAU GML scene-object matches with high-confidence `contains` evidence are active. No old route geometry is active.

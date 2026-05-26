@@ -104,9 +104,11 @@ public sealed class NewMapRuntimeUI : MonoBehaviour
         }
 
         interactionText.gameObject.SetActive(true);
-        string warning = target.NonOfficialWarningRequired
-            ? (japanese ? "非公式候補です。安全承認ではありません。" : "Non-official candidate. This is not a safety approval.")
-            : string.Empty;
+        string warning = target.IsOfficialShelter
+            ? (japanese ? "公式避難所アンカー確認済み。公式ルートは未主張です。" : "Official shelter anchor verified on Chuo_BaseMap. No official route is claimed.")
+            : (target.NonOfficialWarningRequired
+                ? (japanese ? "非公式候補です。安全承認ではありません。" : "Non-official candidate. This is not a safety approval.")
+                : string.Empty);
         string action = mode == NewMapGameMode.Tourism
             ? (japanese ? "E: 情報を見る" : "E: inspect")
             : (japanese ? "E: 入る" : "E: enter");

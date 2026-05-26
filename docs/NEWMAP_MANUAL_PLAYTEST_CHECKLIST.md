@@ -1,14 +1,14 @@
 # NewMap Manual Playtest Checklist
 
-JSON: `Assets/Data/P10/newmap_manual_playtest_checklist.json`
+Generated: 2026-05-27T04:00:17+09:00
 
-Readiness decision: `ready_with_documented_limitations`
-
-Manual checklist:
-
-- Open the final temporary EXE.
-- Verify Start Menu, English/Japanese, and rules UI.
-- Verify Tourism Mode free roam and 10 m/s sprint with no failure outcomes.
-- Verify Evacuation Mode, two-stage warning/front, Stage 2 green frames, E interaction, crowd delay, collapse/debris, and ResultPanel.
-- Verify disabled/out-of-map targets are not visible or selectable.
-- Parse Player.log and judge FPS/memory feel on the high-memory test machine.
+- Start `ChuoTsunamiEvacuation_NewMapHardeningPre2.exe`.
+- Verify Start Menu, English/Japanese switch, Rules, weather, Tourism Mode, and Evacuation Mode.
+- In Tourism Mode, inspect a local training target and confirm no failure occurs.
+- In Evacuation Mode, wait for Stage 2 and confirm green frames appear only then.
+- Interact with `newmap_proxy_safe_floor`, `newmap_proxy_blocked_entrance`, `newmap_proxy_no_safe_floor`, and `newmap_proxy_crowd_delay`.
+- Inspect at least one official shelter marker if visible/reachable on the map.
+- Confirm no old disabled route line or disabled target appears.
+- Confirm ResultPanel text does not claim an official route or GIS-grade validation.
+- Expect a documented startup pause: Pre2 max frame measured 11273.06 ms, while runtime bootstrap measured 169 ms.
+- Record any additional visible frame pause after the first scene activation or during first mode selection.

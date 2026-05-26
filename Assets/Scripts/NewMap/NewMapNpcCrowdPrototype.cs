@@ -9,7 +9,9 @@ public sealed class NewMapNpcCrowdPrototype : MonoBehaviour
 
     private readonly List<Transform> npcs = new List<Transform>();
     private Vector3 center;
+    private Vector3 requestedCenter;
     private bool crowdFailuresEnabled;
+    private bool built;
 
     public int NpcCap => npcCap;
     public int ActiveNpcCount => npcs.Count;
@@ -20,13 +22,18 @@ public sealed class NewMapNpcCrowdPrototype : MonoBehaviour
         GameObject crowdObject = new GameObject("NewMap_NPC_CrowdPrototype");
         crowdObject.transform.SetParent(parent, false);
         NewMapNpcCrowdPrototype crowd = crowdObject.AddComponent<NewMapNpcCrowdPrototype>();
-        crowd.Build(centerPosition);
+        crowd.requestedCenter = centerPosition;
         return crowd;
     }
 
     public void SetCrowdFailuresEnabled(bool enabled)
     {
         crowdFailuresEnabled = enabled;
+        if (enabled)
+        {
+            EnsureBuilt();
+        }
+
         CurrentCongestionDelaySeconds = enabled ? Mathf.Min(6f, npcs.Count * 0.4f) : 0f;
     }
 
@@ -37,6 +44,7 @@ public sealed class NewMapNpcCrowdPrototype : MonoBehaviour
             return 0f;
         }
 
+        EnsureBuilt();
         int nearby = 0;
         foreach (Transform npc in npcs)
         {
@@ -74,6 +82,11 @@ public sealed class NewMapNpcCrowdPrototype : MonoBehaviour
 
     private void Build(Vector3 centerPosition)
     {
+        if (built)
+        {
+            return;
+        }
+
         center = centerPosition + new Vector3(8f, 0f, 4f);
         int count = Mathf.Clamp(npcCap, 0, 24);
         for (int i = 0; i < count; i++)
@@ -84,6 +97,16 @@ public sealed class NewMapNpcCrowdPrototype : MonoBehaviour
             npc.transform.position = center + new Vector3(Mathf.Cos(angle), 0f, Mathf.Sin(angle)) * (wanderRadius * 0.55f);
             NewMapVisualFactory.CreateHumanoid(npc.transform, "NPCVisual", new Color(1f, 0.62f, 0.12f, 1f));
             npcs.Add(npc.transform);
+        }
+
+        built = true;
+    }
+
+    private void EnsureBuilt()
+    {
+        if (!built)
+        {
+            Build(requestedCenter);
         }
     }
 }

@@ -1,0 +1,32 @@
+{
+  "generatedAt": "2026-05-27T03:13:20+09:00",
+  "activeScene": "Assets/Scenes/Chuo_BaseMap.unity",
+  "coordinateTransformStatus": "blocked_missing_coordinate_transform",
+  "finalStatus": "blocked_needs_user_map_asset",
+  "sceneAudit": {
+    "rendererCount": 18596,
+    "colliderCount": 18596,
+    "mapBoundsExtentsRecorded": false,
+    "note": "Existing scene audit records counts only. Runtime now avoids player scene-wide bounds scans for spike reduction."
+  },
+  "officialPointSourceCrs": "EPSG:4326",
+  "routeGeometrySourceCrs": "EPSG:4326",
+  "routeMetricCrs": "EPSG:6677",
+  "knownCoordinateInputs": {
+    "officialShelterPointCount": 31,
+    "routeRecordCount": 135,
+    "routeBoundingBox": {
+      "west": 139.746495,
+      "south": 35.6353,
+      "east": 139.8056,
+      "north": 35.706933
+    }
+  },
+  "validatedAnchorMethod": "Exact PLATEAU GML scene object names can anchor official shelter objects, but this does not define a general WGS84-to-Unity transform.",
+  "wgs84ToUnityTransformAvailable": false,
+  "transformedPointsInsideMapBounds": "not_evaluated_without_transform",
+  "routePointsPlausibleInWgs84": true,
+  "routePointsValidatedInUnity": false,
+  "blocker": "No stored Unity transform/origin/scale mapping from EPSG:4326 route coordinates to Chuo_BaseMap world positions was found.",
+  "nextAction": "Provide verified PLATEAU/Unity coordinate transform before claiming route geometry validation."
+}

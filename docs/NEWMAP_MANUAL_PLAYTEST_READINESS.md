@@ -1,26 +1,16 @@
 # NewMap Manual Playtest Readiness
 
-JSON: `Assets/Data/P10/newmap_manual_playtest_readiness.json`
+Generated: 2026-05-27T04:00:17+09:00
 
 Decision: `ready_with_documented_limitations`
 
-The new `Chuo_BaseMap` is the active playable baseline for manual testing. P2, P5, P6, P8, P9, and P10 are connected through documented runtime proxies where real map anchors are unavailable. P3/P4 old sample shelter records remain disabled because they cannot be verified on the reset map. No official route or official shelter activation is claimed.
+Reason: Pre2 temp player build, PlayMode tests, preflight, performance sampling, and Player.log parse passed. Official shelters are recovered by exact PLATEAU GML anchors. The startup max-frame spike remains above 2 seconds, but runtime bootstrap measured 169 ms, so the remaining spike is documented as large Chuo_BaseMap Unity/PLATEAU scene activation.
 
-Latest validation:
-
-- Final preflight: PASS
-- EditMode: 108 passed, 0 failed
-- PlayMode: 19 passed, 0 failed
-- Hardening temporary player build target: `D:\UnityProjects\ChuoTsunamiEvacuation-Builds\NewMapHardeningPre\ChuoTsunamiEvacuation_NewMapHardeningPre.exe`
-- Player.log: 0 errors, 0 warnings
-- Performance gate: `ready_with_documented_limitations`
-- DeepSeek hardening review: no A-level issues; all hardening requirements met.
-
-Hardening update:
-
-- Active runtime targets increased to 4 local non-official training targets.
-- `newmap_proxy_crowd_delay` was added for P6/P9 congestion-delay validation.
-- Hardening Player.log: 0 errors, 0 warnings.
-- Hardening performance sample: average FPS 46.2, max frame 20,655.05 ms, max private memory 21,950,038,016 bytes.
-
-Readiness remains `ready_with_documented_limitations` because memory and startup/frame spike remain B-level limitations. Ordinary-PC readiness and no-spike startup readiness are not claimed.
+Active targets: 19
+Active official shelters: 15
+Disabled targets: 156
+Performance retest: 72.72 average FPS, 11273.06 ms max frame, 2 stutter frames over 66 ms
+Player.log: 0 errors, 0 warnings
+EditMode: total 108, passed 108, failed 0
+PlayMode: total 20, passed 20, failed 0
+DeepSeek: no A-level blocker

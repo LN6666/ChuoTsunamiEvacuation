@@ -1,0 +1,80 @@
+{
+  "generatedAt": "2026-05-27T04:00:17+09:00",
+  "activeScene": "Assets/Scenes/Chuo_BaseMap.unity",
+  "scenarioSet": [
+    {
+      "scenario": "tourism_free_roam_no_failure",
+      "status": "covered_by_playmode",
+      "activeTargetUsed": "newmap_proxy_safe_floor",
+      "resultPanelReason": "Tourism inspection"
+    },
+    {
+      "scenario": "evacuation_success_with_active_target",
+      "status": "covered_by_playmode",
+      "activeTargetUsed": "newmap_proxy_safe_floor",
+      "resultPanelReason": "safe_floor_reached"
+    },
+    {
+      "scenario": "warning_before_front",
+      "status": "covered_by_playmode",
+      "activeTargetUsed": "newmap_proxy_safe_floor",
+      "resultPanelReason": "stage Warning asserted"
+    },
+    {
+      "scenario": "green_frame_after_front",
+      "status": "covered_by_playmode",
+      "activeTargetUsed": "active targets",
+      "resultPanelReason": "Stage 2 guidance asserted"
+    },
+    {
+      "scenario": "route_proxy_wording",
+      "status": "covered_by_preflight",
+      "activeTargetUsed": "local training route proxies",
+      "resultPanelReason": "estimated prototype guidance only"
+    },
+    {
+      "scenario": "disabled_targets_not_spawned",
+      "status": "covered_by_playmode_and_preflight",
+      "activeTargetUsed": "runtime target list",
+      "resultPanelReason": "disabled records absent"
+    },
+    {
+      "scenario": "official_target_if_recovered",
+      "status": "covered_by_playmode",
+      "activeTargetUsed": "chuo_official_emergency_001 fixture / runtime GML anchors",
+      "resultPanelReason": "Entering official shelter anchor"
+    },
+    {
+      "scenario": "non_official_warning",
+      "status": "covered_by_runtime_ui",
+      "activeTargetUsed": "newmap_proxy_safe_floor",
+      "resultPanelReason": "non-official warning visible near target"
+    },
+    {
+      "scenario": "crowd_delay_proxy",
+      "status": "covered_by_playmode",
+      "activeTargetUsed": "newmap_proxy_crowd_delay",
+      "resultPanelReason": "Crowd delay non-zero"
+    },
+    {
+      "scenario": "collapse_debris_proxy",
+      "status": "covered_by_playmode",
+      "activeTargetUsed": "debris diagnostic area",
+      "resultPanelReason": "collapse_debris_exposure"
+    },
+    {
+      "scenario": "ResultPanel reason codes",
+      "status": "covered_by_playmode",
+      "activeTargetUsed": "runtime scenario targets",
+      "resultPanelReason": "Tourism inspection, entrance_blocked, safe_floor_unavailable, safe_floor_reached, collapse_debris_exposure"
+    }
+  ],
+  "playerLogErrors": 0,
+  "playerLogWarnings": 0,
+  "performanceRetest": {
+    "averageFps": 72.72,
+    "maxFrameMs": 11273.06,
+    "spikeDecision": "spike_remaining_but_documented"
+  },
+  "finalStatus": "completed_with_documented_runtime_proxy"
+}

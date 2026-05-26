@@ -1,106 +1,93 @@
-﻿{
-    "generatedAt":  "2026-05-26T21:46:23+09:00",
-    "activeScene":  "Assets/Scenes/Chuo_BaseMap.unity",
-    "allowedStatuses":  [
-                            "completed_on_new_chuo_basemap",
-                            "completed_with_documented_runtime_proxy",
-                            "disabled_missing_from_new_map",
-                            "blocked_needs_user_map_asset",
-                            "failed"
-                        ],
-    "activeTargetCount":  4,
-    "disabledTargetCount":  171,
-    "entries":  [
-                    {
-                        "feature":  "player/camera/movement/E/ResultPanel",
-                        "phase":  "P2",
-                        "activeOnNewMap":  true,
-                        "finalStatus":  "completed_with_documented_runtime_proxy",
-                        "targetUsed":  "newmap_proxy_safe_floor",
-                        "testEvidence":  "RuntimeBootstrapCreatesPlayerCameraAndPreventsFallThrough, RuntimePlayerSupportsSustainedMovementSimulation, RuntimeProxyInteractionsProduceExpectedResultCodes",
-                        "evidence":  "runtime player/camera/UI support proxy plus PlayMode movement and interaction tests",
-                        "testName":  "NewMapRuntimePlayModeTests",
-                        "disabledReason":  "",
-                        "blocker":  "",
-                        "nextAction":  "manual playtest on final temp player"
-                    },
-                    {
-                        "feature":  "shelter loading and P3/P4 sample records",
-                        "phase":  "P3/P4",
-                        "activeOnNewMap":  false,
-                        "finalStatus":  "disabled_missing_from_new_map",
-                        "targetUsed":  "none",
-                        "testEvidence":  "rg scan found no 13102-bldg or 城東小学校 anchor in Assets/Scenes/Chuo_BaseMap.unity; disabled target preflight",
-                        "evidence":  "P3/P4 records preserved and disabled in final target report",
-                        "testName":  "check_newmap_disabled_targets.ps1",
-                        "disabledReason":  "No P3/P4 sample shelter has a verified Chuo_BaseMap object anchor or coordinate transform after the map reset.",
-                        "blocker":  "missing verified new-map anchor",
-                        "nextAction":  "requires user-provided verified map asset/transform before activation"
-                    },
-                    {
-                        "feature":  "P5 shelter/candidate/route guidance",
-                        "phase":  "P5",
-                        "activeOnNewMap":  true,
-                        "finalStatus":  "completed_with_documented_runtime_proxy",
-                        "targetUsed":  "newmap_proxy_safe_floor, newmap_proxy_blocked_entrance, newmap_proxy_no_safe_floor, newmap_proxy_crowd_delay",
-                        "testEvidence":  "RuntimeUiPauseRulesAndStageGuidanceWork and RuntimeP9HardeningScenariosProduceRequiredOutcomes",
-                        "evidence":  "real P5 records disabled; local estimated prototype route guides active for 4 runtime training targets only",
-                        "testName":  "NewMapIntegrationConfigTests and NewMapRuntimePlayModeTests",
-                        "disabledReason":  "real P5 route geometry disabled because no verified transform exists",
-                        "blocker":  "real routes need verified transform",
-                        "nextAction":  "manual test local estimated route proxy only"
-                    },
-                    {
-                        "feature":  "NPC/navigation/crowd",
-                        "phase":  "P6",
-                        "activeOnNewMap":  true,
-                        "finalStatus":  "completed_with_documented_runtime_proxy",
-                        "targetUsed":  "newmap_proxy_crowd_delay",
-                        "testEvidence":  "RuntimeP9HardeningScenariosProduceRequiredOutcomes verifies a non-zero crowd delay",
-                        "evidence":  "local humanoid NPC crowd cap and congestion delay proxy",
-                        "testName":  "NewMapRuntimePlayModeTests",
-                        "disabledReason":  "",
-                        "blocker":  "road-aware navigation unavailable",
-                        "nextAction":  "manual verify local crowd behavior"
-                    },
-                    {
-                        "feature":  "two-stage tsunami/hazard/light curtain",
-                        "phase":  "P8",
-                        "activeOnNewMap":  true,
-                        "finalStatus":  "completed_with_documented_runtime_proxy",
-                        "targetUsed":  "newmap_proxy_safe_floor",
-                        "testEvidence":  "RuntimeUiPauseRulesAndStageGuidanceWork and RuntimeP9HardeningScenariosProduceRequiredOutcomes",
-                        "evidence":  "Stage 1 warning and Stage 2 moving light curtain/hazard checks",
-                        "testName":  "NewMapRuntimePlayModeTests",
-                        "disabledReason":  "old hazard grid disabled for no verified new-map transform",
-                        "blocker":  "",
-                        "nextAction":  "manual trigger Evacuation mode and verify Stage 2"
-                    },
-                    {
-                        "feature":  "gameplay entrance/safe-floor/crowd/collapse/result codes",
-                        "phase":  "P9",
-                        "activeOnNewMap":  true,
-                        "finalStatus":  "completed_with_documented_runtime_proxy",
-                        "targetUsed":  "newmap_proxy_safe_floor, newmap_proxy_blocked_entrance, newmap_proxy_no_safe_floor, newmap_proxy_crowd_delay",
-                        "testEvidence":  "RuntimeP9HardeningScenariosProduceRequiredOutcomes covers 11 required scenario outcomes",
-                        "evidence":  "runtime proxy targets cover success, blocked entrance, no safe floor, crowd delay, debris exposure",
-                        "testName":  "RuntimeProxyInteractionsProduceExpectedResultCodes and RuntimeP9HardeningScenariosProduceRequiredOutcomes",
-                        "disabledReason":  "",
-                        "blocker":  "",
-                        "nextAction":  "manual scenario checklist"
-                    },
-                    {
-                        "feature":  "UI/localization/modes/weather/stamina/green frames/performance tools",
-                        "phase":  "P10",
-                        "activeOnNewMap":  true,
-                        "finalStatus":  "completed_with_documented_runtime_proxy",
-                        "targetUsed":  "4 active non-official training targets",
-                        "testEvidence":  "RuntimeUiPauseRulesAndStageGuidanceWork, RuntimeModesApplySpeedAndStaminaRules, hardening preflight",
-                        "evidence":  "Start Menu, EN/JA switch, ScrollRect rules, pause resume, modes, weather/stamina, Stage 2 guidance, final tools",
-                        "testName":  "RuntimeUiPauseRulesAndStageGuidanceWork and final preflight",
-                        "disabledReason":  "",
-                        "blocker":  "high-memory map limitation",
-                        "nextAction":  "manual playtest with documented memory limitation"
-                    }
-                ]
+{
+  "generatedAt": "2026-05-27T04:00:17+09:00",
+  "activeScene": "Assets/Scenes/Chuo_BaseMap.unity",
+  "allowedStatuses": [
+    "completed_on_new_chuo_basemap",
+    "completed_with_documented_runtime_proxy",
+    "disabled_missing_from_new_map",
+    "blocked_needs_user_map_asset",
+    "failed"
+  ],
+  "activeTargetCount": 19,
+  "disabledTargetCount": 156,
+  "activeOfficialShelterCount": 15,
+  "entries": [
+    {
+      "phase": "P2",
+      "feature": "player/camera/movement/E/ResultPanel",
+      "finalStatus": "completed_with_documented_runtime_proxy",
+      "activeOnNewMap": true,
+      "targetUsed": "verified official shelter anchors plus local training targets",
+      "testEvidence": "NewMap runtime tests, official anchor preflight, Pre2 temp player smoke, and Player.log parse",
+      "disabledReason": "",
+      "blocker": "",
+      "nextAction": "manual playtest on temp player"
+    },
+    {
+      "phase": "P3/P4",
+      "feature": "official shelter loading and marker activation",
+      "finalStatus": "completed_on_new_chuo_basemap",
+      "activeOnNewMap": true,
+      "targetUsed": "15 verified official shelter GML anchors",
+      "testEvidence": "Official source loader, exact PLATEAU GML scene-object anchor report, PlayMode official-anchor fixture, and preflight",
+      "disabledReason": "",
+      "blocker": "",
+      "nextAction": "manual inspect active official markers"
+    },
+    {
+      "phase": "P5",
+      "feature": "candidate loading, route geometry validation, prototype route guidance",
+      "finalStatus": "completed_with_documented_runtime_proxy",
+      "activeOnNewMap": true,
+      "targetUsed": "official shelter anchors and 4 local route proxy training guides",
+      "testEvidence": "Route geometry validation report: 135 routes blocked by missing WGS84-to-Unity transform, no official route claim, local prototype route proxy wording checked",
+      "disabledReason": "Old route geometry is disabled where no verified transform exists.",
+      "blocker": "route geometry validation needs verified transform",
+      "nextAction": "manual use local estimated prototype route guides only"
+    },
+    {
+      "phase": "P6",
+      "feature": "NPC/navigation/crowd",
+      "finalStatus": "completed_with_documented_runtime_proxy",
+      "activeOnNewMap": true,
+      "targetUsed": "newmap_proxy_crowd_delay",
+      "testEvidence": "NewMap runtime tests, preflight reports, and JSON validation",
+      "disabledReason": "",
+      "blocker": "road-aware navigation unavailable",
+      "nextAction": "manual verify crowd delay"
+    },
+    {
+      "phase": "P8",
+      "feature": "two-stage tsunami/hazard/light curtain",
+      "finalStatus": "completed_with_documented_runtime_proxy",
+      "activeOnNewMap": true,
+      "targetUsed": "runtime targets",
+      "testEvidence": "NewMap runtime tests, preflight reports, and JSON validation",
+      "disabledReason": "",
+      "blocker": "",
+      "nextAction": "manual verify Stage 1/Stage 2"
+    },
+    {
+      "phase": "P9",
+      "feature": "gameplay outcomes and ResultPanel reason codes",
+      "finalStatus": "completed_with_documented_runtime_proxy",
+      "activeOnNewMap": true,
+      "targetUsed": "verified official fixture plus local training targets",
+      "testEvidence": "NewMap runtime tests, preflight reports, and JSON validation",
+      "disabledReason": "",
+      "blocker": "",
+      "nextAction": "manual scenario checklist"
+    },
+    {
+      "phase": "P10",
+      "feature": "UI/modes/weather/stamina/green frames/spike tools",
+      "finalStatus": "completed_with_documented_runtime_proxy",
+      "activeOnNewMap": true,
+      "targetUsed": "19 active targets",
+      "testEvidence": "Pre2 temp player performance retest: averageFps=72.72, maxFrameMs=11273.06, Player.log errors=0, warnings=0, runtime bootstrap total=169ms",
+      "disabledReason": "",
+      "blocker": "startup spike remains above 2 seconds due to large Chuo_BaseMap scene activation",
+      "nextAction": "manual playtest may proceed with documented startup spike; ordinary-PC readiness needs separate scene/data optimization"
+    }
+  ]
 }

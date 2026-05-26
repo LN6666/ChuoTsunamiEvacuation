@@ -39,6 +39,12 @@ public class NewMapRuntimePlayModeTests
         {
             Object.DestroyImmediate(eventSystem.gameObject);
         }
+
+        GameObject officialAnchorFixture = GameObject.Find("bldg_25d370de-2c35-457b-b756-3444a3d02eb3");
+        if (officialAnchorFixture != null)
+        {
+            Object.DestroyImmediate(officialAnchorFixture);
+        }
     }
 
     [UnityTest]
@@ -52,6 +58,7 @@ public class NewMapRuntimePlayModeTests
         Assert.NotNull(player);
         Assert.NotNull(controller);
         Assert.IsTrue(player.HasActiveCamera);
+        Assert.AreEqual(0, controller.RuntimeTargets.Count(target => target.IsOfficialShelter), "Official shelters must not be active without a verified scene GML anchor.");
 
         controller.StartTourismMode();
         float startY = player.transform.position.y;
@@ -59,14 +66,8 @@ public class NewMapRuntimePlayModeTests
         Assert.Greater(player.transform.position.y, startY - 8f, "Player should not fall endlessly through the map/support proxy.");
         Assert.AreEqual(0, player.FallRecoveryCount, "Normal spawn grounding should not need fall recovery.");
         Assert.IsTrue(bootstrap.LastRuntimeCollisionSupportProxyActive, "Final NewMap manual test uses the documented runtime collision support proxy.");
-        float colliderShutdownTimeoutSeconds = 5f;
-        while (!bootstrap.LastMeshColliderDisableComplete && colliderShutdownTimeoutSeconds > 0f)
-        {
-            colliderShutdownTimeoutSeconds -= Time.deltaTime;
-            yield return null;
-        }
-
-        Assert.IsTrue(bootstrap.LastMeshColliderDisableComplete, "Scene MeshColliders should be disabled through the staged startup hardening path.");
+        Assert.IsFalse(bootstrap.LastMeshColliderDisableComplete, "Scene MeshCollider shutdown should not run at player startup because it caused the Pre2 spike.");
+        Assert.AreEqual(0, bootstrap.LastDisabledSceneMeshColliderCount, "Scene MeshColliders should remain untouched during player startup.");
     }
 
     [UnityTest]
@@ -260,5 +261,34 @@ public class NewMapRuntimePlayModeTests
         Assert.AreEqual("Tourism inspection", ui.LastResultReason, "collapse_disabled_success keeps tourism mode free of debris failure.");
 
         Assert.IsFalse(controller.RuntimeTargets.Any(target => target != null && !target.ActiveInGame), "disabled_targets_not_spawned keeps inactive records out of runtime targets.");
+    }
+
+    [UnityTest]
+    public IEnumerator RuntimeOfficialShelterRequiresVerifiedGmlAnchor()
+    {
+        GameObject officialAnchor = GameObject.CreatePrimitive(PrimitiveType.Cube);
+        officialAnchor.name = "bldg_25d370de-2c35-457b-b756-3444a3d02eb3";
+        officialAnchor.transform.position = new Vector3(24f, 3f, 18f);
+        officialAnchor.transform.localScale = new Vector3(4f, 6f, 4f);
+
+        NewMapRuntimeBootstrap.CreateForCurrentScene();
+        NewMapGameController controller = Object.FindObjectOfType<NewMapGameController>();
+        NewMapRuntimeUI ui = Object.FindObjectOfType<NewMapRuntimeUI>();
+        Assert.NotNull(controller);
+        Assert.NotNull(ui);
+
+        NewMapRuntimeTarget officialTarget = controller.RuntimeTargets.FirstOrDefault(target => target.Id == "chuo_official_emergency_001");
+        Assert.NotNull(officialTarget);
+        Assert.IsTrue(officialTarget.IsOfficialShelter);
+        Assert.IsFalse(officialTarget.NonOfficialWarningRequired);
+        Assert.IsNull(officialTarget.RouteGuide, "Official shelter activation must not create an official-looking route line.");
+
+        controller.StartEvacuationMode();
+        controller.ForceStageForDiagnostics(NewMapTsunamiStage.FrontApproaching);
+        yield return null;
+
+        Assert.IsTrue(controller.TryInteractForDiagnostics("chuo_official_emergency_001"));
+        Assert.AreEqual("Entering official shelter anchor", ui.LastResultReason);
+        StringAssert.Contains("no official route is claimed", ui.LastResultDetail);
     }
 }
