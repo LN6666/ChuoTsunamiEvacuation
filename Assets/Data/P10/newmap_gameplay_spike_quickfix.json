@@ -1,0 +1,17 @@
+{
+  "generatedAt": "2026-05-27T20:14:37+09:00",
+  "activeScene": "Assets/Scenes/Chuo_BaseMap.unity",
+  "focus": "gameplay startup/frame spike; memory is informational only",
+  "previousRemainingHardeningMaxFrameMs": 6298.42,
+  "currentMaxFrameMs": 6391.79,
+  "averageFps": 106.77,
+  "performanceDecision": "spike_remaining_but_documented",
+  "fixesApplied": [
+    "Gameplay self-audit smoke is gated behind -newmapSelfAuditSmoke and does not run during normal player startup.",
+    "Candidate and route validation remain precomputed report work instead of player startup scans.",
+    "Recovered candidate green frames are lazy-created only at Evacuation Stage 2.",
+    "Player runtime scene-wide bounds scan and MeshCollider shutdown remain disabled at startup."
+  ],
+  "remainingLimitation": "Startup spike is still above the 2000 ms target unless the latest player retest proves otherwise.",
+  "finalStatus": "completed_with_documented_runtime_proxy"
+}

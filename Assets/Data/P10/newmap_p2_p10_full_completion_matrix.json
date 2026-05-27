@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-27T19:21:33+09:00",
+  "generatedAt": "2026-05-27T20:14:37+09:00",
   "activeScene": "Assets/Scenes/Chuo_BaseMap.unity",
   "allowedStatuses": [
     "completed_on_new_chuo_basemap",
@@ -19,77 +19,81 @@
       "feature": "player/camera/movement/E/ResultPanel",
       "finalStatus": "completed_with_documented_runtime_proxy",
       "activeOnNewMap": true,
-      "targetUsed": "verified official anchors, recovered non-official candidates, and local training targets",
-      "testEvidence": "PlayMode smoke plus final player interaction report",
+      "targetUsed": "official shelters, recovered non-official candidates, local training targets",
+      "testEvidence": "PlayMode plus player-build self-audit smoke",
       "disabledReason": "",
       "blocker": "",
       "nextAction": "manual playtest"
     },
     {
       "phase": "P3/P4",
-      "feature": "official shelter loading and marker activation",
+      "feature": "official shelter gameplay flow",
       "finalStatus": "completed_on_new_chuo_basemap",
       "activeOnNewMap": true,
       "targetUsed": "15 verified official shelter GML anchors",
-      "testEvidence": "official shelter anchor final check",
+      "testEvidence": "official gameplay check and player smoke",
       "disabledReason": "",
       "blocker": "",
-      "nextAction": "manual inspect active official markers"
+      "nextAction": "manual inspect official markers"
     },
     {
       "phase": "P5",
-      "feature": "route geometry validation and prototype guidance",
+      "feature": "route prototype guidance and no official route claim",
       "finalStatus": "completed_with_documented_runtime_proxy",
       "activeOnNewMap": true,
-      "targetUsed": "60 validated route geometries report-only; 78 recovered non-official candidate targets; 4 local route proxies",
-      "testEvidence": "coordinate transform, candidate recovery, and route geometry final validation",
-      "disabledReason": "old route lines are not spawned as official runtime routes",
-      "blocker": "route-overlay UX/player-origin linkage remains prototype-only",
-      "nextAction": "manual use estimated prototype guidance only"
+      "targetUsed": "60 old route geometries report-only plus local runtime route proxy",
+      "testEvidence": "route gameplay check",
+      "disabledReason": "old route overlays are not spawned as official gameplay routes",
+      "blocker": "official route proof unavailable",
+      "nextAction": "manual use prototype route wording only"
     },
     {
       "phase": "P6",
-      "feature": "NPC/navigation/crowd",
+      "feature": "NPC/crowd delay proxy",
       "finalStatus": "completed_with_documented_runtime_proxy",
       "activeOnNewMap": true,
       "targetUsed": "newmap_proxy_crowd_delay",
-      "testEvidence": "NPC/crowd final check and PlayMode scenario",
+      "testEvidence": "player smoke crowd_delay_success_or_failure",
       "disabledReason": "",
       "blocker": "road-aware navigation unavailable",
       "nextAction": "manual verify crowd delay"
     },
     {
       "phase": "P8",
-      "feature": "two-stage tsunami/hazard/light curtain",
+      "feature": "two-stage tsunami/light curtain/hazard timing",
       "finalStatus": "completed_with_documented_runtime_proxy",
       "activeOnNewMap": true,
-      "targetUsed": "runtime stage controller and active target green frames",
-      "testEvidence": "two-stage tsunami final check and PlayMode stage guidance",
+      "targetUsed": "runtime hazard controller",
+      "testEvidence": "player smoke evacuation_stage1_warning and evacuation_stage2_front_and_green_frames",
       "disabledReason": "",
       "blocker": "",
-      "nextAction": "manual verify Stage 1/Stage 2"
+      "nextAction": "manual verify Stage 1/2"
     },
     {
       "phase": "P9",
-      "feature": "gameplay outcomes and ResultPanel reason codes",
+      "feature": "outcome scenarios/reason codes",
       "finalStatus": "completed_with_documented_runtime_proxy",
       "activeOnNewMap": true,
-      "targetUsed": "official anchor fixture, recovered non-official candidate, local training targets",
-      "testEvidence": "scenario final status and PlayMode scenarios",
+      "targetUsed": "official, non-official, local proxy, hazard proxy targets",
+      "testEvidence": "newmap_outcome_scenario_check.json",
       "disabledReason": "",
       "blocker": "",
       "nextAction": "manual scenario checklist"
     },
     {
       "phase": "P10",
-      "feature": "UI/modes/weather/stamina/green frames/spike tools",
+      "feature": "UI/modes/localization/weather/green frames/performance hooks",
       "finalStatus": "completed_with_documented_runtime_proxy",
       "activeOnNewMap": true,
-      "targetUsed": "97 active targets",
-      "testEvidence": "spike hardening final plus remaining-hardening performance retest: 106.85 FPS average, 6298.42 ms max frame, Player.log 0/0",
+      "targetUsed": "97 active runtime targets",
+      "testEvidence": "UI/UX runtime check and player log parse",
       "disabledReason": "",
-      "blocker": "startup spike remains above 2000 ms target",
+      "blocker": "startup spike remains above target",
       "nextAction": "manual playtest with documented spike limitation"
     }
-  ]
+  ],
+  "activeNonOfficialTrainingTargetCount": 82,
+  "activeRecoveredNonOfficialHumanitarianCandidateCount": 78,
+  "playerBuildEvidence": true,
+  "gameplaySelfAuditMatrix": "Assets/Data/P10/newmap_gameplay_self_audit_matrix.json"
 }

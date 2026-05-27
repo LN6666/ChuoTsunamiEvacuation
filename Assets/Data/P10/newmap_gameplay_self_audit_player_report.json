@@ -1,0 +1,120 @@
+{
+  "generatedAt": "2026-05-27T20:12:48",
+  "activeScene": "Assets/Scenes/Chuo_BaseMap.unity",
+  "buildPath": "D:\\UnityProjects\\ChuoTsunamiEvacuation-Builds\\NewMapGameplaySelfAuditPre\\ChuoTsunamiEvacuation_NewMapGameplaySelfAuditPre.exe",
+  "logPath": "C:\\Users\\liangjn\\AppData\\LocalLow\\DefaultCompany\\ChuoTsunamiEvacuation\\Player.log",
+  "launchSmoke": "passed",
+  "playerBuildEvidence": true,
+  "commandLineSmokeArg": "-newmapSelfAuditSmoke",
+  "errorCount": 0,
+  "warningCount": 0,
+  "firstErrors": [],
+  "firstWarnings": [],
+  "smokeScenarios": [
+    {
+      "scenarioId": "runtime_target_counts",
+      "result": "pass",
+      "detail": "official=15 nonOfficial=82 routeGuides=4"
+    },
+    {
+      "scenarioId": "start_menu_visible",
+      "result": "pass",
+      "detail": "Start Menu visible after bootstrap reset"
+    },
+    {
+      "scenarioId": "tourism_free_roam_no_failure",
+      "result": "pass",
+      "detail": "Tourism mode disables tsunami, hazard checks, crowd failure, and stamina"
+    },
+    {
+      "scenarioId": "tourism_non_official_inspection_warning",
+      "result": "pass",
+      "detail": "target=p8_plateau_highrise_candidate_001 reason=Tourism inspection"
+    },
+    {
+      "scenarioId": "evacuation_stage1_warning",
+      "result": "pass",
+      "detail": "Evacuation starts in Stage 1 with hazard checks inactive and stamina enabled"
+    },
+    {
+      "scenarioId": "evacuation_stage2_front_and_green_frames",
+      "result": "pass",
+      "detail": "Stage 2 builds light curtain and activates active-target green frames"
+    },
+    {
+      "scenarioId": "success_official_shelter",
+      "result": "pass",
+      "detail": "target=chuo_official_emergency_001 finalReason=safe_floor_reached"
+    },
+    {
+      "scenarioId": "success_non_official_candidate_with_warning",
+      "result": "pass",
+      "detail": "target=p8_plateau_highrise_candidate_001 finalReason=safe_floor_reached"
+    },
+    {
+      "scenarioId": "route_proxy_wording",
+      "result": "pass",
+      "detail": "target=newmap_proxy_safe_floor reason=Entering shelter proxy"
+    },
+    {
+      "scenarioId": "crowd_delay_success_or_failure",
+      "result": "pass",
+      "detail": "reason=Entering shelter proxy"
+    },
+    {
+      "scenarioId": "entrance_blocked_failure",
+      "result": "pass",
+      "detail": "reason=entrance_blocked"
+    },
+    {
+      "scenarioId": "safe_floor_unavailable_failure",
+      "result": "pass",
+      "detail": "reason=safe_floor_unavailable"
+    },
+    {
+      "scenarioId": "collapse_debris_exposure_failure",
+      "result": "pass",
+      "detail": "reason=collapse_debris_exposure"
+    },
+    {
+      "scenarioId": "tsunami_front_failure",
+      "result": "pass",
+      "detail": "reason=tsunami_front_contact"
+    },
+    {
+      "scenarioId": "collapse_disabled_success",
+      "result": "pass",
+      "detail": "Tourism mode keeps collapse/debris failure disabled"
+    },
+    {
+      "scenarioId": "disabled_target_not_selectable",
+      "result": "pass",
+      "detail": "Disabled/out-of-map probe id is absent from runtime targets"
+    },
+    {
+      "scenarioId": "ui_rules_pause_result_panel",
+      "result": "pass",
+      "detail": "Rules scroll, pause menu, and ResultPanel are reachable"
+    }
+  ],
+  "requiredSmokeScenarioCount": 17,
+  "missingSmokeScenarios": [],
+  "failedSmokeScenarios": [],
+  "performanceSample": {
+    "elapsedSeconds": 180,
+    "frameCount": 19218,
+    "averageFps": 106.77,
+    "maxFrameMs": 6391.79,
+    "stutterFramesOver66ms": 2
+  },
+  "bootstrapLine": "NewMap runtime bootstrap completed. renderers=0 colliders=0 groundSupportProxy=False collisionSupportProxy=True meshColliderShutdown=disabled_runtime_startup activeRuntimeTargets=97",
+  "bootstrapTimingLine": "NewMap runtime bootstrap timings: boundsMs=1 spawnSupportMs=16 systemsMs=106 targetsMs=108 configureMs=6 totalMs=237",
+  "previousMaxFrameMs": 6298.42,
+  "performanceDecision": "spike_remaining_but_documented",
+  "memoryMeasured": true,
+  "memoryFocus": "informational_only",
+  "maxPrivateMemoryBytes": 21995401216,
+  "maxWorkingSetBytes": 7572733952,
+  "finalStatus": "completed_on_new_chuo_basemap",
+  "deepSeekVerdict": "no A-level blockers; player-build self-audit smoke passed"
+}

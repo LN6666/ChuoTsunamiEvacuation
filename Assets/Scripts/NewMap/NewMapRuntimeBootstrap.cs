@@ -7,6 +7,7 @@ public sealed class NewMapRuntimeBootstrap : MonoBehaviour
 {
     private const bool SuppressSceneMeshCollidersForManualTest = false;
     private const bool EnablePlayerRuntimeSceneWideBoundsScan = false;
+    private const string GameplaySelfAuditSmokeArg = "-newmapSelfAuditSmoke";
     private const string RuntimeNonOfficialCandidateResourcePath = "NewMap/newmap_runtime_non_official_candidates";
 
     private static readonly string[] RequiredRoots =
@@ -124,6 +125,11 @@ public sealed class NewMapRuntimeBootstrap : MonoBehaviour
 
         NewMapGameController controller = gameObject.AddComponent<NewMapGameController>();
         controller.Configure(player, ui, hazard, crowd, targets, BuildDiagnosticText());
+        if (ShouldRunGameplaySelfAuditSmoke())
+        {
+            StartCoroutine(RunGameplaySelfAuditSmoke(controller, player, ui, hazard, crowd));
+        }
+
         long configureMs = stopwatch.ElapsedMilliseconds - boundsMs - spawnSupportMs - systemsMs - targetsMs;
         stopwatch.Stop();
         Debug.Log(
@@ -134,6 +140,260 @@ public sealed class NewMapRuntimeBootstrap : MonoBehaviour
             $"NewMap runtime bootstrap completed. renderers={LastRendererCount} colliders={LastColliderCount} " +
             $"groundSupportProxy={LastUsedGroundSupportProxy} collisionSupportProxy={LastRuntimeCollisionSupportProxyActive} " +
             $"meshColliderShutdown={meshColliderShutdown} activeRuntimeTargets={targets.Count}");
+    }
+
+    private static bool ShouldRunGameplaySelfAuditSmoke()
+    {
+        string[] args = System.Environment.GetCommandLineArgs();
+        for (int i = 0; i < args.Length; i++)
+        {
+            if (string.Equals(args[i], GameplaySelfAuditSmokeArg, System.StringComparison.OrdinalIgnoreCase))
+            {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    private IEnumerator RunGameplaySelfAuditSmoke(
+        NewMapGameController controller,
+        NewMapPlayerController player,
+        NewMapRuntimeUI ui,
+        NewMapHazardController hazard,
+        NewMapNpcCrowdPrototype crowd)
+    {
+        yield return null;
+
+        NewMapRuntimeTarget official = null;
+        NewMapRuntimeTarget recoveredNonOfficial = null;
+        NewMapRuntimeTarget routeProxy = null;
+        int officialCount = 0;
+        int nonOfficialCount = 0;
+        int routeGuideCount = 0;
+        foreach (NewMapRuntimeTarget target in controller.RuntimeTargets)
+        {
+            if (target == null || !target.ActiveInGame)
+            {
+                continue;
+            }
+
+            if (target.IsOfficialShelter)
+            {
+                officialCount++;
+                if (official == null)
+                {
+                    official = target;
+                }
+            }
+            else
+            {
+                nonOfficialCount++;
+                if (recoveredNonOfficial == null && target.Category != null && target.Category.Contains("humanitarian_candidate"))
+                {
+                    recoveredNonOfficial = target;
+                }
+            }
+
+            if (target.RouteGuide != null || target.RouteGuideFactory != null)
+            {
+                routeGuideCount++;
+                if (routeProxy == null)
+                {
+                    routeProxy = target;
+                }
+            }
+        }
+
+        LogGameplaySmoke("runtime_target_counts", officialCount >= 15 && nonOfficialCount >= 82, $"official={officialCount} nonOfficial={nonOfficialCount} routeGuides={routeGuideCount}");
+        LogGameplaySmoke("start_menu_visible", ui != null && ui.IsStartMenuVisible, "Start Menu visible after bootstrap reset");
+
+        controller.StartTourismMode();
+        yield return null;
+        LogGameplaySmoke(
+            "tourism_free_roam_no_failure",
+            controller.Mode == NewMapGameMode.Tourism && controller.Stage == NewMapTsunamiStage.Inactive && hazard != null && !hazard.RiskChecksActive && player != null && !player.StaminaEnabled && crowd != null && crowd.CurrentCongestionDelaySeconds <= 0.001f,
+            "Tourism mode disables tsunami, hazard checks, crowd failure, and stamina");
+
+        if (recoveredNonOfficial != null)
+        {
+            bool inspected = controller.TryInteractForDiagnostics(recoveredNonOfficial.Id);
+            LogGameplaySmoke(
+                "tourism_non_official_inspection_warning",
+                inspected && ui != null && ui.LastResultReason == "Tourism inspection" && ui.LastResultDetail.Contains("Non-official candidate") && ui.LastResultDetail.Contains("not a safety approval"),
+                $"target={recoveredNonOfficial.Id} reason={SafeLog(ui != null ? ui.LastResultReason : string.Empty)}");
+        }
+        else
+        {
+            LogGameplaySmoke("tourism_non_official_inspection_warning", false, "No recovered non-official candidate target was active");
+        }
+
+        controller.StartEvacuationMode();
+        yield return null;
+        LogGameplaySmoke(
+            "evacuation_stage1_warning",
+            controller.Mode == NewMapGameMode.Evacuation && controller.Stage == NewMapTsunamiStage.Warning && hazard != null && !hazard.RiskChecksActive && player != null && player.StaminaEnabled,
+            "Evacuation starts in Stage 1 with hazard checks inactive and stamina enabled");
+
+        controller.ForceStageForDiagnostics(NewMapTsunamiStage.FrontApproaching);
+        yield return null;
+        bool anyGuidanceVisible = false;
+        foreach (NewMapRuntimeTarget target in controller.RuntimeTargets)
+        {
+            if (target != null && target.GreenFrame != null && target.GreenFrame.activeSelf)
+            {
+                anyGuidanceVisible = true;
+                break;
+            }
+        }
+
+        LogGameplaySmoke(
+            "evacuation_stage2_front_and_green_frames",
+            hazard != null && hazard.RiskChecksActive && hazard.LightCurtainVisibleForDiagnostics && anyGuidanceVisible,
+            "Stage 2 builds light curtain and activates active-target green frames");
+
+        if (official != null)
+        {
+            controller.StartEvacuationMode();
+            controller.ForceStageForDiagnostics(NewMapTsunamiStage.FrontApproaching);
+            yield return null;
+            bool entered = controller.TryInteractForDiagnostics(official.Id);
+            string entryDetail = ui != null ? ui.LastResultDetail : string.Empty;
+            bool completed = controller.CompleteSafeFloorSequenceForDiagnostics();
+            LogGameplaySmoke(
+                "success_official_shelter",
+                entered && completed && ui != null && ui.LastResultReason == "safe_floor_reached" && entryDetail.Contains("Official Chuo shelter anchor") && entryDetail.Contains("no official route is claimed"),
+                $"target={official.Id} finalReason={SafeLog(ui != null ? ui.LastResultReason : string.Empty)}");
+        }
+        else
+        {
+            LogGameplaySmoke("success_official_shelter", false, "No official shelter target was active");
+        }
+
+        if (recoveredNonOfficial != null)
+        {
+            controller.StartEvacuationMode();
+            controller.ForceStageForDiagnostics(NewMapTsunamiStage.FrontApproaching);
+            yield return null;
+            bool entered = controller.TryInteractForDiagnostics(recoveredNonOfficial.Id);
+            string entryDetail = ui != null ? ui.LastResultDetail : string.Empty;
+            bool completed = controller.CompleteSafeFloorSequenceForDiagnostics();
+            LogGameplaySmoke(
+                "success_non_official_candidate_with_warning",
+                entered && completed && ui != null && ui.LastResultReason == "safe_floor_reached" && entryDetail.Contains("Non-official humanitarian candidate") && entryDetail.Contains("not a safety approval") && !recoveredNonOfficial.IsOfficialShelter,
+                $"target={recoveredNonOfficial.Id} finalReason={SafeLog(ui != null ? ui.LastResultReason : string.Empty)}");
+        }
+        else
+        {
+            LogGameplaySmoke("success_non_official_candidate_with_warning", false, "No recovered non-official candidate target was active");
+        }
+
+        if (routeProxy != null)
+        {
+            controller.StartEvacuationMode();
+            controller.ForceStageForDiagnostics(NewMapTsunamiStage.FrontApproaching);
+            yield return null;
+            bool entered = controller.TryInteractForDiagnostics(routeProxy.Id);
+            string detail = ui != null ? ui.LastResultDetail : string.Empty;
+            LogGameplaySmoke(
+                "route_proxy_wording",
+                entered && detail.Contains("estimated prototype guidance") && detail.Contains("not an official evacuation route"),
+                $"target={routeProxy.Id} reason={SafeLog(ui != null ? ui.LastResultReason : string.Empty)}");
+        }
+        else
+        {
+            LogGameplaySmoke("route_proxy_wording", false, "No runtime route proxy target was active");
+        }
+
+        controller.StartEvacuationMode();
+        controller.ForceStageForDiagnostics(NewMapTsunamiStage.FrontApproaching);
+        yield return null;
+        bool crowdStarted = controller.TryInteractForDiagnostics("newmap_proxy_crowd_delay");
+        LogGameplaySmoke(
+            "crowd_delay_success_or_failure",
+            crowdStarted && ui != null && ui.LastResultDetail.Contains("Crowd delay:") && !ui.LastResultDetail.Contains("Crowd delay: 0.0s"),
+            $"reason={SafeLog(ui != null ? ui.LastResultReason : string.Empty)}");
+
+        controller.StartEvacuationMode();
+        controller.ForceStageForDiagnostics(NewMapTsunamiStage.FrontApproaching);
+        yield return null;
+        bool blocked = controller.TryInteractForDiagnostics("newmap_proxy_blocked_entrance");
+        LogGameplaySmoke("entrance_blocked_failure", blocked && ui != null && ui.LastResultReason == "entrance_blocked", $"reason={SafeLog(ui != null ? ui.LastResultReason : string.Empty)}");
+
+        controller.StartEvacuationMode();
+        controller.ForceStageForDiagnostics(NewMapTsunamiStage.FrontApproaching);
+        yield return null;
+        bool noFloor = controller.TryInteractForDiagnostics("newmap_proxy_no_safe_floor");
+        LogGameplaySmoke("safe_floor_unavailable_failure", noFloor && ui != null && ui.LastResultReason == "safe_floor_unavailable", $"reason={SafeLog(ui != null ? ui.LastResultReason : string.Empty)}");
+
+        controller.StartEvacuationMode();
+        controller.ForceStageForDiagnostics(NewMapTsunamiStage.FrontApproaching);
+        yield return null;
+        if (player != null && hazard != null)
+        {
+            player.transform.position = hazard.DebrisCenterForDiagnostics;
+        }
+
+        bool debris = controller.TryApplyDebrisExposureForDiagnostics(5f);
+        LogGameplaySmoke("collapse_debris_exposure_failure", debris && ui != null && ui.LastResultReason == "collapse_debris_exposure", $"reason={SafeLog(ui != null ? ui.LastResultReason : string.Empty)}");
+
+        controller.StartEvacuationMode();
+        controller.ForceStageForDiagnostics(NewMapTsunamiStage.FrontApproaching);
+        yield return null;
+        Vector3 frontFailurePosition = player != null ? player.transform.position + new Vector3(-200f, 0f, 0f) : new Vector3(-200f, 0f, 0f);
+        bool front = controller.TryApplyTsunamiFrontForDiagnostics(frontFailurePosition);
+        LogGameplaySmoke("tsunami_front_failure", front && ui != null && ui.LastResultReason == "tsunami_front_contact", $"reason={SafeLog(ui != null ? ui.LastResultReason : string.Empty)}");
+
+        controller.StartTourismMode();
+        if (player != null && hazard != null)
+        {
+            player.transform.position = hazard.DebrisCenterForDiagnostics;
+        }
+
+        yield return null;
+        string tourismReason = ui != null ? ui.LastResultReason : string.Empty;
+        yield return null;
+        LogGameplaySmoke("collapse_disabled_success", controller.Mode == NewMapGameMode.Tourism && (ui == null || ui.LastResultReason == tourismReason), "Tourism mode keeps collapse/debris failure disabled");
+
+        bool disabledSelectable = controller.TryInteractForDiagnostics("disabled_out_of_new_map_candidate_probe");
+        LogGameplaySmoke("disabled_target_not_selectable", !disabledSelectable, "Disabled/out-of-map probe id is absent from runtime targets");
+
+        if (ui != null)
+        {
+            controller.TryInteractForDiagnostics("newmap_proxy_safe_floor");
+            yield return null;
+            bool resultVisible = ui.IsResultVisible;
+            ui.ToggleRules();
+            yield return null;
+            bool rulesVisible = ui.IsRulesVisible && ui.RulesPanelHasScrollRect;
+            ui.ToggleRules();
+            controller.SetPaused(true);
+            yield return null;
+            bool pauseVisible = ui.IsPauseVisible;
+            controller.SetPaused(false);
+            LogGameplaySmoke("ui_rules_pause_result_panel", rulesVisible && pauseVisible && resultVisible, "Rules scroll, pause menu, and ResultPanel are reachable");
+        }
+        else
+        {
+            LogGameplaySmoke("ui_rules_pause_result_panel", false, "Runtime UI was not created");
+        }
+
+        Debug.Log("NewMap gameplay self-audit smoke completed.");
+    }
+
+    private static void LogGameplaySmoke(string scenarioId, bool passed, string detail)
+    {
+        Debug.Log($"NewMap gameplay self-audit smoke: scenario={scenarioId} result={(passed ? "pass" : "fail")} detail={SafeLog(detail)}");
+    }
+
+    private static string SafeLog(string value)
+    {
+        if (string.IsNullOrEmpty(value))
+        {
+            return string.Empty;
+        }
+
+        return value.Replace('\n', ' ').Replace('\r', ' ').Replace('|', '/');
     }
 
     private string BuildDiagnosticText()

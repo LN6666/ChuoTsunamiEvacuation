@@ -1,0 +1,128 @@
+{
+  "generatedAt": "2026-05-27T20:14:37+09:00",
+  "activeScene": "Assets/Scenes/Chuo_BaseMap.unity",
+  "finalStatus": "completed_with_documented_runtime_proxy",
+  "playerBuildEvidence": true,
+  "scenarios": [
+    {
+      "scenarioId": "success_official_shelter",
+      "mode": "Evacuation",
+      "targetId": "first active official shelter",
+      "targetType": "official_shelter",
+      "expectedOutcome": "safe_floor_reached",
+      "actualOutcome": "passed",
+      "reasonCode": "safe_floor_reached",
+      "resultPanelSummary": "safe_floor_reached",
+      "passFail": "pass",
+      "finalStatus": "completed_with_documented_runtime_proxy"
+    },
+    {
+      "scenarioId": "success_non_official_candidate_with_warning",
+      "mode": "Evacuation",
+      "targetId": "p8_plateau_highrise_candidate_001",
+      "targetType": "non_official_humanitarian_candidate",
+      "expectedOutcome": "safe_floor_reached with warning",
+      "actualOutcome": "passed",
+      "reasonCode": "safe_floor_reached",
+      "resultPanelSummary": "safe_floor_reached",
+      "passFail": "pass",
+      "finalStatus": "completed_with_documented_runtime_proxy"
+    },
+    {
+      "scenarioId": "crowd_delay_success_or_failure",
+      "mode": "Evacuation",
+      "targetId": "newmap_proxy_crowd_delay",
+      "targetType": "runtime_proxy_training_target",
+      "expectedOutcome": "crowd delay detail appears",
+      "actualOutcome": "passed",
+      "reasonCode": "Entering shelter proxy",
+      "resultPanelSummary": "Entering shelter proxy",
+      "passFail": "pass",
+      "finalStatus": "completed_with_documented_runtime_proxy"
+    },
+    {
+      "scenarioId": "entrance_blocked_failure",
+      "mode": "Evacuation",
+      "targetId": "newmap_proxy_blocked_entrance",
+      "targetType": "runtime_proxy_training_target",
+      "expectedOutcome": "blocked entrance failure",
+      "actualOutcome": "passed",
+      "reasonCode": "entrance_blocked",
+      "resultPanelSummary": "entrance_blocked",
+      "passFail": "pass",
+      "finalStatus": "completed_with_documented_runtime_proxy"
+    },
+    {
+      "scenarioId": "safe_floor_unavailable_failure",
+      "mode": "Evacuation",
+      "targetId": "newmap_proxy_no_safe_floor",
+      "targetType": "runtime_proxy_training_target",
+      "expectedOutcome": "no safe floor failure",
+      "actualOutcome": "passed",
+      "reasonCode": "safe_floor_unavailable",
+      "resultPanelSummary": "safe_floor_unavailable",
+      "passFail": "pass",
+      "finalStatus": "completed_with_documented_runtime_proxy"
+    },
+    {
+      "scenarioId": "collapse_debris_exposure_failure",
+      "mode": "Evacuation",
+      "targetId": "Stage 2 debris proxy",
+      "targetType": "hazard_proxy",
+      "expectedOutcome": "collapse/debris failure",
+      "actualOutcome": "passed",
+      "reasonCode": "collapse_debris_exposure",
+      "resultPanelSummary": "collapse_debris_exposure",
+      "passFail": "pass",
+      "finalStatus": "completed_with_documented_runtime_proxy"
+    },
+    {
+      "scenarioId": "collapse_disabled_success",
+      "mode": "Tourism",
+      "targetId": "Stage 2 debris proxy",
+      "targetType": "hazard_proxy",
+      "expectedOutcome": "Tourism ignores collapse/debris",
+      "actualOutcome": "passed",
+      "reasonCode": "no failure",
+      "resultPanelSummary": "no failure",
+      "passFail": "pass",
+      "finalStatus": "completed_with_documented_runtime_proxy"
+    },
+    {
+      "scenarioId": "tsunami_front_failure",
+      "mode": "Evacuation",
+      "targetId": "Stage 2 risk front",
+      "targetType": "hazard_proxy",
+      "expectedOutcome": "risk front failure",
+      "actualOutcome": "passed",
+      "reasonCode": "tsunami_front_contact",
+      "resultPanelSummary": "tsunami_front_contact",
+      "passFail": "pass",
+      "finalStatus": "completed_with_documented_runtime_proxy"
+    },
+    {
+      "scenarioId": "tourism_free_roam_no_failure",
+      "mode": "Tourism",
+      "targetId": "runtime target set",
+      "targetType": "mode",
+      "expectedOutcome": "Tourism has no hazard/crowd/collapse failure",
+      "actualOutcome": "passed",
+      "reasonCode": "Tourism inspection",
+      "resultPanelSummary": "Tourism inspection",
+      "passFail": "pass",
+      "finalStatus": "completed_with_documented_runtime_proxy"
+    },
+    {
+      "scenarioId": "disabled_target_not_selectable",
+      "mode": "Evacuation",
+      "targetId": "disabled_out_of_new_map_candidate_probe",
+      "targetType": "disabled_target",
+      "expectedOutcome": "not selectable",
+      "actualOutcome": "passed",
+      "reasonCode": "not selectable",
+      "resultPanelSummary": "not selectable",
+      "passFail": "pass",
+      "finalStatus": "completed_with_documented_runtime_proxy"
+    }
+  ]
+}

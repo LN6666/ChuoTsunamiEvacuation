@@ -1,0 +1,13 @@
+{
+  "generatedAt": "2026-05-27T20:14:37+09:00",
+  "activeScene": "Assets/Scenes/Chuo_BaseMap.unity",
+  "finalStatus": "completed_with_documented_runtime_proxy",
+  "validatedOldRouteGeometryCount": 60,
+  "routeGameplayDisplay": "local runtime route guide is playable prototype guidance",
+  "routeProxyWordingScenario": "route_proxy_wording",
+  "routeProxyWordingPlayerSmokePassed": true,
+  "officialRouteClaimCount": 0,
+  "disabledRouteShown": false,
+  "routeEndpointStatus": "runtime route guide endpoints are active local targets; old route geometry remains report-only prototype evidence",
+  "remainingLimitation": "Old route geometries are not spawned as official routes and are not GIS-grade route validation."
+}

@@ -1,15 +1,16 @@
 {
-  "generatedAt": "2026-05-27T19:21:33+09:00",
+  "generatedAt": "2026-05-27T20:14:37+09:00",
   "activeScene": "Assets/Scenes/Chuo_BaseMap.unity",
+  "decision": "ready_with_documented_non_memory_limitations",
   "checklist": [
-    "Start the remaining-hardening temp player.",
-    "Verify Start Menu, Rules, Tourism Mode, and Evacuation Mode.",
-    "Tourism: inspect an official shelter or recovered non-official candidate and confirm no failure.",
-    "Evacuation: confirm Stage 1 warning before Stage 2 front.",
-    "Stage 2: confirm green frames and light curtain appear.",
-    "Interact with a recovered non-official candidate and confirm the non-official warning in ResultPanel.",
-    "Interact with safe-floor, blocked entrance, no-safe-floor, and crowd-delay local targets.",
-    "Confirm no disabled target or old route overlay is active.",
-    "Confirm ResultPanel never claims an official evacuation route."
+    "Start the gameplay self-audit temp player.",
+    "Verify Start Menu, language toggle, Rules, Tourism Mode, Evacuation Mode, weather, pause, Quit to Menu, and Force Quit.",
+    "Tourism: inspect an official or non-official target; confirm no hazard/crowd/collapse failure.",
+    "Evacuation: confirm Stage 1 before Stage 2, then light curtain and green frames.",
+    "Interact with an official shelter and confirm ResultPanel success text has no non-official warning.",
+    "Interact with a recovered non-official candidate and confirm the non-official safety warning.",
+    "Interact with safe-floor, blocked entrance, no-safe-floor, crowd-delay, debris, and front-failure proxy paths.",
+    "Confirm disabled/out-of-map targets are not selectable.",
+    "Confirm route wording says estimated prototype guidance and not official route."
   ]
 }

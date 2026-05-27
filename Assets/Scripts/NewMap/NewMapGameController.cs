@@ -236,10 +236,15 @@ public sealed class NewMapGameController : MonoBehaviour
     {
         if (mode == NewMapGameMode.Tourism)
         {
+            string inspectionNote = target.IsOfficialShelter
+                ? "Official shelter anchor verified on Chuo_BaseMap. No official route is claimed."
+                : (target.NonOfficialWarningRequired
+                    ? "Non-official candidate. This is not a safety approval."
+                    : "Runtime training target.");
             ui?.ShowResult(
                 true,
                 "Tourism inspection",
-                $"{target.DisplayName}\nThis is map exploration mode. No evacuation success/failure is applied.");
+                $"{target.DisplayName}\n{inspectionNote}\nThis is map exploration mode. No evacuation success/failure is applied.");
             return;
         }
 
@@ -266,10 +271,13 @@ public sealed class NewMapGameController : MonoBehaviour
             : (target.Category != null && target.Category.Contains("humanitarian_candidate")
                 ? "Non-official humanitarian candidate. This is not a safety approval."
                 : "Non-official runtime training target. This is not a safety approval.");
+        string routeNote = target.RouteGuide != null || target.RouteGuideFactory != null
+            ? "Route guidance is estimated prototype guidance only; it is not an official evacuation route."
+            : "No official evacuation route is claimed.";
         ui?.ShowResult(
             true,
             reason,
-            $"{target.DisplayName}\n{sourceNote}\nCrowd delay: {crowdDelay:0.0}s.");
+            $"{target.DisplayName}\n{sourceNote}\n{routeNote}\nCrowd delay: {crowdDelay:0.0}s.");
     }
 
     public bool TryInteractWithNearestTargetFromInput()
@@ -333,6 +341,42 @@ public sealed class NewMapGameController : MonoBehaviour
         }
 
         return false;
+    }
+
+    public bool TryApplyTsunamiFrontForDiagnostics(Vector3 playerPosition)
+    {
+        if (mode != NewMapGameMode.Evacuation ||
+            stage != NewMapTsunamiStage.FrontApproaching ||
+            hazard == null ||
+            resultLocked)
+        {
+            return false;
+        }
+
+        if (!hazard.IsPlayerReachedByFront(playerPosition))
+        {
+            return false;
+        }
+
+        if (player != null)
+        {
+            player.transform.position = playerPosition;
+        }
+
+        Fail("tsunami_front_contact", "The Stage 2 risk front reached the player.");
+        return true;
+    }
+
+    public bool CompleteSafeFloorSequenceForDiagnostics()
+    {
+        if (!safeFloorSequenceActive || resultLocked)
+        {
+            return false;
+        }
+
+        safeFloorRemainingSeconds = 0f;
+        UpdateSafeFloorSequence();
+        return !safeFloorSequenceActive && resultLocked;
     }
 
     private void SetTargetGuidanceVisible(bool visible)

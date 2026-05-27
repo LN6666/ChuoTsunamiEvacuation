@@ -1,16 +1,18 @@
 # NewMap Manual Playtest Readiness
 
-Generated: 2026-05-27T19:21:33+09:00
+Generated: 2026-05-27T20:14:37+09:00
 
 Decision: `ready_with_documented_non_memory_limitations`
 
-Reason: preflight, EditMode, PlayMode, temp player build, 3-minute performance sample, Player.log parse, and DeepSeek review passed. Startup spike remains above the 2000 ms target and route overlays remain prototype-only.
+Reason: Player-build smoke, Player.log, tests, and DeepSeek passed; remaining limitations are documented.
 
 - Active official shelters: 15
-- Active recovered non-official humanitarian candidates: 78
-- Active local training targets: 4
-- Disabled targets: 188
-- Coordinate transform: `transform_validated_from_official_anchors`
+- Active non-official/training targets: 82
+- Recovered non-official humanitarian candidates: 78
+- Disabled non-official candidates: 32
+- Official target flow: `completed_with_documented_runtime_proxy`
+- Non-official target flow: `completed_with_documented_runtime_proxy`
+- Tourism Mode: `completed_on_new_chuo_basemap`
+- Evacuation Mode: `completed_with_documented_runtime_proxy`
 - Player.log: 0 errors / 0 warnings
-- Performance decision: `spike_reduced_but_above_target`
-- DeepSeek: no A-level blockers
+- DeepSeek verdict: `no A-level blockers; player-build self-audit smoke passed`

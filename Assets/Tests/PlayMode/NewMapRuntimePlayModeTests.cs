@@ -232,6 +232,119 @@ public class NewMapRuntimePlayModeTests
         Assert.AreEqual("Entering shelter proxy", ui.LastResultReason);
         StringAssert.Contains("Non-official humanitarian candidate", ui.LastResultDetail);
         StringAssert.Contains("not a safety approval", ui.LastResultDetail);
+        StringAssert.Contains("No official evacuation route is claimed", ui.LastResultDetail);
+    }
+
+    [UnityTest]
+    public IEnumerator RuntimeGameplaySelfAuditFlowsAreReachable()
+    {
+        GameObject officialAnchor = GameObject.CreatePrimitive(PrimitiveType.Cube);
+        officialAnchor.name = "bldg_25d370de-2c35-457b-b756-3444a3d02eb3";
+        officialAnchor.transform.position = new Vector3(24f, 3f, 18f);
+        officialAnchor.transform.localScale = new Vector3(4f, 6f, 4f);
+
+        NewMapRuntimeBootstrap.CreateForCurrentScene();
+        NewMapGameController controller = Object.FindObjectOfType<NewMapGameController>();
+        NewMapRuntimeUI ui = Object.FindObjectOfType<NewMapRuntimeUI>();
+        NewMapPlayerController player = Object.FindObjectOfType<NewMapPlayerController>();
+        NewMapHazardController hazard = Object.FindObjectOfType<NewMapHazardController>();
+        NewMapNpcCrowdPrototype crowd = Object.FindObjectOfType<NewMapNpcCrowdPrototype>();
+        Assert.NotNull(controller);
+        Assert.NotNull(ui);
+        Assert.NotNull(player);
+        Assert.NotNull(hazard);
+        Assert.NotNull(crowd);
+        Assert.IsTrue(ui.IsStartMenuVisible);
+        Assert.IsTrue(player.HasActiveCamera);
+        Assert.NotNull(player.transform.Find("PlayerVisual"));
+        Assert.NotNull(GameObject.Find("TourismButton"));
+        Assert.NotNull(GameObject.Find("EvacuationButton"));
+        Assert.NotNull(GameObject.Find("EnglishButton"));
+        Assert.NotNull(GameObject.Find("JapaneseButton"));
+        Assert.NotNull(Object.FindObjectsOfType<Transform>(true).FirstOrDefault(transform => transform.name == "ForceQuitButton"));
+
+        NewMapRuntimeTarget officialTarget = controller.RuntimeTargets.FirstOrDefault(target => target.Id == "chuo_official_emergency_001");
+        NewMapRuntimeTarget nonOfficialTarget = controller.RuntimeTargets.FirstOrDefault(target => target.Id == "p8_plateau_highrise_candidate_001");
+        NewMapRuntimeTarget routeTarget = controller.RuntimeTargets.FirstOrDefault(target => target.Id == "newmap_proxy_safe_floor");
+        Assert.NotNull(officialTarget);
+        Assert.NotNull(nonOfficialTarget);
+        Assert.NotNull(routeTarget);
+        Assert.AreEqual(1, controller.RuntimeTargets.Count(target => target.IsOfficialShelter));
+        Assert.GreaterOrEqual(controller.RuntimeTargets.Count(target => !target.IsOfficialShelter), 82);
+
+        controller.StartTourismMode();
+        yield return null;
+        Assert.AreEqual(NewMapGameMode.Tourism, controller.Mode);
+        Assert.AreEqual(NewMapTsunamiStage.Inactive, controller.Stage);
+        Assert.IsFalse(player.StaminaEnabled);
+        Assert.IsFalse(hazard.RiskChecksActive);
+        Assert.AreEqual(0f, crowd.CurrentCongestionDelaySeconds, 0.001f);
+        Assert.IsTrue(controller.TryInteractForDiagnostics(nonOfficialTarget.Id));
+        Assert.AreEqual("Tourism inspection", ui.LastResultReason);
+        StringAssert.Contains("Non-official candidate", ui.LastResultDetail);
+        StringAssert.Contains("not a safety approval", ui.LastResultDetail);
+
+        controller.StartEvacuationMode();
+        yield return null;
+        Assert.AreEqual(NewMapTsunamiStage.Warning, controller.Stage);
+        Assert.IsTrue(player.StaminaEnabled);
+        Assert.Greater(crowd.ActiveNpcCount, 0, "Evacuation Mode should lazily build visible NPC humanoids.");
+        Assert.IsFalse(hazard.LightCurtainVisibleForDiagnostics);
+        controller.ForceStageForDiagnostics(NewMapTsunamiStage.FrontApproaching);
+        yield return null;
+        Assert.IsTrue(hazard.RiskChecksActive);
+        Assert.IsTrue(hazard.LightCurtainVisibleForDiagnostics);
+        Assert.IsTrue(controller.RuntimeTargets.Any(target => target.GreenFrame != null && target.GreenFrame.activeSelf));
+
+        Assert.IsTrue(controller.TryInteractForDiagnostics(officialTarget.Id));
+        string officialEntryDetail = ui.LastResultDetail;
+        Assert.IsTrue(controller.CompleteSafeFloorSequenceForDiagnostics());
+        Assert.AreEqual("safe_floor_reached", ui.LastResultReason);
+        StringAssert.Contains("Official Chuo shelter anchor", officialEntryDetail);
+        StringAssert.Contains("no official route is claimed", officialEntryDetail);
+
+        controller.StartEvacuationMode();
+        controller.ForceStageForDiagnostics(NewMapTsunamiStage.FrontApproaching);
+        yield return null;
+        Assert.IsTrue(controller.TryInteractForDiagnostics(nonOfficialTarget.Id));
+        string nonOfficialEntryDetail = ui.LastResultDetail;
+        Assert.IsTrue(controller.CompleteSafeFloorSequenceForDiagnostics());
+        Assert.AreEqual("safe_floor_reached", ui.LastResultReason);
+        StringAssert.Contains("Non-official humanitarian candidate", nonOfficialEntryDetail);
+        StringAssert.Contains("not a safety approval", nonOfficialEntryDetail);
+
+        controller.StartEvacuationMode();
+        controller.ForceStageForDiagnostics(NewMapTsunamiStage.FrontApproaching);
+        yield return null;
+        Assert.IsTrue(controller.TryInteractForDiagnostics(routeTarget.Id));
+        StringAssert.Contains("estimated prototype guidance", ui.LastResultDetail);
+        StringAssert.Contains("not an official evacuation route", ui.LastResultDetail);
+
+        controller.StartEvacuationMode();
+        controller.ForceStageForDiagnostics(NewMapTsunamiStage.FrontApproaching);
+        yield return null;
+        Assert.IsTrue(controller.TryInteractForDiagnostics("newmap_proxy_blocked_entrance"));
+        Assert.AreEqual("entrance_blocked", ui.LastResultReason);
+
+        controller.StartEvacuationMode();
+        controller.ForceStageForDiagnostics(NewMapTsunamiStage.FrontApproaching);
+        yield return null;
+        Assert.IsTrue(controller.TryInteractForDiagnostics("newmap_proxy_no_safe_floor"));
+        Assert.AreEqual("safe_floor_unavailable", ui.LastResultReason);
+
+        controller.StartEvacuationMode();
+        controller.ForceStageForDiagnostics(NewMapTsunamiStage.FrontApproaching);
+        player.transform.position = hazard.DebrisCenterForDiagnostics;
+        Assert.IsTrue(controller.TryApplyDebrisExposureForDiagnostics(5f));
+        Assert.AreEqual("collapse_debris_exposure", ui.LastResultReason);
+
+        controller.StartEvacuationMode();
+        controller.ForceStageForDiagnostics(NewMapTsunamiStage.FrontApproaching);
+        yield return null;
+        Assert.IsTrue(controller.TryApplyTsunamiFrontForDiagnostics(player.transform.position + new Vector3(-200f, 0f, 0f)));
+        Assert.AreEqual("tsunami_front_contact", ui.LastResultReason);
+
+        Assert.IsFalse(controller.TryInteractForDiagnostics("disabled_out_of_new_map_candidate_probe"));
     }
 
     [UnityTest]
