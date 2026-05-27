@@ -84,4 +84,35 @@ public class NewMapIntegrationConfigTests
         StringAssert.Contains("\"preflightMustFailIfDisabledTargetActive\": true", disabled);
         Assert.IsFalse(disabled.Contains("\"activeInGame\": true"), "Disabled-target report must not contain active records.");
     }
+
+    [Test]
+    public void RemainingHardeningRecoversNonOfficialCandidatesWithWarnings()
+    {
+        string recoveryPath = Path.Combine(Application.dataPath, "Data/P10/newmap_non_official_candidate_recovery.json");
+        string activePath = Path.Combine(Application.dataPath, "Data/P10/newmap_active_target_final_report.json");
+        string greenPath = Path.Combine(Application.dataPath, "Data/P10/newmap_candidate_green_frame_final_status.json");
+        Assert.IsTrue(File.Exists(recoveryPath), "Non-official candidate recovery JSON must exist.");
+        Assert.IsTrue(File.Exists(activePath), "Active target report JSON must exist.");
+        Assert.IsTrue(File.Exists(greenPath), "Green-frame status JSON must exist.");
+
+        string recovery = File.ReadAllText(recoveryPath);
+        string active = File.ReadAllText(activePath);
+        string green = File.ReadAllText(greenPath);
+
+        StringAssert.Contains("\"totalCandidateRecordsLoaded\": 110", recovery);
+        StringAssert.Contains("\"finalActiveNonOfficialCandidateCount\": 78", recovery);
+        StringAssert.Contains("\"activeExactGmlAnchorCount\": 61", recovery);
+        StringAssert.Contains("\"activeNearestBuildingAnchorCount\": 3", recovery);
+        StringAssert.Contains("\"activeCoordinateProxyAnchorCount\": 14", recovery);
+        StringAssert.Contains("\"disabledOutOfNewMapCount\": 32", recovery);
+        StringAssert.Contains("\"nonOfficialWarningRequired\": true", recovery);
+        StringAssert.Contains("\"safeApprovedByDefault\": false", recovery);
+        Assert.IsFalse(recovery.Contains("\"isOfficialShelter\": true"), "Recovered non-official candidates must not become official shelters.");
+
+        StringAssert.Contains("\"activeNonOfficialHumanitarianCandidateCount\": 78", active);
+        StringAssert.Contains("\"activeNonOfficialTrainingTargetCount\": 82", active);
+        StringAssert.Contains("\"nonOfficialTargetLabeledOfficialCount\": 0", active);
+        StringAssert.Contains("\"disabledSelectableCount\": 0", active);
+        StringAssert.Contains("\"resultPanelWarningTextExists\": true", green);
+    }
 }

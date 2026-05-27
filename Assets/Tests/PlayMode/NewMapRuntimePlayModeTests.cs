@@ -206,6 +206,35 @@ public class NewMapRuntimePlayModeTests
     }
 
     [UnityTest]
+    public IEnumerator RuntimeRecoveredNonOfficialCandidatesRemainWarningOnly()
+    {
+        NewMapRuntimeBootstrap.CreateForCurrentScene();
+        NewMapGameController controller = Object.FindObjectOfType<NewMapGameController>();
+        NewMapRuntimeUI ui = Object.FindObjectOfType<NewMapRuntimeUI>();
+        Assert.NotNull(controller);
+        Assert.NotNull(ui);
+
+        NewMapRuntimeTarget recovered = controller.RuntimeTargets.FirstOrDefault(target => target.Id == "p8_plateau_highrise_candidate_001");
+        Assert.NotNull(recovered, "Recovered P8/P9 non-official candidate should be loaded from the runtime candidate cache.");
+        Assert.IsFalse(recovered.IsOfficialShelter);
+        Assert.IsTrue(recovered.NonOfficialWarningRequired);
+        Assert.IsFalse(recovered.SafeApprovedByDefault);
+        StringAssert.Contains("humanitarian_candidate", recovered.Category);
+        Assert.GreaterOrEqual(controller.RuntimeTargets.Count(target => !target.IsOfficialShelter), 82);
+
+        controller.StartEvacuationMode();
+        controller.ForceStageForDiagnostics(NewMapTsunamiStage.FrontApproaching);
+        yield return null;
+        Assert.NotNull(recovered.GreenFrame, "Recovered active candidate should lazily create a green frame at Stage 2.");
+        Assert.IsTrue(recovered.GreenFrame.activeSelf);
+
+        Assert.IsTrue(controller.TryInteractForDiagnostics(recovered.Id));
+        Assert.AreEqual("Entering shelter proxy", ui.LastResultReason);
+        StringAssert.Contains("Non-official humanitarian candidate", ui.LastResultDetail);
+        StringAssert.Contains("not a safety approval", ui.LastResultDetail);
+    }
+
+    [UnityTest]
     public IEnumerator RuntimeP9HardeningScenariosProduceRequiredOutcomes()
     {
         NewMapRuntimeBootstrap.CreateForCurrentScene();

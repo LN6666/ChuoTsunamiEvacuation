@@ -1,7 +1,8 @@
 {
-  "generatedAt": "2026-05-27T18:21:16+09:00",
+  "generatedAt": "2026-05-27T19:21:33+09:00",
   "activeScene": "Assets/Scenes/Chuo_BaseMap.unity",
   "finalStatus": "completed_with_documented_runtime_proxy",
+  "activeRecoveredNonOfficialCandidateCount": 78,
   "playerLogCount": {
     "errors": 0,
     "warnings": 0
@@ -10,7 +11,7 @@
     {
       "scenario": "tourism_free_roam_no_failure",
       "mode": "Tourism",
-      "targetId": "newmap_proxy_safe_floor",
+      "targetId": "recovered_non_official_or_local_target",
       "official": false,
       "result": "passed",
       "reasonCode": "Tourism inspection",
@@ -22,7 +23,7 @@
       "finalStatus": "completed_with_documented_runtime_proxy"
     },
     {
-      "scenario": "evacuation_success_with_official_if_available",
+      "scenario": "evacuation_success_with_official_shelter",
       "mode": "Evacuation",
       "targetId": "verified official anchors",
       "official": true,
@@ -36,13 +37,27 @@
       "finalStatus": "completed_with_documented_runtime_proxy"
     },
     {
-      "scenario": "evacuation_success_with_non_official_training_target",
+      "scenario": "evacuation_success_with_non_official_candidate",
       "mode": "Evacuation",
-      "targetId": "newmap_proxy_safe_floor",
+      "targetId": "p8_plateau_highrise_candidate_001",
       "official": false,
       "result": "passed",
-      "reasonCode": "safe_floor_reached",
-      "resultPanelTextSummary": "safe_floor_reached",
+      "reasonCode": "Entering shelter proxy / safe_floor_reached",
+      "resultPanelTextSummary": "Entering shelter proxy / safe_floor_reached",
+      "playerLogCount": {
+        "errors": 0,
+        "warnings": 0
+      },
+      "finalStatus": "completed_with_documented_runtime_proxy"
+    },
+    {
+      "scenario": "non_official_warning_result_panel",
+      "mode": "Evacuation",
+      "targetId": "p8_plateau_highrise_candidate_001",
+      "official": false,
+      "result": "passed",
+      "reasonCode": "Non-official candidate. This is not a safety approval.",
+      "resultPanelTextSummary": "Non-official candidate. This is not a safety approval.",
       "playerLogCount": {
         "errors": 0,
         "warnings": 0
@@ -78,13 +93,27 @@
       "finalStatus": "completed_with_documented_runtime_proxy"
     },
     {
-      "scenario": "entrance_interaction_success",
+      "scenario": "route_proxy_wording",
       "mode": "Evacuation",
-      "targetId": "newmap_proxy_safe_floor",
+      "targetId": "local route proxy",
       "official": false,
       "result": "passed",
-      "reasonCode": "safe_floor_reached",
-      "resultPanelTextSummary": "safe_floor_reached",
+      "reasonCode": "estimated prototype guidance, not official route",
+      "resultPanelTextSummary": "estimated prototype guidance, not official route",
+      "playerLogCount": {
+        "errors": 0,
+        "warnings": 0
+      },
+      "finalStatus": "completed_with_documented_runtime_proxy"
+    },
+    {
+      "scenario": "disabled_targets_not_spawned",
+      "mode": "Evacuation",
+      "targetId": "disabled target report",
+      "official": false,
+      "result": "passed",
+      "reasonCode": "disabled records absent from runtime targets",
+      "resultPanelTextSummary": "disabled records absent from runtime targets",
       "playerLogCount": {
         "errors": 0,
         "warnings": 0
@@ -113,48 +142,6 @@
       "result": "passed",
       "reasonCode": "collapse_debris_exposure",
       "resultPanelTextSummary": "collapse_debris_exposure",
-      "playerLogCount": {
-        "errors": 0,
-        "warnings": 0
-      },
-      "finalStatus": "completed_with_documented_runtime_proxy"
-    },
-    {
-      "scenario": "collapse_disabled_success",
-      "mode": "Tourism",
-      "targetId": "Stage 2 debris proxy",
-      "official": false,
-      "result": "passed",
-      "reasonCode": "Tourism inspection remains",
-      "resultPanelTextSummary": "Tourism inspection remains",
-      "playerLogCount": {
-        "errors": 0,
-        "warnings": 0
-      },
-      "finalStatus": "completed_with_documented_runtime_proxy"
-    },
-    {
-      "scenario": "disabled_targets_not_spawned",
-      "mode": "Evacuation",
-      "targetId": "disabled target report",
-      "official": false,
-      "result": "passed",
-      "reasonCode": "disabled records absent from runtime targets",
-      "resultPanelTextSummary": "disabled records absent from runtime targets",
-      "playerLogCount": {
-        "errors": 0,
-        "warnings": 0
-      },
-      "finalStatus": "completed_with_documented_runtime_proxy"
-    },
-    {
-      "scenario": "route_proxy_wording",
-      "mode": "Evacuation",
-      "targetId": "local route proxy",
-      "official": false,
-      "result": "passed",
-      "reasonCode": "estimated prototype guidance, not official route",
-      "resultPanelTextSummary": "estimated prototype guidance, not official route",
       "playerLogCount": {
         "errors": 0,
         "warnings": 0

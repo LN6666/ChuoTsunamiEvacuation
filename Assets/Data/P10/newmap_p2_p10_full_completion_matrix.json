@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-27T18:21:16+09:00",
+  "generatedAt": "2026-05-27T19:21:33+09:00",
   "activeScene": "Assets/Scenes/Chuo_BaseMap.unity",
   "allowedStatuses": [
     "completed_on_new_chuo_basemap",
@@ -8,17 +8,18 @@
     "blocked_needs_user_map_asset",
     "failed"
   ],
-  "activeTargetCount": 19,
-  "disabledTargetCount": 156,
+  "activeTargetCount": 97,
+  "disabledTargetCount": 188,
   "activeOfficialShelterCount": 15,
-  "activeNonOfficialTrainingTargetCount": 4,
+  "activeNonOfficialHumanitarianCandidateCount": 78,
+  "activeLocalTrainingTargetCount": 4,
   "entries": [
     {
       "phase": "P2",
       "feature": "player/camera/movement/E/ResultPanel",
       "finalStatus": "completed_with_documented_runtime_proxy",
       "activeOnNewMap": true,
-      "targetUsed": "verified official anchors plus local training targets",
+      "targetUsed": "verified official anchors, recovered non-official candidates, and local training targets",
       "testEvidence": "PlayMode smoke plus final player interaction report",
       "disabledReason": "",
       "blocker": "",
@@ -40,11 +41,11 @@
       "feature": "route geometry validation and prototype guidance",
       "finalStatus": "completed_with_documented_runtime_proxy",
       "activeOnNewMap": true,
-      "targetUsed": "60 validated route geometries report-only plus 4 local route proxies",
-      "testEvidence": "coordinate transform anchor fit and route geometry final validation",
-      "disabledReason": "old route lines are not spawned as active runtime routes",
-      "blocker": "route-overlay UX/player-origin linkage not hardened",
-      "nextAction": "manual use local estimated prototype route guides only"
+      "targetUsed": "60 validated route geometries report-only; 78 recovered non-official candidate targets; 4 local route proxies",
+      "testEvidence": "coordinate transform, candidate recovery, and route geometry final validation",
+      "disabledReason": "old route lines are not spawned as official runtime routes",
+      "blocker": "route-overlay UX/player-origin linkage remains prototype-only",
+      "nextAction": "manual use estimated prototype guidance only"
     },
     {
       "phase": "P6",
@@ -62,7 +63,7 @@
       "feature": "two-stage tsunami/hazard/light curtain",
       "finalStatus": "completed_with_documented_runtime_proxy",
       "activeOnNewMap": true,
-      "targetUsed": "runtime stage controller",
+      "targetUsed": "runtime stage controller and active target green frames",
       "testEvidence": "two-stage tsunami final check and PlayMode stage guidance",
       "disabledReason": "",
       "blocker": "",
@@ -73,7 +74,7 @@
       "feature": "gameplay outcomes and ResultPanel reason codes",
       "finalStatus": "completed_with_documented_runtime_proxy",
       "activeOnNewMap": true,
-      "targetUsed": "official anchor fixture plus local training targets",
+      "targetUsed": "official anchor fixture, recovered non-official candidate, local training targets",
       "testEvidence": "scenario final status and PlayMode scenarios",
       "disabledReason": "",
       "blocker": "",
@@ -84,11 +85,11 @@
       "feature": "UI/modes/weather/stamina/green frames/spike tools",
       "finalStatus": "completed_with_documented_runtime_proxy",
       "activeOnNewMap": true,
-      "targetUsed": "19 active targets",
-      "testEvidence": "no-memory-focus temp player retest: averageFps=106.26, maxFrameMs=6375.93, stutterFramesOver66ms=2, Player.log errors=0 warnings=0",
+      "targetUsed": "97 active targets",
+      "testEvidence": "spike hardening final plus remaining-hardening performance retest: 106.85 FPS average, 6298.42 ms max frame, Player.log 0/0",
       "disabledReason": "",
-      "blocker": "startup spike remains above 2 seconds due to large Chuo_BaseMap activation/render startup",
-      "nextAction": "manual playtest with documented startup spike"
+      "blocker": "startup spike remains above 2000 ms target",
+      "nextAction": "manual playtest with documented spike limitation"
     }
   ]
 }

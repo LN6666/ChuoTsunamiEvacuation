@@ -1,0 +1,46 @@
+{
+  "datasetId": "p8e_humanitarian_candidate_persistent_visibility_handoff_v1",
+  "generatedAt": "2026-05-24T21:20:00+09:00",
+  "sourceCandidateAuditFile": "Assets/Data/P8/humanitarian_highrise_candidate_audit_v1.json",
+  "sourceCandidateNameList": "docs/P8C_HUMANITARIAN_HIGHRISE_CANDIDATE_NAME_LIST.md",
+  "sourceDamageStatusConfigFile": "Assets/Data/P8/humanitarian_candidate_hazard_status_config.json",
+  "handoffPlanDocs": [
+    "docs/P8E_HUMANITARIAN_CANDIDATE_PERSISTENT_VISIBILITY_PLAN.md",
+    "docs/P8E_HUMANITARIAN_CANDIDATE_NON_OFFICIAL_DISCLAIMER_RULES.md",
+    "docs/P8E_HUMANITARIAN_CANDIDATE_P9_HANDOFF.md"
+  ],
+  "candidateTotals": {
+    "totalCandidates": 110,
+    "namedCandidates": 28,
+    "idOnlyOrUnknownNameCandidates": 82,
+    "idOnlyOrUnknownNamePlateauCandidates": 81,
+    "existingP5SampleCandidates": 5,
+    "plateauDerivedCandidates": 105
+  },
+  "userAcceptedExpandedCandidateAudit": true,
+  "userAcceptedIdOnlyPlateauCandidatesAsRealHighEndOfficeTowers": true,
+  "dataOnly": true,
+  "persistentVisibilityStatus": "handoff_plan_only",
+  "persistentSceneObjectsCreatedInP8E": false,
+  "isOfficialShelterDataset": false,
+  "candidatesRemainNonOfficial": true,
+  "isOfficialShelter": false,
+  "nonOfficialWarningRequired": true,
+  "manualReviewNeededDefault": true,
+  "selectableGameplayEnabledInP8E": false,
+  "implementsP9Gameplay": false,
+  "affectsGameplaySuccessFailure": false,
+  "requiredVisibleLabel": "Non-official humanitarian high-rise candidate. Not an official evacuation shelter.",
+  "forbiddenClaims": [
+    "official evacuation shelter",
+    "safe or approved by default",
+    "official building safety approval",
+    "official collapse or damage prediction"
+  ],
+  "p9DecisionRequired": true,
+  "p9MayConsiderLifeFirstSelectableTargets": true,
+  "p9MustKeepCandidatesNonOfficial": true,
+  "realIndoorSceneGameplayAvailable": false,
+  "p9ProxyFlow": "entrance / safe-floor / evacuation-complete proxy",
+  "notes": "P8-E handoff only. No candidate is made official, safe, approved, or selectable during P8-E."
+}

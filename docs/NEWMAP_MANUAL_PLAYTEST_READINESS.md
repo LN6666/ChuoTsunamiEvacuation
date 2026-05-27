@@ -1,20 +1,16 @@
 # NewMap Manual Playtest Readiness
 
-Generated: 2026-05-27T18:21:16+09:00
+Generated: 2026-05-27T19:21:33+09:00
 
 Decision: `ready_with_documented_non_memory_limitations`
 
-Reason: player/camera/UI/interaction flows are runnable, Player.log is clean, DeepSeek found no A-level blocker, and the remaining limitations are documented non-memory issues.
+Reason: preflight, EditMode, PlayMode, temp player build, 3-minute performance sample, Player.log parse, and DeepSeek review passed. Startup spike remains above the 2000 ms target and route overlays remain prototype-only.
 
-Active official shelters: 15
-Active non-official/training targets: 4
-Disabled targets: 156
-Coordinate transform: `transform_validated_from_official_anchors`
-
-Route geometry: 60 old route geometries validated as estimated prototype evidence; old route overlays are not spawned at runtime and no official route is claimed.
-
-Performance: max frame reduced from 11273.06 ms to 6375.93 ms, still above the 2000 ms target. Average FPS was 106.26 with 2 frames over 66 ms.
-
-Player.log: 0 errors / 0 warnings.
-
-DeepSeek: no A-level blocker.
+- Active official shelters: 15
+- Active recovered non-official humanitarian candidates: 78
+- Active local training targets: 4
+- Disabled targets: 188
+- Coordinate transform: `transform_validated_from_official_anchors`
+- Player.log: 0 errors / 0 warnings
+- Performance decision: `spike_reduced_but_above_target`
+- DeepSeek: no A-level blockers

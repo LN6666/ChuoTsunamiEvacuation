@@ -1,0 +1,17 @@
+﻿{
+    "generatedAt":  "2026-05-27T19:28:51",
+    "activeScene":  "Assets/Scenes/Chuo_BaseMap.unity",
+    "buildPath":  "D:\\UnityProjects\\ChuoTsunamiEvacuation-Builds\\NewMapRemainingHardeningPre\\ChuoTsunamiEvacuation_NewMapRemainingHardeningPre.exe",
+    "buildExists":  true,
+    "unityExitCode":  0,
+    "logPath":  "D:\\UnityProjects\\ChuoTsunamiEvacuation\\Logs\\newmap_remaining_hardening_build.log",
+    "finalStatus":  "completed_on_new_chuo_basemap",
+    "note":  "Temporary remaining-hardening build only. This is not a final release package.",
+    "launchSmoke":  "passed",
+    "performanceSampling":  "completed",
+    "maxPrivateMemoryBytes":  21984952320,
+    "maxWorkingSetBytes":  7545450496,
+    "playerLogSummary":  "completed",
+    "playerLogErrors":  0,
+    "playerLogWarnings":  0
+}

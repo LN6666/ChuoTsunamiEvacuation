@@ -1,7 +1,13 @@
 {
-  "generatedAt": "2026-05-27T18:21:16+09:00",
+  "generatedAt": "2026-05-27T19:21:33+09:00",
   "activeScene": "Assets/Scenes/Chuo_BaseMap.unity",
-  "disabledTargetCount": 156,
+  "disabledTargetCount": 188,
+  "disabledNonOfficialCandidateCount": 32,
+  "disabledNonOfficialCandidateByReason": {
+    "disabled_out_of_new_map": 32,
+    "disabled_missing_coordinate": 0,
+    "disabled_low_confidence": 0
+  },
   "policy": "Disabled/out-of-map records are preserved for audit but cannot spawn markers, green frames, routes, selection, or ResultPanel success.",
   "preflightMustFailIfDisabledTargetActive": true,
   "disabledTargetsSelectable": false,
@@ -77,7 +83,7 @@
     },
     {
       "id": "chuo_official_emergency_012",
-      "name": "日本橋小学校",
+      "name": "\u65e5\u672c\u6a4b\u5c0f\u5b66\u6821",
       "sourcePhase": "P3/P4/P5 official",
       "mapAnchorStatus": "scene_gml_found_but_manual_review_not_active",
       "activeInGame": false,
@@ -90,7 +96,7 @@
     },
     {
       "id": "chuo_official_emergency_013",
-      "name": "有馬小学校",
+      "name": "\u6709\u99ac\u5c0f\u5b66\u6821",
       "sourcePhase": "P3/P4/P5 official",
       "mapAnchorStatus": "disabled_no_exact_scene_gml_mesh",
       "activeInGame": false,
@@ -103,7 +109,7 @@
     },
     {
       "id": "chuo_official_emergency_015",
-      "name": "日本橋中学校",
+      "name": "\u65e5\u672c\u6a4b\u4e2d\u5b66\u6821",
       "sourcePhase": "P3/P4/P5 official",
       "mapAnchorStatus": "disabled_no_exact_scene_gml_mesh",
       "activeInGame": false,
@@ -116,7 +122,7 @@
     },
     {
       "id": "chuo_official_emergency_017",
-      "name": "佃島小学校",
+      "name": "\u4f43\u5cf6\u5c0f\u5b66\u6821",
       "sourcePhase": "P3/P4/P5 official",
       "mapAnchorStatus": "disabled_no_exact_scene_gml_mesh",
       "activeInGame": false,
@@ -129,7 +135,7 @@
     },
     {
       "id": "chuo_official_emergency_018",
-      "name": "佃中学校",
+      "name": "\u4f43\u4e2d\u5b66\u6821",
       "sourcePhase": "P3/P4/P5 official",
       "mapAnchorStatus": "disabled_no_exact_scene_gml_mesh",
       "activeInGame": false,
@@ -142,7 +148,7 @@
     },
     {
       "id": "chuo_official_emergency_019",
-      "name": "月島第一小学校",
+      "name": "\u6708\u5cf6\u7b2c\u4e00\u5c0f\u5b66\u6821",
       "sourcePhase": "P3/P4/P5 official",
       "mapAnchorStatus": "disabled_no_exact_scene_gml_mesh",
       "activeInGame": false,
@@ -155,7 +161,7 @@
     },
     {
       "id": "chuo_official_emergency_020",
-      "name": "月島第二小学校",
+      "name": "\u6708\u5cf6\u7b2c\u4e8c\u5c0f\u5b66\u6821",
       "sourcePhase": "P3/P4/P5 official",
       "mapAnchorStatus": "disabled_no_exact_scene_gml_mesh",
       "activeInGame": false,
@@ -168,7 +174,7 @@
     },
     {
       "id": "chuo_official_emergency_021",
-      "name": "月島第三小学校",
+      "name": "\u6708\u5cf6\u7b2c\u4e09\u5c0f\u5b66\u6821",
       "sourcePhase": "P3/P4/P5 official",
       "mapAnchorStatus": "disabled_no_exact_scene_gml_mesh",
       "activeInGame": false,
@@ -181,7 +187,7 @@
     },
     {
       "id": "chuo_official_emergency_022",
-      "name": "晴海中学校",
+      "name": "\u6674\u6d77\u4e2d\u5b66\u6821",
       "sourcePhase": "P3/P4/P5 official",
       "mapAnchorStatus": "disabled_no_exact_scene_gml_mesh",
       "activeInGame": false,
@@ -194,7 +200,7 @@
     },
     {
       "id": "chuo_official_emergency_023",
-      "name": "豊海小学校",
+      "name": "\u8c4a\u6d77\u5c0f\u5b66\u6821",
       "sourcePhase": "P3/P4/P5 official",
       "mapAnchorStatus": "disabled_no_exact_scene_gml_mesh",
       "activeInGame": false,
@@ -207,7 +213,7 @@
     },
     {
       "id": "chuo_official_emergency_026",
-      "name": "月島区民センター",
+      "name": "\u6708\u5cf6\u533a\u6c11\u30bb\u30f3\u30bf\u30fc",
       "sourcePhase": "P3/P4/P5 official",
       "mapAnchorStatus": "disabled_no_exact_scene_gml_mesh",
       "activeInGame": false,
@@ -220,7 +226,7 @@
     },
     {
       "id": "chuo_official_emergency_027",
-      "name": "(旧)ほっとプラザはるみ",
+      "name": "(\u65e7)\u307b\u3063\u3068\u30d7\u30e9\u30b6\u306f\u308b\u307f",
       "sourcePhase": "P3/P4/P5 official",
       "mapAnchorStatus": "disabled_no_exact_scene_gml_mesh",
       "activeInGame": false,
@@ -233,7 +239,7 @@
     },
     {
       "id": "chuo_official_emergency_028",
-      "name": "あかつき公園一帯",
+      "name": "\u3042\u304b\u3064\u304d\u516c\u5712\u4e00\u5e2f",
       "sourcePhase": "P3/P4/P5 official",
       "mapAnchorStatus": "disabled_no_plateau_gml_anchor",
       "activeInGame": false,
@@ -246,7 +252,7 @@
     },
     {
       "id": "chuo_official_emergency_029",
-      "name": "新川ツインビル地区",
+      "name": "\u65b0\u5ddd\u30c4\u30a4\u30f3\u30d3\u30eb\u5730\u533a",
       "sourcePhase": "P3/P4/P5 official",
       "mapAnchorStatus": "disabled_no_plateau_gml_anchor",
       "activeInGame": false,
@@ -259,7 +265,7 @@
     },
     {
       "id": "chuo_official_emergency_030",
-      "name": "佃リバーシティ地区",
+      "name": "\u4f43\u30ea\u30d0\u30fc\u30b7\u30c6\u30a3\u5730\u533a",
       "sourcePhase": "P3/P4/P5 official",
       "mapAnchorStatus": "disabled_no_plateau_gml_anchor",
       "activeInGame": false,
@@ -272,7 +278,7 @@
     },
     {
       "id": "chuo_official_emergency_031",
-      "name": "晴海地区",
+      "name": "\u6674\u6d77\u5730\u533a",
       "sourcePhase": "P3/P4/P5 official",
       "mapAnchorStatus": "disabled_no_plateau_gml_anchor",
       "activeInGame": false,
@@ -285,7 +291,7 @@
     },
     {
       "id": "osm_route_01_001",
-      "name": "城東小学校",
+      "name": "\u57ce\u6771\u5c0f\u5b66\u6821",
       "sourcePhase": "P5 route geometry",
       "mapAnchorStatus": "validated_on_new_chuo_basemap",
       "activeInGame": false,
@@ -298,7 +304,7 @@
     },
     {
       "id": "osm_route_01_002",
-      "name": "京橋プラザ",
+      "name": "\u4eac\u6a4b\u30d7\u30e9\u30b6",
       "sourcePhase": "P5 route geometry",
       "mapAnchorStatus": "validated_on_new_chuo_basemap",
       "activeInGame": false,
@@ -311,7 +317,7 @@
     },
     {
       "id": "osm_route_01_003",
-      "name": "泰明小学校",
+      "name": "\u6cf0\u660e\u5c0f\u5b66\u6821",
       "sourcePhase": "P5 route geometry",
       "mapAnchorStatus": "validated_on_new_chuo_basemap",
       "activeInGame": false,
@@ -324,7 +330,7 @@
     },
     {
       "id": "osm_route_01_004",
-      "name": "銀座中学校",
+      "name": "\u9280\u5ea7\u4e2d\u5b66\u6821",
       "sourcePhase": "P5 route geometry",
       "mapAnchorStatus": "validated_on_new_chuo_basemap",
       "activeInGame": false,
@@ -337,7 +343,7 @@
     },
     {
       "id": "osm_route_01_005",
-      "name": "中央小学校",
+      "name": "\u4e2d\u592e\u5c0f\u5b66\u6821",
       "sourcePhase": "P5 route geometry",
       "mapAnchorStatus": "validated_on_new_chuo_basemap",
       "activeInGame": false,
@@ -350,7 +356,7 @@
     },
     {
       "id": "osm_route_01_006",
-      "name": "明石小学校",
+      "name": "\u660e\u77f3\u5c0f\u5b66\u6821",
       "sourcePhase": "P5 route geometry",
       "mapAnchorStatus": "validated_on_new_chuo_basemap",
       "activeInGame": false,
@@ -363,7 +369,7 @@
     },
     {
       "id": "osm_route_01_007",
-      "name": "京橋築地小学校",
+      "name": "\u4eac\u6a4b\u7bc9\u5730\u5c0f\u5b66\u6821",
       "sourcePhase": "P5 route geometry",
       "mapAnchorStatus": "validated_on_new_chuo_basemap",
       "activeInGame": false,
@@ -376,7 +382,7 @@
     },
     {
       "id": "osm_route_01_008",
-      "name": "京華スクエア",
+      "name": "\u4eac\u83ef\u30b9\u30af\u30a8\u30a2",
       "sourcePhase": "P5 route geometry",
       "mapAnchorStatus": "validated_on_new_chuo_basemap",
       "activeInGame": false,
@@ -389,7 +395,7 @@
     },
     {
       "id": "osm_route_01_009",
-      "name": "明正小学校",
+      "name": "\u660e\u6b63\u5c0f\u5b66\u6821",
       "sourcePhase": "P5 route geometry",
       "mapAnchorStatus": "validated_on_new_chuo_basemap",
       "activeInGame": false,
@@ -402,7 +408,7 @@
     },
     {
       "id": "osm_route_01_010",
-      "name": "常盤小学校",
+      "name": "\u5e38\u76e4\u5c0f\u5b66\u6821",
       "sourcePhase": "P5 route geometry",
       "mapAnchorStatus": "validated_on_new_chuo_basemap",
       "activeInGame": false,
@@ -415,7 +421,7 @@
     },
     {
       "id": "osm_route_01_011",
-      "name": "十思スクエア",
+      "name": "\u5341\u601d\u30b9\u30af\u30a8\u30a2",
       "sourcePhase": "P5 route geometry",
       "mapAnchorStatus": "validated_on_new_chuo_basemap",
       "activeInGame": false,
@@ -428,7 +434,7 @@
     },
     {
       "id": "osm_route_01_012",
-      "name": "日本橋小学校",
+      "name": "\u65e5\u672c\u6a4b\u5c0f\u5b66\u6821",
       "sourcePhase": "P5 route geometry",
       "mapAnchorStatus": "disabled_out_of_new_map",
       "activeInGame": false,
@@ -441,7 +447,7 @@
     },
     {
       "id": "osm_route_01_013",
-      "name": "有馬小学校",
+      "name": "\u6709\u99ac\u5c0f\u5b66\u6821",
       "sourcePhase": "P5 route geometry",
       "mapAnchorStatus": "disabled_out_of_new_map",
       "activeInGame": false,
@@ -454,7 +460,7 @@
     },
     {
       "id": "osm_route_01_014",
-      "name": "久松小学校",
+      "name": "\u4e45\u677e\u5c0f\u5b66\u6821",
       "sourcePhase": "P5 route geometry",
       "mapAnchorStatus": "validated_on_new_chuo_basemap",
       "activeInGame": false,
@@ -467,7 +473,7 @@
     },
     {
       "id": "osm_route_01_015",
-      "name": "日本橋中学校",
+      "name": "\u65e5\u672c\u6a4b\u4e2d\u5b66\u6821",
       "sourcePhase": "P5 route geometry",
       "mapAnchorStatus": "disabled_out_of_new_map",
       "activeInGame": false,
@@ -480,7 +486,7 @@
     },
     {
       "id": "osm_route_01_016",
-      "name": "阪本小学校",
+      "name": "\u962a\u672c\u5c0f\u5b66\u6821",
       "sourcePhase": "P5 route geometry",
       "mapAnchorStatus": "validated_on_new_chuo_basemap",
       "activeInGame": false,
@@ -493,7 +499,7 @@
     },
     {
       "id": "osm_route_01_017",
-      "name": "佃島小学校",
+      "name": "\u4f43\u5cf6\u5c0f\u5b66\u6821",
       "sourcePhase": "P5 route geometry",
       "mapAnchorStatus": "disabled_out_of_new_map",
       "activeInGame": false,
@@ -506,7 +512,7 @@
     },
     {
       "id": "osm_route_01_018",
-      "name": "佃中学校",
+      "name": "\u4f43\u4e2d\u5b66\u6821",
       "sourcePhase": "P5 route geometry",
       "mapAnchorStatus": "disabled_out_of_new_map",
       "activeInGame": false,
@@ -519,7 +525,7 @@
     },
     {
       "id": "osm_route_01_019",
-      "name": "月島第一小学校",
+      "name": "\u6708\u5cf6\u7b2c\u4e00\u5c0f\u5b66\u6821",
       "sourcePhase": "P5 route geometry",
       "mapAnchorStatus": "disabled_out_of_new_map",
       "activeInGame": false,
@@ -532,7 +538,7 @@
     },
     {
       "id": "osm_route_01_020",
-      "name": "月島第二小学校",
+      "name": "\u6708\u5cf6\u7b2c\u4e8c\u5c0f\u5b66\u6821",
       "sourcePhase": "P5 route geometry",
       "mapAnchorStatus": "disabled_out_of_new_map",
       "activeInGame": false,
@@ -545,7 +551,7 @@
     },
     {
       "id": "osm_route_01_021",
-      "name": "月島第三小学校",
+      "name": "\u6708\u5cf6\u7b2c\u4e09\u5c0f\u5b66\u6821",
       "sourcePhase": "P5 route geometry",
       "mapAnchorStatus": "disabled_out_of_new_map",
       "activeInGame": false,
@@ -558,7 +564,7 @@
     },
     {
       "id": "osm_route_01_022",
-      "name": "晴海中学校",
+      "name": "\u6674\u6d77\u4e2d\u5b66\u6821",
       "sourcePhase": "P5 route geometry",
       "mapAnchorStatus": "disabled_out_of_new_map",
       "activeInGame": false,
@@ -571,7 +577,7 @@
     },
     {
       "id": "osm_route_01_023",
-      "name": "豊海小学校",
+      "name": "\u8c4a\u6d77\u5c0f\u5b66\u6821",
       "sourcePhase": "P5 route geometry",
       "mapAnchorStatus": "disabled_out_of_new_map",
       "activeInGame": false,
@@ -584,7 +590,7 @@
     },
     {
       "id": "osm_route_01_024",
-      "name": "中央区役所",
+      "name": "\u4e2d\u592e\u533a\u5f79\u6240",
       "sourcePhase": "P5 route geometry",
       "mapAnchorStatus": "validated_on_new_chuo_basemap",
       "activeInGame": false,
@@ -597,7 +603,7 @@
     },
     {
       "id": "osm_route_01_025",
-      "name": "日本橋区民センター",
+      "name": "\u65e5\u672c\u6a4b\u533a\u6c11\u30bb\u30f3\u30bf\u30fc",
       "sourcePhase": "P5 route geometry",
       "mapAnchorStatus": "validated_on_new_chuo_basemap",
       "activeInGame": false,
@@ -610,7 +616,7 @@
     },
     {
       "id": "osm_route_01_026",
-      "name": "月島区民センター",
+      "name": "\u6708\u5cf6\u533a\u6c11\u30bb\u30f3\u30bf\u30fc",
       "sourcePhase": "P5 route geometry",
       "mapAnchorStatus": "disabled_out_of_new_map",
       "activeInGame": false,
@@ -623,7 +629,7 @@
     },
     {
       "id": "osm_route_01_027",
-      "name": "(旧)ほっとプラザはるみ",
+      "name": "(\u65e7)\u307b\u3063\u3068\u30d7\u30e9\u30b6\u306f\u308b\u307f",
       "sourcePhase": "P5 route geometry",
       "mapAnchorStatus": "disabled_out_of_new_map",
       "activeInGame": false,
@@ -636,7 +642,7 @@
     },
     {
       "id": "osm_route_02_001",
-      "name": "城東小学校",
+      "name": "\u57ce\u6771\u5c0f\u5b66\u6821",
       "sourcePhase": "P5 route geometry",
       "mapAnchorStatus": "validated_on_new_chuo_basemap",
       "activeInGame": false,
@@ -649,7 +655,7 @@
     },
     {
       "id": "osm_route_02_002",
-      "name": "京橋プラザ",
+      "name": "\u4eac\u6a4b\u30d7\u30e9\u30b6",
       "sourcePhase": "P5 route geometry",
       "mapAnchorStatus": "validated_on_new_chuo_basemap",
       "activeInGame": false,
@@ -662,7 +668,7 @@
     },
     {
       "id": "osm_route_02_003",
-      "name": "泰明小学校",
+      "name": "\u6cf0\u660e\u5c0f\u5b66\u6821",
       "sourcePhase": "P5 route geometry",
       "mapAnchorStatus": "validated_on_new_chuo_basemap",
       "activeInGame": false,
@@ -675,7 +681,7 @@
     },
     {
       "id": "osm_route_02_004",
-      "name": "銀座中学校",
+      "name": "\u9280\u5ea7\u4e2d\u5b66\u6821",
       "sourcePhase": "P5 route geometry",
       "mapAnchorStatus": "validated_on_new_chuo_basemap",
       "activeInGame": false,
@@ -688,7 +694,7 @@
     },
     {
       "id": "osm_route_02_005",
-      "name": "中央小学校",
+      "name": "\u4e2d\u592e\u5c0f\u5b66\u6821",
       "sourcePhase": "P5 route geometry",
       "mapAnchorStatus": "validated_on_new_chuo_basemap",
       "activeInGame": false,
@@ -701,7 +707,7 @@
     },
     {
       "id": "osm_route_02_006",
-      "name": "明石小学校",
+      "name": "\u660e\u77f3\u5c0f\u5b66\u6821",
       "sourcePhase": "P5 route geometry",
       "mapAnchorStatus": "validated_on_new_chuo_basemap",
       "activeInGame": false,
@@ -714,7 +720,7 @@
     },
     {
       "id": "osm_route_02_007",
-      "name": "京橋築地小学校",
+      "name": "\u4eac\u6a4b\u7bc9\u5730\u5c0f\u5b66\u6821",
       "sourcePhase": "P5 route geometry",
       "mapAnchorStatus": "validated_on_new_chuo_basemap",
       "activeInGame": false,
@@ -727,7 +733,7 @@
     },
     {
       "id": "osm_route_02_008",
-      "name": "京華スクエア",
+      "name": "\u4eac\u83ef\u30b9\u30af\u30a8\u30a2",
       "sourcePhase": "P5 route geometry",
       "mapAnchorStatus": "validated_on_new_chuo_basemap",
       "activeInGame": false,
@@ -740,7 +746,7 @@
     },
     {
       "id": "osm_route_02_009",
-      "name": "明正小学校",
+      "name": "\u660e\u6b63\u5c0f\u5b66\u6821",
       "sourcePhase": "P5 route geometry",
       "mapAnchorStatus": "validated_on_new_chuo_basemap",
       "activeInGame": false,
@@ -753,7 +759,7 @@
     },
     {
       "id": "osm_route_02_010",
-      "name": "常盤小学校",
+      "name": "\u5e38\u76e4\u5c0f\u5b66\u6821",
       "sourcePhase": "P5 route geometry",
       "mapAnchorStatus": "validated_on_new_chuo_basemap",
       "activeInGame": false,
@@ -766,7 +772,7 @@
     },
     {
       "id": "osm_route_02_011",
-      "name": "十思スクエア",
+      "name": "\u5341\u601d\u30b9\u30af\u30a8\u30a2",
       "sourcePhase": "P5 route geometry",
       "mapAnchorStatus": "validated_on_new_chuo_basemap",
       "activeInGame": false,
@@ -779,7 +785,7 @@
     },
     {
       "id": "osm_route_02_012",
-      "name": "日本橋小学校",
+      "name": "\u65e5\u672c\u6a4b\u5c0f\u5b66\u6821",
       "sourcePhase": "P5 route geometry",
       "mapAnchorStatus": "disabled_out_of_new_map",
       "activeInGame": false,
@@ -792,7 +798,7 @@
     },
     {
       "id": "osm_route_02_013",
-      "name": "有馬小学校",
+      "name": "\u6709\u99ac\u5c0f\u5b66\u6821",
       "sourcePhase": "P5 route geometry",
       "mapAnchorStatus": "disabled_out_of_new_map",
       "activeInGame": false,
@@ -805,7 +811,7 @@
     },
     {
       "id": "osm_route_02_014",
-      "name": "久松小学校",
+      "name": "\u4e45\u677e\u5c0f\u5b66\u6821",
       "sourcePhase": "P5 route geometry",
       "mapAnchorStatus": "validated_on_new_chuo_basemap",
       "activeInGame": false,
@@ -818,7 +824,7 @@
     },
     {
       "id": "osm_route_02_015",
-      "name": "日本橋中学校",
+      "name": "\u65e5\u672c\u6a4b\u4e2d\u5b66\u6821",
       "sourcePhase": "P5 route geometry",
       "mapAnchorStatus": "disabled_out_of_new_map",
       "activeInGame": false,
@@ -831,7 +837,7 @@
     },
     {
       "id": "osm_route_02_016",
-      "name": "阪本小学校",
+      "name": "\u962a\u672c\u5c0f\u5b66\u6821",
       "sourcePhase": "P5 route geometry",
       "mapAnchorStatus": "validated_on_new_chuo_basemap",
       "activeInGame": false,
@@ -844,7 +850,7 @@
     },
     {
       "id": "osm_route_02_017",
-      "name": "佃島小学校",
+      "name": "\u4f43\u5cf6\u5c0f\u5b66\u6821",
       "sourcePhase": "P5 route geometry",
       "mapAnchorStatus": "disabled_out_of_new_map",
       "activeInGame": false,
@@ -857,7 +863,7 @@
     },
     {
       "id": "osm_route_02_018",
-      "name": "佃中学校",
+      "name": "\u4f43\u4e2d\u5b66\u6821",
       "sourcePhase": "P5 route geometry",
       "mapAnchorStatus": "disabled_out_of_new_map",
       "activeInGame": false,
@@ -870,7 +876,7 @@
     },
     {
       "id": "osm_route_02_019",
-      "name": "月島第一小学校",
+      "name": "\u6708\u5cf6\u7b2c\u4e00\u5c0f\u5b66\u6821",
       "sourcePhase": "P5 route geometry",
       "mapAnchorStatus": "disabled_out_of_new_map",
       "activeInGame": false,
@@ -883,7 +889,7 @@
     },
     {
       "id": "osm_route_02_020",
-      "name": "月島第二小学校",
+      "name": "\u6708\u5cf6\u7b2c\u4e8c\u5c0f\u5b66\u6821",
       "sourcePhase": "P5 route geometry",
       "mapAnchorStatus": "disabled_out_of_new_map",
       "activeInGame": false,
@@ -896,7 +902,7 @@
     },
     {
       "id": "osm_route_02_021",
-      "name": "月島第三小学校",
+      "name": "\u6708\u5cf6\u7b2c\u4e09\u5c0f\u5b66\u6821",
       "sourcePhase": "P5 route geometry",
       "mapAnchorStatus": "disabled_out_of_new_map",
       "activeInGame": false,
@@ -909,7 +915,7 @@
     },
     {
       "id": "osm_route_02_022",
-      "name": "晴海中学校",
+      "name": "\u6674\u6d77\u4e2d\u5b66\u6821",
       "sourcePhase": "P5 route geometry",
       "mapAnchorStatus": "disabled_out_of_new_map",
       "activeInGame": false,
@@ -922,7 +928,7 @@
     },
     {
       "id": "osm_route_02_023",
-      "name": "豊海小学校",
+      "name": "\u8c4a\u6d77\u5c0f\u5b66\u6821",
       "sourcePhase": "P5 route geometry",
       "mapAnchorStatus": "disabled_out_of_new_map",
       "activeInGame": false,
@@ -935,7 +941,7 @@
     },
     {
       "id": "osm_route_02_024",
-      "name": "中央区役所",
+      "name": "\u4e2d\u592e\u533a\u5f79\u6240",
       "sourcePhase": "P5 route geometry",
       "mapAnchorStatus": "validated_on_new_chuo_basemap",
       "activeInGame": false,
@@ -948,7 +954,7 @@
     },
     {
       "id": "osm_route_02_025",
-      "name": "日本橋区民センター",
+      "name": "\u65e5\u672c\u6a4b\u533a\u6c11\u30bb\u30f3\u30bf\u30fc",
       "sourcePhase": "P5 route geometry",
       "mapAnchorStatus": "validated_on_new_chuo_basemap",
       "activeInGame": false,
@@ -961,7 +967,7 @@
     },
     {
       "id": "osm_route_02_026",
-      "name": "月島区民センター",
+      "name": "\u6708\u5cf6\u533a\u6c11\u30bb\u30f3\u30bf\u30fc",
       "sourcePhase": "P5 route geometry",
       "mapAnchorStatus": "disabled_out_of_new_map",
       "activeInGame": false,
@@ -974,7 +980,7 @@
     },
     {
       "id": "osm_route_02_027",
-      "name": "(旧)ほっとプラザはるみ",
+      "name": "(\u65e7)\u307b\u3063\u3068\u30d7\u30e9\u30b6\u306f\u308b\u307f",
       "sourcePhase": "P5 route geometry",
       "mapAnchorStatus": "disabled_out_of_new_map",
       "activeInGame": false,
@@ -987,7 +993,7 @@
     },
     {
       "id": "osm_route_03_001",
-      "name": "城東小学校",
+      "name": "\u57ce\u6771\u5c0f\u5b66\u6821",
       "sourcePhase": "P5 route geometry",
       "mapAnchorStatus": "validated_on_new_chuo_basemap",
       "activeInGame": false,
@@ -1000,7 +1006,7 @@
     },
     {
       "id": "osm_route_03_002",
-      "name": "京橋プラザ",
+      "name": "\u4eac\u6a4b\u30d7\u30e9\u30b6",
       "sourcePhase": "P5 route geometry",
       "mapAnchorStatus": "validated_on_new_chuo_basemap",
       "activeInGame": false,
@@ -1013,7 +1019,7 @@
     },
     {
       "id": "osm_route_03_003",
-      "name": "泰明小学校",
+      "name": "\u6cf0\u660e\u5c0f\u5b66\u6821",
       "sourcePhase": "P5 route geometry",
       "mapAnchorStatus": "validated_on_new_chuo_basemap",
       "activeInGame": false,
@@ -1026,7 +1032,7 @@
     },
     {
       "id": "osm_route_03_004",
-      "name": "銀座中学校",
+      "name": "\u9280\u5ea7\u4e2d\u5b66\u6821",
       "sourcePhase": "P5 route geometry",
       "mapAnchorStatus": "validated_on_new_chuo_basemap",
       "activeInGame": false,
@@ -1039,7 +1045,7 @@
     },
     {
       "id": "osm_route_03_005",
-      "name": "中央小学校",
+      "name": "\u4e2d\u592e\u5c0f\u5b66\u6821",
       "sourcePhase": "P5 route geometry",
       "mapAnchorStatus": "validated_on_new_chuo_basemap",
       "activeInGame": false,
@@ -1052,7 +1058,7 @@
     },
     {
       "id": "osm_route_03_006",
-      "name": "明石小学校",
+      "name": "\u660e\u77f3\u5c0f\u5b66\u6821",
       "sourcePhase": "P5 route geometry",
       "mapAnchorStatus": "validated_on_new_chuo_basemap",
       "activeInGame": false,
@@ -1065,7 +1071,7 @@
     },
     {
       "id": "osm_route_03_007",
-      "name": "京橋築地小学校",
+      "name": "\u4eac\u6a4b\u7bc9\u5730\u5c0f\u5b66\u6821",
       "sourcePhase": "P5 route geometry",
       "mapAnchorStatus": "validated_on_new_chuo_basemap",
       "activeInGame": false,
@@ -1078,7 +1084,7 @@
     },
     {
       "id": "osm_route_03_008",
-      "name": "京華スクエア",
+      "name": "\u4eac\u83ef\u30b9\u30af\u30a8\u30a2",
       "sourcePhase": "P5 route geometry",
       "mapAnchorStatus": "validated_on_new_chuo_basemap",
       "activeInGame": false,
@@ -1091,7 +1097,7 @@
     },
     {
       "id": "osm_route_03_009",
-      "name": "明正小学校",
+      "name": "\u660e\u6b63\u5c0f\u5b66\u6821",
       "sourcePhase": "P5 route geometry",
       "mapAnchorStatus": "validated_on_new_chuo_basemap",
       "activeInGame": false,
@@ -1104,7 +1110,7 @@
     },
     {
       "id": "osm_route_03_010",
-      "name": "常盤小学校",
+      "name": "\u5e38\u76e4\u5c0f\u5b66\u6821",
       "sourcePhase": "P5 route geometry",
       "mapAnchorStatus": "validated_on_new_chuo_basemap",
       "activeInGame": false,
@@ -1117,7 +1123,7 @@
     },
     {
       "id": "osm_route_03_011",
-      "name": "十思スクエア",
+      "name": "\u5341\u601d\u30b9\u30af\u30a8\u30a2",
       "sourcePhase": "P5 route geometry",
       "mapAnchorStatus": "validated_on_new_chuo_basemap",
       "activeInGame": false,
@@ -1130,7 +1136,7 @@
     },
     {
       "id": "osm_route_03_012",
-      "name": "日本橋小学校",
+      "name": "\u65e5\u672c\u6a4b\u5c0f\u5b66\u6821",
       "sourcePhase": "P5 route geometry",
       "mapAnchorStatus": "disabled_out_of_new_map",
       "activeInGame": false,
@@ -1143,7 +1149,7 @@
     },
     {
       "id": "osm_route_03_013",
-      "name": "有馬小学校",
+      "name": "\u6709\u99ac\u5c0f\u5b66\u6821",
       "sourcePhase": "P5 route geometry",
       "mapAnchorStatus": "disabled_out_of_new_map",
       "activeInGame": false,
@@ -1156,7 +1162,7 @@
     },
     {
       "id": "osm_route_03_014",
-      "name": "久松小学校",
+      "name": "\u4e45\u677e\u5c0f\u5b66\u6821",
       "sourcePhase": "P5 route geometry",
       "mapAnchorStatus": "validated_on_new_chuo_basemap",
       "activeInGame": false,
@@ -1169,7 +1175,7 @@
     },
     {
       "id": "osm_route_03_015",
-      "name": "日本橋中学校",
+      "name": "\u65e5\u672c\u6a4b\u4e2d\u5b66\u6821",
       "sourcePhase": "P5 route geometry",
       "mapAnchorStatus": "disabled_out_of_new_map",
       "activeInGame": false,
@@ -1182,7 +1188,7 @@
     },
     {
       "id": "osm_route_03_016",
-      "name": "阪本小学校",
+      "name": "\u962a\u672c\u5c0f\u5b66\u6821",
       "sourcePhase": "P5 route geometry",
       "mapAnchorStatus": "validated_on_new_chuo_basemap",
       "activeInGame": false,
@@ -1195,7 +1201,7 @@
     },
     {
       "id": "osm_route_03_017",
-      "name": "佃島小学校",
+      "name": "\u4f43\u5cf6\u5c0f\u5b66\u6821",
       "sourcePhase": "P5 route geometry",
       "mapAnchorStatus": "disabled_out_of_new_map",
       "activeInGame": false,
@@ -1208,7 +1214,7 @@
     },
     {
       "id": "osm_route_03_018",
-      "name": "佃中学校",
+      "name": "\u4f43\u4e2d\u5b66\u6821",
       "sourcePhase": "P5 route geometry",
       "mapAnchorStatus": "disabled_out_of_new_map",
       "activeInGame": false,
@@ -1221,7 +1227,7 @@
     },
     {
       "id": "osm_route_03_019",
-      "name": "月島第一小学校",
+      "name": "\u6708\u5cf6\u7b2c\u4e00\u5c0f\u5b66\u6821",
       "sourcePhase": "P5 route geometry",
       "mapAnchorStatus": "disabled_out_of_new_map",
       "activeInGame": false,
@@ -1234,7 +1240,7 @@
     },
     {
       "id": "osm_route_03_020",
-      "name": "月島第二小学校",
+      "name": "\u6708\u5cf6\u7b2c\u4e8c\u5c0f\u5b66\u6821",
       "sourcePhase": "P5 route geometry",
       "mapAnchorStatus": "disabled_out_of_new_map",
       "activeInGame": false,
@@ -1247,7 +1253,7 @@
     },
     {
       "id": "osm_route_03_021",
-      "name": "月島第三小学校",
+      "name": "\u6708\u5cf6\u7b2c\u4e09\u5c0f\u5b66\u6821",
       "sourcePhase": "P5 route geometry",
       "mapAnchorStatus": "disabled_out_of_new_map",
       "activeInGame": false,
@@ -1260,7 +1266,7 @@
     },
     {
       "id": "osm_route_03_022",
-      "name": "晴海中学校",
+      "name": "\u6674\u6d77\u4e2d\u5b66\u6821",
       "sourcePhase": "P5 route geometry",
       "mapAnchorStatus": "disabled_out_of_new_map",
       "activeInGame": false,
@@ -1273,7 +1279,7 @@
     },
     {
       "id": "osm_route_03_023",
-      "name": "豊海小学校",
+      "name": "\u8c4a\u6d77\u5c0f\u5b66\u6821",
       "sourcePhase": "P5 route geometry",
       "mapAnchorStatus": "disabled_out_of_new_map",
       "activeInGame": false,
@@ -1286,7 +1292,7 @@
     },
     {
       "id": "osm_route_03_024",
-      "name": "中央区役所",
+      "name": "\u4e2d\u592e\u533a\u5f79\u6240",
       "sourcePhase": "P5 route geometry",
       "mapAnchorStatus": "validated_on_new_chuo_basemap",
       "activeInGame": false,
@@ -1299,7 +1305,7 @@
     },
     {
       "id": "osm_route_03_025",
-      "name": "日本橋区民センター",
+      "name": "\u65e5\u672c\u6a4b\u533a\u6c11\u30bb\u30f3\u30bf\u30fc",
       "sourcePhase": "P5 route geometry",
       "mapAnchorStatus": "validated_on_new_chuo_basemap",
       "activeInGame": false,
@@ -1312,7 +1318,7 @@
     },
     {
       "id": "osm_route_03_026",
-      "name": "月島区民センター",
+      "name": "\u6708\u5cf6\u533a\u6c11\u30bb\u30f3\u30bf\u30fc",
       "sourcePhase": "P5 route geometry",
       "mapAnchorStatus": "disabled_out_of_new_map",
       "activeInGame": false,
@@ -1325,7 +1331,7 @@
     },
     {
       "id": "osm_route_03_027",
-      "name": "(旧)ほっとプラザはるみ",
+      "name": "(\u65e7)\u307b\u3063\u3068\u30d7\u30e9\u30b6\u306f\u308b\u307f",
       "sourcePhase": "P5 route geometry",
       "mapAnchorStatus": "disabled_out_of_new_map",
       "activeInGame": false,
@@ -1338,7 +1344,7 @@
     },
     {
       "id": "osm_route_04_001",
-      "name": "城東小学校",
+      "name": "\u57ce\u6771\u5c0f\u5b66\u6821",
       "sourcePhase": "P5 route geometry",
       "mapAnchorStatus": "validated_on_new_chuo_basemap",
       "activeInGame": false,
@@ -1351,7 +1357,7 @@
     },
     {
       "id": "osm_route_04_002",
-      "name": "京橋プラザ",
+      "name": "\u4eac\u6a4b\u30d7\u30e9\u30b6",
       "sourcePhase": "P5 route geometry",
       "mapAnchorStatus": "validated_on_new_chuo_basemap",
       "activeInGame": false,
@@ -1364,7 +1370,7 @@
     },
     {
       "id": "osm_route_04_003",
-      "name": "泰明小学校",
+      "name": "\u6cf0\u660e\u5c0f\u5b66\u6821",
       "sourcePhase": "P5 route geometry",
       "mapAnchorStatus": "validated_on_new_chuo_basemap",
       "activeInGame": false,
@@ -1377,7 +1383,7 @@
     },
     {
       "id": "osm_route_04_004",
-      "name": "銀座中学校",
+      "name": "\u9280\u5ea7\u4e2d\u5b66\u6821",
       "sourcePhase": "P5 route geometry",
       "mapAnchorStatus": "validated_on_new_chuo_basemap",
       "activeInGame": false,
@@ -1390,7 +1396,7 @@
     },
     {
       "id": "osm_route_04_005",
-      "name": "中央小学校",
+      "name": "\u4e2d\u592e\u5c0f\u5b66\u6821",
       "sourcePhase": "P5 route geometry",
       "mapAnchorStatus": "validated_on_new_chuo_basemap",
       "activeInGame": false,
@@ -1403,7 +1409,7 @@
     },
     {
       "id": "osm_route_04_006",
-      "name": "明石小学校",
+      "name": "\u660e\u77f3\u5c0f\u5b66\u6821",
       "sourcePhase": "P5 route geometry",
       "mapAnchorStatus": "validated_on_new_chuo_basemap",
       "activeInGame": false,
@@ -1416,7 +1422,7 @@
     },
     {
       "id": "osm_route_04_007",
-      "name": "京橋築地小学校",
+      "name": "\u4eac\u6a4b\u7bc9\u5730\u5c0f\u5b66\u6821",
       "sourcePhase": "P5 route geometry",
       "mapAnchorStatus": "validated_on_new_chuo_basemap",
       "activeInGame": false,
@@ -1429,7 +1435,7 @@
     },
     {
       "id": "osm_route_04_008",
-      "name": "京華スクエア",
+      "name": "\u4eac\u83ef\u30b9\u30af\u30a8\u30a2",
       "sourcePhase": "P5 route geometry",
       "mapAnchorStatus": "validated_on_new_chuo_basemap",
       "activeInGame": false,
@@ -1442,7 +1448,7 @@
     },
     {
       "id": "osm_route_04_009",
-      "name": "明正小学校",
+      "name": "\u660e\u6b63\u5c0f\u5b66\u6821",
       "sourcePhase": "P5 route geometry",
       "mapAnchorStatus": "validated_on_new_chuo_basemap",
       "activeInGame": false,
@@ -1455,7 +1461,7 @@
     },
     {
       "id": "osm_route_04_010",
-      "name": "常盤小学校",
+      "name": "\u5e38\u76e4\u5c0f\u5b66\u6821",
       "sourcePhase": "P5 route geometry",
       "mapAnchorStatus": "validated_on_new_chuo_basemap",
       "activeInGame": false,
@@ -1468,7 +1474,7 @@
     },
     {
       "id": "osm_route_04_011",
-      "name": "十思スクエア",
+      "name": "\u5341\u601d\u30b9\u30af\u30a8\u30a2",
       "sourcePhase": "P5 route geometry",
       "mapAnchorStatus": "validated_on_new_chuo_basemap",
       "activeInGame": false,
@@ -1481,7 +1487,7 @@
     },
     {
       "id": "osm_route_04_012",
-      "name": "日本橋小学校",
+      "name": "\u65e5\u672c\u6a4b\u5c0f\u5b66\u6821",
       "sourcePhase": "P5 route geometry",
       "mapAnchorStatus": "disabled_out_of_new_map",
       "activeInGame": false,
@@ -1494,7 +1500,7 @@
     },
     {
       "id": "osm_route_04_013",
-      "name": "有馬小学校",
+      "name": "\u6709\u99ac\u5c0f\u5b66\u6821",
       "sourcePhase": "P5 route geometry",
       "mapAnchorStatus": "disabled_out_of_new_map",
       "activeInGame": false,
@@ -1507,7 +1513,7 @@
     },
     {
       "id": "osm_route_04_014",
-      "name": "久松小学校",
+      "name": "\u4e45\u677e\u5c0f\u5b66\u6821",
       "sourcePhase": "P5 route geometry",
       "mapAnchorStatus": "validated_on_new_chuo_basemap",
       "activeInGame": false,
@@ -1520,7 +1526,7 @@
     },
     {
       "id": "osm_route_04_015",
-      "name": "日本橋中学校",
+      "name": "\u65e5\u672c\u6a4b\u4e2d\u5b66\u6821",
       "sourcePhase": "P5 route geometry",
       "mapAnchorStatus": "disabled_out_of_new_map",
       "activeInGame": false,
@@ -1533,7 +1539,7 @@
     },
     {
       "id": "osm_route_04_016",
-      "name": "阪本小学校",
+      "name": "\u962a\u672c\u5c0f\u5b66\u6821",
       "sourcePhase": "P5 route geometry",
       "mapAnchorStatus": "validated_on_new_chuo_basemap",
       "activeInGame": false,
@@ -1546,7 +1552,7 @@
     },
     {
       "id": "osm_route_04_017",
-      "name": "佃島小学校",
+      "name": "\u4f43\u5cf6\u5c0f\u5b66\u6821",
       "sourcePhase": "P5 route geometry",
       "mapAnchorStatus": "disabled_out_of_new_map",
       "activeInGame": false,
@@ -1559,7 +1565,7 @@
     },
     {
       "id": "osm_route_04_018",
-      "name": "佃中学校",
+      "name": "\u4f43\u4e2d\u5b66\u6821",
       "sourcePhase": "P5 route geometry",
       "mapAnchorStatus": "disabled_out_of_new_map",
       "activeInGame": false,
@@ -1572,7 +1578,7 @@
     },
     {
       "id": "osm_route_04_019",
-      "name": "月島第一小学校",
+      "name": "\u6708\u5cf6\u7b2c\u4e00\u5c0f\u5b66\u6821",
       "sourcePhase": "P5 route geometry",
       "mapAnchorStatus": "disabled_out_of_new_map",
       "activeInGame": false,
@@ -1585,7 +1591,7 @@
     },
     {
       "id": "osm_route_04_020",
-      "name": "月島第二小学校",
+      "name": "\u6708\u5cf6\u7b2c\u4e8c\u5c0f\u5b66\u6821",
       "sourcePhase": "P5 route geometry",
       "mapAnchorStatus": "disabled_out_of_new_map",
       "activeInGame": false,
@@ -1598,7 +1604,7 @@
     },
     {
       "id": "osm_route_04_021",
-      "name": "月島第三小学校",
+      "name": "\u6708\u5cf6\u7b2c\u4e09\u5c0f\u5b66\u6821",
       "sourcePhase": "P5 route geometry",
       "mapAnchorStatus": "disabled_out_of_new_map",
       "activeInGame": false,
@@ -1611,7 +1617,7 @@
     },
     {
       "id": "osm_route_04_022",
-      "name": "晴海中学校",
+      "name": "\u6674\u6d77\u4e2d\u5b66\u6821",
       "sourcePhase": "P5 route geometry",
       "mapAnchorStatus": "disabled_out_of_new_map",
       "activeInGame": false,
@@ -1624,7 +1630,7 @@
     },
     {
       "id": "osm_route_04_023",
-      "name": "豊海小学校",
+      "name": "\u8c4a\u6d77\u5c0f\u5b66\u6821",
       "sourcePhase": "P5 route geometry",
       "mapAnchorStatus": "disabled_out_of_new_map",
       "activeInGame": false,
@@ -1637,7 +1643,7 @@
     },
     {
       "id": "osm_route_04_024",
-      "name": "中央区役所",
+      "name": "\u4e2d\u592e\u533a\u5f79\u6240",
       "sourcePhase": "P5 route geometry",
       "mapAnchorStatus": "validated_on_new_chuo_basemap",
       "activeInGame": false,
@@ -1650,7 +1656,7 @@
     },
     {
       "id": "osm_route_04_025",
-      "name": "日本橋区民センター",
+      "name": "\u65e5\u672c\u6a4b\u533a\u6c11\u30bb\u30f3\u30bf\u30fc",
       "sourcePhase": "P5 route geometry",
       "mapAnchorStatus": "validated_on_new_chuo_basemap",
       "activeInGame": false,
@@ -1663,7 +1669,7 @@
     },
     {
       "id": "osm_route_04_026",
-      "name": "月島区民センター",
+      "name": "\u6708\u5cf6\u533a\u6c11\u30bb\u30f3\u30bf\u30fc",
       "sourcePhase": "P5 route geometry",
       "mapAnchorStatus": "disabled_out_of_new_map",
       "activeInGame": false,
@@ -1676,7 +1682,7 @@
     },
     {
       "id": "osm_route_04_027",
-      "name": "(旧)ほっとプラザはるみ",
+      "name": "(\u65e7)\u307b\u3063\u3068\u30d7\u30e9\u30b6\u306f\u308b\u307f",
       "sourcePhase": "P5 route geometry",
       "mapAnchorStatus": "disabled_out_of_new_map",
       "activeInGame": false,
@@ -1689,7 +1695,7 @@
     },
     {
       "id": "osm_route_05_001",
-      "name": "城東小学校",
+      "name": "\u57ce\u6771\u5c0f\u5b66\u6821",
       "sourcePhase": "P5 route geometry",
       "mapAnchorStatus": "disabled_out_of_new_map",
       "activeInGame": false,
@@ -1702,7 +1708,7 @@
     },
     {
       "id": "osm_route_05_002",
-      "name": "京橋プラザ",
+      "name": "\u4eac\u6a4b\u30d7\u30e9\u30b6",
       "sourcePhase": "P5 route geometry",
       "mapAnchorStatus": "disabled_out_of_new_map",
       "activeInGame": false,
@@ -1715,7 +1721,7 @@
     },
     {
       "id": "osm_route_05_003",
-      "name": "泰明小学校",
+      "name": "\u6cf0\u660e\u5c0f\u5b66\u6821",
       "sourcePhase": "P5 route geometry",
       "mapAnchorStatus": "disabled_out_of_new_map",
       "activeInGame": false,
@@ -1728,7 +1734,7 @@
     },
     {
       "id": "osm_route_05_004",
-      "name": "銀座中学校",
+      "name": "\u9280\u5ea7\u4e2d\u5b66\u6821",
       "sourcePhase": "P5 route geometry",
       "mapAnchorStatus": "disabled_out_of_new_map",
       "activeInGame": false,
@@ -1741,7 +1747,7 @@
     },
     {
       "id": "osm_route_05_005",
-      "name": "中央小学校",
+      "name": "\u4e2d\u592e\u5c0f\u5b66\u6821",
       "sourcePhase": "P5 route geometry",
       "mapAnchorStatus": "disabled_out_of_new_map",
       "activeInGame": false,
@@ -1754,7 +1760,7 @@
     },
     {
       "id": "osm_route_05_006",
-      "name": "明石小学校",
+      "name": "\u660e\u77f3\u5c0f\u5b66\u6821",
       "sourcePhase": "P5 route geometry",
       "mapAnchorStatus": "disabled_out_of_new_map",
       "activeInGame": false,
@@ -1767,7 +1773,7 @@
     },
     {
       "id": "osm_route_05_007",
-      "name": "京橋築地小学校",
+      "name": "\u4eac\u6a4b\u7bc9\u5730\u5c0f\u5b66\u6821",
       "sourcePhase": "P5 route geometry",
       "mapAnchorStatus": "disabled_out_of_new_map",
       "activeInGame": false,
@@ -1780,7 +1786,7 @@
     },
     {
       "id": "osm_route_05_008",
-      "name": "京華スクエア",
+      "name": "\u4eac\u83ef\u30b9\u30af\u30a8\u30a2",
       "sourcePhase": "P5 route geometry",
       "mapAnchorStatus": "disabled_out_of_new_map",
       "activeInGame": false,
@@ -1793,7 +1799,7 @@
     },
     {
       "id": "osm_route_05_009",
-      "name": "明正小学校",
+      "name": "\u660e\u6b63\u5c0f\u5b66\u6821",
       "sourcePhase": "P5 route geometry",
       "mapAnchorStatus": "disabled_out_of_new_map",
       "activeInGame": false,
@@ -1806,7 +1812,7 @@
     },
     {
       "id": "osm_route_05_010",
-      "name": "常盤小学校",
+      "name": "\u5e38\u76e4\u5c0f\u5b66\u6821",
       "sourcePhase": "P5 route geometry",
       "mapAnchorStatus": "disabled_out_of_new_map",
       "activeInGame": false,
@@ -1819,7 +1825,7 @@
     },
     {
       "id": "osm_route_05_011",
-      "name": "十思スクエア",
+      "name": "\u5341\u601d\u30b9\u30af\u30a8\u30a2",
       "sourcePhase": "P5 route geometry",
       "mapAnchorStatus": "disabled_out_of_new_map",
       "activeInGame": false,
@@ -1832,7 +1838,7 @@
     },
     {
       "id": "osm_route_05_012",
-      "name": "日本橋小学校",
+      "name": "\u65e5\u672c\u6a4b\u5c0f\u5b66\u6821",
       "sourcePhase": "P5 route geometry",
       "mapAnchorStatus": "disabled_out_of_new_map",
       "activeInGame": false,
@@ -1845,7 +1851,7 @@
     },
     {
       "id": "osm_route_05_013",
-      "name": "有馬小学校",
+      "name": "\u6709\u99ac\u5c0f\u5b66\u6821",
       "sourcePhase": "P5 route geometry",
       "mapAnchorStatus": "disabled_out_of_new_map",
       "activeInGame": false,
@@ -1858,7 +1864,7 @@
     },
     {
       "id": "osm_route_05_014",
-      "name": "久松小学校",
+      "name": "\u4e45\u677e\u5c0f\u5b66\u6821",
       "sourcePhase": "P5 route geometry",
       "mapAnchorStatus": "disabled_out_of_new_map",
       "activeInGame": false,
@@ -1871,7 +1877,7 @@
     },
     {
       "id": "osm_route_05_015",
-      "name": "日本橋中学校",
+      "name": "\u65e5\u672c\u6a4b\u4e2d\u5b66\u6821",
       "sourcePhase": "P5 route geometry",
       "mapAnchorStatus": "disabled_out_of_new_map",
       "activeInGame": false,
@@ -1884,7 +1890,7 @@
     },
     {
       "id": "osm_route_05_016",
-      "name": "阪本小学校",
+      "name": "\u962a\u672c\u5c0f\u5b66\u6821",
       "sourcePhase": "P5 route geometry",
       "mapAnchorStatus": "disabled_out_of_new_map",
       "activeInGame": false,
@@ -1897,7 +1903,7 @@
     },
     {
       "id": "osm_route_05_017",
-      "name": "佃島小学校",
+      "name": "\u4f43\u5cf6\u5c0f\u5b66\u6821",
       "sourcePhase": "P5 route geometry",
       "mapAnchorStatus": "disabled_out_of_new_map",
       "activeInGame": false,
@@ -1910,7 +1916,7 @@
     },
     {
       "id": "osm_route_05_018",
-      "name": "佃中学校",
+      "name": "\u4f43\u4e2d\u5b66\u6821",
       "sourcePhase": "P5 route geometry",
       "mapAnchorStatus": "disabled_out_of_new_map",
       "activeInGame": false,
@@ -1923,7 +1929,7 @@
     },
     {
       "id": "osm_route_05_019",
-      "name": "月島第一小学校",
+      "name": "\u6708\u5cf6\u7b2c\u4e00\u5c0f\u5b66\u6821",
       "sourcePhase": "P5 route geometry",
       "mapAnchorStatus": "disabled_out_of_new_map",
       "activeInGame": false,
@@ -1936,7 +1942,7 @@
     },
     {
       "id": "osm_route_05_020",
-      "name": "月島第二小学校",
+      "name": "\u6708\u5cf6\u7b2c\u4e8c\u5c0f\u5b66\u6821",
       "sourcePhase": "P5 route geometry",
       "mapAnchorStatus": "disabled_out_of_new_map",
       "activeInGame": false,
@@ -1949,7 +1955,7 @@
     },
     {
       "id": "osm_route_05_021",
-      "name": "月島第三小学校",
+      "name": "\u6708\u5cf6\u7b2c\u4e09\u5c0f\u5b66\u6821",
       "sourcePhase": "P5 route geometry",
       "mapAnchorStatus": "disabled_out_of_new_map",
       "activeInGame": false,
@@ -1962,7 +1968,7 @@
     },
     {
       "id": "osm_route_05_022",
-      "name": "晴海中学校",
+      "name": "\u6674\u6d77\u4e2d\u5b66\u6821",
       "sourcePhase": "P5 route geometry",
       "mapAnchorStatus": "disabled_out_of_new_map",
       "activeInGame": false,
@@ -1975,7 +1981,7 @@
     },
     {
       "id": "osm_route_05_023",
-      "name": "豊海小学校",
+      "name": "\u8c4a\u6d77\u5c0f\u5b66\u6821",
       "sourcePhase": "P5 route geometry",
       "mapAnchorStatus": "disabled_out_of_new_map",
       "activeInGame": false,
@@ -1988,7 +1994,7 @@
     },
     {
       "id": "osm_route_05_024",
-      "name": "中央区役所",
+      "name": "\u4e2d\u592e\u533a\u5f79\u6240",
       "sourcePhase": "P5 route geometry",
       "mapAnchorStatus": "disabled_out_of_new_map",
       "activeInGame": false,
@@ -2001,7 +2007,7 @@
     },
     {
       "id": "osm_route_05_025",
-      "name": "日本橋区民センター",
+      "name": "\u65e5\u672c\u6a4b\u533a\u6c11\u30bb\u30f3\u30bf\u30fc",
       "sourcePhase": "P5 route geometry",
       "mapAnchorStatus": "disabled_out_of_new_map",
       "activeInGame": false,
@@ -2014,7 +2020,7 @@
     },
     {
       "id": "osm_route_05_026",
-      "name": "月島区民センター",
+      "name": "\u6708\u5cf6\u533a\u6c11\u30bb\u30f3\u30bf\u30fc",
       "sourcePhase": "P5 route geometry",
       "mapAnchorStatus": "disabled_out_of_new_map",
       "activeInGame": false,
@@ -2027,11 +2033,427 @@
     },
     {
       "id": "osm_route_05_027",
-      "name": "(旧)ほっとプラザはるみ",
+      "name": "(\u65e7)\u307b\u3063\u3068\u30d7\u30e9\u30b6\u306f\u308b\u307f",
       "sourcePhase": "P5 route geometry",
       "mapAnchorStatus": "disabled_out_of_new_map",
       "activeInGame": false,
       "disabledReason": "disabled_out_of_new_map: route endpoint has no active verified shelter anchor on Chuo_BaseMap.",
+      "markerBehavior": "disabled; not spawned at runtime",
+      "greenFrameBehavior": "disabled; not spawned",
+      "selectableBehavior": "disabled; not selectable",
+      "routeBehavior": "disabled; not spawned as an active route line",
+      "resultPanelBehavior": "disabled target cannot produce route success or safe-floor success"
+    },
+    {
+      "id": "p8_plateau_highrise_candidate_008",
+      "name": "\u5ca9\u8c37\u7523\u696d\u682a\u5f0f\u4f1a\u793e\u6771\u4eac\u652f\u5e97",
+      "sourcePhase": "P8/P9 humanitarian candidate recovery",
+      "mapAnchorStatus": "disabled_out_of_new_map",
+      "activeInGame": false,
+      "disabledReason": "disabled_out_of_new_map: transformed coordinate is outside Chuo_BaseMap mesh AABB bounds.",
+      "markerBehavior": "disabled; not spawned at runtime",
+      "greenFrameBehavior": "disabled; not spawned",
+      "selectableBehavior": "disabled; not selectable",
+      "routeBehavior": "disabled; not spawned as an active route line",
+      "resultPanelBehavior": "disabled target cannot produce route success or safe-floor success"
+    },
+    {
+      "id": "p8_plateau_highrise_candidate_010",
+      "name": "\u5927\u5ddd\u7aef\u30ea\u30d0\u30fc\u30b7\u30c6\u30a321",
+      "sourcePhase": "P8/P9 humanitarian candidate recovery",
+      "mapAnchorStatus": "disabled_out_of_new_map",
+      "activeInGame": false,
+      "disabledReason": "disabled_out_of_new_map: transformed coordinate is outside Chuo_BaseMap mesh AABB bounds.",
+      "markerBehavior": "disabled; not spawned at runtime",
+      "greenFrameBehavior": "disabled; not spawned",
+      "selectableBehavior": "disabled; not selectable",
+      "routeBehavior": "disabled; not spawned as an active route line",
+      "resultPanelBehavior": "disabled target cannot produce route success or safe-floor success"
+    },
+    {
+      "id": "p8_plateau_highrise_candidate_012",
+      "name": "\u30c8\u30eb\u30ca\u30fc\u30ec\u65e5\u672c\u6a4b\u6d5c\u753a",
+      "sourcePhase": "P8/P9 humanitarian candidate recovery",
+      "mapAnchorStatus": "disabled_out_of_new_map",
+      "activeInGame": false,
+      "disabledReason": "disabled_out_of_new_map: transformed coordinate is outside Chuo_BaseMap mesh AABB bounds.",
+      "markerBehavior": "disabled; not spawned at runtime",
+      "greenFrameBehavior": "disabled; not spawned",
+      "selectableBehavior": "disabled; not selectable",
+      "routeBehavior": "disabled; not spawned as an active route line",
+      "resultPanelBehavior": "disabled target cannot produce route success or safe-floor success"
+    },
+    {
+      "id": "p8_plateau_highrise_candidate_014",
+      "name": "\u6708\u5cf6\u8b66\u5bdf\u7f72",
+      "sourcePhase": "P8/P9 humanitarian candidate recovery",
+      "mapAnchorStatus": "disabled_out_of_new_map",
+      "activeInGame": false,
+      "disabledReason": "disabled_out_of_new_map: transformed coordinate is outside Chuo_BaseMap mesh AABB bounds.",
+      "markerBehavior": "disabled; not spawned at runtime",
+      "greenFrameBehavior": "disabled; not spawned",
+      "selectableBehavior": "disabled; not selectable",
+      "routeBehavior": "disabled; not spawned as an active route line",
+      "resultPanelBehavior": "disabled target cannot produce route success or safe-floor success"
+    },
+    {
+      "id": "p8_plateau_highrise_candidate_017",
+      "name": "\u6674\u6d77\u30c8\u30ea\u30c8\u30f3\u30b9\u30af\u30a8\u30a2",
+      "sourcePhase": "P8/P9 humanitarian candidate recovery",
+      "mapAnchorStatus": "disabled_out_of_new_map",
+      "activeInGame": false,
+      "disabledReason": "disabled_out_of_new_map: transformed coordinate is outside Chuo_BaseMap mesh AABB bounds.",
+      "markerBehavior": "disabled; not spawned at runtime",
+      "greenFrameBehavior": "disabled; not spawned",
+      "selectableBehavior": "disabled; not selectable",
+      "routeBehavior": "disabled; not spawned as an active route line",
+      "resultPanelBehavior": "disabled target cannot produce route success or safe-floor success"
+    },
+    {
+      "id": "p8_plateau_highrise_candidate_025",
+      "name": "13102-bldg-2823",
+      "sourcePhase": "P8/P9 humanitarian candidate recovery",
+      "mapAnchorStatus": "disabled_out_of_new_map",
+      "activeInGame": false,
+      "disabledReason": "disabled_out_of_new_map: transformed coordinate is outside Chuo_BaseMap mesh AABB bounds.",
+      "markerBehavior": "disabled; not spawned at runtime",
+      "greenFrameBehavior": "disabled; not spawned",
+      "selectableBehavior": "disabled; not selectable",
+      "routeBehavior": "disabled; not spawned as an active route line",
+      "resultPanelBehavior": "disabled target cannot produce route success or safe-floor success"
+    },
+    {
+      "id": "p8_plateau_highrise_candidate_026",
+      "name": "13102-bldg-4622",
+      "sourcePhase": "P8/P9 humanitarian candidate recovery",
+      "mapAnchorStatus": "disabled_out_of_new_map",
+      "activeInGame": false,
+      "disabledReason": "disabled_out_of_new_map: transformed coordinate is outside Chuo_BaseMap mesh AABB bounds.",
+      "markerBehavior": "disabled; not spawned at runtime",
+      "greenFrameBehavior": "disabled; not spawned",
+      "selectableBehavior": "disabled; not selectable",
+      "routeBehavior": "disabled; not spawned as an active route line",
+      "resultPanelBehavior": "disabled target cannot produce route success or safe-floor success"
+    },
+    {
+      "id": "p8_plateau_highrise_candidate_038",
+      "name": "13102-bldg-11725",
+      "sourcePhase": "P8/P9 humanitarian candidate recovery",
+      "mapAnchorStatus": "disabled_out_of_new_map",
+      "activeInGame": false,
+      "disabledReason": "disabled_out_of_new_map: transformed coordinate is outside Chuo_BaseMap mesh AABB bounds.",
+      "markerBehavior": "disabled; not spawned at runtime",
+      "greenFrameBehavior": "disabled; not spawned",
+      "selectableBehavior": "disabled; not selectable",
+      "routeBehavior": "disabled; not spawned as an active route line",
+      "resultPanelBehavior": "disabled target cannot produce route success or safe-floor success"
+    },
+    {
+      "id": "p8_plateau_highrise_candidate_046",
+      "name": "13102-bldg-3563",
+      "sourcePhase": "P8/P9 humanitarian candidate recovery",
+      "mapAnchorStatus": "disabled_out_of_new_map",
+      "activeInGame": false,
+      "disabledReason": "disabled_out_of_new_map: transformed coordinate is outside Chuo_BaseMap mesh AABB bounds.",
+      "markerBehavior": "disabled; not spawned at runtime",
+      "greenFrameBehavior": "disabled; not spawned",
+      "selectableBehavior": "disabled; not selectable",
+      "routeBehavior": "disabled; not spawned as an active route line",
+      "resultPanelBehavior": "disabled target cannot produce route success or safe-floor success"
+    },
+    {
+      "id": "p8_plateau_highrise_candidate_047",
+      "name": "13102-bldg-2813",
+      "sourcePhase": "P8/P9 humanitarian candidate recovery",
+      "mapAnchorStatus": "disabled_out_of_new_map",
+      "activeInGame": false,
+      "disabledReason": "disabled_out_of_new_map: transformed coordinate is outside Chuo_BaseMap mesh AABB bounds.",
+      "markerBehavior": "disabled; not spawned at runtime",
+      "greenFrameBehavior": "disabled; not spawned",
+      "selectableBehavior": "disabled; not selectable",
+      "routeBehavior": "disabled; not spawned as an active route line",
+      "resultPanelBehavior": "disabled target cannot produce route success or safe-floor success"
+    },
+    {
+      "id": "p8_plateau_highrise_candidate_048",
+      "name": "13102-bldg-6670",
+      "sourcePhase": "P8/P9 humanitarian candidate recovery",
+      "mapAnchorStatus": "disabled_out_of_new_map",
+      "activeInGame": false,
+      "disabledReason": "disabled_out_of_new_map: transformed coordinate is outside Chuo_BaseMap mesh AABB bounds.",
+      "markerBehavior": "disabled; not spawned at runtime",
+      "greenFrameBehavior": "disabled; not spawned",
+      "selectableBehavior": "disabled; not selectable",
+      "routeBehavior": "disabled; not spawned as an active route line",
+      "resultPanelBehavior": "disabled target cannot produce route success or safe-floor success"
+    },
+    {
+      "id": "p8_plateau_highrise_candidate_049",
+      "name": "13102-bldg-4627",
+      "sourcePhase": "P8/P9 humanitarian candidate recovery",
+      "mapAnchorStatus": "disabled_out_of_new_map",
+      "activeInGame": false,
+      "disabledReason": "disabled_out_of_new_map: transformed coordinate is outside Chuo_BaseMap mesh AABB bounds.",
+      "markerBehavior": "disabled; not spawned at runtime",
+      "greenFrameBehavior": "disabled; not spawned",
+      "selectableBehavior": "disabled; not selectable",
+      "routeBehavior": "disabled; not spawned as an active route line",
+      "resultPanelBehavior": "disabled target cannot produce route success or safe-floor success"
+    },
+    {
+      "id": "p8_plateau_highrise_candidate_050",
+      "name": "13102-bldg-2459",
+      "sourcePhase": "P8/P9 humanitarian candidate recovery",
+      "mapAnchorStatus": "disabled_out_of_new_map",
+      "activeInGame": false,
+      "disabledReason": "disabled_out_of_new_map: transformed coordinate is outside Chuo_BaseMap mesh AABB bounds.",
+      "markerBehavior": "disabled; not spawned at runtime",
+      "greenFrameBehavior": "disabled; not spawned",
+      "selectableBehavior": "disabled; not selectable",
+      "routeBehavior": "disabled; not spawned as an active route line",
+      "resultPanelBehavior": "disabled target cannot produce route success or safe-floor success"
+    },
+    {
+      "id": "p8_plateau_highrise_candidate_051",
+      "name": "13102-bldg-10346",
+      "sourcePhase": "P8/P9 humanitarian candidate recovery",
+      "mapAnchorStatus": "disabled_out_of_new_map",
+      "activeInGame": false,
+      "disabledReason": "disabled_out_of_new_map: transformed coordinate is outside Chuo_BaseMap mesh AABB bounds.",
+      "markerBehavior": "disabled; not spawned at runtime",
+      "greenFrameBehavior": "disabled; not spawned",
+      "selectableBehavior": "disabled; not selectable",
+      "routeBehavior": "disabled; not spawned as an active route line",
+      "resultPanelBehavior": "disabled target cannot produce route success or safe-floor success"
+    },
+    {
+      "id": "p8_plateau_highrise_candidate_052",
+      "name": "13102-bldg-4456",
+      "sourcePhase": "P8/P9 humanitarian candidate recovery",
+      "mapAnchorStatus": "disabled_out_of_new_map",
+      "activeInGame": false,
+      "disabledReason": "disabled_out_of_new_map: transformed coordinate is outside Chuo_BaseMap mesh AABB bounds.",
+      "markerBehavior": "disabled; not spawned at runtime",
+      "greenFrameBehavior": "disabled; not spawned",
+      "selectableBehavior": "disabled; not selectable",
+      "routeBehavior": "disabled; not spawned as an active route line",
+      "resultPanelBehavior": "disabled target cannot produce route success or safe-floor success"
+    },
+    {
+      "id": "p8_plateau_highrise_candidate_053",
+      "name": "13102-bldg-980",
+      "sourcePhase": "P8/P9 humanitarian candidate recovery",
+      "mapAnchorStatus": "disabled_out_of_new_map",
+      "activeInGame": false,
+      "disabledReason": "disabled_out_of_new_map: transformed coordinate is outside Chuo_BaseMap mesh AABB bounds.",
+      "markerBehavior": "disabled; not spawned at runtime",
+      "greenFrameBehavior": "disabled; not spawned",
+      "selectableBehavior": "disabled; not selectable",
+      "routeBehavior": "disabled; not spawned as an active route line",
+      "resultPanelBehavior": "disabled target cannot produce route success or safe-floor success"
+    },
+    {
+      "id": "p8_plateau_highrise_candidate_054",
+      "name": "13102-bldg-9603",
+      "sourcePhase": "P8/P9 humanitarian candidate recovery",
+      "mapAnchorStatus": "disabled_out_of_new_map",
+      "activeInGame": false,
+      "disabledReason": "disabled_out_of_new_map: transformed coordinate is outside Chuo_BaseMap mesh AABB bounds.",
+      "markerBehavior": "disabled; not spawned at runtime",
+      "greenFrameBehavior": "disabled; not spawned",
+      "selectableBehavior": "disabled; not selectable",
+      "routeBehavior": "disabled; not spawned as an active route line",
+      "resultPanelBehavior": "disabled target cannot produce route success or safe-floor success"
+    },
+    {
+      "id": "p8_plateau_highrise_candidate_057",
+      "name": "13102-bldg-1028",
+      "sourcePhase": "P8/P9 humanitarian candidate recovery",
+      "mapAnchorStatus": "disabled_out_of_new_map",
+      "activeInGame": false,
+      "disabledReason": "disabled_out_of_new_map: transformed coordinate is outside Chuo_BaseMap mesh AABB bounds.",
+      "markerBehavior": "disabled; not spawned at runtime",
+      "greenFrameBehavior": "disabled; not spawned",
+      "selectableBehavior": "disabled; not selectable",
+      "routeBehavior": "disabled; not spawned as an active route line",
+      "resultPanelBehavior": "disabled target cannot produce route success or safe-floor success"
+    },
+    {
+      "id": "p8_plateau_highrise_candidate_061",
+      "name": "13102-bldg-11915",
+      "sourcePhase": "P8/P9 humanitarian candidate recovery",
+      "mapAnchorStatus": "disabled_out_of_new_map",
+      "activeInGame": false,
+      "disabledReason": "disabled_out_of_new_map: transformed coordinate is outside Chuo_BaseMap mesh AABB bounds.",
+      "markerBehavior": "disabled; not spawned at runtime",
+      "greenFrameBehavior": "disabled; not spawned",
+      "selectableBehavior": "disabled; not selectable",
+      "routeBehavior": "disabled; not spawned as an active route line",
+      "resultPanelBehavior": "disabled target cannot produce route success or safe-floor success"
+    },
+    {
+      "id": "p8_plateau_highrise_candidate_062",
+      "name": "13102-bldg-11552",
+      "sourcePhase": "P8/P9 humanitarian candidate recovery",
+      "mapAnchorStatus": "disabled_out_of_new_map",
+      "activeInGame": false,
+      "disabledReason": "disabled_out_of_new_map: transformed coordinate is outside Chuo_BaseMap mesh AABB bounds.",
+      "markerBehavior": "disabled; not spawned at runtime",
+      "greenFrameBehavior": "disabled; not spawned",
+      "selectableBehavior": "disabled; not selectable",
+      "routeBehavior": "disabled; not spawned as an active route line",
+      "resultPanelBehavior": "disabled target cannot produce route success or safe-floor success"
+    },
+    {
+      "id": "p8_plateau_highrise_candidate_068",
+      "name": "13102-bldg-1874",
+      "sourcePhase": "P8/P9 humanitarian candidate recovery",
+      "mapAnchorStatus": "disabled_out_of_new_map",
+      "activeInGame": false,
+      "disabledReason": "disabled_out_of_new_map: transformed coordinate is outside Chuo_BaseMap mesh AABB bounds.",
+      "markerBehavior": "disabled; not spawned at runtime",
+      "greenFrameBehavior": "disabled; not spawned",
+      "selectableBehavior": "disabled; not selectable",
+      "routeBehavior": "disabled; not spawned as an active route line",
+      "resultPanelBehavior": "disabled target cannot produce route success or safe-floor success"
+    },
+    {
+      "id": "p8_plateau_highrise_candidate_070",
+      "name": "13102-bldg-4402",
+      "sourcePhase": "P8/P9 humanitarian candidate recovery",
+      "mapAnchorStatus": "disabled_out_of_new_map",
+      "activeInGame": false,
+      "disabledReason": "disabled_out_of_new_map: transformed coordinate is outside Chuo_BaseMap mesh AABB bounds.",
+      "markerBehavior": "disabled; not spawned at runtime",
+      "greenFrameBehavior": "disabled; not spawned",
+      "selectableBehavior": "disabled; not selectable",
+      "routeBehavior": "disabled; not spawned as an active route line",
+      "resultPanelBehavior": "disabled target cannot produce route success or safe-floor success"
+    },
+    {
+      "id": "p8_plateau_highrise_candidate_071",
+      "name": "13102-bldg-13132",
+      "sourcePhase": "P8/P9 humanitarian candidate recovery",
+      "mapAnchorStatus": "disabled_out_of_new_map",
+      "activeInGame": false,
+      "disabledReason": "disabled_out_of_new_map: transformed coordinate is outside Chuo_BaseMap mesh AABB bounds.",
+      "markerBehavior": "disabled; not spawned at runtime",
+      "greenFrameBehavior": "disabled; not spawned",
+      "selectableBehavior": "disabled; not selectable",
+      "routeBehavior": "disabled; not spawned as an active route line",
+      "resultPanelBehavior": "disabled target cannot produce route success or safe-floor success"
+    },
+    {
+      "id": "p8_plateau_highrise_candidate_073",
+      "name": "13102-bldg-742",
+      "sourcePhase": "P8/P9 humanitarian candidate recovery",
+      "mapAnchorStatus": "disabled_out_of_new_map",
+      "activeInGame": false,
+      "disabledReason": "disabled_out_of_new_map: transformed coordinate is outside Chuo_BaseMap mesh AABB bounds.",
+      "markerBehavior": "disabled; not spawned at runtime",
+      "greenFrameBehavior": "disabled; not spawned",
+      "selectableBehavior": "disabled; not selectable",
+      "routeBehavior": "disabled; not spawned as an active route line",
+      "resultPanelBehavior": "disabled target cannot produce route success or safe-floor success"
+    },
+    {
+      "id": "p8_plateau_highrise_candidate_079",
+      "name": "13102-bldg-12233",
+      "sourcePhase": "P8/P9 humanitarian candidate recovery",
+      "mapAnchorStatus": "disabled_out_of_new_map",
+      "activeInGame": false,
+      "disabledReason": "disabled_out_of_new_map: transformed coordinate is outside Chuo_BaseMap mesh AABB bounds.",
+      "markerBehavior": "disabled; not spawned at runtime",
+      "greenFrameBehavior": "disabled; not spawned",
+      "selectableBehavior": "disabled; not selectable",
+      "routeBehavior": "disabled; not spawned as an active route line",
+      "resultPanelBehavior": "disabled target cannot produce route success or safe-floor success"
+    },
+    {
+      "id": "p8_plateau_highrise_candidate_080",
+      "name": "13102-bldg-10592",
+      "sourcePhase": "P8/P9 humanitarian candidate recovery",
+      "mapAnchorStatus": "disabled_out_of_new_map",
+      "activeInGame": false,
+      "disabledReason": "disabled_out_of_new_map: transformed coordinate is outside Chuo_BaseMap mesh AABB bounds.",
+      "markerBehavior": "disabled; not spawned at runtime",
+      "greenFrameBehavior": "disabled; not spawned",
+      "selectableBehavior": "disabled; not selectable",
+      "routeBehavior": "disabled; not spawned as an active route line",
+      "resultPanelBehavior": "disabled target cannot produce route success or safe-floor success"
+    },
+    {
+      "id": "p5f_sample_humanitarian_strong_003",
+      "name": "Sample High-Rise Office Tower",
+      "sourcePhase": "P8/P9 humanitarian candidate recovery",
+      "mapAnchorStatus": "disabled_out_of_new_map",
+      "activeInGame": false,
+      "disabledReason": "disabled_out_of_new_map: transformed coordinate is outside Chuo_BaseMap mesh AABB bounds.",
+      "markerBehavior": "disabled; not spawned at runtime",
+      "greenFrameBehavior": "disabled; not spawned",
+      "selectableBehavior": "disabled; not selectable",
+      "routeBehavior": "disabled; not spawned as an active route line",
+      "resultPanelBehavior": "disabled target cannot produce route success or safe-floor success"
+    },
+    {
+      "id": "p8_plateau_highrise_candidate_082",
+      "name": "13102-bldg-14612",
+      "sourcePhase": "P8/P9 humanitarian candidate recovery",
+      "mapAnchorStatus": "disabled_out_of_new_map",
+      "activeInGame": false,
+      "disabledReason": "disabled_out_of_new_map: transformed coordinate is outside Chuo_BaseMap mesh AABB bounds.",
+      "markerBehavior": "disabled; not spawned at runtime",
+      "greenFrameBehavior": "disabled; not spawned",
+      "selectableBehavior": "disabled; not selectable",
+      "routeBehavior": "disabled; not spawned as an active route line",
+      "resultPanelBehavior": "disabled target cannot produce route success or safe-floor success"
+    },
+    {
+      "id": "p8_plateau_highrise_candidate_084",
+      "name": "13102-bldg-1024",
+      "sourcePhase": "P8/P9 humanitarian candidate recovery",
+      "mapAnchorStatus": "disabled_out_of_new_map",
+      "activeInGame": false,
+      "disabledReason": "disabled_out_of_new_map: transformed coordinate is outside Chuo_BaseMap mesh AABB bounds.",
+      "markerBehavior": "disabled; not spawned at runtime",
+      "greenFrameBehavior": "disabled; not spawned",
+      "selectableBehavior": "disabled; not selectable",
+      "routeBehavior": "disabled; not spawned as an active route line",
+      "resultPanelBehavior": "disabled target cannot produce route success or safe-floor success"
+    },
+    {
+      "id": "p8_plateau_highrise_candidate_085",
+      "name": "13102-bldg-11965",
+      "sourcePhase": "P8/P9 humanitarian candidate recovery",
+      "mapAnchorStatus": "disabled_out_of_new_map",
+      "activeInGame": false,
+      "disabledReason": "disabled_out_of_new_map: transformed coordinate is outside Chuo_BaseMap mesh AABB bounds.",
+      "markerBehavior": "disabled; not spawned at runtime",
+      "greenFrameBehavior": "disabled; not spawned",
+      "selectableBehavior": "disabled; not selectable",
+      "routeBehavior": "disabled; not spawned as an active route line",
+      "resultPanelBehavior": "disabled target cannot produce route success or safe-floor success"
+    },
+    {
+      "id": "p8_plateau_highrise_candidate_089",
+      "name": "13102-bldg-2416",
+      "sourcePhase": "P8/P9 humanitarian candidate recovery",
+      "mapAnchorStatus": "disabled_out_of_new_map",
+      "activeInGame": false,
+      "disabledReason": "disabled_out_of_new_map: transformed coordinate is outside Chuo_BaseMap mesh AABB bounds.",
+      "markerBehavior": "disabled; not spawned at runtime",
+      "greenFrameBehavior": "disabled; not spawned",
+      "selectableBehavior": "disabled; not selectable",
+      "routeBehavior": "disabled; not spawned as an active route line",
+      "resultPanelBehavior": "disabled target cannot produce route success or safe-floor success"
+    },
+    {
+      "id": "p8_plateau_highrise_candidate_102",
+      "name": "13102-bldg-8467",
+      "sourcePhase": "P8/P9 humanitarian candidate recovery",
+      "mapAnchorStatus": "disabled_out_of_new_map",
+      "activeInGame": false,
+      "disabledReason": "disabled_out_of_new_map: transformed coordinate is outside Chuo_BaseMap mesh AABB bounds.",
       "markerBehavior": "disabled; not spawned at runtime",
       "greenFrameBehavior": "disabled; not spawned",
       "selectableBehavior": "disabled; not selectable",

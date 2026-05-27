@@ -1,11 +1,11 @@
 # NewMap Candidate Green Frame Final Status
 
-Generated: 2026-05-27T18:21:16+09:00
+Generated: 2026-05-27T19:21:33+09:00
 
 Final status: `completed_with_documented_runtime_proxy`
 
-- Active non-official/training targets: 4
 - Active official shelter targets: 15
-- Disabled targets: 156
+- Active recovered non-official humanitarian candidates: 78
+- Active local training targets: 4
 
-Green frames are only for active targets and are shown in Evacuation Stage 2. Non-official targets keep the warning and are not safe-approved by default.
+Green frames are generated only for active targets and shown in Evacuation Stage 2. For non-official candidates, a green frame is prototype guidance only and does not imply official approval. ResultPanel warning text remains required.

@@ -40,8 +40,25 @@ public sealed class NewMapRuntimeTarget
     public GameObject Marker;
     public GameObject GreenFrame;
     public GameObject RouteGuide;
+    public System.Func<GameObject> GreenFrameFactory;
+    public System.Func<GameObject> RouteGuideFactory;
 
     public bool ActiveInGame => Anchor != null && string.IsNullOrWhiteSpace(DisabledReason);
+
+    public void EnsureGuidanceVisuals()
+    {
+        if (GreenFrame == null && GreenFrameFactory != null)
+        {
+            GreenFrame = GreenFrameFactory();
+            GreenFrameFactory = null;
+        }
+
+        if (RouteGuide == null && RouteGuideFactory != null)
+        {
+            RouteGuide = RouteGuideFactory();
+            RouteGuideFactory = null;
+        }
+    }
 }
 
 public static class NewMapRuntimeConstants

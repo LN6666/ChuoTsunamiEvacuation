@@ -263,7 +263,9 @@ public sealed class NewMapGameController : MonoBehaviour
         string reason = target.IsOfficialShelter ? "Entering official shelter anchor" : "Entering shelter proxy";
         string sourceNote = target.IsOfficialShelter
             ? "Official Chuo shelter anchor verified by exact PLATEAU GML object name. Safe-floor timing is a gameplay prototype; no official route is claimed."
-            : "Non-official runtime training target. This is not a safety approval.";
+            : (target.Category != null && target.Category.Contains("humanitarian_candidate")
+                ? "Non-official humanitarian candidate. This is not a safety approval."
+                : "Non-official runtime training target. This is not a safety approval.");
         ui?.ShowResult(
             true,
             reason,
@@ -343,6 +345,11 @@ public sealed class NewMapGameController : MonoBehaviour
             }
 
             bool activeVisible = visible && target.ActiveInGame;
+            if (activeVisible)
+            {
+                target.EnsureGuidanceVisuals();
+            }
+
             if (target.GreenFrame != null)
             {
                 target.GreenFrame.SetActive(activeVisible);

@@ -7,6 +7,7 @@ public sealed class NewMapRuntimeBootstrap : MonoBehaviour
 {
     private const bool SuppressSceneMeshCollidersForManualTest = false;
     private const bool EnablePlayerRuntimeSceneWideBoundsScan = false;
+    private const string RuntimeNonOfficialCandidateResourcePath = "NewMap/newmap_runtime_non_official_candidates";
 
     private static readonly string[] RequiredRoots =
     {
@@ -117,6 +118,7 @@ public sealed class NewMapRuntimeBootstrap : MonoBehaviour
         NewMapPerformanceProbe.Create(roots["PerformanceMetricsRoot"]);
         long systemsMs = stopwatch.ElapsedMilliseconds - boundsMs - spawnSupportMs;
         List<NewMapRuntimeTarget> targets = CreateVerifiedOfficialShelterTargets(roots);
+        targets.AddRange(CreateRecoveredNonOfficialCandidateTargets(roots, spawn));
         targets.AddRange(CreateLocalRuntimeTargets(roots, spawn));
         long targetsMs = stopwatch.ElapsedMilliseconds - boundsMs - spawnSupportMs - systemsMs;
 
@@ -332,6 +334,54 @@ public sealed class NewMapRuntimeBootstrap : MonoBehaviour
             }
 
             targets.Add(CreateOfficialShelterTarget(roots, record, position));
+        }
+
+        return targets;
+    }
+
+    private static List<NewMapRuntimeTarget> CreateRecoveredNonOfficialCandidateTargets(Dictionary<string, Transform> roots, Vector3 spawn)
+    {
+        var targets = new List<NewMapRuntimeTarget>();
+        TextAsset candidateAsset = Resources.Load<TextAsset>(RuntimeNonOfficialCandidateResourcePath);
+        if (candidateAsset == null || string.IsNullOrWhiteSpace(candidateAsset.text))
+        {
+            return targets;
+        }
+
+        RuntimeNonOfficialCandidateDataset dataset;
+        try
+        {
+            dataset = JsonUtility.FromJson<RuntimeNonOfficialCandidateDataset>(candidateAsset.text);
+        }
+        catch (System.Exception)
+        {
+            return targets;
+        }
+
+        if (dataset == null || dataset.records == null)
+        {
+            return targets;
+        }
+
+        foreach (RuntimeNonOfficialCandidateRecord record in dataset.records)
+        {
+            if (record == null ||
+                !record.activeInGame ||
+                record.isOfficialShelter ||
+                !record.nonOfficialWarningRequired ||
+                record.safeApprovedByDefault ||
+                string.IsNullOrWhiteSpace(record.id))
+            {
+                continue;
+            }
+
+            Vector3 position = new Vector3(record.unityX, record.unityY, record.unityZ);
+            if (!IsFinite(position))
+            {
+                continue;
+            }
+
+            targets.Add(CreateRecoveredCandidateTarget(roots, record, spawn, position));
         }
 
         return targets;
@@ -590,6 +640,65 @@ public sealed class NewMapRuntimeBootstrap : MonoBehaviour
         };
     }
 
+    private static NewMapRuntimeTarget CreateRecoveredCandidateTarget(
+        Dictionary<string, Transform> roots,
+        RuntimeNonOfficialCandidateRecord record,
+        Vector3 spawn,
+        Vector3 position)
+    {
+        GameObject anchor = new GameObject(record.id);
+        anchor.transform.SetParent(roots["CandidateMarkerRoot"], true);
+        anchor.transform.position = position;
+
+        Material markerMaterial = NewMapVisualFactory.CreateMaterial(
+            record.id + "_RecoveredCandidateMarkerMaterial",
+            new Color(0.12f, 0.78f, 0.42f, 0.82f),
+            false);
+        GameObject marker = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
+        marker.name = record.id + "_marker_non_official_recovered";
+        marker.transform.SetParent(anchor.transform, false);
+        marker.transform.localPosition = Vector3.up * 0.08f;
+        marker.transform.localScale = new Vector3(1.65f, 0.07f, 1.65f);
+        Renderer markerRenderer = marker.GetComponent<Renderer>();
+        if (markerRenderer != null && markerMaterial != null)
+        {
+            markerRenderer.sharedMaterial = markerMaterial;
+        }
+        NewMapVisualFactory.RemoveCollider(marker);
+
+        string displayName = string.IsNullOrWhiteSpace(record.displayName) ? record.id : record.displayName;
+        string classification = string.IsNullOrWhiteSpace(record.anchorClassification)
+            ? "active_coordinate_proxy_anchor"
+            : record.anchorClassification;
+
+        return new NewMapRuntimeTarget
+        {
+            Id = record.id,
+            DisplayName = displayName,
+            Category = "non_official_humanitarian_candidate_" + classification,
+            IsOfficialShelter = false,
+            NonOfficialWarningRequired = true,
+            SafeApprovedByDefault = false,
+            EntranceBlocked = false,
+            SafeFloorAvailable = true,
+            InteractionDistance = 5f,
+            ClimbSeconds = 7f,
+            Anchor = anchor.transform,
+            Marker = marker,
+            GreenFrame = null,
+            RouteGuide = null,
+            GreenFrameFactory = () =>
+            {
+                GameObject frame = CreateGreenFrame(roots["GreenFrameRoot"], record.id + "_green_frame", position);
+                frame.SetActive(false);
+                return frame;
+            },
+            FinalBehavior =
+                "Recovered non-official humanitarian candidate from the P8/P9 handoff using the validated NewMap transform. " +
+                "This is not an official shelter, not safe-approved by default, and not connected to an official evacuation route."
+        };
+    }
+
     private static GameObject CreateGreenFrame(Transform parent, string name, Vector3 position)
     {
         GameObject frame = new GameObject(name);
@@ -627,6 +736,27 @@ public sealed class NewMapRuntimeBootstrap : MonoBehaviour
         line.SetPosition(1, middle);
         line.SetPosition(2, end);
         return route;
+    }
+
+    [System.Serializable]
+    private sealed class RuntimeNonOfficialCandidateDataset
+    {
+        public RuntimeNonOfficialCandidateRecord[] records;
+    }
+
+    [System.Serializable]
+    private sealed class RuntimeNonOfficialCandidateRecord
+    {
+        public string id;
+        public string displayName;
+        public string anchorClassification;
+        public bool activeInGame;
+        public bool isOfficialShelter;
+        public bool nonOfficialWarningRequired;
+        public bool safeApprovedByDefault;
+        public float unityX;
+        public float unityY;
+        public float unityZ;
     }
 
     private sealed class OfficialShelterAnchorRecord

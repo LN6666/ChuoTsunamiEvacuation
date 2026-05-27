@@ -1,15 +1,15 @@
 {
-  "generatedAt": "2026-05-27T18:21:16+09:00",
+  "generatedAt": "2026-05-27T19:21:33+09:00",
   "activeScene": "Assets/Scenes/Chuo_BaseMap.unity",
   "checklist": [
-    "Start temp player build.",
+    "Start the remaining-hardening temp player.",
     "Verify Start Menu, Rules, Tourism Mode, and Evacuation Mode.",
-    "Tourism: inspect a local training target and confirm no failure.",
+    "Tourism: inspect an official shelter or recovered non-official candidate and confirm no failure.",
     "Evacuation: confirm Stage 1 warning before Stage 2 front.",
     "Stage 2: confirm green frames and light curtain appear.",
-    "Interact with safe-floor, blocked entrance, no-safe-floor, and crowd-delay targets.",
-    "Inspect an official shelter marker if reachable.",
-    "Confirm ResultPanel never claims an official route.",
-    "Confirm disabled/out-of-map targets and old route overlays are not active."
+    "Interact with a recovered non-official candidate and confirm the non-official warning in ResultPanel.",
+    "Interact with safe-floor, blocked entrance, no-safe-floor, and crowd-delay local targets.",
+    "Confirm no disabled target or old route overlay is active.",
+    "Confirm ResultPanel never claims an official evacuation route."
   ]
 }

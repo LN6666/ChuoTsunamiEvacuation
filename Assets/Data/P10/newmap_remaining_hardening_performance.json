@@ -1,0 +1,1465 @@
+﻿{
+    "generatedAt":  "2026-05-27T19:32:06",
+    "activeScene":  "Assets/Scenes/Chuo_BaseMap.unity",
+    "sampledProcess":  "ChuoTsunamiEvacuation_NewMapRemainingHardeningPre",
+    "durationSeconds":  180,
+    "launchedByScript":  true,
+    "launchSmoke":  "passed",
+    "memoryMeasured":  true,
+    "memoryFocus":  "informational_only",
+    "playerBuildMeasured":  true,
+    "samples":  [
+                    {
+                        "time":  "2026-05-27T19:29:06",
+                        "processName":  "ChuoTsunamiEvacuation_NewMapRemainingHardeningPre",
+                        "id":  1960,
+                        "workingSetBytes":  7345627136,
+                        "privateMemoryBytes":  21772996608,
+                        "cpuSeconds":  11.6875
+                    },
+                    {
+                        "time":  "2026-05-27T19:29:07",
+                        "processName":  "ChuoTsunamiEvacuation_NewMapRemainingHardeningPre",
+                        "id":  1960,
+                        "workingSetBytes":  7423111168,
+                        "privateMemoryBytes":  21911965696,
+                        "cpuSeconds":  12.75
+                    },
+                    {
+                        "time":  "2026-05-27T19:29:08",
+                        "processName":  "ChuoTsunamiEvacuation_NewMapRemainingHardeningPre",
+                        "id":  1960,
+                        "workingSetBytes":  7520333824,
+                        "privateMemoryBytes":  21963423744,
+                        "cpuSeconds":  22.734375
+                    },
+                    {
+                        "time":  "2026-05-27T19:29:09",
+                        "processName":  "ChuoTsunamiEvacuation_NewMapRemainingHardeningPre",
+                        "id":  1960,
+                        "workingSetBytes":  7533506560,
+                        "privateMemoryBytes":  21963698176,
+                        "cpuSeconds":  33.234375
+                    },
+                    {
+                        "time":  "2026-05-27T19:29:10",
+                        "processName":  "ChuoTsunamiEvacuation_NewMapRemainingHardeningPre",
+                        "id":  1960,
+                        "workingSetBytes":  7534907392,
+                        "privateMemoryBytes":  21963698176,
+                        "cpuSeconds":  43.140625
+                    },
+                    {
+                        "time":  "2026-05-27T19:29:11",
+                        "processName":  "ChuoTsunamiEvacuation_NewMapRemainingHardeningPre",
+                        "id":  1960,
+                        "workingSetBytes":  7535230976,
+                        "privateMemoryBytes":  21961801728,
+                        "cpuSeconds":  53.75
+                    },
+                    {
+                        "time":  "2026-05-27T19:29:12",
+                        "processName":  "ChuoTsunamiEvacuation_NewMapRemainingHardeningPre",
+                        "id":  1960,
+                        "workingSetBytes":  7536226304,
+                        "privateMemoryBytes":  21962010624,
+                        "cpuSeconds":  64.9375
+                    },
+                    {
+                        "time":  "2026-05-27T19:29:13",
+                        "processName":  "ChuoTsunamiEvacuation_NewMapRemainingHardeningPre",
+                        "id":  1960,
+                        "workingSetBytes":  7536427008,
+                        "privateMemoryBytes":  21962117120,
+                        "cpuSeconds":  76.171875
+                    },
+                    {
+                        "time":  "2026-05-27T19:29:14",
+                        "processName":  "ChuoTsunamiEvacuation_NewMapRemainingHardeningPre",
+                        "id":  1960,
+                        "workingSetBytes":  7536562176,
+                        "privateMemoryBytes":  21962260480,
+                        "cpuSeconds":  87.1875
+                    },
+                    {
+                        "time":  "2026-05-27T19:29:15",
+                        "processName":  "ChuoTsunamiEvacuation_NewMapRemainingHardeningPre",
+                        "id":  1960,
+                        "workingSetBytes":  7536803840,
+                        "privateMemoryBytes":  21962469376,
+                        "cpuSeconds":  98.4375
+                    },
+                    {
+                        "time":  "2026-05-27T19:29:16",
+                        "processName":  "ChuoTsunamiEvacuation_NewMapRemainingHardeningPre",
+                        "id":  1960,
+                        "workingSetBytes":  7538900992,
+                        "privateMemoryBytes":  21964570624,
+                        "cpuSeconds":  109.21875
+                    },
+                    {
+                        "time":  "2026-05-27T19:29:17",
+                        "processName":  "ChuoTsunamiEvacuation_NewMapRemainingHardeningPre",
+                        "id":  1960,
+                        "workingSetBytes":  7539228672,
+                        "privateMemoryBytes":  21964849152,
+                        "cpuSeconds":  120.1875
+                    },
+                    {
+                        "time":  "2026-05-27T19:29:18",
+                        "processName":  "ChuoTsunamiEvacuation_NewMapRemainingHardeningPre",
+                        "id":  1960,
+                        "workingSetBytes":  7539236864,
+                        "privateMemoryBytes":  21964849152,
+                        "cpuSeconds":  131.046875
+                    },
+                    {
+                        "time":  "2026-05-27T19:29:19",
+                        "processName":  "ChuoTsunamiEvacuation_NewMapRemainingHardeningPre",
+                        "id":  1960,
+                        "workingSetBytes":  7539240960,
+                        "privateMemoryBytes":  21964849152,
+                        "cpuSeconds":  142.09375
+                    },
+                    {
+                        "time":  "2026-05-27T19:29:20",
+                        "processName":  "ChuoTsunamiEvacuation_NewMapRemainingHardeningPre",
+                        "id":  1960,
+                        "workingSetBytes":  7539240960,
+                        "privateMemoryBytes":  21964849152,
+                        "cpuSeconds":  152.640625
+                    },
+                    {
+                        "time":  "2026-05-27T19:29:21",
+                        "processName":  "ChuoTsunamiEvacuation_NewMapRemainingHardeningPre",
+                        "id":  1960,
+                        "workingSetBytes":  7540367360,
+                        "privateMemoryBytes":  21964918784,
+                        "cpuSeconds":  163.28125
+                    },
+                    {
+                        "time":  "2026-05-27T19:29:22",
+                        "processName":  "ChuoTsunamiEvacuation_NewMapRemainingHardeningPre",
+                        "id":  1960,
+                        "workingSetBytes":  7540461568,
+                        "privateMemoryBytes":  21964918784,
+                        "cpuSeconds":  174.109375
+                    },
+                    {
+                        "time":  "2026-05-27T19:29:23",
+                        "processName":  "ChuoTsunamiEvacuation_NewMapRemainingHardeningPre",
+                        "id":  1960,
+                        "workingSetBytes":  7540473856,
+                        "privateMemoryBytes":  21964918784,
+                        "cpuSeconds":  184.828125
+                    },
+                    {
+                        "time":  "2026-05-27T19:29:24",
+                        "processName":  "ChuoTsunamiEvacuation_NewMapRemainingHardeningPre",
+                        "id":  1960,
+                        "workingSetBytes":  7540572160,
+                        "privateMemoryBytes":  21964918784,
+                        "cpuSeconds":  195.640625
+                    },
+                    {
+                        "time":  "2026-05-27T19:29:25",
+                        "processName":  "ChuoTsunamiEvacuation_NewMapRemainingHardeningPre",
+                        "id":  1960,
+                        "workingSetBytes":  7540576256,
+                        "privateMemoryBytes":  21964918784,
+                        "cpuSeconds":  206.984375
+                    },
+                    {
+                        "time":  "2026-05-27T19:29:26",
+                        "processName":  "ChuoTsunamiEvacuation_NewMapRemainingHardeningPre",
+                        "id":  1960,
+                        "workingSetBytes":  7540576256,
+                        "privateMemoryBytes":  21964918784,
+                        "cpuSeconds":  217.921875
+                    },
+                    {
+                        "time":  "2026-05-27T19:29:27",
+                        "processName":  "ChuoTsunamiEvacuation_NewMapRemainingHardeningPre",
+                        "id":  1960,
+                        "workingSetBytes":  7540645888,
+                        "privateMemoryBytes":  21964992512,
+                        "cpuSeconds":  228.6875
+                    },
+                    {
+                        "time":  "2026-05-27T19:29:28",
+                        "processName":  "ChuoTsunamiEvacuation_NewMapRemainingHardeningPre",
+                        "id":  1960,
+                        "workingSetBytes":  7540768768,
+                        "privateMemoryBytes":  21965131776,
+                        "cpuSeconds":  239.078125
+                    },
+                    {
+                        "time":  "2026-05-27T19:29:29",
+                        "processName":  "ChuoTsunamiEvacuation_NewMapRemainingHardeningPre",
+                        "id":  1960,
+                        "workingSetBytes":  7540817920,
+                        "privateMemoryBytes":  21965160448,
+                        "cpuSeconds":  250.140625
+                    },
+                    {
+                        "time":  "2026-05-27T19:29:30",
+                        "processName":  "ChuoTsunamiEvacuation_NewMapRemainingHardeningPre",
+                        "id":  1960,
+                        "workingSetBytes":  7540936704,
+                        "privateMemoryBytes":  21965299712,
+                        "cpuSeconds":  261.21875
+                    },
+                    {
+                        "time":  "2026-05-27T19:29:31",
+                        "processName":  "ChuoTsunamiEvacuation_NewMapRemainingHardeningPre",
+                        "id":  1960,
+                        "workingSetBytes":  7540940800,
+                        "privateMemoryBytes":  21965299712,
+                        "cpuSeconds":  271.625
+                    },
+                    {
+                        "time":  "2026-05-27T19:29:32",
+                        "processName":  "ChuoTsunamiEvacuation_NewMapRemainingHardeningPre",
+                        "id":  1960,
+                        "workingSetBytes":  7540948992,
+                        "privateMemoryBytes":  21965299712,
+                        "cpuSeconds":  282.4375
+                    },
+                    {
+                        "time":  "2026-05-27T19:29:33",
+                        "processName":  "ChuoTsunamiEvacuation_NewMapRemainingHardeningPre",
+                        "id":  1960,
+                        "workingSetBytes":  7541010432,
+                        "privateMemoryBytes":  21965369344,
+                        "cpuSeconds":  293.453125
+                    },
+                    {
+                        "time":  "2026-05-27T19:29:34",
+                        "processName":  "ChuoTsunamiEvacuation_NewMapRemainingHardeningPre",
+                        "id":  1960,
+                        "workingSetBytes":  7541141504,
+                        "privateMemoryBytes":  21965508608,
+                        "cpuSeconds":  304.40625
+                    },
+                    {
+                        "time":  "2026-05-27T19:29:35",
+                        "processName":  "ChuoTsunamiEvacuation_NewMapRemainingHardeningPre",
+                        "id":  1960,
+                        "workingSetBytes":  7541272576,
+                        "privateMemoryBytes":  21965647872,
+                        "cpuSeconds":  315.1875
+                    },
+                    {
+                        "time":  "2026-05-27T19:29:36",
+                        "processName":  "ChuoTsunamiEvacuation_NewMapRemainingHardeningPre",
+                        "id":  1960,
+                        "workingSetBytes":  7541280768,
+                        "privateMemoryBytes":  21965647872,
+                        "cpuSeconds":  325.703125
+                    },
+                    {
+                        "time":  "2026-05-27T19:29:37",
+                        "processName":  "ChuoTsunamiEvacuation_NewMapRemainingHardeningPre",
+                        "id":  1960,
+                        "workingSetBytes":  7541436416,
+                        "privateMemoryBytes":  21965787136,
+                        "cpuSeconds":  336.28125
+                    },
+                    {
+                        "time":  "2026-05-27T19:29:38",
+                        "processName":  "ChuoTsunamiEvacuation_NewMapRemainingHardeningPre",
+                        "id":  1960,
+                        "workingSetBytes":  7541436416,
+                        "privateMemoryBytes":  21965787136,
+                        "cpuSeconds":  347.09375
+                    },
+                    {
+                        "time":  "2026-05-27T19:29:39",
+                        "processName":  "ChuoTsunamiEvacuation_NewMapRemainingHardeningPre",
+                        "id":  1960,
+                        "workingSetBytes":  7541481472,
+                        "privateMemoryBytes":  21965787136,
+                        "cpuSeconds":  358.078125
+                    },
+                    {
+                        "time":  "2026-05-27T19:29:40",
+                        "processName":  "ChuoTsunamiEvacuation_NewMapRemainingHardeningPre",
+                        "id":  1960,
+                        "workingSetBytes":  7541489664,
+                        "privateMemoryBytes":  21965787136,
+                        "cpuSeconds":  369.875
+                    },
+                    {
+                        "time":  "2026-05-27T19:29:41",
+                        "processName":  "ChuoTsunamiEvacuation_NewMapRemainingHardeningPre",
+                        "id":  1960,
+                        "workingSetBytes":  7541501952,
+                        "privateMemoryBytes":  21965787136,
+                        "cpuSeconds":  380.515625
+                    },
+                    {
+                        "time":  "2026-05-27T19:29:42",
+                        "processName":  "ChuoTsunamiEvacuation_NewMapRemainingHardeningPre",
+                        "id":  1960,
+                        "workingSetBytes":  7541542912,
+                        "privateMemoryBytes":  21965787136,
+                        "cpuSeconds":  390.625
+                    },
+                    {
+                        "time":  "2026-05-27T19:29:43",
+                        "processName":  "ChuoTsunamiEvacuation_NewMapRemainingHardeningPre",
+                        "id":  1960,
+                        "workingSetBytes":  7541600256,
+                        "privateMemoryBytes":  21982597120,
+                        "cpuSeconds":  401.859375
+                    },
+                    {
+                        "time":  "2026-05-27T19:29:44",
+                        "processName":  "ChuoTsunamiEvacuation_NewMapRemainingHardeningPre",
+                        "id":  1960,
+                        "workingSetBytes":  7541661696,
+                        "privateMemoryBytes":  21982666752,
+                        "cpuSeconds":  412.359375
+                    },
+                    {
+                        "time":  "2026-05-27T19:29:45",
+                        "processName":  "ChuoTsunamiEvacuation_NewMapRemainingHardeningPre",
+                        "id":  1960,
+                        "workingSetBytes":  7542353920,
+                        "privateMemoryBytes":  21984768000,
+                        "cpuSeconds":  423.578125
+                    },
+                    {
+                        "time":  "2026-05-27T19:29:46",
+                        "processName":  "ChuoTsunamiEvacuation_NewMapRemainingHardeningPre",
+                        "id":  1960,
+                        "workingSetBytes":  7542366208,
+                        "privateMemoryBytes":  21984768000,
+                        "cpuSeconds":  434.609375
+                    },
+                    {
+                        "time":  "2026-05-27T19:29:47",
+                        "processName":  "ChuoTsunamiEvacuation_NewMapRemainingHardeningPre",
+                        "id":  1960,
+                        "workingSetBytes":  7542366208,
+                        "privateMemoryBytes":  21984768000,
+                        "cpuSeconds":  444.5
+                    },
+                    {
+                        "time":  "2026-05-27T19:29:48",
+                        "processName":  "ChuoTsunamiEvacuation_NewMapRemainingHardeningPre",
+                        "id":  1960,
+                        "workingSetBytes":  7542366208,
+                        "privateMemoryBytes":  21984768000,
+                        "cpuSeconds":  455.421875
+                    },
+                    {
+                        "time":  "2026-05-27T19:29:49",
+                        "processName":  "ChuoTsunamiEvacuation_NewMapRemainingHardeningPre",
+                        "id":  1960,
+                        "workingSetBytes":  7542366208,
+                        "privateMemoryBytes":  21984768000,
+                        "cpuSeconds":  466.265625
+                    },
+                    {
+                        "time":  "2026-05-27T19:29:50",
+                        "processName":  "ChuoTsunamiEvacuation_NewMapRemainingHardeningPre",
+                        "id":  1960,
+                        "workingSetBytes":  7542374400,
+                        "privateMemoryBytes":  21984768000,
+                        "cpuSeconds":  476.96875
+                    },
+                    {
+                        "time":  "2026-05-27T19:29:51",
+                        "processName":  "ChuoTsunamiEvacuation_NewMapRemainingHardeningPre",
+                        "id":  1960,
+                        "workingSetBytes":  7542378496,
+                        "privateMemoryBytes":  21984768000,
+                        "cpuSeconds":  487.9375
+                    },
+                    {
+                        "time":  "2026-05-27T19:29:52",
+                        "processName":  "ChuoTsunamiEvacuation_NewMapRemainingHardeningPre",
+                        "id":  1960,
+                        "workingSetBytes":  7542378496,
+                        "privateMemoryBytes":  21984768000,
+                        "cpuSeconds":  498.5625
+                    },
+                    {
+                        "time":  "2026-05-27T19:29:53",
+                        "processName":  "ChuoTsunamiEvacuation_NewMapRemainingHardeningPre",
+                        "id":  1960,
+                        "workingSetBytes":  7542501376,
+                        "privateMemoryBytes":  21984907264,
+                        "cpuSeconds":  509.1875
+                    },
+                    {
+                        "time":  "2026-05-27T19:29:54",
+                        "processName":  "ChuoTsunamiEvacuation_NewMapRemainingHardeningPre",
+                        "id":  1960,
+                        "workingSetBytes":  7542505472,
+                        "privateMemoryBytes":  21984907264,
+                        "cpuSeconds":  520.03125
+                    },
+                    {
+                        "time":  "2026-05-27T19:29:55",
+                        "processName":  "ChuoTsunamiEvacuation_NewMapRemainingHardeningPre",
+                        "id":  1960,
+                        "workingSetBytes":  7542530048,
+                        "privateMemoryBytes":  21984907264,
+                        "cpuSeconds":  530.859375
+                    },
+                    {
+                        "time":  "2026-05-27T19:29:56",
+                        "processName":  "ChuoTsunamiEvacuation_NewMapRemainingHardeningPre",
+                        "id":  1960,
+                        "workingSetBytes":  7542534144,
+                        "privateMemoryBytes":  21984907264,
+                        "cpuSeconds":  541.4375
+                    },
+                    {
+                        "time":  "2026-05-27T19:29:57",
+                        "processName":  "ChuoTsunamiEvacuation_NewMapRemainingHardeningPre",
+                        "id":  1960,
+                        "workingSetBytes":  7542534144,
+                        "privateMemoryBytes":  21984907264,
+                        "cpuSeconds":  553
+                    },
+                    {
+                        "time":  "2026-05-27T19:29:58",
+                        "processName":  "ChuoTsunamiEvacuation_NewMapRemainingHardeningPre",
+                        "id":  1960,
+                        "workingSetBytes":  7542476800,
+                        "privateMemoryBytes":  21984808960,
+                        "cpuSeconds":  563.65625
+                    },
+                    {
+                        "time":  "2026-05-27T19:29:59",
+                        "processName":  "ChuoTsunamiEvacuation_NewMapRemainingHardeningPre",
+                        "id":  1960,
+                        "workingSetBytes":  7542476800,
+                        "privateMemoryBytes":  21984808960,
+                        "cpuSeconds":  574.59375
+                    },
+                    {
+                        "time":  "2026-05-27T19:30:00",
+                        "processName":  "ChuoTsunamiEvacuation_NewMapRemainingHardeningPre",
+                        "id":  1960,
+                        "workingSetBytes":  7542476800,
+                        "privateMemoryBytes":  21984808960,
+                        "cpuSeconds":  585.734375
+                    },
+                    {
+                        "time":  "2026-05-27T19:30:01",
+                        "processName":  "ChuoTsunamiEvacuation_NewMapRemainingHardeningPre",
+                        "id":  1960,
+                        "workingSetBytes":  7542476800,
+                        "privateMemoryBytes":  21984808960,
+                        "cpuSeconds":  596.6875
+                    },
+                    {
+                        "time":  "2026-05-27T19:30:02",
+                        "processName":  "ChuoTsunamiEvacuation_NewMapRemainingHardeningPre",
+                        "id":  1960,
+                        "workingSetBytes":  7542480896,
+                        "privateMemoryBytes":  21984808960,
+                        "cpuSeconds":  607.515625
+                    },
+                    {
+                        "time":  "2026-05-27T19:30:03",
+                        "processName":  "ChuoTsunamiEvacuation_NewMapRemainingHardeningPre",
+                        "id":  1960,
+                        "workingSetBytes":  7542706176,
+                        "privateMemoryBytes":  21984808960,
+                        "cpuSeconds":  617.8125
+                    },
+                    {
+                        "time":  "2026-05-27T19:30:04",
+                        "processName":  "ChuoTsunamiEvacuation_NewMapRemainingHardeningPre",
+                        "id":  1960,
+                        "workingSetBytes":  7542996992,
+                        "privateMemoryBytes":  21984808960,
+                        "cpuSeconds":  628.953125
+                    },
+                    {
+                        "time":  "2026-05-27T19:30:05",
+                        "processName":  "ChuoTsunamiEvacuation_NewMapRemainingHardeningPre",
+                        "id":  1960,
+                        "workingSetBytes":  7542996992,
+                        "privateMemoryBytes":  21984808960,
+                        "cpuSeconds":  639.484375
+                    },
+                    {
+                        "time":  "2026-05-27T19:30:06",
+                        "processName":  "ChuoTsunamiEvacuation_NewMapRemainingHardeningPre",
+                        "id":  1960,
+                        "workingSetBytes":  7543070720,
+                        "privateMemoryBytes":  21984808960,
+                        "cpuSeconds":  650.546875
+                    },
+                    {
+                        "time":  "2026-05-27T19:30:07",
+                        "processName":  "ChuoTsunamiEvacuation_NewMapRemainingHardeningPre",
+                        "id":  1960,
+                        "workingSetBytes":  7543070720,
+                        "privateMemoryBytes":  21984808960,
+                        "cpuSeconds":  661.015625
+                    },
+                    {
+                        "time":  "2026-05-27T19:30:08",
+                        "processName":  "ChuoTsunamiEvacuation_NewMapRemainingHardeningPre",
+                        "id":  1960,
+                        "workingSetBytes":  7543070720,
+                        "privateMemoryBytes":  21984808960,
+                        "cpuSeconds":  671.234375
+                    },
+                    {
+                        "time":  "2026-05-27T19:30:09",
+                        "processName":  "ChuoTsunamiEvacuation_NewMapRemainingHardeningPre",
+                        "id":  1960,
+                        "workingSetBytes":  7543078912,
+                        "privateMemoryBytes":  21984808960,
+                        "cpuSeconds":  681.53125
+                    },
+                    {
+                        "time":  "2026-05-27T19:30:10",
+                        "processName":  "ChuoTsunamiEvacuation_NewMapRemainingHardeningPre",
+                        "id":  1960,
+                        "workingSetBytes":  7543078912,
+                        "privateMemoryBytes":  21984808960,
+                        "cpuSeconds":  692.5
+                    },
+                    {
+                        "time":  "2026-05-27T19:30:11",
+                        "processName":  "ChuoTsunamiEvacuation_NewMapRemainingHardeningPre",
+                        "id":  1960,
+                        "workingSetBytes":  7543078912,
+                        "privateMemoryBytes":  21984808960,
+                        "cpuSeconds":  702.859375
+                    },
+                    {
+                        "time":  "2026-05-27T19:30:12",
+                        "processName":  "ChuoTsunamiEvacuation_NewMapRemainingHardeningPre",
+                        "id":  1960,
+                        "workingSetBytes":  7543078912,
+                        "privateMemoryBytes":  21984808960,
+                        "cpuSeconds":  713.296875
+                    },
+                    {
+                        "time":  "2026-05-27T19:30:13",
+                        "processName":  "ChuoTsunamiEvacuation_NewMapRemainingHardeningPre",
+                        "id":  1960,
+                        "workingSetBytes":  7543144448,
+                        "privateMemoryBytes":  21984808960,
+                        "cpuSeconds":  724.09375
+                    },
+                    {
+                        "time":  "2026-05-27T19:30:14",
+                        "processName":  "ChuoTsunamiEvacuation_NewMapRemainingHardeningPre",
+                        "id":  1960,
+                        "workingSetBytes":  7543410688,
+                        "privateMemoryBytes":  21984808960,
+                        "cpuSeconds":  733.234375
+                    },
+                    {
+                        "time":  "2026-05-27T19:30:15",
+                        "processName":  "ChuoTsunamiEvacuation_NewMapRemainingHardeningPre",
+                        "id":  1960,
+                        "workingSetBytes":  7544332288,
+                        "privateMemoryBytes":  21984808960,
+                        "cpuSeconds":  743.640625
+                    },
+                    {
+                        "time":  "2026-05-27T19:30:16",
+                        "processName":  "ChuoTsunamiEvacuation_NewMapRemainingHardeningPre",
+                        "id":  1960,
+                        "workingSetBytes":  7544377344,
+                        "privateMemoryBytes":  21984808960,
+                        "cpuSeconds":  753.84375
+                    },
+                    {
+                        "time":  "2026-05-27T19:30:17",
+                        "processName":  "ChuoTsunamiEvacuation_NewMapRemainingHardeningPre",
+                        "id":  1960,
+                        "workingSetBytes":  7544377344,
+                        "privateMemoryBytes":  21984808960,
+                        "cpuSeconds":  764.8125
+                    },
+                    {
+                        "time":  "2026-05-27T19:30:18",
+                        "processName":  "ChuoTsunamiEvacuation_NewMapRemainingHardeningPre",
+                        "id":  1960,
+                        "workingSetBytes":  7544455168,
+                        "privateMemoryBytes":  21984808960,
+                        "cpuSeconds":  775.703125
+                    },
+                    {
+                        "time":  "2026-05-27T19:30:19",
+                        "processName":  "ChuoTsunamiEvacuation_NewMapRemainingHardeningPre",
+                        "id":  1960,
+                        "workingSetBytes":  7544455168,
+                        "privateMemoryBytes":  21984808960,
+                        "cpuSeconds":  787.015625
+                    },
+                    {
+                        "time":  "2026-05-27T19:30:20",
+                        "processName":  "ChuoTsunamiEvacuation_NewMapRemainingHardeningPre",
+                        "id":  1960,
+                        "workingSetBytes":  7544455168,
+                        "privateMemoryBytes":  21984808960,
+                        "cpuSeconds":  797.71875
+                    },
+                    {
+                        "time":  "2026-05-27T19:30:21",
+                        "processName":  "ChuoTsunamiEvacuation_NewMapRemainingHardeningPre",
+                        "id":  1960,
+                        "workingSetBytes":  7544455168,
+                        "privateMemoryBytes":  21984808960,
+                        "cpuSeconds":  808.234375
+                    },
+                    {
+                        "time":  "2026-05-27T19:30:22",
+                        "processName":  "ChuoTsunamiEvacuation_NewMapRemainingHardeningPre",
+                        "id":  1960,
+                        "workingSetBytes":  7544455168,
+                        "privateMemoryBytes":  21984808960,
+                        "cpuSeconds":  819.265625
+                    },
+                    {
+                        "time":  "2026-05-27T19:30:23",
+                        "processName":  "ChuoTsunamiEvacuation_NewMapRemainingHardeningPre",
+                        "id":  1960,
+                        "workingSetBytes":  7544455168,
+                        "privateMemoryBytes":  21984808960,
+                        "cpuSeconds":  830.09375
+                    },
+                    {
+                        "time":  "2026-05-27T19:30:24",
+                        "processName":  "ChuoTsunamiEvacuation_NewMapRemainingHardeningPre",
+                        "id":  1960,
+                        "workingSetBytes":  7544455168,
+                        "privateMemoryBytes":  21984808960,
+                        "cpuSeconds":  840.5
+                    },
+                    {
+                        "time":  "2026-05-27T19:30:25",
+                        "processName":  "ChuoTsunamiEvacuation_NewMapRemainingHardeningPre",
+                        "id":  1960,
+                        "workingSetBytes":  7544455168,
+                        "privateMemoryBytes":  21984808960,
+                        "cpuSeconds":  850.75
+                    },
+                    {
+                        "time":  "2026-05-27T19:30:26",
+                        "processName":  "ChuoTsunamiEvacuation_NewMapRemainingHardeningPre",
+                        "id":  1960,
+                        "workingSetBytes":  7544455168,
+                        "privateMemoryBytes":  21984808960,
+                        "cpuSeconds":  861.140625
+                    },
+                    {
+                        "time":  "2026-05-27T19:30:27",
+                        "processName":  "ChuoTsunamiEvacuation_NewMapRemainingHardeningPre",
+                        "id":  1960,
+                        "workingSetBytes":  7544455168,
+                        "privateMemoryBytes":  21984808960,
+                        "cpuSeconds":  872.046875
+                    },
+                    {
+                        "time":  "2026-05-27T19:30:28",
+                        "processName":  "ChuoTsunamiEvacuation_NewMapRemainingHardeningPre",
+                        "id":  1960,
+                        "workingSetBytes":  7544455168,
+                        "privateMemoryBytes":  21984808960,
+                        "cpuSeconds":  883.15625
+                    },
+                    {
+                        "time":  "2026-05-27T19:30:29",
+                        "processName":  "ChuoTsunamiEvacuation_NewMapRemainingHardeningPre",
+                        "id":  1960,
+                        "workingSetBytes":  7544520704,
+                        "privateMemoryBytes":  21984808960,
+                        "cpuSeconds":  893.4375
+                    },
+                    {
+                        "time":  "2026-05-27T19:30:30",
+                        "processName":  "ChuoTsunamiEvacuation_NewMapRemainingHardeningPre",
+                        "id":  1960,
+                        "workingSetBytes":  7544520704,
+                        "privateMemoryBytes":  21984808960,
+                        "cpuSeconds":  904.375
+                    },
+                    {
+                        "time":  "2026-05-27T19:30:31",
+                        "processName":  "ChuoTsunamiEvacuation_NewMapRemainingHardeningPre",
+                        "id":  1960,
+                        "workingSetBytes":  7544520704,
+                        "privateMemoryBytes":  21984808960,
+                        "cpuSeconds":  915.078125
+                    },
+                    {
+                        "time":  "2026-05-27T19:30:32",
+                        "processName":  "ChuoTsunamiEvacuation_NewMapRemainingHardeningPre",
+                        "id":  1960,
+                        "workingSetBytes":  7544520704,
+                        "privateMemoryBytes":  21984808960,
+                        "cpuSeconds":  926
+                    },
+                    {
+                        "time":  "2026-05-27T19:30:33",
+                        "processName":  "ChuoTsunamiEvacuation_NewMapRemainingHardeningPre",
+                        "id":  1960,
+                        "workingSetBytes":  7544520704,
+                        "privateMemoryBytes":  21984808960,
+                        "cpuSeconds":  936.71875
+                    },
+                    {
+                        "time":  "2026-05-27T19:30:34",
+                        "processName":  "ChuoTsunamiEvacuation_NewMapRemainingHardeningPre",
+                        "id":  1960,
+                        "workingSetBytes":  7544524800,
+                        "privateMemoryBytes":  21984808960,
+                        "cpuSeconds":  946.859375
+                    },
+                    {
+                        "time":  "2026-05-27T19:30:35",
+                        "processName":  "ChuoTsunamiEvacuation_NewMapRemainingHardeningPre",
+                        "id":  1960,
+                        "workingSetBytes":  7544524800,
+                        "privateMemoryBytes":  21984808960,
+                        "cpuSeconds":  957.28125
+                    },
+                    {
+                        "time":  "2026-05-27T19:30:36",
+                        "processName":  "ChuoTsunamiEvacuation_NewMapRemainingHardeningPre",
+                        "id":  1960,
+                        "workingSetBytes":  7544696832,
+                        "privateMemoryBytes":  21984948224,
+                        "cpuSeconds":  967.453125
+                    },
+                    {
+                        "time":  "2026-05-27T19:30:37",
+                        "processName":  "ChuoTsunamiEvacuation_NewMapRemainingHardeningPre",
+                        "id":  1960,
+                        "workingSetBytes":  7544696832,
+                        "privateMemoryBytes":  21984948224,
+                        "cpuSeconds":  978.140625
+                    },
+                    {
+                        "time":  "2026-05-27T19:30:38",
+                        "processName":  "ChuoTsunamiEvacuation_NewMapRemainingHardeningPre",
+                        "id":  1960,
+                        "workingSetBytes":  7544696832,
+                        "privateMemoryBytes":  21984948224,
+                        "cpuSeconds":  988.578125
+                    },
+                    {
+                        "time":  "2026-05-27T19:30:39",
+                        "processName":  "ChuoTsunamiEvacuation_NewMapRemainingHardeningPre",
+                        "id":  1960,
+                        "workingSetBytes":  7544696832,
+                        "privateMemoryBytes":  21984948224,
+                        "cpuSeconds":  999.1875
+                    },
+                    {
+                        "time":  "2026-05-27T19:30:40",
+                        "processName":  "ChuoTsunamiEvacuation_NewMapRemainingHardeningPre",
+                        "id":  1960,
+                        "workingSetBytes":  7544696832,
+                        "privateMemoryBytes":  21984948224,
+                        "cpuSeconds":  1009.78125
+                    },
+                    {
+                        "time":  "2026-05-27T19:30:41",
+                        "processName":  "ChuoTsunamiEvacuation_NewMapRemainingHardeningPre",
+                        "id":  1960,
+                        "workingSetBytes":  7544696832,
+                        "privateMemoryBytes":  21984948224,
+                        "cpuSeconds":  1020.75
+                    },
+                    {
+                        "time":  "2026-05-27T19:30:42",
+                        "processName":  "ChuoTsunamiEvacuation_NewMapRemainingHardeningPre",
+                        "id":  1960,
+                        "workingSetBytes":  7544696832,
+                        "privateMemoryBytes":  21984948224,
+                        "cpuSeconds":  1031.59375
+                    },
+                    {
+                        "time":  "2026-05-27T19:30:43",
+                        "processName":  "ChuoTsunamiEvacuation_NewMapRemainingHardeningPre",
+                        "id":  1960,
+                        "workingSetBytes":  7544741888,
+                        "privateMemoryBytes":  21984948224,
+                        "cpuSeconds":  1042.21875
+                    },
+                    {
+                        "time":  "2026-05-27T19:30:44",
+                        "processName":  "ChuoTsunamiEvacuation_NewMapRemainingHardeningPre",
+                        "id":  1960,
+                        "workingSetBytes":  7544741888,
+                        "privateMemoryBytes":  21984948224,
+                        "cpuSeconds":  1052.75
+                    },
+                    {
+                        "time":  "2026-05-27T19:30:45",
+                        "processName":  "ChuoTsunamiEvacuation_NewMapRemainingHardeningPre",
+                        "id":  1960,
+                        "workingSetBytes":  7544741888,
+                        "privateMemoryBytes":  21984948224,
+                        "cpuSeconds":  1063.109375
+                    },
+                    {
+                        "time":  "2026-05-27T19:30:46",
+                        "processName":  "ChuoTsunamiEvacuation_NewMapRemainingHardeningPre",
+                        "id":  1960,
+                        "workingSetBytes":  7544741888,
+                        "privateMemoryBytes":  21984948224,
+                        "cpuSeconds":  1074.03125
+                    },
+                    {
+                        "time":  "2026-05-27T19:30:47",
+                        "processName":  "ChuoTsunamiEvacuation_NewMapRemainingHardeningPre",
+                        "id":  1960,
+                        "workingSetBytes":  7544741888,
+                        "privateMemoryBytes":  21984948224,
+                        "cpuSeconds":  1084.59375
+                    },
+                    {
+                        "time":  "2026-05-27T19:30:48",
+                        "processName":  "ChuoTsunamiEvacuation_NewMapRemainingHardeningPre",
+                        "id":  1960,
+                        "workingSetBytes":  7544741888,
+                        "privateMemoryBytes":  21984948224,
+                        "cpuSeconds":  1094.984375
+                    },
+                    {
+                        "time":  "2026-05-27T19:30:49",
+                        "processName":  "ChuoTsunamiEvacuation_NewMapRemainingHardeningPre",
+                        "id":  1960,
+                        "workingSetBytes":  7544741888,
+                        "privateMemoryBytes":  21984948224,
+                        "cpuSeconds":  1106.09375
+                    },
+                    {
+                        "time":  "2026-05-27T19:30:50",
+                        "processName":  "ChuoTsunamiEvacuation_NewMapRemainingHardeningPre",
+                        "id":  1960,
+                        "workingSetBytes":  7544741888,
+                        "privateMemoryBytes":  21984948224,
+                        "cpuSeconds":  1116.90625
+                    },
+                    {
+                        "time":  "2026-05-27T19:30:51",
+                        "processName":  "ChuoTsunamiEvacuation_NewMapRemainingHardeningPre",
+                        "id":  1960,
+                        "workingSetBytes":  7544741888,
+                        "privateMemoryBytes":  21984948224,
+                        "cpuSeconds":  1127.953125
+                    },
+                    {
+                        "time":  "2026-05-27T19:30:52",
+                        "processName":  "ChuoTsunamiEvacuation_NewMapRemainingHardeningPre",
+                        "id":  1960,
+                        "workingSetBytes":  7544827904,
+                        "privateMemoryBytes":  21984948224,
+                        "cpuSeconds":  1138.9375
+                    },
+                    {
+                        "time":  "2026-05-27T19:30:53",
+                        "processName":  "ChuoTsunamiEvacuation_NewMapRemainingHardeningPre",
+                        "id":  1960,
+                        "workingSetBytes":  7544827904,
+                        "privateMemoryBytes":  21984948224,
+                        "cpuSeconds":  1149.34375
+                    },
+                    {
+                        "time":  "2026-05-27T19:30:54",
+                        "processName":  "ChuoTsunamiEvacuation_NewMapRemainingHardeningPre",
+                        "id":  1960,
+                        "workingSetBytes":  7544827904,
+                        "privateMemoryBytes":  21984948224,
+                        "cpuSeconds":  1160.578125
+                    },
+                    {
+                        "time":  "2026-05-27T19:30:55",
+                        "processName":  "ChuoTsunamiEvacuation_NewMapRemainingHardeningPre",
+                        "id":  1960,
+                        "workingSetBytes":  7544827904,
+                        "privateMemoryBytes":  21984948224,
+                        "cpuSeconds":  1171.59375
+                    },
+                    {
+                        "time":  "2026-05-27T19:30:56",
+                        "processName":  "ChuoTsunamiEvacuation_NewMapRemainingHardeningPre",
+                        "id":  1960,
+                        "workingSetBytes":  7544827904,
+                        "privateMemoryBytes":  21984948224,
+                        "cpuSeconds":  1183.375
+                    },
+                    {
+                        "time":  "2026-05-27T19:30:57",
+                        "processName":  "ChuoTsunamiEvacuation_NewMapRemainingHardeningPre",
+                        "id":  1960,
+                        "workingSetBytes":  7544827904,
+                        "privateMemoryBytes":  21984948224,
+                        "cpuSeconds":  1193.921875
+                    },
+                    {
+                        "time":  "2026-05-27T19:30:58",
+                        "processName":  "ChuoTsunamiEvacuation_NewMapRemainingHardeningPre",
+                        "id":  1960,
+                        "workingSetBytes":  7544827904,
+                        "privateMemoryBytes":  21984948224,
+                        "cpuSeconds":  1204.421875
+                    },
+                    {
+                        "time":  "2026-05-27T19:30:59",
+                        "processName":  "ChuoTsunamiEvacuation_NewMapRemainingHardeningPre",
+                        "id":  1960,
+                        "workingSetBytes":  7544827904,
+                        "privateMemoryBytes":  21984948224,
+                        "cpuSeconds":  1214.796875
+                    },
+                    {
+                        "time":  "2026-05-27T19:31:00",
+                        "processName":  "ChuoTsunamiEvacuation_NewMapRemainingHardeningPre",
+                        "id":  1960,
+                        "workingSetBytes":  7544897536,
+                        "privateMemoryBytes":  21984948224,
+                        "cpuSeconds":  1225.109375
+                    },
+                    {
+                        "time":  "2026-05-27T19:31:01",
+                        "processName":  "ChuoTsunamiEvacuation_NewMapRemainingHardeningPre",
+                        "id":  1960,
+                        "workingSetBytes":  7544897536,
+                        "privateMemoryBytes":  21984948224,
+                        "cpuSeconds":  1235.484375
+                    },
+                    {
+                        "time":  "2026-05-27T19:31:02",
+                        "processName":  "ChuoTsunamiEvacuation_NewMapRemainingHardeningPre",
+                        "id":  1960,
+                        "workingSetBytes":  7544897536,
+                        "privateMemoryBytes":  21984948224,
+                        "cpuSeconds":  1246.234375
+                    },
+                    {
+                        "time":  "2026-05-27T19:31:03",
+                        "processName":  "ChuoTsunamiEvacuation_NewMapRemainingHardeningPre",
+                        "id":  1960,
+                        "workingSetBytes":  7544897536,
+                        "privateMemoryBytes":  21984948224,
+                        "cpuSeconds":  1256.671875
+                    },
+                    {
+                        "time":  "2026-05-27T19:31:04",
+                        "processName":  "ChuoTsunamiEvacuation_NewMapRemainingHardeningPre",
+                        "id":  1960,
+                        "workingSetBytes":  7544909824,
+                        "privateMemoryBytes":  21984948224,
+                        "cpuSeconds":  1267.4375
+                    },
+                    {
+                        "time":  "2026-05-27T19:31:05",
+                        "processName":  "ChuoTsunamiEvacuation_NewMapRemainingHardeningPre",
+                        "id":  1960,
+                        "workingSetBytes":  7544909824,
+                        "privateMemoryBytes":  21984948224,
+                        "cpuSeconds":  1278.515625
+                    },
+                    {
+                        "time":  "2026-05-27T19:31:06",
+                        "processName":  "ChuoTsunamiEvacuation_NewMapRemainingHardeningPre",
+                        "id":  1960,
+                        "workingSetBytes":  7544918016,
+                        "privateMemoryBytes":  21984948224,
+                        "cpuSeconds":  1289.46875
+                    },
+                    {
+                        "time":  "2026-05-27T19:31:07",
+                        "processName":  "ChuoTsunamiEvacuation_NewMapRemainingHardeningPre",
+                        "id":  1960,
+                        "workingSetBytes":  7544918016,
+                        "privateMemoryBytes":  21984948224,
+                        "cpuSeconds":  1300.0625
+                    },
+                    {
+                        "time":  "2026-05-27T19:31:08",
+                        "processName":  "ChuoTsunamiEvacuation_NewMapRemainingHardeningPre",
+                        "id":  1960,
+                        "workingSetBytes":  7544918016,
+                        "privateMemoryBytes":  21984948224,
+                        "cpuSeconds":  1310.890625
+                    },
+                    {
+                        "time":  "2026-05-27T19:31:09",
+                        "processName":  "ChuoTsunamiEvacuation_NewMapRemainingHardeningPre",
+                        "id":  1960,
+                        "workingSetBytes":  7544918016,
+                        "privateMemoryBytes":  21984948224,
+                        "cpuSeconds":  1321.8125
+                    },
+                    {
+                        "time":  "2026-05-27T19:31:10",
+                        "processName":  "ChuoTsunamiEvacuation_NewMapRemainingHardeningPre",
+                        "id":  1960,
+                        "workingSetBytes":  7544918016,
+                        "privateMemoryBytes":  21984948224,
+                        "cpuSeconds":  1332.65625
+                    },
+                    {
+                        "time":  "2026-05-27T19:31:11",
+                        "processName":  "ChuoTsunamiEvacuation_NewMapRemainingHardeningPre",
+                        "id":  1960,
+                        "workingSetBytes":  7544918016,
+                        "privateMemoryBytes":  21984948224,
+                        "cpuSeconds":  1343.71875
+                    },
+                    {
+                        "time":  "2026-05-27T19:31:12",
+                        "processName":  "ChuoTsunamiEvacuation_NewMapRemainingHardeningPre",
+                        "id":  1960,
+                        "workingSetBytes":  7544901632,
+                        "privateMemoryBytes":  21984919552,
+                        "cpuSeconds":  1354.390625
+                    },
+                    {
+                        "time":  "2026-05-27T19:31:13",
+                        "processName":  "ChuoTsunamiEvacuation_NewMapRemainingHardeningPre",
+                        "id":  1960,
+                        "workingSetBytes":  7544901632,
+                        "privateMemoryBytes":  21984919552,
+                        "cpuSeconds":  1363.9375
+                    },
+                    {
+                        "time":  "2026-05-27T19:31:14",
+                        "processName":  "ChuoTsunamiEvacuation_NewMapRemainingHardeningPre",
+                        "id":  1960,
+                        "workingSetBytes":  7544901632,
+                        "privateMemoryBytes":  21984919552,
+                        "cpuSeconds":  1375.34375
+                    },
+                    {
+                        "time":  "2026-05-27T19:31:15",
+                        "processName":  "ChuoTsunamiEvacuation_NewMapRemainingHardeningPre",
+                        "id":  1960,
+                        "workingSetBytes":  7544901632,
+                        "privateMemoryBytes":  21984919552,
+                        "cpuSeconds":  1386.25
+                    },
+                    {
+                        "time":  "2026-05-27T19:31:16",
+                        "processName":  "ChuoTsunamiEvacuation_NewMapRemainingHardeningPre",
+                        "id":  1960,
+                        "workingSetBytes":  7544901632,
+                        "privateMemoryBytes":  21984919552,
+                        "cpuSeconds":  1396.8125
+                    },
+                    {
+                        "time":  "2026-05-27T19:31:17",
+                        "processName":  "ChuoTsunamiEvacuation_NewMapRemainingHardeningPre",
+                        "id":  1960,
+                        "workingSetBytes":  7544913920,
+                        "privateMemoryBytes":  21984919552,
+                        "cpuSeconds":  1407.8125
+                    },
+                    {
+                        "time":  "2026-05-27T19:31:18",
+                        "processName":  "ChuoTsunamiEvacuation_NewMapRemainingHardeningPre",
+                        "id":  1960,
+                        "workingSetBytes":  7544913920,
+                        "privateMemoryBytes":  21984919552,
+                        "cpuSeconds":  1419.234375
+                    },
+                    {
+                        "time":  "2026-05-27T19:31:19",
+                        "processName":  "ChuoTsunamiEvacuation_NewMapRemainingHardeningPre",
+                        "id":  1960,
+                        "workingSetBytes":  7544913920,
+                        "privateMemoryBytes":  21984919552,
+                        "cpuSeconds":  1429.5
+                    },
+                    {
+                        "time":  "2026-05-27T19:31:20",
+                        "processName":  "ChuoTsunamiEvacuation_NewMapRemainingHardeningPre",
+                        "id":  1960,
+                        "workingSetBytes":  7544913920,
+                        "privateMemoryBytes":  21984919552,
+                        "cpuSeconds":  1440.484375
+                    },
+                    {
+                        "time":  "2026-05-27T19:31:21",
+                        "processName":  "ChuoTsunamiEvacuation_NewMapRemainingHardeningPre",
+                        "id":  1960,
+                        "workingSetBytes":  7544913920,
+                        "privateMemoryBytes":  21984919552,
+                        "cpuSeconds":  1450.703125
+                    },
+                    {
+                        "time":  "2026-05-27T19:31:22",
+                        "processName":  "ChuoTsunamiEvacuation_NewMapRemainingHardeningPre",
+                        "id":  1960,
+                        "workingSetBytes":  7544954880,
+                        "privateMemoryBytes":  21984919552,
+                        "cpuSeconds":  1461.28125
+                    },
+                    {
+                        "time":  "2026-05-27T19:31:23",
+                        "processName":  "ChuoTsunamiEvacuation_NewMapRemainingHardeningPre",
+                        "id":  1960,
+                        "workingSetBytes":  7544954880,
+                        "privateMemoryBytes":  21984919552,
+                        "cpuSeconds":  1472.921875
+                    },
+                    {
+                        "time":  "2026-05-27T19:31:24",
+                        "processName":  "ChuoTsunamiEvacuation_NewMapRemainingHardeningPre",
+                        "id":  1960,
+                        "workingSetBytes":  7544954880,
+                        "privateMemoryBytes":  21984919552,
+                        "cpuSeconds":  1483.6875
+                    },
+                    {
+                        "time":  "2026-05-27T19:31:25",
+                        "processName":  "ChuoTsunamiEvacuation_NewMapRemainingHardeningPre",
+                        "id":  1960,
+                        "workingSetBytes":  7544967168,
+                        "privateMemoryBytes":  21984919552,
+                        "cpuSeconds":  1494.4375
+                    },
+                    {
+                        "time":  "2026-05-27T19:31:26",
+                        "processName":  "ChuoTsunamiEvacuation_NewMapRemainingHardeningPre",
+                        "id":  1960,
+                        "workingSetBytes":  7544967168,
+                        "privateMemoryBytes":  21984919552,
+                        "cpuSeconds":  1505.484375
+                    },
+                    {
+                        "time":  "2026-05-27T19:31:27",
+                        "processName":  "ChuoTsunamiEvacuation_NewMapRemainingHardeningPre",
+                        "id":  1960,
+                        "workingSetBytes":  7544967168,
+                        "privateMemoryBytes":  21984919552,
+                        "cpuSeconds":  1515.84375
+                    },
+                    {
+                        "time":  "2026-05-27T19:31:28",
+                        "processName":  "ChuoTsunamiEvacuation_NewMapRemainingHardeningPre",
+                        "id":  1960,
+                        "workingSetBytes":  7544987648,
+                        "privateMemoryBytes":  21984952320,
+                        "cpuSeconds":  1526.34375
+                    },
+                    {
+                        "time":  "2026-05-27T19:31:29",
+                        "processName":  "ChuoTsunamiEvacuation_NewMapRemainingHardeningPre",
+                        "id":  1960,
+                        "workingSetBytes":  7544987648,
+                        "privateMemoryBytes":  21984952320,
+                        "cpuSeconds":  1536.828125
+                    },
+                    {
+                        "time":  "2026-05-27T19:31:30",
+                        "processName":  "ChuoTsunamiEvacuation_NewMapRemainingHardeningPre",
+                        "id":  1960,
+                        "workingSetBytes":  7544995840,
+                        "privateMemoryBytes":  21984952320,
+                        "cpuSeconds":  1547.21875
+                    },
+                    {
+                        "time":  "2026-05-27T19:31:31",
+                        "processName":  "ChuoTsunamiEvacuation_NewMapRemainingHardeningPre",
+                        "id":  1960,
+                        "workingSetBytes":  7545020416,
+                        "privateMemoryBytes":  21984952320,
+                        "cpuSeconds":  1558.046875
+                    },
+                    {
+                        "time":  "2026-05-27T19:31:32",
+                        "processName":  "ChuoTsunamiEvacuation_NewMapRemainingHardeningPre",
+                        "id":  1960,
+                        "workingSetBytes":  7545020416,
+                        "privateMemoryBytes":  21984952320,
+                        "cpuSeconds":  1569.265625
+                    },
+                    {
+                        "time":  "2026-05-27T19:31:33",
+                        "processName":  "ChuoTsunamiEvacuation_NewMapRemainingHardeningPre",
+                        "id":  1960,
+                        "workingSetBytes":  7545020416,
+                        "privateMemoryBytes":  21984952320,
+                        "cpuSeconds":  1580.09375
+                    },
+                    {
+                        "time":  "2026-05-27T19:31:34",
+                        "processName":  "ChuoTsunamiEvacuation_NewMapRemainingHardeningPre",
+                        "id":  1960,
+                        "workingSetBytes":  7545020416,
+                        "privateMemoryBytes":  21984952320,
+                        "cpuSeconds":  1590.421875
+                    },
+                    {
+                        "time":  "2026-05-27T19:31:35",
+                        "processName":  "ChuoTsunamiEvacuation_NewMapRemainingHardeningPre",
+                        "id":  1960,
+                        "workingSetBytes":  7545020416,
+                        "privateMemoryBytes":  21984952320,
+                        "cpuSeconds":  1600.8125
+                    },
+                    {
+                        "time":  "2026-05-27T19:31:36",
+                        "processName":  "ChuoTsunamiEvacuation_NewMapRemainingHardeningPre",
+                        "id":  1960,
+                        "workingSetBytes":  7545090048,
+                        "privateMemoryBytes":  21984952320,
+                        "cpuSeconds":  1611.390625
+                    },
+                    {
+                        "time":  "2026-05-27T19:31:37",
+                        "processName":  "ChuoTsunamiEvacuation_NewMapRemainingHardeningPre",
+                        "id":  1960,
+                        "workingSetBytes":  7545090048,
+                        "privateMemoryBytes":  21984952320,
+                        "cpuSeconds":  1622.390625
+                    },
+                    {
+                        "time":  "2026-05-27T19:31:38",
+                        "processName":  "ChuoTsunamiEvacuation_NewMapRemainingHardeningPre",
+                        "id":  1960,
+                        "workingSetBytes":  7545090048,
+                        "privateMemoryBytes":  21984952320,
+                        "cpuSeconds":  1633.953125
+                    },
+                    {
+                        "time":  "2026-05-27T19:31:39",
+                        "processName":  "ChuoTsunamiEvacuation_NewMapRemainingHardeningPre",
+                        "id":  1960,
+                        "workingSetBytes":  7545094144,
+                        "privateMemoryBytes":  21984952320,
+                        "cpuSeconds":  1644.046875
+                    },
+                    {
+                        "time":  "2026-05-27T19:31:40",
+                        "processName":  "ChuoTsunamiEvacuation_NewMapRemainingHardeningPre",
+                        "id":  1960,
+                        "workingSetBytes":  7545094144,
+                        "privateMemoryBytes":  21984952320,
+                        "cpuSeconds":  1654.734375
+                    },
+                    {
+                        "time":  "2026-05-27T19:31:41",
+                        "processName":  "ChuoTsunamiEvacuation_NewMapRemainingHardeningPre",
+                        "id":  1960,
+                        "workingSetBytes":  7545102336,
+                        "privateMemoryBytes":  21984952320,
+                        "cpuSeconds":  1665.6875
+                    },
+                    {
+                        "time":  "2026-05-27T19:31:42",
+                        "processName":  "ChuoTsunamiEvacuation_NewMapRemainingHardeningPre",
+                        "id":  1960,
+                        "workingSetBytes":  7545102336,
+                        "privateMemoryBytes":  21984952320,
+                        "cpuSeconds":  1675.953125
+                    },
+                    {
+                        "time":  "2026-05-27T19:31:43",
+                        "processName":  "ChuoTsunamiEvacuation_NewMapRemainingHardeningPre",
+                        "id":  1960,
+                        "workingSetBytes":  7545102336,
+                        "privateMemoryBytes":  21984952320,
+                        "cpuSeconds":  1686.3125
+                    },
+                    {
+                        "time":  "2026-05-27T19:31:44",
+                        "processName":  "ChuoTsunamiEvacuation_NewMapRemainingHardeningPre",
+                        "id":  1960,
+                        "workingSetBytes":  7545110528,
+                        "privateMemoryBytes":  21984952320,
+                        "cpuSeconds":  1697.625
+                    },
+                    {
+                        "time":  "2026-05-27T19:31:45",
+                        "processName":  "ChuoTsunamiEvacuation_NewMapRemainingHardeningPre",
+                        "id":  1960,
+                        "workingSetBytes":  7545110528,
+                        "privateMemoryBytes":  21984952320,
+                        "cpuSeconds":  1709
+                    },
+                    {
+                        "time":  "2026-05-27T19:31:46",
+                        "processName":  "ChuoTsunamiEvacuation_NewMapRemainingHardeningPre",
+                        "id":  1960,
+                        "workingSetBytes":  7545110528,
+                        "privateMemoryBytes":  21984952320,
+                        "cpuSeconds":  1719.875
+                    },
+                    {
+                        "time":  "2026-05-27T19:31:47",
+                        "processName":  "ChuoTsunamiEvacuation_NewMapRemainingHardeningPre",
+                        "id":  1960,
+                        "workingSetBytes":  7545110528,
+                        "privateMemoryBytes":  21984952320,
+                        "cpuSeconds":  1730.796875
+                    },
+                    {
+                        "time":  "2026-05-27T19:31:48",
+                        "processName":  "ChuoTsunamiEvacuation_NewMapRemainingHardeningPre",
+                        "id":  1960,
+                        "workingSetBytes":  7545110528,
+                        "privateMemoryBytes":  21984952320,
+                        "cpuSeconds":  1741.171875
+                    },
+                    {
+                        "time":  "2026-05-27T19:31:49",
+                        "processName":  "ChuoTsunamiEvacuation_NewMapRemainingHardeningPre",
+                        "id":  1960,
+                        "workingSetBytes":  7545110528,
+                        "privateMemoryBytes":  21984952320,
+                        "cpuSeconds":  1752.015625
+                    },
+                    {
+                        "time":  "2026-05-27T19:31:50",
+                        "processName":  "ChuoTsunamiEvacuation_NewMapRemainingHardeningPre",
+                        "id":  1960,
+                        "workingSetBytes":  7545110528,
+                        "privateMemoryBytes":  21984952320,
+                        "cpuSeconds":  1762.84375
+                    },
+                    {
+                        "time":  "2026-05-27T19:31:51",
+                        "processName":  "ChuoTsunamiEvacuation_NewMapRemainingHardeningPre",
+                        "id":  1960,
+                        "workingSetBytes":  7545110528,
+                        "privateMemoryBytes":  21984952320,
+                        "cpuSeconds":  1773.5
+                    },
+                    {
+                        "time":  "2026-05-27T19:31:52",
+                        "processName":  "ChuoTsunamiEvacuation_NewMapRemainingHardeningPre",
+                        "id":  1960,
+                        "workingSetBytes":  7545110528,
+                        "privateMemoryBytes":  21984952320,
+                        "cpuSeconds":  1784.328125
+                    },
+                    {
+                        "time":  "2026-05-27T19:31:53",
+                        "processName":  "ChuoTsunamiEvacuation_NewMapRemainingHardeningPre",
+                        "id":  1960,
+                        "workingSetBytes":  7545110528,
+                        "privateMemoryBytes":  21984952320,
+                        "cpuSeconds":  1795.0625
+                    },
+                    {
+                        "time":  "2026-05-27T19:31:54",
+                        "processName":  "ChuoTsunamiEvacuation_NewMapRemainingHardeningPre",
+                        "id":  1960,
+                        "workingSetBytes":  7545110528,
+                        "privateMemoryBytes":  21984952320,
+                        "cpuSeconds":  1805.640625
+                    },
+                    {
+                        "time":  "2026-05-27T19:31:55",
+                        "processName":  "ChuoTsunamiEvacuation_NewMapRemainingHardeningPre",
+                        "id":  1960,
+                        "workingSetBytes":  7545110528,
+                        "privateMemoryBytes":  21984952320,
+                        "cpuSeconds":  1817.046875
+                    },
+                    {
+                        "time":  "2026-05-27T19:31:56",
+                        "processName":  "ChuoTsunamiEvacuation_NewMapRemainingHardeningPre",
+                        "id":  1960,
+                        "workingSetBytes":  7545294848,
+                        "privateMemoryBytes":  21984952320,
+                        "cpuSeconds":  1828.40625
+                    },
+                    {
+                        "time":  "2026-05-27T19:31:57",
+                        "processName":  "ChuoTsunamiEvacuation_NewMapRemainingHardeningPre",
+                        "id":  1960,
+                        "workingSetBytes":  7545384960,
+                        "privateMemoryBytes":  21984952320,
+                        "cpuSeconds":  1840.03125
+                    },
+                    {
+                        "time":  "2026-05-27T19:31:58",
+                        "processName":  "ChuoTsunamiEvacuation_NewMapRemainingHardeningPre",
+                        "id":  1960,
+                        "workingSetBytes":  7545384960,
+                        "privateMemoryBytes":  21984952320,
+                        "cpuSeconds":  1850.203125
+                    },
+                    {
+                        "time":  "2026-05-27T19:31:59",
+                        "processName":  "ChuoTsunamiEvacuation_NewMapRemainingHardeningPre",
+                        "id":  1960,
+                        "workingSetBytes":  7545384960,
+                        "privateMemoryBytes":  21984952320,
+                        "cpuSeconds":  1861.140625
+                    },
+                    {
+                        "time":  "2026-05-27T19:32:00",
+                        "processName":  "ChuoTsunamiEvacuation_NewMapRemainingHardeningPre",
+                        "id":  1960,
+                        "workingSetBytes":  7545425920,
+                        "privateMemoryBytes":  21984952320,
+                        "cpuSeconds":  1872.453125
+                    },
+                    {
+                        "time":  "2026-05-27T19:32:01",
+                        "processName":  "ChuoTsunamiEvacuation_NewMapRemainingHardeningPre",
+                        "id":  1960,
+                        "workingSetBytes":  7545438208,
+                        "privateMemoryBytes":  21984952320,
+                        "cpuSeconds":  1883.046875
+                    },
+                    {
+                        "time":  "2026-05-27T19:32:02",
+                        "processName":  "ChuoTsunamiEvacuation_NewMapRemainingHardeningPre",
+                        "id":  1960,
+                        "workingSetBytes":  7545438208,
+                        "privateMemoryBytes":  21984952320,
+                        "cpuSeconds":  1894.125
+                    },
+                    {
+                        "time":  "2026-05-27T19:32:03",
+                        "processName":  "ChuoTsunamiEvacuation_NewMapRemainingHardeningPre",
+                        "id":  1960,
+                        "workingSetBytes":  7545438208,
+                        "privateMemoryBytes":  21984952320,
+                        "cpuSeconds":  1905.453125
+                    },
+                    {
+                        "time":  "2026-05-27T19:32:04",
+                        "processName":  "ChuoTsunamiEvacuation_NewMapRemainingHardeningPre",
+                        "id":  1960,
+                        "workingSetBytes":  7545450496,
+                        "privateMemoryBytes":  21984952320,
+                        "cpuSeconds":  1916.59375
+                    },
+                    {
+                        "time":  "2026-05-27T19:32:05",
+                        "processName":  "ChuoTsunamiEvacuation_NewMapRemainingHardeningPre",
+                        "id":  1960,
+                        "workingSetBytes":  7545450496,
+                        "privateMemoryBytes":  21984952320,
+                        "cpuSeconds":  1927.515625
+                    }
+                ],
+    "maxPrivateMemoryBytes":  21984952320,
+    "maxWorkingSetBytes":  7545450496,
+    "previousMaxFrameMs":  6375.93,
+    "fpsMeasured":  true,
+    "averageFps":  106.85,
+    "maxFrameMs":  6298.42,
+    "stutterFramesOver66ms":  4,
+    "fpsSampleElapsedSeconds":  180.01,
+    "performanceDecision":  "spike_reduced_but_above_target",
+    "playerLogErrors":  0,
+    "playerLogWarnings":  0,
+    "finalStatus":  "completed_on_new_chuo_basemap"
+}
