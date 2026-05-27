@@ -1,14 +1,13 @@
 # NewMap Manual Playtest Checklist
 
-Generated: 2026-05-27T04:00:17+09:00
+Generated: 2026-05-27T18:21:16+09:00
 
-- Start `ChuoTsunamiEvacuation_NewMapHardeningPre2.exe`.
-- Verify Start Menu, English/Japanese switch, Rules, weather, Tourism Mode, and Evacuation Mode.
-- In Tourism Mode, inspect a local training target and confirm no failure occurs.
-- In Evacuation Mode, wait for Stage 2 and confirm green frames appear only then.
-- Interact with `newmap_proxy_safe_floor`, `newmap_proxy_blocked_entrance`, `newmap_proxy_no_safe_floor`, and `newmap_proxy_crowd_delay`.
-- Inspect at least one official shelter marker if visible/reachable on the map.
-- Confirm no old disabled route line or disabled target appears.
-- Confirm ResultPanel text does not claim an official route or GIS-grade validation.
-- Expect a documented startup pause: Pre2 max frame measured 11273.06 ms, while runtime bootstrap measured 169 ms.
-- Record any additional visible frame pause after the first scene activation or during first mode selection.
+- Start the no-memory-focus temp player.
+- Verify Start Menu, Rules, Tourism Mode, Evacuation Mode, weather, and pause.
+- Tourism: inspect a local training target and confirm no failure.
+- Evacuation: confirm Stage 1 warning before Stage 2 front.
+- Stage 2: confirm light curtain and green frames appear.
+- Interact with safe-floor, blocked entrance, no-safe-floor, and crowd-delay targets.
+- Inspect an official shelter marker if reachable.
+- Confirm no disabled target or old route overlay is active.
+- Confirm ResultPanel never claims an official evacuation route.

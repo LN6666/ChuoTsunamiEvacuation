@@ -52,6 +52,11 @@ public static class NewMapSceneSetupUtility
         BuildNewMapPlayer("D:/UnityProjects/ChuoTsunamiEvacuation-Builds/NewMapHardeningPre2", "ChuoTsunamiEvacuation_NewMapHardeningPre2.exe");
     }
 
+    public static void BuildNewMapNoMemoryFocusPlayerCommandLine()
+    {
+        BuildNewMapPlayer("D:/UnityProjects/ChuoTsunamiEvacuation-Builds/NewMapNoMemoryFocusPre", "ChuoTsunamiEvacuation_NewMapNoMemoryFocusPre.exe");
+    }
+
     private static void BuildNewMapPlayer(string buildDirectory, string executableName)
     {
         Directory.CreateDirectory(buildDirectory);

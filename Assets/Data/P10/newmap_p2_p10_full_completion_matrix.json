@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-27T04:00:17+09:00",
+  "generatedAt": "2026-05-27T18:21:16+09:00",
   "activeScene": "Assets/Scenes/Chuo_BaseMap.unity",
   "allowedStatuses": [
     "completed_on_new_chuo_basemap",
@@ -11,17 +11,18 @@
   "activeTargetCount": 19,
   "disabledTargetCount": 156,
   "activeOfficialShelterCount": 15,
+  "activeNonOfficialTrainingTargetCount": 4,
   "entries": [
     {
       "phase": "P2",
       "feature": "player/camera/movement/E/ResultPanel",
       "finalStatus": "completed_with_documented_runtime_proxy",
       "activeOnNewMap": true,
-      "targetUsed": "verified official shelter anchors plus local training targets",
-      "testEvidence": "NewMap runtime tests, official anchor preflight, Pre2 temp player smoke, and Player.log parse",
+      "targetUsed": "verified official anchors plus local training targets",
+      "testEvidence": "PlayMode smoke plus final player interaction report",
       "disabledReason": "",
       "blocker": "",
-      "nextAction": "manual playtest on temp player"
+      "nextAction": "manual playtest"
     },
     {
       "phase": "P3/P4",
@@ -29,20 +30,20 @@
       "finalStatus": "completed_on_new_chuo_basemap",
       "activeOnNewMap": true,
       "targetUsed": "15 verified official shelter GML anchors",
-      "testEvidence": "Official source loader, exact PLATEAU GML scene-object anchor report, PlayMode official-anchor fixture, and preflight",
+      "testEvidence": "official shelter anchor final check",
       "disabledReason": "",
       "blocker": "",
       "nextAction": "manual inspect active official markers"
     },
     {
       "phase": "P5",
-      "feature": "candidate loading, route geometry validation, prototype route guidance",
+      "feature": "route geometry validation and prototype guidance",
       "finalStatus": "completed_with_documented_runtime_proxy",
       "activeOnNewMap": true,
-      "targetUsed": "official shelter anchors and 4 local route proxy training guides",
-      "testEvidence": "Route geometry validation report: 135 routes blocked by missing WGS84-to-Unity transform, no official route claim, local prototype route proxy wording checked",
-      "disabledReason": "Old route geometry is disabled where no verified transform exists.",
-      "blocker": "route geometry validation needs verified transform",
+      "targetUsed": "60 validated route geometries report-only plus 4 local route proxies",
+      "testEvidence": "coordinate transform anchor fit and route geometry final validation",
+      "disabledReason": "old route lines are not spawned as active runtime routes",
+      "blocker": "route-overlay UX/player-origin linkage not hardened",
       "nextAction": "manual use local estimated prototype route guides only"
     },
     {
@@ -51,7 +52,7 @@
       "finalStatus": "completed_with_documented_runtime_proxy",
       "activeOnNewMap": true,
       "targetUsed": "newmap_proxy_crowd_delay",
-      "testEvidence": "NewMap runtime tests, preflight reports, and JSON validation",
+      "testEvidence": "NPC/crowd final check and PlayMode scenario",
       "disabledReason": "",
       "blocker": "road-aware navigation unavailable",
       "nextAction": "manual verify crowd delay"
@@ -61,8 +62,8 @@
       "feature": "two-stage tsunami/hazard/light curtain",
       "finalStatus": "completed_with_documented_runtime_proxy",
       "activeOnNewMap": true,
-      "targetUsed": "runtime targets",
-      "testEvidence": "NewMap runtime tests, preflight reports, and JSON validation",
+      "targetUsed": "runtime stage controller",
+      "testEvidence": "two-stage tsunami final check and PlayMode stage guidance",
       "disabledReason": "",
       "blocker": "",
       "nextAction": "manual verify Stage 1/Stage 2"
@@ -72,8 +73,8 @@
       "feature": "gameplay outcomes and ResultPanel reason codes",
       "finalStatus": "completed_with_documented_runtime_proxy",
       "activeOnNewMap": true,
-      "targetUsed": "verified official fixture plus local training targets",
-      "testEvidence": "NewMap runtime tests, preflight reports, and JSON validation",
+      "targetUsed": "official anchor fixture plus local training targets",
+      "testEvidence": "scenario final status and PlayMode scenarios",
       "disabledReason": "",
       "blocker": "",
       "nextAction": "manual scenario checklist"
@@ -84,10 +85,10 @@
       "finalStatus": "completed_with_documented_runtime_proxy",
       "activeOnNewMap": true,
       "targetUsed": "19 active targets",
-      "testEvidence": "Pre2 temp player performance retest: averageFps=72.72, maxFrameMs=11273.06, Player.log errors=0, warnings=0, runtime bootstrap total=169ms",
+      "testEvidence": "no-memory-focus temp player retest: averageFps=106.26, maxFrameMs=6375.93, stutterFramesOver66ms=2, Player.log errors=0 warnings=0",
       "disabledReason": "",
-      "blocker": "startup spike remains above 2 seconds due to large Chuo_BaseMap scene activation",
-      "nextAction": "manual playtest may proceed with documented startup spike; ordinary-PC readiness needs separate scene/data optimization"
+      "blocker": "startup spike remains above 2 seconds due to large Chuo_BaseMap activation/render startup",
+      "nextAction": "manual playtest with documented startup spike"
     }
   ]
 }

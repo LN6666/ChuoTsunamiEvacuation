@@ -2,7 +2,7 @@ using UnityEngine;
 
 public sealed class NewMapPerformanceProbe : MonoBehaviour
 {
-    private const float SampleSeconds = 30f;
+    private const float SampleSeconds = 180f;
     private const float StutterThresholdSeconds = 0.066f;
 
     private float elapsedSeconds;

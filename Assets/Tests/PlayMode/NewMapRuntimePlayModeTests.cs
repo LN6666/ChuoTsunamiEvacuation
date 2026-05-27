@@ -144,6 +144,9 @@ public class NewMapRuntimePlayModeTests
         yield return null;
         Assert.IsFalse(controller.RuntimeTargets.Any(target => target.GreenFrame != null && target.GreenFrame.activeSelf));
         Assert.IsFalse(controller.RuntimeTargets.Any(target => target.RouteGuide != null && target.RouteGuide.activeSelf));
+        NewMapHazardController hazard = Object.FindObjectOfType<NewMapHazardController>();
+        Assert.NotNull(hazard);
+        Assert.IsFalse(hazard.Stage2VisualsBuiltForDiagnostics, "Stage 1 Warning should not build the light curtain/debris visual set at startup.");
 
         controller.SetPaused(true);
         yield return null;
@@ -158,6 +161,8 @@ public class NewMapRuntimePlayModeTests
         yield return null;
         Assert.IsTrue(controller.RuntimeTargets.Any(target => target.GreenFrame != null && target.GreenFrame.activeSelf));
         Assert.IsTrue(controller.RuntimeTargets.Any(target => target.RouteGuide != null && target.RouteGuide.activeSelf));
+        Assert.IsTrue(hazard.Stage2VisualsBuiltForDiagnostics);
+        Assert.IsTrue(hazard.LightCurtainVisibleForDiagnostics);
 
         controller.StartTourismMode();
         yield return null;

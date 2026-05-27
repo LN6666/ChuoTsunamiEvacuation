@@ -6,6 +6,9 @@ public sealed class NewMapHazardController : MonoBehaviour
     private GameObject debrisWarning;
     private Vector3 curtainStart;
     private Vector3 curtainEnd;
+    private Vector3 debrisCenter;
+    private Transform hazardRoot;
+    private Transform debrisRoot;
     private float stageElapsed;
     private float frontDurationSeconds = 90f;
     private float debrisExposureSeconds;
@@ -16,6 +19,8 @@ public sealed class NewMapHazardController : MonoBehaviour
     public float NormalizedFrontProgress => Mathf.Clamp01(stageElapsed / Mathf.Max(1f, frontDurationSeconds));
     public float DebrisExposureSeconds => debrisExposureSeconds;
     public Vector3 DebrisCenterForDiagnostics => debrisBounds.center;
+    public bool Stage2VisualsBuiltForDiagnostics => lightCurtain != null && debrisWarning != null;
+    public bool LightCurtainVisibleForDiagnostics => lightCurtain != null && lightCurtain.activeSelf;
 
     public static NewMapHazardController Create(Transform hazardRoot, Transform debrisRoot, Vector3 spawnPosition)
     {
@@ -31,6 +36,11 @@ public sealed class NewMapHazardController : MonoBehaviour
         Stage = stage;
         stageElapsed = 0f;
         debrisExposureSeconds = 0f;
+
+        if (stage == NewMapTsunamiStage.FrontApproaching)
+        {
+            EnsureStage2VisualsBuilt();
+        }
 
         if (lightCurtain != null)
         {
@@ -60,13 +70,26 @@ public sealed class NewMapHazardController : MonoBehaviour
 
     public bool IsPlayerReachedByFront(Vector3 playerPosition)
     {
-        return RiskChecksActive && lightCurtain != null && playerPosition.x < lightCurtain.transform.position.x - 0.5f;
+        if (!RiskChecksActive)
+        {
+            return false;
+        }
+
+        EnsureStage2VisualsBuilt();
+        return lightCurtain != null && playerPosition.x < lightCurtain.transform.position.x - 0.5f;
     }
 
     public bool IsPlayerInDebrisExposure(Vector3 playerPosition, float deltaTime, out string reason)
     {
         reason = string.Empty;
-        if (!RiskChecksActive || !debrisBounds.Contains(playerPosition))
+        if (!RiskChecksActive)
+        {
+            debrisExposureSeconds = Mathf.Max(0f, debrisExposureSeconds - deltaTime);
+            return false;
+        }
+
+        EnsureStage2VisualsBuilt();
+        if (!debrisBounds.Contains(playerPosition))
         {
             debrisExposureSeconds = Mathf.Max(0f, debrisExposureSeconds - deltaTime);
             return false;
@@ -84,11 +107,25 @@ public sealed class NewMapHazardController : MonoBehaviour
 
     private void Build(Transform hazardRoot, Transform debrisRoot, Vector3 spawnPosition)
     {
+        this.hazardRoot = hazardRoot;
+        this.debrisRoot = debrisRoot;
+        curtainStart = spawnPosition + new Vector3(-70f, 14f, 0f);
+        curtainEnd = spawnPosition + new Vector3(70f, 14f, 0f);
+        debrisCenter = spawnPosition + new Vector3(10f, 1f, 10f);
+        debrisBounds = new Bounds(debrisCenter, new Vector3(7f, 2f, 7f));
+        SetStage(NewMapTsunamiStage.Inactive);
+    }
+
+    private void EnsureStage2VisualsBuilt()
+    {
+        if (lightCurtain != null && debrisWarning != null)
+        {
+            return;
+        }
+
         Material curtainMaterial = NewMapVisualFactory.CreateMaterial("NewMap_LightCurtain_Material", new Color(0.05f, 0.75f, 1f, 0.32f), true);
         Material debrisMaterial = NewMapVisualFactory.CreateMaterial("NewMap_DebrisWarning_Material", new Color(1f, 0.45f, 0.08f, 0.45f), true);
 
-        curtainStart = spawnPosition + new Vector3(-70f, 14f, 0f);
-        curtainEnd = spawnPosition + new Vector3(70f, 14f, 0f);
         lightCurtain = GameObject.CreatePrimitive(PrimitiveType.Cube);
         lightCurtain.name = "NewMap_Stage2_LightCurtain_RiskFront";
         lightCurtain.transform.SetParent(hazardRoot, true);
@@ -100,13 +137,15 @@ public sealed class NewMapHazardController : MonoBehaviour
         debrisWarning = GameObject.CreatePrimitive(PrimitiveType.Cube);
         debrisWarning.name = "NewMap_CollapseDebris_ExposureWarning";
         debrisWarning.transform.SetParent(debrisRoot, true);
-        debrisWarning.transform.position = spawnPosition + new Vector3(10f, 1f, 10f);
+        debrisWarning.transform.position = debrisCenter;
         debrisWarning.transform.localScale = new Vector3(7f, 2f, 7f);
         SetMaterial(debrisWarning, debrisMaterial);
         NewMapVisualFactory.RemoveCollider(debrisWarning);
         debrisBounds = new Bounds(debrisWarning.transform.position, debrisWarning.transform.localScale);
 
-        SetStage(NewMapTsunamiStage.Inactive);
+        bool visible = Stage == NewMapTsunamiStage.FrontApproaching;
+        lightCurtain.SetActive(visible);
+        debrisWarning.SetActive(visible);
     }
 
     private static void SetMaterial(GameObject gameObject, Material material)

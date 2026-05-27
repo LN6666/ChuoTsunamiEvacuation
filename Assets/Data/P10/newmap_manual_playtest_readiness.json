@@ -1,22 +1,22 @@
 {
-  "generatedAt": "2026-05-27T04:00:17+09:00",
+  "generatedAt": "2026-05-27T18:21:16+09:00",
   "activeScene": "Assets/Scenes/Chuo_BaseMap.unity",
-  "manualReadinessDecision": "ready_with_documented_limitations",
-  "reason": "Pre2 temp player build, PlayMode tests, preflight, and Player.log parse passed. Official shelters are recovered by exact PLATEAU GML anchors. The startup max-frame spike remains above 2 seconds but is measured and attributed to large Chuo_BaseMap scene activation rather than NewMap runtime bootstrap.",
+  "manualReadinessDecision": "ready_with_documented_non_memory_limitations",
+  "reason": "Player/camera/UI/interaction flows are runnable, Player.log is clean, DeepSeek found no A-level blocker, and the remaining limitations are documented non-memory issues: old route overlays are not spawned at runtime and startup spike remains above 2 seconds.",
   "activeTargetFlowExists": true,
   "activeOfficialShelterCount": 15,
   "activeTrainingTargetCount": 4,
   "disabledTargetCount": 156,
-  "playerCanInteract": true,
+  "coordinateTransformStatus": "transform_validated_from_official_anchors",
+  "routeGeometryStatus": "validated_on_new_chuo_basemap_for_estimated_prototype_guidance",
   "playerLogErrors": 0,
   "playerLogWarnings": 0,
-  "performanceRetest": "completed",
-  "averageFps": 72.72,
-  "maxFrameMs": 11273.06,
-  "spikeDecision": "spike_remaining_but_documented",
-  "runtimeBootstrapTotalMs": 169,
-  "editModeResult": "passed: total=108 passed=108 failed=0",
-  "playModeResult": "passed: total=20 passed=20 failed=0",
+  "performanceRetest": {
+    "averageFps": 106.26,
+    "maxFrameMs": 6375.93,
+    "stutterFramesOver66ms": 2,
+    "decision": "spike_reduced_but_above_target"
+  },
   "deepSeekVerdict": "no_A_level_blocker",
   "finalStatus": "completed_with_documented_runtime_proxy"
 }

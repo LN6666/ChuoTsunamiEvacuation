@@ -1,0 +1,23 @@
+﻿{
+    "generatedAt":  "2026-05-27T18:39:16",
+    "logPath":  "C:\\Users\\liangjn\\AppData\\LocalLow\\DefaultCompany\\ChuoTsunamiEvacuation\\Player.log",
+    "errorCount":  0,
+    "warningCount":  0,
+    "performanceSample":  {
+                              "elapsedSeconds":  180,
+                              "frameCount":  19127,
+                              "averageFps":  106.26,
+                              "maxFrameMs":  6375.93,
+                              "stutterFramesOver66ms":  2
+                          },
+    "bootstrapLine":  "NewMap runtime bootstrap completed. renderers=0 colliders=0 groundSupportProxy=False collisionSupportProxy=True meshColliderShutdown=disabled_runtime_startup activeRuntimeTargets=19",
+    "bootstrapTimingLine":  "NewMap runtime bootstrap timings: boundsMs=1 spawnSupportMs=16 systemsMs=104 targetsMs=101 configureMs=2 totalMs=224",
+    "firstErrors":  [
+
+                    ],
+    "firstWarnings":  [
+
+                      ],
+    "performanceDecision":  "spike_reduced_but_above_target",
+    "finalStatus":  "completed_on_new_chuo_basemap"
+}

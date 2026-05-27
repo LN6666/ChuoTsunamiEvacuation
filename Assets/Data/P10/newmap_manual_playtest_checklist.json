@@ -1,96 +1,15 @@
-﻿{
-    "generatedAt":  "2026-05-26T21:46:23+09:00",
-    "activeScene":  "Assets/Scenes/Chuo_BaseMap.unity",
-    "readinessDecision":  "ready_with_documented_limitations",
-    "checklist":  [
-                      {
-                          "item":  "open EXE",
-                          "expected":  "verify manually on final temporary Chuo_BaseMap player",
-                          "status":  "pending_manual_playtest"
-                      },
-                      {
-                          "item":  "Start Menu",
-                          "expected":  "verify manually on final temporary Chuo_BaseMap player",
-                          "status":  "pending_manual_playtest"
-                      },
-                      {
-                          "item":  "English/Japanese",
-                          "expected":  "verify manually on final temporary Chuo_BaseMap player",
-                          "status":  "pending_manual_playtest"
-                      },
-                      {
-                          "item":  "rules UI",
-                          "expected":  "verify manually on final temporary Chuo_BaseMap player",
-                          "status":  "pending_manual_playtest"
-                      },
-                      {
-                          "item":  "Tourism Mode free roam",
-                          "expected":  "verify manually on final temporary Chuo_BaseMap player",
-                          "status":  "pending_manual_playtest"
-                      },
-                      {
-                          "item":  "Tourism sprint 10m/s",
-                          "expected":  "verify manually on final temporary Chuo_BaseMap player",
-                          "status":  "pending_manual_playtest"
-                      },
-                      {
-                          "item":  "Evacuation Mode",
-                          "expected":  "verify manually on final temporary Chuo_BaseMap player",
-                          "status":  "pending_manual_playtest"
-                      },
-                      {
-                          "item":  "two-stage warning/front",
-                          "expected":  "verify manually on final temporary Chuo_BaseMap player",
-                          "status":  "pending_manual_playtest"
-                      },
-                      {
-                          "item":  "green frames",
-                          "expected":  "verify manually on final temporary Chuo_BaseMap player",
-                          "status":  "pending_manual_playtest"
-                      },
-                      {
-                          "item":  "active official/non-official target",
-                          "expected":  "verify manually on final temporary Chuo_BaseMap player",
-                          "status":  "pending_manual_playtest"
-                      },
-                      {
-                          "item":  "E interaction",
-                          "expected":  "verify manually on final temporary Chuo_BaseMap player",
-                          "status":  "pending_manual_playtest"
-                      },
-                      {
-                          "item":  "crowd delay",
-                          "expected":  "verify manually on final temporary Chuo_BaseMap player",
-                          "status":  "pending_manual_playtest"
-                      },
-                      {
-                          "item":  "collapse/debris",
-                          "expected":  "verify manually on final temporary Chuo_BaseMap player",
-                          "status":  "pending_manual_playtest"
-                      },
-                      {
-                          "item":  "ResultPanel",
-                          "expected":  "verify manually on final temporary Chuo_BaseMap player",
-                          "status":  "pending_manual_playtest"
-                      },
-                      {
-                          "item":  "disabled targets not visible",
-                          "expected":  "verify manually on final temporary Chuo_BaseMap player",
-                          "status":  "pending_manual_playtest"
-                      },
-                      {
-                          "item":  "Player.log",
-                          "expected":  "verify manually on final temporary Chuo_BaseMap player",
-                          "status":  "pending_manual_playtest"
-                      },
-                      {
-                          "item":  "FPS/memory feel",
-                          "expected":  "verify manually on final temporary Chuo_BaseMap player",
-                          "status":  "pending_manual_playtest"
-                      }
-                  ],
-    "limitations":  [
-                        "No active official shelter is claimed.",
-                        "Manual test requires high-memory hardware because private memory exceeded the ordinary-PC risk gate in the previous sample."
-                    ]
+{
+  "generatedAt": "2026-05-27T18:21:16+09:00",
+  "activeScene": "Assets/Scenes/Chuo_BaseMap.unity",
+  "checklist": [
+    "Start temp player build.",
+    "Verify Start Menu, Rules, Tourism Mode, and Evacuation Mode.",
+    "Tourism: inspect a local training target and confirm no failure.",
+    "Evacuation: confirm Stage 1 warning before Stage 2 front.",
+    "Stage 2: confirm green frames and light curtain appear.",
+    "Interact with safe-floor, blocked entrance, no-safe-floor, and crowd-delay targets.",
+    "Inspect an official shelter marker if reachable.",
+    "Confirm ResultPanel never claims an official route.",
+    "Confirm disabled/out-of-map targets and old route overlays are not active."
+  ]
 }

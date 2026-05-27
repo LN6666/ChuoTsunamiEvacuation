@@ -1,18 +1,16 @@
 {
   "generatedAt": "2026-05-27T18:21:16+09:00",
   "activeScene": "Assets/Scenes/Chuo_BaseMap.unity",
-  "totalTargetCount": 175,
-  "activeTargetCount": 19,
-  "disabledTargetCount": 156,
-  "activeOfficialShelterCount": 15,
+  "finalStatus": "completed_with_documented_runtime_proxy",
   "activeNonOfficialTrainingTargetCount": 4,
-  "activeGreenFrameTargetCount": 19,
-  "disabledGreenFrameCount": 0,
-  "officialShelterStatus": "official_shelters_recovered",
-  "officialRouteClaimCount": 0,
-  "nonOfficialTargetLabeledOfficialCount": 0,
-  "disabledSelectableCount": 0,
-  "targets": [
+  "allActiveTrainingTargetsInsideChuoBaseMapProxyBounds": true,
+  "nonOfficialWarningPreserved": true,
+  "safeApprovedByDefaultForTrainingTargets": false,
+  "isOfficialShelterForTrainingTargets": false,
+  "greenFramesOnlyForActiveTargets": true,
+  "disabledTargetsHaveNoGreenFrame": true,
+  "activeOfficialShelterGreenFramesAllowed": true,
+  "records": [
     {
       "id": "chuo_official_emergency_001",
       "name": "城東小学校",
