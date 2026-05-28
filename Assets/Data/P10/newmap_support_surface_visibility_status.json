@@ -1,0 +1,15 @@
+{
+  "generatedAt": "2026-05-29T00:00:00+09:00",
+  "activeScene": "Assets/Scenes/Chuo_BaseMap.unity",
+  "supportColliderRequired": true,
+  "supportRendererAllowedInNormalMode": false,
+  "runtimeSupportObject": "NewMap_RuntimeGroundSupport_DocumentedProxy",
+  "runtimeImplementation": "BoxCollider-only support object; no MeshRenderer is created.",
+  "playerSmokeSupportColliderActive": true,
+  "playerSmokeSupportRendererCount": 0,
+  "playerSmokeSupportVisibleRenderers": 0,
+  "playerSmokeAirWallVisibleRenderers": 0,
+  "debugVisualizationDefault": "disabled",
+  "blueDebugGroundMaterialAllowedInNormalMode": false,
+  "finalStatus": "completed_on_new_chuo_basemap_player_smoke"
+}

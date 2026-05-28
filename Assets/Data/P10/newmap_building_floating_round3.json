@@ -1,0 +1,15 @@
+{
+  "generatedAt": "2026-05-29T00:00:00+09:00",
+  "activeScene": "Assets/Scenes/Chuo_BaseMap.unity",
+  "likelyCause": "visible support/collision plane and support-to-visual-ground mismatch",
+  "globalBuildingShiftApplied": false,
+  "individualBuildingShiftApplied": false,
+  "duplicateMapRootsAllowed": false,
+  "supportAlignedTo": "transport/road renderer sample at Y=0.00",
+  "buildingRoadYOffsetApplied": 1.97,
+  "buildingRoadAlignedRoots": 12742,
+  "supportToRoadDelta": 0.0,
+  "supportToBuildingBaseDelta": 0.0,
+  "remainingLimitation": "manual visual confirmation is still required for exact PLATEAU road/building base appearance; correction is a uniform sampled offset and relies on bldg_/building naming",
+  "finalStatus": "completed_on_new_chuo_basemap_manual_visible_confirmation_remaining"
+}

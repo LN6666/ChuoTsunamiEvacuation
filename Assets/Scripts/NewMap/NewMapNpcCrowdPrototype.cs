@@ -19,6 +19,7 @@ public sealed class NewMapNpcCrowdPrototype : MonoBehaviour
     private readonly List<Vector3> npcHomePositions = new List<Vector3>();
     private Vector3 center;
     private Vector3 requestedCenter;
+    private NewMapPlayableBounds playableBounds;
     private NewMapNpcDistributionConfig distributionConfig;
     private bool crowdFailuresEnabled;
     private bool built;
@@ -34,15 +35,22 @@ public sealed class NewMapNpcCrowdPrototype : MonoBehaviour
     public int UsedRingCount { get; private set; }
     public float DistributionRadiusMeters => distributionConfig != null ? distributionConfig.distributionRadiusMeters : 0f;
     public float MinDistanceFromPlayerMeters => distributionConfig != null ? distributionConfig.minDistanceFromPlayerMeters : 0f;
+    public NewMapPlayableBounds RuntimePlayableBounds => playableBounds;
     public float CurrentCongestionDelaySeconds { get; private set; }
 
     public static NewMapNpcCrowdPrototype Create(Transform parent, Vector3 centerPosition)
+    {
+        return Create(parent, centerPosition, NewMapPlayableBounds.DefaultDocumented());
+    }
+
+    public static NewMapNpcCrowdPrototype Create(Transform parent, Vector3 centerPosition, NewMapPlayableBounds bounds)
     {
         GameObject crowdObject = new GameObject("NewMap_NPC_CrowdPrototype");
         crowdObject.transform.SetParent(parent, false);
         NewMapNpcCrowdPrototype crowd = crowdObject.AddComponent<NewMapNpcCrowdPrototype>();
         crowd.distributionConfig = NewMapNpcDistributionConfig.Load();
         crowd.requestedCenter = centerPosition;
+        crowd.playableBounds = bounds.IsValid ? bounds : NewMapPlayableBounds.DefaultDocumented();
         crowd.npcCap = Mathf.Clamp(crowd.distributionConfig.maxNpcCount, 0, 1000);
         return crowd;
     }
@@ -143,12 +151,19 @@ public sealed class NewMapNpcCrowdPrototype : MonoBehaviour
             float localWanderRadius = farNpc ? 1.5f : wanderRadius;
             float phase = Time.time * (farNpc ? 0.07f : 0.3f) + i * 1.7f;
             Vector3 target = home + new Vector3(Mathf.Sin(phase), 0f, Mathf.Cos(phase * 0.8f)) * localWanderRadius;
+            target = playableBounds.IsValid ? playableBounds.ClampXZ(target, 2f) : target;
             Vector3 delta = target - npc.position;
             delta.y = 0f;
             if (delta.sqrMagnitude > 0.01f)
             {
                 npc.position += delta.normalized * wanderSpeed * Time.deltaTime;
                 npc.rotation = Quaternion.LookRotation(delta.normalized, Vector3.up);
+            }
+
+            if (playableBounds.IsValid && !playableBounds.ContainsXZ(npc.position))
+            {
+                npc.position = playableBounds.ClampXZ(npc.position, 2f);
+                npcHomePositions[i] = playableBounds.ClampXZ(home, 2f);
             }
         }
     }
@@ -161,6 +176,11 @@ public sealed class NewMapNpcCrowdPrototype : MonoBehaviour
         }
 
         distributionConfig = distributionConfig ?? NewMapNpcDistributionConfig.Load();
+        if (!playableBounds.IsValid)
+        {
+            playableBounds = NewMapPlayableBounds.DefaultDocumented();
+        }
+
         center = centerPosition;
         RequestedNpcCount = BaseNpcCount * Mathf.Max(1, distributionConfig.npcCountMultiplier);
         CappedNpcCount = Mathf.Min(RequestedNpcCount, Mathf.Max(0, distributionConfig.maxNpcCount));
@@ -193,7 +213,7 @@ public sealed class NewMapNpcCrowdPrototype : MonoBehaviour
                 continue;
             }
 
-            if (!IsInsideDocumentedMapBounds(snapped) || IsTooCloseToExisting(snapped, acceptedPositions, distributionConfig.minDistanceBetweenNpcMeters))
+            if (!IsInsideRuntimePlayableBounds(snapped) || IsTooCloseToExisting(snapped, acceptedPositions, distributionConfig.minDistanceBetweenNpcMeters))
             {
                 InvalidPlacementRetryCount++;
                 continue;
@@ -205,7 +225,7 @@ public sealed class NewMapNpcCrowdPrototype : MonoBehaviour
 
         if (acceptedPositions.Count < CappedNpcCount)
         {
-            FillFallbackGrid(center, acceptedPositions, CappedNpcCount);
+            FillFallbackGrid(center, acceptedPositions, CappedNpcCount, playableBounds);
         }
 
         UsedSectorCount = CountUsedSectors(center, acceptedPositions, distributionConfig);
@@ -298,6 +318,16 @@ public sealed class NewMapNpcCrowdPrototype : MonoBehaviour
             position.y <= 8f;
     }
 
+    private bool IsInsideRuntimePlayableBounds(Vector3 position)
+    {
+        if (playableBounds.IsValid)
+        {
+            return playableBounds.ContainsXZ(position, 2f);
+        }
+
+        return IsInsideDocumentedMapBounds(position);
+    }
+
     private static bool IsTooCloseToExisting(Vector3 candidate, List<Vector3> accepted, float minDistance)
     {
         if (minDistance <= 0f)
@@ -319,7 +349,7 @@ public sealed class NewMapNpcCrowdPrototype : MonoBehaviour
         return false;
     }
 
-    private static void FillFallbackGrid(Vector3 centerPosition, List<Vector3> accepted, int desiredCount)
+    private static void FillFallbackGrid(Vector3 centerPosition, List<Vector3> accepted, int desiredCount, NewMapPlayableBounds playableBounds)
     {
         float spacing = 24f;
         int ring = 1;
@@ -330,7 +360,8 @@ public sealed class NewMapNpcCrowdPrototype : MonoBehaviour
             {
                 float angle = i * Mathf.PI * 2f / count;
                 Vector3 candidate = centerPosition + new Vector3(Mathf.Cos(angle), 0f, Mathf.Sin(angle)) * ring * spacing;
-                if (IsInsideDocumentedMapBounds(candidate) && !IsTooCloseToExisting(candidate, accepted, 6f))
+                bool insideBounds = playableBounds.IsValid ? playableBounds.ContainsXZ(candidate, 2f) : IsInsideDocumentedMapBounds(candidate);
+                if (insideBounds && !IsTooCloseToExisting(candidate, accepted, 6f))
                 {
                     accepted.Add(new Vector3(candidate.x, Mathf.Clamp(centerPosition.y, -1f, 2f), candidate.z));
                 }

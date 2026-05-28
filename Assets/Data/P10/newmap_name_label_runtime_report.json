@@ -1,0 +1,24 @@
+{
+  "generatedAt": "2026-05-29T00:00:00+09:00",
+  "activeScene": "Assets/Scenes/Chuo_BaseMap.unity",
+  "runtimeNetworkRequestsAllowed": false,
+  "labelsAvailable": 93,
+  "labelsActiveAtRuntime": 8,
+  "officialShelterLabels": 15,
+  "nonOfficialCandidateLabels": 78,
+  "labelsCulledByDistance": "runtime-throttled",
+  "labelsCulledByCap": "runtime-throttled",
+  "buildingNameLabels": 0,
+  "roadNameLabels": 0,
+  "idOnlyLabelsVisibleInNormalMode": false,
+  "sourceNameAvailabilityStatus": "no_source_name_available_for_generic_building_or_road_names",
+  "performanceSafeguards": [
+    "max visible labels",
+    "source cache cap",
+    "distance culling",
+    "frustum culling",
+    "decluttering",
+    "throttled label updates"
+  ],
+  "finalStatus": "completed_on_new_chuo_basemap_player_smoke"
+}

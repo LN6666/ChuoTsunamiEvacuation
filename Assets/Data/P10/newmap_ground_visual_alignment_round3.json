@@ -1,0 +1,21 @@
+{
+  "generatedAt": "2026-05-29T00:00:00+09:00",
+  "activeScene": "Assets/Scenes/Chuo_BaseMap.unity",
+  "oldSupportY": 0.0,
+  "newSupportY": 0.0,
+  "playerSpawnY": 0.04,
+  "roadSampleY": 0.0,
+  "buildingBaseSampleY": 0.0,
+  "buildingRoadYOffsetApplied": 1.97,
+  "buildingRoadAlignedRoots": 12742,
+  "buildingRoadAlignmentStatus": "building_roots_shifted_to_transport_ground_reference_corrected_reference_applied",
+  "supportToRoadDelta": 0.0,
+  "supportToBuildingBaseDelta": 0.0,
+  "supportToRoadDeltaToleranceMeters": 0.5,
+  "supportToBuildingBaseDeltaToleranceMeters": 0.5,
+  "supportRendererVisible": false,
+  "fallbackUsedIfRoadRendererUnavailable": true,
+  "fallRecoveryExpected": 0,
+  "activeTargetHeightOffsetToleranceMeters": 2.5,
+  "finalStatus": "completed_on_new_chuo_basemap_player_smoke"
+}

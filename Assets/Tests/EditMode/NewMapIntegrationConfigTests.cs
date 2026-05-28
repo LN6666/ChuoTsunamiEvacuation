@@ -142,7 +142,21 @@ public class NewMapIntegrationConfigTests
             "Data/P10/newmap_spawn_config.json",
             "Data/P10/newmap_safe_spawn_points.json",
             "Data/P10/newmap_spawn_validation_report.json",
-            "Data/P10/newmap_building_bounds_cache_status.json"
+            "Data/P10/newmap_building_bounds_cache_status.json",
+            "Data/P10/newmap_blue_ground_diagnosis.json",
+            "Data/P10/newmap_support_surface_visibility_status.json",
+            "Data/P10/newmap_ground_visual_alignment_round3.json",
+            "Data/P10/newmap_road_visual_sanity_round3.json",
+            "Data/P10/newmap_building_floating_round3.json",
+            "Data/P10/newmap_playable_bounds_config.json",
+            "Data/P10/newmap_playable_bounds_report.json",
+            "Data/P10/newmap_object_name_label_source_report.json",
+            "Data/P10/newmap_name_label_config.json",
+            "Data/P10/newmap_name_label_cache.json",
+            "Data/P10/newmap_name_cache.json",
+            "Data/P10/newmap_name_label_runtime_report.json",
+            "Data/P10/newmap_name_enrichment_config.json",
+            "Data/P10/newmap_name_enrichment_report.json"
         };
 
         foreach (string relativePath in requiredPaths)
@@ -169,9 +183,55 @@ public class NewMapIntegrationConfigTests
         StringAssert.Contains("\"spawnMode\": \"road_or_playable_ground_only\"", spawn);
         StringAssert.Contains("\"useBuildingBoundsRejection\": true", spawn);
         StringAssert.Contains("\"fallbackSafeSpawnId\": \"newmap_safe_spawn_01\"", spawn);
+        StringAssert.Contains("\"minDistanceFromAirWallMeters\": 2.0", spawn);
 
         string readiness = File.ReadAllText(Path.Combine(Application.dataPath, "Data/P10/newmap_manual_playtest_readiness.json"));
         StringAssert.Contains("\"manualReadinessDecision\"", readiness);
+    }
+
+    [Test]
+    public void Round3SupportBoundsAndNameLabelsStayInvisibleOfflineAndCapped()
+    {
+        NewMapPlayableBoundsConfig bounds = NewMapPlayableBoundsConfig.Default();
+        Assert.IsTrue(bounds.enabled);
+        Assert.IsTrue(bounds.autoDetectFromMapBounds);
+        Assert.IsFalse(bounds.debugVisualizationEnabled);
+        Assert.Greater(bounds.boundaryHeightMeters, 10f);
+        Assert.Greater(bounds.boundaryThicknessMeters, 0f);
+
+        NewMapPlayableBounds documented = NewMapPlayableBounds.DefaultDocumented().WithAppliedMargin();
+        Assert.IsTrue(documented.IsValid);
+        Assert.IsTrue(documented.ContainsXZ(new Vector3(0f, 0.04f, 0f)));
+        Assert.IsFalse(documented.ContainsXZ(new Vector3(5000f, 0.04f, 0f)));
+
+        NewMapNameLabelConfig labelConfig = NewMapNameLabelConfig.Default();
+        Assert.IsTrue(labelConfig.enabled);
+        Assert.IsTrue(labelConfig.showOfficialShelterNames);
+        Assert.IsTrue(labelConfig.showNonOfficialCandidateNames);
+        Assert.IsFalse(labelConfig.showBuildingNames, "Generic building labels should remain hidden unless a reliable cache/source enables them.");
+        Assert.IsTrue(labelConfig.showRoadNames);
+        Assert.IsFalse(labelConfig.showIdOnlyLabelsInDebug);
+        Assert.IsFalse(labelConfig.runtimeNetworkRequestsAllowed);
+        Assert.LessOrEqual(labelConfig.maxVisibleLabels, 80);
+        Assert.GreaterOrEqual(labelConfig.labelUpdateIntervalSeconds, 0.25f);
+
+        string support = File.ReadAllText(Path.Combine(Application.dataPath, "Data/P10/newmap_support_surface_visibility_status.json"));
+        StringAssert.Contains("\"supportRendererAllowedInNormalMode\": false", support);
+        StringAssert.Contains("\"blueDebugGroundMaterialAllowedInNormalMode\": false", support);
+
+        string labelSource = File.ReadAllText(Path.Combine(Application.dataPath, "Data/P10/newmap_object_name_label_source_report.json"));
+        StringAssert.Contains("no_source_name_available_for_generic_building_or_road_names", labelSource);
+        StringAssert.Contains("No fabricated road/building names", labelSource);
+
+        string enrichmentConfig = File.ReadAllText(Path.Combine(Application.dataPath, "Data/P10/newmap_name_enrichment_config.json"));
+        StringAssert.Contains("\"runtimeNetworkRequestsAllowed\": false", enrichmentConfig);
+        StringAssert.Contains("\"rateLimitSeconds\": 1.1", enrichmentConfig);
+        StringAssert.Contains("\"maxQueriesPerRun\": 200", enrichmentConfig);
+
+        string labelRuntimeSource = File.ReadAllText(Path.Combine(Application.dataPath, "Scripts/NewMap/NewMapNameLabelController.cs"));
+        Assert.IsFalse(labelRuntimeSource.Contains("UnityWebRequest"));
+        Assert.IsFalse(labelRuntimeSource.Contains("HttpClient"));
+        Assert.IsFalse(labelRuntimeSource.Contains("nominatim"));
     }
 
     [Test]

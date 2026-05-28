@@ -17,6 +17,9 @@ Readiness decision: `ready_with_documented_visual_limitations`
 - Verify the player is not inside a building at spawn.
 - Verify the player can move immediately after spawn.
 - Verify fallback safe spawn works if random placement fails.
+- Walk toward the map edge and confirm invisible air walls block leaving the imported map.
+- Confirm no visible wall appears at the playable boundary.
+- Confirm NPCs remain inside the playable area.
 - Verify clear day brightness is playable.
 - Verify night sky is dark.
 - Verify night buildings remain readable and are not black silhouettes.
@@ -28,8 +31,16 @@ Readiness decision: `ready_with_documented_visual_limitations`
 - Confirm building material/photo-texture appearance is acceptable or explicitly rejected as a PLATEAU/import limitation.
 - Confirm player stands on or very near the visible city ground.
 - Confirm no obvious invisible support-plane height mismatch.
+- Confirm the blue support/collision plane is no longer visible.
+- Confirm the support/collision proxy is invisible in normal mode.
+- Confirm road/ground material is not a blue debug material.
 - Confirm buildings no longer appear visibly floating near spawn/test area.
 - Confirm no severe support-plane clipping near spawn or active targets.
+- Confirm building/road names appear only if source metadata or the local enrichment cache provides real names.
+- Confirm no fabricated road/building names appear; if no source name exists, no generic label should be shown.
+- Confirm official shelter names are readable.
+- Confirm non-official candidate labels are clearly non-official.
+- Confirm label clutter is controlled and labels disappear at distance.
 - Confirm NPCs appear broadly around the player within about 1000m.
 - Confirm NPCs are not concentrated into one blob.
 - Confirm NPCs are not too close to player spawn.

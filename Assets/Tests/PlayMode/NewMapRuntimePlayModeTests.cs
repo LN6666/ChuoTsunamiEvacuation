@@ -75,6 +75,7 @@ public class NewMapRuntimePlayModeTests
             "UIAnchorRoot",
             "DebugDiagnosticsRoot",
             "GameplaySupportRoot",
+            "PlayableBoundsRoot",
             "PerformanceMetricsRoot"
         };
 
@@ -109,7 +110,13 @@ public class NewMapRuntimePlayModeTests
         Assert.Greater(player.transform.position.y, startY - 8f, "Player should not fall endlessly through the map/support proxy.");
         Assert.AreEqual(0, player.FallRecoveryCount, "Normal spawn grounding should not need fall recovery.");
         Assert.IsTrue(bootstrap.LastRuntimeCollisionSupportProxyActive, "Final NewMap manual test uses the documented runtime collision support proxy.");
+        Assert.IsTrue(bootstrap.LastRuntimeCollisionSupportColliderActive, "Support proxy must keep an enabled collider for movement/spawn support.");
         Assert.IsFalse(bootstrap.LastRuntimeCollisionSupportRendererVisible, "Manual-test support proxy must be invisible.");
+        Assert.AreEqual(0, bootstrap.LastVisibleSupportRendererCount, "No blue/debug support renderer may remain visible in normal mode.");
+        Assert.IsTrue(bootstrap.LastPlayableBoundsValid, "Playable bounds should be resolved for Chuo_BaseMap.");
+        Assert.AreEqual(4, bootstrap.LastPlayableAirWallColliderCount, "Invisible north/south/east/west air walls should be created.");
+        Assert.AreEqual(0, bootstrap.LastPlayableAirWallVisibleRendererCount, "Air walls must not render in normal player mode.");
+        Assert.IsTrue(bootstrap.LastPlayableBounds.ContainsXZ(player.transform.position, 0f), "Player spawn must remain inside playable bounds.");
         Assert.LessOrEqual(Mathf.Abs(player.transform.position.y - bootstrap.LastRuntimeGroundSurfaceY), 0.35f, "Player/support surface must align with the visible map ground height tolerance.");
         Assert.LessOrEqual(bootstrap.LastSupportToVisualGroundDelta, 0.35f, "Round-2 support surface should align to the sampled visual building/ground base.");
         Assert.LessOrEqual(bootstrap.LastPlayerSpawnGroundDelta, 0.35f, "Player spawn should sit near the aligned support surface.");
@@ -328,6 +335,7 @@ public class NewMapRuntimePlayModeTests
             Assert.GreaterOrEqual(delta.magnitude, crowd.MinDistanceFromPlayerMeters - 0.5f);
             Assert.Greater(position.y, -5f);
             Assert.Less(position.y, 8f);
+            Assert.IsTrue(crowd.RuntimePlayableBounds.ContainsXZ(position, 0f), "NPC positions must stay inside the playable air-wall bounds.");
         }
 
         Vector3[] deterministicA = NewMapNpcCrowdPrototype.GenerateDistributionForDiagnostics(player.transform.position, NewMapNpcDistributionConfig.Default());
@@ -346,6 +354,28 @@ public class NewMapRuntimePlayModeTests
         float delay = crowd.GetDelayForTarget(crowdTarget);
         Assert.GreaterOrEqual(delay, 0f);
         Assert.LessOrEqual(delay, 8f);
+    }
+
+    [UnityTest]
+    public IEnumerator RuntimeNameLabelsUseOfflineRealSourcesOnly()
+    {
+        NewMapRuntimeBootstrap.CreateForCurrentScene();
+        NewMapNameLabelController labels = Object.FindObjectOfType<NewMapNameLabelController>();
+        NewMapGameController controller = Object.FindObjectOfType<NewMapGameController>();
+        Assert.NotNull(labels);
+        Assert.NotNull(controller);
+
+        yield return null;
+
+        Assert.IsFalse(labels.RuntimeNetworkRequestsAllowed, "Runtime labels must not perform online geocoding/name lookup.");
+        Assert.IsFalse(labels.SceneWideMetadataScanPerformed, "Runtime labels should not full-scan the PLATEAU scene every frame.");
+        Assert.IsFalse(labels.IdOnlyLabelsVisibleInNormalMode, "ID-only labels stay debug-only.");
+        Assert.AreEqual(0, labels.BuildingNameLabelCount, "No generic building names should be fabricated when no source/cache name exists.");
+        Assert.AreEqual(0, labels.RoadNameLabelCount, "No road names should be fabricated when no source/cache name exists.");
+        StringAssert.Contains("no_source_name_available", labels.SourceNameAvailabilityStatus);
+        Assert.Greater(labels.NonOfficialCandidateLabelCount, 0, "Existing non-official candidate dataset names should be label sources.");
+        Assert.LessOrEqual(labels.ActiveLabelCount, NewMapNameLabelConfig.Default().maxVisibleLabels);
+        Assert.IsTrue(controller.RuntimeTargets.Any(target => target.NonOfficialWarningRequired), "Label test expects non-official warning targets to remain active.");
     }
 
     [UnityTest]

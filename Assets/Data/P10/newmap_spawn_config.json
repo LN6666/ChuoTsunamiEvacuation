@@ -8,5 +8,6 @@
   "useGroundProbe": true,
   "useGroundSupportFallback": true,
   "fallbackSafeSpawnId": "newmap_safe_spawn_01",
-  "spawnRandomSeed": 20260529
+  "spawnRandomSeed": 20260529,
+  "minDistanceFromAirWallMeters": 2.0
 }

@@ -1,0 +1,15 @@
+{
+  "enabled": true,
+  "autoDetectFromMapBounds": true,
+  "manualBoundsEnabled": false,
+  "minX": -1363.6,
+  "maxX": 1359.3,
+  "minZ": -1902.1,
+  "maxZ": 2851.3,
+  "marginMeters": 2.0,
+  "boundaryHeightMeters": 80.0,
+  "boundaryThicknessMeters": 4.0,
+  "debugVisualizationEnabled": false,
+  "blockNpcMovement": true,
+  "minSpawnDistanceFromAirWallMeters": 2.0
+}

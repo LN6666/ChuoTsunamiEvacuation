@@ -1,0 +1,20 @@
+{
+  "generatedAt": "2026-05-29T00:00:00+09:00",
+  "activeScene": "Assets/Scenes/Chuo_BaseMap.unity",
+  "boundsSource": "runtime auto-detected map renderer bounds, documented fallback if unavailable",
+  "minX": -1361.55,
+  "maxX": 1357.26,
+  "minZ": -1900.08,
+  "maxZ": 2849.24,
+  "marginMeters": 2.0,
+  "boundaryHeightMeters": 80.0,
+  "boundaryThicknessMeters": 4.0,
+  "autoDetected": true,
+  "airWallCollidersRequired": 4,
+  "playerSmokeAirWallColliders": 4,
+  "airWallRenderersVisibleInNormalMode": false,
+  "playerSmokeAirWallVisibleRenderers": 0,
+  "spawnValidationUsesPlayableBounds": true,
+  "npcDistributionUsesPlayableBounds": true,
+  "finalStatus": "completed_on_new_chuo_basemap_player_smoke"
+}

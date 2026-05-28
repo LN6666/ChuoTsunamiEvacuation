@@ -1,0 +1,24 @@
+{
+  "enabled": true,
+  "runtimeNetworkRequestsAllowed": false,
+  "preferSourceMetadata": true,
+  "allowOnlineLookup": true,
+  "providerPriority": [
+    "source_metadata",
+    "project_data",
+    "osm_nominatim",
+    "gsi"
+  ],
+  "cacheResults": true,
+  "rateLimitSeconds": 1.1,
+  "maxQueriesPerRun": 200,
+  "onlyQueryMissingNames": true,
+  "queryBuildings": true,
+  "queryRoads": true,
+  "minConfidence": 0.6,
+  "writeAttribution": true,
+  "userAgent": "ChuoTsunamiEvacuationNewMapNameEnrichment/1.0",
+  "nominatimEndpoint": "https://nominatim.openstreetmap.org/reverse",
+  "acceptLanguage": "ja,en",
+  "saveRawResponses": false
+}

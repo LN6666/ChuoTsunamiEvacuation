@@ -1,0 +1,22 @@
+{
+  "enabled": true,
+  "showOfficialShelterNames": true,
+  "showNonOfficialCandidateNames": true,
+  "showBuildingNames": false,
+  "showRoadNames": true,
+  "showTokyoStationName": true,
+  "showIdOnlyLabelsInDebug": false,
+  "maxVisibleLabels": 80,
+  "maxVisibleRoadLabels": 30,
+  "maxVisibleBuildingLabels": 30,
+  "maxCachedLabelSources": 300,
+  "labelMaxDistanceMeters": 250.0,
+  "importantLabelMaxDistanceMeters": 600.0,
+  "minScreenSpacingPixels": 32.0,
+  "enableDistanceCulling": true,
+  "enableFrustumCulling": true,
+  "enableLabelDecluttering": true,
+  "labelUpdateIntervalSeconds": 0.25,
+  "minConfidence": 0.6,
+  "runtimeNetworkRequestsAllowed": false
+}

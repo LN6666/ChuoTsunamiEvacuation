@@ -1,0 +1,16 @@
+{
+  "generatedAt": "2026-05-29T00:00:00+09:00",
+  "activeScene": "Assets/Scenes/Chuo_BaseMap.unity",
+  "totalBuildingObjectsScanned": 0,
+  "totalRoadTransportationObjectsScanned": 0,
+  "buildingNamesFound": 0,
+  "roadNamesFound": 0,
+  "officialShelterNamesFound": 27,
+  "humanitarianCandidateNamesFound": 78,
+  "tokyoStationNamesFound": 0,
+  "unnamedObjects": "not scanned at runtime",
+  "idOnlyObjects": "hidden in normal mode",
+  "sourceNameAvailabilityStatus": "no_source_name_available_for_generic_building_or_road_names",
+  "sourceRule": "Only source metadata, project datasets, or confidence-gated local name cache may produce normal labels. No fabricated road/building names.",
+  "runtimeNetworkRequestsAllowed": false
+}
