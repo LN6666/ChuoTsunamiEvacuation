@@ -2,16 +2,17 @@
   "generatedAt": "2026-05-29T00:00:00+09:00",
   "activeScene": "Assets/Scenes/Chuo_BaseMap.unity",
   "manualReadinessDecision": "ready_with_documented_visual_limitations",
-  "reason": "Round-2 preflight, EditMode, PlayMode, temp player build, fresh Player.log parse, and DeepSeek review passed. Physical mouse-drag feel, visible ground/building alignment, night readability, and material/photo-texture acceptability still need manual confirmation.",
-  "mouseLookStatus": "round2_drag_look_validated_mouse_movement_alone_no_rotate_button_drag_rotates_physical_confirmation_remaining",
+  "reason": "Spawn-on-playable-ground validation, building-bounds rejection, left/right mouse drag, preflight, EditMode, PlayMode, temp player build, Player.log parse, and DeepSeek review passed. Manual visual confirmation is still required for visible road/playable-ground feel and previously documented material/ground limitations.",
+  "mouseLookStatus": "left_and_right_drag_look_validated_player_smoke_manual_confirmation_remaining",
+  "spawnValidationStatus": "road_or_playable_ground_only_spawn_validated_3_attempts_2_building_rejections_nearest_building_4_70m",
   "lightingStatus": "round2_day_preserved_night_sky_dark_buildings_readable_by_profile_and_smoke_manual_confirmation_remaining",
   "debugCleanupStatus": "production_mode_debug_objects_hidden_by_preflight_and_player_log_manual_visual_confirmation_remaining",
   "materialLodVisualStatus": "round2_material_texture_audit_documented_no_lod2_claim_manual_acceptance_remaining",
   "groundAlignmentStatus": "round2_support_raised_to_1_97m_sampled_visual_base_spawn_delta_0_04m_manual_confirmation_remaining",
   "buildingClippingStatus": "round2_support_height_realign_done_two_elevated_active_target_offsets_documented_manual_classification_remaining",
   "npcDistributionStatus": "validated_160_requested_160_spawned_within_1000m_24_sectors_5_rings_no_cap",
-  "gameplayRegressionStatus": "EditMode_114_114_PlayMode_26_26_passed",
-  "tempPlayerPath": "D:\\UnityProjects\\ChuoTsunamiEvacuation-Builds\\NewMapVisualRound2Pre\\ChuoTsunamiEvacuation_NewMapVisualRound2Pre.exe",
+  "gameplayRegressionStatus": "EditMode_114_114_PlayMode_27_27_passed",
+  "tempPlayerPath": "D:\\UnityProjects\\ChuoTsunamiEvacuation-Builds\\NewMapSpawnMouseFixPre\\ChuoTsunamiEvacuation_NewMapSpawnMouseFixPre.exe",
   "tempPlayerBuildResult": "passed",
   "npcConfigCopiedToPlayerData": true,
   "playerLogErrors": 0,
@@ -46,7 +47,18 @@
   "editModeResult": "passed_114_114",
   "playModeResult": "passed_26_26",
   "preflightResult": "passed",
-  "deepSeekVerdict": "passed_no_A_level_blockers",
+  "spawnValidationSample": {
+    "spawnAttempts": 3,
+    "rejectedInsideBuildingCount": 2,
+    "fallbackUsed": false,
+    "nearestBuildingDistanceMeters": 4.70,
+    "finalSpawnPosition": {
+      "x": 91.02,
+      "y": 2.01,
+      "z": 958.78
+    }
+  },
+  "deepSeekVerdict": "passed_no_A_level_blockers_newmap_spawn_mouse_fix",
   "remainingLimitations": [
     "LOD2 textured building quality is not claimed because the documented current import is Buildings/LOD1.",
     "Any PLATEAU source geometry clipping still visible after runtime support/proxy cleanup requires manual classification.",
@@ -55,7 +67,8 @@
     "Photo-projected/appearance texture roughness is documented as an import/PLATEAU material limitation unless a later approved material conversion or reimport proves otherwise.",
     "A single flat gameplay support plane cannot perfectly match every elevated terrain/building base across the full Chuo map; 2 active target anchors remain more than 2.5m from the support height and require manual visual classification.",
     "Physical mouse drag feel and cursor behavior still need confirmation in the manual build.",
-    "Manual visual confirmation is still required for night building readability and ground/building alignment from the player camera."
+    "Manual visual confirmation is still required for night building readability and ground/building alignment from the player camera.",
+    "Manual spawn confirmation is required to verify the player starts on visible road/playable ground and can move immediately."
   ],
   "finalStatus": "ready_with_documented_visual_limitations"
 }

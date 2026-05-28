@@ -1,0 +1,19 @@
+{
+  "generatedAt": "2026-05-29T00:00:00+09:00",
+  "activeScene": "Assets/Scenes/Chuo_BaseMap.unity",
+  "cacheBuiltAt": "runtime_startup_bounds_scan",
+  "cacheScope": "renderer_bounds_only_for_spawn_selection",
+  "scanFrequency": "once_at_bootstrap_not_every_update",
+  "excludesRuntimeGeneratedUiMarkersAndSupport": true,
+  "minimumBuildingHeightMeters": 1.0,
+  "maximumSingleBoundsFootprintMeters": 400,
+  "usedForPerFrameLogic": false,
+  "overlapRejection": true,
+  "nearestDistanceReported": true,
+  "latestPlayerSmoke": {
+    "buildingBoundsCached": 12742,
+    "rejectedInsideBuildingCount": 2,
+    "nearestAcceptedSpawnBuildingDistanceMeters": 4.70
+  },
+  "finalStatus": "validated_by_player_log_smoke"
+}

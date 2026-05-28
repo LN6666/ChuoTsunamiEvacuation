@@ -138,7 +138,11 @@ public class NewMapIntegrationConfigTests
             "Data/P10/newmap_lighting_profiles.json",
             "Data/P10/newmap_night_lighting_correction.json",
             "Data/P10/newmap_debug_cleanup_round2.json",
-            "Data/P10/newmap_visual_round2_gameplay_regression.json"
+            "Data/P10/newmap_visual_round2_gameplay_regression.json",
+            "Data/P10/newmap_spawn_config.json",
+            "Data/P10/newmap_safe_spawn_points.json",
+            "Data/P10/newmap_spawn_validation_report.json",
+            "Data/P10/newmap_building_bounds_cache_status.json"
         };
 
         foreach (string relativePath in requiredPaths)
@@ -156,7 +160,15 @@ public class NewMapIntegrationConfigTests
         string mouse = File.ReadAllText(Path.Combine(Application.dataPath, "Data/P10/newmap_mouse_drag_look_config.json"));
         StringAssert.Contains("\"lookRequiresMouseButton\": true", mouse);
         StringAssert.Contains("\"lookMouseButton\": \"RightMouse\"", mouse);
+        StringAssert.Contains("\"allowedButtons\"", mouse);
+        StringAssert.Contains("\"LeftMouse\"", mouse);
+        StringAssert.Contains("\"RightMouse\"", mouse);
         StringAssert.Contains("\"cursorVisibleWhenNotDragging\": true", mouse);
+
+        string spawn = File.ReadAllText(Path.Combine(Application.dataPath, "Data/P10/newmap_spawn_config.json"));
+        StringAssert.Contains("\"spawnMode\": \"road_or_playable_ground_only\"", spawn);
+        StringAssert.Contains("\"useBuildingBoundsRejection\": true", spawn);
+        StringAssert.Contains("\"fallbackSafeSpawnId\": \"newmap_safe_spawn_01\"", spawn);
 
         string readiness = File.ReadAllText(Path.Combine(Application.dataPath, "Data/P10/newmap_manual_playtest_readiness.json"));
         StringAssert.Contains("\"manualReadinessDecision\"", readiness);
@@ -169,6 +181,9 @@ public class NewMapIntegrationConfigTests
         Assert.IsTrue(mouse.enabled);
         Assert.IsTrue(mouse.lookRequiresMouseButton);
         Assert.AreEqual(1, NewMapMouseDragLookConfig.ParseMouseButtonIndex(mouse.lookMouseButton));
+        CollectionAssert.AreEquivalent(
+            new[] { 0, 1 },
+            NewMapMouseDragLookConfig.ParseAllowedMouseButtonIndices(mouse.allowedButtons, mouse.lookMouseButton));
         Assert.GreaterOrEqual(mouse.pitchMin, -70f);
         Assert.LessOrEqual(mouse.pitchMax, 80f);
 

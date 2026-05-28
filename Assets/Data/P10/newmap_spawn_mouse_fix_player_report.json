@@ -1,0 +1,55 @@
+﻿{
+    "generatedAt":  "2026-05-29T03:48:52",
+    "activeScene":  "Assets/Scenes/Chuo_BaseMap.unity",
+    "buildPath":  "D:\\UnityProjects\\ChuoTsunamiEvacuation-Builds\\NewMapSpawnMouseFixPre\\ChuoTsunamiEvacuation_NewMapSpawnMouseFixPre.exe",
+    "buildExists":  true,
+    "copiedRuntimeConfigs":  [
+                                 "newmap_npc_distribution_config.json",
+                                 "newmap_mouse_drag_look_config.json",
+                                 "newmap_lighting_profiles.json",
+                                 "newmap_spawn_config.json",
+                                 "newmap_safe_spawn_points.json"
+                             ],
+    "unityExitCode":  0,
+    "logPath":  "D:\\UnityProjects\\ChuoTsunamiEvacuation\\Logs\\newmap_spawn_mouse_fix_build.log",
+    "finalStatus":  "completed_on_new_chuo_basemap",
+    "lightingNightRegression":  "not_reworked_this_task",
+    "note":  "Temporary spawn/mouse-fix player only. This is not a final release package.",
+    "playerLogSummary":  "completed",
+    "playerLogErrors":  0,
+    "playerLogWarnings":  0,
+    "deepSeekVerdict":  "passed_no_A_level_blockers_newmap_spawn_mouse_fix",
+    "spawnValidationSmoke":  "passed",
+    "mouseLeftRightDragSmoke":  "passed",
+    "launchSmoke":  "completed_self_audit_smoke_passed",
+    "spawnValidationSample":  {
+                                  "spawnValidationPassed":  true,
+                                  "spawnMode":  "road_or_playable_ground_only",
+                                  "spawnAttempts":  3,
+                                  "spawnAccepted":  1,
+                                  "rejectedInsideBuilding":  2,
+                                  "rejectedNoGround":  0,
+                                  "rejectedOutOfBounds":  0,
+                                  "rejectedTooCloseToBuilding":  0,
+                                  "fallbackUsed":  false,
+                                  "fallbackSafeSpawnId":  "none",
+                                  "nearestBuildingDistance":  4.7,
+                                  "buildingBoundsCached":  12742,
+                                  "finalSpawnPosition":  {
+                                                             "x":  91.02,
+                                                             "y":  2.01,
+                                                             "z":  958.78
+                                                         }
+                              },
+    "fpsStutterSample":  {
+                             "elapsedSeconds":  180,
+                             "frameCount":  625101,
+                             "averageFps":  3472.78,
+                             "maxFrameMs":  12963.69,
+                             "stutterFramesOver66ms":  2,
+                             "requestedNpcCount":  160,
+                             "spawnedNpcCount":  160,
+                             "cappedNpcCount":  160,
+                             "activeNpcCount":  160
+                         }
+}

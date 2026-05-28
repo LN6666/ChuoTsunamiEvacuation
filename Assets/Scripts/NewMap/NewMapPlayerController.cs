@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 
@@ -10,6 +11,7 @@ public sealed class NewMapPlayerController : MonoBehaviour
     [SerializeField] private bool dragLookEnabled = true;
     [SerializeField] private bool lookRequiresMouseButton = true;
     [SerializeField] private int lookMouseButton = 1;
+    [SerializeField] private int[] allowedLookMouseButtons = { 0, 1 };
     [SerializeField] private bool cursorVisibleWhenNotDragging = true;
     [SerializeField] private float mouseSensitivityX = 2.0f;
     [SerializeField] private float mouseSensitivityY = 1.5f;
@@ -48,7 +50,8 @@ public sealed class NewMapPlayerController : MonoBehaviour
     public bool WantsLockedCursor => wantsLockedCursor;
     public bool IsMouseLookDragging => isMouseLookDragging;
     public bool LookRequiresMouseButton => lookRequiresMouseButton;
-    public string LookMouseButtonName => NewMapMouseDragLookConfig.MouseButtonNameFromIndex(lookMouseButton);
+    public string LookMouseButtonName => string.Join(",", AllowedLookMouseButtonNames);
+    public string[] AllowedLookMouseButtonNames => NewMapMouseDragLookConfig.MouseButtonNamesFromIndices(allowedLookMouseButtons);
     public bool CursorVisibleWhenNotDragging => cursorVisibleWhenNotDragging;
     public float MouseSensitivity => (MouseSensitivityX + MouseSensitivityY) * 0.5f;
     public float MouseSensitivityX => mouseSensitivityX;
@@ -294,7 +297,7 @@ public sealed class NewMapPlayerController : MonoBehaviour
 
         if (mouseLookEnabled)
         {
-            bool buttonHeld = !lookRequiresMouseButton || Input.GetMouseButton(lookMouseButton);
+            bool buttonHeld = !lookRequiresMouseButton || IsAnyLookMouseButtonHeld();
             SetMouseLookDragging(buttonHeld);
             if (buttonHeld)
             {
@@ -343,13 +346,28 @@ public sealed class NewMapPlayerController : MonoBehaviour
 
     public bool ApplyLookInputForDiagnostics(float mouseX, float mouseY, bool mouseButtonHeld)
     {
+        return ApplyLookInputForDiagnosticsResolved(mouseX, mouseY, !lookRequiresMouseButton || mouseButtonHeld);
+    }
+
+    public bool ApplyLookInputForDiagnostics(float mouseX, float mouseY, string mouseButtonName)
+    {
+        int buttonIndex = NewMapMouseDragLookConfig.ParseMouseButtonIndex(mouseButtonName);
+        return ApplyLookInputForDiagnosticsResolved(mouseX, mouseY, !lookRequiresMouseButton || IsLookMouseButtonAllowed(buttonIndex));
+    }
+
+    public bool ApplyLookInputForDiagnostics(float mouseX, float mouseY, int mouseButtonIndex)
+    {
+        return ApplyLookInputForDiagnosticsResolved(mouseX, mouseY, !lookRequiresMouseButton || IsLookMouseButtonAllowed(mouseButtonIndex));
+    }
+
+    private bool ApplyLookInputForDiagnosticsResolved(float mouseX, float mouseY, bool canLook)
+    {
         if (!controlEnabled || !mouseLookEnabled)
         {
             SetMouseLookDragging(false);
             return false;
         }
 
-        bool canLook = !lookRequiresMouseButton || mouseButtonHeld;
         SetMouseLookDragging(canLook);
         if (!canLook)
         {
@@ -376,7 +394,10 @@ public sealed class NewMapPlayerController : MonoBehaviour
         config = config ?? NewMapMouseDragLookConfig.Default();
         dragLookEnabled = config.enabled;
         lookRequiresMouseButton = config.lookRequiresMouseButton;
-        lookMouseButton = NewMapMouseDragLookConfig.ParseMouseButtonIndex(config.lookMouseButton);
+        allowedLookMouseButtons = NewMapMouseDragLookConfig.ParseAllowedMouseButtonIndices(config.allowedButtons, config.lookMouseButton);
+        lookMouseButton = allowedLookMouseButtons != null && allowedLookMouseButtons.Length > 0
+            ? allowedLookMouseButtons[0]
+            : NewMapMouseDragLookConfig.ParseMouseButtonIndex(config.lookMouseButton);
         cursorVisibleWhenNotDragging = config.cursorVisibleWhenNotDragging;
         mouseSensitivityX = Mathf.Clamp(config.sensitivityX, 0.05f, 20f);
         mouseSensitivityY = Mathf.Clamp(config.sensitivityY, 0.05f, 20f);
@@ -394,6 +415,42 @@ public sealed class NewMapPlayerController : MonoBehaviour
         isMouseLookDragging = controlEnabled && mouseLookEnabled && dragging;
         wantsLockedCursor = isMouseLookDragging;
         ApplyCursorState();
+    }
+
+    private bool IsAnyLookMouseButtonHeld()
+    {
+        if (allowedLookMouseButtons == null || allowedLookMouseButtons.Length == 0)
+        {
+            return Input.GetMouseButton(lookMouseButton);
+        }
+
+        for (int i = 0; i < allowedLookMouseButtons.Length; i++)
+        {
+            if (Input.GetMouseButton(allowedLookMouseButtons[i]))
+            {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    private bool IsLookMouseButtonAllowed(int buttonIndex)
+    {
+        if (allowedLookMouseButtons == null || allowedLookMouseButtons.Length == 0)
+        {
+            return buttonIndex == lookMouseButton;
+        }
+
+        for (int i = 0; i < allowedLookMouseButtons.Length; i++)
+        {
+            if (allowedLookMouseButtons[i] == buttonIndex)
+            {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     private void UpdateMovement()
@@ -512,6 +569,7 @@ public sealed class NewMapMouseDragLookConfig
     public bool enabled = true;
     public bool lookRequiresMouseButton = true;
     public string lookMouseButton = "RightMouse";
+    public string[] allowedButtons = { "LeftMouse", "RightMouse" };
     public float sensitivityX = 2.0f;
     public float sensitivityY = 1.5f;
     public float pitchMin = -60f;
@@ -549,7 +607,52 @@ public sealed class NewMapMouseDragLookConfig
             config.pitchMax = 70f;
         }
 
+        config.allowedButtons = MouseButtonNamesFromIndices(ParseAllowedMouseButtonIndices(config.allowedButtons, config.lookMouseButton));
+
         return config;
+    }
+
+    public static int[] ParseAllowedMouseButtonIndices(string[] values, string fallbackValue)
+    {
+        var parsed = new List<int>();
+        if (values != null)
+        {
+            for (int i = 0; i < values.Length; i++)
+            {
+                AddUnique(parsed, ParseMouseButtonIndex(values[i]));
+            }
+        }
+
+        if (parsed.Count == 0)
+        {
+            AddUnique(parsed, ParseMouseButtonIndex(fallbackValue));
+        }
+
+        return parsed.ToArray();
+    }
+
+    public static string[] MouseButtonNamesFromIndices(int[] indices)
+    {
+        if (indices == null || indices.Length == 0)
+        {
+            return new[] { "RightMouse" };
+        }
+
+        var names = new string[indices.Length];
+        for (int i = 0; i < indices.Length; i++)
+        {
+            names[i] = MouseButtonNameFromIndex(indices[i]);
+        }
+
+        return names;
+    }
+
+    private static void AddUnique(List<int> values, int candidate)
+    {
+        if (!values.Contains(candidate))
+        {
+            values.Add(candidate);
+        }
     }
 
     public static int ParseMouseButtonIndex(string value)

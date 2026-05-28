@@ -77,6 +77,11 @@ public static class NewMapSceneSetupUtility
         BuildNewMapPlayer("D:/UnityProjects/ChuoTsunamiEvacuation-Builds/NewMapVisualRound2Pre", "ChuoTsunamiEvacuation_NewMapVisualRound2Pre.exe");
     }
 
+    public static void BuildNewMapSpawnMouseFixPlayerCommandLine()
+    {
+        BuildNewMapPlayer("D:/UnityProjects/ChuoTsunamiEvacuation-Builds/NewMapSpawnMouseFixPre", "ChuoTsunamiEvacuation_NewMapSpawnMouseFixPre.exe");
+    }
+
     private static void BuildNewMapPlayer(string buildDirectory, string executableName)
     {
         Directory.CreateDirectory(buildDirectory);

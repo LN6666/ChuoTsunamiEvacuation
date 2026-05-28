@@ -1,0 +1,48 @@
+﻿{
+    "generatedAt":  "2026-05-29T03:53:23",
+    "logPath":  "C:\\Users\\liangjn\\AppData\\LocalLow\\DefaultCompany\\ChuoTsunamiEvacuation\\Player.log",
+    "errorCount":  0,
+    "warningCount":  0,
+    "spawnValidationSample":  {
+                                  "spawnValidationPassed":  true,
+                                  "spawnMode":  "road_or_playable_ground_only",
+                                  "spawnAttempts":  3,
+                                  "spawnAccepted":  1,
+                                  "rejectedInsideBuilding":  2,
+                                  "rejectedNoGround":  0,
+                                  "rejectedOutOfBounds":  0,
+                                  "rejectedTooCloseToBuilding":  0,
+                                  "fallbackUsed":  false,
+                                  "fallbackSafeSpawnId":  "none",
+                                  "nearestBuildingDistance":  4.7,
+                                  "buildingBoundsCached":  12742,
+                                  "finalSpawnPosition":  {
+                                                             "x":  91.02,
+                                                             "y":  2.01,
+                                                             "z":  958.78
+                                                         }
+                              },
+    "performanceSample":  {
+                              "elapsedSeconds":  180,
+                              "frameCount":  625101,
+                              "averageFps":  3472.78,
+                              "maxFrameMs":  12963.69,
+                              "stutterFramesOver66ms":  2,
+                              "requestedNpcCount":  160,
+                              "spawnedNpcCount":  160,
+                              "cappedNpcCount":  160,
+                              "activeNpcCount":  160
+                          },
+    "bootstrapLine":  "NewMap runtime bootstrap completed. renderers=18596 colliders=18596 groundSupportProxy=False collisionSupportProxy=True oldSupportSurfaceY=0.00 supportSurfaceY=1.97 visualGroundY=1.97 sampledBuildingBaseY=1.97 sampledMapMinY=-8.52 visualGroundSamples=12754 supportToVisualGroundDelta=0.00 spawnGroundDelta=0.04 activeTargetMaxHeightOffset=3.27 activeTargetHeightOffsetViolations=2 supportRendererVisible=False meshColliderShutdown=disabled_runtime_startup activeRuntimeTargets=97 spawnValidationPassed=True spawnMode=road_or_playable_ground_only spawnAttempts=3 spawnAccepted=1 spawnRejectedInsideBuilding=2 spawnRejectedNoGround=0 spawnRejectedOutOfBounds=0 spawnRejectedTooCloseToBuilding=0 spawnFallbackUsed=False fallbackSafeSpawnId=none nearestBuildingDistance=4.70 buildingBoundsCached=12742 spawnX=91.02 spawnY=2.01 spawnZ=958.78",
+    "mouseLeftRightDragSmokeLine":  "NewMap gameplay self-audit smoke: scenario=mouse_left_right_drag_look result=pass detail=allowedButtons=LeftMouse,RightMouse",
+    "spawnValidationSmokeLine":  "NewMap gameplay self-audit smoke: scenario=spawn_road_playable_ground_validation result=pass detail=source=random_playable_support attempts=3 insideRejected=2 noGroundRejected=0 nearestBuildingDistance=4.70 fallbackUsed=False",
+    "nightLightingRegressionLine":  "NewMap gameplay self-audit smoke: scenario=night_lighting_dark_sky_readable_buildings result=pass detail=nightSky=0.042 readability=0.517 dayRestored=True",
+    "launchSmokePassed":  true,
+    "firstErrors":  [
+
+                    ],
+    "firstWarnings":  [
+
+                      ],
+    "finalStatus":  "completed_on_new_chuo_basemap"
+}

@@ -55,6 +55,12 @@ public class NewMapRuntimePlayModeTests
             Object.DestroyImmediate(officialAnchorFixture);
         }
 
+        GameObject spawnOverlapFixture = GameObject.Find("bldg_spawn_overlap_rejection_fixture");
+        if (spawnOverlapFixture != null)
+        {
+            Object.DestroyImmediate(spawnOverlapFixture);
+        }
+
         string[] runtimeRootNames =
         {
             "RuntimeSystemsRoot",
@@ -127,7 +133,7 @@ public class NewMapRuntimePlayModeTests
         Assert.IsFalse(player.WantsLockedCursor);
         Assert.IsFalse(player.IsMouseLookDragging);
         Assert.IsTrue(player.LookRequiresMouseButton);
-        Assert.AreEqual("RightMouse", player.LookMouseButtonName);
+        CollectionAssert.AreEquivalent(new[] { "LeftMouse", "RightMouse" }, player.AllowedLookMouseButtonNames);
         float yaw = player.CurrentYaw;
         float pitch = player.CurrentPitch;
         Assert.IsFalse(player.ApplyLookInputForDiagnostics(4f, -3f, false));
@@ -136,7 +142,7 @@ public class NewMapRuntimePlayModeTests
         Assert.IsFalse(player.WantsLockedCursor);
         Assert.AreEqual(CursorLockMode.None, Cursor.lockState);
         Assert.IsTrue(Cursor.visible);
-        Assert.IsTrue(player.ApplyLookInputForDiagnostics(4f, -3f, true));
+        Assert.IsTrue(player.ApplyLookInputForDiagnostics(4f, -3f, "LeftMouse"));
         Assert.AreNotEqual(yaw, player.CurrentYaw);
         Assert.AreNotEqual(pitch, player.CurrentPitch);
         Assert.IsTrue(player.IsMouseLookDragging);
@@ -150,6 +156,12 @@ public class NewMapRuntimePlayModeTests
         Assert.IsFalse(player.WantsLockedCursor);
         Assert.AreEqual(CursorLockMode.None, Cursor.lockState);
         Assert.IsTrue(Cursor.visible);
+        yaw = player.CurrentYaw;
+        pitch = player.CurrentPitch;
+        Assert.IsTrue(player.ApplyLookInputForDiagnostics(4f, -3f, "RightMouse"));
+        Assert.AreNotEqual(yaw, player.CurrentYaw);
+        Assert.AreNotEqual(pitch, player.CurrentPitch);
+        player.ReleaseLookDragForDiagnostics();
 
         controller.SetPaused(true);
         yield return null;
@@ -175,8 +187,44 @@ public class NewMapRuntimePlayModeTests
         Assert.IsTrue(player.MouseLookEnabled);
         Assert.IsFalse(player.WantsLockedCursor);
         yaw = player.CurrentYaw;
-        Assert.IsTrue(player.ApplyLookInputForDiagnostics(3f, 0f, true));
+        Assert.IsTrue(player.ApplyLookInputForDiagnostics(3f, 0f, "LeftMouse"));
         Assert.AreNotEqual(yaw, player.CurrentYaw);
+        yaw = player.CurrentYaw;
+        Assert.IsTrue(player.ApplyLookInputForDiagnostics(3f, 0f, "RightMouse"));
+        Assert.AreNotEqual(yaw, player.CurrentYaw);
+    }
+
+    [UnityTest]
+    public IEnumerator RuntimeSpawnValidationRejectsBuildingOverlapAndUsesPlayableSupport()
+    {
+        GameObject building = GameObject.CreatePrimitive(PrimitiveType.Cube);
+        building.name = "bldg_spawn_overlap_rejection_fixture";
+        building.transform.position = new Vector3(0f, 1f, 0f);
+        building.transform.localScale = new Vector3(30f, 2f, 30f);
+
+        NewMapRuntimeBootstrap bootstrap = NewMapRuntimeBootstrap.CreateForCurrentScene();
+        NewMapPlayerController player = Object.FindObjectOfType<NewMapPlayerController>();
+        Assert.NotNull(bootstrap);
+        Assert.NotNull(player);
+
+        yield return null;
+
+        Assert.IsTrue(bootstrap.LastSpawnValidationPassed, "Spawn must pass the road/playable-ground validator before the player is created.");
+        Assert.AreEqual(1, bootstrap.LastSpawnAcceptedCount);
+        Assert.GreaterOrEqual(bootstrap.LastSpawnAttemptCount, 1);
+        Assert.GreaterOrEqual(bootstrap.LastSpawnRejectedInsideBuildingCount, 1, "The map-bounds center fixture should be rejected as inside a building.");
+        Assert.GreaterOrEqual(bootstrap.LastBuildingBoundsCacheCount, 1);
+        Assert.GreaterOrEqual(bootstrap.LastNearestBuildingDistance, NewMapSpawnConfig.Default().minDistanceFromBuildingMeters - 0.01f);
+        Assert.LessOrEqual(Mathf.Abs(player.transform.position.y - bootstrap.LastRuntimeGroundSurfaceY), 0.35f);
+        Bounds buildingBounds = building.GetComponent<Renderer>().bounds;
+        Assert.IsFalse(
+            player.transform.position.x >= buildingBounds.min.x &&
+            player.transform.position.x <= buildingBounds.max.x &&
+            player.transform.position.z >= buildingBounds.min.z &&
+            player.transform.position.z <= buildingBounds.max.z,
+            "Validated spawn may not overlap building renderer bounds in X/Z.");
+
+        Object.DestroyImmediate(building);
     }
 
     [UnityTest]

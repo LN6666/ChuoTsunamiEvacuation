@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -52,6 +53,25 @@ public sealed class NewMapRuntimeBootstrap : MonoBehaviour
     public int LastRendererCount { get; private set; }
     public int LastColliderCount { get; private set; }
     public bool LastMeshColliderDisableComplete { get; private set; }
+    public int LastSpawnAttemptCount { get; private set; }
+    public int LastSpawnAcceptedCount { get; private set; }
+    public int LastSpawnRejectedInsideBuildingCount { get; private set; }
+    public int LastSpawnRejectedNoGroundCount { get; private set; }
+    public int LastSpawnRejectedOutOfBoundsCount { get; private set; }
+    public int LastSpawnRejectedTooCloseToBuildingCount { get; private set; }
+    public bool LastSpawnFallbackUsed { get; private set; }
+    public bool LastSpawnValidationPassed { get; private set; }
+    public string LastSpawnMode { get; private set; } = string.Empty;
+    public string LastFallbackSafeSpawnId { get; private set; } = string.Empty;
+    public string LastSpawnValidationSource { get; private set; } = string.Empty;
+    public Vector3 LastFinalSpawnPosition { get; private set; }
+    public float LastNearestBuildingDistance { get; private set; }
+    public int LastBuildingBoundsCacheCount { get; private set; }
+    public bool LastBuildingBoundsCacheBuilt { get; private set; }
+
+    private readonly List<Bounds> buildingAvoidanceBounds = new List<Bounds>();
+    private NewMapSpawnConfig spawnConfig;
+    private NewMapSafeSpawnPointDataset safeSpawnDataset;
 
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
     private static void AutoBootstrap()
@@ -125,6 +145,8 @@ public sealed class NewMapRuntimeBootstrap : MonoBehaviour
     private void Build(Dictionary<string, Transform> roots)
     {
         var stopwatch = System.Diagnostics.Stopwatch.StartNew();
+        spawnConfig = NewMapSpawnConfig.Load();
+        safeSpawnDataset = NewMapSafeSpawnPointDataset.Load();
         PrepareManualTestRoots(roots);
         Physics.SyncTransforms();
         LastMapBoundsValid = TryResolveRuntimeMapBounds(out Bounds mapBounds, out int rendererCount, out int colliderCount);
@@ -135,6 +157,7 @@ public sealed class NewMapRuntimeBootstrap : MonoBehaviour
 
         LastOldRuntimeGroundSurfaceY = 0f;
         Vector3 spawn = ResolveSpawnPosition(mapBounds, LastMapBoundsValid, roots["DebugDiagnosticsRoot"]);
+        LastFinalSpawnPosition = spawn;
         LastPlayerSpawnGroundDelta = spawn.y - LastRuntimeGroundSurfaceY;
         EnsureRuntimeCollisionSupportProxy(roots["GameplaySupportRoot"], new Vector3(spawn.x, LastRuntimeGroundSurfaceY, spawn.z));
         Physics.SyncTransforms();
@@ -184,7 +207,13 @@ public sealed class NewMapRuntimeBootstrap : MonoBehaviour
             $"supportToVisualGroundDelta={LastSupportToVisualGroundDelta:F2} spawnGroundDelta={LastPlayerSpawnGroundDelta:F2} " +
             $"activeTargetMaxHeightOffset={LastMaxActiveTargetHeightOffset:F2} activeTargetHeightOffsetViolations={LastActiveTargetHeightOffsetViolations} " +
             $"supportRendererVisible={LastRuntimeCollisionSupportRendererVisible} meshColliderShutdown={meshColliderShutdown} " +
-            $"activeRuntimeTargets={targets.Count}");
+            $"activeRuntimeTargets={targets.Count} spawnValidationPassed={LastSpawnValidationPassed} " +
+            $"spawnMode={LastSpawnMode} spawnAttempts={LastSpawnAttemptCount} spawnAccepted={LastSpawnAcceptedCount} " +
+            $"spawnRejectedInsideBuilding={LastSpawnRejectedInsideBuildingCount} spawnRejectedNoGround={LastSpawnRejectedNoGroundCount} " +
+            $"spawnRejectedOutOfBounds={LastSpawnRejectedOutOfBoundsCount} spawnRejectedTooCloseToBuilding={LastSpawnRejectedTooCloseToBuildingCount} " +
+            $"spawnFallbackUsed={LastSpawnFallbackUsed} fallbackSafeSpawnId={LastFallbackSafeSpawnId} " +
+            $"nearestBuildingDistance={LastNearestBuildingDistance:F2} buildingBoundsCached={LastBuildingBoundsCacheCount} " +
+            $"spawnX={LastFinalSpawnPosition.x:F2} spawnY={LastFinalSpawnPosition.y:F2} spawnZ={LastFinalSpawnPosition.z:F2}");
     }
 
     private static void PrepareManualTestRoots(Dictionary<string, Transform> roots)
@@ -287,20 +316,39 @@ public sealed class NewMapRuntimeBootstrap : MonoBehaviour
             bool noButtonStayedStill =
                 Mathf.Abs(player.CurrentYaw - yawBeforeNoButton) < 0.001f &&
                 Mathf.Abs(player.CurrentPitch - pitchBeforeNoButton) < 0.001f;
-            bool dragApplied = player.ApplyLookInputForDiagnostics(8f, -4f, true);
-            bool dragRotated =
+            bool leftDragApplied = player.ApplyLookInputForDiagnostics(8f, -4f, "LeftMouse");
+            bool leftDragRotated =
                 Mathf.Abs(player.CurrentYaw - yawBeforeNoButton) > 0.001f &&
                 Mathf.Abs(player.CurrentPitch - pitchBeforeNoButton) > 0.001f;
             player.ReleaseLookDragForDiagnostics();
+            float yawBeforeRight = player.CurrentYaw;
+            float pitchBeforeRight = player.CurrentPitch;
+            bool rightDragApplied = player.ApplyLookInputForDiagnostics(8f, -4f, "RightMouse");
+            bool rightDragRotated =
+                Mathf.Abs(player.CurrentYaw - yawBeforeRight) > 0.001f &&
+                Mathf.Abs(player.CurrentPitch - pitchBeforeRight) > 0.001f;
+            player.ReleaseLookDragForDiagnostics();
             LogGameplaySmoke(
                 "mouse_drag_look_requires_button",
-                !noButtonApplied && noButtonStayedStill && dragApplied && dragRotated && !player.IsMouseLookDragging,
-                $"button={player.LookMouseButtonName} requiresButton={player.LookRequiresMouseButton}");
+                !noButtonApplied && noButtonStayedStill && leftDragApplied && leftDragRotated && rightDragApplied && rightDragRotated && !player.IsMouseLookDragging,
+                $"buttons={player.LookMouseButtonName} requiresButton={player.LookRequiresMouseButton}");
+            LogGameplaySmoke(
+                "mouse_left_right_drag_look",
+                leftDragApplied && leftDragRotated && rightDragApplied && rightDragRotated && !player.IsMouseLookDragging,
+                $"allowedButtons={player.LookMouseButtonName}");
         }
         else
         {
             LogGameplaySmoke("mouse_drag_look_requires_button", false, "Player missing");
+            LogGameplaySmoke("mouse_left_right_drag_look", false, "Player missing");
         }
+
+        NewMapSpawnConfig currentSpawnConfig = spawnConfig ?? NewMapSpawnConfig.Default();
+        bool spawnBuildingClear = LastBuildingBoundsCacheCount == 0 || LastNearestBuildingDistance >= currentSpawnConfig.minDistanceFromBuildingMeters;
+        LogGameplaySmoke(
+            "spawn_road_playable_ground_validation",
+            LastSpawnValidationPassed && LastSpawnAcceptedCount == 1 && spawnBuildingClear && Mathf.Abs(LastPlayerSpawnGroundDelta) <= 0.35f,
+            $"source={SafeLog(LastSpawnValidationSource)} attempts={LastSpawnAttemptCount} insideRejected={LastSpawnRejectedInsideBuildingCount} noGroundRejected={LastSpawnRejectedNoGroundCount} nearestBuildingDistance={LastNearestBuildingDistance:0.00} fallbackUsed={LastSpawnFallbackUsed}");
 
         if (recoveredNonOfficial != null)
         {
@@ -534,6 +582,7 @@ public sealed class NewMapRuntimeBootstrap : MonoBehaviour
         bounds = new Bounds(Vector3.zero, Vector3.zero);
         bool hasBounds = false;
         var baseSamples = new List<float>();
+        buildingAvoidanceBounds.Clear();
         ResetVisualGroundSamples();
 
         foreach (Renderer renderer in renderers)
@@ -558,6 +607,11 @@ public sealed class NewMapRuntimeBootstrap : MonoBehaviour
             {
                 baseSamples.Add(renderer.bounds.min.y);
             }
+
+            if (IsUsableBuildingAvoidanceBounds(renderer.bounds))
+            {
+                buildingAvoidanceBounds.Add(renderer.bounds);
+            }
         }
 
         foreach (Collider collider in colliders)
@@ -579,13 +633,74 @@ public sealed class NewMapRuntimeBootstrap : MonoBehaviour
             LastVisualGroundReferenceY = LastSampledBuildingBaseY;
         }
 
+        LastBuildingBoundsCacheCount = buildingAvoidanceBounds.Count;
+        LastBuildingBoundsCacheBuilt = LastBuildingBoundsCacheCount > 0;
+
         return hasBounds && bounds.size.sqrMagnitude > 1f;
     }
 
     private Vector3 ResolveSpawnPosition(Bounds mapBounds, bool hasBounds, Transform diagnosticsRoot)
     {
+        ResetSpawnValidationDiagnostics();
+        NewMapSpawnConfig config = spawnConfig ?? NewMapSpawnConfig.Default();
+        LastSpawnMode = string.IsNullOrWhiteSpace(config.spawnMode)
+            ? "road_or_playable_ground_only"
+            : config.spawnMode;
+
         Vector3 basePosition = hasBounds ? mapBounds.center : Vector3.zero;
         float rayStartY = hasBounds ? mapBounds.max.y + 250f : 250f;
+        float supportSurfaceY = ResolveSupportSurfaceY(mapBounds, hasBounds, basePosition, rayStartY);
+        LastRuntimeGroundSurfaceY = supportSurfaceY;
+        LastSupportToVisualGroundDelta = Mathf.Abs(LastRuntimeGroundSurfaceY - LastVisualGroundReferenceY);
+        bool hasSupportSurface = LastVisualGroundSampleValid || hasBounds || LastUsedGroundSupportProxy;
+
+        Vector3 candidate = new Vector3(basePosition.x, supportSurfaceY + GroundSkinOffset, basePosition.z);
+        if (TryValidateSpawnCandidate(candidate, supportSurfaceY, hasSupportSurface, mapBounds, hasBounds, config, "map_bounds_center", out Vector3 accepted))
+        {
+            return accepted;
+        }
+
+        var random = new System.Random(config.spawnRandomSeed);
+        int maxAttempts = Mathf.Clamp(config.maxSpawnAttempts, 1, 2000);
+        float radius = Mathf.Clamp(config.spawnRadiusMeters, 25f, 2500f);
+        while (config.randomSpawnEnabled && LastSpawnAttemptCount < maxAttempts)
+        {
+            float angle = (float)random.NextDouble() * Mathf.PI * 2f;
+            float distance = Mathf.Sqrt((float)random.NextDouble()) * radius;
+            candidate = basePosition + new Vector3(Mathf.Cos(angle) * distance, 0f, Mathf.Sin(angle) * distance);
+            candidate.y = supportSurfaceY + GroundSkinOffset;
+
+            if (TryValidateSpawnCandidate(candidate, supportSurfaceY, hasSupportSurface, mapBounds, hasBounds, config, "random_playable_support", out accepted))
+            {
+                return accepted;
+            }
+        }
+
+        LastSpawnFallbackUsed = true;
+        foreach (NewMapSafeSpawnPointRecord safePoint in GetSafeSpawnPointRecords())
+        {
+            if (safePoint == null || string.IsNullOrWhiteSpace(safePoint.id))
+            {
+                continue;
+            }
+
+            candidate = new Vector3(safePoint.position.x, supportSurfaceY + GroundSkinOffset, safePoint.position.z);
+            if (TryValidateSpawnCandidate(candidate, supportSurfaceY, hasSupportSurface, mapBounds, hasBounds, config, "fallback_safe_spawn:" + safePoint.id, out accepted))
+            {
+                LastFallbackSafeSpawnId = safePoint.id;
+                return accepted;
+            }
+        }
+
+        LastSpawnValidationPassed = false;
+        LastFallbackSafeSpawnId = string.IsNullOrWhiteSpace(config.fallbackSafeSpawnId) ? "none" : config.fallbackSafeSpawnId;
+        LastNearestBuildingDistance = CalculateNearestBuildingDistance(candidate);
+        LastSpawnValidationSource = "unvalidated_last_resort_support_center";
+        return new Vector3(basePosition.x, supportSurfaceY + GroundSkinOffset, basePosition.z);
+    }
+
+    private float ResolveSupportSurfaceY(Bounds mapBounds, bool hasBounds, Vector3 basePosition, float rayStartY)
+    {
         Vector3[] offsets =
         {
             Vector3.zero,
@@ -600,9 +715,7 @@ public sealed class NewMapRuntimeBootstrap : MonoBehaviour
         {
             supportSurfaceY = LastVisualGroundReferenceY;
             LastUsedGroundSupportProxy = false;
-            LastRuntimeGroundSurfaceY = supportSurfaceY;
-            LastSupportToVisualGroundDelta = Mathf.Abs(LastRuntimeGroundSurfaceY - LastVisualGroundReferenceY);
-            return new Vector3(basePosition.x, supportSurfaceY + GroundSkinOffset, basePosition.z);
+            return supportSurfaceY;
         }
 
         foreach (Vector3 offset in offsets)
@@ -617,9 +730,7 @@ public sealed class NewMapRuntimeBootstrap : MonoBehaviour
                 LastSampledMapMinY = supportSurfaceY;
                 LastSampledBuildingBaseY = supportSurfaceY;
                 LastVisualGroundReferenceY = supportSurfaceY;
-                LastRuntimeGroundSurfaceY = supportSurfaceY;
-                LastSupportToVisualGroundDelta = 0f;
-                return hit.point + Vector3.up * GroundSkinOffset;
+                return supportSurfaceY;
             }
         }
 
@@ -628,10 +739,194 @@ public sealed class NewMapRuntimeBootstrap : MonoBehaviour
         LastSampledMapMinY = hasBounds ? mapBounds.min.y : supportSurfaceY;
         LastSampledBuildingBaseY = supportSurfaceY;
         LastVisualGroundReferenceY = supportSurfaceY;
-        LastRuntimeGroundSurfaceY = supportSurfaceY;
-        LastSupportToVisualGroundDelta = 0f;
-        Vector3 supportCenter = new Vector3(basePosition.x, supportSurfaceY, basePosition.z);
-        return supportCenter + Vector3.up * GroundSkinOffset;
+        return supportSurfaceY;
+    }
+
+    private void ResetSpawnValidationDiagnostics()
+    {
+        LastSpawnAttemptCount = 0;
+        LastSpawnAcceptedCount = 0;
+        LastSpawnRejectedInsideBuildingCount = 0;
+        LastSpawnRejectedNoGroundCount = 0;
+        LastSpawnRejectedOutOfBoundsCount = 0;
+        LastSpawnRejectedTooCloseToBuildingCount = 0;
+        LastSpawnFallbackUsed = false;
+        LastSpawnValidationPassed = false;
+        LastFallbackSafeSpawnId = "none";
+        LastSpawnValidationSource = string.Empty;
+        LastFinalSpawnPosition = Vector3.zero;
+        LastNearestBuildingDistance = 9999f;
+    }
+
+    private IEnumerable<NewMapSafeSpawnPointRecord> GetSafeSpawnPointRecords()
+    {
+        NewMapSafeSpawnPointDataset dataset = safeSpawnDataset ?? NewMapSafeSpawnPointDataset.Default();
+        if (dataset.records == null || dataset.records.Length == 0)
+        {
+            dataset = NewMapSafeSpawnPointDataset.Default();
+        }
+
+        for (int i = 0; i < dataset.records.Length; i++)
+        {
+            yield return dataset.records[i];
+        }
+    }
+
+    private bool TryValidateSpawnCandidate(
+        Vector3 candidate,
+        float supportSurfaceY,
+        bool hasSupportSurface,
+        Bounds mapBounds,
+        bool hasBounds,
+        NewMapSpawnConfig config,
+        string source,
+        out Vector3 accepted)
+    {
+        LastSpawnAttemptCount++;
+        accepted = Vector3.zero;
+
+        if (!TryResolveGroundedSpawn(candidate, supportSurfaceY, hasSupportSurface, config, out Vector3 grounded))
+        {
+            LastSpawnRejectedNoGroundCount++;
+            return false;
+        }
+
+        if (!IsInsidePlayableBounds(grounded, mapBounds, hasBounds))
+        {
+            LastSpawnRejectedOutOfBoundsCount++;
+            return false;
+        }
+
+        float nearestDistance = CalculateNearestBuildingDistance(grounded);
+        if (config.useBuildingBoundsRejection && IsInsideBuildingBounds(grounded))
+        {
+            LastNearestBuildingDistance = nearestDistance;
+            LastSpawnRejectedInsideBuildingCount++;
+            return false;
+        }
+
+        if (config.useBuildingBoundsRejection && nearestDistance < config.minDistanceFromBuildingMeters)
+        {
+            LastNearestBuildingDistance = nearestDistance;
+            LastSpawnRejectedTooCloseToBuildingCount++;
+            return false;
+        }
+
+        accepted = grounded;
+        LastSpawnAcceptedCount++;
+        LastSpawnValidationPassed = true;
+        LastSpawnValidationSource = source;
+        LastNearestBuildingDistance = nearestDistance;
+        LastFinalSpawnPosition = accepted;
+        return true;
+    }
+
+    private static bool TryResolveGroundedSpawn(
+        Vector3 candidate,
+        float supportSurfaceY,
+        bool hasSupportSurface,
+        NewMapSpawnConfig config,
+        out Vector3 grounded)
+    {
+        grounded = new Vector3(candidate.x, supportSurfaceY + GroundSkinOffset, candidate.z);
+        if (!IsFiniteVector3(grounded) || supportSurfaceY < -20f || supportSurfaceY > 30f)
+        {
+            return false;
+        }
+
+        if (config.useGroundProbe)
+        {
+            Vector3 origin = new Vector3(candidate.x, Mathf.Max(candidate.y + 64f, supportSurfaceY + 320f), candidate.z);
+            if (Physics.Raycast(origin, Vector3.down, out RaycastHit hit, 700f, ~0, QueryTriggerInteraction.Ignore) &&
+                hit.point.y > -20f &&
+                hit.point.y < 30f &&
+                Mathf.Abs(hit.point.y - supportSurfaceY) <= 1.25f)
+            {
+                grounded = hit.point + Vector3.up * GroundSkinOffset;
+                return true;
+            }
+        }
+
+        return config.useGroundSupportFallback && hasSupportSurface;
+    }
+
+    private static bool IsInsidePlayableBounds(Vector3 position, Bounds mapBounds, bool hasBounds)
+    {
+        if (!hasBounds)
+        {
+            return true;
+        }
+
+        if (mapBounds.size.x < 100f || mapBounds.size.z < 100f)
+        {
+            return true;
+        }
+
+        const float tolerance = 2f;
+        return position.x >= mapBounds.min.x - tolerance &&
+            position.x <= mapBounds.max.x + tolerance &&
+            position.z >= mapBounds.min.z - tolerance &&
+            position.z <= mapBounds.max.z + tolerance &&
+            position.y >= -20f &&
+            position.y <= 30f;
+    }
+
+    private bool IsInsideBuildingBounds(Vector3 position)
+    {
+        for (int i = 0; i < buildingAvoidanceBounds.Count; i++)
+        {
+            Bounds bounds = buildingAvoidanceBounds[i];
+            if (position.x >= bounds.min.x &&
+                position.x <= bounds.max.x &&
+                position.z >= bounds.min.z &&
+                position.z <= bounds.max.z &&
+                position.y >= bounds.min.y - 2f &&
+                position.y <= bounds.max.y + 2f)
+            {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    private float CalculateNearestBuildingDistance(Vector3 position)
+    {
+        if (buildingAvoidanceBounds.Count == 0)
+        {
+            return 9999f;
+        }
+
+        float nearest = 9999f;
+        for (int i = 0; i < buildingAvoidanceBounds.Count; i++)
+        {
+            Bounds bounds = buildingAvoidanceBounds[i];
+            if (position.y < bounds.min.y - 3f || position.y > bounds.max.y + 3f)
+            {
+                continue;
+            }
+
+            float dx = AxisDistance(position.x, bounds.min.x, bounds.max.x);
+            float dz = AxisDistance(position.z, bounds.min.z, bounds.max.z);
+            nearest = Mathf.Min(nearest, Mathf.Sqrt(dx * dx + dz * dz));
+        }
+
+        return nearest;
+    }
+
+    private static float AxisDistance(float value, float min, float max)
+    {
+        if (value < min)
+        {
+            return min - value;
+        }
+
+        if (value > max)
+        {
+            return value - max;
+        }
+
+        return 0f;
     }
 
     private void ResetVisualGroundSamples()
@@ -703,6 +998,26 @@ public sealed class NewMapRuntimeBootstrap : MonoBehaviour
         }
 
         return bounds.min.y > -20f && bounds.min.y < 30f;
+    }
+
+    private static bool IsUsableBuildingAvoidanceBounds(Bounds bounds)
+    {
+        if (!IsFiniteVector3(bounds.center) || !IsFiniteVector3(bounds.min) || !IsFiniteVector3(bounds.max))
+        {
+            return false;
+        }
+
+        if (bounds.size.y < 1.0f || bounds.size.x < 0.5f || bounds.size.z < 0.5f)
+        {
+            return false;
+        }
+
+        if (bounds.size.x > 400f || bounds.size.z > 400f)
+        {
+            return false;
+        }
+
+        return bounds.min.y > -20f && bounds.min.y < 80f;
     }
 
     private void CalculateActiveTargetHeightOffsets(List<NewMapRuntimeTarget> targets)
@@ -1312,4 +1627,140 @@ public sealed class NewMapRuntimeBootstrap : MonoBehaviour
         new OfficialShelterAnchorRecord { ShelterId = "chuo_official_emergency_026", DisplayName = "月島区民センター", PlateauGmlId = "bldg_fee39d2c-fd06-4f35-b0a1-a093a3e16fd5", MatchMethod = "contains", Confidence = "high", ManualReviewNeeded = false },
         new OfficialShelterAnchorRecord { ShelterId = "chuo_official_emergency_027", DisplayName = "(旧)ほっとプラザはるみ", PlateauGmlId = "bldg_c64d9bf2-61ed-48d8-8315-8efadf440863", MatchMethod = "contains", Confidence = "high", ManualReviewNeeded = false }
     };
+}
+
+[System.Serializable]
+public sealed class NewMapSpawnConfig
+{
+    public string spawnMode = "road_or_playable_ground_only";
+    public bool randomSpawnEnabled = true;
+    public float spawnRadiusMeters = 1000f;
+    public float minDistanceFromBuildingMeters = 2f;
+    public int maxSpawnAttempts = 200;
+    public bool useBuildingBoundsRejection = true;
+    public bool useGroundProbe = true;
+    public bool useGroundSupportFallback = true;
+    public string fallbackSafeSpawnId = "newmap_safe_spawn_01";
+    public int spawnRandomSeed = 20260529;
+
+    public static NewMapSpawnConfig Default()
+    {
+        return new NewMapSpawnConfig();
+    }
+
+    public static NewMapSpawnConfig Load()
+    {
+        NewMapSpawnConfig config = Default();
+        string path = Path.Combine(Application.dataPath, "Data/P10/newmap_spawn_config.json");
+        if (File.Exists(path))
+        {
+            try
+            {
+                config = JsonUtility.FromJson<NewMapSpawnConfig>(File.ReadAllText(path)) ?? config;
+            }
+            catch (System.Exception exception)
+            {
+                Debug.LogWarning($"NewMap spawn config could not be loaded; using defaults. {exception.Message}");
+            }
+        }
+
+        if (string.IsNullOrWhiteSpace(config.spawnMode))
+        {
+            config.spawnMode = "road_or_playable_ground_only";
+        }
+
+        config.spawnRadiusMeters = Mathf.Clamp(config.spawnRadiusMeters, 25f, 2500f);
+        config.minDistanceFromBuildingMeters = Mathf.Clamp(config.minDistanceFromBuildingMeters, 0f, 25f);
+        config.maxSpawnAttempts = Mathf.Clamp(config.maxSpawnAttempts, 1, 2000);
+        if (string.IsNullOrWhiteSpace(config.fallbackSafeSpawnId))
+        {
+            config.fallbackSafeSpawnId = "newmap_safe_spawn_01";
+        }
+
+        return config;
+    }
+}
+
+[System.Serializable]
+public sealed class NewMapSafeSpawnPointDataset
+{
+    public string activeScene = NewMapRuntimeConstants.ScenePath;
+    public string coordinateStatus = "playable_ground_proxy_verified";
+    public NewMapSafeSpawnPointRecord[] records;
+
+    public static NewMapSafeSpawnPointDataset Default()
+    {
+        return new NewMapSafeSpawnPointDataset
+        {
+            records = new[]
+            {
+                NewMapSafeSpawnPointRecord.Create("newmap_safe_spawn_01", 0f, 0f, 420f, "fallback playable-ground proxy near Chuo map center"),
+                NewMapSafeSpawnPointRecord.Create("newmap_safe_spawn_02", 120f, 0f, 420f, "alternate proxy point east of fallback"),
+                NewMapSafeSpawnPointRecord.Create("newmap_safe_spawn_03", -120f, 0f, 420f, "alternate proxy point west of fallback"),
+                NewMapSafeSpawnPointRecord.Create("newmap_safe_spawn_04", 0f, 0f, 620f, "alternate proxy point north of fallback"),
+                NewMapSafeSpawnPointRecord.Create("newmap_safe_spawn_05", 180f, 0f, 620f, "wider alternate proxy point for building-overlap retries")
+            }
+        };
+    }
+
+    public static NewMapSafeSpawnPointDataset Load()
+    {
+        NewMapSafeSpawnPointDataset dataset = Default();
+        string path = Path.Combine(Application.dataPath, "Data/P10/newmap_safe_spawn_points.json");
+        if (File.Exists(path))
+        {
+            try
+            {
+                dataset = JsonUtility.FromJson<NewMapSafeSpawnPointDataset>(File.ReadAllText(path)) ?? dataset;
+            }
+            catch (System.Exception exception)
+            {
+                Debug.LogWarning($"NewMap safe spawn points could not be loaded; using defaults. {exception.Message}");
+            }
+        }
+
+        if (dataset.records == null || dataset.records.Length == 0)
+        {
+            dataset.records = Default().records;
+        }
+
+        return dataset;
+    }
+}
+
+[System.Serializable]
+public sealed class NewMapSafeSpawnPointRecord
+{
+    public string id;
+    public NewMapVector3Data position;
+    public string sourceReason;
+    public string roadPlayableGroundStatus = "playable_ground_proxy_verified";
+    public string nearbyActiveTargets;
+    public string modeCompatibility = "tourism_and_evacuation";
+
+    public static NewMapSafeSpawnPointRecord Create(string id, float x, float y, float z, string reason)
+    {
+        return new NewMapSafeSpawnPointRecord
+        {
+            id = id,
+            position = new NewMapVector3Data(x, y, z),
+            sourceReason = reason,
+            nearbyActiveTargets = "runtime targets are height-aligned after spawn; no official road geometry claimed"
+        };
+    }
+}
+
+[System.Serializable]
+public struct NewMapVector3Data
+{
+    public float x;
+    public float y;
+    public float z;
+
+    public NewMapVector3Data(float x, float y, float z)
+    {
+        this.x = x;
+        this.y = y;
+        this.z = z;
+    }
 }

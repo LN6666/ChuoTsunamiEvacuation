@@ -4,13 +4,19 @@ Generated: 2026-05-29T00:00:00+09:00
 
 Readiness decision: `ready_with_documented_visual_limitations`
 
-- Start the NewMap visual round-2 temp player.
+- Start the NewMap spawn/mouse-fix temp player.
 - Verify mouse movement without pressing a mouse button does not rotate the camera.
+- Verify holding Left Mouse Button and dragging rotates the camera in Tourism Mode.
+- Verify holding Left Mouse Button and dragging rotates the camera in Evacuation Mode.
 - Verify holding Right Mouse Button and dragging rotates the camera in Tourism Mode.
 - Verify holding Right Mouse Button and dragging rotates the camera in Evacuation Mode.
 - Verify releasing the mouse button stops camera rotation.
 - Verify Escape pause unlocks cursor and Resume restores drag-look availability.
 - Verify Start Menu to gameplay transition restores camera control.
+- Verify random spawn starts on road/playable ground/support surface.
+- Verify the player is not inside a building at spawn.
+- Verify the player can move immediately after spawn.
+- Verify fallback safe spawn works if random placement fails.
 - Verify clear day brightness is playable.
 - Verify night sky is dark.
 - Verify night buildings remain readable and are not black silhouettes.

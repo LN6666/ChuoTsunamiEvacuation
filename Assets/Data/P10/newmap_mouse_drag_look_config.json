@@ -2,6 +2,10 @@
   "enabled": true,
   "lookRequiresMouseButton": true,
   "lookMouseButton": "RightMouse",
+  "allowedButtons": [
+    "LeftMouse",
+    "RightMouse"
+  ],
   "sensitivityX": 2.0,
   "sensitivityY": 1.5,
   "pitchMin": -60,
