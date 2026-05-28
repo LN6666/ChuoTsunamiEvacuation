@@ -1,0 +1,14 @@
+{
+  "generatedAt": "2026-05-29T00:00:00+09:00",
+  "activeScene": "Assets/Scenes/Chuo_BaseMap.unity",
+  "debugDiagnosticsRootInactiveByDefault": true,
+  "localTrainingProxyTargetsProductionVisible": false,
+  "runtimeGroundSupportRendererVisible": false,
+  "npcCrowdAllowedGameplayObject": true,
+  "greenFramesAllowedGameplayObject": true,
+  "requiredGameplayMarkersRemainVisible": true,
+  "preflightResult": "passed",
+  "playerLogErrors": 0,
+  "playerLogWarnings": 0,
+  "finalStatus": "regression_check_passed_manual_visual_confirmation_remaining"
+}

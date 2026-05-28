@@ -105,12 +105,14 @@ public class NewMapRuntimePlayModeTests
         Assert.IsTrue(bootstrap.LastRuntimeCollisionSupportProxyActive, "Final NewMap manual test uses the documented runtime collision support proxy.");
         Assert.IsFalse(bootstrap.LastRuntimeCollisionSupportRendererVisible, "Manual-test support proxy must be invisible.");
         Assert.LessOrEqual(Mathf.Abs(player.transform.position.y - bootstrap.LastRuntimeGroundSurfaceY), 0.35f, "Player/support surface must align with the visible map ground height tolerance.");
+        Assert.LessOrEqual(bootstrap.LastSupportToVisualGroundDelta, 0.35f, "Round-2 support surface should align to the sampled visual building/ground base.");
+        Assert.LessOrEqual(bootstrap.LastPlayerSpawnGroundDelta, 0.35f, "Player spawn should sit near the aligned support surface.");
         Assert.IsFalse(bootstrap.LastMeshColliderDisableComplete, "Scene MeshCollider shutdown should not run at player startup because it caused the Pre2 spike.");
         Assert.AreEqual(0, bootstrap.LastDisabledSceneMeshColliderCount, "Scene MeshColliders should remain untouched during player startup.");
     }
 
     [UnityTest]
-    public IEnumerator RuntimeMouseLookLocksCursorInGameplayAndRestoresAfterPause()
+    public IEnumerator RuntimeMouseDragLookRequiresButtonAndRestoresAfterPause()
     {
         NewMapRuntimeBootstrap.CreateForCurrentScene();
         NewMapPlayerController player = Object.FindObjectOfType<NewMapPlayerController>();
@@ -122,14 +124,32 @@ public class NewMapRuntimePlayModeTests
         yield return null;
         Assert.IsTrue(player.ControlEnabled);
         Assert.IsTrue(player.MouseLookEnabled);
-        Assert.IsTrue(player.WantsLockedCursor);
+        Assert.IsFalse(player.WantsLockedCursor);
+        Assert.IsFalse(player.IsMouseLookDragging);
+        Assert.IsTrue(player.LookRequiresMouseButton);
+        Assert.AreEqual("RightMouse", player.LookMouseButtonName);
         float yaw = player.CurrentYaw;
         float pitch = player.CurrentPitch;
-        player.ApplyLookDeltaForDiagnostics(4f, -3f);
+        Assert.IsFalse(player.ApplyLookInputForDiagnostics(4f, -3f, false));
+        Assert.AreEqual(yaw, player.CurrentYaw, 0.001f);
+        Assert.AreEqual(pitch, player.CurrentPitch, 0.001f);
+        Assert.IsFalse(player.WantsLockedCursor);
+        Assert.AreEqual(CursorLockMode.None, Cursor.lockState);
+        Assert.IsTrue(Cursor.visible);
+        Assert.IsTrue(player.ApplyLookInputForDiagnostics(4f, -3f, true));
         Assert.AreNotEqual(yaw, player.CurrentYaw);
         Assert.AreNotEqual(pitch, player.CurrentPitch);
+        Assert.IsTrue(player.IsMouseLookDragging);
+        Assert.IsTrue(player.WantsLockedCursor);
+        Assert.AreEqual(CursorLockMode.Locked, Cursor.lockState);
+        Assert.IsFalse(Cursor.visible);
         Assert.GreaterOrEqual(player.CurrentPitch, player.MinPitch);
         Assert.LessOrEqual(player.CurrentPitch, player.MaxPitch);
+        player.ReleaseLookDragForDiagnostics();
+        Assert.IsFalse(player.IsMouseLookDragging);
+        Assert.IsFalse(player.WantsLockedCursor);
+        Assert.AreEqual(CursorLockMode.None, Cursor.lockState);
+        Assert.IsTrue(Cursor.visible);
 
         controller.SetPaused(true);
         yield return null;
@@ -141,7 +161,7 @@ public class NewMapRuntimePlayModeTests
         yield return null;
         Assert.IsTrue(player.ControlEnabled);
         Assert.IsTrue(player.MouseLookEnabled);
-        Assert.IsTrue(player.WantsLockedCursor);
+        Assert.IsFalse(player.WantsLockedCursor);
 
         controller.ResetToStartMenu();
         yield return null;
@@ -153,7 +173,10 @@ public class NewMapRuntimePlayModeTests
         yield return null;
         Assert.IsTrue(player.ControlEnabled);
         Assert.IsTrue(player.MouseLookEnabled);
-        Assert.IsTrue(player.WantsLockedCursor);
+        Assert.IsFalse(player.WantsLockedCursor);
+        yaw = player.CurrentYaw;
+        Assert.IsTrue(player.ApplyLookInputForDiagnostics(3f, 0f, true));
+        Assert.AreNotEqual(yaw, player.CurrentYaw);
     }
 
     [UnityTest]
@@ -167,16 +190,22 @@ public class NewMapRuntimePlayModeTests
         Assert.IsTrue(lighting.ClearDayConfigured);
         Assert.Greater(lighting.DirectionalLightIntensity, 1.0f);
         float clearAmbient = lighting.AmbientSkyBrightness;
+        float clearSky = lighting.SkyBrightness;
 
         controller.SetWeather(NewMapWeatherPreset.NightClear);
         yield return null;
         Assert.Less(lighting.DirectionalLightIntensity, 0.5f);
         Assert.Less(lighting.AmbientSkyBrightness, clearAmbient);
+        Assert.Less(lighting.SkyBrightness, 0.12f);
+        Assert.Less(lighting.SkyBrightness, clearSky);
+        Assert.Greater(lighting.FillLightIntensity, 0.1f);
+        Assert.Greater(lighting.NightBuildingReadabilityScore, 0.35f);
 
         controller.SetWeather(NewMapWeatherPreset.ClearDay);
         yield return null;
         Assert.Greater(lighting.DirectionalLightIntensity, 1.0f);
         Assert.GreaterOrEqual(lighting.AmbientSkyBrightness, clearAmbient - 0.01f);
+        Assert.GreaterOrEqual(lighting.SkyBrightness, clearSky - 0.01f);
     }
 
     [UnityTest]

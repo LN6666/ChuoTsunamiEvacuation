@@ -130,7 +130,15 @@ public class NewMapIntegrationConfigTests
             "Data/P10/newmap_building_clipping_status.json",
             "Data/P10/newmap_post_visual_fix_gameplay_status.json",
             "Data/P10/newmap_npc_distribution_config.json",
-            "Data/P10/newmap_npc_distribution_report.json"
+            "Data/P10/newmap_npc_distribution_report.json",
+            "Data/P10/newmap_mouse_drag_look_config.json",
+            "Data/P10/newmap_mouse_drag_look_status.json",
+            "Data/P10/newmap_ground_height_realignment_round2.json",
+            "Data/P10/newmap_building_material_texture_audit_round2.json",
+            "Data/P10/newmap_lighting_profiles.json",
+            "Data/P10/newmap_night_lighting_correction.json",
+            "Data/P10/newmap_debug_cleanup_round2.json",
+            "Data/P10/newmap_visual_round2_gameplay_regression.json"
         };
 
         foreach (string relativePath in requiredPaths)
@@ -145,12 +153,35 @@ public class NewMapIntegrationConfigTests
         StringAssert.Contains("\"maxNpcCount\": 300", config);
         StringAssert.Contains("\"npcDistributionSeed\": 20260529", config);
 
-        string mouse = File.ReadAllText(Path.Combine(Application.dataPath, "Data/P10/newmap_mouse_look_camera_status.json"));
-        StringAssert.Contains("\"mouseLookRestored\": true", mouse);
-        StringAssert.Contains("\"gameplayCursorLocks\": true", mouse);
+        string mouse = File.ReadAllText(Path.Combine(Application.dataPath, "Data/P10/newmap_mouse_drag_look_config.json"));
+        StringAssert.Contains("\"lookRequiresMouseButton\": true", mouse);
+        StringAssert.Contains("\"lookMouseButton\": \"RightMouse\"", mouse);
+        StringAssert.Contains("\"cursorVisibleWhenNotDragging\": true", mouse);
 
         string readiness = File.ReadAllText(Path.Combine(Application.dataPath, "Data/P10/newmap_manual_playtest_readiness.json"));
         StringAssert.Contains("\"manualReadinessDecision\"", readiness);
+    }
+
+    [Test]
+    public void Round2MouseGroundLightingConfigDefaultsMatchManualFeedback()
+    {
+        NewMapMouseDragLookConfig mouse = NewMapMouseDragLookConfig.Default();
+        Assert.IsTrue(mouse.enabled);
+        Assert.IsTrue(mouse.lookRequiresMouseButton);
+        Assert.AreEqual(1, NewMapMouseDragLookConfig.ParseMouseButtonIndex(mouse.lookMouseButton));
+        Assert.GreaterOrEqual(mouse.pitchMin, -70f);
+        Assert.LessOrEqual(mouse.pitchMax, 80f);
+
+        NewMapLightingProfilesConfig lighting = NewMapLightingProfilesConfig.Default();
+        Assert.Greater(lighting.clear_day.directionalLightIntensity, 1.0f);
+        Assert.Greater(lighting.clear_day.SkyBrightness, 0.6f);
+        Assert.Less(lighting.night_clear.SkyBrightness, 0.12f);
+        Assert.Greater(lighting.night_clear.fillLightIntensity, 0.1f);
+        Assert.Greater(lighting.night_clear.ambientIntensity, 0.8f);
+
+        string ground = File.ReadAllText(Path.Combine(Application.dataPath, "Data/P10/newmap_ground_height_realignment_round2.json"));
+        StringAssert.Contains("\"supportToVisualToleranceMeters\": 0.35", ground);
+        StringAssert.Contains("\"runtimeGroundReference\": \"renderer_bounds_low_percentile_building_base\"", ground);
     }
 
     [Test]

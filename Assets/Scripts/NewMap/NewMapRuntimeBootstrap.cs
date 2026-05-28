@@ -6,7 +6,9 @@ using UnityEngine.SceneManagement;
 public sealed class NewMapRuntimeBootstrap : MonoBehaviour
 {
     private const bool SuppressSceneMeshCollidersForManualTest = false;
-    private const bool EnablePlayerRuntimeSceneWideBoundsScan = false;
+    private const bool EnablePlayerRuntimeSceneWideBoundsScan = true;
+    private const float GroundSkinOffset = 0.04f;
+    private const float Round2FallbackSupportSurfaceY = 1.2f;
     private const string GameplaySelfAuditSmokeArg = "-newmapSelfAuditSmoke";
     private const string RuntimeNonOfficialCandidateResourcePath = "NewMap/newmap_runtime_non_official_candidates";
 
@@ -35,7 +37,16 @@ public sealed class NewMapRuntimeBootstrap : MonoBehaviour
     public bool LastUsedGroundSupportProxy { get; private set; }
     public bool LastRuntimeCollisionSupportProxyActive { get; private set; }
     public float LastRuntimeGroundSurfaceY { get; private set; }
+    public float LastOldRuntimeGroundSurfaceY { get; private set; }
     public float LastPlayerSpawnGroundDelta { get; private set; }
+    public float LastSampledBuildingBaseY { get; private set; }
+    public float LastSampledMapMinY { get; private set; }
+    public float LastVisualGroundReferenceY { get; private set; }
+    public float LastSupportToVisualGroundDelta { get; private set; }
+    public int LastVisualGroundSampleCount { get; private set; }
+    public int LastActiveTargetHeightOffsetViolations { get; private set; }
+    public float LastMaxActiveTargetHeightOffset { get; private set; }
+    public bool LastVisualGroundSampleValid { get; private set; }
     public bool LastRuntimeCollisionSupportRendererVisible { get; private set; }
     public int LastDisabledSceneMeshColliderCount { get; private set; }
     public int LastRendererCount { get; private set; }
@@ -122,8 +133,8 @@ public sealed class NewMapRuntimeBootstrap : MonoBehaviour
         LastColliderCount = colliderCount;
         long boundsMs = stopwatch.ElapsedMilliseconds;
 
+        LastOldRuntimeGroundSurfaceY = 0f;
         Vector3 spawn = ResolveSpawnPosition(mapBounds, LastMapBoundsValid, roots["DebugDiagnosticsRoot"]);
-        LastRuntimeGroundSurfaceY = spawn.y - 0.04f;
         LastPlayerSpawnGroundDelta = spawn.y - LastRuntimeGroundSurfaceY;
         EnsureRuntimeCollisionSupportProxy(roots["GameplaySupportRoot"], new Vector3(spawn.x, LastRuntimeGroundSurfaceY, spawn.z));
         Physics.SyncTransforms();
@@ -147,13 +158,15 @@ public sealed class NewMapRuntimeBootstrap : MonoBehaviour
         {
             targets.AddRange(CreateLocalRuntimeTargets(roots, spawn));
         }
+
+        CalculateActiveTargetHeightOffsets(targets);
         long targetsMs = stopwatch.ElapsedMilliseconds - boundsMs - spawnSupportMs - systemsMs;
 
         NewMapGameController controller = gameObject.AddComponent<NewMapGameController>();
         controller.Configure(player, ui, lighting, hazard, crowd, targets, BuildDiagnosticText());
         if (ShouldRunGameplaySelfAuditSmoke())
         {
-            StartCoroutine(RunGameplaySelfAuditSmoke(controller, player, ui, hazard, crowd));
+            StartCoroutine(RunGameplaySelfAuditSmoke(controller, player, ui, lighting, hazard, crowd));
         }
 
         long configureMs = stopwatch.ElapsedMilliseconds - boundsMs - spawnSupportMs - systemsMs - targetsMs;
@@ -165,7 +178,11 @@ public sealed class NewMapRuntimeBootstrap : MonoBehaviour
         Debug.Log(
             $"NewMap runtime bootstrap completed. renderers={LastRendererCount} colliders={LastColliderCount} " +
             $"groundSupportProxy={LastUsedGroundSupportProxy} collisionSupportProxy={LastRuntimeCollisionSupportProxyActive} " +
-            $"supportSurfaceY={LastRuntimeGroundSurfaceY:F2} spawnGroundDelta={LastPlayerSpawnGroundDelta:F2} " +
+            $"oldSupportSurfaceY={LastOldRuntimeGroundSurfaceY:F2} supportSurfaceY={LastRuntimeGroundSurfaceY:F2} " +
+            $"visualGroundY={LastVisualGroundReferenceY:F2} sampledBuildingBaseY={LastSampledBuildingBaseY:F2} " +
+            $"sampledMapMinY={LastSampledMapMinY:F2} visualGroundSamples={LastVisualGroundSampleCount} " +
+            $"supportToVisualGroundDelta={LastSupportToVisualGroundDelta:F2} spawnGroundDelta={LastPlayerSpawnGroundDelta:F2} " +
+            $"activeTargetMaxHeightOffset={LastMaxActiveTargetHeightOffset:F2} activeTargetHeightOffsetViolations={LastActiveTargetHeightOffsetViolations} " +
             $"supportRendererVisible={LastRuntimeCollisionSupportRendererVisible} meshColliderShutdown={meshColliderShutdown} " +
             $"activeRuntimeTargets={targets.Count}");
     }
@@ -206,6 +223,7 @@ public sealed class NewMapRuntimeBootstrap : MonoBehaviour
         NewMapGameController controller,
         NewMapPlayerController player,
         NewMapRuntimeUI ui,
+        NewMapLightingController lighting,
         NewMapHazardController hazard,
         NewMapNpcCrowdPrototype crowd)
     {
@@ -261,6 +279,29 @@ public sealed class NewMapRuntimeBootstrap : MonoBehaviour
             controller.Mode == NewMapGameMode.Tourism && controller.Stage == NewMapTsunamiStage.Inactive && hazard != null && !hazard.RiskChecksActive && player != null && !player.StaminaEnabled && crowd != null && crowd.CurrentCongestionDelaySeconds <= 0.001f,
             "Tourism mode disables tsunami, hazard checks, crowd failure, and stamina");
 
+        if (player != null)
+        {
+            float yawBeforeNoButton = player.CurrentYaw;
+            float pitchBeforeNoButton = player.CurrentPitch;
+            bool noButtonApplied = player.ApplyLookInputForDiagnostics(8f, -4f, false);
+            bool noButtonStayedStill =
+                Mathf.Abs(player.CurrentYaw - yawBeforeNoButton) < 0.001f &&
+                Mathf.Abs(player.CurrentPitch - pitchBeforeNoButton) < 0.001f;
+            bool dragApplied = player.ApplyLookInputForDiagnostics(8f, -4f, true);
+            bool dragRotated =
+                Mathf.Abs(player.CurrentYaw - yawBeforeNoButton) > 0.001f &&
+                Mathf.Abs(player.CurrentPitch - pitchBeforeNoButton) > 0.001f;
+            player.ReleaseLookDragForDiagnostics();
+            LogGameplaySmoke(
+                "mouse_drag_look_requires_button",
+                !noButtonApplied && noButtonStayedStill && dragApplied && dragRotated && !player.IsMouseLookDragging,
+                $"button={player.LookMouseButtonName} requiresButton={player.LookRequiresMouseButton}");
+        }
+        else
+        {
+            LogGameplaySmoke("mouse_drag_look_requires_button", false, "Player missing");
+        }
+
         if (recoveredNonOfficial != null)
         {
             bool inspected = controller.TryInteractForDiagnostics(recoveredNonOfficial.Id);
@@ -280,6 +321,23 @@ public sealed class NewMapRuntimeBootstrap : MonoBehaviour
             "evacuation_stage1_warning",
             controller.Mode == NewMapGameMode.Evacuation && controller.Stage == NewMapTsunamiStage.Warning && hazard != null && !hazard.RiskChecksActive && player != null && player.StaminaEnabled,
             "Evacuation starts in Stage 1 with hazard checks inactive and stamina enabled");
+
+        controller.SetWeather(NewMapWeatherPreset.NightClear);
+        yield return null;
+        float nightSkyBrightness = lighting != null ? lighting.SkyBrightness : 1f;
+        float nightReadability = lighting != null ? lighting.NightBuildingReadabilityScore : 0f;
+        bool nightReadable =
+            lighting != null &&
+            nightSkyBrightness < 0.12f &&
+            nightReadability > 0.35f &&
+            lighting.FillLightIntensity > 0.1f;
+        controller.SetWeather(NewMapWeatherPreset.ClearDay);
+        yield return null;
+        bool dayRestored = lighting != null && lighting.SkyBrightness > 0.6f && lighting.DirectionalLightIntensity > 1.0f;
+        LogGameplaySmoke(
+            "night_lighting_dark_sky_readable_buildings",
+            nightReadable && dayRestored,
+            $"nightSky={nightSkyBrightness:0.000} readability={nightReadability:0.000} dayRestored={dayRestored}");
 
         controller.ForceStageForDiagnostics(NewMapTsunamiStage.FrontApproaching);
         yield return null;
@@ -445,8 +503,8 @@ public sealed class NewMapRuntimeBootstrap : MonoBehaviour
     private string BuildDiagnosticText()
     {
         string ground = LastUsedGroundSupportProxy
-            ? "Ground: invisible runtime support proxy aligned to fallback visible ground"
-            : "Ground: scene collider raycast spawn with invisible aligned support";
+            ? "Ground: invisible runtime support proxy aligned to the round-2 fallback visual height"
+            : "Ground: invisible runtime support proxy aligned to sampled visual building/ground base";
         string collisionProxy = LastRuntimeCollisionSupportProxyActive
             ? " | Runtime collision support proxy active and renderer hidden; scene MeshCollider shutdown is disabled at player startup"
             : string.Empty;
@@ -463,6 +521,7 @@ public sealed class NewMapRuntimeBootstrap : MonoBehaviour
         rendererCount = 0;
         colliderCount = 0;
         bounds = new Bounds(Vector3.zero, new Vector3(700f, 80f, 700f));
+        ResetVisualGroundSamples();
         return false;
     }
 
@@ -474,10 +533,12 @@ public sealed class NewMapRuntimeBootstrap : MonoBehaviour
         colliderCount = 0;
         bounds = new Bounds(Vector3.zero, Vector3.zero);
         bool hasBounds = false;
+        var baseSamples = new List<float>();
+        ResetVisualGroundSamples();
 
         foreach (Renderer renderer in renderers)
         {
-            if (renderer == null || renderer.GetComponentInParent<Canvas>() != null)
+            if (renderer == null || renderer.GetComponentInParent<Canvas>() != null || IsRuntimeGeneratedOrUiRenderer(renderer))
             {
                 continue;
             }
@@ -492,6 +553,11 @@ public sealed class NewMapRuntimeBootstrap : MonoBehaviour
             {
                 bounds.Encapsulate(renderer.bounds);
             }
+
+            if (IsUsableVisualGroundSample(renderer.bounds))
+            {
+                baseSamples.Add(renderer.bounds.min.y);
+            }
         }
 
         foreach (Collider collider in colliders)
@@ -500,6 +566,17 @@ public sealed class NewMapRuntimeBootstrap : MonoBehaviour
             {
                 colliderCount++;
             }
+        }
+
+        if (baseSamples.Count > 0)
+        {
+            baseSamples.Sort();
+            int referenceIndex = Mathf.Clamp(Mathf.RoundToInt((baseSamples.Count - 1) * 0.10f), 0, baseSamples.Count - 1);
+            LastVisualGroundSampleValid = true;
+            LastVisualGroundSampleCount = baseSamples.Count;
+            LastSampledMapMinY = baseSamples[0];
+            LastSampledBuildingBaseY = baseSamples[referenceIndex];
+            LastVisualGroundReferenceY = LastSampledBuildingBaseY;
         }
 
         return hasBounds && bounds.size.sqrMagnitude > 1f;
@@ -518,6 +595,16 @@ public sealed class NewMapRuntimeBootstrap : MonoBehaviour
             new Vector3(-20f, 0f, -20f)
         };
 
+        float supportSurfaceY;
+        if (LastVisualGroundSampleValid)
+        {
+            supportSurfaceY = LastVisualGroundReferenceY;
+            LastUsedGroundSupportProxy = false;
+            LastRuntimeGroundSurfaceY = supportSurfaceY;
+            LastSupportToVisualGroundDelta = Mathf.Abs(LastRuntimeGroundSurfaceY - LastVisualGroundReferenceY);
+            return new Vector3(basePosition.x, supportSurfaceY + GroundSkinOffset, basePosition.z);
+        }
+
         foreach (Vector3 offset in offsets)
         {
             Vector3 origin = new Vector3(basePosition.x + offset.x, rayStartY, basePosition.z + offset.z);
@@ -526,13 +613,121 @@ public sealed class NewMapRuntimeBootstrap : MonoBehaviour
                 hit.point.y < 8f)
             {
                 LastUsedGroundSupportProxy = false;
-                return hit.point + Vector3.up * 0.04f;
+                supportSurfaceY = hit.point.y;
+                LastSampledMapMinY = supportSurfaceY;
+                LastSampledBuildingBaseY = supportSurfaceY;
+                LastVisualGroundReferenceY = supportSurfaceY;
+                LastRuntimeGroundSurfaceY = supportSurfaceY;
+                LastSupportToVisualGroundDelta = 0f;
+                return hit.point + Vector3.up * GroundSkinOffset;
             }
         }
 
         LastUsedGroundSupportProxy = true;
-        Vector3 supportCenter = new Vector3(basePosition.x, hasBounds ? Mathf.Max(-1f, mapBounds.min.y) : 0f, basePosition.z);
-        return supportCenter + Vector3.up * 0.04f;
+        supportSurfaceY = hasBounds ? Mathf.Max(Round2FallbackSupportSurfaceY, mapBounds.min.y) : Round2FallbackSupportSurfaceY;
+        LastSampledMapMinY = hasBounds ? mapBounds.min.y : supportSurfaceY;
+        LastSampledBuildingBaseY = supportSurfaceY;
+        LastVisualGroundReferenceY = supportSurfaceY;
+        LastRuntimeGroundSurfaceY = supportSurfaceY;
+        LastSupportToVisualGroundDelta = 0f;
+        Vector3 supportCenter = new Vector3(basePosition.x, supportSurfaceY, basePosition.z);
+        return supportCenter + Vector3.up * GroundSkinOffset;
+    }
+
+    private void ResetVisualGroundSamples()
+    {
+        LastVisualGroundSampleValid = false;
+        LastVisualGroundSampleCount = 0;
+        LastSampledMapMinY = Round2FallbackSupportSurfaceY;
+        LastSampledBuildingBaseY = Round2FallbackSupportSurfaceY;
+        LastVisualGroundReferenceY = Round2FallbackSupportSurfaceY;
+        LastSupportToVisualGroundDelta = 0f;
+    }
+
+    private static bool IsRuntimeGeneratedOrUiRenderer(Renderer renderer)
+    {
+        Transform current = renderer.transform;
+        while (current != null)
+        {
+            string name = current.name;
+            if (name.StartsWith("NewMap_", System.StringComparison.Ordinal) ||
+                IsRuntimeRootName(name) ||
+                name.Contains("Marker") ||
+                name.Contains("Label") ||
+                name.Contains("UI") ||
+                name.Contains("DebugDiagnostics") ||
+                name.Contains("GameplaySupport"))
+            {
+                return true;
+            }
+
+            current = current.parent;
+        }
+
+        return renderer is LineRenderer || renderer is TrailRenderer;
+    }
+
+    private static bool IsRuntimeRootName(string name)
+    {
+        switch (name)
+        {
+            case "RuntimeSystemsRoot":
+            case "PlayerSpawnRoot":
+            case "ShelterMarkerRoot":
+            case "CandidateMarkerRoot":
+            case "HazardVisualRoot":
+            case "NavigationRoot":
+            case "CrowdRoot":
+            case "CollapseDebrisRoot":
+            case "GreenFrameRoot":
+            case "UIAnchorRoot":
+            case "DebugDiagnosticsRoot":
+            case "GameplaySupportRoot":
+            case "PerformanceMetricsRoot":
+                return true;
+            default:
+                return false;
+        }
+    }
+
+    private static bool IsUsableVisualGroundSample(Bounds bounds)
+    {
+        if (!IsFiniteVector3(bounds.center) || !IsFiniteVector3(bounds.min) || !IsFiniteVector3(bounds.max))
+        {
+            return false;
+        }
+
+        if (bounds.size.y < 0.2f || bounds.size.x < 0.5f || bounds.size.z < 0.5f)
+        {
+            return false;
+        }
+
+        return bounds.min.y > -20f && bounds.min.y < 30f;
+    }
+
+    private void CalculateActiveTargetHeightOffsets(List<NewMapRuntimeTarget> targets)
+    {
+        LastMaxActiveTargetHeightOffset = 0f;
+        LastActiveTargetHeightOffsetViolations = 0;
+        if (targets == null)
+        {
+            return;
+        }
+
+        foreach (NewMapRuntimeTarget target in targets)
+        {
+            if (target == null || target.Anchor == null || !target.ActiveInGame)
+            {
+                continue;
+            }
+
+            float offset = Mathf.Abs(target.Anchor.position.y - (LastRuntimeGroundSurfaceY + GroundSkinOffset));
+            LastMaxActiveTargetHeightOffset = Mathf.Max(LastMaxActiveTargetHeightOffset, offset);
+            if (offset > 2.5f)
+            {
+                LastActiveTargetHeightOffsetViolations++;
+            }
+        }
     }
 
     private void EnsureRuntimeCollisionSupportProxy(Transform parent, Vector3 center)
@@ -636,7 +831,7 @@ public sealed class NewMapRuntimeBootstrap : MonoBehaviour
             }
 
             Vector3 position = new Vector3(bounds.center.x, bounds.min.y + 0.08f, bounds.center.z);
-            if (!IsFinite(position))
+            if (!IsFiniteVector3(position))
             {
                 continue;
             }
@@ -684,11 +879,12 @@ public sealed class NewMapRuntimeBootstrap : MonoBehaviour
             }
 
             Vector3 position = new Vector3(record.unityX, record.unityY, record.unityZ);
-            if (!IsFinite(position))
+            if (!IsFiniteVector3(position))
             {
                 continue;
             }
 
+            position.y = spawn.y;
             targets.Add(CreateRecoveredCandidateTarget(roots, record, spawn, position));
         }
 
@@ -762,14 +958,17 @@ public sealed class NewMapRuntimeBootstrap : MonoBehaviour
             }
         }
 
-        return hasBounds && bounds.size.sqrMagnitude > 0.01f && IsFinite(bounds.center);
+        return hasBounds && bounds.size.sqrMagnitude > 0.01f && IsFiniteVector3(bounds.center);
     }
 
-    private static bool IsFinite(Vector3 value)
+    private static bool IsFiniteVector3(Vector3 value)
     {
-        return !float.IsNaN(value.x) && !float.IsInfinity(value.x) &&
-            !float.IsNaN(value.y) && !float.IsInfinity(value.y) &&
-            !float.IsNaN(value.z) && !float.IsInfinity(value.z);
+        return IsFiniteComponent(value.x) && IsFiniteComponent(value.y) && IsFiniteComponent(value.z);
+    }
+
+    private static bool IsFiniteComponent(float value)
+    {
+        return !float.IsNaN(value) && !float.IsInfinity(value);
     }
 
     private static NewMapRuntimeTarget CreateOfficialShelterTarget(

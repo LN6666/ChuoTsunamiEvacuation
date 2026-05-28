@@ -1,0 +1,44 @@
+﻿{
+    "generatedAt":  "2026-05-29T03:13:05",
+    "activeScene":  "Assets/Scenes/Chuo_BaseMap.unity",
+    "buildPath":  "D:\\UnityProjects\\ChuoTsunamiEvacuation-Builds\\NewMapVisualRound2Pre\\ChuoTsunamiEvacuation_NewMapVisualRound2Pre.exe",
+    "buildExists":  true,
+    "copiedRuntimeConfigs":  [
+                                 "newmap_npc_distribution_config.json",
+                                 "newmap_mouse_drag_look_config.json",
+                                 "newmap_lighting_profiles.json"
+                             ],
+    "unityExitCode":  0,
+    "logPath":  "D:\\UnityProjects\\ChuoTsunamiEvacuation\\Logs\\newmap_visual_round2_build.log",
+    "finalStatus":  "completed_on_new_chuo_basemap",
+    "note":  "Temporary round-2 visual/control build only. This is not a final release package.",
+    "playerLogSummary":  "completed",
+    "playerLogErrors":  0,
+    "playerLogWarnings":  0,
+    "fpsStutterSample":  {
+                             "elapsedSeconds":  180,
+                             "frameCount":  598443,
+                             "averageFps":  3324.68,
+                             "maxFrameMs":  12010.69,
+                             "stutterFramesOver66ms":  2,
+                             "requestedNpcCount":  160,
+                             "spawnedNpcCount":  160,
+                             "cappedNpcCount":  160,
+                             "activeNpcCount":  160
+                         },
+    "groundAlignmentSmoke":  {
+                                 "oldSupportSurfaceY":  0,
+                                 "supportSurfaceY":  1.97,
+                                 "visualGroundY":  1.97,
+                                 "sampledBuildingBaseY":  1.97,
+                                 "sampledMapMinY":  -8.52,
+                                 "visualGroundSamples":  12754,
+                                 "supportToVisualGroundDelta":  0,
+                                 "spawnGroundDelta":  0.04,
+                                 "activeTargetMaxHeightOffset":  3.27,
+                                 "activeTargetHeightOffsetViolations":  2
+                             },
+    "launchSmoke":  "completed_self_audit_smoke_passed",
+    "mouseDragLookSmoke":  "passed",
+    "dayNightLightingSmoke":  "passed"
+}

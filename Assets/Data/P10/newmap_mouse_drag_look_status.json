@@ -1,0 +1,24 @@
+{
+  "generatedAt": "2026-05-29T00:00:00+09:00",
+  "activeScene": "Assets/Scenes/Chuo_BaseMap.unity",
+  "manualFeedbackAddressed": "mouse movement alone must not rotate the camera; camera rotates only while holding the configured mouse button and dragging",
+  "enabled": true,
+  "lookRequiresMouseButton": true,
+  "lookMouseButton": "RightMouse",
+  "cursorVisibleWhenNotDragging": true,
+  "tourismModeSupported": true,
+  "evacuationModeSupported": true,
+  "pauseMenuResultCursorUse": "cursor_unlocked_visible_when_gameplay_control_disabled_or_not_dragging",
+  "diagnosticTests": [
+    "mouse movement without button does not rotate",
+    "button-held drag rotates yaw and pitch",
+    "pause disables drag look",
+    "resume restores drag-look availability",
+    "start menu/result states keep cursor usable"
+  ],
+  "editModeResult": "passed_114_114",
+  "playModeResult": "passed_26_26",
+  "playerSmoke": "passed_mouse_drag_look_requires_button",
+  "deepSeekVerdict": "passed_no_A_level_blockers",
+  "finalStatus": "validated_by_tests_and_player_smoke_physical_manual_drag_confirmation_remaining"
+}

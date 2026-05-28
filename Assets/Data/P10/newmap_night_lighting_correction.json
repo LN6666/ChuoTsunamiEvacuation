@@ -1,0 +1,23 @@
+{
+  "generatedAt": "2026-05-29T00:00:00+09:00",
+  "activeScene": "Assets/Scenes/Chuo_BaseMap.unity",
+  "manualFeedbackAddressed": "night sky should become dark while buildings remain readable",
+  "dayLightingPreserved": true,
+  "nightSkyDarkenedBy": "runtime camera solid sky color and separate night profiles",
+  "nightBuildingReadability": {
+    "ambientFill": "moderate trilight ambient retained for building readability",
+    "fillLight": "NewMap_NightReadable_FillLight non-shadowed low-intensity directional light",
+    "clearNightSkyBrightnessTargetMax": 0.12,
+    "readabilityScoreTargetMin": 0.35
+  },
+  "uiMarkersUnaffectedByMaterialChanges": true,
+  "rainNightReversible": true,
+  "playerSmoke": {
+    "nightSkyBrightness": 0.042,
+    "nightBuildingReadabilityScore": 0.517,
+    "dayRestored": true
+  },
+  "editModeResult": "passed_114_114",
+  "playModeResult": "passed_26_26",
+  "finalStatus": "validated_by_tests_and_player_smoke_manual_night_visual_confirmation_remaining"
+}

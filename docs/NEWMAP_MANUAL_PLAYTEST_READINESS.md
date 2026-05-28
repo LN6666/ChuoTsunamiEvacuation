@@ -4,20 +4,22 @@ Generated: 2026-05-29T00:00:00+09:00
 
 Decision: `ready_with_documented_visual_limitations`
 
-Reason: preflight, EditMode, PlayMode, temp player build, fresh Player.log parse, and DeepSeek review passed. Manual-visible confirmation is still required for final brightness, material quality, ground feel, and imported-geometry clipping.
+Reason: round-2 preflight, EditMode, PlayMode, temp player build, fresh Player.log parse, and DeepSeek review passed. Physical mouse-drag feel, visible ground/building alignment, night readability, and material/photo-texture acceptability still need manual confirmation.
 
-- Mouse look: `automated_state_transition_passed_physical_mouse_manual_confirmation_remaining`
-- Lighting: `clear_day_and_weather_lighting_configured_tests_passed_manual_brightness_confirmation_remaining`
-- Debug cleanup: `production_mode_debug_objects_hidden_by_tests_and_preflight_manual_visual_confirmation_remaining`
-- Material/LOD visual: `no_magenta_shader_expected_lighting_shader_fallback_documented_lod1_limitation`
-- Ground alignment: `player_spawn_support_delta_0_04m_player_build_log_clean_manual_visible_confirmation_remaining`
-- Building clipping: `runtime_support_proxy_clipping_fixed_imported_geometry_limitations_manual_confirmation_remaining`
+- Mouse look: `round2_drag_look_validated_mouse_movement_alone_no_rotate_button_drag_rotates_physical_confirmation_remaining`
+- Lighting: `round2_day_preserved_night_sky_dark_buildings_readable_by_profile_and_smoke_manual_confirmation_remaining`
+- Debug cleanup: `production_mode_debug_objects_hidden_by_preflight_and_player_log_manual_visual_confirmation_remaining`
+- Material/LOD visual: `round2_material_texture_audit_documented_no_lod2_claim_manual_acceptance_remaining`
+- Ground alignment: `round2_support_raised_to_1_97m_sampled_visual_base_spawn_delta_0_04m_manual_confirmation_remaining`
+- Building clipping: `round2_support_height_realign_done_two_elevated_active_target_offsets_documented_manual_classification_remaining`
 - NPC distribution: `validated_160_requested_160_spawned_within_1000m_24_sectors_5_rings_no_cap`
-- Gameplay regression: `EditMode_113_113_PlayMode_26_26_passed`
-- Temp player: `D:\UnityProjects\ChuoTsunamiEvacuation-Builds\NewMapVisualFixPre\ChuoTsunamiEvacuation_NewMapVisualFixPre.exe`
+- Gameplay regression: `EditMode_114_114_PlayMode_26_26_passed`
+- Temp player: `D:\UnityProjects\ChuoTsunamiEvacuation-Builds\NewMapVisualRound2Pre\ChuoTsunamiEvacuation_NewMapVisualRound2Pre.exe`
 - Player.log: 0 errors, 0 warnings
-- FPS/stutter sample: 180s, 160 NPCs active, 3598.53 average FPS in hidden smoke run, 2 frames over 66ms
-- EditMode: passed 113/113
+- Ground smoke: old support 0.00m, new support 1.97m, visual ground 1.97m, spawn delta 0.04m, 2 active target height-offset violations
+- Night smoke: sky brightness 0.042, building readability score 0.517, day restored
+- FPS/stutter sample: 180s, 160 NPCs active, 3324.68 average FPS in hidden smoke run, 2 frames over 66ms
+- EditMode: passed 114/114
 - PlayMode: passed 26/26
 - Preflight: passed
 - DeepSeek: passed, no A-level blockers
@@ -25,6 +27,7 @@ Reason: preflight, EditMode, PlayMode, temp player build, fresh Player.log parse
 Remaining limitations:
 
 - LOD2 textured building quality is not claimed because the documented current import is Buildings/LOD1.
-- Any PLATEAU source geometry clipping still visible after runtime support/proxy cleanup requires manual classification.
-- Automated tests cannot replace direct visual confirmation of brightness, material appearance, support alignment, and clipping in the manual camera view.
-- NPC config is copied into the NewMapVisualFixPre player data folder by the temp build script; other player builds need the same copy/streaming step for external config tuning.
+- Photo-projected/appearance texture roughness is documented as an import/PLATEAU material limitation unless a later approved material conversion or reimport proves otherwise.
+- A single flat gameplay support plane cannot perfectly match every elevated terrain/building base across the full Chuo map; 2 active target anchors remain more than 2.5m from the support height and require manual visual classification.
+- Physical mouse drag feel and cursor behavior still need confirmation in the manual build.
+- Manual visual confirmation is still required for night building readability and ground/building alignment from the player camera.
