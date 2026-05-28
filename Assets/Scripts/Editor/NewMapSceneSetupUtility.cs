@@ -67,6 +67,11 @@ public static class NewMapSceneSetupUtility
         BuildNewMapPlayer("D:/UnityProjects/ChuoTsunamiEvacuation-Builds/NewMapGameplaySelfAuditPre", "ChuoTsunamiEvacuation_NewMapGameplaySelfAuditPre.exe");
     }
 
+    public static void BuildNewMapVisualFixPlayerCommandLine()
+    {
+        BuildNewMapPlayer("D:/UnityProjects/ChuoTsunamiEvacuation-Builds/NewMapVisualFixPre", "ChuoTsunamiEvacuation_NewMapVisualFixPre.exe");
+    }
+
     private static void BuildNewMapPlayer(string buildDirectory, string executableName)
     {
         Directory.CreateDirectory(buildDirectory);
@@ -135,6 +140,7 @@ public static class NewMapSceneSetupUtility
             "GreenFrameRoot",
             "UIAnchorRoot",
             "DebugDiagnosticsRoot",
+            "GameplaySupportRoot",
             "PerformanceMetricsRoot"
         };
 

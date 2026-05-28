@@ -1,0 +1,51 @@
+{
+  "generatedAt": "2026-05-29T00:00:00+09:00",
+  "activeScene": "Assets/Scenes/Chuo_BaseMap.unity",
+  "manualBlockersAcknowledged": [
+    "mouse look was not usable because look input required RMB and cursor lock was not tied to gameplay state",
+    "scene lighting had no explicit runtime sun and inherited dark ambient settings",
+    "runtime local training proxy objects were visible in normal manual mode",
+    "runtime support surface was visible and vertically offset from visual ground",
+    "building appearance is limited by the current PLATEAU import/material/shader setup"
+  ],
+  "cameraControllerScriptsAttachedAtRuntime": true,
+  "mouseLookInputEnabledInGameplay": true,
+  "cursorLockUnlockAudited": true,
+  "eventSystemUiStealingMouseInputRisk": "mitigated_by_locked_cursor_during_gameplay_and_unlocked_cursor_for_menu_pause_result",
+  "playerCameraHierarchy": "NewMap_Player/NewMap_CameraPivot/Main Camera",
+  "lightingAudit": {
+    "sceneHeaderSunBeforeFix": "m_Sun: fileID 0",
+    "runtimeDirectionalLightCreated": true,
+    "clearDayAmbientExplicit": true,
+    "nightAndRainReversible": true
+  },
+  "debugObjectAudit": {
+    "debugDiagnosticsRootInactiveByDefault": true,
+    "localTrainingProxyTargetsProductionVisible": false,
+    "localTrainingProxyTargetsDiagnosticsOnly": true,
+    "runtimeGroundSupportRendererVisible": false
+  },
+  "groundAudit": {
+    "supportSurfaceAlignedToResolvedGround": true,
+    "playerSpawnGroundDeltaMeters": 0.04,
+    "runtimeSupportSurfaceVisible": false,
+    "fallbackSupportSurfaceY": 0.0
+  },
+  "materialShaderAudit": {
+    "generatedRuntimeMaterialsUseShaderFallback": true,
+    "shaderFallbackOrder": [
+      "Universal Render Pipeline/Lit",
+      "Standard",
+      "Unlit/Color",
+      "Sprites/Default"
+    ],
+    "lod2Limitation": "The current documented base-map import is LOD1. LOD2 texture quality cannot be claimed without a new import."
+  },
+  "buildingClippingAudit": {
+    "supportPlaneVisualClippingRemoved": true,
+    "supportPlaneStillInvisibleCollisionFallback": true,
+    "duplicateMapRootCheckRequiredByPreflight": true,
+    "importGeometryMoved": false
+  },
+  "finalStatus": "implemented_validated_by_tests_player_log_and_deepseek_manual_visual_confirmation_remaining"
+}

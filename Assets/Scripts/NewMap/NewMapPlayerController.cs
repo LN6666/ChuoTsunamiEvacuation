@@ -14,6 +14,8 @@ public sealed class NewMapPlayerController : MonoBehaviour
     [SerializeField] private float maxPitch = 60f;
     [SerializeField] private float fallRecoveryDistance = 20f;
 
+    private const float GroundSkinOffset = 0.04f;
+
     private CharacterController characterController;
     private NewMapGameMode currentMode = NewMapGameMode.None;
     private NewMapWeatherPreset currentWeather = NewMapWeatherPreset.ClearDay;
@@ -21,6 +23,8 @@ public sealed class NewMapPlayerController : MonoBehaviour
     private float yaw;
     private float pitch = 25f;
     private bool controlEnabled;
+    private bool mouseLookEnabled;
+    private bool wantsLockedCursor;
     private Vector3 lastValidGroundPosition;
     private float stamina = 100f;
     private int fallRecoveryCount;
@@ -33,6 +37,13 @@ public sealed class NewMapPlayerController : MonoBehaviour
     public NewMapGameMode CurrentMode => currentMode;
     public NewMapWeatherPreset CurrentWeather => currentWeather;
     public bool ControlEnabled => controlEnabled;
+    public bool MouseLookEnabled => mouseLookEnabled;
+    public bool WantsLockedCursor => wantsLockedCursor;
+    public float MouseSensitivity => mouseSensitivity;
+    public float MinPitch => minPitch;
+    public float MaxPitch => maxPitch;
+    public float CurrentYaw => yaw;
+    public float CurrentPitch => pitch;
     public bool HasActiveCamera => cameraTransform != null && cameraTransform.GetComponent<Camera>() != null;
     public Vector3 LastValidGroundPosition => lastValidGroundPosition;
     public int FallRecoveryCount => fallRecoveryCount;
@@ -135,10 +146,14 @@ public sealed class NewMapPlayerController : MonoBehaviour
     public void SetControlEnabled(bool enabled)
     {
         controlEnabled = enabled;
+        mouseLookEnabled = enabled;
+        wantsLockedCursor = enabled;
         if (!enabled)
         {
             verticalVelocity = 0f;
         }
+
+        ApplyCursorState();
     }
 
     public void MoveForDiagnostics(Vector3 worldDirection, float deltaTime, bool sprint)
@@ -204,7 +219,7 @@ public sealed class NewMapPlayerController : MonoBehaviour
             return;
         }
 
-        float groundedY = hit.point.y + 1.1f;
+        float groundedY = hit.point.y + GroundSkinOffset;
         if (transform.position.y < groundedY)
         {
             transform.position = new Vector3(transform.position.x, groundedY, transform.position.z);
@@ -240,10 +255,10 @@ public sealed class NewMapPlayerController : MonoBehaviour
 
     private void UpdateCameraOrbit()
     {
-        if (Input.GetMouseButton(1))
+        if (mouseLookEnabled)
         {
-            yaw += Input.GetAxisRaw("Mouse X") * mouseSensitivity;
-            pitch = Mathf.Clamp(pitch - Input.GetAxisRaw("Mouse Y") * mouseSensitivity, minPitch, maxPitch);
+            ApplyLookDelta(Input.GetAxisRaw("Mouse X"), Input.GetAxisRaw("Mouse Y"));
+            return;
         }
 
         if (Input.GetKey(KeyCode.Q))
@@ -255,6 +270,38 @@ public sealed class NewMapPlayerController : MonoBehaviour
         {
             yaw += keyboardTurnSpeed * Time.deltaTime;
         }
+    }
+
+    private void OnApplicationFocus(bool hasFocus)
+    {
+        if (hasFocus)
+        {
+            ApplyCursorState();
+        }
+    }
+
+    private void ApplyCursorState()
+    {
+        if (wantsLockedCursor)
+        {
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
+            return;
+        }
+
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+    }
+
+    public void ApplyLookDeltaForDiagnostics(float mouseX, float mouseY)
+    {
+        ApplyLookDelta(mouseX, mouseY);
+    }
+
+    private void ApplyLookDelta(float mouseX, float mouseY)
+    {
+        yaw += mouseX * mouseSensitivity;
+        pitch = Mathf.Clamp(pitch - mouseY * mouseSensitivity, minPitch, maxPitch);
     }
 
     private void UpdateMovement()

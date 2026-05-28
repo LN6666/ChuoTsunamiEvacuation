@@ -24,13 +24,19 @@ public sealed class NewMapRuntimeBootstrap : MonoBehaviour
         "GreenFrameRoot",
         "UIAnchorRoot",
         "DebugDiagnosticsRoot",
+        "GameplaySupportRoot",
         "PerformanceMetricsRoot"
     };
+
+    public static bool EnableLocalTrainingProxyTargetsForDiagnostics { get; set; }
 
     public Bounds LastMapBounds { get; private set; }
     public bool LastMapBoundsValid { get; private set; }
     public bool LastUsedGroundSupportProxy { get; private set; }
     public bool LastRuntimeCollisionSupportProxyActive { get; private set; }
+    public float LastRuntimeGroundSurfaceY { get; private set; }
+    public float LastPlayerSpawnGroundDelta { get; private set; }
+    public bool LastRuntimeCollisionSupportRendererVisible { get; private set; }
     public int LastDisabledSceneMeshColliderCount { get; private set; }
     public int LastRendererCount { get; private set; }
     public int LastColliderCount { get; private set; }
@@ -80,7 +86,7 @@ public sealed class NewMapRuntimeBootstrap : MonoBehaviour
         var roots = new Dictionary<string, Transform>();
         foreach (string rootName in RequiredRoots)
         {
-            GameObject root = GameObject.Find(rootName);
+            GameObject root = FindSceneObjectByExactName(rootName);
             if (root == null)
             {
                 root = new GameObject(rootName);
@@ -92,9 +98,23 @@ public sealed class NewMapRuntimeBootstrap : MonoBehaviour
         return roots;
     }
 
+    private static GameObject FindSceneObjectByExactName(string objectName)
+    {
+        foreach (GameObject root in SceneManager.GetActiveScene().GetRootGameObjects())
+        {
+            if (root != null && string.Equals(root.name, objectName, System.StringComparison.Ordinal))
+            {
+                return root;
+            }
+        }
+
+        return null;
+    }
+
     private void Build(Dictionary<string, Transform> roots)
     {
         var stopwatch = System.Diagnostics.Stopwatch.StartNew();
+        PrepareManualTestRoots(roots);
         Physics.SyncTransforms();
         LastMapBoundsValid = TryResolveRuntimeMapBounds(out Bounds mapBounds, out int rendererCount, out int colliderCount);
         LastMapBounds = mapBounds;
@@ -103,7 +123,9 @@ public sealed class NewMapRuntimeBootstrap : MonoBehaviour
         long boundsMs = stopwatch.ElapsedMilliseconds;
 
         Vector3 spawn = ResolveSpawnPosition(mapBounds, LastMapBoundsValid, roots["DebugDiagnosticsRoot"]);
-        EnsureRuntimeCollisionSupportProxy(roots["DebugDiagnosticsRoot"], spawn - Vector3.up * 1.15f);
+        LastRuntimeGroundSurfaceY = spawn.y - 0.04f;
+        LastPlayerSpawnGroundDelta = spawn.y - LastRuntimeGroundSurfaceY;
+        EnsureRuntimeCollisionSupportProxy(roots["GameplaySupportRoot"], new Vector3(spawn.x, LastRuntimeGroundSurfaceY, spawn.z));
         Physics.SyncTransforms();
         if (SuppressSceneMeshCollidersForManualTest)
         {
@@ -114,17 +136,21 @@ public sealed class NewMapRuntimeBootstrap : MonoBehaviour
         NewMapPlayerController player = NewMapPlayerController.Create(roots["PlayerSpawnRoot"], spawn);
         NewMapRuntimeUI.EnsureRuntimeEventSystem();
         NewMapRuntimeUI ui = NewMapRuntimeUI.Create(roots["UIAnchorRoot"]);
+        NewMapLightingController lighting = NewMapLightingController.Create(roots["RuntimeSystemsRoot"]);
         NewMapHazardController hazard = NewMapHazardController.Create(roots["HazardVisualRoot"], roots["CollapseDebrisRoot"], spawn);
         NewMapNpcCrowdPrototype crowd = NewMapNpcCrowdPrototype.Create(roots["CrowdRoot"], spawn);
         NewMapPerformanceProbe.Create(roots["PerformanceMetricsRoot"]);
         long systemsMs = stopwatch.ElapsedMilliseconds - boundsMs - spawnSupportMs;
         List<NewMapRuntimeTarget> targets = CreateVerifiedOfficialShelterTargets(roots);
         targets.AddRange(CreateRecoveredNonOfficialCandidateTargets(roots, spawn));
-        targets.AddRange(CreateLocalRuntimeTargets(roots, spawn));
+        if (ShouldEnableLocalTrainingProxyTargets())
+        {
+            targets.AddRange(CreateLocalRuntimeTargets(roots, spawn));
+        }
         long targetsMs = stopwatch.ElapsedMilliseconds - boundsMs - spawnSupportMs - systemsMs;
 
         NewMapGameController controller = gameObject.AddComponent<NewMapGameController>();
-        controller.Configure(player, ui, hazard, crowd, targets, BuildDiagnosticText());
+        controller.Configure(player, ui, lighting, hazard, crowd, targets, BuildDiagnosticText());
         if (ShouldRunGameplaySelfAuditSmoke())
         {
             StartCoroutine(RunGameplaySelfAuditSmoke(controller, player, ui, hazard, crowd));
@@ -139,7 +165,22 @@ public sealed class NewMapRuntimeBootstrap : MonoBehaviour
         Debug.Log(
             $"NewMap runtime bootstrap completed. renderers={LastRendererCount} colliders={LastColliderCount} " +
             $"groundSupportProxy={LastUsedGroundSupportProxy} collisionSupportProxy={LastRuntimeCollisionSupportProxyActive} " +
-            $"meshColliderShutdown={meshColliderShutdown} activeRuntimeTargets={targets.Count}");
+            $"supportSurfaceY={LastRuntimeGroundSurfaceY:F2} spawnGroundDelta={LastPlayerSpawnGroundDelta:F2} " +
+            $"supportRendererVisible={LastRuntimeCollisionSupportRendererVisible} meshColliderShutdown={meshColliderShutdown} " +
+            $"activeRuntimeTargets={targets.Count}");
+    }
+
+    private static void PrepareManualTestRoots(Dictionary<string, Transform> roots)
+    {
+        if (roots.TryGetValue("GameplaySupportRoot", out Transform supportRoot) && supportRoot != null)
+        {
+            supportRoot.gameObject.SetActive(true);
+        }
+
+        if (roots.TryGetValue("DebugDiagnosticsRoot", out Transform diagnosticsRoot) && diagnosticsRoot != null)
+        {
+            diagnosticsRoot.gameObject.SetActive(false);
+        }
     }
 
     private static bool ShouldRunGameplaySelfAuditSmoke()
@@ -154,6 +195,11 @@ public sealed class NewMapRuntimeBootstrap : MonoBehaviour
         }
 
         return false;
+    }
+
+    private static bool ShouldEnableLocalTrainingProxyTargets()
+    {
+        return EnableLocalTrainingProxyTargetsForDiagnostics || ShouldRunGameplaySelfAuditSmoke();
     }
 
     private IEnumerator RunGameplaySelfAuditSmoke(
@@ -399,10 +445,10 @@ public sealed class NewMapRuntimeBootstrap : MonoBehaviour
     private string BuildDiagnosticText()
     {
         string ground = LastUsedGroundSupportProxy
-            ? "Ground: runtime support proxy active"
-            : "Ground: scene collider raycast spawn active";
+            ? "Ground: invisible runtime support proxy aligned to fallback visible ground"
+            : "Ground: scene collider raycast spawn with invisible aligned support";
         string collisionProxy = LastRuntimeCollisionSupportProxyActive
-            ? " | Runtime collision support proxy active; scene MeshCollider shutdown is disabled at player startup"
+            ? " | Runtime collision support proxy active and renderer hidden; scene MeshCollider shutdown is disabled at player startup"
             : string.Empty;
         return $"{ground}{collisionProxy} | Old P3/P5 targets disabled unless remapped.";
     }
@@ -475,17 +521,18 @@ public sealed class NewMapRuntimeBootstrap : MonoBehaviour
         foreach (Vector3 offset in offsets)
         {
             Vector3 origin = new Vector3(basePosition.x + offset.x, rayStartY, basePosition.z + offset.z);
-            if (Physics.Raycast(origin, Vector3.down, out RaycastHit hit, 1000f, ~0, QueryTriggerInteraction.Ignore))
+            if (Physics.Raycast(origin, Vector3.down, out RaycastHit hit, 1000f, ~0, QueryTriggerInteraction.Ignore) &&
+                hit.point.y > -5f &&
+                hit.point.y < 8f)
             {
                 LastUsedGroundSupportProxy = false;
-                return hit.point + Vector3.up * 1.15f;
+                return hit.point + Vector3.up * 0.04f;
             }
         }
 
         LastUsedGroundSupportProxy = true;
-        Vector3 supportCenter = new Vector3(basePosition.x, hasBounds ? mapBounds.min.y : 0f, basePosition.z);
-        EnsureRuntimeCollisionSupportProxy(diagnosticsRoot, supportCenter);
-        return supportCenter + Vector3.up * 1.5f;
+        Vector3 supportCenter = new Vector3(basePosition.x, hasBounds ? Mathf.Max(-1f, mapBounds.min.y) : 0f, basePosition.z);
+        return supportCenter + Vector3.up * 0.04f;
     }
 
     private void EnsureRuntimeCollisionSupportProxy(Transform parent, Vector3 center)
@@ -499,19 +546,20 @@ public sealed class NewMapRuntimeBootstrap : MonoBehaviour
         LastRuntimeCollisionSupportProxyActive = true;
     }
 
-    private static void CreateGroundSupportProxy(Transform parent, Vector3 center)
+    private void CreateGroundSupportProxy(Transform parent, Vector3 center)
     {
-        Material material = NewMapVisualFactory.CreateMaterial("NewMap_RuntimeGroundSupport_Material", new Color(0.18f, 0.2f, 0.18f, 0.55f), true);
         GameObject support = GameObject.CreatePrimitive(PrimitiveType.Cube);
         support.name = "NewMap_RuntimeGroundSupport_DocumentedProxy";
         support.transform.SetParent(parent, true);
         support.transform.position = center - Vector3.up * 0.25f;
         support.transform.localScale = new Vector3(6000f, 0.5f, 6000f);
         Renderer renderer = support.GetComponent<Renderer>();
-        if (renderer != null && material != null)
+        if (renderer != null)
         {
-            renderer.sharedMaterial = material;
+            renderer.enabled = false;
         }
+
+        LastRuntimeCollisionSupportRendererVisible = renderer != null && renderer.enabled;
     }
 
     private IEnumerator DisableSceneMeshCollidersStaged()
@@ -794,7 +842,7 @@ public sealed class NewMapRuntimeBootstrap : MonoBehaviour
                 "newmap_proxy_safe_floor",
                 "Local Training Proxy - Safe Floor",
                 spawn,
-                spawn + new Vector3(12f, -1.05f, 10f),
+                spawn + new Vector3(12f, 0f, 10f),
                 false,
                 false,
                 true,
@@ -804,7 +852,7 @@ public sealed class NewMapRuntimeBootstrap : MonoBehaviour
                 "newmap_proxy_blocked_entrance",
                 "Local Training Proxy - Blocked Entrance",
                 spawn,
-                spawn + new Vector3(18f, -1.05f, -7f),
+                spawn + new Vector3(18f, 0f, -7f),
                 false,
                 true,
                 true,
@@ -814,7 +862,7 @@ public sealed class NewMapRuntimeBootstrap : MonoBehaviour
                 "newmap_proxy_no_safe_floor",
                 "Local Training Proxy - No Safe Floor",
                 spawn,
-                spawn + new Vector3(-13f, -1.05f, 11f),
+                spawn + new Vector3(-13f, 0f, 11f),
                 false,
                 false,
                 false,
@@ -824,7 +872,7 @@ public sealed class NewMapRuntimeBootstrap : MonoBehaviour
                 "newmap_proxy_crowd_delay",
                 "Local Training Proxy - Crowd Delay",
                 spawn,
-                spawn + new Vector3(8f, -1.05f, 4f),
+                spawn + new Vector3(8f, 0f, 4f),
                 false,
                 false,
                 true,

@@ -1,0 +1,21 @@
+{
+  "generatedAt": "2026-05-29T00:00:00+09:00",
+  "activeScene": "Assets/Scenes/Chuo_BaseMap.unity",
+  "mouseLookRestored": true,
+  "lookInputMode": "continuous_mouse_x_y_when_gameplay_control_enabled",
+  "requiresRightMouseButton": false,
+  "gameplayCursorLocks": true,
+  "menuPauseResultCursorUnlocks": true,
+  "tourismModeMouseLook": true,
+  "evacuationModeMouseLook": true,
+  "sensitivityConfigurableField": "NewMapPlayerController.mouseSensitivity",
+  "mouseSensitivity": 2.5,
+  "verticalClampDegrees": {
+    "minPitch": -15,
+    "maxPitch": 60
+  },
+  "pauseResumeRestoresLook": true,
+  "startMenuToGameplayRestoresLook": true,
+  "overviewDebugCameraDisabled": true,
+  "finalStatus": "automated_state_transition_passed_physical_mouse_manual_confirmation_remaining"
+}

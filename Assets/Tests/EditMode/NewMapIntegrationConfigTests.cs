@@ -115,4 +115,77 @@ public class NewMapIntegrationConfigTests
         StringAssert.Contains("\"disabledSelectableCount\": 0", active);
         StringAssert.Contains("\"resultPanelWarningTextExists\": true", green);
     }
+
+    [Test]
+    public void ManualBlockerFixReportsAndNpcDistributionConfigExist()
+    {
+        string[] requiredPaths =
+        {
+            "Data/P10/newmap_manual_blocker_audit.json",
+            "Data/P10/newmap_mouse_look_camera_status.json",
+            "Data/P10/newmap_debug_object_cleanup_report.json",
+            "Data/P10/newmap_lighting_visual_status.json",
+            "Data/P10/newmap_material_visual_quality_status.json",
+            "Data/P10/newmap_ground_visual_alignment_status.json",
+            "Data/P10/newmap_building_clipping_status.json",
+            "Data/P10/newmap_post_visual_fix_gameplay_status.json",
+            "Data/P10/newmap_npc_distribution_config.json",
+            "Data/P10/newmap_npc_distribution_report.json"
+        };
+
+        foreach (string relativePath in requiredPaths)
+        {
+            string fullPath = Path.Combine(Application.dataPath, relativePath);
+            Assert.IsTrue(File.Exists(fullPath), $"{relativePath} must exist for manual-blocker preflight.");
+        }
+
+        string config = File.ReadAllText(Path.Combine(Application.dataPath, "Data/P10/newmap_npc_distribution_config.json"));
+        StringAssert.Contains("\"npcCountMultiplier\": 20", config);
+        StringAssert.Contains("\"distributionRadiusMeters\": 1000", config);
+        StringAssert.Contains("\"maxNpcCount\": 300", config);
+        StringAssert.Contains("\"npcDistributionSeed\": 20260529", config);
+
+        string mouse = File.ReadAllText(Path.Combine(Application.dataPath, "Data/P10/newmap_mouse_look_camera_status.json"));
+        StringAssert.Contains("\"mouseLookRestored\": true", mouse);
+        StringAssert.Contains("\"gameplayCursorLocks\": true", mouse);
+
+        string readiness = File.ReadAllText(Path.Combine(Application.dataPath, "Data/P10/newmap_manual_playtest_readiness.json"));
+        StringAssert.Contains("\"manualReadinessDecision\"", readiness);
+    }
+
+    [Test]
+    public void NpcDistributionPurePlanIsDeterministicAndBroad()
+    {
+        NewMapNpcDistributionConfig config = NewMapNpcDistributionConfig.Default();
+        Vector3 center = new Vector3(0f, 0.04f, 0f);
+        Vector3[] first = NewMapNpcCrowdPrototype.GenerateDistributionForDiagnostics(center, config);
+        Vector3[] second = NewMapNpcCrowdPrototype.GenerateDistributionForDiagnostics(center, config);
+        Assert.AreEqual(160, first.Length);
+        Assert.AreEqual(first.Length, second.Length);
+
+        var sectors = new System.Collections.Generic.HashSet<int>();
+        var rings = new System.Collections.Generic.HashSet<int>();
+        for (int i = 0; i < first.Length; i++)
+        {
+            Assert.AreEqual(first[i].x, second[i].x, 0.001f);
+            Assert.AreEqual(first[i].z, second[i].z, 0.001f);
+            Vector3 delta = first[i] - center;
+            delta.y = 0f;
+            Assert.GreaterOrEqual(delta.magnitude, config.minDistanceFromPlayerMeters - 0.01f);
+            Assert.LessOrEqual(delta.magnitude, config.distributionRadiusMeters + 0.01f);
+
+            float angle = Mathf.Atan2(delta.z, delta.x);
+            if (angle < 0f)
+            {
+                angle += Mathf.PI * 2f;
+            }
+
+            sectors.Add(Mathf.FloorToInt(angle / (Mathf.PI * 2f / config.sectorCount)));
+            float normalized = Mathf.InverseLerp(config.minDistanceFromPlayerMeters, config.distributionRadiusMeters, delta.magnitude);
+            rings.Add(Mathf.Clamp(Mathf.FloorToInt(normalized * config.ringCount), 0, config.ringCount - 1));
+        }
+
+        Assert.GreaterOrEqual(sectors.Count, 20);
+        Assert.GreaterOrEqual(rings.Count, 5);
+    }
 }

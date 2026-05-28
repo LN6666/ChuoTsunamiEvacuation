@@ -1,0 +1,49 @@
+{
+  "generatedAt": "2026-05-29T00:00:00+09:00",
+  "activeScene": "Assets/Scenes/Chuo_BaseMap.unity",
+  "baseConfiguredCountBeforeMultiplier": 8,
+  "npcCountMultiplier": 20,
+  "requestedCount": 160,
+  "maxNpcCount": 300,
+  "cappedCount": 160,
+  "capReason": "not_capped",
+  "spawnCenter": "player_spawn_position",
+  "distributionRadiusMeters": 1000,
+  "minDistanceFromPlayerMeters": 20,
+  "minDistanceBetweenNpcMeters": 6,
+  "sectorDistribution": {
+    "enabled": true,
+    "sectorCount": 24,
+    "ringCount": 5,
+    "maxNpcPerSector": 20,
+    "minimumExpectedUsedSectors": 12,
+    "minimumExpectedUsedRings": 4
+  },
+  "deterministicSeed": 20260529,
+  "validPlacement": {
+    "snapToGround": true,
+    "useGroundProxyFallback": true,
+    "rejectExtremeY": true,
+    "fallbackGridIfRandomFails": true
+  },
+  "performanceSafety": {
+    "lightweightHumanoidPrimitives": true,
+    "pooling": "build_once_reuse_transforms",
+    "farNpcUpdateThrottle": true,
+    "heavyPathfindingPerNpc": false,
+    "crowdDelayMaxSeconds": 8
+  },
+  "validatedPerformanceSample": {
+    "elapsedSeconds": 180,
+    "averageFps": 3598.53,
+    "maxFrameMs": 6054.8,
+    "stutterFramesOver66ms": 2,
+    "requestedNpcCount": 160,
+    "spawnedNpcCount": 160,
+    "cappedNpcCount": 160,
+    "activeNpcCount": 160
+  },
+  "tourismMode": "ambient_pedestrians_no_failure",
+  "evacuationMode": "bounded_crowd_delay_no_direct_npc_death",
+  "finalStatus": "validated_by_editmode_playmode_preflight_and_temp_player_smoke"
+}

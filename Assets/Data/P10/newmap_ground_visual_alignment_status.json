@@ -1,0 +1,14 @@
+{
+  "generatedAt": "2026-05-29T00:00:00+09:00",
+  "activeScene": "Assets/Scenes/Chuo_BaseMap.unity",
+  "alignmentStrategy": "resolve scene collider ground when available, otherwise use invisible gameplay support surface aligned to fallback visible ground height",
+  "playerSpawnGroundDeltaMeters": 0.04,
+  "supportSurfaceVisible": false,
+  "supportSurfaceExpectedY": 0.0,
+  "spawnHeightToleranceMeters": 0.35,
+  "fallRecoverySafetyOnly": true,
+  "repeatedFallRecoveryExpected": false,
+  "localTrainingProxyYOffsetFixed": true,
+  "interactionTargetHeightAligned": true,
+  "finalStatus": "player_build_log_validated_manual_visible_confirmation_remaining"
+}

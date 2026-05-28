@@ -39,8 +39,15 @@ public sealed class NewMapPerformanceProbe : MonoBehaviour
         {
             float averageFps = frameCount / elapsedSeconds;
             float maxFrameMs = maxFrameSeconds * 1000f;
+            NewMapNpcCrowdPrototype crowd = FindObjectOfType<NewMapNpcCrowdPrototype>();
+            int requestedNpcCount = crowd != null ? crowd.RequestedNpcCount : 0;
+            int spawnedNpcCount = crowd != null ? crowd.SpawnedNpcCount : 0;
+            int cappedNpcCount = crowd != null ? crowd.CappedNpcCount : 0;
+            int activeNpcCount = crowd != null ? crowd.ActiveNpcCount : 0;
             Debug.Log(
-                $"NewMap performance sample: elapsedSeconds={elapsedSeconds:F2} frameCount={frameCount} avgFps={averageFps:F2} maxFrameMs={maxFrameMs:F2} stutterFramesOver66ms={stutterFrameCount}");
+                $"NewMap performance sample: elapsedSeconds={elapsedSeconds:F2} frameCount={frameCount} avgFps={averageFps:F2} " +
+                $"maxFrameMs={maxFrameMs:F2} stutterFramesOver66ms={stutterFrameCount} requestedNpcCount={requestedNpcCount} " +
+                $"spawnedNpcCount={spawnedNpcCount} cappedNpcCount={cappedNpcCount} activeNpcCount={activeNpcCount}");
             reported = true;
         }
     }

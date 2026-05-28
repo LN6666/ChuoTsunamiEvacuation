@@ -9,6 +9,7 @@ public sealed class NewMapGameController : MonoBehaviour
     private readonly List<NewMapRuntimeTarget> targets = new List<NewMapRuntimeTarget>();
     private NewMapPlayerController player;
     private NewMapRuntimeUI ui;
+    private NewMapLightingController lighting;
     private NewMapHazardController hazard;
     private NewMapNpcCrowdPrototype crowd;
     private NewMapGameMode mode = NewMapGameMode.None;
@@ -34,6 +35,7 @@ public sealed class NewMapGameController : MonoBehaviour
     public void Configure(
         NewMapPlayerController playerController,
         NewMapRuntimeUI runtimeUi,
+        NewMapLightingController lightingController,
         NewMapHazardController hazardController,
         NewMapNpcCrowdPrototype crowdPrototype,
         IEnumerable<NewMapRuntimeTarget> runtimeTargets,
@@ -41,6 +43,7 @@ public sealed class NewMapGameController : MonoBehaviour
     {
         player = playerController;
         ui = runtimeUi;
+        lighting = lightingController;
         hazard = hazardController;
         crowd = crowdPrototype;
         diagnostics = startupDiagnostics ?? string.Empty;
@@ -141,6 +144,7 @@ public sealed class NewMapGameController : MonoBehaviour
     public void SetWeather(NewMapWeatherPreset preset)
     {
         weather = preset;
+        lighting?.ApplyWeather(weather);
         player?.SetMode(mode == NewMapGameMode.None ? NewMapGameMode.Tourism : mode, weather);
         UpdateHud();
     }

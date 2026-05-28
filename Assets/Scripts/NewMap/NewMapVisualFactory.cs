@@ -46,7 +46,12 @@ public static class NewMapVisualFactory
 
     public static void CreateHumanoid(Transform parent, string rootName, Color color)
     {
-        Material material = CreateMaterial(rootName + "_Material", color);
+        CreateHumanoid(parent, rootName, color, null);
+    }
+
+    public static void CreateHumanoid(Transform parent, string rootName, Color color, Material sharedMaterial)
+    {
+        Material material = sharedMaterial != null ? sharedMaterial : CreateMaterial(rootName + "_Material", color);
         GameObject visualRoot = new GameObject(rootName);
         visualRoot.transform.SetParent(parent, false);
         visualRoot.transform.localPosition = Vector3.zero;

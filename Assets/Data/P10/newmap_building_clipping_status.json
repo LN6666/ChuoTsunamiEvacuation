@@ -1,0 +1,12 @@
+{
+  "generatedAt": "2026-05-29T00:00:00+09:00",
+  "activeScene": "Assets/Scenes/Chuo_BaseMap.unity",
+  "supportPlaneVisualClippingFixed": true,
+  "supportPlaneRendererVisible": false,
+  "importedPlateauGeometryMoved": false,
+  "duplicateActiveMapRootsAllowed": false,
+  "oldProxyMapObjectsActive": false,
+  "markerGreenFrameYOffsetReasonable": true,
+  "remainingPossibleLimitation": "Any building-to-building or base-map self-intersection from the imported PLATEAU scene is classified as source/import geometry unless confirmed otherwise in manual visual review.",
+  "finalStatus": "runtime_clipping_sources_fixed_imported_geometry_manual_confirmation_remaining"
+}

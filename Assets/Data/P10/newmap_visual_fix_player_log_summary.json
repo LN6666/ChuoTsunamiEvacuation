@@ -1,0 +1,26 @@
+﻿{
+    "generatedAt":  "2026-05-29T01:53:23",
+    "logPath":  "Logs/newmap_visual_fix_player.log",
+    "errorCount":  0,
+    "warningCount":  0,
+    "performanceSample":  {
+                              "elapsedSeconds":  180,
+                              "frameCount":  647737,
+                              "averageFps":  3598.53,
+                              "maxFrameMs":  6054.8,
+                              "stutterFramesOver66ms":  2,
+                              "requestedNpcCount":  160,
+                              "spawnedNpcCount":  160,
+                              "cappedNpcCount":  160,
+                              "activeNpcCount":  160
+                          },
+    "bootstrapLine":  "NewMap runtime bootstrap completed. renderers=0 colliders=0 groundSupportProxy=False collisionSupportProxy=True supportSurfaceY=0.00 spawnGroundDelta=0.04 supportRendererVisible=False meshColliderShutdown=disabled_runtime_startup activeRuntimeTargets=97",
+    "npcDistributionLine":  "NewMap NPC distribution built. requestedNpcCount=160 spawnedNpcCount=160 cappedNpcCount=160 capReason=not_capped radiusMeters=1000 usedSectors=24 usedRings=5 invalidPlacementRetries=2",
+    "firstErrors":  [
+
+                    ],
+    "firstWarnings":  [
+
+                      ],
+    "finalStatus":  "completed_on_new_chuo_basemap"
+}

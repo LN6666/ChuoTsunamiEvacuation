@@ -1,0 +1,17 @@
+{
+  "generatedAt": "2026-05-29T00:00:00+09:00",
+  "activeScene": "Assets/Scenes/Chuo_BaseMap.unity",
+  "materialIssueAddressedBy": [
+    "explicit clear-day lighting and ambient configuration",
+    "runtime material shader fallback for generated markers, NPCs, hazard, and player visuals",
+    "documentation of current PLATEAU import limitation"
+  ],
+  "runtimeGeneratedMaterialShaderValid": true,
+  "magentaMissingShaderAllowed": false,
+  "importedBuildingMaterialsMutated": false,
+  "texturesReimported": false,
+  "lod2VisualQualityClaim": "not_claimed",
+  "limitation": "Project decision history documents the current Chuo_BaseMap import as Buildings/LOD1. LOD2 texture appearance requires a separate approved reimport or asset conversion pass.",
+  "fallbackIfTexturesUnavailable": "neutral visible lighting only; do not degrade imported buildings to dark gray",
+  "finalStatus": "fixed_lighting_and_shader_fallback_with_documented_lod1_limitation"
+}

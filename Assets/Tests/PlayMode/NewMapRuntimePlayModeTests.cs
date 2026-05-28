@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 using NUnit.Framework;
 using UnityEngine;
@@ -7,9 +8,17 @@ using UnityEngine.TestTools;
 
 public class NewMapRuntimePlayModeTests
 {
+    [SetUp]
+    public void SetUp()
+    {
+        NewMapRuntimeBootstrap.EnableLocalTrainingProxyTargetsForDiagnostics = true;
+    }
+
     [TearDown]
     public void TearDown()
     {
+        NewMapRuntimeBootstrap.EnableLocalTrainingProxyTargetsForDiagnostics = false;
+
         foreach (NewMapRuntimeBootstrap bootstrap in Object.FindObjectsOfType<NewMapRuntimeBootstrap>())
         {
             Object.DestroyImmediate(bootstrap.gameObject);
@@ -45,6 +54,31 @@ public class NewMapRuntimePlayModeTests
         {
             Object.DestroyImmediate(officialAnchorFixture);
         }
+
+        string[] runtimeRootNames =
+        {
+            "RuntimeSystemsRoot",
+            "PlayerSpawnRoot",
+            "ShelterMarkerRoot",
+            "CandidateMarkerRoot",
+            "HazardVisualRoot",
+            "NavigationRoot",
+            "CrowdRoot",
+            "CollapseDebrisRoot",
+            "GreenFrameRoot",
+            "UIAnchorRoot",
+            "DebugDiagnosticsRoot",
+            "GameplaySupportRoot",
+            "PerformanceMetricsRoot"
+        };
+
+        foreach (GameObject root in Object.FindObjectsOfType<GameObject>(true))
+        {
+            if (root != null && runtimeRootNames.Contains(root.name))
+            {
+                Object.DestroyImmediate(root);
+            }
+        }
     }
 
     [UnityTest]
@@ -58,6 +92,9 @@ public class NewMapRuntimePlayModeTests
         Assert.NotNull(player);
         Assert.NotNull(controller);
         Assert.IsTrue(player.HasActiveCamera);
+        Assert.IsFalse(player.ControlEnabled);
+        Assert.IsFalse(player.MouseLookEnabled);
+        Assert.IsFalse(player.WantsLockedCursor);
         Assert.AreEqual(0, controller.RuntimeTargets.Count(target => target.IsOfficialShelter), "Official shelters must not be active without a verified scene GML anchor.");
 
         controller.StartTourismMode();
@@ -66,8 +103,95 @@ public class NewMapRuntimePlayModeTests
         Assert.Greater(player.transform.position.y, startY - 8f, "Player should not fall endlessly through the map/support proxy.");
         Assert.AreEqual(0, player.FallRecoveryCount, "Normal spawn grounding should not need fall recovery.");
         Assert.IsTrue(bootstrap.LastRuntimeCollisionSupportProxyActive, "Final NewMap manual test uses the documented runtime collision support proxy.");
+        Assert.IsFalse(bootstrap.LastRuntimeCollisionSupportRendererVisible, "Manual-test support proxy must be invisible.");
+        Assert.LessOrEqual(Mathf.Abs(player.transform.position.y - bootstrap.LastRuntimeGroundSurfaceY), 0.35f, "Player/support surface must align with the visible map ground height tolerance.");
         Assert.IsFalse(bootstrap.LastMeshColliderDisableComplete, "Scene MeshCollider shutdown should not run at player startup because it caused the Pre2 spike.");
         Assert.AreEqual(0, bootstrap.LastDisabledSceneMeshColliderCount, "Scene MeshColliders should remain untouched during player startup.");
+    }
+
+    [UnityTest]
+    public IEnumerator RuntimeMouseLookLocksCursorInGameplayAndRestoresAfterPause()
+    {
+        NewMapRuntimeBootstrap.CreateForCurrentScene();
+        NewMapPlayerController player = Object.FindObjectOfType<NewMapPlayerController>();
+        NewMapGameController controller = Object.FindObjectOfType<NewMapGameController>();
+        Assert.NotNull(player);
+        Assert.NotNull(controller);
+
+        controller.StartTourismMode();
+        yield return null;
+        Assert.IsTrue(player.ControlEnabled);
+        Assert.IsTrue(player.MouseLookEnabled);
+        Assert.IsTrue(player.WantsLockedCursor);
+        float yaw = player.CurrentYaw;
+        float pitch = player.CurrentPitch;
+        player.ApplyLookDeltaForDiagnostics(4f, -3f);
+        Assert.AreNotEqual(yaw, player.CurrentYaw);
+        Assert.AreNotEqual(pitch, player.CurrentPitch);
+        Assert.GreaterOrEqual(player.CurrentPitch, player.MinPitch);
+        Assert.LessOrEqual(player.CurrentPitch, player.MaxPitch);
+
+        controller.SetPaused(true);
+        yield return null;
+        Assert.IsFalse(player.ControlEnabled);
+        Assert.IsFalse(player.MouseLookEnabled);
+        Assert.IsFalse(player.WantsLockedCursor);
+
+        controller.SetPaused(false);
+        yield return null;
+        Assert.IsTrue(player.ControlEnabled);
+        Assert.IsTrue(player.MouseLookEnabled);
+        Assert.IsTrue(player.WantsLockedCursor);
+
+        controller.ResetToStartMenu();
+        yield return null;
+        Assert.IsFalse(player.ControlEnabled);
+        Assert.IsFalse(player.MouseLookEnabled);
+        Assert.IsFalse(player.WantsLockedCursor);
+
+        controller.StartEvacuationMode();
+        yield return null;
+        Assert.IsTrue(player.ControlEnabled);
+        Assert.IsTrue(player.MouseLookEnabled);
+        Assert.IsTrue(player.WantsLockedCursor);
+    }
+
+    [UnityTest]
+    public IEnumerator RuntimeLightingModesAreExplicitAndReversible()
+    {
+        NewMapRuntimeBootstrap.CreateForCurrentScene();
+        NewMapGameController controller = Object.FindObjectOfType<NewMapGameController>();
+        NewMapLightingController lighting = Object.FindObjectOfType<NewMapLightingController>();
+        Assert.NotNull(controller);
+        Assert.NotNull(lighting);
+        Assert.IsTrue(lighting.ClearDayConfigured);
+        Assert.Greater(lighting.DirectionalLightIntensity, 1.0f);
+        float clearAmbient = lighting.AmbientSkyBrightness;
+
+        controller.SetWeather(NewMapWeatherPreset.NightClear);
+        yield return null;
+        Assert.Less(lighting.DirectionalLightIntensity, 0.5f);
+        Assert.Less(lighting.AmbientSkyBrightness, clearAmbient);
+
+        controller.SetWeather(NewMapWeatherPreset.ClearDay);
+        yield return null;
+        Assert.Greater(lighting.DirectionalLightIntensity, 1.0f);
+        Assert.GreaterOrEqual(lighting.AmbientSkyBrightness, clearAmbient - 0.01f);
+    }
+
+    [UnityTest]
+    public IEnumerator RuntimeProductionModeHidesDebugLocalTrainingTargets()
+    {
+        NewMapRuntimeBootstrap.EnableLocalTrainingProxyTargetsForDiagnostics = false;
+        NewMapRuntimeBootstrap.CreateForCurrentScene();
+        NewMapGameController controller = Object.FindObjectOfType<NewMapGameController>();
+        Assert.NotNull(controller);
+
+        Assert.IsFalse(controller.RuntimeTargets.Any(target => target.Id.StartsWith("newmap_proxy_")), "Manual production mode must not show local training proxy targets.");
+        GameObject diagnosticsRoot = Object.FindObjectsOfType<GameObject>(true).FirstOrDefault(candidate => candidate.name == "DebugDiagnosticsRoot");
+        Assert.NotNull(diagnosticsRoot);
+        Assert.IsFalse(diagnosticsRoot.activeSelf, "DebugDiagnosticsRoot is inactive by default for manual/player mode.");
+        yield return null;
     }
 
     [UnityTest]
@@ -95,6 +219,56 @@ public class NewMapRuntimePlayModeTests
         Assert.Greater(Vector3.Distance(start, player.transform.position), 10f);
         Assert.AreEqual(0, player.FallRecoveryCount, "60-second diagnostic movement route should not trigger fall recovery.");
         Assert.Greater(player.transform.position.y, start.y - 8f);
+    }
+
+    [UnityTest]
+    public IEnumerator RuntimeNpcDistributionUsesConfiguredWideDeterministicSpread()
+    {
+        NewMapRuntimeBootstrap.CreateForCurrentScene();
+        NewMapPlayerController player = Object.FindObjectOfType<NewMapPlayerController>();
+        NewMapGameController controller = Object.FindObjectOfType<NewMapGameController>();
+        NewMapNpcCrowdPrototype crowd = Object.FindObjectOfType<NewMapNpcCrowdPrototype>();
+        Assert.NotNull(player);
+        Assert.NotNull(controller);
+        Assert.NotNull(crowd);
+
+        controller.StartTourismMode();
+        yield return null;
+
+        Assert.AreEqual(160, crowd.RequestedNpcCount, "NPC requested count should be 20x the previous base count of 8 before cap.");
+        Assert.LessOrEqual(crowd.SpawnedNpcCount, 300);
+        Assert.AreEqual(crowd.CappedNpcCount, crowd.SpawnedNpcCount);
+        Assert.GreaterOrEqual(crowd.UsedSectorCount, 12);
+        Assert.GreaterOrEqual(crowd.UsedRingCount, 4);
+
+        Vector3[] positions = crowd.GetNpcPositionsForDiagnostics();
+        Assert.AreEqual(crowd.SpawnedNpcCount, positions.Length);
+        foreach (Vector3 position in positions)
+        {
+            Vector3 delta = position - player.transform.position;
+            delta.y = 0f;
+            Assert.LessOrEqual(delta.magnitude, 1000.5f);
+            Assert.GreaterOrEqual(delta.magnitude, crowd.MinDistanceFromPlayerMeters - 0.5f);
+            Assert.Greater(position.y, -5f);
+            Assert.Less(position.y, 8f);
+        }
+
+        Vector3[] deterministicA = NewMapNpcCrowdPrototype.GenerateDistributionForDiagnostics(player.transform.position, NewMapNpcDistributionConfig.Default());
+        Vector3[] deterministicB = NewMapNpcCrowdPrototype.GenerateDistributionForDiagnostics(player.transform.position, NewMapNpcDistributionConfig.Default());
+        Assert.AreEqual(deterministicA.Length, deterministicB.Length);
+        for (int i = 0; i < deterministicA.Length; i += 17)
+        {
+            Assert.AreEqual(deterministicA[i].x, deterministicB[i].x, 0.001f);
+            Assert.AreEqual(deterministicA[i].z, deterministicB[i].z, 0.001f);
+        }
+
+        controller.StartEvacuationMode();
+        controller.ForceStageForDiagnostics(NewMapTsunamiStage.FrontApproaching);
+        yield return null;
+        NewMapRuntimeTarget crowdTarget = controller.RuntimeTargets.First(target => target.Id == "newmap_proxy_crowd_delay");
+        float delay = crowd.GetDelayForTarget(crowdTarget);
+        Assert.GreaterOrEqual(delay, 0f);
+        Assert.LessOrEqual(delay, 8f);
     }
 
     [UnityTest]

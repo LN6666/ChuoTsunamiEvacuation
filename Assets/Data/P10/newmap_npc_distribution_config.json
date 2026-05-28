@@ -1,0 +1,16 @@
+{
+  "enabled": true,
+  "npcCountMultiplier": 20,
+  "distributionRadiusMeters": 1000,
+  "minDistanceFromPlayerMeters": 20,
+  "minDistanceBetweenNpcMeters": 6,
+  "maxNpcCount": 300,
+  "npcDistributionSeed": 20260529,
+  "useSectorDistribution": true,
+  "sectorCount": 24,
+  "ringCount": 5,
+  "maxNpcPerSector": 20,
+  "snapToGround": true,
+  "useGroundProxyFallback": true,
+  "farNpcUpdateThrottle": true
+}

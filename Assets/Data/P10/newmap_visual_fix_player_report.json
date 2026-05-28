@@ -1,0 +1,29 @@
+﻿{
+    "generatedAt":  "2026-05-29T01:49:32",
+    "activeScene":  "Assets/Scenes/Chuo_BaseMap.unity",
+    "buildPath":  "D:\\UnityProjects\\ChuoTsunamiEvacuation-Builds\\NewMapVisualFixPre\\ChuoTsunamiEvacuation_NewMapVisualFixPre.exe",
+    "buildExists":  true,
+    "npcConfigCopiedToPlayerData":  true,
+    "unityExitCode":  0,
+    "logPath":  "D:\\UnityProjects\\ChuoTsunamiEvacuation\\Logs\\newmap_visual_fix_build.log",
+    "finalStatus":  "completed_on_new_chuo_basemap",
+    "note":  "Temporary visual-fix build only. This is not a final release package.",
+    "playerLogSummary":  "completed",
+    "playerLogErrors":  0,
+    "playerLogWarnings":  0,
+    "fpsStutterSample":  {
+                             "elapsedSeconds":  180,
+                             "frameCount":  647737,
+                             "averageFps":  3598.53,
+                             "maxFrameMs":  6054.8,
+                             "stutterFramesOver66ms":  2,
+                             "requestedNpcCount":  160,
+                             "spawnedNpcCount":  160,
+                             "cappedNpcCount":  160,
+                             "activeNpcCount":  160
+                         },
+    "launchSmoke":  "completed_self_audit_smoke_passed",
+    "mouseLookTest":  "automated_state_transition_tests_passed_physical_mouse_manual_confirmation_remaining",
+    "clearDayVisualSanity":  "covered_by_runtime_lighting_config_and_tests_manual_visual_confirmation_remaining",
+    "nightModeVisualSanity":  "covered_by_runtime_lighting_config_and_tests_manual_visual_confirmation_remaining"
+}
