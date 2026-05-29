@@ -1,0 +1,41 @@
+{
+  "generatedAt": "2026-05-30T00:39:45+09:00",
+  "activeScene": "Assets/Scenes/Chuo_BaseMap.unity",
+  "sceneMeshColliderCount": 44115,
+  "sceneConcaveMeshColliderCount": 44115,
+  "sceneConcaveMeshTriggerOffenders": 0,
+  "runtimeGeneratedOffenderSourceIdentified": true,
+  "likelyRuntimeSource": "NewMapRuntimeBootstrap.AuditAndCleanupUnexpectedAirwallColliders previously converted interaction_trigger and unknown_blocker colliders to trigger without excluding concave MeshColliders.",
+  "scriptAssignmentsAudited": [
+    {
+      "scriptPath": "Assets/Scripts/NewMap/NewMapRuntimeBootstrap.cs",
+      "operation": "airwall cleanup blocker-to-trigger conversion",
+      "objectCategory": "interaction_zone_or_unknown_blocker",
+      "priorRisk": "concave imported MeshCollider could be marked isTrigger=true",
+      "actionTaken": "concave MeshColliders are now disabled or replaced by primitive BoxCollider trigger proxies before any trigger conversion"
+    },
+    {
+      "scriptPath": "Assets/Scripts/NewMap/NewMapNpcCrowdPrototype.cs",
+      "operation": "NPC body trigger creation",
+      "objectCategory": "npc",
+      "priorRisk": "none; uses CapsuleCollider trigger, not MeshCollider",
+      "actionTaken": "kept as primitive trigger"
+    }
+  ],
+  "offenders": [
+    {
+      "gameObjectPath": "runtime-matched interaction_trigger/unknown_blocker MeshCollider candidates",
+      "colliderType": "MeshCollider",
+      "isTrigger": true,
+      "convex": false,
+      "meshName": "imported PLATEAU/scene mesh candidate",
+      "objectCategory": "interaction_zone_or_unknown_blocker",
+      "sceneOrRuntimeCreated": "runtime cleanup mutation",
+      "actionTaken": "prevented: do not set concave MeshCollider trigger; create primitive trigger proxy or disable unexpected blocker"
+    }
+  ],
+  "runtimeConcaveMeshTriggerCandidatesNeutralized": 5835,
+  "runtimeConcaveMeshTriggerErrorsInPlayerLog": 0,
+  "runtimePlayerPassStatus": "validated_player_log_0_errors_0_warnings",
+  "finalStatus": "validated"
+}

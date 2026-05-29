@@ -135,6 +135,11 @@ def default_config() -> Dict[str, Any]:
         "hideLowConfidenceInNormalMode": True,
         "hideIdOnlyInNormalMode": True,
         "usePublicNominatimCarefully": True,
+        "allowOverpassNamedFeatureLookup": True,
+        "overpassEndpoint": "https://overpass-api.de/api/interpreter",
+        "maxOverpassBuildingLabels": 160,
+        "maxOverpassRoadLabels": 80,
+        "overpassTimeoutSeconds": 35.0,
         "userAgent": "ChuoTsunamiEvacuation-PBL10-NameEnrichment/1.0",
         "maxRoadLabels": 140,
         "maxBuildingLabels": 160,
@@ -152,6 +157,7 @@ def default_config() -> Dict[str, Any]:
             "project non-official candidate names",
             "local PLATEAU/GameObject metadata",
             "local OSM cache",
+            "online Overpass named building/road lookup for capped gameplay bounds",
             "online Nominatim reverse lookup for missing selected names only",
         ],
     }
@@ -169,6 +175,8 @@ def load_config(project_root: Path) -> Dict[str, Any]:
     config["maxRoadLabels"] = max(140, int(config.get("maxRoadLabels", 140)))
     config["maxBuildingLabels"] = max(160, int(config.get("maxBuildingLabels", 160)))
     config["maxLocalOsmBuildingLabels"] = max(40, int(config.get("maxLocalOsmBuildingLabels", 40)))
+    config["maxOverpassBuildingLabels"] = max(80, int(config.get("maxOverpassBuildingLabels", 160)))
+    config["maxOverpassRoadLabels"] = max(40, int(config.get("maxOverpassRoadLabels", 80)))
     config["maxRouteRoadQueryPoints"] = max(80, int(config.get("maxRouteRoadQueryPoints", 80)))
     config["maxMissingBuildingQueries"] = max(420, int(config.get("maxMissingBuildingQueries", 420)))
     if "maxQueriesPerRun" not in config and "maxOnlineQueries" in config:
@@ -187,6 +195,8 @@ def load_config(project_root: Path) -> Dict[str, Any]:
     config["cacheResults"] = True
     config["queryBuildingsNearGameplayArea"] = True
     config["queryRoadsNearRoutes"] = True
+    config["allowOverpassNamedFeatureLookup"] = bool(config.get("allowOverpassNamedFeatureLookup", True))
+    config["overpassTimeoutSeconds"] = float(config.get("overpassTimeoutSeconds", 35.0))
     write_json(config_path, config)
     return config
 
@@ -636,6 +646,209 @@ def extract_local_osm_labels(
     return road_count, building_count, landmark_count, True
 
 
+def overpass_bbox_from_map_bounds(map_bounds: Dict[str, Any], fit: Optional[Dict[str, Any]]) -> Optional[Tuple[float, float, float, float]]:
+    if fit is None or not map_bounds:
+        return None
+    try:
+        mn = map_bounds["min"]
+        mx = map_bounds["max"]
+        corners = [
+            unity_to_wgs84(float(mn["x"]), float(mn["z"]), fit),
+            unity_to_wgs84(float(mn["x"]), float(mx["z"]), fit),
+            unity_to_wgs84(float(mx["x"]), float(mn["z"]), fit),
+            unity_to_wgs84(float(mx["x"]), float(mx["z"]), fit),
+        ]
+        corners = [corner for corner in corners if corner is not None]
+        if not corners:
+            return None
+        lats = [corner[0] for corner in corners]
+        lons = [corner[1] for corner in corners]
+        return min(lats), min(lons), max(lats), max(lons)
+    except (KeyError, TypeError, ValueError):
+        return None
+
+
+def fetch_overpass_named_features(
+    labels: List[Dict[str, Any]],
+    seen: set,
+    fit: Optional[Dict[str, Any]],
+    map_bounds: Dict[str, Any],
+    config: Dict[str, Any],
+    fallback_y: float,
+    timestamp: str,
+) -> Dict[str, Any]:
+    if not config.get("allowOnlineLookup", True) or not config.get("allowOverpassNamedFeatureLookup", True):
+        return {
+            "status": "disabled_by_config",
+            "attempted": 0,
+            "httpSucceeded": 0,
+            "buildingLabelsAdded": 0,
+            "roadLabelsAdded": 0,
+            "rejected": 0,
+            "errors": [],
+            "bbox": None,
+        }
+
+    bbox = overpass_bbox_from_map_bounds(map_bounds, fit)
+    if bbox is None:
+        return {
+            "status": "not_run_no_valid_coordinate_transform_or_bounds",
+            "attempted": 0,
+            "httpSucceeded": 0,
+            "buildingLabelsAdded": 0,
+            "roadLabelsAdded": 0,
+            "rejected": 0,
+            "errors": [],
+            "bbox": None,
+        }
+
+    south, west, north, east = bbox
+    max_buildings = int(config.get("maxOverpassBuildingLabels", 160))
+    max_roads = int(config.get("maxOverpassRoadLabels", 80))
+    output_limit = max(200, max_buildings + max_roads + 80)
+    query = f"""
+[out:json][timeout:{int(float(config.get("overpassTimeoutSeconds", 35.0)))}];
+(
+  nwr["building"]["name"]({south:.7f},{west:.7f},{north:.7f},{east:.7f});
+  nwr["building"]["name:ja"]({south:.7f},{west:.7f},{north:.7f},{east:.7f});
+  nwr["amenity"]["name"]({south:.7f},{west:.7f},{north:.7f},{east:.7f});
+  nwr["tourism"]["name"]({south:.7f},{west:.7f},{north:.7f},{east:.7f});
+  nwr["office"]["name"]({south:.7f},{west:.7f},{north:.7f},{east:.7f});
+  nwr["shop"]["name"]({south:.7f},{west:.7f},{north:.7f},{east:.7f});
+  way["highway"]["name"]({south:.7f},{west:.7f},{north:.7f},{east:.7f});
+  way["highway"]["name:ja"]({south:.7f},{west:.7f},{north:.7f},{east:.7f});
+);
+out center {output_limit};
+"""
+
+    endpoint = str(config.get("overpassEndpoint", "https://overpass-api.de/api/interpreter"))
+    user_agent = str(config.get("userAgent", "ChuoTsunamiEvacuation-PBL10-NameEnrichment/1.0"))
+    timeout_seconds = float(config.get("overpassTimeoutSeconds", 35.0))
+    request_data = urllib.parse.urlencode({"data": query}).encode("utf-8")
+    request = urllib.request.Request(
+        endpoint,
+        data=request_data,
+        headers={
+            "User-Agent": user_agent,
+            "Content-Type": "application/x-www-form-urlencoded",
+        },
+    )
+
+    try:
+        with urllib.request.urlopen(request, timeout=timeout_seconds) as response:
+            data = json.loads(response.read().decode("utf-8"))
+    except Exception as exc:  # noqa: BLE001 - graceful partial-cache failure
+        return {
+            "status": "failed_or_pending",
+            "attempted": 1,
+            "httpSucceeded": 0,
+            "buildingLabelsAdded": 0,
+            "roadLabelsAdded": 0,
+            "rejected": 0,
+            "errors": [str(exc)],
+            "bbox": {"south": south, "west": west, "north": north, "east": east},
+        }
+
+    elements = data.get("elements", [])
+    names_seen = {
+        (str(label.get("objectType")), str(label.get("finalDisplayName") or label.get("name")))
+        for label in labels
+        if label.get("finalDisplayName") or label.get("name")
+    }
+    element_ids_seen = set()
+    building_count = 0
+    road_count = 0
+    rejected = 0
+
+    for element in elements:
+        element_key = (str(element.get("type", "")), str(element.get("id", "")))
+        if element_key in element_ids_seen:
+            continue
+        element_ids_seen.add(element_key)
+        tags = element.get("tags") or {}
+        raw_name = tags.get("name:ja") or tags.get("name") or tags.get("official_name") or tags.get("short_name")
+        name = normalize_main_name(raw_name)
+        if not name:
+            rejected += 1
+            continue
+        lat_lon = way_midpoint(element, {})
+        if not lat_lon:
+            rejected += 1
+            continue
+        position = wgs84_to_unity(lat_lon[0], lat_lon[1], fit, fallback_y) if fit is not None else None
+        if not position or not bounds_contains(position, map_bounds):
+            rejected += 1
+            continue
+
+        raw_type = tags.get("highway") or tags.get("building") or tags.get("amenity") or tags.get("tourism") or tags.get("office") or tags.get("shop") or element.get("type", "osm")
+        source_field = "name:ja" if tags.get("name:ja") else "name/official_name/short_name"
+        if tags.get("highway"):
+            if road_count >= max_roads or not is_road_main_name(name) or ("road", name) in names_seen:
+                rejected += 1
+                continue
+            label = make_label(
+                "road_overpass_" + str(element.get("type", "osm")) + "_" + str(element.get("id")),
+                "road",
+                name,
+                position,
+                "OpenStreetMap Overpass",
+                "online_overpass_preprocessing_named_feature",
+                "online_overpass_named_road",
+                "highway:" + str(tags.get("highway")),
+                0.8,
+                source_field,
+                timestamp,
+                lat_lon[0],
+                lat_lon[1],
+                True,
+            )
+            if add_label(labels, seen, label):
+                names_seen.add(("road", name))
+                road_count += 1
+            else:
+                rejected += 1
+            continue
+
+        if not is_osm_building_or_landmark(tags):
+            rejected += 1
+            continue
+        if building_count >= max_buildings or ("building", name) in names_seen:
+            rejected += 1
+            continue
+        label = make_label(
+            "building_overpass_" + str(element.get("type", "osm")) + "_" + str(element.get("id")),
+            "building",
+            name,
+            position,
+            "OpenStreetMap Overpass",
+            "online_overpass_preprocessing_named_feature",
+            "online_overpass_named_building_or_landmark",
+            str(raw_type),
+            0.82,
+            source_field,
+            timestamp,
+            lat_lon[0],
+            lat_lon[1],
+            True,
+        )
+        if add_label(labels, seen, label):
+            names_seen.add(("building", name))
+            building_count += 1
+        else:
+            rejected += 1
+
+    return {
+        "status": "completed",
+        "attempted": 1,
+        "httpSucceeded": 1,
+        "buildingLabelsAdded": building_count,
+        "roadLabelsAdded": road_count,
+        "rejected": rejected,
+        "errors": [],
+        "bbox": {"south": south, "west": west, "north": north, "east": east},
+    }
+
+
 def collect_route_road_query_points(project_root: Path, fit: Optional[Dict[str, Any]], fallback_y: float, max_points: int) -> List[Dict[str, Any]]:
     if fit is None or max_points <= 0:
         return []
@@ -1079,13 +1292,15 @@ def write_docs(project_root: Path, audit: Dict[str, Any], query_list: List[Dict[
         "# NewMap Name Enrichment Expanded Buildings Roads\n\n"
         "- Stage: preprocessing/tooling only.\n"
         "- Runtime web requests: `false`.\n"
-        "- Scope: active official shelters, active non-official candidates, P8 gameplay-area building candidates, and route-near road sample points.\n"
+        "- Scope: active official shelters, active non-official candidates, P8 gameplay-area building candidates, route-near road sample points, and a capped Overpass named building/road lookup over validated gameplay bounds.\n"
         f"- Query candidates built: `{len(query_list)}`\n"
         f"- Online lookup candidates enabled: `{len([item for item in query_list if item.get('enabledForOnlineLookup')])}`\n"
         f"- Max queries per run: `{report.get('maxQueriesPerRun', 'see config')}`\n"
         f"- Building labels after normalization: `{report['buildingLabels']}`\n"
         f"- Road labels after normalization: `{report['roadLabels']}`\n"
         f"- Online queries attempted/succeeded: `{report['onlineQueriesAttempted']}` / `{report['onlineQueriesSucceeded']}`\n"
+        f"- Overpass queries attempted/succeeded: `{report.get('overpassQueriesAttempted', 0)}` / `{report.get('overpassQueriesSucceeded', 0)}`\n"
+        f"- Overpass building labels added: `{report.get('overpassBuildingLabelsAdded', 0)}`\n"
         "- The tool does not query the entire map blindly and does not fabricate missing names.\n",
     )
     write_text(
@@ -1115,9 +1330,9 @@ def write_docs(project_root: Path, audit: Dict[str, Any], query_list: List[Dict[
         "# NewMap Name Label Attribution\n\n"
         f"- Generated: `{report['generatedAt']}`\n"
         "- Cache file: `Assets/Data/P10/newmap_name_cache.json`\n"
-        "- Project sources: official shelter anchors, runtime non-official candidate cache, PLATEAU/P8 candidate audit.\n"
-        "- OpenStreetMap local cache and Nominatim preprocessing results are © OpenStreetMap contributors and used under the Open Database License.\n"
-        "- Online lookups, when present, are preprocessing-only and are not performed by the Unity player.\n"
+        "- Project sources: official shelter anchors, runtime non-official candidate cache, and PLATEAU/P8 candidate audit.\n"
+        "- OpenStreetMap local cache, Overpass preprocessing results, and Nominatim preprocessing results are from OpenStreetMap contributors and used under the Open Database License.\n"
+        "- Online lookups are preprocessing-only and are not performed by the Unity player.\n"
         "- Labels are informational prototype labels, not official facility certification, official road guidance, or GIS-grade validation.\n",
     )
 
@@ -1171,6 +1386,15 @@ def main() -> int:
         fallback_ground_y,
         timestamp,
     )
+    overpass = fetch_overpass_named_features(
+        labels,
+        seen,
+        fit,
+        map_bounds or {},
+        config,
+        fallback_ground_y,
+        timestamp,
+    )
     query_list, query_summary = build_query_list(
         project_root,
         labels,
@@ -1181,12 +1405,29 @@ def main() -> int:
         config,
     )
     online = run_online_queries(labels, seen, query_list, config, fallback_ground_y, timestamp)
+    overpass_added = overpass["buildingLabelsAdded"] + overpass["roadLabelsAdded"]
+    combined_online = {
+        "status": "failed_or_pending" if overpass["errors"] or online["errors"] else ("completed" if overpass["attempted"] + online["attempted"] > 0 else online["status"]),
+        "attempted": overpass["attempted"] + online["attempted"],
+        "httpSucceeded": overpass["httpSucceeded"] + online["httpSucceeded"],
+        "labelsAdded": overpass_added + online["labelsAdded"],
+        "failed": max(0, overpass["attempted"] - overpass["httpSucceeded"]) + online["failed"],
+        "rejected": overpass["rejected"] + online["rejected"],
+        "errors": overpass["errors"] + online["errors"],
+        "rejectedResults": online["rejectedResults"],
+    }
 
     labels.sort(key=lambda item: (item["objectType"], item["id"]))
-    online_added = online["labelsAdded"]
+    online_added = combined_online["labelsAdded"]
     source_status = "source_project_and_local_osm_names_available" if local_osm_available else "source_project_names_available"
     if online_added > 0:
         source_status += "_online_enriched"
+    providers = []
+    if overpass["attempted"] > 0:
+        providers.append("OpenStreetMap Overpass")
+    if online["attempted"] > 0:
+        providers.append("OpenStreetMap Nominatim")
+    provider_name = " + ".join(providers) if providers else "project/local sources only"
 
     cache = {
         "generatedAt": timestamp,
@@ -1194,7 +1435,7 @@ def main() -> int:
         "preprocessingOnly": True,
         "runtimeNetworkRequestsAllowed": False,
         "sourceStatus": source_status,
-        "onlineEnrichmentStatus": online["status"],
+        "onlineEnrichmentStatus": combined_online["status"],
         "providerSummary": {
             "projectOfficialShelters": official_count,
             "projectNonOfficialCandidates": candidate_count,
@@ -1202,10 +1443,14 @@ def main() -> int:
             "localOsmRoadLabels": local_road_count,
             "localOsmBuildingLabels": local_osm_building_count,
             "localOsmLandmarkLabels": local_landmark_count,
-            "onlineQueriesAttempted": online["attempted"],
-            "onlineQueriesSucceeded": online["httpSucceeded"],
+            "overpassQueriesAttempted": overpass["attempted"],
+            "overpassQueriesSucceeded": overpass["httpSucceeded"],
+            "overpassBuildingLabelsAdded": overpass["buildingLabelsAdded"],
+            "overpassRoadLabelsAdded": overpass["roadLabelsAdded"],
+            "onlineQueriesAttempted": combined_online["attempted"],
+            "onlineQueriesSucceeded": combined_online["httpSucceeded"],
             "onlineLabelsAdded": online_added,
-            "onlineLabelsRejected": online["rejected"],
+            "onlineLabelsRejected": combined_online["rejected"],
         },
         "labels": labels,
     }
@@ -1228,19 +1473,25 @@ def main() -> int:
         "localOsmCacheAvailable": local_osm_available,
         "localOsmRoadLabels": local_road_count,
         "localOsmBuildingLabels": local_osm_building_count,
-        "provider": "OpenStreetMap Nominatim" if online["attempted"] > 0 else "project/local sources only",
-        "onlineEnrichmentStatus": online["status"],
-        "onlineQueriesAttempted": online["attempted"],
-        "onlineQueriesSucceeded": online["httpSucceeded"],
-        "onlineQueriesFailed": online["failed"],
+        "overpassEnrichmentStatus": overpass["status"],
+        "overpassQueriesAttempted": overpass["attempted"],
+        "overpassQueriesSucceeded": overpass["httpSucceeded"],
+        "overpassBuildingLabelsAdded": overpass["buildingLabelsAdded"],
+        "overpassRoadLabelsAdded": overpass["roadLabelsAdded"],
+        "overpassErrors": overpass["errors"][:4],
+        "provider": provider_name,
+        "onlineEnrichmentStatus": combined_online["status"],
+        "onlineQueriesAttempted": combined_online["attempted"],
+        "onlineQueriesSucceeded": combined_online["httpSucceeded"],
+        "onlineQueriesFailed": combined_online["failed"],
         "onlineLabelsAdded": online_added,
         "namesNewlyAdded": online_added,
-        "namesRejected": online["rejected"],
+        "namesRejected": combined_online["rejected"],
         "maxQueriesPerRun": config["maxQueriesPerRun"],
-        "onlineErrors": online["errors"][:8],
+        "onlineErrors": combined_online["errors"][:8],
         "rateLimitSeconds": config["rateLimitSeconds"],
         "userAgent": config["userAgent"],
-        "attributionRequired": local_osm_available or online["attempted"] > 0,
+        "attributionRequired": local_osm_available or combined_online["attempted"] > 0,
         "attributionStatus": "documented_in_docs_NEWMAP_NAME_LABEL_ATTRIBUTION",
         "normalization": {
             "japaneseKanjiMainNameOnly": True,
@@ -1250,11 +1501,11 @@ def main() -> int:
             "fabricatedNamesAllowed": False,
             "lowConfidenceHiddenInNormalMode": True,
         },
-        "finalStatus": "completed" if labels and online["attempted"] > 0 and not online["errors"] else ("completed_with_online_errors" if labels and online["attempted"] > 0 else "partial_no_online_queries"),
+        "finalStatus": "completed" if labels and combined_online["attempted"] > 0 and not combined_online["errors"] else ("completed_with_online_errors" if labels and combined_online["attempted"] > 0 else "partial_no_online_queries"),
     }
 
-    audit = build_cache_audit(previous_cache, labels, query_summary, online, runtime_report, previous_enrichment_report, timestamp)
-    normalization = build_normalization_report(labels, online, timestamp)
+    audit = build_cache_audit(previous_cache, labels, query_summary, combined_online, runtime_report, previous_enrichment_report, timestamp)
+    normalization = build_normalization_report(labels, combined_online, timestamp)
     query_payload = {
         "generatedAt": timestamp,
         "activeScene": ACTIVE_SCENE,

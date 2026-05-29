@@ -1,25 +1,21 @@
-﻿# NewMap Manual Playtest Readiness
+# NewMap Manual Playtest Readiness
 
 - Decision: ready_for_manual_playtest
-- Ground cover raise offset: 3m
-- Ground cover Y: 3m
-- Buildings moved: false
-- Building floating: reduced by raised gameplay cover; manual visual check still required
-- Player/NPC/targets resnapped: True
-- Player building collision proxy: True
-- NPC continuous movement: True
-- Name cache loaded: True
-- Name cache records: 276
-- Preprocessing online name queries: 166 attempted / 166 succeeded
-- Newly accepted online names: 77
-- Rejected online names: 89
-- Cached building/road labels: 59 / 182
+- Concave MeshCollider trigger errors: 0 in Player.log
+- Runtime concave MeshCollider offenders neutralized: 5835
+- NPC global refresh count: 0
+- NPC all-stop count: 0
+- NPC stopped-without-reason count: 0
+- Player-NPC contact smoke: passed
+- Name cache records: 332
+- Preprocessing online queries: 167 attempted / 167 succeeded
+- Overpass queries: 1 attempted / 1 succeeded
+- Cached building/road labels: 117 / 180
+- Runtime building/road labels: 117 / 180
 - Full-address or ID-only normal labels: 0 / 0
 - Runtime web requests allowed: False
-- Unexpected airwall cleanup: validated by player smoke; 5932 unexpected playable blockers converted to triggers, 4 boundary air walls preserved
-- Player-NPC soft blocking: validated by PlayMode and player smoke; 800 NPC body colliders configured
-- Current airwall/NPC/label player smoke: passed
-- Airwall/NPC/label Player.log: 0 errors / 0 warnings
-- Temp player: D:\UnityProjects\ChuoTsunamiEvacuation-Builds\NewMapAirwallNpcLabelFixPre\ChuoTsunamiEvacuation_NewMapAirwallNpcLabelFixPre.exe
+- Current runtime/NPC/label player smoke: passed
+- Player.log: 0 errors / 0 warnings
+- Temp player: D:\UnityProjects\ChuoTsunamiEvacuation-Builds\NewMapRuntimeNpcLabelFixPre\ChuoTsunamiEvacuation_NewMapRuntimeNpcLabelFixPre.exe
 
 This does not claim GIS-grade terrain, road, route, or PLATEAU building elevation accuracy.

@@ -327,6 +327,52 @@ public class NewMapIntegrationConfigTests
     }
 
     [Test]
+    public void RuntimeErrorNpcLifecycleAndExpandedLabelsAreConfigured()
+    {
+        string concaveAudit = File.ReadAllText(Path.Combine(Application.dataPath, "Data/P10/newmap_concave_mesh_trigger_audit.json"));
+        string concaveFix = File.ReadAllText(Path.Combine(Application.dataPath, "Data/P10/newmap_concave_mesh_trigger_fix.json"));
+        string lifecycleConfig = File.ReadAllText(Path.Combine(Application.dataPath, "Data/P10/newmap_npc_lifecycle_config.json"));
+        string lifecycleAudit = File.ReadAllText(Path.Combine(Application.dataPath, "Data/P10/newmap_npc_lifecycle_deadlock_audit.json"));
+        string contactFix = File.ReadAllText(Path.Combine(Application.dataPath, "Data/P10/newmap_npc_player_collision_deadlock_fix.json"));
+        string labelAudit = File.ReadAllText(Path.Combine(Application.dataPath, "Data/P10/newmap_building_road_label_coverage_audit.json"));
+        string labelRuntime = File.ReadAllText(Path.Combine(Application.dataPath, "Data/P10/newmap_building_road_label_runtime_report.json"));
+        string nameConfig = File.ReadAllText(Path.Combine(Application.dataPath, "Data/P10/newmap_name_label_config.json"));
+        string bootstrap = File.ReadAllText(Path.Combine(Application.dataPath, "Scripts/NewMap/NewMapRuntimeBootstrap.cs"));
+        string npc = File.ReadAllText(Path.Combine(Application.dataPath, "Scripts/NewMap/NewMapNpcCrowdPrototype.cs"));
+        string labels = File.ReadAllText(Path.Combine(Application.dataPath, "Scripts/NewMap/NewMapNameLabelController.cs"));
+
+        string compactConcaveAudit = concaveAudit.Replace(" ", string.Empty);
+        string compactConcaveFix = concaveFix.Replace(" ", string.Empty);
+        string compactLifecycleConfig = lifecycleConfig.Replace(" ", string.Empty);
+        string compactLifecycleAudit = lifecycleAudit.Replace(" ", string.Empty);
+        string compactContactFix = contactFix.Replace(" ", string.Empty);
+        string compactLabelAudit = labelAudit.Replace(" ", string.Empty);
+        string compactLabelRuntime = labelRuntime.Replace(" ", string.Empty);
+        string compactNameConfig = nameConfig.Replace(" ", string.Empty);
+
+        StringAssert.Contains("\"sceneConcaveMeshTriggerOffenders\":0", compactConcaveAudit);
+        StringAssert.Contains("\"runtimeFixImplemented\":true", compactConcaveFix);
+        StringAssert.Contains("\"allowGlobalRefresh\":false", compactLifecycleConfig);
+        StringAssert.Contains("\"globalRespawnIntervalSeconds\":0.0", compactLifecycleConfig);
+        StringAssert.Contains("\"collisionWithPlayerDoesNotGlobalPause\":true", compactLifecycleConfig);
+        StringAssert.Contains("\"globalRespawnCount\":0", compactLifecycleAudit);
+        StringAssert.Contains("\"collisionAffectsOnlyLocalPair\":true", compactContactFix);
+        StringAssert.Contains("\"ordinaryBuildingLabels\":117", compactLabelAudit);
+        StringAssert.Contains("\"roadLabels\":180", compactLabelAudit);
+        StringAssert.Contains("\"ordinaryBuildingLabelsAvailable\":117", compactLabelRuntime);
+        StringAssert.Contains("\"maxVisibleLabels\":180", compactNameConfig);
+        StringAssert.Contains("\"maxVisibleBuildingLabels\":80", compactNameConfig);
+        StringAssert.Contains("\"maxVisibleRoadLabels\":50", compactNameConfig);
+        StringAssert.Contains("NeutralizeExistingConcaveMeshTrigger", bootstrap);
+        StringAssert.Contains("CreatePrimitiveTriggerProxy", bootstrap);
+        StringAssert.Contains("RunNpcLifecycleDiagnosticSmoke", bootstrap);
+        StringAssert.Contains("SetReferenceTransform", npc);
+        StringAssert.Contains("ResolveNpcTargetAvoidingPlayerContact", npc);
+        StringAssert.Contains("PreventAllStopDeadlock", npc);
+        StringAssert.Contains("maxCachedLabelSources = 800", labels);
+    }
+
+    [Test]
     public void Round3SupportBoundsAndNameLabelsStayInvisibleOfflineAndCapped()
     {
         NewMapPlayableBoundsConfig bounds = NewMapPlayableBoundsConfig.Default();
@@ -349,7 +395,7 @@ public class NewMapIntegrationConfigTests
         Assert.IsTrue(labelConfig.showRoadNames);
         Assert.IsFalse(labelConfig.showIdOnlyLabelsInDebug);
         Assert.IsFalse(labelConfig.runtimeNetworkRequestsAllowed);
-        Assert.LessOrEqual(labelConfig.maxVisibleLabels, 80);
+        Assert.LessOrEqual(labelConfig.maxVisibleLabels, 180);
         Assert.GreaterOrEqual(labelConfig.labelUpdateIntervalSeconds, 0.25f);
 
         string support = File.ReadAllText(Path.Combine(Application.dataPath, "Data/P10/newmap_support_surface_visibility_status.json"));

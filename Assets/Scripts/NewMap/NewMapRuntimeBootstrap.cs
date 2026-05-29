@@ -82,6 +82,9 @@ public sealed class NewMapRuntimeBootstrap : MonoBehaviour
     public int LastUnexpectedAirwallBlockersRemoved { get; private set; }
     public int LastUnexpectedAirwallBlockersResized { get; private set; }
     public int LastUnexpectedAirwallBlockersConvertedToTrigger { get; private set; }
+    public int LastConcaveMeshTriggerOffenderCount { get; private set; }
+    public int LastConcaveMeshTriggerFixedCount { get; private set; }
+    public int LastConcaveMeshTriggerProxyCount { get; private set; }
     public int LastBoundaryAirWallsPreserved { get; private set; }
     public int LastInvalidZoneBlockersPreserved { get; private set; }
     public int LastUnknownBlockersInsidePlayableArea { get; private set; }
@@ -313,6 +316,7 @@ public sealed class NewMapRuntimeBootstrap : MonoBehaviour
         NewMapLightingController lighting = NewMapLightingController.Create(roots["RuntimeSystemsRoot"]);
         NewMapHazardController hazard = NewMapHazardController.Create(roots["HazardVisualRoot"], roots["CollapseDebrisRoot"], spawn);
         NewMapNpcCrowdPrototype crowd = NewMapNpcCrowdPrototype.Create(roots["CrowdRoot"], spawn, LastPlayableBounds, buildingAvoidanceBounds);
+        crowd.SetReferenceTransform(player.transform);
         player.ConfigurePlayerNpcCollision(crowd, NewMapPlayerNpcCollisionConfig.Load());
         NewMapPerformanceProbe.Create(roots["PerformanceMetricsRoot"]);
         long systemsMs = stopwatch.ElapsedMilliseconds - boundsMs - spawnSupportMs;
@@ -333,6 +337,7 @@ public sealed class NewMapRuntimeBootstrap : MonoBehaviour
         if (ShouldRunGameplaySelfAuditSmoke())
         {
             StartCoroutine(RunGameplaySelfAuditSmoke(controller, player, ui, lighting, hazard, crowd));
+            StartCoroutine(RunNpcLifecycleDiagnosticSmoke(player, crowd));
         }
 
         long configureMs = stopwatch.ElapsedMilliseconds - boundsMs - spawnSupportMs - systemsMs - targetsMs;
@@ -371,6 +376,8 @@ public sealed class NewMapRuntimeBootstrap : MonoBehaviour
             $"airwallHardCollidersScanned={LastAirwallHardTotalCollidersScanned} unexpectedAirwallBlockers={LastUnexpectedAirwallBlockersFound} " +
             $"airwallBlockersRemoved={LastUnexpectedAirwallBlockersRemoved} airwallBlockersResized={LastUnexpectedAirwallBlockersResized} " +
             $"airwallBlockersConvertedToTrigger={LastUnexpectedAirwallBlockersConvertedToTrigger} boundaryAirWallsPreserved={LastBoundaryAirWallsPreserved} " +
+            $"concaveMeshTriggerOffenders={LastConcaveMeshTriggerOffenderCount} concaveMeshTriggerFixed={LastConcaveMeshTriggerFixedCount} " +
+            $"concaveMeshTriggerProxies={LastConcaveMeshTriggerProxyCount} " +
             $"invalidZoneBlockersPreserved={LastInvalidZoneBlockersPreserved} unknownBlockersInsidePlayableArea={LastUnknownBlockersInsidePlayableArea} " +
             $"buildingObstacleBoundsFiltered={LastBuildingObstacleBoundsFiltered} buildingObstacleBoundsShrunk={LastBuildingObstacleBoundsShrunk} " +
             $"sampledValidPathsPassable={LastSampledValidPathsPassable} " +
@@ -746,6 +753,59 @@ public sealed class NewMapRuntimeBootstrap : MonoBehaviour
 
         player?.SetControlEnabled(false);
         Debug.Log("NewMap gameplay self-audit smoke completed.");
+    }
+
+    private IEnumerator RunNpcLifecycleDiagnosticSmoke(NewMapPlayerController player, NewMapNpcCrowdPrototype crowd)
+    {
+        if (crowd == null)
+        {
+            yield break;
+        }
+
+        yield return new WaitForSecondsRealtime(2f);
+        Vector3[] positions = crowd.GetNpcPositionsForDiagnostics();
+        if (positions != null && positions.Length > 0)
+        {
+            Vector3 previous = positions[0] + new Vector3(1.5f, 0f, 0f);
+            Vector3 candidate = positions[0] + new Vector3(0.1f, 0f, 0f);
+            crowd.ResolvePlayerPositionAgainstNpcs(
+                previous,
+                candidate,
+                NewMapPlayerNpcCollisionConfig.Default(),
+                out _,
+                out _,
+                out _,
+                out _,
+                out _);
+        }
+
+        yield return new WaitForSecondsRealtime(8f);
+        LogNpcLifecycleSmoke(10, crowd);
+        yield return new WaitForSecondsRealtime(20f);
+        LogNpcLifecycleSmoke(30, crowd);
+        yield return new WaitForSecondsRealtime(30f);
+        LogNpcLifecycleSmoke(60, crowd);
+        yield return new WaitForSecondsRealtime(120f);
+        LogNpcLifecycleSmoke(180, crowd);
+    }
+
+    private static void LogNpcLifecycleSmoke(int seconds, NewMapNpcCrowdPrototype crowd)
+    {
+        if (crowd == null)
+        {
+            return;
+        }
+
+        Debug.Log(
+            $"NewMap NPC lifecycle smoke. seconds={seconds} activeNpcCount={crowd.ActiveNpcCount} " +
+            $"createdAtStartup={crowd.NpcCreatedAtStartupCount} globalRespawnCount={crowd.GlobalRespawnCount} " +
+            $"individualRespawnCount={crowd.IndividualRespawnCount} poolRecycleCount={crowd.PoolRecycleCount} " +
+            $"destroyedDuringSmoke={crowd.DestroyedDuringRuntimeCount} instantiateAfterStartup={crowd.InstantiateAfterStartupCount} " +
+            $"allStopEventCount={crowd.AllStopEventCount} playerContactEvents={crowd.PlayerContactEventCount} " +
+            $"stoppedWithoutReason={crowd.StoppedWithoutReasonCount} moving={crowd.MovingCount} arrived={crowd.ArrivedCount} " +
+            $"queued={crowd.QueuedCount} stuck={crowd.StuckCount} static={crowd.StaticProxyCount} " +
+            $"averageSpeed={crowd.AverageSpeedMetersPerSecond:F3} allowGlobalRefresh={crowd.AllowGlobalRefresh} " +
+            $"globalRespawnIntervalSeconds={crowd.GlobalRespawnIntervalSeconds:F1} collisionWithPlayerDoesNotGlobalPause={crowd.CollisionWithPlayerDoesNotGlobalPause}");
     }
 
     private static void LogGameplaySmoke(string scenarioId, bool passed, string detail)
@@ -1664,6 +1724,9 @@ public sealed class NewMapRuntimeBootstrap : MonoBehaviour
         LastUnexpectedAirwallBlockersRemoved = 0;
         LastUnexpectedAirwallBlockersResized = 0;
         LastUnexpectedAirwallBlockersConvertedToTrigger = 0;
+        LastConcaveMeshTriggerOffenderCount = 0;
+        LastConcaveMeshTriggerFixedCount = 0;
+        LastConcaveMeshTriggerProxyCount = 0;
         LastBoundaryAirWallsPreserved = 0;
         LastInvalidZoneBlockersPreserved = 0;
         LastUnknownBlockersInsidePlayableArea = 0;
@@ -1695,6 +1758,7 @@ public sealed class NewMapRuntimeBootstrap : MonoBehaviour
             string category = ClassifyBlockingCollider(path, collider);
             bool blocksPlayer = collider.enabled && collider.gameObject.activeInHierarchy && !collider.isTrigger;
             bool insidePlayableArea = IsColliderInsideNormalPlayableArea(collider.bounds, config);
+            NeutralizeExistingConcaveMeshTrigger(collider);
 
             if (category == "boundary_air_wall")
             {
@@ -1723,9 +1787,8 @@ public sealed class NewMapRuntimeBootstrap : MonoBehaviour
 
             if (category == "interaction_trigger" && config.convertInteractionBlockersToTriggers)
             {
-                collider.isTrigger = true;
                 LastUnexpectedAirwallBlockersFound++;
-                LastUnexpectedAirwallBlockersConvertedToTrigger++;
+                ConvertOrReplaceBlockingColliderAsTrigger(collider, category);
                 continue;
             }
 
@@ -1739,9 +1802,8 @@ public sealed class NewMapRuntimeBootstrap : MonoBehaviour
 
             if (category == "unknown_blocker" && config.convertUnknownPlayableBlockersToTriggers)
             {
-                collider.isTrigger = true;
                 LastUnexpectedAirwallBlockersFound++;
-                LastUnexpectedAirwallBlockersConvertedToTrigger++;
+                ConvertOrDisableUnexpectedPlayableBlocker(collider);
             }
         }
 
@@ -1750,6 +1812,74 @@ public sealed class NewMapRuntimeBootstrap : MonoBehaviour
             LastPlayableAirWallColliderCount == 4 &&
             LastBoundaryAirWallsPreserved >= 4 &&
             LastUnknownBlockersInsidePlayableArea == 0;
+    }
+
+    private void NeutralizeExistingConcaveMeshTrigger(Collider collider)
+    {
+        MeshCollider meshCollider = collider as MeshCollider;
+        if (meshCollider == null || !meshCollider.isTrigger || meshCollider.convex)
+        {
+            return;
+        }
+
+        LastConcaveMeshTriggerOffenderCount++;
+        meshCollider.isTrigger = false;
+        LastConcaveMeshTriggerFixedCount++;
+    }
+
+    private void ConvertOrReplaceBlockingColliderAsTrigger(Collider collider, string category)
+    {
+        MeshCollider meshCollider = collider as MeshCollider;
+        if (meshCollider != null && !meshCollider.convex)
+        {
+            LastConcaveMeshTriggerOffenderCount++;
+            CreatePrimitiveTriggerProxy(collider, category);
+            collider.enabled = false;
+            LastConcaveMeshTriggerFixedCount++;
+            LastUnexpectedAirwallBlockersRemoved++;
+            return;
+        }
+
+        collider.isTrigger = true;
+        LastUnexpectedAirwallBlockersConvertedToTrigger++;
+    }
+
+    private void ConvertOrDisableUnexpectedPlayableBlocker(Collider collider)
+    {
+        MeshCollider meshCollider = collider as MeshCollider;
+        if (meshCollider != null && !meshCollider.convex)
+        {
+            LastConcaveMeshTriggerOffenderCount++;
+            collider.enabled = false;
+            LastConcaveMeshTriggerFixedCount++;
+            LastUnexpectedAirwallBlockersRemoved++;
+            return;
+        }
+
+        collider.isTrigger = true;
+        LastUnexpectedAirwallBlockersConvertedToTrigger++;
+    }
+
+    private void CreatePrimitiveTriggerProxy(Collider source, string category)
+    {
+        if (source == null || !IsFiniteVector3(source.bounds.center) || !IsFiniteVector3(source.bounds.size))
+        {
+            return;
+        }
+
+        GameObject proxy = new GameObject("NewMap_" + category + "_PrimitiveTriggerProxy");
+        proxy.transform.SetParent(transform, true);
+        proxy.transform.position = source.bounds.center;
+        proxy.transform.rotation = Quaternion.identity;
+        BoxCollider box = proxy.AddComponent<BoxCollider>();
+        box.size = new Vector3(
+            Mathf.Max(0.5f, source.bounds.size.x),
+            Mathf.Max(0.5f, source.bounds.size.y),
+            Mathf.Max(0.5f, source.bounds.size.z));
+        box.center = Vector3.zero;
+        box.isTrigger = true;
+        LastConcaveMeshTriggerProxyCount++;
+        LastUnexpectedAirwallBlockersConvertedToTrigger++;
     }
 
     private bool IsColliderInsideNormalPlayableArea(Bounds bounds, NewMapAirwallHardCleanupConfig config)

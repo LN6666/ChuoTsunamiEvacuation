@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-29T23:32:16+09:00",
+  "generatedAt": "2026-05-30T00:39:45+09:00",
   "activeScene": "Assets/Scenes/Chuo_BaseMap.unity",
   "preprocessingOnly": true,
   "runtimeNetworkRequestsAllowed": false,
@@ -12,12 +12,1954 @@
     "localOsmRoadLabels": 140,
     "localOsmBuildingLabels": 0,
     "localOsmLandmarkLabels": 1,
-    "onlineQueriesAttempted": 166,
-    "onlineQueriesSucceeded": 166,
-    "onlineLabelsAdded": 77,
-    "onlineLabelsRejected": 89
+    "overpassQueriesAttempted": 1,
+    "overpassQueriesSucceeded": 1,
+    "overpassBuildingLabelsAdded": 57,
+    "overpassRoadLabelsAdded": 0,
+    "onlineQueriesAttempted": 167,
+    "onlineQueriesSucceeded": 167,
+    "onlineLabelsAdded": 133,
+    "onlineLabelsRejected": 353
   },
   "labels": [
+    {
+      "id": "building_overpass_node_1048882804",
+      "objectType": "building",
+      "name": "秋葉原メディカルクリニック",
+      "finalDisplayName": "秋葉原メディカルクリニック",
+      "finalDisplayNameLanguage": "ja",
+      "language": "ja",
+      "source": "online_overpass_preprocessing_named_feature",
+      "provider": "OpenStreetMap Overpass",
+      "sourceField": "name/official_name/short_name",
+      "classification": "online_overpass_named_building_or_landmark",
+      "rawType": "hospital",
+      "confidence": 0.82,
+      "lat": 35.6972162,
+      "lon": 139.7724786,
+      "position": {
+        "x": 203.334,
+        "y": 2.4,
+        "z": 2220.289
+      },
+      "unityPosition": {
+        "x": 203.334,
+        "y": 2.4,
+        "z": 2220.289
+      },
+      "rawName": "秋葉原メディカルクリニック",
+      "normalizedName": "秋葉原メディカルクリニック",
+      "idOnly": false,
+      "disabled": false,
+      "hiddenInNormalMode": false,
+      "hiddenReason": "",
+      "attributionRequired": true,
+      "timestamp": "2026-05-30T00:39:45+09:00"
+    },
+    {
+      "id": "building_overpass_node_1130530506",
+      "objectType": "building",
+      "name": "御茶ノ水 鍼灸専門学校",
+      "finalDisplayName": "御茶ノ水 鍼灸専門学校",
+      "finalDisplayNameLanguage": "ja",
+      "language": "ja",
+      "source": "online_overpass_preprocessing_named_feature",
+      "provider": "OpenStreetMap Overpass",
+      "sourceField": "name:ja",
+      "classification": "online_overpass_named_building_or_landmark",
+      "rawType": "college",
+      "confidence": 0.82,
+      "lat": 35.7016017,
+      "lon": 139.766204,
+      "position": {
+        "x": -363.159,
+        "y": 2.4,
+        "z": 2706.323
+      },
+      "unityPosition": {
+        "x": -363.159,
+        "y": 2.4,
+        "z": 2706.323
+      },
+      "rawName": "御茶ノ水 鍼灸専門学校",
+      "normalizedName": "御茶ノ水 鍼灸専門学校",
+      "idOnly": false,
+      "disabled": false,
+      "hiddenInNormalMode": false,
+      "hiddenReason": "",
+      "attributionRequired": true,
+      "timestamp": "2026-05-30T00:39:45+09:00"
+    },
+    {
+      "id": "building_overpass_node_1130555411",
+      "objectType": "building",
+      "name": "御茶ノ水 イン",
+      "finalDisplayName": "御茶ノ水 イン",
+      "finalDisplayNameLanguage": "ja",
+      "language": "ja",
+      "source": "online_overpass_preprocessing_named_feature",
+      "provider": "OpenStreetMap Overpass",
+      "sourceField": "name:ja",
+      "classification": "online_overpass_named_building_or_landmark",
+      "rawType": "hotel",
+      "confidence": 0.82,
+      "lat": 35.7015293,
+      "lon": 139.7663266,
+      "position": {
+        "x": -352.087,
+        "y": 2.4,
+        "z": 2698.292
+      },
+      "unityPosition": {
+        "x": -352.087,
+        "y": 2.4,
+        "z": 2698.292
+      },
+      "rawName": "御茶ノ水 イン",
+      "normalizedName": "御茶ノ水 イン",
+      "idOnly": false,
+      "disabled": false,
+      "hiddenInNormalMode": false,
+      "hiddenReason": "",
+      "attributionRequired": true,
+      "timestamp": "2026-05-30T00:39:45+09:00"
+    },
+    {
+      "id": "building_overpass_node_1195197202",
+      "objectType": "building",
+      "name": "ヤマハホール",
+      "finalDisplayName": "ヤマハホール",
+      "finalDisplayNameLanguage": "ja",
+      "language": "ja",
+      "source": "online_overpass_preprocessing_named_feature",
+      "provider": "OpenStreetMap Overpass",
+      "sourceField": "name/official_name/short_name",
+      "classification": "online_overpass_named_building_or_landmark",
+      "rawType": "theatre",
+      "confidence": 0.82,
+      "lat": 35.6686277,
+      "lon": 139.7625846,
+      "position": {
+        "x": -697.263,
+        "y": 2.4,
+        "z": -928.768
+      },
+      "unityPosition": {
+        "x": -697.263,
+        "y": 2.4,
+        "z": -928.768
+      },
+      "rawName": "ヤマハホール",
+      "normalizedName": "ヤマハホール",
+      "idOnly": false,
+      "disabled": false,
+      "hiddenInNormalMode": false,
+      "hiddenReason": "",
+      "attributionRequired": true,
+      "timestamp": "2026-05-30T00:39:45+09:00"
+    },
+    {
+      "id": "building_overpass_node_1195197281",
+      "objectType": "building",
+      "name": "王子ホール",
+      "finalDisplayName": "王子ホール",
+      "finalDisplayNameLanguage": "ja",
+      "language": "ja",
+      "source": "online_overpass_preprocessing_named_feature",
+      "provider": "OpenStreetMap Overpass",
+      "sourceField": "name/official_name/short_name",
+      "classification": "online_overpass_named_building_or_landmark",
+      "rawType": "theatre",
+      "confidence": 0.82,
+      "lat": 35.671169,
+      "lon": 139.7665315,
+      "position": {
+        "x": -339.829,
+        "y": 2.4,
+        "z": -650.009
+      },
+      "unityPosition": {
+        "x": -339.829,
+        "y": 2.4,
+        "z": -650.009
+      },
+      "rawName": "王子ホール",
+      "normalizedName": "王子ホール",
+      "idOnly": false,
+      "disabled": false,
+      "hiddenInNormalMode": false,
+      "hiddenReason": "",
+      "attributionRequired": true,
+      "timestamp": "2026-05-30T00:39:45+09:00"
+    },
+    {
+      "id": "building_overpass_node_1350269516",
+      "objectType": "building",
+      "name": "日本銀行金融研究所貨幣博物館",
+      "finalDisplayName": "日本銀行金融研究所貨幣博物館",
+      "finalDisplayNameLanguage": "ja",
+      "language": "ja",
+      "source": "online_overpass_preprocessing_named_feature",
+      "provider": "OpenStreetMap Overpass",
+      "sourceField": "name/official_name/short_name",
+      "classification": "online_overpass_named_building_or_landmark",
+      "rawType": "museum",
+      "confidence": 0.82,
+      "lat": 35.6854395,
+      "lon": 139.7716029,
+      "position": {
+        "x": 121.714,
+        "y": 2.4,
+        "z": 921.854
+      },
+      "unityPosition": {
+        "x": 121.714,
+        "y": 2.4,
+        "z": 921.854
+      },
+      "rawName": "日本銀行金融研究所貨幣博物館",
+      "normalizedName": "日本銀行金融研究所貨幣博物館",
+      "idOnly": false,
+      "disabled": false,
+      "hiddenInNormalMode": false,
+      "hiddenReason": "",
+      "attributionRequired": true,
+      "timestamp": "2026-05-30T00:39:45+09:00"
+    },
+    {
+      "id": "building_overpass_node_1420763756",
+      "objectType": "building",
+      "name": "㈶石川文化事業財団お茶の水図書館",
+      "finalDisplayName": "㈶石川文化事業財団お茶の水図書館",
+      "finalDisplayNameLanguage": "ja",
+      "language": "ja",
+      "source": "online_overpass_preprocessing_named_feature",
+      "provider": "OpenStreetMap Overpass",
+      "sourceField": "name/official_name/short_name",
+      "classification": "online_overpass_named_building_or_landmark",
+      "rawType": "library",
+      "confidence": 0.82,
+      "lat": 35.7009442,
+      "lon": 139.7591756,
+      "position": {
+        "x": -998.857,
+        "y": 2.4,
+        "z": 2636.487
+      },
+      "unityPosition": {
+        "x": -998.857,
+        "y": 2.4,
+        "z": 2636.487
+      },
+      "rawName": "㈶石川文化事業財団お茶の水図書館",
+      "normalizedName": "㈶石川文化事業財団お茶の水図書館",
+      "idOnly": false,
+      "disabled": false,
+      "hiddenInNormalMode": false,
+      "hiddenReason": "",
+      "attributionRequired": true,
+      "timestamp": "2026-05-30T00:39:45+09:00"
+    },
+    {
+      "id": "building_overpass_node_1420765213",
+      "objectType": "building",
+      "name": "センチュリーミュージアム",
+      "finalDisplayName": "センチュリーミュージアム",
+      "finalDisplayNameLanguage": "ja",
+      "language": "ja",
+      "source": "online_overpass_preprocessing_named_feature",
+      "provider": "OpenStreetMap Overpass",
+      "sourceField": "name/official_name/short_name",
+      "classification": "online_overpass_named_building_or_landmark",
+      "rawType": "museum",
+      "confidence": 0.82,
+      "lat": 35.702532,
+      "lon": 139.7597595,
+      "position": {
+        "x": -945.729,
+        "y": 2.4,
+        "z": 2811.372
+      },
+      "unityPosition": {
+        "x": -945.729,
+        "y": 2.4,
+        "z": 2811.372
+      },
+      "rawName": "センチュリーミュージアム",
+      "normalizedName": "センチュリーミュージアム",
+      "idOnly": false,
+      "disabled": false,
+      "hiddenInNormalMode": false,
+      "hiddenReason": "",
+      "attributionRequired": true,
+      "timestamp": "2026-05-30T00:39:45+09:00"
+    },
+    {
+      "id": "building_overpass_node_1420765470",
+      "objectType": "building",
+      "name": "三井記念病院",
+      "finalDisplayName": "三井記念病院",
+      "finalDisplayNameLanguage": "ja",
+      "language": "ja",
+      "source": "online_overpass_preprocessing_named_feature",
+      "provider": "OpenStreetMap Overpass",
+      "sourceField": "name/official_name/short_name",
+      "classification": "online_overpass_named_building_or_landmark",
+      "rawType": "hospital",
+      "confidence": 0.82,
+      "lat": 35.699902,
+      "lon": 139.779126,
+      "position": {
+        "x": 804.999,
+        "y": 2.4,
+        "z": 2513.958
+      },
+      "unityPosition": {
+        "x": 804.999,
+        "y": 2.4,
+        "z": 2513.958
+      },
+      "rawName": "三井記念病院",
+      "normalizedName": "三井記念病院",
+      "idOnly": false,
+      "disabled": false,
+      "hiddenInNormalMode": false,
+      "hiddenReason": "",
+      "attributionRequired": true,
+      "timestamp": "2026-05-30T00:39:45+09:00"
+    },
+    {
+      "id": "building_overpass_node_1420765471",
+      "objectType": "building",
+      "name": "三井記念美術館",
+      "finalDisplayName": "三井記念美術館",
+      "finalDisplayNameLanguage": "ja",
+      "language": "ja",
+      "source": "online_overpass_preprocessing_named_feature",
+      "provider": "OpenStreetMap Overpass",
+      "sourceField": "name/official_name/short_name",
+      "classification": "online_overpass_named_building_or_landmark",
+      "rawType": "museum",
+      "confidence": 0.82,
+      "lat": 35.6868356,
+      "lon": 139.7730738,
+      "position": {
+        "x": 255.013,
+        "y": 2.4,
+        "z": 1075.26
+      },
+      "unityPosition": {
+        "x": 255.013,
+        "y": 2.4,
+        "z": 1075.26
+      },
+      "rawName": "三井記念美術館",
+      "normalizedName": "三井記念美術館",
+      "idOnly": false,
+      "disabled": false,
+      "hiddenInNormalMode": false,
+      "hiddenReason": "",
+      "attributionRequired": true,
+      "timestamp": "2026-05-30T00:39:45+09:00"
+    },
+    {
+      "id": "building_overpass_node_1420766174",
+      "objectType": "building",
+      "name": "中央区",
+      "finalDisplayName": "中央区",
+      "finalDisplayNameLanguage": "ja",
+      "language": "ja",
+      "source": "online_overpass_preprocessing_named_feature",
+      "provider": "OpenStreetMap Overpass",
+      "sourceField": "name:ja",
+      "classification": "online_overpass_named_building_or_landmark",
+      "rawType": "townhall",
+      "confidence": 0.82,
+      "lat": 35.6705993,
+      "lon": 139.7719761,
+      "position": {
+        "x": 152.397,
+        "y": 2.4,
+        "z": -714.909
+      },
+      "unityPosition": {
+        "x": 152.397,
+        "y": 2.4,
+        "z": -714.909
+      },
+      "rawName": "中央区",
+      "normalizedName": "中央区",
+      "idOnly": false,
+      "disabled": false,
+      "hiddenInNormalMode": false,
+      "hiddenReason": "",
+      "attributionRequired": true,
+      "timestamp": "2026-05-30T00:39:45+09:00"
+    },
+    {
+      "id": "building_overpass_node_1420766176",
+      "objectType": "building",
+      "name": "中央区立日本橋図書館",
+      "finalDisplayName": "中央区立日本橋図書館",
+      "finalDisplayNameLanguage": "ja",
+      "language": "ja",
+      "source": "online_overpass_preprocessing_named_feature",
+      "provider": "OpenStreetMap Overpass",
+      "sourceField": "name/official_name/short_name",
+      "classification": "online_overpass_named_building_or_landmark",
+      "rawType": "library",
+      "confidence": 0.82,
+      "lat": 35.6848966,
+      "lon": 139.7814993,
+      "position": {
+        "x": 1016.512,
+        "y": 2.4,
+        "z": 858.215
+      },
+      "unityPosition": {
+        "x": 1016.512,
+        "y": 2.4,
+        "z": 858.215
+      },
+      "rawName": "中央区立日本橋図書館",
+      "normalizedName": "中央区立日本橋図書館",
+      "idOnly": false,
+      "disabled": false,
+      "hiddenInNormalMode": false,
+      "hiddenReason": "",
+      "attributionRequired": true,
+      "timestamp": "2026-05-30T00:39:45+09:00"
+    },
+    {
+      "id": "building_overpass_node_1420766177",
+      "objectType": "building",
+      "name": "中央区立月島図書館",
+      "finalDisplayName": "中央区立月島図書館",
+      "finalDisplayNameLanguage": "ja",
+      "language": "ja",
+      "source": "online_overpass_preprocessing_named_feature",
+      "provider": "OpenStreetMap Overpass",
+      "sourceField": "name/official_name/short_name",
+      "classification": "online_overpass_named_building_or_landmark",
+      "rawType": "library",
+      "confidence": 0.82,
+      "lat": 35.6621021,
+      "lon": 139.7823286,
+      "position": {
+        "x": 1086.797,
+        "y": 2.4,
+        "z": -1655.945
+      },
+      "unityPosition": {
+        "x": 1086.797,
+        "y": 2.4,
+        "z": -1655.945
+      },
+      "rawName": "中央区立月島図書館",
+      "normalizedName": "中央区立月島図書館",
+      "idOnly": false,
+      "disabled": false,
+      "hiddenInNormalMode": false,
+      "hiddenReason": "",
+      "attributionRequired": true,
+      "timestamp": "2026-05-30T00:39:45+09:00"
+    },
+    {
+      "id": "building_overpass_node_1420766180",
+      "objectType": "building",
+      "name": "中央区立築地社会教育会館・郷土資料館",
+      "finalDisplayName": "中央区立築地社会教育会館・郷土資料館",
+      "finalDisplayNameLanguage": "ja",
+      "language": "ja",
+      "source": "online_overpass_preprocessing_named_feature",
+      "provider": "OpenStreetMap Overpass",
+      "sourceField": "name/official_name/short_name",
+      "classification": "online_overpass_named_building_or_landmark",
+      "rawType": "museum",
+      "confidence": 0.82,
+      "lat": 35.6664905,
+      "lon": 139.7680837,
+      "position": {
+        "x": -200.433,
+        "y": 2.4,
+        "z": -1166.558
+      },
+      "unityPosition": {
+        "x": -200.433,
+        "y": 2.4,
+        "z": -1166.558
+      },
+      "rawName": "中央区立築地社会教育会館・郷土資料館",
+      "normalizedName": "中央区立築地社会教育会館・郷土資料館",
+      "idOnly": false,
+      "disabled": false,
+      "hiddenInNormalMode": false,
+      "hiddenReason": "",
+      "attributionRequired": true,
+      "timestamp": "2026-05-30T00:39:45+09:00"
+    },
+    {
+      "id": "building_overpass_node_1420766287",
+      "objectType": "building",
+      "name": "日本政策金融公庫",
+      "finalDisplayName": "日本政策金融公庫",
+      "finalDisplayNameLanguage": "ja",
+      "language": "ja",
+      "source": "online_overpass_preprocessing_named_feature",
+      "provider": "OpenStreetMap Overpass",
+      "sourceField": "name/official_name/short_name",
+      "classification": "online_overpass_named_building_or_landmark",
+      "rawType": "public",
+      "confidence": 0.82,
+      "lat": 35.68835,
+      "lon": 139.765043,
+      "position": {
+        "x": -470.882,
+        "y": 2.4,
+        "z": 1245.329
+      },
+      "unityPosition": {
+        "x": -470.882,
+        "y": 2.4,
+        "z": 1245.329
+      },
+      "rawName": "日本政策金融公庫",
+      "normalizedName": "日本政策金融公庫",
+      "idOnly": false,
+      "disabled": false,
+      "hiddenInNormalMode": false,
+      "hiddenReason": "",
+      "attributionRequired": true,
+      "timestamp": "2026-05-30T00:39:45+09:00"
+    },
+    {
+      "id": "building_overpass_node_1420766803",
+      "objectType": "building",
+      "name": "京橋病院",
+      "finalDisplayName": "京橋病院",
+      "finalDisplayNameLanguage": "ja",
+      "language": "ja",
+      "source": "online_overpass_preprocessing_named_feature",
+      "provider": "OpenStreetMap Overpass",
+      "sourceField": "name/official_name/short_name",
+      "classification": "online_overpass_named_building_or_landmark",
+      "rawType": "hospital",
+      "confidence": 0.82,
+      "lat": 35.675572,
+      "lon": 139.781432,
+      "position": {
+        "x": 1008.501,
+        "y": 2.4,
+        "z": -170.104
+      },
+      "unityPosition": {
+        "x": 1008.501,
+        "y": 2.4,
+        "z": -170.104
+      },
+      "rawName": "京橋病院",
+      "normalizedName": "京橋病院",
+      "idOnly": false,
+      "disabled": false,
+      "hiddenInNormalMode": false,
+      "hiddenReason": "",
+      "attributionRequired": true,
+      "timestamp": "2026-05-30T00:39:45+09:00"
+    },
+    {
+      "id": "building_overpass_node_1420766808",
+      "objectType": "building",
+      "name": "京橋社会保険事務所",
+      "finalDisplayName": "京橋社会保険事務所",
+      "finalDisplayNameLanguage": "ja",
+      "language": "ja",
+      "source": "online_overpass_preprocessing_named_feature",
+      "provider": "OpenStreetMap Overpass",
+      "sourceField": "name/official_name/short_name",
+      "classification": "online_overpass_named_building_or_landmark",
+      "rawType": "public",
+      "confidence": 0.82,
+      "lat": 35.667788,
+      "lon": 139.764214,
+      "position": {
+        "x": -550.093,
+        "y": 2.4,
+        "z": -1021.993
+      },
+      "unityPosition": {
+        "x": -550.093,
+        "y": 2.4,
+        "z": -1021.993
+      },
+      "rawName": "京橋社会保険事務所",
+      "normalizedName": "京橋社会保険事務所",
+      "idOnly": false,
+      "disabled": false,
+      "hiddenInNormalMode": false,
+      "hiddenReason": "",
+      "attributionRequired": true,
+      "timestamp": "2026-05-30T00:39:45+09:00"
+    },
+    {
+      "id": "building_overpass_node_1420766923",
+      "objectType": "building",
+      "name": "会計センター",
+      "finalDisplayName": "会計センター",
+      "finalDisplayNameLanguage": "ja",
+      "language": "ja",
+      "source": "online_overpass_preprocessing_named_feature",
+      "provider": "OpenStreetMap Overpass",
+      "sourceField": "name/official_name/short_name",
+      "classification": "online_overpass_named_building_or_landmark",
+      "rawType": "public",
+      "confidence": 0.82,
+      "lat": 35.6931692,
+      "lon": 139.7552656,
+      "position": {
+        "x": -1354.036,
+        "y": 2.4,
+        "z": 1780.525
+      },
+      "unityPosition": {
+        "x": -1354.036,
+        "y": 2.4,
+        "z": 1780.525
+      },
+      "rawName": "会計センター",
+      "normalizedName": "会計センター",
+      "idOnly": false,
+      "disabled": false,
+      "hiddenInNormalMode": false,
+      "hiddenReason": "",
+      "attributionRequired": true,
+      "timestamp": "2026-05-30T00:39:45+09:00"
+    },
+    {
+      "id": "building_overpass_node_1420766935",
+      "objectType": "building",
+      "name": "佐々木研究所附属杏雲堂病院",
+      "finalDisplayName": "佐々木研究所附属杏雲堂病院",
+      "finalDisplayNameLanguage": "ja",
+      "language": "ja",
+      "source": "online_overpass_preprocessing_named_feature",
+      "provider": "OpenStreetMap Overpass",
+      "sourceField": "name:ja",
+      "classification": "online_overpass_named_building_or_landmark",
+      "rawType": "hospital",
+      "confidence": 0.82,
+      "lat": 35.698402,
+      "lon": 139.762933,
+      "position": {
+        "x": -659.609,
+        "y": 2.4,
+        "z": 2354.696
+      },
+      "unityPosition": {
+        "x": -659.609,
+        "y": 2.4,
+        "z": 2354.696
+      },
+      "rawName": "佐々木研究所附属杏雲堂病院",
+      "normalizedName": "佐々木研究所附属杏雲堂病院",
+      "idOnly": false,
+      "disabled": false,
+      "hiddenInNormalMode": false,
+      "hiddenReason": "",
+      "attributionRequired": true,
+      "timestamp": "2026-05-30T00:39:45+09:00"
+    },
+    {
+      "id": "building_overpass_node_1420767871",
+      "objectType": "building",
+      "name": "共立女子大学（国際文化学部）",
+      "finalDisplayName": "共立女子大学（国際文化学部）",
+      "finalDisplayNameLanguage": "ja",
+      "language": "ja",
+      "source": "online_overpass_preprocessing_named_feature",
+      "provider": "OpenStreetMap Overpass",
+      "sourceField": "name/official_name/short_name",
+      "classification": "online_overpass_named_building_or_landmark",
+      "rawType": "university",
+      "confidence": 0.82,
+      "lat": 35.6931041,
+      "lon": 139.7574701,
+      "position": {
+        "x": -1154.701,
+        "y": 2.4,
+        "z": 1772.507
+      },
+      "unityPosition": {
+        "x": -1154.701,
+        "y": 2.4,
+        "z": 1772.507
+      },
+      "rawName": "共立女子大学（国際文化学部）",
+      "normalizedName": "共立女子大学（国際文化学部）",
+      "idOnly": false,
+      "disabled": false,
+      "hiddenInNormalMode": false,
+      "hiddenReason": "",
+      "attributionRequired": true,
+      "timestamp": "2026-05-30T00:39:45+09:00"
+    },
+    {
+      "id": "building_overpass_node_1420767873",
+      "objectType": "building",
+      "name": "共立女子中学高等学校",
+      "finalDisplayName": "共立女子中学高等学校",
+      "finalDisplayNameLanguage": "ja",
+      "language": "ja",
+      "source": "online_overpass_preprocessing_named_feature",
+      "provider": "OpenStreetMap Overpass",
+      "sourceField": "name/official_name/short_name",
+      "classification": "online_overpass_named_building_or_landmark",
+      "rawType": "university",
+      "confidence": 0.82,
+      "lat": 35.6931792,
+      "lon": 139.7573011,
+      "position": {
+        "x": -1169.968,
+        "y": 2.4,
+        "z": 1780.854
+      },
+      "unityPosition": {
+        "x": -1169.968,
+        "y": 2.4,
+        "z": 1780.854
+      },
+      "rawName": "共立女子中学高等学校",
+      "normalizedName": "共立女子中学高等学校",
+      "idOnly": false,
+      "disabled": false,
+      "hiddenInNormalMode": false,
+      "hiddenReason": "",
+      "attributionRequired": true,
+      "timestamp": "2026-05-30T00:39:45+09:00"
+    },
+    {
+      "id": "building_overpass_node_1420767875",
+      "objectType": "building",
+      "name": "共立女子大学（文芸学部）",
+      "finalDisplayName": "共立女子大学（文芸学部）",
+      "finalDisplayNameLanguage": "ja",
+      "language": "ja",
+      "source": "online_overpass_preprocessing_named_feature",
+      "provider": "OpenStreetMap Overpass",
+      "sourceField": "name/official_name/short_name",
+      "classification": "online_overpass_named_building_or_landmark",
+      "rawType": "university",
+      "confidence": 0.82,
+      "lat": 35.693383,
+      "lon": 139.756825,
+      "position": {
+        "x": -1212.979,
+        "y": 2.4,
+        "z": 1803.51
+      },
+      "unityPosition": {
+        "x": -1212.979,
+        "y": 2.4,
+        "z": 1803.51
+      },
+      "rawName": "共立女子大学（文芸学部）",
+      "normalizedName": "共立女子大学（文芸学部）",
+      "idOnly": false,
+      "disabled": false,
+      "hiddenInNormalMode": false,
+      "hiddenReason": "",
+      "attributionRequired": true,
+      "timestamp": "2026-05-30T00:39:45+09:00"
+    },
+    {
+      "id": "building_overpass_node_1420767876",
+      "objectType": "building",
+      "name": "共立女子短期大学",
+      "finalDisplayName": "共立女子短期大学",
+      "finalDisplayNameLanguage": "ja",
+      "language": "ja",
+      "source": "online_overpass_preprocessing_named_feature",
+      "provider": "OpenStreetMap Overpass",
+      "sourceField": "name/official_name/short_name",
+      "classification": "online_overpass_named_building_or_landmark",
+      "rawType": "college",
+      "confidence": 0.82,
+      "lat": 35.6932108,
+      "lon": 139.7571724,
+      "position": {
+        "x": -1181.6,
+        "y": 2.4,
+        "z": 1784.387
+      },
+      "unityPosition": {
+        "x": -1181.6,
+        "y": 2.4,
+        "z": 1784.387
+      },
+      "rawName": "共立女子短期大学",
+      "normalizedName": "共立女子短期大学",
+      "idOnly": false,
+      "disabled": false,
+      "hiddenInNormalMode": false,
+      "hiddenReason": "",
+      "attributionRequired": true,
+      "timestamp": "2026-05-30T00:39:45+09:00"
+    },
+    {
+      "id": "building_overpass_node_1420767886",
+      "objectType": "building",
+      "name": "凧の博物館",
+      "finalDisplayName": "凧の博物館",
+      "finalDisplayNameLanguage": "ja",
+      "language": "ja",
+      "source": "online_overpass_preprocessing_named_feature",
+      "provider": "OpenStreetMap Overpass",
+      "sourceField": "name/official_name/short_name",
+      "classification": "online_overpass_named_building_or_landmark",
+      "rawType": "museum",
+      "confidence": 0.82,
+      "lat": 35.6844275,
+      "lon": 139.7751576,
+      "position": {
+        "x": 442.949,
+        "y": 2.4,
+        "z": 808.895
+      },
+      "unityPosition": {
+        "x": 442.949,
+        "y": 2.4,
+        "z": 808.895
+      },
+      "rawName": "凧の博物館",
+      "normalizedName": "凧の博物館",
+      "idOnly": false,
+      "disabled": false,
+      "hiddenInNormalMode": false,
+      "hiddenReason": "",
+      "attributionRequired": true,
+      "timestamp": "2026-05-30T00:39:45+09:00"
+    },
+    {
+      "id": "building_overpass_node_1420770174",
+      "objectType": "building",
+      "name": "十仁病院",
+      "finalDisplayName": "十仁病院",
+      "finalDisplayNameLanguage": "ja",
+      "language": "ja",
+      "source": "online_overpass_preprocessing_named_feature",
+      "provider": "OpenStreetMap Overpass",
+      "sourceField": "name/official_name/short_name",
+      "classification": "online_overpass_named_building_or_landmark",
+      "rawType": "hospital",
+      "confidence": 0.82,
+      "lat": 35.667655,
+      "lon": 139.758878,
+      "position": {
+        "x": -1032.644,
+        "y": 2.4,
+        "z": -1034.63
+      },
+      "unityPosition": {
+        "x": -1032.644,
+        "y": 2.4,
+        "z": -1034.63
+      },
+      "rawName": "十仁病院",
+      "normalizedName": "十仁病院",
+      "idOnly": false,
+      "disabled": false,
+      "hiddenInNormalMode": false,
+      "hiddenReason": "",
+      "attributionRequired": true,
+      "timestamp": "2026-05-30T00:39:45+09:00"
+    },
+    {
+      "id": "building_overpass_node_1420770192",
+      "objectType": "building",
+      "name": "千代田区立神田まちかど図書館",
+      "finalDisplayName": "千代田区立神田まちかど図書館",
+      "finalDisplayNameLanguage": "ja",
+      "language": "ja",
+      "source": "online_overpass_preprocessing_named_feature",
+      "provider": "OpenStreetMap Overpass",
+      "sourceField": "name/official_name/short_name",
+      "classification": "online_overpass_named_building_or_landmark",
+      "rawType": "library",
+      "confidence": 0.82,
+      "lat": 35.6929651,
+      "lon": 139.7683614,
+      "position": {
+        "x": -169.853,
+        "y": 2.4,
+        "z": 1753.033
+      },
+      "unityPosition": {
+        "x": -169.853,
+        "y": 2.4,
+        "z": 1753.033
+      },
+      "rawName": "千代田区立神田まちかど図書館",
+      "normalizedName": "千代田区立神田まちかど図書館",
+      "idOnly": false,
+      "disabled": false,
+      "hiddenInNormalMode": false,
+      "hiddenReason": "",
+      "attributionRequired": true,
+      "timestamp": "2026-05-30T00:39:45+09:00"
+    },
+    {
+      "id": "building_overpass_node_1420771101",
+      "objectType": "building",
+      "name": "台東区立中央図書館浅草橋分室",
+      "finalDisplayName": "台東区立中央図書館浅草橋分室",
+      "finalDisplayNameLanguage": "ja",
+      "language": "ja",
+      "source": "online_overpass_preprocessing_named_feature",
+      "provider": "OpenStreetMap Overpass",
+      "sourceField": "name/official_name/short_name",
+      "classification": "online_overpass_named_building_or_landmark",
+      "rawType": "library",
+      "confidence": 0.82,
+      "lat": 35.69948,
+      "lon": 139.783358,
+      "position": {
+        "x": 1187.602,
+        "y": 2.4,
+        "z": 2465.808
+      },
+      "unityPosition": {
+        "x": 1187.602,
+        "y": 2.4,
+        "z": 2465.808
+      },
+      "rawName": "台東区立中央図書館浅草橋分室",
+      "normalizedName": "台東区立中央図書館浅草橋分室",
+      "idOnly": false,
+      "disabled": false,
+      "hiddenInNormalMode": false,
+      "hiddenReason": "",
+      "attributionRequired": true,
+      "timestamp": "2026-05-30T00:39:45+09:00"
+    },
+    {
+      "id": "building_overpass_node_1420771199",
+      "objectType": "building",
+      "name": "同仁記念会明和病院",
+      "finalDisplayName": "同仁記念会明和病院",
+      "finalDisplayNameLanguage": "ja",
+      "language": "ja",
+      "source": "online_overpass_preprocessing_named_feature",
+      "provider": "OpenStreetMap Overpass",
+      "sourceField": "name/official_name/short_name",
+      "classification": "online_overpass_named_building_or_landmark",
+      "rawType": "hospital",
+      "confidence": 0.82,
+      "lat": 35.695212,
+      "lon": 139.771346,
+      "position": {
+        "x": 100.502,
+        "y": 2.4,
+        "z": 1999.692
+      },
+      "unityPosition": {
+        "x": 100.502,
+        "y": 2.4,
+        "z": 1999.692
+      },
+      "rawName": "同仁記念会明和病院",
+      "normalizedName": "同仁記念会明和病院",
+      "idOnly": false,
+      "disabled": false,
+      "hiddenInNormalMode": false,
+      "hiddenReason": "",
+      "attributionRequired": true,
+      "timestamp": "2026-05-30T00:39:45+09:00"
+    },
+    {
+      "id": "building_overpass_node_1420771222",
+      "objectType": "building",
+      "name": "名倉クリニック",
+      "finalDisplayName": "名倉クリニック",
+      "finalDisplayNameLanguage": "ja",
+      "language": "ja",
+      "source": "online_overpass_preprocessing_named_feature",
+      "provider": "OpenStreetMap Overpass",
+      "sourceField": "name:ja",
+      "classification": "online_overpass_named_building_or_landmark",
+      "rawType": "hospital",
+      "confidence": 0.82,
+      "lat": 35.697486,
+      "lon": 139.766294,
+      "position": {
+        "x": -355.87,
+        "y": 2.4,
+        "z": 2252.398
+      },
+      "unityPosition": {
+        "x": -355.87,
+        "y": 2.4,
+        "z": 2252.398
+      },
+      "rawName": "名倉クリニック",
+      "normalizedName": "名倉クリニック",
+      "idOnly": false,
+      "disabled": false,
+      "hiddenInNormalMode": false,
+      "hiddenReason": "",
+      "attributionRequired": true,
+      "timestamp": "2026-05-30T00:39:45+09:00"
+    },
+    {
+      "id": "building_overpass_node_1420771614",
+      "objectType": "building",
+      "name": "国家公務員共済組合連合会",
+      "finalDisplayName": "国家公務員共済組合連合会",
+      "finalDisplayNameLanguage": "ja",
+      "language": "ja",
+      "source": "online_overpass_preprocessing_named_feature",
+      "provider": "OpenStreetMap Overpass",
+      "sourceField": "name/official_name/short_name",
+      "classification": "online_overpass_named_building_or_landmark",
+      "rawType": "public",
+      "confidence": 0.82,
+      "lat": 35.6932847,
+      "lon": 139.7552656,
+      "position": {
+        "x": -1354.012,
+        "y": 2.4,
+        "z": 1793.263
+      },
+      "unityPosition": {
+        "x": -1354.012,
+        "y": 2.4,
+        "z": 1793.263
+      },
+      "rawName": "国家公務員共済組合連合会",
+      "normalizedName": "国家公務員共済組合連合会",
+      "idOnly": false,
+      "disabled": false,
+      "hiddenInNormalMode": false,
+      "hiddenReason": "",
+      "attributionRequired": true,
+      "timestamp": "2026-05-30T00:39:45+09:00"
+    },
+    {
+      "id": "building_overpass_node_1420771624",
+      "objectType": "building",
+      "name": "国民生活金融公庫",
+      "finalDisplayName": "国民生活金融公庫",
+      "finalDisplayNameLanguage": "ja",
+      "language": "ja",
+      "source": "online_overpass_preprocessing_named_feature",
+      "provider": "OpenStreetMap Overpass",
+      "sourceField": "name/official_name/short_name",
+      "classification": "online_overpass_named_building_or_landmark",
+      "rawType": "public",
+      "confidence": 0.82,
+      "lat": 35.6883282,
+      "lon": 139.764933,
+      "position": {
+        "x": -480.834,
+        "y": 2.4,
+        "z": 1242.967
+      },
+      "unityPosition": {
+        "x": -480.834,
+        "y": 2.4,
+        "z": 1242.967
+      },
+      "rawName": "国民生活金融公庫",
+      "normalizedName": "国民生活金融公庫",
+      "idOnly": false,
+      "disabled": false,
+      "hiddenInNormalMode": false,
+      "hiddenReason": "",
+      "attributionRequired": true,
+      "timestamp": "2026-05-30T00:39:45+09:00"
+    },
+    {
+      "id": "building_overpass_node_1420771627",
+      "objectType": "building",
+      "name": "国民生活金融公庫東京支店",
+      "finalDisplayName": "国民生活金融公庫東京支店",
+      "finalDisplayNameLanguage": "ja",
+      "language": "ja",
+      "source": "online_overpass_preprocessing_named_feature",
+      "provider": "OpenStreetMap Overpass",
+      "sourceField": "name/official_name/short_name",
+      "classification": "online_overpass_named_building_or_landmark",
+      "rawType": "public",
+      "confidence": 0.82,
+      "lat": 35.678702,
+      "lon": 139.783042,
+      "position": {
+        "x": 1154.736,
+        "y": 2.4,
+        "z": 174.469
+      },
+      "unityPosition": {
+        "x": 1154.736,
+        "y": 2.4,
+        "z": 174.469
+      },
+      "rawName": "国民生活金融公庫東京支店",
+      "normalizedName": "国民生活金融公庫東京支店",
+      "idOnly": false,
+      "disabled": false,
+      "hiddenInNormalMode": false,
+      "hiddenReason": "",
+      "attributionRequired": true,
+      "timestamp": "2026-05-30T00:39:45+09:00"
+    },
+    {
+      "id": "building_overpass_node_1420771640",
+      "objectType": "building",
+      "name": "国立がん研究センター中央病院",
+      "finalDisplayName": "国立がん研究センター中央病院",
+      "finalDisplayNameLanguage": "ja",
+      "language": "ja",
+      "source": "online_overpass_preprocessing_named_feature",
+      "provider": "OpenStreetMap Overpass",
+      "sourceField": "name/official_name/short_name",
+      "classification": "online_overpass_named_building_or_landmark",
+      "rawType": "hospital",
+      "confidence": 0.82,
+      "lat": 35.6653668,
+      "lon": 139.7682873,
+      "position": {
+        "x": -182.254,
+        "y": 2.4,
+        "z": -1290.56
+      },
+      "unityPosition": {
+        "x": -182.254,
+        "y": 2.4,
+        "z": -1290.56
+      },
+      "rawName": "国立がん研究センター中央病院",
+      "normalizedName": "国立がん研究センター中央病院",
+      "idOnly": false,
+      "disabled": false,
+      "hiddenInNormalMode": false,
+      "hiddenReason": "",
+      "attributionRequired": true,
+      "timestamp": "2026-05-30T00:39:45+09:00"
+    },
+    {
+      "id": "building_overpass_node_1420771740",
+      "objectType": "building",
+      "name": "国際協力銀行本店",
+      "finalDisplayName": "国際協力銀行本店",
+      "finalDisplayNameLanguage": "ja",
+      "language": "ja",
+      "source": "online_overpass_preprocessing_named_feature",
+      "provider": "OpenStreetMap Overpass",
+      "sourceField": "name:ja",
+      "classification": "online_overpass_named_building_or_landmark",
+      "rawType": "public",
+      "confidence": 0.82,
+      "lat": 35.690335,
+      "lon": 139.760496,
+      "position": {
+        "x": -881.647,
+        "y": 2.4,
+        "z": 1465.971
+      },
+      "unityPosition": {
+        "x": -881.647,
+        "y": 2.4,
+        "z": 1465.971
+      },
+      "rawName": "国際協力銀行本店",
+      "normalizedName": "国際協力銀行本店",
+      "idOnly": false,
+      "disabled": false,
+      "hiddenInNormalMode": false,
+      "hiddenReason": "",
+      "attributionRequired": true,
+      "timestamp": "2026-05-30T00:39:45+09:00"
+    },
+    {
+      "id": "building_overpass_node_1420771746",
+      "objectType": "building",
+      "name": "国際観光振興機構",
+      "finalDisplayName": "国際観光振興機構",
+      "finalDisplayNameLanguage": "ja",
+      "language": "ja",
+      "source": "online_overpass_preprocessing_named_feature",
+      "provider": "OpenStreetMap Overpass",
+      "sourceField": "name/official_name/short_name",
+      "classification": "online_overpass_named_building_or_landmark",
+      "rawType": "public",
+      "confidence": 0.82,
+      "lat": 35.676349,
+      "lon": 139.765683,
+      "position": {
+        "x": -415.487,
+        "y": 2.4,
+        "z": -78.42
+      },
+      "unityPosition": {
+        "x": -415.487,
+        "y": 2.4,
+        "z": -78.42
+      },
+      "rawName": "国際観光振興機構",
+      "normalizedName": "国際観光振興機構",
+      "idOnly": false,
+      "disabled": false,
+      "hiddenInNormalMode": false,
+      "hiddenReason": "",
+      "attributionRequired": true,
+      "timestamp": "2026-05-30T00:39:45+09:00"
+    },
+    {
+      "id": "building_overpass_node_1420772935",
+      "objectType": "building",
+      "name": "大原大学院大学",
+      "finalDisplayName": "大原大学院大学",
+      "finalDisplayNameLanguage": "ja",
+      "language": "ja",
+      "source": "online_overpass_preprocessing_named_feature",
+      "provider": "OpenStreetMap Overpass",
+      "sourceField": "name:ja",
+      "classification": "online_overpass_named_building_or_landmark",
+      "rawType": "university",
+      "confidence": 0.82,
+      "lat": 35.698694,
+      "lon": 139.755608,
+      "position": {
+        "x": -1321.932,
+        "y": 2.4,
+        "z": 2389.686
+      },
+      "unityPosition": {
+        "x": -1321.932,
+        "y": 2.4,
+        "z": 2389.686
+      },
+      "rawName": "大原大学院大学",
+      "normalizedName": "大原大学院大学",
+      "idOnly": false,
+      "disabled": false,
+      "hiddenInNormalMode": false,
+      "hiddenReason": "",
+      "attributionRequired": true,
+      "timestamp": "2026-05-30T00:39:45+09:00"
+    },
+    {
+      "id": "building_overpass_node_1420774624",
+      "objectType": "building",
+      "name": "天理ギャラリー",
+      "finalDisplayName": "天理ギャラリー",
+      "finalDisplayNameLanguage": "ja",
+      "language": "ja",
+      "source": "online_overpass_preprocessing_named_feature",
+      "provider": "OpenStreetMap Overpass",
+      "sourceField": "name/official_name/short_name",
+      "classification": "online_overpass_named_building_or_landmark",
+      "rawType": "museum",
+      "confidence": 0.82,
+      "lat": 35.691776,
+      "lon": 139.764418,
+      "position": {
+        "x": -526.692,
+        "y": 2.4,
+        "z": 1623.396
+      },
+      "unityPosition": {
+        "x": -526.692,
+        "y": 2.4,
+        "z": 1623.396
+      },
+      "rawName": "天理ギャラリー",
+      "normalizedName": "天理ギャラリー",
+      "idOnly": false,
+      "disabled": false,
+      "hiddenInNormalMode": false,
+      "hiddenReason": "",
+      "attributionRequired": true,
+      "timestamp": "2026-05-30T00:39:45+09:00"
+    },
+    {
+      "id": "building_overpass_node_1420776242",
+      "objectType": "building",
+      "name": "小畑会浜田病院",
+      "finalDisplayName": "小畑会浜田病院",
+      "finalDisplayNameLanguage": "ja",
+      "language": "ja",
+      "source": "online_overpass_preprocessing_named_feature",
+      "provider": "OpenStreetMap Overpass",
+      "sourceField": "name:ja",
+      "classification": "online_overpass_named_building_or_landmark",
+      "rawType": "hospital",
+      "confidence": 0.82,
+      "lat": 35.699703,
+      "lon": 139.7613616,
+      "position": {
+        "x": -801.438,
+        "y": 2.4,
+        "z": 2498.772
+      },
+      "unityPosition": {
+        "x": -801.438,
+        "y": 2.4,
+        "z": 2498.772
+      },
+      "rawName": "小畑会浜田病院",
+      "normalizedName": "小畑会浜田病院",
+      "idOnly": false,
+      "disabled": false,
+      "hiddenInNormalMode": false,
+      "hiddenReason": "",
+      "attributionRequired": true,
+      "timestamp": "2026-05-30T00:39:45+09:00"
+    },
+    {
+      "id": "building_overpass_node_1420781044",
+      "objectType": "building",
+      "name": "日本大学（理工学部）駿河台校舎",
+      "finalDisplayName": "日本大学（理工学部）駿河台校舎",
+      "finalDisplayNameLanguage": "ja",
+      "language": "ja",
+      "source": "online_overpass_preprocessing_named_feature",
+      "provider": "OpenStreetMap Overpass",
+      "sourceField": "name/official_name/short_name",
+      "classification": "online_overpass_named_building_or_landmark",
+      "rawType": "university",
+      "confidence": 0.82,
+      "lat": 35.6976834,
+      "lon": 139.7647246,
+      "position": {
+        "x": -497.747,
+        "y": 2.4,
+        "z": 2274.765
+      },
+      "unityPosition": {
+        "x": -497.747,
+        "y": 2.4,
+        "z": 2274.765
+      },
+      "rawName": "日本大学（理工学部）駿河台校舎",
+      "normalizedName": "日本大学（理工学部）駿河台校舎",
+      "idOnly": false,
+      "disabled": false,
+      "hiddenInNormalMode": false,
+      "hiddenReason": "",
+      "attributionRequired": true,
+      "timestamp": "2026-05-30T00:39:45+09:00"
+    },
+    {
+      "id": "building_overpass_node_1420781046",
+      "objectType": "building",
+      "name": "日本大学（経済学部）",
+      "finalDisplayName": "日本大学（経済学部）",
+      "finalDisplayNameLanguage": "ja",
+      "language": "ja",
+      "source": "online_overpass_preprocessing_named_feature",
+      "provider": "OpenStreetMap Overpass",
+      "sourceField": "name/official_name/short_name",
+      "classification": "online_overpass_named_building_or_landmark",
+      "rawType": "university",
+      "confidence": 0.82,
+      "lat": 35.700318,
+      "lon": 139.756239,
+      "position": {
+        "x": -1264.537,
+        "y": 2.4,
+        "z": 2568.546
+      },
+      "unityPosition": {
+        "x": -1264.537,
+        "y": 2.4,
+        "z": 2568.546
+      },
+      "rawName": "日本大学（経済学部）",
+      "normalizedName": "日本大学（経済学部）",
+      "idOnly": false,
+      "disabled": false,
+      "hiddenInNormalMode": false,
+      "hiddenReason": "",
+      "attributionRequired": true,
+      "timestamp": "2026-05-30T00:39:45+09:00"
+    },
+    {
+      "id": "building_overpass_node_1420781063",
+      "objectType": "building",
+      "name": "日本政策投資銀行",
+      "finalDisplayName": "日本政策投資銀行",
+      "finalDisplayNameLanguage": "ja",
+      "language": "ja",
+      "source": "online_overpass_preprocessing_named_feature",
+      "provider": "OpenStreetMap Overpass",
+      "sourceField": "name/official_name/short_name",
+      "classification": "online_overpass_named_building_or_landmark",
+      "rawType": "public",
+      "confidence": 0.82,
+      "lat": 35.688399,
+      "lon": 139.764464,
+      "position": {
+        "x": -523.23,
+        "y": 2.4,
+        "z": 1250.953
+      },
+      "unityPosition": {
+        "x": -523.23,
+        "y": 2.4,
+        "z": 1250.953
+      },
+      "rawName": "日本政策投資銀行",
+      "normalizedName": "日本政策投資銀行",
+      "idOnly": false,
+      "disabled": false,
+      "hiddenInNormalMode": false,
+      "hiddenReason": "",
+      "attributionRequired": true,
+      "timestamp": "2026-05-30T00:39:45+09:00"
+    },
+    {
+      "id": "building_overpass_node_1420781105",
+      "objectType": "building",
+      "name": "日本私立学校振興・共済事業団共済事業本",
+      "finalDisplayName": "日本私立学校振興・共済事業団共済事業本",
+      "finalDisplayNameLanguage": "ja",
+      "language": "ja",
+      "source": "online_overpass_preprocessing_named_feature",
+      "provider": "OpenStreetMap Overpass",
+      "sourceField": "name/official_name/short_name",
+      "classification": "online_overpass_named_building_or_landmark",
+      "rawType": "public",
+      "confidence": 0.82,
+      "lat": 35.7027202,
+      "lon": 139.7647802,
+      "position": {
+        "x": -491.679,
+        "y": 2.4,
+        "z": 2830.217
+      },
+      "unityPosition": {
+        "x": -491.679,
+        "y": 2.4,
+        "z": 2830.217
+      },
+      "rawName": "日本私立学校振興・共済事業団共済事業本",
+      "normalizedName": "日本私立学校振興・共済事業団共済事業本",
+      "idOnly": false,
+      "disabled": false,
+      "hiddenInNormalMode": false,
+      "hiddenReason": "",
+      "attributionRequired": true,
+      "timestamp": "2026-05-30T00:39:45+09:00"
+    },
+    {
+      "id": "building_overpass_node_1420781107",
+      "objectType": "building",
+      "name": "日本私立学校振興・共済事業団湯島会館",
+      "finalDisplayName": "日本私立学校振興・共済事業団湯島会館",
+      "finalDisplayNameLanguage": "ja",
+      "language": "ja",
+      "source": "online_overpass_preprocessing_named_feature",
+      "provider": "OpenStreetMap Overpass",
+      "sourceField": "name/official_name/short_name",
+      "classification": "online_overpass_named_building_or_landmark",
+      "rawType": "public",
+      "confidence": 0.82,
+      "lat": 35.7027116,
+      "lon": 139.7647903,
+      "position": {
+        "x": -490.767,
+        "y": 2.4,
+        "z": 2829.264
+      },
+      "unityPosition": {
+        "x": -490.767,
+        "y": 2.4,
+        "z": 2829.264
+      },
+      "rawName": "日本私立学校振興・共済事業団湯島会館",
+      "normalizedName": "日本私立学校振興・共済事業団湯島会館",
+      "idOnly": false,
+      "disabled": false,
+      "hiddenInNormalMode": false,
+      "hiddenReason": "",
+      "attributionRequired": true,
+      "timestamp": "2026-05-30T00:39:45+09:00"
+    },
+    {
+      "id": "building_overpass_node_1420781347",
+      "objectType": "building",
+      "name": "明治大学博物館",
+      "finalDisplayName": "明治大学博物館",
+      "finalDisplayNameLanguage": "ja",
+      "language": "ja",
+      "source": "online_overpass_preprocessing_named_feature",
+      "provider": "OpenStreetMap Overpass",
+      "sourceField": "name/official_name/short_name",
+      "classification": "online_overpass_named_building_or_landmark",
+      "rawType": "museum",
+      "confidence": 0.82,
+      "lat": 35.6986987,
+      "lon": 139.7621517,
+      "position": {
+        "x": -730.199,
+        "y": 2.4,
+        "z": 2387.714
+      },
+      "unityPosition": {
+        "x": -730.199,
+        "y": 2.4,
+        "z": 2387.714
+      },
+      "rawName": "明治大学博物館",
+      "normalizedName": "明治大学博物館",
+      "idOnly": false,
+      "disabled": false,
+      "hiddenInNormalMode": false,
+      "hiddenReason": "",
+      "attributionRequired": true,
+      "timestamp": "2026-05-30T00:39:45+09:00"
+    },
+    {
+      "id": "building_overpass_node_1420781349",
+      "objectType": "building",
+      "name": "明治大学（商学部）",
+      "finalDisplayName": "明治大学（商学部）",
+      "finalDisplayNameLanguage": "ja",
+      "language": "ja",
+      "source": "online_overpass_preprocessing_named_feature",
+      "provider": "OpenStreetMap Overpass",
+      "sourceField": "name/official_name/short_name",
+      "classification": "online_overpass_named_building_or_landmark",
+      "rawType": "university",
+      "confidence": 0.82,
+      "lat": 35.6984514,
+      "lon": 139.7621579,
+      "position": {
+        "x": -729.689,
+        "y": 2.4,
+        "z": 2360.439
+      },
+      "unityPosition": {
+        "x": -729.689,
+        "y": 2.4,
+        "z": 2360.439
+      },
+      "rawName": "明治大学（商学部）",
+      "normalizedName": "明治大学（商学部）",
+      "idOnly": false,
+      "disabled": false,
+      "hiddenInNormalMode": false,
+      "hiddenReason": "",
+      "attributionRequired": true,
+      "timestamp": "2026-05-30T00:39:45+09:00"
+    },
+    {
+      "id": "building_overpass_node_1420781350",
+      "objectType": "building",
+      "name": "明治大学（情報コミュニケーション学部）",
+      "finalDisplayName": "明治大学（情報コミュニケーション学部）",
+      "finalDisplayNameLanguage": "ja",
+      "language": "ja",
+      "source": "online_overpass_preprocessing_named_feature",
+      "provider": "OpenStreetMap Overpass",
+      "sourceField": "name/official_name/short_name",
+      "classification": "online_overpass_named_building_or_landmark",
+      "rawType": "university",
+      "confidence": 0.82,
+      "lat": 35.6984381,
+      "lon": 139.7621985,
+      "position": {
+        "x": -726.021,
+        "y": 2.4,
+        "z": 2358.957
+      },
+      "unityPosition": {
+        "x": -726.021,
+        "y": 2.4,
+        "z": 2358.957
+      },
+      "rawName": "明治大学（情報コミュニケーション学部）",
+      "normalizedName": "明治大学（情報コミュニケーション学部）",
+      "idOnly": false,
+      "disabled": false,
+      "hiddenInNormalMode": false,
+      "hiddenReason": "",
+      "attributionRequired": true,
+      "timestamp": "2026-05-30T00:39:45+09:00"
+    },
+    {
+      "id": "building_overpass_node_1420781351",
+      "objectType": "building",
+      "name": "明治大学（政治経済学部）",
+      "finalDisplayName": "明治大学（政治経済学部）",
+      "finalDisplayNameLanguage": "ja",
+      "language": "ja",
+      "source": "online_overpass_preprocessing_named_feature",
+      "provider": "OpenStreetMap Overpass",
+      "sourceField": "name/official_name/short_name",
+      "classification": "online_overpass_named_building_or_landmark",
+      "rawType": "university",
+      "confidence": 0.82,
+      "lat": 35.6984704,
+      "lon": 139.7621175,
+      "position": {
+        "x": -733.339,
+        "y": 2.4,
+        "z": 2362.55
+      },
+      "unityPosition": {
+        "x": -733.339,
+        "y": 2.4,
+        "z": 2362.55
+      },
+      "rawName": "明治大学（政治経済学部）",
+      "normalizedName": "明治大学（政治経済学部）",
+      "idOnly": false,
+      "disabled": false,
+      "hiddenInNormalMode": false,
+      "hiddenReason": "",
+      "attributionRequired": true,
+      "timestamp": "2026-05-30T00:39:45+09:00"
+    },
+    {
+      "id": "building_overpass_node_1420781352",
+      "objectType": "building",
+      "name": "明治大学（文学部）",
+      "finalDisplayName": "明治大学（文学部）",
+      "finalDisplayNameLanguage": "ja",
+      "language": "ja",
+      "source": "online_overpass_preprocessing_named_feature",
+      "provider": "OpenStreetMap Overpass",
+      "sourceField": "name/official_name/short_name",
+      "classification": "online_overpass_named_building_or_landmark",
+      "rawType": "university",
+      "confidence": 0.82,
+      "lat": 35.6984696,
+      "lon": 139.7621981,
+      "position": {
+        "x": -726.05,
+        "y": 2.4,
+        "z": 2362.431
+      },
+      "unityPosition": {
+        "x": -726.05,
+        "y": 2.4,
+        "z": 2362.431
+      },
+      "rawName": "明治大学（文学部）",
+      "normalizedName": "明治大学（文学部）",
+      "idOnly": false,
+      "disabled": false,
+      "hiddenInNormalMode": false,
+      "hiddenReason": "",
+      "attributionRequired": true,
+      "timestamp": "2026-05-30T00:39:45+09:00"
+    },
+    {
+      "id": "building_overpass_node_1420781353",
+      "objectType": "building",
+      "name": "明治大学（法学部）",
+      "finalDisplayName": "明治大学（法学部）",
+      "finalDisplayNameLanguage": "ja",
+      "language": "ja",
+      "source": "online_overpass_preprocessing_named_feature",
+      "provider": "OpenStreetMap Overpass",
+      "sourceField": "name/official_name/short_name",
+      "classification": "online_overpass_named_building_or_landmark",
+      "rawType": "university",
+      "confidence": 0.82,
+      "lat": 35.6984377,
+      "lon": 139.7621177,
+      "position": {
+        "x": -733.327,
+        "y": 2.4,
+        "z": 2358.943
+      },
+      "unityPosition": {
+        "x": -733.327,
+        "y": 2.4,
+        "z": 2358.943
+      },
+      "rawName": "明治大学（法学部）",
+      "normalizedName": "明治大学（法学部）",
+      "idOnly": false,
+      "disabled": false,
+      "hiddenInNormalMode": false,
+      "hiddenReason": "",
+      "attributionRequired": true,
+      "timestamp": "2026-05-30T00:39:45+09:00"
+    },
+    {
+      "id": "building_overpass_node_1420781354",
+      "objectType": "building",
+      "name": "明治大学（経営学部）",
+      "finalDisplayName": "明治大学（経営学部）",
+      "finalDisplayNameLanguage": "ja",
+      "language": "ja",
+      "source": "online_overpass_preprocessing_named_feature",
+      "provider": "OpenStreetMap Overpass",
+      "sourceField": "name/official_name/short_name",
+      "classification": "online_overpass_named_building_or_landmark",
+      "rawType": "university",
+      "confidence": 0.82,
+      "lat": 35.6984212,
+      "lon": 139.7621577,
+      "position": {
+        "x": -729.714,
+        "y": 2.4,
+        "z": 2357.108
+      },
+      "unityPosition": {
+        "x": -729.714,
+        "y": 2.4,
+        "z": 2357.108
+      },
+      "rawName": "明治大学（経営学部）",
+      "normalizedName": "明治大学（経営学部）",
+      "idOnly": false,
+      "disabled": false,
+      "hiddenInNormalMode": false,
+      "hiddenReason": "",
+      "attributionRequired": true,
+      "timestamp": "2026-05-30T00:39:45+09:00"
+    },
+    {
+      "id": "building_overpass_node_251055437",
+      "objectType": "building",
+      "name": "住庄ほてる",
+      "finalDisplayName": "住庄ほてる",
+      "finalDisplayNameLanguage": "ja",
+      "language": "ja",
+      "source": "online_overpass_preprocessing_named_feature",
+      "provider": "OpenStreetMap Overpass",
+      "sourceField": "name:ja",
+      "classification": "online_overpass_named_building_or_landmark",
+      "rawType": "hotel",
+      "confidence": 0.82,
+      "lat": 35.6855571,
+      "lon": 139.7792233,
+      "position": {
+        "x": 810.835,
+        "y": 2.4,
+        "z": 931.923
+      },
+      "unityPosition": {
+        "x": 810.835,
+        "y": 2.4,
+        "z": 931.923
+      },
+      "rawName": "住庄ほてる",
+      "normalizedName": "住庄ほてる",
+      "idOnly": false,
+      "disabled": false,
+      "hiddenInNormalMode": false,
+      "hiddenReason": "",
+      "attributionRequired": true,
+      "timestamp": "2026-05-30T00:39:45+09:00"
+    },
+    {
+      "id": "building_overpass_node_260409658",
+      "objectType": "building",
+      "name": "東京宝塚劇場",
+      "finalDisplayName": "東京宝塚劇場",
+      "finalDisplayNameLanguage": "ja",
+      "language": "ja",
+      "source": "online_overpass_preprocessing_named_feature",
+      "provider": "OpenStreetMap Overpass",
+      "sourceField": "name/official_name/short_name",
+      "classification": "online_overpass_named_building_or_landmark",
+      "rawType": "theatre",
+      "confidence": 0.82,
+      "lat": 35.6728254,
+      "lon": 139.7592046,
+      "position": {
+        "x": -1002.042,
+        "y": 2.4,
+        "z": -464.547
+      },
+      "unityPosition": {
+        "x": -1002.042,
+        "y": 2.4,
+        "z": -464.547
+      },
+      "rawName": "東京宝塚劇場",
+      "normalizedName": "東京宝塚劇場",
+      "idOnly": false,
+      "disabled": false,
+      "hiddenInNormalMode": false,
+      "hiddenReason": "",
+      "attributionRequired": true,
+      "timestamp": "2026-05-30T00:39:45+09:00"
+    },
+    {
+      "id": "building_overpass_node_260409669",
+      "objectType": "building",
+      "name": "日生劇場",
+      "finalDisplayName": "日生劇場",
+      "finalDisplayNameLanguage": "ja",
+      "language": "ja",
+      "source": "online_overpass_preprocessing_named_feature",
+      "provider": "OpenStreetMap Overpass",
+      "sourceField": "name/official_name/short_name",
+      "classification": "online_overpass_named_building_or_landmark",
+      "rawType": "theatre",
+      "confidence": 0.82,
+      "lat": 35.673259,
+      "lon": 139.7585337,
+      "position": {
+        "x": -1062.621,
+        "y": 2.4,
+        "z": -416.473
+      },
+      "unityPosition": {
+        "x": -1062.621,
+        "y": 2.4,
+        "z": -416.473
+      },
+      "rawName": "日生劇場",
+      "normalizedName": "日生劇場",
+      "idOnly": false,
+      "disabled": false,
+      "hiddenInNormalMode": false,
+      "hiddenReason": "",
+      "attributionRequired": true,
+      "timestamp": "2026-05-30T00:39:45+09:00"
+    },
+    {
+      "id": "building_overpass_node_573261208",
+      "objectType": "building",
+      "name": "マンダリンオリエンタル",
+      "finalDisplayName": "マンダリンオリエンタル",
+      "finalDisplayNameLanguage": "ja",
+      "language": "ja",
+      "source": "online_overpass_preprocessing_named_feature",
+      "provider": "OpenStreetMap Overpass",
+      "sourceField": "name/official_name/short_name",
+      "classification": "online_overpass_named_building_or_landmark",
+      "rawType": "hotel",
+      "confidence": 0.82,
+      "lat": 35.687145,
+      "lon": 139.772888,
+      "position": {
+        "x": 238.275,
+        "y": 2.4,
+        "z": 1109.452
+      },
+      "unityPosition": {
+        "x": 238.275,
+        "y": 2.4,
+        "z": 1109.452
+      },
+      "rawName": "マンダリンオリエンタル",
+      "normalizedName": "マンダリンオリエンタル",
+      "idOnly": false,
+      "disabled": false,
+      "hiddenInNormalMode": false,
+      "hiddenReason": "",
+      "attributionRequired": true,
+      "timestamp": "2026-05-30T00:39:45+09:00"
+    },
+    {
+      "id": "building_overpass_node_654591533",
+      "objectType": "building",
+      "name": "ホテル日本橋サイボー",
+      "finalDisplayName": "ホテル日本橋サイボー",
+      "finalDisplayNameLanguage": "ja",
+      "language": "ja",
+      "source": "online_overpass_preprocessing_named_feature",
+      "provider": "OpenStreetMap Overpass",
+      "sourceField": "name:ja",
+      "classification": "online_overpass_named_building_or_landmark",
+      "rawType": "hotel",
+      "confidence": 0.82,
+      "lat": 35.6855577,
+      "lon": 139.7802804,
+      "position": {
+        "x": 906.426,
+        "y": 2.4,
+        "z": 931.587
+      },
+      "unityPosition": {
+        "x": 906.426,
+        "y": 2.4,
+        "z": 931.587
+      },
+      "rawName": "ホテル日本橋サイボー",
+      "normalizedName": "ホテル日本橋サイボー",
+      "idOnly": false,
+      "disabled": false,
+      "hiddenInNormalMode": false,
+      "hiddenReason": "",
+      "attributionRequired": true,
+      "timestamp": "2026-05-30T00:39:45+09:00"
+    },
+    {
+      "id": "building_overpass_node_810027516",
+      "objectType": "building",
+      "name": "東京都立工芸高校",
+      "finalDisplayName": "東京都立工芸高校",
+      "finalDisplayNameLanguage": "ja",
+      "language": "ja",
+      "source": "online_overpass_preprocessing_named_feature",
+      "provider": "OpenStreetMap Overpass",
+      "sourceField": "name/official_name/short_name",
+      "classification": "online_overpass_named_building_or_landmark",
+      "rawType": "school",
+      "confidence": 0.82,
+      "lat": 35.7027039,
+      "lon": 139.7559369,
+      "position": {
+        "x": -1291.363,
+        "y": 2.4,
+        "z": 2831.785
+      },
+      "unityPosition": {
+        "x": -1291.363,
+        "y": 2.4,
+        "z": 2831.785
+      },
+      "rawName": "東京都立工芸高校",
+      "normalizedName": "東京都立工芸高校",
+      "idOnly": false,
+      "disabled": false,
+      "hiddenInNormalMode": false,
+      "hiddenReason": "",
+      "attributionRequired": true,
+      "timestamp": "2026-05-30T00:39:45+09:00"
+    },
+    {
+      "id": "building_overpass_node_820849494",
+      "objectType": "building",
+      "name": "旧新橋停車場鉄道歴史展示室",
+      "finalDisplayName": "旧新橋停車場鉄道歴史展示室",
+      "finalDisplayNameLanguage": "ja",
+      "language": "ja",
+      "source": "online_overpass_preprocessing_named_feature",
+      "provider": "OpenStreetMap Overpass",
+      "sourceField": "name/official_name/short_name",
+      "classification": "online_overpass_named_building_or_landmark",
+      "rawType": "museum",
+      "confidence": 0.82,
+      "lat": 35.6659465,
+      "lon": 139.7616202,
+      "position": {
+        "x": -785.025,
+        "y": 2.4,
+        "z": -1224.092
+      },
+      "unityPosition": {
+        "x": -785.025,
+        "y": 2.4,
+        "z": -1224.092
+      },
+      "rawName": "旧新橋停車場鉄道歴史展示室",
+      "normalizedName": "旧新橋停車場鉄道歴史展示室",
+      "idOnly": false,
+      "disabled": false,
+      "hiddenInNormalMode": false,
+      "hiddenReason": "",
+      "attributionRequired": true,
+      "timestamp": "2026-05-30T00:39:45+09:00"
+    },
     {
       "id": "building_p8_plateau_highrise_candidate_001",
       "objectType": "building",
@@ -50,7 +1992,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": false,
-      "timestamp": "2026-05-29T23:32:16+09:00"
+      "timestamp": "2026-05-30T00:39:45+09:00"
     },
     {
       "id": "building_p8_plateau_highrise_candidate_002",
@@ -84,7 +2026,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": false,
-      "timestamp": "2026-05-29T23:32:16+09:00"
+      "timestamp": "2026-05-30T00:39:45+09:00"
     },
     {
       "id": "building_p8_plateau_highrise_candidate_003",
@@ -118,7 +2060,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": false,
-      "timestamp": "2026-05-29T23:32:16+09:00"
+      "timestamp": "2026-05-30T00:39:45+09:00"
     },
     {
       "id": "building_p8_plateau_highrise_candidate_004",
@@ -152,7 +2094,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": false,
-      "timestamp": "2026-05-29T23:32:16+09:00"
+      "timestamp": "2026-05-30T00:39:45+09:00"
     },
     {
       "id": "building_p8_plateau_highrise_candidate_005",
@@ -186,7 +2128,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": false,
-      "timestamp": "2026-05-29T23:32:16+09:00"
+      "timestamp": "2026-05-30T00:39:45+09:00"
     },
     {
       "id": "building_p8_plateau_highrise_candidate_006",
@@ -220,7 +2162,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": false,
-      "timestamp": "2026-05-29T23:32:16+09:00"
+      "timestamp": "2026-05-30T00:39:45+09:00"
     },
     {
       "id": "building_p8_plateau_highrise_candidate_007",
@@ -254,7 +2196,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": false,
-      "timestamp": "2026-05-29T23:32:16+09:00"
+      "timestamp": "2026-05-30T00:39:45+09:00"
     },
     {
       "id": "building_p8_plateau_highrise_candidate_008",
@@ -288,7 +2230,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": false,
-      "timestamp": "2026-05-29T23:32:16+09:00"
+      "timestamp": "2026-05-30T00:39:45+09:00"
     },
     {
       "id": "building_p8_plateau_highrise_candidate_009",
@@ -322,7 +2264,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": false,
-      "timestamp": "2026-05-29T23:32:16+09:00"
+      "timestamp": "2026-05-30T00:39:45+09:00"
     },
     {
       "id": "building_p8_plateau_highrise_candidate_010",
@@ -356,7 +2298,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": false,
-      "timestamp": "2026-05-29T23:32:16+09:00"
+      "timestamp": "2026-05-30T00:39:45+09:00"
     },
     {
       "id": "building_p8_plateau_highrise_candidate_011",
@@ -390,7 +2332,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": false,
-      "timestamp": "2026-05-29T23:32:16+09:00"
+      "timestamp": "2026-05-30T00:39:45+09:00"
     },
     {
       "id": "building_p8_plateau_highrise_candidate_012",
@@ -424,7 +2366,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": false,
-      "timestamp": "2026-05-29T23:32:16+09:00"
+      "timestamp": "2026-05-30T00:39:45+09:00"
     },
     {
       "id": "building_p8_plateau_highrise_candidate_013",
@@ -458,7 +2400,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": false,
-      "timestamp": "2026-05-29T23:32:16+09:00"
+      "timestamp": "2026-05-30T00:39:45+09:00"
     },
     {
       "id": "building_p8_plateau_highrise_candidate_014",
@@ -492,7 +2434,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": false,
-      "timestamp": "2026-05-29T23:32:16+09:00"
+      "timestamp": "2026-05-30T00:39:45+09:00"
     },
     {
       "id": "building_p8_plateau_highrise_candidate_015",
@@ -526,7 +2468,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": false,
-      "timestamp": "2026-05-29T23:32:16+09:00"
+      "timestamp": "2026-05-30T00:39:45+09:00"
     },
     {
       "id": "building_p8_plateau_highrise_candidate_016",
@@ -560,7 +2502,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": false,
-      "timestamp": "2026-05-29T23:32:16+09:00"
+      "timestamp": "2026-05-30T00:39:45+09:00"
     },
     {
       "id": "building_p8_plateau_highrise_candidate_017",
@@ -594,7 +2536,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": false,
-      "timestamp": "2026-05-29T23:32:16+09:00"
+      "timestamp": "2026-05-30T00:39:45+09:00"
     },
     {
       "id": "building_p8_plateau_highrise_candidate_018",
@@ -628,7 +2570,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": false,
-      "timestamp": "2026-05-29T23:32:16+09:00"
+      "timestamp": "2026-05-30T00:39:45+09:00"
     },
     {
       "id": "building_p8_plateau_highrise_candidate_019",
@@ -662,7 +2604,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": false,
-      "timestamp": "2026-05-29T23:32:16+09:00"
+      "timestamp": "2026-05-30T00:39:45+09:00"
     },
     {
       "id": "building_p8_plateau_highrise_candidate_020",
@@ -696,7 +2638,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": false,
-      "timestamp": "2026-05-29T23:32:16+09:00"
+      "timestamp": "2026-05-30T00:39:45+09:00"
     },
     {
       "id": "building_p8_plateau_highrise_candidate_021",
@@ -730,7 +2672,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": false,
-      "timestamp": "2026-05-29T23:32:16+09:00"
+      "timestamp": "2026-05-30T00:39:45+09:00"
     },
     {
       "id": "building_p8_plateau_highrise_candidate_022",
@@ -764,7 +2706,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": false,
-      "timestamp": "2026-05-29T23:32:16+09:00"
+      "timestamp": "2026-05-30T00:39:45+09:00"
     },
     {
       "id": "building_p8_plateau_highrise_candidate_023",
@@ -798,7 +2740,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": false,
-      "timestamp": "2026-05-29T23:32:16+09:00"
+      "timestamp": "2026-05-30T00:39:45+09:00"
     },
     {
       "id": "building_p8_plateau_highrise_candidate_024",
@@ -832,7 +2774,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": false,
-      "timestamp": "2026-05-29T23:32:16+09:00"
+      "timestamp": "2026-05-30T00:39:45+09:00"
     },
     {
       "id": "building_p8_plateau_highrise_candidate_026",
@@ -866,7 +2808,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": true,
-      "timestamp": "2026-05-29T23:32:16+09:00"
+      "timestamp": "2026-05-30T00:39:45+09:00"
     },
     {
       "id": "building_p8_plateau_highrise_candidate_029",
@@ -900,7 +2842,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": true,
-      "timestamp": "2026-05-29T23:32:16+09:00"
+      "timestamp": "2026-05-30T00:39:45+09:00"
     },
     {
       "id": "building_p8_plateau_highrise_candidate_032",
@@ -934,7 +2876,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": true,
-      "timestamp": "2026-05-29T23:32:16+09:00"
+      "timestamp": "2026-05-30T00:39:45+09:00"
     },
     {
       "id": "building_p8_plateau_highrise_candidate_036",
@@ -968,7 +2910,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": true,
-      "timestamp": "2026-05-29T23:32:16+09:00"
+      "timestamp": "2026-05-30T00:39:45+09:00"
     },
     {
       "id": "building_p8_plateau_highrise_candidate_038",
@@ -1002,7 +2944,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": true,
-      "timestamp": "2026-05-29T23:32:16+09:00"
+      "timestamp": "2026-05-30T00:39:45+09:00"
     },
     {
       "id": "building_p8_plateau_highrise_candidate_046",
@@ -1036,7 +2978,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": true,
-      "timestamp": "2026-05-29T23:32:16+09:00"
+      "timestamp": "2026-05-30T00:39:45+09:00"
     },
     {
       "id": "building_p8_plateau_highrise_candidate_047",
@@ -1070,7 +3012,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": true,
-      "timestamp": "2026-05-29T23:32:16+09:00"
+      "timestamp": "2026-05-30T00:39:45+09:00"
     },
     {
       "id": "building_p8_plateau_highrise_candidate_051",
@@ -1104,7 +3046,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": true,
-      "timestamp": "2026-05-29T23:32:16+09:00"
+      "timestamp": "2026-05-30T00:39:45+09:00"
     },
     {
       "id": "building_p8_plateau_highrise_candidate_052",
@@ -1138,7 +3080,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": true,
-      "timestamp": "2026-05-29T23:32:16+09:00"
+      "timestamp": "2026-05-30T00:39:45+09:00"
     },
     {
       "id": "building_p8_plateau_highrise_candidate_053",
@@ -1172,7 +3114,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": true,
-      "timestamp": "2026-05-29T23:32:16+09:00"
+      "timestamp": "2026-05-30T00:39:45+09:00"
     },
     {
       "id": "building_p8_plateau_highrise_candidate_054",
@@ -1206,7 +3148,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": true,
-      "timestamp": "2026-05-29T23:32:16+09:00"
+      "timestamp": "2026-05-30T00:39:45+09:00"
     },
     {
       "id": "building_p8_plateau_highrise_candidate_055",
@@ -1240,7 +3182,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": true,
-      "timestamp": "2026-05-29T23:32:16+09:00"
+      "timestamp": "2026-05-30T00:39:45+09:00"
     },
     {
       "id": "building_p8_plateau_highrise_candidate_056",
@@ -1274,7 +3216,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": true,
-      "timestamp": "2026-05-29T23:32:16+09:00"
+      "timestamp": "2026-05-30T00:39:45+09:00"
     },
     {
       "id": "building_p8_plateau_highrise_candidate_060",
@@ -1308,7 +3250,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": true,
-      "timestamp": "2026-05-29T23:32:16+09:00"
+      "timestamp": "2026-05-30T00:39:45+09:00"
     },
     {
       "id": "building_p8_plateau_highrise_candidate_061",
@@ -1342,7 +3284,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": true,
-      "timestamp": "2026-05-29T23:32:16+09:00"
+      "timestamp": "2026-05-30T00:39:45+09:00"
     },
     {
       "id": "building_p8_plateau_highrise_candidate_062",
@@ -1376,7 +3318,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": true,
-      "timestamp": "2026-05-29T23:32:16+09:00"
+      "timestamp": "2026-05-30T00:39:45+09:00"
     },
     {
       "id": "building_p8_plateau_highrise_candidate_063",
@@ -1410,7 +3352,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": true,
-      "timestamp": "2026-05-29T23:32:16+09:00"
+      "timestamp": "2026-05-30T00:39:45+09:00"
     },
     {
       "id": "building_p8_plateau_highrise_candidate_071",
@@ -1444,7 +3386,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": true,
-      "timestamp": "2026-05-29T23:32:16+09:00"
+      "timestamp": "2026-05-30T00:39:45+09:00"
     },
     {
       "id": "building_p8_plateau_highrise_candidate_072",
@@ -1478,7 +3420,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": true,
-      "timestamp": "2026-05-29T23:32:16+09:00"
+      "timestamp": "2026-05-30T00:39:45+09:00"
     },
     {
       "id": "building_p8_plateau_highrise_candidate_073",
@@ -1512,7 +3454,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": true,
-      "timestamp": "2026-05-29T23:32:16+09:00"
+      "timestamp": "2026-05-30T00:39:45+09:00"
     },
     {
       "id": "building_p8_plateau_highrise_candidate_074",
@@ -1546,7 +3488,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": true,
-      "timestamp": "2026-05-29T23:32:16+09:00"
+      "timestamp": "2026-05-30T00:39:45+09:00"
     },
     {
       "id": "building_p8_plateau_highrise_candidate_077",
@@ -1580,7 +3522,41 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": true,
-      "timestamp": "2026-05-29T23:32:16+09:00"
+      "timestamp": "2026-05-30T00:39:45+09:00"
+    },
+    {
+      "id": "building_p8_plateau_highrise_candidate_078",
+      "objectType": "building",
+      "name": "国立がん研究センター中央病院",
+      "finalDisplayName": "国立がん研究センター中央病院",
+      "finalDisplayNameLanguage": "ja",
+      "language": "ja",
+      "source": "online_preprocessing_reverse_geocode",
+      "provider": "OpenStreetMap Nominatim",
+      "sourceField": "namedetails.name/name:ja_or_address.building",
+      "classification": "online_exact_or_near_match",
+      "rawType": "amenity:hospital",
+      "confidence": 0.72,
+      "lat": 35.66548188,
+      "lon": 139.76815987,
+      "position": {
+        "x": -199.048,
+        "y": 0.08,
+        "z": -1284.266
+      },
+      "unityPosition": {
+        "x": -199.048,
+        "y": 0.08,
+        "z": -1284.266
+      },
+      "rawName": "国立がん研究センター中央病院",
+      "normalizedName": "国立がん研究センター中央病院",
+      "idOnly": false,
+      "disabled": false,
+      "hiddenInNormalMode": false,
+      "hiddenReason": "",
+      "attributionRequired": true,
+      "timestamp": "2026-05-30T00:39:45+09:00"
     },
     {
       "id": "building_p8_plateau_highrise_candidate_079",
@@ -1614,7 +3590,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": true,
-      "timestamp": "2026-05-29T23:32:16+09:00"
+      "timestamp": "2026-05-30T00:39:45+09:00"
     },
     {
       "id": "building_p8_plateau_highrise_candidate_080",
@@ -1648,7 +3624,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": true,
-      "timestamp": "2026-05-29T23:32:16+09:00"
+      "timestamp": "2026-05-30T00:39:45+09:00"
     },
     {
       "id": "building_p8_plateau_highrise_candidate_082",
@@ -1682,7 +3658,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": true,
-      "timestamp": "2026-05-29T23:32:16+09:00"
+      "timestamp": "2026-05-30T00:39:45+09:00"
     },
     {
       "id": "building_p8_plateau_highrise_candidate_083",
@@ -1716,7 +3692,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": true,
-      "timestamp": "2026-05-29T23:32:16+09:00"
+      "timestamp": "2026-05-30T00:39:45+09:00"
     },
     {
       "id": "building_p8_plateau_highrise_candidate_084",
@@ -1750,7 +3726,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": true,
-      "timestamp": "2026-05-29T23:32:16+09:00"
+      "timestamp": "2026-05-30T00:39:45+09:00"
     },
     {
       "id": "building_p8_plateau_highrise_candidate_087",
@@ -1784,7 +3760,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": true,
-      "timestamp": "2026-05-29T23:32:16+09:00"
+      "timestamp": "2026-05-30T00:39:45+09:00"
     },
     {
       "id": "building_p8_plateau_highrise_candidate_093",
@@ -1818,7 +3794,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": true,
-      "timestamp": "2026-05-29T23:32:16+09:00"
+      "timestamp": "2026-05-30T00:39:45+09:00"
     },
     {
       "id": "building_p8_plateau_highrise_candidate_094",
@@ -1852,7 +3828,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": true,
-      "timestamp": "2026-05-29T23:32:16+09:00"
+      "timestamp": "2026-05-30T00:39:45+09:00"
     },
     {
       "id": "building_p8_plateau_highrise_candidate_096",
@@ -1886,7 +3862,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": true,
-      "timestamp": "2026-05-29T23:32:16+09:00"
+      "timestamp": "2026-05-30T00:39:45+09:00"
     },
     {
       "id": "building_p8_plateau_highrise_candidate_100",
@@ -1920,7 +3896,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": true,
-      "timestamp": "2026-05-29T23:32:16+09:00"
+      "timestamp": "2026-05-30T00:39:45+09:00"
     },
     {
       "id": "building_p8_plateau_highrise_candidate_101",
@@ -1954,7 +3930,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": true,
-      "timestamp": "2026-05-29T23:32:16+09:00"
+      "timestamp": "2026-05-30T00:39:45+09:00"
     },
     {
       "id": "building_p8_plateau_highrise_candidate_103",
@@ -1988,7 +3964,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": true,
-      "timestamp": "2026-05-29T23:32:16+09:00"
+      "timestamp": "2026-05-30T00:39:45+09:00"
     },
     {
       "id": "building_p8_plateau_highrise_candidate_104",
@@ -2022,7 +3998,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": true,
-      "timestamp": "2026-05-29T23:32:16+09:00"
+      "timestamp": "2026-05-30T00:39:45+09:00"
     },
     {
       "id": "p8_plateau_highrise_candidate_001",
@@ -2056,7 +4032,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": false,
-      "timestamp": "2026-05-29T23:32:16+09:00"
+      "timestamp": "2026-05-30T00:39:45+09:00"
     },
     {
       "id": "p8_plateau_highrise_candidate_002",
@@ -2090,7 +4066,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": false,
-      "timestamp": "2026-05-29T23:32:16+09:00"
+      "timestamp": "2026-05-30T00:39:45+09:00"
     },
     {
       "id": "p8_plateau_highrise_candidate_003",
@@ -2124,7 +4100,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": false,
-      "timestamp": "2026-05-29T23:32:16+09:00"
+      "timestamp": "2026-05-30T00:39:45+09:00"
     },
     {
       "id": "p8_plateau_highrise_candidate_004",
@@ -2158,7 +4134,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": false,
-      "timestamp": "2026-05-29T23:32:16+09:00"
+      "timestamp": "2026-05-30T00:39:45+09:00"
     },
     {
       "id": "p8_plateau_highrise_candidate_005",
@@ -2192,7 +4168,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": false,
-      "timestamp": "2026-05-29T23:32:16+09:00"
+      "timestamp": "2026-05-30T00:39:45+09:00"
     },
     {
       "id": "p8_plateau_highrise_candidate_006",
@@ -2226,7 +4202,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": false,
-      "timestamp": "2026-05-29T23:32:16+09:00"
+      "timestamp": "2026-05-30T00:39:45+09:00"
     },
     {
       "id": "p8_plateau_highrise_candidate_007",
@@ -2260,7 +4236,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": false,
-      "timestamp": "2026-05-29T23:32:16+09:00"
+      "timestamp": "2026-05-30T00:39:45+09:00"
     },
     {
       "id": "p8_plateau_highrise_candidate_009",
@@ -2294,7 +4270,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": false,
-      "timestamp": "2026-05-29T23:32:16+09:00"
+      "timestamp": "2026-05-30T00:39:45+09:00"
     },
     {
       "id": "p8_plateau_highrise_candidate_011",
@@ -2328,7 +4304,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": false,
-      "timestamp": "2026-05-29T23:32:16+09:00"
+      "timestamp": "2026-05-30T00:39:45+09:00"
     },
     {
       "id": "p8_plateau_highrise_candidate_013",
@@ -2362,7 +4338,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": false,
-      "timestamp": "2026-05-29T23:32:16+09:00"
+      "timestamp": "2026-05-30T00:39:45+09:00"
     },
     {
       "id": "p8_plateau_highrise_candidate_015",
@@ -2396,7 +4372,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": false,
-      "timestamp": "2026-05-29T23:32:16+09:00"
+      "timestamp": "2026-05-30T00:39:45+09:00"
     },
     {
       "id": "p8_plateau_highrise_candidate_016",
@@ -2430,7 +4406,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": false,
-      "timestamp": "2026-05-29T23:32:16+09:00"
+      "timestamp": "2026-05-30T00:39:45+09:00"
     },
     {
       "id": "p8_plateau_highrise_candidate_018",
@@ -2464,7 +4440,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": false,
-      "timestamp": "2026-05-29T23:32:16+09:00"
+      "timestamp": "2026-05-30T00:39:45+09:00"
     },
     {
       "id": "p8_plateau_highrise_candidate_019",
@@ -2498,7 +4474,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": false,
-      "timestamp": "2026-05-29T23:32:16+09:00"
+      "timestamp": "2026-05-30T00:39:45+09:00"
     },
     {
       "id": "p8_plateau_highrise_candidate_020",
@@ -2532,7 +4508,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": false,
-      "timestamp": "2026-05-29T23:32:16+09:00"
+      "timestamp": "2026-05-30T00:39:45+09:00"
     },
     {
       "id": "p8_plateau_highrise_candidate_021",
@@ -2566,7 +4542,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": false,
-      "timestamp": "2026-05-29T23:32:16+09:00"
+      "timestamp": "2026-05-30T00:39:45+09:00"
     },
     {
       "id": "p8_plateau_highrise_candidate_022",
@@ -2600,7 +4576,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": false,
-      "timestamp": "2026-05-29T23:32:16+09:00"
+      "timestamp": "2026-05-30T00:39:45+09:00"
     },
     {
       "id": "p8_plateau_highrise_candidate_023",
@@ -2634,7 +4610,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": false,
-      "timestamp": "2026-05-29T23:32:16+09:00"
+      "timestamp": "2026-05-30T00:39:45+09:00"
     },
     {
       "id": "p8_plateau_highrise_candidate_024",
@@ -2668,7 +4644,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": false,
-      "timestamp": "2026-05-29T23:32:16+09:00"
+      "timestamp": "2026-05-30T00:39:45+09:00"
     },
     {
       "id": "landmark_tokyo_station",
@@ -2702,7 +4678,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": true,
-      "timestamp": "2026-05-29T23:32:16+09:00"
+      "timestamp": "2026-05-30T00:39:45+09:00"
     },
     {
       "id": "chuo_official_emergency_001",
@@ -2736,7 +4712,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": false,
-      "timestamp": "2026-05-29T23:32:16+09:00"
+      "timestamp": "2026-05-30T00:39:45+09:00"
     },
     {
       "id": "chuo_official_emergency_002",
@@ -2770,7 +4746,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": false,
-      "timestamp": "2026-05-29T23:32:16+09:00"
+      "timestamp": "2026-05-30T00:39:45+09:00"
     },
     {
       "id": "chuo_official_emergency_003",
@@ -2804,7 +4780,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": false,
-      "timestamp": "2026-05-29T23:32:16+09:00"
+      "timestamp": "2026-05-30T00:39:45+09:00"
     },
     {
       "id": "chuo_official_emergency_004",
@@ -2838,7 +4814,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": false,
-      "timestamp": "2026-05-29T23:32:16+09:00"
+      "timestamp": "2026-05-30T00:39:45+09:00"
     },
     {
       "id": "chuo_official_emergency_005",
@@ -2872,7 +4848,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": false,
-      "timestamp": "2026-05-29T23:32:16+09:00"
+      "timestamp": "2026-05-30T00:39:45+09:00"
     },
     {
       "id": "chuo_official_emergency_006",
@@ -2906,7 +4882,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": false,
-      "timestamp": "2026-05-29T23:32:16+09:00"
+      "timestamp": "2026-05-30T00:39:45+09:00"
     },
     {
       "id": "chuo_official_emergency_007",
@@ -2940,7 +4916,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": false,
-      "timestamp": "2026-05-29T23:32:16+09:00"
+      "timestamp": "2026-05-30T00:39:45+09:00"
     },
     {
       "id": "chuo_official_emergency_008",
@@ -2974,7 +4950,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": false,
-      "timestamp": "2026-05-29T23:32:16+09:00"
+      "timestamp": "2026-05-30T00:39:45+09:00"
     },
     {
       "id": "chuo_official_emergency_009",
@@ -3008,7 +4984,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": false,
-      "timestamp": "2026-05-29T23:32:16+09:00"
+      "timestamp": "2026-05-30T00:39:45+09:00"
     },
     {
       "id": "chuo_official_emergency_010",
@@ -3042,7 +5018,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": false,
-      "timestamp": "2026-05-29T23:32:16+09:00"
+      "timestamp": "2026-05-30T00:39:45+09:00"
     },
     {
       "id": "chuo_official_emergency_011",
@@ -3076,7 +5052,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": false,
-      "timestamp": "2026-05-29T23:32:16+09:00"
+      "timestamp": "2026-05-30T00:39:45+09:00"
     },
     {
       "id": "chuo_official_emergency_014",
@@ -3110,7 +5086,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": false,
-      "timestamp": "2026-05-29T23:32:16+09:00"
+      "timestamp": "2026-05-30T00:39:45+09:00"
     },
     {
       "id": "chuo_official_emergency_016",
@@ -3144,7 +5120,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": false,
-      "timestamp": "2026-05-29T23:32:16+09:00"
+      "timestamp": "2026-05-30T00:39:45+09:00"
     },
     {
       "id": "chuo_official_emergency_024",
@@ -3178,7 +5154,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": false,
-      "timestamp": "2026-05-29T23:32:16+09:00"
+      "timestamp": "2026-05-30T00:39:45+09:00"
     },
     {
       "id": "chuo_official_emergency_025",
@@ -3212,7 +5188,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": false,
-      "timestamp": "2026-05-29T23:32:16+09:00"
+      "timestamp": "2026-05-30T00:39:45+09:00"
     },
     {
       "id": "road_osm_117923434",
@@ -3246,7 +5222,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": true,
-      "timestamp": "2026-05-29T23:32:16+09:00"
+      "timestamp": "2026-05-30T00:39:45+09:00"
     },
     {
       "id": "road_osm_120419639",
@@ -3280,7 +5256,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": true,
-      "timestamp": "2026-05-29T23:32:16+09:00"
+      "timestamp": "2026-05-30T00:39:45+09:00"
     },
     {
       "id": "road_osm_123464022",
@@ -3314,7 +5290,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": true,
-      "timestamp": "2026-05-29T23:32:16+09:00"
+      "timestamp": "2026-05-30T00:39:45+09:00"
     },
     {
       "id": "road_osm_124081177",
@@ -3348,7 +5324,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": true,
-      "timestamp": "2026-05-29T23:32:16+09:00"
+      "timestamp": "2026-05-30T00:39:45+09:00"
     },
     {
       "id": "road_osm_126629762",
@@ -3382,7 +5358,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": true,
-      "timestamp": "2026-05-29T23:32:16+09:00"
+      "timestamp": "2026-05-30T00:39:45+09:00"
     },
     {
       "id": "road_osm_128715110",
@@ -3416,7 +5392,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": true,
-      "timestamp": "2026-05-29T23:32:16+09:00"
+      "timestamp": "2026-05-30T00:39:45+09:00"
     },
     {
       "id": "road_osm_128715160",
@@ -3450,7 +5426,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": true,
-      "timestamp": "2026-05-29T23:32:16+09:00"
+      "timestamp": "2026-05-30T00:39:45+09:00"
     },
     {
       "id": "road_osm_131025950",
@@ -3484,7 +5460,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": true,
-      "timestamp": "2026-05-29T23:32:16+09:00"
+      "timestamp": "2026-05-30T00:39:45+09:00"
     },
     {
       "id": "road_osm_131156023",
@@ -3518,7 +5494,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": true,
-      "timestamp": "2026-05-29T23:32:16+09:00"
+      "timestamp": "2026-05-30T00:39:45+09:00"
     },
     {
       "id": "road_osm_131156054",
@@ -3552,7 +5528,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": true,
-      "timestamp": "2026-05-29T23:32:16+09:00"
+      "timestamp": "2026-05-30T00:39:45+09:00"
     },
     {
       "id": "road_osm_131156088",
@@ -3586,7 +5562,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": true,
-      "timestamp": "2026-05-29T23:32:16+09:00"
+      "timestamp": "2026-05-30T00:39:45+09:00"
     },
     {
       "id": "road_osm_135200960",
@@ -3620,7 +5596,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": true,
-      "timestamp": "2026-05-29T23:32:16+09:00"
+      "timestamp": "2026-05-30T00:39:45+09:00"
     },
     {
       "id": "road_osm_139082447",
@@ -3654,7 +5630,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": true,
-      "timestamp": "2026-05-29T23:32:16+09:00"
+      "timestamp": "2026-05-30T00:39:45+09:00"
     },
     {
       "id": "road_osm_139505519",
@@ -3688,7 +5664,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": true,
-      "timestamp": "2026-05-29T23:32:16+09:00"
+      "timestamp": "2026-05-30T00:39:45+09:00"
     },
     {
       "id": "road_osm_145397103",
@@ -3722,7 +5698,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": true,
-      "timestamp": "2026-05-29T23:32:16+09:00"
+      "timestamp": "2026-05-30T00:39:45+09:00"
     },
     {
       "id": "road_osm_145402280",
@@ -3756,7 +5732,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": true,
-      "timestamp": "2026-05-29T23:32:16+09:00"
+      "timestamp": "2026-05-30T00:39:45+09:00"
     },
     {
       "id": "road_osm_145405913",
@@ -3790,7 +5766,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": true,
-      "timestamp": "2026-05-29T23:32:16+09:00"
+      "timestamp": "2026-05-30T00:39:45+09:00"
     },
     {
       "id": "road_osm_145405916",
@@ -3824,7 +5800,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": true,
-      "timestamp": "2026-05-29T23:32:16+09:00"
+      "timestamp": "2026-05-30T00:39:45+09:00"
     },
     {
       "id": "road_osm_19779850",
@@ -3858,7 +5834,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": true,
-      "timestamp": "2026-05-29T23:32:16+09:00"
+      "timestamp": "2026-05-30T00:39:45+09:00"
     },
     {
       "id": "road_osm_21957620",
@@ -3892,7 +5868,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": true,
-      "timestamp": "2026-05-29T23:32:16+09:00"
+      "timestamp": "2026-05-30T00:39:45+09:00"
     },
     {
       "id": "road_osm_21957625",
@@ -3926,7 +5902,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": true,
-      "timestamp": "2026-05-29T23:32:16+09:00"
+      "timestamp": "2026-05-30T00:39:45+09:00"
     },
     {
       "id": "road_osm_22730603",
@@ -3960,7 +5936,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": true,
-      "timestamp": "2026-05-29T23:32:16+09:00"
+      "timestamp": "2026-05-30T00:39:45+09:00"
     },
     {
       "id": "road_osm_22989309",
@@ -3994,7 +5970,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": true,
-      "timestamp": "2026-05-29T23:32:16+09:00"
+      "timestamp": "2026-05-30T00:39:45+09:00"
     },
     {
       "id": "road_osm_23260464",
@@ -4028,7 +6004,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": true,
-      "timestamp": "2026-05-29T23:32:16+09:00"
+      "timestamp": "2026-05-30T00:39:45+09:00"
     },
     {
       "id": "road_osm_23260642",
@@ -4062,7 +6038,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": true,
-      "timestamp": "2026-05-29T23:32:16+09:00"
+      "timestamp": "2026-05-30T00:39:45+09:00"
     },
     {
       "id": "road_osm_23260750",
@@ -4096,7 +6072,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": true,
-      "timestamp": "2026-05-29T23:32:16+09:00"
+      "timestamp": "2026-05-30T00:39:45+09:00"
     },
     {
       "id": "road_osm_23456384",
@@ -4130,7 +6106,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": true,
-      "timestamp": "2026-05-29T23:32:16+09:00"
+      "timestamp": "2026-05-30T00:39:45+09:00"
     },
     {
       "id": "road_osm_23578870",
@@ -4164,7 +6140,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": true,
-      "timestamp": "2026-05-29T23:32:16+09:00"
+      "timestamp": "2026-05-30T00:39:45+09:00"
     },
     {
       "id": "road_osm_23579065",
@@ -4198,7 +6174,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": true,
-      "timestamp": "2026-05-29T23:32:16+09:00"
+      "timestamp": "2026-05-30T00:39:45+09:00"
     },
     {
       "id": "road_osm_23704749",
@@ -4232,7 +6208,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": true,
-      "timestamp": "2026-05-29T23:32:16+09:00"
+      "timestamp": "2026-05-30T00:39:45+09:00"
     },
     {
       "id": "road_osm_23815145",
@@ -4266,7 +6242,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": true,
-      "timestamp": "2026-05-29T23:32:16+09:00"
+      "timestamp": "2026-05-30T00:39:45+09:00"
     },
     {
       "id": "road_osm_24061029",
@@ -4300,7 +6276,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": true,
-      "timestamp": "2026-05-29T23:32:16+09:00"
+      "timestamp": "2026-05-30T00:39:45+09:00"
     },
     {
       "id": "road_osm_24989806",
@@ -4334,7 +6310,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": true,
-      "timestamp": "2026-05-29T23:32:16+09:00"
+      "timestamp": "2026-05-30T00:39:45+09:00"
     },
     {
       "id": "road_osm_27085148",
@@ -4368,7 +6344,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": true,
-      "timestamp": "2026-05-29T23:32:16+09:00"
+      "timestamp": "2026-05-30T00:39:45+09:00"
     },
     {
       "id": "road_osm_31046191",
@@ -4402,7 +6378,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": true,
-      "timestamp": "2026-05-29T23:32:16+09:00"
+      "timestamp": "2026-05-30T00:39:45+09:00"
     },
     {
       "id": "road_osm_31046466",
@@ -4436,7 +6412,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": true,
-      "timestamp": "2026-05-29T23:32:16+09:00"
+      "timestamp": "2026-05-30T00:39:45+09:00"
     },
     {
       "id": "road_osm_31046679",
@@ -4470,7 +6446,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": true,
-      "timestamp": "2026-05-29T23:32:16+09:00"
+      "timestamp": "2026-05-30T00:39:45+09:00"
     },
     {
       "id": "road_osm_31046766",
@@ -4504,7 +6480,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": true,
-      "timestamp": "2026-05-29T23:32:16+09:00"
+      "timestamp": "2026-05-30T00:39:45+09:00"
     },
     {
       "id": "road_osm_31046903",
@@ -4538,7 +6514,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": true,
-      "timestamp": "2026-05-29T23:32:16+09:00"
+      "timestamp": "2026-05-30T00:39:45+09:00"
     },
     {
       "id": "road_osm_31090134",
@@ -4572,7 +6548,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": true,
-      "timestamp": "2026-05-29T23:32:16+09:00"
+      "timestamp": "2026-05-30T00:39:45+09:00"
     },
     {
       "id": "road_osm_31624134",
@@ -4606,7 +6582,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": true,
-      "timestamp": "2026-05-29T23:32:16+09:00"
+      "timestamp": "2026-05-30T00:39:45+09:00"
     },
     {
       "id": "road_osm_31624221",
@@ -4640,7 +6616,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": true,
-      "timestamp": "2026-05-29T23:32:16+09:00"
+      "timestamp": "2026-05-30T00:39:45+09:00"
     },
     {
       "id": "road_osm_32122316",
@@ -4674,7 +6650,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": true,
-      "timestamp": "2026-05-29T23:32:16+09:00"
+      "timestamp": "2026-05-30T00:39:45+09:00"
     },
     {
       "id": "road_osm_32122518",
@@ -4708,7 +6684,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": true,
-      "timestamp": "2026-05-29T23:32:16+09:00"
+      "timestamp": "2026-05-30T00:39:45+09:00"
     },
     {
       "id": "road_osm_33118876",
@@ -4742,7 +6718,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": true,
-      "timestamp": "2026-05-29T23:32:16+09:00"
+      "timestamp": "2026-05-30T00:39:45+09:00"
     },
     {
       "id": "road_osm_33625073",
@@ -4776,7 +6752,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": true,
-      "timestamp": "2026-05-29T23:32:16+09:00"
+      "timestamp": "2026-05-30T00:39:45+09:00"
     },
     {
       "id": "road_osm_33626782",
@@ -4810,7 +6786,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": true,
-      "timestamp": "2026-05-29T23:32:16+09:00"
+      "timestamp": "2026-05-30T00:39:45+09:00"
     },
     {
       "id": "road_osm_33626801",
@@ -4844,7 +6820,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": true,
-      "timestamp": "2026-05-29T23:32:16+09:00"
+      "timestamp": "2026-05-30T00:39:45+09:00"
     },
     {
       "id": "road_osm_34951236",
@@ -4878,7 +6854,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": true,
-      "timestamp": "2026-05-29T23:32:16+09:00"
+      "timestamp": "2026-05-30T00:39:45+09:00"
     },
     {
       "id": "road_osm_35216007",
@@ -4912,7 +6888,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": true,
-      "timestamp": "2026-05-29T23:32:16+09:00"
+      "timestamp": "2026-05-30T00:39:45+09:00"
     },
     {
       "id": "road_osm_35216239",
@@ -4946,7 +6922,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": true,
-      "timestamp": "2026-05-29T23:32:16+09:00"
+      "timestamp": "2026-05-30T00:39:45+09:00"
     },
     {
       "id": "road_osm_35216758",
@@ -4980,7 +6956,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": true,
-      "timestamp": "2026-05-29T23:32:16+09:00"
+      "timestamp": "2026-05-30T00:39:45+09:00"
     },
     {
       "id": "road_osm_39169441",
@@ -5014,7 +6990,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": true,
-      "timestamp": "2026-05-29T23:32:16+09:00"
+      "timestamp": "2026-05-30T00:39:45+09:00"
     },
     {
       "id": "road_osm_39520581",
@@ -5048,7 +7024,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": true,
-      "timestamp": "2026-05-29T23:32:16+09:00"
+      "timestamp": "2026-05-30T00:39:45+09:00"
     },
     {
       "id": "road_osm_39521243",
@@ -5082,7 +7058,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": true,
-      "timestamp": "2026-05-29T23:32:16+09:00"
+      "timestamp": "2026-05-30T00:39:45+09:00"
     },
     {
       "id": "road_osm_39521349",
@@ -5116,7 +7092,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": true,
-      "timestamp": "2026-05-29T23:32:16+09:00"
+      "timestamp": "2026-05-30T00:39:45+09:00"
     },
     {
       "id": "road_osm_39521608",
@@ -5150,7 +7126,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": true,
-      "timestamp": "2026-05-29T23:32:16+09:00"
+      "timestamp": "2026-05-30T00:39:45+09:00"
     },
     {
       "id": "road_osm_39629166",
@@ -5184,7 +7160,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": true,
-      "timestamp": "2026-05-29T23:32:16+09:00"
+      "timestamp": "2026-05-30T00:39:45+09:00"
     },
     {
       "id": "road_osm_39629431",
@@ -5218,7 +7194,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": true,
-      "timestamp": "2026-05-29T23:32:16+09:00"
+      "timestamp": "2026-05-30T00:39:45+09:00"
     },
     {
       "id": "road_osm_39629550",
@@ -5252,7 +7228,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": true,
-      "timestamp": "2026-05-29T23:32:16+09:00"
+      "timestamp": "2026-05-30T00:39:45+09:00"
     },
     {
       "id": "road_osm_40969573",
@@ -5286,7 +7262,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": true,
-      "timestamp": "2026-05-29T23:32:16+09:00"
+      "timestamp": "2026-05-30T00:39:45+09:00"
     },
     {
       "id": "road_osm_40969574",
@@ -5320,7 +7296,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": true,
-      "timestamp": "2026-05-29T23:32:16+09:00"
+      "timestamp": "2026-05-30T00:39:45+09:00"
     },
     {
       "id": "road_osm_40969575",
@@ -5354,7 +7330,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": true,
-      "timestamp": "2026-05-29T23:32:16+09:00"
+      "timestamp": "2026-05-30T00:39:45+09:00"
     },
     {
       "id": "road_osm_40969585",
@@ -5388,7 +7364,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": true,
-      "timestamp": "2026-05-29T23:32:16+09:00"
+      "timestamp": "2026-05-30T00:39:45+09:00"
     },
     {
       "id": "road_osm_41519941",
@@ -5422,7 +7398,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": true,
-      "timestamp": "2026-05-29T23:32:16+09:00"
+      "timestamp": "2026-05-30T00:39:45+09:00"
     },
     {
       "id": "road_osm_41519943",
@@ -5456,7 +7432,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": true,
-      "timestamp": "2026-05-29T23:32:16+09:00"
+      "timestamp": "2026-05-30T00:39:45+09:00"
     },
     {
       "id": "road_osm_41818364",
@@ -5490,7 +7466,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": true,
-      "timestamp": "2026-05-29T23:32:16+09:00"
+      "timestamp": "2026-05-30T00:39:45+09:00"
     },
     {
       "id": "road_osm_42294744",
@@ -5524,7 +7500,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": true,
-      "timestamp": "2026-05-29T23:32:16+09:00"
+      "timestamp": "2026-05-30T00:39:45+09:00"
     },
     {
       "id": "road_osm_44492913",
@@ -5558,7 +7534,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": true,
-      "timestamp": "2026-05-29T23:32:16+09:00"
+      "timestamp": "2026-05-30T00:39:45+09:00"
     },
     {
       "id": "road_osm_44492914",
@@ -5592,7 +7568,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": true,
-      "timestamp": "2026-05-29T23:32:16+09:00"
+      "timestamp": "2026-05-30T00:39:45+09:00"
     },
     {
       "id": "road_osm_44492916",
@@ -5626,7 +7602,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": true,
-      "timestamp": "2026-05-29T23:32:16+09:00"
+      "timestamp": "2026-05-30T00:39:45+09:00"
     },
     {
       "id": "road_osm_45170509",
@@ -5660,7 +7636,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": true,
-      "timestamp": "2026-05-29T23:32:16+09:00"
+      "timestamp": "2026-05-30T00:39:45+09:00"
     },
     {
       "id": "road_osm_45170901",
@@ -5694,7 +7670,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": true,
-      "timestamp": "2026-05-29T23:32:16+09:00"
+      "timestamp": "2026-05-30T00:39:45+09:00"
     },
     {
       "id": "road_osm_46149028",
@@ -5728,7 +7704,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": true,
-      "timestamp": "2026-05-29T23:32:16+09:00"
+      "timestamp": "2026-05-30T00:39:45+09:00"
     },
     {
       "id": "road_osm_46869645",
@@ -5762,7 +7738,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": true,
-      "timestamp": "2026-05-29T23:32:16+09:00"
+      "timestamp": "2026-05-30T00:39:45+09:00"
     },
     {
       "id": "road_osm_46985715",
@@ -5796,7 +7772,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": true,
-      "timestamp": "2026-05-29T23:32:16+09:00"
+      "timestamp": "2026-05-30T00:39:45+09:00"
     },
     {
       "id": "road_osm_46985794",
@@ -5830,7 +7806,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": true,
-      "timestamp": "2026-05-29T23:32:16+09:00"
+      "timestamp": "2026-05-30T00:39:45+09:00"
     },
     {
       "id": "road_osm_46986253",
@@ -5864,7 +7840,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": true,
-      "timestamp": "2026-05-29T23:32:16+09:00"
+      "timestamp": "2026-05-30T00:39:45+09:00"
     },
     {
       "id": "road_osm_47418164",
@@ -5898,7 +7874,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": true,
-      "timestamp": "2026-05-29T23:32:16+09:00"
+      "timestamp": "2026-05-30T00:39:45+09:00"
     },
     {
       "id": "road_osm_47418248",
@@ -5932,7 +7908,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": true,
-      "timestamp": "2026-05-29T23:32:16+09:00"
+      "timestamp": "2026-05-30T00:39:45+09:00"
     },
     {
       "id": "road_osm_47418327",
@@ -5966,7 +7942,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": true,
-      "timestamp": "2026-05-29T23:32:16+09:00"
+      "timestamp": "2026-05-30T00:39:45+09:00"
     },
     {
       "id": "road_osm_47982503",
@@ -6000,7 +7976,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": true,
-      "timestamp": "2026-05-29T23:32:16+09:00"
+      "timestamp": "2026-05-30T00:39:45+09:00"
     },
     {
       "id": "road_osm_48037790",
@@ -6034,7 +8010,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": true,
-      "timestamp": "2026-05-29T23:32:16+09:00"
+      "timestamp": "2026-05-30T00:39:45+09:00"
     },
     {
       "id": "road_osm_48390839",
@@ -6068,7 +8044,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": true,
-      "timestamp": "2026-05-29T23:32:16+09:00"
+      "timestamp": "2026-05-30T00:39:45+09:00"
     },
     {
       "id": "road_osm_4848881",
@@ -6102,7 +8078,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": true,
-      "timestamp": "2026-05-29T23:32:16+09:00"
+      "timestamp": "2026-05-30T00:39:45+09:00"
     },
     {
       "id": "road_osm_4848911",
@@ -6136,7 +8112,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": true,
-      "timestamp": "2026-05-29T23:32:16+09:00"
+      "timestamp": "2026-05-30T00:39:45+09:00"
     },
     {
       "id": "road_osm_4848930",
@@ -6170,7 +8146,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": true,
-      "timestamp": "2026-05-29T23:32:16+09:00"
+      "timestamp": "2026-05-30T00:39:45+09:00"
     },
     {
       "id": "road_osm_4848945",
@@ -6204,7 +8180,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": true,
-      "timestamp": "2026-05-29T23:32:16+09:00"
+      "timestamp": "2026-05-30T00:39:45+09:00"
     },
     {
       "id": "road_osm_48780822",
@@ -6238,7 +8214,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": true,
-      "timestamp": "2026-05-29T23:32:16+09:00"
+      "timestamp": "2026-05-30T00:39:45+09:00"
     },
     {
       "id": "road_osm_48780823",
@@ -6272,7 +8248,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": true,
-      "timestamp": "2026-05-29T23:32:16+09:00"
+      "timestamp": "2026-05-30T00:39:45+09:00"
     },
     {
       "id": "road_osm_51771534",
@@ -6306,7 +8282,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": true,
-      "timestamp": "2026-05-29T23:32:16+09:00"
+      "timestamp": "2026-05-30T00:39:45+09:00"
     },
     {
       "id": "road_osm_52924701",
@@ -6340,7 +8316,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": true,
-      "timestamp": "2026-05-29T23:32:16+09:00"
+      "timestamp": "2026-05-30T00:39:45+09:00"
     },
     {
       "id": "road_osm_53162444",
@@ -6374,7 +8350,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": true,
-      "timestamp": "2026-05-29T23:32:16+09:00"
+      "timestamp": "2026-05-30T00:39:45+09:00"
     },
     {
       "id": "road_osm_62361251",
@@ -6408,7 +8384,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": true,
-      "timestamp": "2026-05-29T23:32:16+09:00"
+      "timestamp": "2026-05-30T00:39:45+09:00"
     },
     {
       "id": "road_osm_64304255",
@@ -6442,7 +8418,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": true,
-      "timestamp": "2026-05-29T23:32:16+09:00"
+      "timestamp": "2026-05-30T00:39:45+09:00"
     },
     {
       "id": "road_osm_67027577",
@@ -6476,7 +8452,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": true,
-      "timestamp": "2026-05-29T23:32:16+09:00"
+      "timestamp": "2026-05-30T00:39:45+09:00"
     },
     {
       "id": "road_osm_69963032",
@@ -6510,7 +8486,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": true,
-      "timestamp": "2026-05-29T23:32:16+09:00"
+      "timestamp": "2026-05-30T00:39:45+09:00"
     },
     {
       "id": "road_osm_69963038",
@@ -6544,7 +8520,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": true,
-      "timestamp": "2026-05-29T23:32:16+09:00"
+      "timestamp": "2026-05-30T00:39:45+09:00"
     },
     {
       "id": "road_osm_69963068",
@@ -6578,7 +8554,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": true,
-      "timestamp": "2026-05-29T23:32:16+09:00"
+      "timestamp": "2026-05-30T00:39:45+09:00"
     },
     {
       "id": "road_osm_74314548",
@@ -6612,7 +8588,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": true,
-      "timestamp": "2026-05-29T23:32:16+09:00"
+      "timestamp": "2026-05-30T00:39:45+09:00"
     },
     {
       "id": "road_osm_74314551",
@@ -6646,7 +8622,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": true,
-      "timestamp": "2026-05-29T23:32:16+09:00"
+      "timestamp": "2026-05-30T00:39:45+09:00"
     },
     {
       "id": "road_osm_74314553",
@@ -6680,7 +8656,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": true,
-      "timestamp": "2026-05-29T23:32:16+09:00"
+      "timestamp": "2026-05-30T00:39:45+09:00"
     },
     {
       "id": "road_osm_86867130",
@@ -6714,7 +8690,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": true,
-      "timestamp": "2026-05-29T23:32:16+09:00"
+      "timestamp": "2026-05-30T00:39:45+09:00"
     },
     {
       "id": "road_osm_88690557",
@@ -6748,7 +8724,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": true,
-      "timestamp": "2026-05-29T23:32:16+09:00"
+      "timestamp": "2026-05-30T00:39:45+09:00"
     },
     {
       "id": "road_osm_89419989",
@@ -6782,7 +8758,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": true,
-      "timestamp": "2026-05-29T23:32:16+09:00"
+      "timestamp": "2026-05-30T00:39:45+09:00"
     },
     {
       "id": "road_osm_90636499",
@@ -6816,7 +8792,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": true,
-      "timestamp": "2026-05-29T23:32:16+09:00"
+      "timestamp": "2026-05-30T00:39:45+09:00"
     },
     {
       "id": "road_osm_90795033",
@@ -6850,7 +8826,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": true,
-      "timestamp": "2026-05-29T23:32:16+09:00"
+      "timestamp": "2026-05-30T00:39:45+09:00"
     },
     {
       "id": "road_osm_90795477",
@@ -6884,7 +8860,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": true,
-      "timestamp": "2026-05-29T23:32:16+09:00"
+      "timestamp": "2026-05-30T00:39:45+09:00"
     },
     {
       "id": "road_osm_90837300",
@@ -6918,7 +8894,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": true,
-      "timestamp": "2026-05-29T23:32:16+09:00"
+      "timestamp": "2026-05-30T00:39:45+09:00"
     },
     {
       "id": "road_osm_92204285",
@@ -6952,7 +8928,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": true,
-      "timestamp": "2026-05-29T23:32:16+09:00"
+      "timestamp": "2026-05-30T00:39:45+09:00"
     },
     {
       "id": "road_osm_92206658",
@@ -6986,7 +8962,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": true,
-      "timestamp": "2026-05-29T23:32:16+09:00"
+      "timestamp": "2026-05-30T00:39:45+09:00"
     },
     {
       "id": "road_osm_92219072",
@@ -7020,7 +8996,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": true,
-      "timestamp": "2026-05-29T23:32:16+09:00"
+      "timestamp": "2026-05-30T00:39:45+09:00"
     },
     {
       "id": "road_osm_92219075",
@@ -7054,7 +9030,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": true,
-      "timestamp": "2026-05-29T23:32:16+09:00"
+      "timestamp": "2026-05-30T00:39:45+09:00"
     },
     {
       "id": "road_osm_92403776",
@@ -7088,7 +9064,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": true,
-      "timestamp": "2026-05-29T23:32:16+09:00"
+      "timestamp": "2026-05-30T00:39:45+09:00"
     },
     {
       "id": "road_osm_92403838",
@@ -7122,7 +9098,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": true,
-      "timestamp": "2026-05-29T23:32:16+09:00"
+      "timestamp": "2026-05-30T00:39:45+09:00"
     },
     {
       "id": "road_osm_93325435",
@@ -7156,7 +9132,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": true,
-      "timestamp": "2026-05-29T23:32:16+09:00"
+      "timestamp": "2026-05-30T00:39:45+09:00"
     },
     {
       "id": "road_osm_94094786",
@@ -7190,7 +9166,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": true,
-      "timestamp": "2026-05-29T23:32:16+09:00"
+      "timestamp": "2026-05-30T00:39:45+09:00"
     },
     {
       "id": "road_osm_94094802",
@@ -7224,7 +9200,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": true,
-      "timestamp": "2026-05-29T23:32:16+09:00"
+      "timestamp": "2026-05-30T00:39:45+09:00"
     },
     {
       "id": "road_osm_94094821",
@@ -7258,7 +9234,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": true,
-      "timestamp": "2026-05-29T23:32:16+09:00"
+      "timestamp": "2026-05-30T00:39:45+09:00"
     },
     {
       "id": "road_osm_94094828",
@@ -7292,7 +9268,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": true,
-      "timestamp": "2026-05-29T23:32:16+09:00"
+      "timestamp": "2026-05-30T00:39:45+09:00"
     },
     {
       "id": "road_osm_94094840",
@@ -7326,7 +9302,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": true,
-      "timestamp": "2026-05-29T23:32:16+09:00"
+      "timestamp": "2026-05-30T00:39:45+09:00"
     },
     {
       "id": "road_osm_94094850",
@@ -7360,7 +9336,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": true,
-      "timestamp": "2026-05-29T23:32:16+09:00"
+      "timestamp": "2026-05-30T00:39:45+09:00"
     },
     {
       "id": "road_osm_94094852",
@@ -7394,7 +9370,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": true,
-      "timestamp": "2026-05-29T23:32:16+09:00"
+      "timestamp": "2026-05-30T00:39:45+09:00"
     },
     {
       "id": "road_osm_94094878",
@@ -7428,7 +9404,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": true,
-      "timestamp": "2026-05-29T23:32:16+09:00"
+      "timestamp": "2026-05-30T00:39:45+09:00"
     },
     {
       "id": "road_osm_95274326",
@@ -7462,7 +9438,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": true,
-      "timestamp": "2026-05-29T23:32:16+09:00"
+      "timestamp": "2026-05-30T00:39:45+09:00"
     },
     {
       "id": "road_osm_95274334",
@@ -7496,7 +9472,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": true,
-      "timestamp": "2026-05-29T23:32:16+09:00"
+      "timestamp": "2026-05-30T00:39:45+09:00"
     },
     {
       "id": "road_osm_95274339",
@@ -7530,7 +9506,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": true,
-      "timestamp": "2026-05-29T23:32:16+09:00"
+      "timestamp": "2026-05-30T00:39:45+09:00"
     },
     {
       "id": "road_osm_95274380",
@@ -7564,7 +9540,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": true,
-      "timestamp": "2026-05-29T23:32:16+09:00"
+      "timestamp": "2026-05-30T00:39:45+09:00"
     },
     {
       "id": "road_osm_95274400",
@@ -7598,7 +9574,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": true,
-      "timestamp": "2026-05-29T23:32:16+09:00"
+      "timestamp": "2026-05-30T00:39:45+09:00"
     },
     {
       "id": "road_osm_95277526",
@@ -7632,7 +9608,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": true,
-      "timestamp": "2026-05-29T23:32:16+09:00"
+      "timestamp": "2026-05-30T00:39:45+09:00"
     },
     {
       "id": "road_osm_95282550",
@@ -7666,7 +9642,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": true,
-      "timestamp": "2026-05-29T23:32:16+09:00"
+      "timestamp": "2026-05-30T00:39:45+09:00"
     },
     {
       "id": "road_osm_95282557",
@@ -7700,7 +9676,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": true,
-      "timestamp": "2026-05-29T23:32:16+09:00"
+      "timestamp": "2026-05-30T00:39:45+09:00"
     },
     {
       "id": "road_osm_97671346",
@@ -7734,7 +9710,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": true,
-      "timestamp": "2026-05-29T23:32:16+09:00"
+      "timestamp": "2026-05-30T00:39:45+09:00"
     },
     {
       "id": "road_osm_97671358",
@@ -7768,7 +9744,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": true,
-      "timestamp": "2026-05-29T23:32:16+09:00"
+      "timestamp": "2026-05-30T00:39:45+09:00"
     },
     {
       "id": "road_osm_97671387",
@@ -7802,7 +9778,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": true,
-      "timestamp": "2026-05-29T23:32:16+09:00"
+      "timestamp": "2026-05-30T00:39:45+09:00"
     },
     {
       "id": "road_osm_97671419",
@@ -7836,7 +9812,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": true,
-      "timestamp": "2026-05-29T23:32:16+09:00"
+      "timestamp": "2026-05-30T00:39:45+09:00"
     },
     {
       "id": "road_osm_97671461",
@@ -7870,7 +9846,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": true,
-      "timestamp": "2026-05-29T23:32:16+09:00"
+      "timestamp": "2026-05-30T00:39:45+09:00"
     },
     {
       "id": "road_osm_97685613",
@@ -7904,7 +9880,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": true,
-      "timestamp": "2026-05-29T23:32:16+09:00"
+      "timestamp": "2026-05-30T00:39:45+09:00"
     },
     {
       "id": "road_osm_97685619",
@@ -7938,7 +9914,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": true,
-      "timestamp": "2026-05-29T23:32:16+09:00"
+      "timestamp": "2026-05-30T00:39:45+09:00"
     },
     {
       "id": "road_osm_97685687",
@@ -7972,20 +9948,20 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": true,
-      "timestamp": "2026-05-29T23:32:16+09:00"
+      "timestamp": "2026-05-30T00:39:45+09:00"
     },
     {
       "id": "route_road_osm_route_01_002_23",
       "objectType": "road",
-      "name": "銀座三原通り",
-      "finalDisplayName": "銀座三原通り",
+      "name": "銀座桜通り",
+      "finalDisplayName": "銀座桜通り",
       "finalDisplayNameLanguage": "ja",
       "language": "ja",
       "source": "online_preprocessing_reverse_geocode",
       "provider": "OpenStreetMap Nominatim",
       "sourceField": "namedetails.name/name:ja_or_address.road",
       "classification": "online_exact_or_near_match",
-      "rawType": "highway:unclassified",
+      "rawType": "highway:tertiary",
       "confidence": 0.74,
       "lat": 35.6743414,
       "lon": 139.7695383,
@@ -7999,14 +9975,14 @@
         "y": 2.4,
         "z": -301.291
       },
-      "rawName": "銀座三原通り",
-      "normalizedName": "銀座三原通り",
+      "rawName": "銀座桜通り",
+      "normalizedName": "銀座桜通り",
       "idOnly": false,
       "disabled": false,
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": true,
-      "timestamp": "2026-05-29T23:32:16+09:00"
+      "timestamp": "2026-05-30T00:39:45+09:00"
     },
     {
       "id": "route_road_osm_route_01_003_14",
@@ -8040,7 +10016,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": true,
-      "timestamp": "2026-05-29T23:32:16+09:00"
+      "timestamp": "2026-05-30T00:39:45+09:00"
     },
     {
       "id": "route_road_osm_route_01_003_28",
@@ -8074,7 +10050,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": true,
-      "timestamp": "2026-05-29T23:32:16+09:00"
+      "timestamp": "2026-05-30T00:39:45+09:00"
     },
     {
       "id": "route_road_osm_route_01_004_41",
@@ -8108,7 +10084,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": true,
-      "timestamp": "2026-05-29T23:32:16+09:00"
+      "timestamp": "2026-05-30T00:39:45+09:00"
     },
     {
       "id": "route_road_osm_route_01_004_82",
@@ -8142,7 +10118,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": true,
-      "timestamp": "2026-05-29T23:32:16+09:00"
+      "timestamp": "2026-05-30T00:39:45+09:00"
     },
     {
       "id": "route_road_osm_route_01_005_36",
@@ -8176,75 +10152,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": true,
-      "timestamp": "2026-05-29T23:32:16+09:00"
-    },
-    {
-      "id": "route_road_osm_route_01_006_32",
-      "objectType": "road",
-      "name": "木挽町通り",
-      "finalDisplayName": "木挽町通り",
-      "finalDisplayNameLanguage": "ja",
-      "language": "ja",
-      "source": "online_preprocessing_reverse_geocode",
-      "provider": "OpenStreetMap Nominatim",
-      "sourceField": "namedetails.name/name:ja_or_address.road",
-      "classification": "online_exact_or_near_match",
-      "rawType": "highway:residential",
-      "confidence": 0.74,
-      "lat": 35.6713251,
-      "lon": 139.7704955,
-      "position": {
-        "x": 18.66,
-        "y": 2.4,
-        "z": -634.302
-      },
-      "unityPosition": {
-        "x": 18.66,
-        "y": 2.4,
-        "z": -634.302
-      },
-      "rawName": "木挽町通り",
-      "normalizedName": "木挽町通り",
-      "idOnly": false,
-      "disabled": false,
-      "hiddenInNormalMode": false,
-      "hiddenReason": "",
-      "attributionRequired": true,
-      "timestamp": "2026-05-29T23:32:16+09:00"
-    },
-    {
-      "id": "route_road_osm_route_01_006_64",
-      "objectType": "road",
-      "name": "居留地中央通り",
-      "finalDisplayName": "居留地中央通り",
-      "finalDisplayNameLanguage": "ja",
-      "language": "ja",
-      "source": "online_preprocessing_reverse_geocode",
-      "provider": "OpenStreetMap Nominatim",
-      "sourceField": "namedetails.name/name:ja_or_address.road",
-      "classification": "online_exact_or_near_match",
-      "rawType": "highway:tertiary",
-      "confidence": 0.74,
-      "lat": 35.6685957,
-      "lon": 139.7768523,
-      "position": {
-        "x": 592.928,
-        "y": 2.4,
-        "z": -937.728
-      },
-      "unityPosition": {
-        "x": 592.928,
-        "y": 2.4,
-        "z": -937.728
-      },
-      "rawName": "居留地中央通り",
-      "normalizedName": "居留地中央通り",
-      "idOnly": false,
-      "disabled": false,
-      "hiddenInNormalMode": false,
-      "hiddenReason": "",
-      "attributionRequired": true,
-      "timestamp": "2026-05-29T23:32:16+09:00"
+      "timestamp": "2026-05-30T00:39:45+09:00"
     },
     {
       "id": "route_road_osm_route_01_007_18",
@@ -8278,7 +10186,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": true,
-      "timestamp": "2026-05-29T23:32:16+09:00"
+      "timestamp": "2026-05-30T00:39:45+09:00"
     },
     {
       "id": "route_road_osm_route_01_008_35",
@@ -8312,7 +10220,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": true,
-      "timestamp": "2026-05-29T23:32:16+09:00"
+      "timestamp": "2026-05-30T00:39:45+09:00"
     },
     {
       "id": "route_road_osm_route_01_008_70",
@@ -8346,7 +10254,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": true,
-      "timestamp": "2026-05-29T23:32:16+09:00"
+      "timestamp": "2026-05-30T00:39:45+09:00"
     },
     {
       "id": "route_road_osm_route_01_009_117",
@@ -8380,7 +10288,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": true,
-      "timestamp": "2026-05-29T23:32:16+09:00"
+      "timestamp": "2026-05-30T00:39:45+09:00"
     },
     {
       "id": "route_road_osm_route_01_009_59",
@@ -8414,7 +10322,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": true,
-      "timestamp": "2026-05-29T23:32:16+09:00"
+      "timestamp": "2026-05-30T00:39:45+09:00"
     },
     {
       "id": "route_road_osm_route_01_010_134",
@@ -8448,7 +10356,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": true,
-      "timestamp": "2026-05-29T23:32:16+09:00"
+      "timestamp": "2026-05-30T00:39:45+09:00"
     },
     {
       "id": "route_road_osm_route_01_010_67",
@@ -8482,7 +10390,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": true,
-      "timestamp": "2026-05-29T23:32:16+09:00"
+      "timestamp": "2026-05-30T00:39:45+09:00"
     },
     {
       "id": "route_road_osm_route_01_011_83",
@@ -8516,7 +10424,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": true,
-      "timestamp": "2026-05-29T23:32:16+09:00"
+      "timestamp": "2026-05-30T00:39:45+09:00"
     },
     {
       "id": "route_road_osm_route_01_012_75",
@@ -8550,7 +10458,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": true,
-      "timestamp": "2026-05-29T23:32:16+09:00"
+      "timestamp": "2026-05-30T00:39:45+09:00"
     },
     {
       "id": "route_road_osm_route_01_013_139",
@@ -8584,7 +10492,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": true,
-      "timestamp": "2026-05-29T23:32:16+09:00"
+      "timestamp": "2026-05-30T00:39:45+09:00"
     },
     {
       "id": "route_road_osm_route_01_014_79",
@@ -8618,7 +10526,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": true,
-      "timestamp": "2026-05-29T23:32:16+09:00"
+      "timestamp": "2026-05-30T00:39:45+09:00"
     },
     {
       "id": "route_road_osm_route_01_015_182",
@@ -8652,7 +10560,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": true,
-      "timestamp": "2026-05-29T23:32:16+09:00"
+      "timestamp": "2026-05-30T00:39:45+09:00"
     },
     {
       "id": "route_road_osm_route_01_015_91",
@@ -8686,7 +10594,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": true,
-      "timestamp": "2026-05-29T23:32:16+09:00"
+      "timestamp": "2026-05-30T00:39:45+09:00"
     },
     {
       "id": "route_road_osm_route_01_017_109",
@@ -8720,7 +10628,41 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": true,
-      "timestamp": "2026-05-29T23:32:16+09:00"
+      "timestamp": "2026-05-30T00:39:45+09:00"
+    },
+    {
+      "id": "route_road_osm_route_01_017_55",
+      "objectType": "road",
+      "name": "佃大橋通り",
+      "finalDisplayName": "佃大橋通り",
+      "finalDisplayNameLanguage": "ja",
+      "language": "ja",
+      "source": "online_preprocessing_reverse_geocode",
+      "provider": "OpenStreetMap Nominatim",
+      "sourceField": "namedetails.name/name:ja_or_address.road",
+      "classification": "online_exact_or_near_match",
+      "rawType": "highway:secondary",
+      "confidence": 0.74,
+      "lat": 35.6703355,
+      "lon": 139.7747038,
+      "position": {
+        "x": 399.003,
+        "y": 2.4,
+        "z": -745.04
+      },
+      "unityPosition": {
+        "x": 399.003,
+        "y": 2.4,
+        "z": -745.04
+      },
+      "rawName": "佃大橋通り",
+      "normalizedName": "佃大橋通り",
+      "idOnly": false,
+      "disabled": false,
+      "hiddenInNormalMode": false,
+      "hiddenReason": "",
+      "attributionRequired": true,
+      "timestamp": "2026-05-30T00:39:45+09:00"
     },
     {
       "id": "route_road_osm_route_01_018_49",
@@ -8754,7 +10696,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": true,
-      "timestamp": "2026-05-29T23:32:16+09:00"
+      "timestamp": "2026-05-30T00:39:45+09:00"
     },
     {
       "id": "route_road_osm_route_01_019_149",
@@ -8788,7 +10730,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": true,
-      "timestamp": "2026-05-29T23:32:16+09:00"
+      "timestamp": "2026-05-30T00:39:45+09:00"
     },
     {
       "id": "route_road_osm_route_01_019_75",
@@ -8822,7 +10764,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": true,
-      "timestamp": "2026-05-29T23:32:16+09:00"
+      "timestamp": "2026-05-30T00:39:45+09:00"
     },
     {
       "id": "route_road_osm_route_01_020_53",
@@ -8856,7 +10798,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": true,
-      "timestamp": "2026-05-29T23:32:16+09:00"
+      "timestamp": "2026-05-30T00:39:45+09:00"
     },
     {
       "id": "route_road_osm_route_01_021_87",
@@ -8890,7 +10832,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": true,
-      "timestamp": "2026-05-29T23:32:16+09:00"
+      "timestamp": "2026-05-30T00:39:45+09:00"
     },
     {
       "id": "route_road_osm_route_01_022_85",
@@ -8924,7 +10866,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": true,
-      "timestamp": "2026-05-29T23:32:16+09:00"
+      "timestamp": "2026-05-30T00:39:45+09:00"
     },
     {
       "id": "route_road_osm_route_01_024_27",
@@ -8958,7 +10900,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": true,
-      "timestamp": "2026-05-29T23:32:16+09:00"
+      "timestamp": "2026-05-30T00:39:45+09:00"
     },
     {
       "id": "route_road_osm_route_01_026_81",
@@ -8992,7 +10934,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": true,
-      "timestamp": "2026-05-29T23:32:16+09:00"
+      "timestamp": "2026-05-30T00:39:45+09:00"
     },
     {
       "id": "route_road_osm_route_01_027_84",
@@ -9026,7 +10968,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": true,
-      "timestamp": "2026-05-29T23:32:16+09:00"
+      "timestamp": "2026-05-30T00:39:45+09:00"
     },
     {
       "id": "route_road_osm_route_02_001_30",
@@ -9060,7 +11002,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": true,
-      "timestamp": "2026-05-29T23:32:16+09:00"
+      "timestamp": "2026-05-30T00:39:45+09:00"
     },
     {
       "id": "route_road_osm_route_02_002_33",
@@ -9094,7 +11036,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": true,
-      "timestamp": "2026-05-29T23:32:16+09:00"
+      "timestamp": "2026-05-30T00:39:45+09:00"
     },
     {
       "id": "route_road_osm_route_02_003_60",
@@ -9128,7 +11070,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": true,
-      "timestamp": "2026-05-29T23:32:16+09:00"
+      "timestamp": "2026-05-30T00:39:45+09:00"
     },
     {
       "id": "route_road_osm_route_02_005_35",
@@ -9162,7 +11104,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": true,
-      "timestamp": "2026-05-29T23:32:16+09:00"
+      "timestamp": "2026-05-30T00:39:45+09:00"
     },
     {
       "id": "route_road_osm_route_02_006_44",
@@ -9196,7 +11138,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": true,
-      "timestamp": "2026-05-29T23:32:16+09:00"
+      "timestamp": "2026-05-30T00:39:45+09:00"
     },
     {
       "id": "route_road_osm_route_02_008_32",
@@ -9230,7 +11172,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": true,
-      "timestamp": "2026-05-29T23:32:16+09:00"
+      "timestamp": "2026-05-30T00:39:45+09:00"
     },
     {
       "id": "route_road_osm_route_02_013_29",
@@ -9264,13 +11206,13 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": true,
-      "timestamp": "2026-05-29T23:32:16+09:00"
+      "timestamp": "2026-05-30T00:39:45+09:00"
     },
     {
-      "id": "route_road_osm_route_02_016_12",
+      "id": "route_road_osm_route_02_014_27",
       "objectType": "road",
-      "name": "永代通り",
-      "finalDisplayName": "永代通り",
+      "name": "昭和通り",
+      "finalDisplayName": "昭和通り",
       "finalDisplayNameLanguage": "ja",
       "language": "ja",
       "source": "online_preprocessing_reverse_geocode",
@@ -9279,60 +11221,26 @@
       "classification": "online_exact_or_near_match",
       "rawType": "highway:primary",
       "confidence": 0.74,
-      "lat": 35.6814734,
-      "lon": 139.7765126,
+      "lat": 35.6848807,
+      "lon": 139.7770065,
       "position": {
-        "x": 564.869,
+        "x": 610.235,
         "y": 2.4,
-        "z": 482.592
+        "z": 858.171
       },
       "unityPosition": {
-        "x": 564.869,
+        "x": 610.235,
         "y": 2.4,
-        "z": 482.592
+        "z": 858.171
       },
-      "rawName": "永代通り",
-      "normalizedName": "永代通り",
+      "rawName": "昭和通り",
+      "normalizedName": "昭和通り",
       "idOnly": false,
       "disabled": false,
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": true,
-      "timestamp": "2026-05-29T23:32:16+09:00"
-    },
-    {
-      "id": "route_road_osm_route_02_017_46",
-      "objectType": "road",
-      "name": "新亀島橋",
-      "finalDisplayName": "新亀島橋",
-      "finalDisplayNameLanguage": "ja",
-      "language": "ja",
-      "source": "online_preprocessing_reverse_geocode",
-      "provider": "OpenStreetMap Nominatim",
-      "sourceField": "namedetails.name/name:ja_or_address.road",
-      "classification": "online_exact_or_near_match",
-      "rawType": "highway:tertiary",
-      "confidence": 0.74,
-      "lat": 35.6777257,
-      "lon": 139.7799545,
-      "position": {
-        "x": 875.338,
-        "y": 2.4,
-        "z": 67.975
-      },
-      "unityPosition": {
-        "x": 875.338,
-        "y": 2.4,
-        "z": 67.975
-      },
-      "rawName": "新亀島橋",
-      "normalizedName": "新亀島橋",
-      "idOnly": false,
-      "disabled": false,
-      "hiddenInNormalMode": false,
-      "hiddenReason": "",
-      "attributionRequired": true,
-      "timestamp": "2026-05-29T23:32:16+09:00"
+      "timestamp": "2026-05-30T00:39:45+09:00"
     },
     {
       "id": "route_road_osm_route_02_020_70",
@@ -9366,7 +11274,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": true,
-      "timestamp": "2026-05-29T23:32:16+09:00"
+      "timestamp": "2026-05-30T00:39:45+09:00"
     },
     {
       "id": "route_road_osm_route_02_025_29",
@@ -9400,7 +11308,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": true,
-      "timestamp": "2026-05-29T23:32:16+09:00"
+      "timestamp": "2026-05-30T00:39:45+09:00"
     }
   ]
 }

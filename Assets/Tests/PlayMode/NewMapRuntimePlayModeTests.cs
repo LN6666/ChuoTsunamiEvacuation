@@ -453,6 +453,74 @@ public class NewMapRuntimePlayModeTests
     }
 
     [UnityTest]
+    public IEnumerator RuntimeConcaveMeshColliderCleanupDoesNotCreateTriggerOffender()
+    {
+        Mesh mesh = new Mesh
+        {
+            name = "ConcaveTriggerCleanupFixtureMesh",
+            vertices = new[]
+            {
+                new Vector3(-2f, 0f, -2f),
+                new Vector3(2f, 0f, -2f),
+                new Vector3(2f, 0f, 2f),
+                new Vector3(-2f, 0f, 2f),
+                new Vector3(0f, 0.5f, 0f)
+            },
+            triangles = new[] { 0, 1, 4, 1, 2, 4, 2, 3, 4, 3, 0, 4 }
+        };
+        mesh.RecalculateBounds();
+
+        GameObject fixture = new GameObject("RuntimeConcaveFixtureWall");
+        fixture.transform.position = new Vector3(12f, 2.4f, 12f);
+        MeshCollider collider = fixture.AddComponent<MeshCollider>();
+        collider.sharedMesh = mesh;
+        collider.convex = false;
+        collider.isTrigger = false;
+
+        NewMapRuntimeBootstrap.CreateForCurrentScene();
+        yield return null;
+
+        Assert.IsFalse(collider.enabled && collider.isTrigger && !collider.convex, "Runtime cleanup must not leave a concave MeshCollider trigger.");
+        MeshCollider[] meshColliders = Object.FindObjectsOfType<MeshCollider>(true);
+        Assert.IsFalse(meshColliders.Any(item => item != null && item.enabled && item.isTrigger && !item.convex), "No active concave MeshCollider trigger should remain after bootstrap cleanup.");
+    }
+
+    [UnityTest]
+    public IEnumerator RuntimeNpcLifecycleContinuesAfterPlayerContact()
+    {
+        NewMapRuntimeBootstrap.CreateForCurrentScene();
+        NewMapPlayerController player = Object.FindObjectOfType<NewMapPlayerController>();
+        NewMapGameController controller = Object.FindObjectOfType<NewMapGameController>();
+        NewMapNpcCrowdPrototype crowd = Object.FindObjectOfType<NewMapNpcCrowdPrototype>();
+        Assert.NotNull(player);
+        Assert.NotNull(controller);
+        Assert.NotNull(crowd);
+
+        controller.StartTourismMode();
+        yield return null;
+
+        Vector3[] positions = crowd.GetNpcPositionsForDiagnostics();
+        Assert.Greater(positions.Length, 0);
+        Vector3 npcPosition = positions[0];
+        int previousContactEvents = crowd.PlayerContactEventCount;
+        player.transform.position = new Vector3(npcPosition.x - 1.2f, npcPosition.y, npcPosition.z);
+        player.MoveForDiagnostics(Vector3.right, 0.35f, sprint: false);
+
+        for (int i = 0; i < 180; i++)
+        {
+            yield return null;
+        }
+
+        Assert.Greater(crowd.PlayerContactEventCount, previousContactEvents, "The contact path should be exercised during the test.");
+        Assert.AreEqual(0, crowd.GlobalRespawnCount, "Player-NPC contact must not trigger a global NPC respawn.");
+        Assert.AreEqual(0, crowd.InstantiateAfterStartupCount, "NPCs should not be recreated after startup during contact recovery.");
+        Assert.AreEqual(0, crowd.AllStopEventCount, "Player-NPC contact must not deadlock all NPC movement.");
+        Assert.AreEqual(0, crowd.StoppedWithoutReasonCount, "Stopped NPCs must have a valid state/reason.");
+        Assert.Greater(crowd.MovingCount + crowd.QueuedCount + crowd.ArrivedCount + crowd.StuckCount + crowd.StaticProxyCount, 0);
+        Assert.IsTrue(crowd.CollisionWithPlayerDoesNotGlobalPause);
+    }
+
+    [UnityTest]
     public IEnumerator RuntimeGroundRaiseKeepsBuildingsFixedAndRaisesCover()
     {
         GameObject floatingBuilding = GameObject.CreatePrimitive(PrimitiveType.Cube);

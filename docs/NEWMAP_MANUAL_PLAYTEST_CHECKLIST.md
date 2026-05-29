@@ -23,6 +23,7 @@
 - Player can move around NPCs without being permanently trapped.
 - NPCs do not visibly walk through major buildings near the camera.
 - NPCs do not rapidly refresh or respawn every few seconds.
+- NPCs do not all stop after the player touches or collides with nearby NPCs.
 - NPCs keep moving or visibly enter a valid arrived/queued/recovering state.
 - NPCs do not all stop after a short time.
 - NPCs recover if stuck.
@@ -37,4 +38,6 @@
 - No full addresses, postal-address strings, fake names, coordinate names, or ID-only labels appear in normal mode.
 - Labels stay capped/culling-based and do not clutter the screen.
 - Runtime does not access the network.
+- Player.log has no red concave MeshCollider trigger error.
+- Player.log remains 0 errors / 0 warnings.
 - Mouse drag look, spawn validation, and lighting fixes remain intact.

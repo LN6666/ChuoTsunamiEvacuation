@@ -122,6 +122,11 @@ public static class NewMapSceneSetupUtility
         BuildNewMapPlayer("D:/UnityProjects/ChuoTsunamiEvacuation-Builds/NewMapAirwallNpcLabelFixPre", "ChuoTsunamiEvacuation_NewMapAirwallNpcLabelFixPre.exe");
     }
 
+    public static void BuildNewMapRuntimeNpcLabelPlayerCommandLine()
+    {
+        BuildNewMapPlayer("D:/UnityProjects/ChuoTsunamiEvacuation-Builds/NewMapRuntimeNpcLabelFixPre", "ChuoTsunamiEvacuation_NewMapRuntimeNpcLabelFixPre.exe");
+    }
+
     private static void BuildNewMapPlayer(string buildDirectory, string executableName)
     {
         Directory.CreateDirectory(buildDirectory);

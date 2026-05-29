@@ -1,12 +1,12 @@
 {
-  "generatedAt": "2026-05-29T23:32:16+09:00",
+  "generatedAt": "2026-05-30T00:39:45+09:00",
   "activeScene": "Assets/Scenes/Chuo_BaseMap.unity",
-  "previousTotalCachedNameRecords": 160,
-  "totalCachedNameRecords": 276,
+  "previousTotalCachedNameRecords": 276,
+  "totalCachedNameRecords": 332,
   "activeOfficialShelterNames": 15,
   "activeNonOfficialCandidateNames": 19,
-  "buildingNamesCached": 59,
-  "roadNamesCached": 182,
+  "buildingNamesCached": 117,
+  "roadNamesCached": 180,
   "missingBuildingNames": 86,
   "missingRoadQueryPoints": 80,
   "idOnlyLabelsVisible": 0,
@@ -15,13 +15,13 @@
   "labelsCurrentlyShownRuntime": {
     "availableLabels": null,
     "activeLabels": null,
-    "buildingLabelsRuntime": 29,
-    "roadLabelsRuntime": 96,
+    "buildingLabelsRuntime": 45,
+    "roadLabelsRuntime": 182,
     "nameCacheLoaded": true
   },
-  "previousOnlineQueriesAttempted": 83,
-  "onlineQueriesAttemptedThisRun": 166,
-  "onlineQueriesSucceededThisRun": 166,
-  "onlineLabelsAddedThisRun": 77,
+  "previousOnlineQueriesAttempted": 166,
+  "onlineQueriesAttemptedThisRun": 167,
+  "onlineQueriesSucceededThisRun": 167,
+  "onlineLabelsAddedThisRun": 133,
   "hardRuleStatus": "online_queries_executed"
 }

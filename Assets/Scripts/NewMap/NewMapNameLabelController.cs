@@ -417,6 +417,8 @@ public sealed class NewMapNameLabelController : MonoBehaviour
     private static bool IsBuildingLikeCachedResult(NewMapCachedNameLabel cached)
     {
         string rawType = (cached.rawType ?? string.Empty).ToLowerInvariant();
+        string classification = (cached.classification ?? string.Empty).ToLowerInvariant();
+        string source = (cached.source ?? string.Empty).ToLowerInvariant();
         return rawType.Contains("building") ||
             rawType.Contains("poi") ||
             rawType.Contains("landmark") ||
@@ -424,13 +426,16 @@ public sealed class NewMapNameLabelController : MonoBehaviour
             rawType.Contains("tourism") ||
             rawType.Contains("hotel") ||
             rawType.Contains("museum") ||
+            classification.Contains("online_overpass_named_building") ||
+            string.Equals(classification, "online_exact_or_near_match", System.StringComparison.OrdinalIgnoreCase) ||
+            source.Contains("online_overpass_preprocessing") ||
             string.Equals(cached.classification, "source_metadata_name", System.StringComparison.OrdinalIgnoreCase) ||
             string.Equals(cached.classification, "project_dataset_name", System.StringComparison.OrdinalIgnoreCase);
     }
 
     private void CreateLabelObjects()
     {
-        int sourceLimit = Mathf.Clamp(config.maxCachedLabelSources, 1, 500);
+        int sourceLimit = Mathf.Clamp(config.maxCachedLabelSources, 1, 1000);
         int count = Mathf.Min(entries.Count, sourceLimit);
         if (entries.Count > count)
         {
@@ -672,11 +677,11 @@ public sealed class NewMapNameLabelConfig
     public bool showRoadNames = true;
     public bool showTokyoStationName = true;
     public bool showIdOnlyLabelsInDebug;
-    public int maxVisibleLabels = 80;
-    public int maxVisibleRoadLabels = 30;
-    public int maxVisibleBuildingLabels = 45;
-    public int maxCachedLabelSources = 500;
-    public float labelMaxDistanceMeters = 250f;
+    public int maxVisibleLabels = 180;
+    public int maxVisibleRoadLabels = 50;
+    public int maxVisibleBuildingLabels = 80;
+    public int maxCachedLabelSources = 800;
+    public float labelMaxDistanceMeters = 350f;
     public float importantLabelMaxDistanceMeters = 600f;
     public float minScreenSpacingPixels = 32f;
     public bool enableDistanceCulling = true;
@@ -710,7 +715,7 @@ public sealed class NewMapNameLabelConfig
         config.maxVisibleLabels = Mathf.Clamp(config.maxVisibleLabels, 0, 300);
         config.maxVisibleRoadLabels = Mathf.Clamp(config.maxVisibleRoadLabels, 0, config.maxVisibleLabels);
         config.maxVisibleBuildingLabels = Mathf.Clamp(config.maxVisibleBuildingLabels, 0, config.maxVisibleLabels);
-        config.maxCachedLabelSources = Mathf.Clamp(config.maxCachedLabelSources, 1, 500);
+        config.maxCachedLabelSources = Mathf.Clamp(config.maxCachedLabelSources, 1, 1000);
         config.labelMaxDistanceMeters = Mathf.Clamp(config.labelMaxDistanceMeters, 10f, 2000f);
         config.importantLabelMaxDistanceMeters = Mathf.Clamp(config.importantLabelMaxDistanceMeters, 10f, 3000f);
         config.minScreenSpacingPixels = Mathf.Clamp(config.minScreenSpacingPixels, 0f, 300f);

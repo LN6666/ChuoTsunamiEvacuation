@@ -30,10 +30,13 @@ public sealed class NewMapNpcCrowdPrototype : MonoBehaviour
     private NewMapPlayableBounds playableBounds;
     private NewMapNpcDistributionConfig distributionConfig;
     private NewMapNpcMovementConfig movementConfig;
+    private NewMapNpcLifecycleConfig lifecycleConfig;
     private NewMapPlayerNpcCollisionConfig playerNpcCollisionConfig;
+    private Transform referenceTransform;
     private bool crowdFailuresEnabled;
     private bool built;
     private int npcBodyColliderCount;
+    private int npcCreatedAtStartupCount;
 
     public int NpcCap => npcCap;
     public int ActiveNpcCount => npcs.Count;
@@ -67,6 +70,17 @@ public sealed class NewMapNpcCrowdPrototype : MonoBehaviour
     public int NpcBodyColliderCount => npcBodyColliderCount;
     public bool PlayerNpcSoftBlockingEnabled => playerNpcCollisionConfig != null && playerNpcCollisionConfig.enabled;
     public float NearNpcCollisionRadiusMeters => playerNpcCollisionConfig != null ? playerNpcCollisionConfig.nearNpcCollisionRadiusMeters : 0f;
+    public int NpcCreatedAtStartupCount => npcCreatedAtStartupCount;
+    public int GlobalRespawnCount { get; private set; }
+    public int IndividualRespawnCount { get; private set; }
+    public int PoolRecycleCount { get; private set; }
+    public int DestroyedDuringRuntimeCount { get; private set; }
+    public int InstantiateAfterStartupCount { get; private set; }
+    public int AllStopEventCount { get; private set; }
+    public int PlayerContactEventCount { get; private set; }
+    public bool AllowGlobalRefresh => lifecycleConfig != null && lifecycleConfig.allowGlobalRefresh;
+    public float GlobalRespawnIntervalSeconds => lifecycleConfig != null ? lifecycleConfig.globalRespawnIntervalSeconds : 0f;
+    public bool CollisionWithPlayerDoesNotGlobalPause => lifecycleConfig == null || lifecycleConfig.collisionWithPlayerDoesNotGlobalPause;
 
     public static NewMapNpcCrowdPrototype Create(Transform parent, Vector3 centerPosition)
     {
@@ -85,6 +99,7 @@ public sealed class NewMapNpcCrowdPrototype : MonoBehaviour
         NewMapNpcCrowdPrototype crowd = crowdObject.AddComponent<NewMapNpcCrowdPrototype>();
         crowd.distributionConfig = NewMapNpcDistributionConfig.Load();
         crowd.movementConfig = NewMapNpcMovementConfig.Load();
+        crowd.lifecycleConfig = NewMapNpcLifecycleConfig.Load();
         crowd.playerNpcCollisionConfig = NewMapPlayerNpcCollisionConfig.Load();
         crowd.requestedCenter = centerPosition;
         crowd.playableBounds = bounds.IsValid ? bounds : NewMapPlayableBounds.DefaultDocumented();
@@ -99,6 +114,11 @@ public sealed class NewMapNpcCrowdPrototype : MonoBehaviour
 
         crowd.BuildBuildingBoundsSpatialIndex();
         return crowd;
+    }
+
+    public void SetReferenceTransform(Transform transformReference)
+    {
+        referenceTransform = transformReference;
     }
 
     public void SetCrowdFailuresEnabled(bool enabled)
@@ -175,7 +195,7 @@ public sealed class NewMapNpcCrowdPrototype : MonoBehaviour
             return;
         }
 
-        Vector3 referencePosition = requestedCenter;
+        Vector3 referencePosition = referenceTransform != null ? referenceTransform.position : requestedCenter;
         MovingCount = 0;
         ArrivedCount = 0;
         QueuedCount = 0;
@@ -218,6 +238,7 @@ public sealed class NewMapNpcCrowdPrototype : MonoBehaviour
             if (movementConfig == null || movementConfig.continuousMovementEnabled)
             {
                 target = ResolveNpcTargetAvoidingBuildings(target, home, i);
+                target = ResolveNpcTargetAvoidingPlayerContact(target, npc.position, referencePosition, i);
             }
 
             Vector3 delta = target - npc.position;
@@ -233,7 +254,7 @@ public sealed class NewMapNpcCrowdPrototype : MonoBehaviour
             }
             else
             {
-                SetNpcState(i, NewMapNpcMovementState.Arrived);
+                SetNpcState(i, crowdFailuresEnabled ? NewMapNpcMovementState.QueuedAtEntrance : NewMapNpcMovementState.Wandering);
             }
 
             if (playableBounds.IsValid && !playableBounds.ContainsXZ(npc.position))
@@ -251,6 +272,7 @@ public sealed class NewMapNpcCrowdPrototype : MonoBehaviour
         }
 
         AverageSpeedMetersPerSecond = speedSamples > 0 ? speedTotal / speedSamples : 0f;
+        PreventAllStopDeadlock(referencePosition);
     }
 
     private void Build(Vector3 centerPosition)
@@ -262,6 +284,7 @@ public sealed class NewMapNpcCrowdPrototype : MonoBehaviour
 
         distributionConfig = distributionConfig ?? NewMapNpcDistributionConfig.Load();
         movementConfig = movementConfig ?? NewMapNpcMovementConfig.Load();
+        lifecycleConfig = lifecycleConfig ?? NewMapNpcLifecycleConfig.Load();
         playerNpcCollisionConfig = playerNpcCollisionConfig ?? NewMapPlayerNpcCollisionConfig.Load();
         npcBodyColliderCount = 0;
         BuildBuildingBoundsSpatialIndex();
@@ -280,6 +303,7 @@ public sealed class NewMapNpcCrowdPrototype : MonoBehaviour
 
         if (!distributionConfig.enabled || CappedNpcCount <= 0)
         {
+            npcCreatedAtStartupCount = 0;
             built = true;
             return;
         }
@@ -346,6 +370,7 @@ public sealed class NewMapNpcCrowdPrototype : MonoBehaviour
             npcStates.Add(NewMapNpcMovementState.Moving);
         }
 
+        npcCreatedAtStartupCount = npcs.Count;
         built = true;
         Debug.Log(
             $"NewMap NPC distribution built. requestedNpcCount={RequestedNpcCount} spawnedNpcCount={SpawnedNpcCount} " +
@@ -355,7 +380,9 @@ public sealed class NewMapNpcCrowdPrototype : MonoBehaviour
             $"usePooling={distributionConfig.usePooling} farNpcStaticProxyMode={FarNpcStaticProxyModeEnabled} " +
             $"continuousMovementEnabled={movementConfig.continuousMovementEnabled} stuckRecoveryEnabled={movementConfig.stuckRecoveryEnabled} " +
             $"buildingAvoidanceEnabled={movementConfig.buildingAvoidanceEnabled} playerNpcCollisionEnabled={PlayerNpcSoftBlockingEnabled} " +
-            $"npcBodyColliders={NpcBodyColliderCount} nearNpcCollisionRadius={NearNpcCollisionRadiusMeters:F2}");
+            $"npcBodyColliders={NpcBodyColliderCount} nearNpcCollisionRadius={NearNpcCollisionRadiusMeters:F2} " +
+            $"allowGlobalRefresh={AllowGlobalRefresh} globalRespawnIntervalSeconds={GlobalRespawnIntervalSeconds:F1} " +
+            $"createdAtStartup={npcCreatedAtStartupCount} instantiateAfterStartup={InstantiateAfterStartupCount}");
     }
 
     private bool ConfigureNpcBodyCollider(GameObject npc)
@@ -633,6 +660,74 @@ public sealed class NewMapNpcCrowdPrototype : MonoBehaviour
         return corrected;
     }
 
+    private Vector3 ResolveNpcTargetAvoidingPlayerContact(Vector3 target, Vector3 npcPosition, Vector3 playerPosition, int index)
+    {
+        if (playerNpcCollisionConfig == null || !playerNpcCollisionConfig.enabled)
+        {
+            return target;
+        }
+
+        float npcRadius = Mathf.Clamp(playerNpcCollisionConfig.nearNpcCollisionRadiusMeters, 0.15f, 1.5f);
+        float avoidRadius = npcRadius + 1.1f;
+        Vector2 npc = new Vector2(npcPosition.x, npcPosition.z);
+        Vector2 player = new Vector2(playerPosition.x, playerPosition.z);
+        Vector2 away = npc - player;
+        if (away.sqrMagnitude > avoidRadius * avoidRadius)
+        {
+            return target;
+        }
+
+        PlayerContactEventCount++;
+        if (away.sqrMagnitude < 0.0001f)
+        {
+            Vector3 targetDelta = target - npcPosition;
+            away = new Vector2(-targetDelta.z, targetDelta.x);
+        }
+
+        if (away.sqrMagnitude < 0.0001f)
+        {
+            away = Vector2.right;
+        }
+
+        away.Normalize();
+        Vector2 perpendicular = new Vector2(-away.y, away.x);
+        float step = Mathf.Max(2f, npcRadius * 4f);
+        for (int attempt = 0; attempt < 4; attempt++)
+        {
+            Vector2 direction = away;
+            if (attempt == 1)
+            {
+                direction = perpendicular;
+            }
+            else if (attempt == 2)
+            {
+                direction = -perpendicular;
+            }
+            else if (attempt == 3)
+            {
+                direction = away + perpendicular;
+            }
+
+            if (direction.sqrMagnitude < 0.0001f)
+            {
+                continue;
+            }
+
+            direction.Normalize();
+            Vector3 alternate = npcPosition + new Vector3(direction.x, 0f, direction.y) * step;
+            alternate = playableBounds.IsValid ? playableBounds.ClampXZ(alternate, 2f) : alternate;
+            alternate.y = npcPosition.y;
+            if (!IsInsideBuildingBounds(alternate, distributionConfig.minDistanceFromBuildingMeters))
+            {
+                SetNpcState(index, NewMapNpcMovementState.Repathing);
+                return alternate;
+            }
+        }
+
+        SetNpcState(index, NewMapNpcMovementState.WaitingAtCrossingOrCrowd);
+        return npcPosition;
+    }
+
     private Vector3 ResolveNearestOutsideBuildingPosition(Vector3 position, float marginMeters)
     {
         Vector3 corrected = position;
@@ -822,6 +917,7 @@ public sealed class NewMapNpcCrowdPrototype : MonoBehaviour
 
         if (hasBlockingNpc)
         {
+            PlayerContactEventCount++;
             Vector2 pushDirection = previous - bestNpcCenter;
             if (pushDirection.sqrMagnitude < 0.0001f)
             {
@@ -850,6 +946,7 @@ public sealed class NewMapNpcCrowdPrototype : MonoBehaviour
 
         if (slowed)
         {
+            PlayerContactEventCount++;
             slowdownFactor = Mathf.Clamp(config.maxSlowdownFactor, 0.05f, 1f);
             resolvedPosition = Vector3.Lerp(previousPosition, candidatePosition, slowdownFactor);
             return true;
@@ -919,7 +1016,10 @@ public sealed class NewMapNpcCrowdPrototype : MonoBehaviour
         }
 
         npcStoppedSeconds[index] += Time.deltaTime;
-        if (npcStoppedSeconds[index] < movementConfig.maxIdleWithoutReasonSeconds)
+        float recoverySeconds = lifecycleConfig != null
+            ? Mathf.Max(1f, lifecycleConfig.stuckRecoverySeconds)
+            : movementConfig.maxIdleWithoutReasonSeconds;
+        if (npcStoppedSeconds[index] < recoverySeconds)
         {
             return;
         }
@@ -930,25 +1030,92 @@ public sealed class NewMapNpcCrowdPrototype : MonoBehaviour
             return;
         }
 
-        Vector3 recovery = npcHomePositions[index] + new Vector3(
-            Mathf.Cos(index * 1.37f + Time.time),
-            0f,
-            Mathf.Sin(index * 1.91f + Time.time)) * Mathf.Max(2f, wanderRadius * 0.5f);
-        recovery = playableBounds.IsValid ? playableBounds.ClampXZ(recovery, 2f) : recovery;
-        recovery.y = npc.position.y;
-        if (!IsInsideBuildingBounds(recovery, distributionConfig.minDistanceFromBuildingMeters))
+        for (int attempt = 0; attempt < 8; attempt++)
         {
-            npc.position = recovery;
-            npcHomePositions[index] = recovery;
-            RecoveredCount++;
-            SetNpcState(index, NewMapNpcMovementState.StuckRecovering);
-        }
-        else
-        {
-            StoppedWithoutReasonCount++;
+            float phase = index * 1.37f + Time.time + attempt * 0.785398f;
+            Vector3 recovery = npcHomePositions[index] + new Vector3(
+                Mathf.Cos(phase),
+                0f,
+                Mathf.Sin(phase * 1.17f)) * Mathf.Max(2f, wanderRadius * (0.45f + attempt * 0.08f));
+            recovery = playableBounds.IsValid ? playableBounds.ClampXZ(recovery, 2f) : recovery;
+            recovery.y = npc.position.y;
+            if (!IsInsideBuildingBounds(recovery, distributionConfig.minDistanceFromBuildingMeters))
+            {
+                npc.position = recovery;
+                npcHomePositions[index] = recovery;
+                RecoveredCount++;
+                SetNpcState(index, NewMapNpcMovementState.StuckRecovering);
+                npcStoppedSeconds[index] = 0f;
+                return;
+            }
         }
 
+        SetNpcState(index, NewMapNpcMovementState.Repathing);
         npcStoppedSeconds[index] = 0f;
+    }
+
+    private void PreventAllStopDeadlock(Vector3 referencePosition)
+    {
+        if (npcs.Count == 0 || Time.time < 8f || MovingCount > 0)
+        {
+            return;
+        }
+
+        if (crowdFailuresEnabled && QueuedCount > 0)
+        {
+            return;
+        }
+
+        int kicked = 0;
+        int maxKicks = Mathf.Min(16, npcs.Count);
+        for (int i = 0; i < npcs.Count && kicked < maxKicks; i++)
+        {
+            Transform npc = npcs[i];
+            if (npc == null)
+            {
+                continue;
+            }
+
+            Vector3 away = npc.position - referencePosition;
+            away.y = 0f;
+            if (away.sqrMagnitude < 0.01f)
+            {
+                away = new Vector3(Mathf.Cos(i * 2.399963f), 0f, Mathf.Sin(i * 2.399963f));
+            }
+
+            away.Normalize();
+            Vector3 candidate = npc.position + away * Mathf.Max(2f, wanderRadius * 0.35f);
+            candidate = playableBounds.IsValid ? playableBounds.ClampXZ(candidate, 2f) : candidate;
+            candidate.y = npc.position.y;
+            if (IsInsideBuildingBounds(candidate, distributionConfig.minDistanceFromBuildingMeters))
+            {
+                continue;
+            }
+
+            npcHomePositions[i] = candidate;
+            SetNpcState(i, NewMapNpcMovementState.Repathing);
+            npcStoppedSeconds[i] = 0f;
+            kicked++;
+        }
+
+        RecountNpcStatesForDiagnostics();
+        if (MovingCount == 0 && kicked == 0)
+        {
+            AllStopEventCount++;
+        }
+    }
+
+    private void RecountNpcStatesForDiagnostics()
+    {
+        MovingCount = 0;
+        ArrivedCount = 0;
+        QueuedCount = 0;
+        StuckCount = 0;
+        StaticProxyCount = 0;
+        for (int i = 0; i < npcStates.Count; i++)
+        {
+            CountNpcStateForDiagnostics(i);
+        }
     }
 
     private void SetNpcState(int index, NewMapNpcMovementState state)
@@ -969,12 +1136,15 @@ public sealed class NewMapNpcCrowdPrototype : MonoBehaviour
         switch (npcStates[index])
         {
             case NewMapNpcMovementState.Moving:
+            case NewMapNpcMovementState.Wandering:
+            case NewMapNpcMovementState.Evacuating:
             case NewMapNpcMovementState.Repathing:
                 MovingCount++;
                 break;
             case NewMapNpcMovementState.Arrived:
                 ArrivedCount++;
                 break;
+            case NewMapNpcMovementState.Queued:
             case NewMapNpcMovementState.QueuedAtEntrance:
             case NewMapNpcMovementState.WaitingAtCrossingOrCrowd:
                 QueuedCount++;
@@ -1035,8 +1205,11 @@ public sealed class NewMapNpcCrowdPrototype : MonoBehaviour
 public enum NewMapNpcMovementState
 {
     Moving,
+    Wandering,
+    Evacuating,
     WaitingAtCrossingOrCrowd,
     QueuedAtEntrance,
+    Queued,
     Arrived,
     Repathing,
     StuckRecovering,
@@ -1089,6 +1262,54 @@ public sealed class NewMapNpcMovementConfig
         config.stuckRecoveryEnabled = true;
         config.buildingAvoidanceEnabled = true;
         config.boundsClampEnabled = true;
+        return config;
+    }
+}
+
+[System.Serializable]
+public sealed class NewMapNpcLifecycleConfig
+{
+    public bool generateOnModeStartOnly = true;
+    public bool allowGlobalRefresh;
+    public float globalRespawnIntervalSeconds;
+    public bool individualStuckRecoveryEnabled = true;
+    public float stuckRecoverySeconds = 5f;
+    public float minNpcLifetimeSeconds = 300f;
+    public bool farNpcStaticProxyEnabled = true;
+    public bool farNpcDespawnEnabled;
+    public bool recycleOnlyWhenOutOfBoundsOrInvalid = true;
+    public bool collisionWithPlayerDoesNotGlobalPause = true;
+
+    public static NewMapNpcLifecycleConfig Default()
+    {
+        return new NewMapNpcLifecycleConfig();
+    }
+
+    public static NewMapNpcLifecycleConfig Load()
+    {
+        NewMapNpcLifecycleConfig config = Default();
+        string path = Path.Combine(Application.dataPath, "Data/P10/newmap_npc_lifecycle_config.json");
+        if (File.Exists(path))
+        {
+            try
+            {
+                config = JsonUtility.FromJson<NewMapNpcLifecycleConfig>(File.ReadAllText(path)) ?? config;
+            }
+            catch (System.Exception exception)
+            {
+                Debug.LogWarning($"NewMap NPC lifecycle config could not be loaded; using defaults. {exception.Message}");
+            }
+        }
+
+        config.generateOnModeStartOnly = true;
+        config.allowGlobalRefresh = false;
+        config.globalRespawnIntervalSeconds = 0f;
+        config.individualStuckRecoveryEnabled = true;
+        config.stuckRecoverySeconds = Mathf.Clamp(config.stuckRecoverySeconds, 1f, 30f);
+        config.minNpcLifetimeSeconds = Mathf.Max(60f, config.minNpcLifetimeSeconds);
+        config.farNpcDespawnEnabled = false;
+        config.recycleOnlyWhenOutOfBoundsOrInvalid = true;
+        config.collisionWithPlayerDoesNotGlobalPause = true;
         return config;
     }
 }
