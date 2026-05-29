@@ -23,7 +23,12 @@
 - FPS remains acceptable with the 100x request and 800 cap.
 - Tourism Mode NPCs do not cause failure.
 - Evacuation Mode crowd delay remains bounded.
-- Labels show Japanese/Kanji main names where available.
-- No fake names or ID-only labels appear in normal mode.
+- Building and road labels appear where project, local OSM, or preprocessing online names were accepted.
+- Labels show Japanese/Kanji main names only.
+- Official shelter names are visible.
+- Non-official candidate names remain visible with the non-official warning.
+- Road names appear only where the cached result is road-like and reliable.
+- No full addresses, postal-address strings, fake names, coordinate names, or ID-only labels appear in normal mode.
+- Labels stay capped/culling-based and do not clutter the screen.
 - Runtime does not access the network.
 - Mouse drag look, spawn validation, and lighting fixes remain intact.

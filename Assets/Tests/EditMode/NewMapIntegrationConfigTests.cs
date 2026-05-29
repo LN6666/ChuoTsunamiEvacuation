@@ -157,6 +157,9 @@ public class NewMapIntegrationConfigTests
             "Data/P10/newmap_name_label_runtime_report.json",
             "Data/P10/newmap_name_enrichment_config.json",
             "Data/P10/newmap_name_enrichment_report.json",
+            "Data/P10/newmap_name_cache_coverage_audit.json",
+            "Data/P10/newmap_name_enrichment_query_list.json",
+            "Data/P10/newmap_name_normalization_report.json",
             "Data/P10/newmap_gameplay_ground_cover_config.json",
             "Data/P10/newmap_ground_cover_material_report.json",
             "Data/P10/newmap_gameplay_ground_cover_report.json",
@@ -317,6 +320,7 @@ public class NewMapIntegrationConfigTests
         StringAssert.Contains("\"runtimeNetworkRequestsAllowed\": false", enrichmentConfig);
         StringAssert.Contains("\"rateLimitSeconds\": 1.1", enrichmentConfig);
         StringAssert.Contains("\"maxQueriesPerRun\": 200", enrichmentConfig);
+        StringAssert.Contains("\"allowOnlineLookup\": true", enrichmentConfig);
 
         string labelRuntimeSource = File.ReadAllText(Path.Combine(Application.dataPath, "Scripts/NewMap/NewMapNameLabelController.cs"));
         Assert.IsFalse(labelRuntimeSource.Contains("UnityWebRequest"));
@@ -471,21 +475,39 @@ public class NewMapIntegrationConfigTests
     {
         string cachePath = Path.Combine(Application.dataPath, "Data/P10/newmap_name_cache.json");
         string enrichmentReportPath = Path.Combine(Application.dataPath, "Data/P10/newmap_name_enrichment_report.json");
+        string coverageAuditPath = Path.Combine(Application.dataPath, "Data/P10/newmap_name_cache_coverage_audit.json");
+        string queryListPath = Path.Combine(Application.dataPath, "Data/P10/newmap_name_enrichment_query_list.json");
+        string normalizationReportPath = Path.Combine(Application.dataPath, "Data/P10/newmap_name_normalization_report.json");
         string labelConfigPath = Path.Combine(Application.dataPath, "Data/P10/newmap_name_label_config.json");
         Assert.IsTrue(File.Exists(cachePath), "Name cache JSON must exist.");
         Assert.IsTrue(File.Exists(enrichmentReportPath), "Name enrichment report JSON must exist.");
+        Assert.IsTrue(File.Exists(coverageAuditPath), "Name cache coverage audit JSON must exist.");
+        Assert.IsTrue(File.Exists(queryListPath), "Name enrichment query-list JSON must exist.");
+        Assert.IsTrue(File.Exists(normalizationReportPath), "Name normalization report JSON must exist.");
         Assert.IsTrue(File.Exists(labelConfigPath), "Name label config JSON must exist.");
 
         string cache = File.ReadAllText(cachePath);
         string enrichment = File.ReadAllText(enrichmentReportPath);
+        string coverageAudit = File.ReadAllText(coverageAuditPath);
+        string queryList = File.ReadAllText(queryListPath);
+        string normalizationReport = File.ReadAllText(normalizationReportPath);
         string labelConfig = File.ReadAllText(labelConfigPath);
 
         StringAssert.Contains("\"runtimeNetworkRequestsAllowed\": false", cache);
+        StringAssert.Contains("\"finalDisplayName\"", cache);
         StringAssert.Contains("\u8056\u8def\u52a0\u30ac\u30fc\u30c7\u30f3\u30bf\u30ef\u30fc", cache);
         Assert.IsFalse(cache.Contains("\"idOnly\": true"), "ID-only cache entries must not be normal labels.");
         Assert.IsFalse(cache.Contains("address_only"), "Address-only reverse geocode strings must not become labels.");
         StringAssert.Contains("\"finalStatus\": \"completed\"", enrichment);
-        StringAssert.Contains("\"onlineQueriesAttempted\": 0", enrichment);
+        Assert.IsFalse(enrichment.Contains("\"onlineQueriesAttempted\": 0"), "This pass must actually run online preprocessing lookup or clearly report failure.");
+        StringAssert.Contains("\"onlineQueriesSucceeded\":", enrichment);
+        StringAssert.Contains("\"namesNewlyAdded\":", enrichment);
+        StringAssert.Contains("\"hardRuleStatus\": \"online_queries_executed\"", coverageAudit);
+        StringAssert.Contains("\"queryCount\":", queryList);
+        StringAssert.Contains("\"enabledForOnlineLookupCount\":", queryList);
+        StringAssert.Contains("\"visibleAddressLikeLabelCount\": 0", normalizationReport);
+        StringAssert.Contains("\"visibleIdOnlyLabelCount\": 0", normalizationReport);
+        StringAssert.Contains("\"visibleLowConfidenceLabelCount\": 0", normalizationReport);
         StringAssert.Contains("\"runtimeNetworkRequestsAllowed\": false", labelConfig);
         StringAssert.Contains("\"showBuildingNames\": true", labelConfig);
         StringAssert.Contains("\"showIdOnlyLabelsInDebug\": false", labelConfig);

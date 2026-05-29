@@ -193,7 +193,7 @@ public sealed class NewMapNameLabelController : MonoBehaviour
         }
 
         NewMapCachedNameLabel cached = cache != null ? cache.FindById(target.Id) : null;
-        string cachedName = cached != null ? NormalizeMainName(cached.name) : string.Empty;
+        string cachedName = cached != null ? NormalizeMainName(cached.DisplayNameForRuntime) : string.Empty;
         if (!string.IsNullOrWhiteSpace(cachedName) && cached.confidence >= 0.6f && !cached.disabled && !cached.idOnly)
         {
             return cachedName;
@@ -214,7 +214,7 @@ public sealed class NewMapNameLabelController : MonoBehaviour
             NewMapCachedNameLabel cached = cache.labels[i];
             if (cached == null ||
                 string.IsNullOrWhiteSpace(cached.id) ||
-                string.IsNullOrWhiteSpace(cached.name) ||
+                string.IsNullOrWhiteSpace(cached.DisplayNameForRuntime) ||
                 cached.disabled)
             {
                 continue;
@@ -237,7 +237,7 @@ public sealed class NewMapNameLabelController : MonoBehaviour
 
             string type = (cached.objectType ?? string.Empty).ToLowerInvariant();
             string classification = (cached.classification ?? string.Empty).ToLowerInvariant();
-            string normalizedName = NormalizeMainName(cached.name);
+            string normalizedName = NormalizeMainName(cached.DisplayNameForRuntime);
             bool addressOnly = classification.Contains("address_only") || string.IsNullOrWhiteSpace(normalizedName);
             if (addressOnly)
             {
@@ -317,7 +317,26 @@ public sealed class NewMapNameLabelController : MonoBehaviour
             return string.Empty;
         }
 
-        return trimmed;
+        return HasJapanese(trimmed) ? trimmed : string.Empty;
+    }
+
+    private static bool HasJapanese(string value)
+    {
+        if (string.IsNullOrWhiteSpace(value))
+        {
+            return false;
+        }
+
+        for (int i = 0; i < value.Length; i++)
+        {
+            char c = value[i];
+            if ((c >= '\u3040' && c <= '\u30ff') || (c >= '\u3400' && c <= '\u9fff'))
+            {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     private static bool IsTokyoStationName(string value)
@@ -402,6 +421,9 @@ public sealed class NewMapNameLabelController : MonoBehaviour
             rawType.Contains("poi") ||
             rawType.Contains("landmark") ||
             rawType.Contains("amenity") ||
+            rawType.Contains("tourism") ||
+            rawType.Contains("hotel") ||
+            rawType.Contains("museum") ||
             string.Equals(cached.classification, "source_metadata_name", System.StringComparison.OrdinalIgnoreCase) ||
             string.Equals(cached.classification, "project_dataset_name", System.StringComparison.OrdinalIgnoreCase);
     }
@@ -777,13 +799,43 @@ public sealed class NewMapCachedNameLabel
     public string id;
     public string objectType;
     public string name;
+    public string finalDisplayName;
+    public string finalDisplayNameLanguage;
     public string language;
     public string provider;
     public string source;
+    public string sourceField;
     public string classification;
     public string rawType;
+    public string rawName;
+    public string normalizedName;
     public float confidence;
+    public float lat;
+    public float lon;
     public bool idOnly;
     public bool disabled;
+    public bool hiddenInNormalMode;
+    public string hiddenReason;
+    public bool attributionRequired;
+    public string timestamp;
     public NewMapVector3Data position;
+    public NewMapVector3Data unityPosition;
+
+    public string DisplayNameForRuntime
+    {
+        get
+        {
+            if (!string.IsNullOrWhiteSpace(finalDisplayName))
+            {
+                return finalDisplayName;
+            }
+
+            if (!string.IsNullOrWhiteSpace(normalizedName))
+            {
+                return normalizedName;
+            }
+
+            return name;
+        }
+    }
 }

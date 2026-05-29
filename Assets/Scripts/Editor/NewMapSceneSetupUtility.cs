@@ -112,6 +112,11 @@ public static class NewMapSceneSetupUtility
         BuildNewMapPlayer("D:/UnityProjects/ChuoTsunamiEvacuation-Builds/NewMapGroundRaiseNamePre", "ChuoTsunamiEvacuation_NewMapGroundRaiseNamePre.exe");
     }
 
+    public static void BuildNewMapNameEnrichmentPlayerCommandLine()
+    {
+        BuildNewMapPlayer("D:/UnityProjects/ChuoTsunamiEvacuation-Builds/NewMapNameEnrichmentPre", "ChuoTsunamiEvacuation_NewMapNameEnrichmentPre.exe");
+    }
+
     private static void BuildNewMapPlayer(string buildDirectory, string executableName)
     {
         Directory.CreateDirectory(buildDirectory);

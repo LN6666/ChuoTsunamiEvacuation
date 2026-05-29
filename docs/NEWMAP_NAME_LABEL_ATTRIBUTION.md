@@ -1,13 +1,8 @@
 # NewMap Name Label Attribution
 
-Runtime labels are loaded from `Assets/Data/P10/newmap_name_cache.json`.
-
-Sources used:
-- Project official shelter anchor report
-- Project non-official candidate resource
-- Project P8 humanitarian high-rise candidate audit
-- Local OpenStreetMap cache where road or landmark names are present
-
-OpenStreetMap-derived labels require OSM attribution. They are used only as local cached preprocessing outputs and are not queried at runtime.
-
-The cache stores provider, source, confidence, raw type/class, timestamp, and disabled/id-only flags for each label.
+- Generated: `2026-05-29T21:46:22+09:00`
+- Cache file: `Assets/Data/P10/newmap_name_cache.json`
+- Project sources: official shelter anchors, runtime non-official candidate cache, PLATEAU/P8 candidate audit.
+- OpenStreetMap local cache and Nominatim preprocessing results are © OpenStreetMap contributors and used under the Open Database License.
+- Online lookups, when present, are preprocessing-only and are not performed by the Unity player.
+- Labels are informational prototype labels, not official facility certification, official road guidance, or GIS-grade validation.

@@ -1,0 +1,40 @@
+﻿{
+    "generatedAt":  "2026-05-29T22:03:24",
+    "logPath":  "C:\\Users\\liangjn\\AppData\\LocalLow\\DefaultCompany\\ChuoTsunamiEvacuation\\Player.log",
+    "errorCount":  0,
+    "warningCount":  0,
+    "nameLabelDiagnostics":  {
+                                 "availableLabels":  160,
+                                 "activeLabels":  6,
+                                 "officialShelterLabels":  15,
+                                 "nonOfficialCandidateLabels":  19,
+                                 "roadNameLabels":  96,
+                                 "buildingNameLabels":  29,
+                                 "tokyoStationLabels":  1,
+                                 "idOnlyLabels":  0,
+                                 "nameCacheLoaded":  true,
+                                 "nameCacheRecords":  160,
+                                 "reliableCacheLabels":  126,
+                                 "addressOnlyHidden":  0,
+                                 "lowConfidenceHidden":  0,
+                                 "runtimeNetworkRequestsAllowed":  false,
+                                 "sourceNameStatus":  "source_or_cached_names_available"
+                             },
+    "selfAuditCompleted":  true,
+    "selfAuditFailureCount":  0,
+    "cachePath":  "Assets/Data/P10/newmap_name_cache.json",
+    "cacheRecordCount":  160,
+    "onlineQueriesAttempted":  83,
+    "onlineQueriesSucceeded":  83,
+    "onlineLabelsAdded":  26,
+    "namesRejected":  57,
+    "runtimeNoWebPassed":  true,
+    "labelRuntimePassed":  true,
+    "firstErrors":  [
+
+                    ],
+    "firstWarnings":  [
+
+                      ],
+    "finalStatus":  "completed_on_new_chuo_basemap"
+}

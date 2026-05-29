@@ -1,0 +1,27 @@
+{
+  "generatedAt": "2026-05-29T21:46:22+09:00",
+  "activeScene": "Assets/Scenes/Chuo_BaseMap.unity",
+  "previousTotalCachedNameRecords": 339,
+  "totalCachedNameRecords": 160,
+  "activeOfficialShelterNames": 15,
+  "activeNonOfficialCandidateNames": 19,
+  "buildingNamesCached": 29,
+  "roadNamesCached": 96,
+  "missingBuildingNames": 59,
+  "missingRoadQueryPoints": 24,
+  "idOnlyLabelsVisible": 0,
+  "addressLikeLabelsVisible": 0,
+  "lowConfidenceLabelsVisible": 0,
+  "labelsCurrentlyShownRuntime": {
+    "availableLabels": null,
+    "activeLabels": null,
+    "buildingLabelsRuntime": 19,
+    "roadLabelsRuntime": 40,
+    "nameCacheLoaded": true
+  },
+  "previousOnlineQueriesAttempted": 83,
+  "onlineQueriesAttemptedThisRun": 83,
+  "onlineQueriesSucceededThisRun": 83,
+  "onlineLabelsAddedThisRun": 26,
+  "hardRuleStatus": "online_queries_executed"
+}

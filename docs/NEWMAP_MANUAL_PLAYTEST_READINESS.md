@@ -9,7 +9,14 @@
 - Player building collision proxy: True
 - NPC continuous movement: True
 - Name cache loaded: True
+- Name cache records: 160
+- Preprocessing online name queries: 83 attempted / 83 succeeded
+- Newly accepted online names: 26
+- Rejected online names: 57
+- Cached building/road labels: 29 / 96
+- Full-address or ID-only normal labels: 0 / 0
 - Runtime web requests allowed: False
-- Player.log: 0 errors / 0 warnings
+- Current name-enrichment player smoke: passed
+- Name-enrichment Player.log: 0 errors / 0 warnings
 
 This does not claim GIS-grade terrain, road, route, or PLATEAU building elevation accuracy.

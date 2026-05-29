@@ -1,6 +1,7 @@
 {
   "generatedAt": "2026-05-29T00:00:00+09:00",
   "runtimeNetworkRequestsAllowed": false,
+  "preferJapaneseKanji": true,
   "preferOrder": [
     "name:ja",
     "name",
@@ -12,6 +13,7 @@
   "hidePostalAddress": true,
   "hideGmlIds": true,
   "hideBuildingIds": true,
+  "hideIdOnly": true,
   "hideCoordinateNames": true,
   "machineTranslationAllowed": false,
   "fabricatedNamesAllowed": false,

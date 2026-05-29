@@ -463,10 +463,12 @@ public class NewMapRuntimePlayModeTests
         Assert.IsFalse(labels.SceneWideMetadataScanPerformed, "Runtime labels should not full-scan the PLATEAU scene every frame.");
         Assert.IsFalse(labels.IdOnlyLabelsVisibleInNormalMode, "ID-only labels stay debug-only.");
         Assert.IsTrue(labels.NameCacheLoaded, "Runtime labels must load the generated local cache.");
-        Assert.GreaterOrEqual(labels.NameCacheRecordCount, 50);
+        Assert.GreaterOrEqual(labels.NameCacheRecordCount, 100);
+        Assert.GreaterOrEqual(labels.ReliableCacheLabelCount, 50);
         Assert.Greater(labels.BuildingNameLabelCount, 0, "Reliable cache-backed building names should be shown.");
         Assert.Greater(labels.RoadNameLabelCount, 0, "Reliable cache-backed road names should be shown.");
         Assert.AreEqual(0, labels.IdOnlyLabelCount, "ID-only labels must stay hidden in normal mode.");
+        Assert.AreEqual(0, labels.LowConfidenceHiddenCount, "Low-confidence names should be omitted before runtime display.");
         StringAssert.Contains("source_or_cached_names_available", labels.SourceNameAvailabilityStatus);
         Assert.Greater(labels.NonOfficialCandidateLabelCount, 0, "Existing non-official candidate dataset names should be label sources.");
         Assert.LessOrEqual(labels.ActiveLabelCount, NewMapNameLabelConfig.Default().maxVisibleLabels);
