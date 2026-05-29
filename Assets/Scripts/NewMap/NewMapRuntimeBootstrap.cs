@@ -79,6 +79,16 @@ public sealed class NewMapRuntimeBootstrap : MonoBehaviour
     public int LastBlueDebugGroundRendererDisabledCount { get; private set; }
     public int LastPlayableAirWallColliderCount { get; private set; }
     public int LastPlayableAirWallVisibleRendererCount { get; private set; }
+    public NewMapCircularBoundary LastCircularBoundary { get; private set; }
+    public bool LastCircularBoundaryEnabled { get; private set; }
+    public bool LastCircularBoundaryPlayerClampEnabled { get; private set; }
+    public bool LastCircularBoundaryNpcClampEnabled { get; private set; }
+    public int LastCircularBoundaryDiagnosticColliderCount { get; private set; }
+    public int LastOldRectangularAirWallDisabledCount { get; private set; }
+    public int LastRouteVisualBlockingColliderCount { get; private set; }
+    public int LastGreenFrameBlockingColliderCount { get; private set; }
+    public int LastLabelBlockingColliderCount { get; private set; }
+    public int LastHazardVisualBlockingColliderCount { get; private set; }
     public int LastAirwallHardTotalCollidersScanned { get; private set; }
     public int LastUnexpectedAirwallBlockersFound { get; private set; }
     public int LastUnexpectedAirwallBlockersRemoved { get; private set; }
@@ -174,6 +184,7 @@ public sealed class NewMapRuntimeBootstrap : MonoBehaviour
     private NewMapSpawnConfig spawnConfig;
     private NewMapSafeSpawnPointDataset safeSpawnDataset;
     private NewMapPlayableBoundsConfig playableBoundsConfig;
+    private NewMapCircularBoundaryConfig circularBoundaryConfig;
     private NewMapAdaptiveSupportGridRuntime adaptiveSupportGrid;
     private NewMapSafeGroundConfig safeGroundConfig;
     private NewMapGameplayGroundCoverConfig groundCoverConfig;
@@ -258,6 +269,7 @@ public sealed class NewMapRuntimeBootstrap : MonoBehaviour
         spawnConfig = NewMapSpawnConfig.Load();
         safeSpawnDataset = NewMapSafeSpawnPointDataset.Load();
         playableBoundsConfig = NewMapPlayableBoundsConfig.Load();
+        circularBoundaryConfig = NewMapCircularBoundaryConfig.Load();
         safeGroundConfig = NewMapSafeGroundConfig.Load();
         groundCoverConfig = NewMapGameplayGroundCoverConfig.Load();
         buildingSnapdownConfig = NewMapFloatingBuildingSnapdownConfig.Load();
@@ -283,6 +295,10 @@ public sealed class NewMapRuntimeBootstrap : MonoBehaviour
         LastColliderCount = colliderCount;
         LastPlayableBounds = ResolvePlayableBounds(mapBounds, LastMapBoundsValid, playableBoundsConfig);
         LastPlayableBoundsValid = LastPlayableBounds.IsValid;
+        LastCircularBoundary = ResolveCircularBoundary(mapBounds, LastMapBoundsValid, LastPlayableBounds, circularBoundaryConfig);
+        LastCircularBoundaryEnabled = LastCircularBoundary.IsValid && circularBoundaryConfig.enabled;
+        LastCircularBoundaryPlayerClampEnabled = LastCircularBoundaryEnabled && circularBoundaryConfig.affectsPlayer;
+        LastCircularBoundaryNpcClampEnabled = LastCircularBoundaryEnabled && circularBoundaryConfig.affectsNpc;
         adaptiveSupportGrid = NewMapAdaptiveSupportGridRuntime.Load();
         if (adaptiveSupportGrid.Enabled)
         {
@@ -297,9 +313,12 @@ public sealed class NewMapRuntimeBootstrap : MonoBehaviour
         LastFinalSpawnPosition = spawn;
         LastPlayerSpawnGroundDelta = spawn.y - LastRuntimeGroundSurfaceY;
         EnsureGameplayGroundCover(roots["GameplayGroundCoverRoot"], LastPlayableBounds, LastRuntimeGroundSurfaceY);
-        EnsureRuntimeCollisionSupport(roots["GameplaySupportRoot"], new Vector3(spawn.x, LastRuntimeGroundSurfaceY, spawn.z));
+        Vector3 supportCenter = LastCircularBoundaryEnabled
+            ? new Vector3(LastCircularBoundary.Center.x, LastRuntimeGroundSurfaceY, LastCircularBoundary.Center.y)
+            : new Vector3(spawn.x, LastRuntimeGroundSurfaceY, spawn.z);
+        EnsureRuntimeCollisionSupport(roots["GameplaySupportRoot"], supportCenter);
         EnforceSupportSurfaceVisibility(roots);
-        EnsurePlayableBoundsAirWalls(roots["PlayableBoundsRoot"], LastPlayableBounds, LastRuntimeGroundSurfaceY);
+        EnsureCircularBoundaryDiagnostics(roots["PlayableBoundsRoot"], LastCircularBoundary);
         Physics.SyncTransforms();
         if (SuppressSceneMeshCollidersForManualTest)
         {
@@ -311,6 +330,8 @@ public sealed class NewMapRuntimeBootstrap : MonoBehaviour
         player.ConfigureGroundSafety(
             spawn,
             LastPlayableBounds,
+            LastCircularBoundary,
+            LastCircularBoundaryPlayerClampEnabled,
             LastRuntimeGroundSurfaceY,
             safeGroundConfig != null ? safeGroundConfig.fallRecoveryBelowY : -8f,
             safeGroundConfig == null || safeGroundConfig.recoverOutsidePlayableBounds,
@@ -329,7 +350,13 @@ public sealed class NewMapRuntimeBootstrap : MonoBehaviour
             LastPlayableBounds,
             LastRuntimeGroundSurfaceY,
             tsunamiHotfixConfig);
-        NewMapNpcCrowdPrototype crowd = NewMapNpcCrowdPrototype.Create(roots["CrowdRoot"], spawn, LastPlayableBounds, buildingAvoidanceBounds);
+        NewMapNpcCrowdPrototype crowd = NewMapNpcCrowdPrototype.Create(
+            roots["CrowdRoot"],
+            spawn,
+            LastPlayableBounds,
+            buildingAvoidanceBounds,
+            LastCircularBoundary,
+            LastCircularBoundaryNpcClampEnabled);
         crowd.SetReferenceTransform(player.transform);
         player.ConfigurePlayerNpcCollision(crowd, NewMapPlayerNpcCollisionConfig.Load());
         NewMapPerformanceProbe.Create(roots["PerformanceMetricsRoot"]);
@@ -393,10 +420,17 @@ public sealed class NewMapRuntimeBootstrap : MonoBehaviour
             $"blueDebugGroundDisabled={LastBlueDebugGroundRendererDisabledCount} playableBoundsValid={LastPlayableBoundsValid} " +
             $"playableBoundsSource={LastPlayableBoundsSource} playableMinX={LastPlayableBounds.MinX:F2} playableMaxX={LastPlayableBounds.MaxX:F2} " +
             $"playableMinZ={LastPlayableBounds.MinZ:F2} playableMaxZ={LastPlayableBounds.MaxZ:F2} " +
+            $"circularBoundaryEnabled={LastCircularBoundaryEnabled} circularBoundaryCenterX={LastCircularBoundary.Center.x:F2} " +
+            $"circularBoundaryCenterZ={LastCircularBoundary.Center.y:F2} circularBoundaryRadius={LastCircularBoundary.RadiusMeters:F1} " +
+            $"circularBoundaryPlayerClamp={LastCircularBoundaryPlayerClampEnabled} circularBoundaryNpcClamp={LastCircularBoundaryNpcClampEnabled} " +
+            $"circularBoundaryDiagnosticColliders={LastCircularBoundaryDiagnosticColliderCount} " +
             $"airWallColliders={LastPlayableAirWallColliderCount} airWallVisibleRenderers={LastPlayableAirWallVisibleRendererCount} " +
             $"airwallHardCollidersScanned={LastAirwallHardTotalCollidersScanned} unexpectedAirwallBlockers={LastUnexpectedAirwallBlockersFound} " +
             $"airwallBlockersRemoved={LastUnexpectedAirwallBlockersRemoved} airwallBlockersResized={LastUnexpectedAirwallBlockersResized} " +
             $"airwallBlockersConvertedToTrigger={LastUnexpectedAirwallBlockersConvertedToTrigger} boundaryAirWallsPreserved={LastBoundaryAirWallsPreserved} " +
+            $"oldRectangularAirWallsDisabled={LastOldRectangularAirWallDisabledCount} routeVisualBlockers={LastRouteVisualBlockingColliderCount} " +
+            $"greenFrameVisualBlockers={LastGreenFrameBlockingColliderCount} labelVisualBlockers={LastLabelBlockingColliderCount} " +
+            $"hazardVisualBlockers={LastHazardVisualBlockingColliderCount} " +
             $"concaveMeshTriggerOffenders={LastConcaveMeshTriggerOffenderCount} concaveMeshTriggerFixed={LastConcaveMeshTriggerFixedCount} " +
             $"concaveMeshTriggerProxies={LastConcaveMeshTriggerProxyCount} buildingEntryTriggers={LastBuildingEntryTriggerCount} " +
             $"buildingEntryPhysicalBlockers={LastBuildingEntryPhysicalBlockerCount} " +
@@ -453,6 +487,8 @@ public sealed class NewMapRuntimeBootstrap : MonoBehaviour
         player.ConfigureGroundSafety(
             spawn,
             LastPlayableBounds,
+            LastCircularBoundary,
+            LastCircularBoundaryPlayerClampEnabled,
             LastRuntimeGroundSurfaceY,
             safeGroundConfig != null ? safeGroundConfig.fallRecoveryBelowY : -8f,
             safeGroundConfig == null || safeGroundConfig.recoverOutsidePlayableBounds,
@@ -659,6 +695,66 @@ public sealed class NewMapRuntimeBootstrap : MonoBehaviour
             controller.ShelterDirectLineCount > 0 &&
             controller.CountShelterDirectLineCollidersForDiagnostics() == 0,
             $"lines={controller.ShelterDirectLineCount} rankableTargets={rankableGuidanceCount} colliders={controller.CountShelterDirectLineCollidersForDiagnostics()}");
+
+        LogGameplaySmoke(
+            "collision_whitelist_visuals_nonblocking",
+            LastCircularBoundaryEnabled &&
+            LastPlayableAirWallColliderCount == 0 &&
+            LastBoundaryAirWallsPreserved == 0 &&
+            LastUnknownBlockersInsidePlayableArea == 0 &&
+            LastRouteVisualBlockingColliderCount == 0 &&
+            LastGreenFrameBlockingColliderCount == 0 &&
+            LastLabelBlockingColliderCount == 0 &&
+            LastHazardVisualBlockingColliderCount == 0,
+            $"circularBoundary={LastCircularBoundaryEnabled} oldAirWalls={LastPlayableAirWallColliderCount} unknown={LastUnknownBlockersInsidePlayableArea} route={LastRouteVisualBlockingColliderCount} green={LastGreenFrameBlockingColliderCount} label={LastLabelBlockingColliderCount} hazard={LastHazardVisualBlockingColliderCount}");
+
+        if (player != null && LastCircularBoundaryEnabled && LastCircularBoundary.IsValid)
+        {
+            Vector3 beforeBoundaryProbe = player.transform.position;
+            Vector3 outsideCircle = new Vector3(
+                LastCircularBoundary.Center.x + LastCircularBoundary.RadiusMeters + 150f,
+                beforeBoundaryProbe.y,
+                LastCircularBoundary.Center.y);
+            player.transform.position = outsideCircle;
+            player.MoveForDiagnostics(Vector3.zero, 0f, false);
+            bool clampedInside = LastCircularBoundary.ContainsXZ(player.transform.position, 0f);
+            player.transform.position = beforeBoundaryProbe;
+            Physics.SyncTransforms();
+            LogGameplaySmoke(
+                "circular_boundary_player_clamp",
+                player.CircularBoundaryClampEnabled && clampedInside,
+                $"radius={LastCircularBoundary.RadiusMeters:0.0} playerClamp={player.CircularBoundaryClampEnabled} clampedInside={clampedInside}");
+        }
+        else
+        {
+            LogGameplaySmoke("circular_boundary_player_clamp", false, "Player or circular boundary missing");
+        }
+
+        bool npcInsideCircle = crowd != null && crowd.CircularBoundaryClampEnabled;
+        if (npcInsideCircle)
+        {
+            Vector3[] npcPositions = crowd.GetNpcPositionsForDiagnostics();
+            for (int i = 0; i < npcPositions.Length; i++)
+            {
+                if (!LastCircularBoundary.ContainsXZ(npcPositions[i], 0f))
+                {
+                    npcInsideCircle = false;
+                    break;
+                }
+            }
+        }
+
+        LogGameplaySmoke(
+            "circular_boundary_npc_clamp",
+            npcInsideCircle,
+            $"npcClamp={(crowd != null && crowd.CircularBoundaryClampEnabled)} radius={LastCircularBoundary.RadiusMeters:0.0}");
+
+        bool rankingShown = controller.ToggleShelterRankingForDiagnostics();
+        bool rankingHidden = !controller.ToggleShelterRankingForDiagnostics();
+        LogGameplaySmoke(
+            "r_leaderboard_toggle_show_hide",
+            rankingShown && rankingHidden && ui != null && !ui.IsShelterRankingVisible,
+            $"shown={rankingShown} hidden={rankingHidden}");
 
         controller.AdvanceEvacuationTimeForDiagnostics(controller.PreWarningRandomDurationSeconds + 0.1f);
         yield return null;
@@ -1922,6 +2018,11 @@ public sealed class NewMapRuntimeBootstrap : MonoBehaviour
         LastConcaveMeshTriggerFixedCount = 0;
         LastConcaveMeshTriggerProxyCount = 0;
         LastBoundaryAirWallsPreserved = 0;
+        LastOldRectangularAirWallDisabledCount = 0;
+        LastRouteVisualBlockingColliderCount = 0;
+        LastGreenFrameBlockingColliderCount = 0;
+        LastLabelBlockingColliderCount = 0;
+        LastHazardVisualBlockingColliderCount = 0;
         LastInvalidZoneBlockersPreserved = 0;
         LastUnknownBlockersInsidePlayableArea = 0;
         LastBuildingObstacleBoundsFiltered = 0;
@@ -1936,7 +2037,10 @@ public sealed class NewMapRuntimeBootstrap : MonoBehaviour
         LastAirwallHardTotalCollidersScanned = colliders.Length;
         if (!config.enabled)
         {
-            LastSampledValidPathsPassable = LastPlayableBoundsValid && LastPlayableAirWallColliderCount == 4;
+            LastSampledValidPathsPassable =
+                LastPlayableBoundsValid &&
+                LastCircularBoundaryEnabled &&
+                LastPlayableAirWallColliderCount == 0;
             return;
         }
 
@@ -1954,9 +2058,9 @@ public sealed class NewMapRuntimeBootstrap : MonoBehaviour
             bool insidePlayableArea = IsColliderInsideNormalPlayableArea(collider.bounds, config);
             NeutralizeExistingConcaveMeshTrigger(collider);
 
-            if (category == "boundary_air_wall")
+            if (IsAllowedPlayerBlockingCategory(category))
             {
-                if (blocksPlayer)
+                if (category == "map_boundary" && blocksPlayer)
                 {
                     LastBoundaryAirWallsPreserved++;
                 }
@@ -1964,11 +2068,14 @@ public sealed class NewMapRuntimeBootstrap : MonoBehaviour
                 continue;
             }
 
-            if (category == "invalid_zone_blocker")
+            if (category == "old_air_wall")
             {
                 if (blocksPlayer)
                 {
-                    LastInvalidZoneBlockersPreserved++;
+                    collider.enabled = false;
+                    LastUnexpectedAirwallBlockersFound++;
+                    LastUnexpectedAirwallBlockersRemoved++;
+                    LastOldRectangularAirWallDisabledCount++;
                 }
 
                 continue;
@@ -1977,6 +2084,23 @@ public sealed class NewMapRuntimeBootstrap : MonoBehaviour
             if (!blocksPlayer || !insidePlayableArea)
             {
                 continue;
+            }
+
+            if (category == "route_line_visual")
+            {
+                LastRouteVisualBlockingColliderCount++;
+            }
+            else if (category == "green_frame_visual")
+            {
+                LastGreenFrameBlockingColliderCount++;
+            }
+            else if (category == "label_visual")
+            {
+                LastLabelBlockingColliderCount++;
+            }
+            else if (category == "hazard_visual")
+            {
+                LastHazardVisualBlockingColliderCount++;
             }
 
             if (category == "interaction_trigger" && config.convertInteractionBlockersToTriggers)
@@ -1994,18 +2118,57 @@ public sealed class NewMapRuntimeBootstrap : MonoBehaviour
                 continue;
             }
 
-            if (category == "unknown_blocker" && config.convertUnknownPlayableBlockersToTriggers)
+            if (ShouldDisablePlayerBlockingCollider(category))
+            {
+                collider.enabled = false;
+                LastUnexpectedAirwallBlockersFound++;
+                LastUnexpectedAirwallBlockersRemoved++;
+                if (category == "unknown")
+                {
+                    LastUnknownBlockersInsidePlayableArea++;
+                }
+
+                continue;
+            }
+
+            if (category == "unknown" && config.convertUnknownPlayableBlockersToTriggers)
             {
                 LastUnexpectedAirwallBlockersFound++;
                 ConvertOrDisableUnexpectedPlayableBlocker(collider);
+                continue;
+            }
+
+            if (category == "unknown")
+            {
+                LastUnknownBlockersInsidePlayableArea++;
             }
         }
 
         LastSampledValidPathsPassable =
             LastPlayableBoundsValid &&
-            LastPlayableAirWallColliderCount == 4 &&
-            LastBoundaryAirWallsPreserved >= 4 &&
+            LastCircularBoundaryEnabled &&
+            LastPlayableAirWallColliderCount == 0 &&
             LastUnknownBlockersInsidePlayableArea == 0;
+    }
+
+    private static bool IsAllowedPlayerBlockingCategory(string category)
+    {
+        return category == "ground_support" ||
+            category == "building_obstacle" ||
+            category == "npc_body" ||
+            category == "map_boundary" ||
+            category == "player_body";
+    }
+
+    private static bool ShouldDisablePlayerBlockingCollider(string category)
+    {
+        return category == "route_line_visual" ||
+            category == "green_frame_visual" ||
+            category == "shelter_marker_visual" ||
+            category == "label_visual" ||
+            category == "hazard_visual" ||
+            category == "debug_test" ||
+            category == "invalid_zone_blocker";
     }
 
     private void NeutralizeExistingConcaveMeshTrigger(Collider collider)
@@ -2084,25 +2247,30 @@ public sealed class NewMapRuntimeBootstrap : MonoBehaviour
         }
 
         float margin = Mathf.Max(0f, config.minDistanceFromBoundaryForPlayableCorridorMeters);
+        if (LastCircularBoundaryEnabled && LastCircularBoundary.IsValid)
+        {
+            return LastCircularBoundary.ContainsXZ(bounds.center, margin);
+        }
+
         return LastPlayableBounds.ContainsXZ(bounds.center, margin);
     }
 
     private static string ClassifyBlockingCollider(string path, Collider collider)
     {
         string lower = (path ?? string.Empty).ToLowerInvariant();
-        if (lower.Contains("playableboundsroot") || lower.Contains("airwall_"))
+        if (lower.Contains("circularboundary") || lower.Contains("circular_boundary"))
         {
-            return "boundary_air_wall";
+            return "map_boundary";
         }
 
-        if (lower.Contains("invalid") || lower.Contains("fall") || lower.Contains("blue") || lower.Contains("blocker"))
+        if (lower.Contains("playableboundsroot") || lower.Contains("airwall") || lower.Contains("boundaryairwall"))
         {
-            return "invalid_zone_blocker";
+            return "old_air_wall";
         }
 
         if (lower.Contains("gameplaygroundcoverroot") || lower.Contains("gameplaysupportroot") || lower.Contains("groundcover"))
         {
-            return "support_ground";
+            return "ground_support";
         }
 
         if (lower.Contains("crowdroot") || lower.Contains("newmap_npc"))
@@ -2113,6 +2281,31 @@ public sealed class NewMapRuntimeBootstrap : MonoBehaviour
         if (lower.Contains("newmap_player") || lower.Contains("playerspawnroot"))
         {
             return "player_body";
+        }
+
+        if (lower.Contains("shelterdirectline") || lower.Contains("routeline") || lower.Contains("route_line") || lower.Contains("routeguide"))
+        {
+            return "route_line_visual";
+        }
+
+        if (lower.Contains("greenframeroot") || lower.Contains("greenframe"))
+        {
+            return "green_frame_visual";
+        }
+
+        if (lower.Contains("label") || lower.Contains("namelabel") || lower.Contains("textmesh"))
+        {
+            return "label_visual";
+        }
+
+        if (lower.Contains("hazardvisualroot") || lower.Contains("lightcurtain") || lower.Contains("tsunami") || lower.Contains("debriswarning"))
+        {
+            return "hazard_visual";
+        }
+
+        if (lower.Contains("sheltermarkerroot") || lower.Contains("candidatemarkerroot"))
+        {
+            return "shelter_marker_visual";
         }
 
         if (lower.Contains("marker") || lower.Contains("target") || lower.Contains("interaction") || lower.Contains("shelterentrance"))
@@ -2130,7 +2323,12 @@ public sealed class NewMapRuntimeBootstrap : MonoBehaviour
             return "building_obstacle";
         }
 
-        return "unknown_blocker";
+        if (lower.Contains("invalid") || lower.Contains("fall") || lower.Contains("blue") || lower.Contains("blocker"))
+        {
+            return "invalid_zone_blocker";
+        }
+
+        return "unknown";
     }
 
     private void ApplyRound3BuildingRoadVerticalAlignment()
@@ -2756,11 +2954,49 @@ public sealed class NewMapRuntimeBootstrap : MonoBehaviour
             config.boundaryThicknessMeters).WithAppliedMargin();
     }
 
-    private void EnsurePlayableBoundsAirWalls(Transform root, NewMapPlayableBounds bounds, float supportSurfaceY)
+    private NewMapCircularBoundary ResolveCircularBoundary(
+        Bounds mapBounds,
+        bool hasBounds,
+        NewMapPlayableBounds playableBounds,
+        NewMapCircularBoundaryConfig config)
+    {
+        config = config ?? NewMapCircularBoundaryConfig.Default();
+        Vector2 center;
+        string source = config.centerSource ?? "original_map_center";
+        if (source == "manual")
+        {
+            center = new Vector2(config.centerX, config.centerZ);
+        }
+        else if (hasBounds && IsFiniteVector3(mapBounds.center))
+        {
+            center = new Vector2(mapBounds.center.x, mapBounds.center.z);
+        }
+        else if (playableBounds.IsValid)
+        {
+            center = new Vector2(playableBounds.CenterX, playableBounds.CenterZ);
+        }
+        else
+        {
+            NewMapPlayableBounds fallback = NewMapPlayableBounds.DefaultDocumented();
+            center = new Vector2(fallback.CenterX, fallback.CenterZ);
+        }
+
+        return new NewMapCircularBoundary(
+            config.enabled,
+            center,
+            config.RadiusMeters,
+            config.BoundaryHeightMeters,
+            config.affectsPlayer,
+            config.affectsNpc,
+            source);
+    }
+
+    private void EnsureCircularBoundaryDiagnostics(Transform root, NewMapCircularBoundary boundary)
     {
         LastPlayableAirWallColliderCount = 0;
         LastPlayableAirWallVisibleRendererCount = 0;
-        if (root == null || !bounds.IsValid || playableBoundsConfig == null || !playableBoundsConfig.enabled)
+        LastCircularBoundaryDiagnosticColliderCount = 0;
+        if (root == null)
         {
             return;
         }
@@ -2783,30 +3019,15 @@ public sealed class NewMapRuntimeBootstrap : MonoBehaviour
             }
         }
 
-        float height = Mathf.Max(5f, bounds.BoundaryHeightMeters);
-        float thickness = Mathf.Max(0.5f, bounds.BoundaryThicknessMeters);
-        float y = supportSurfaceY - 1f + height * 0.5f;
-        float width = Mathf.Max(1f, bounds.Width + thickness * 2f);
-        float depth = Mathf.Max(1f, bounds.Depth + thickness * 2f);
+        if (!boundary.IsValid || circularBoundaryConfig == null || !circularBoundaryConfig.enabled)
+        {
+            return;
+        }
 
-        CreateAirWall(root, "P10_BoundaryAirWall_North", new Vector3(bounds.CenterX, y, bounds.MaxZ + thickness * 0.5f), new Vector3(width, height, thickness));
-        CreateAirWall(root, "P10_BoundaryAirWall_South", new Vector3(bounds.CenterX, y, bounds.MinZ - thickness * 0.5f), new Vector3(width, height, thickness));
-        CreateAirWall(root, "P10_BoundaryAirWall_East", new Vector3(bounds.MaxX + thickness * 0.5f, y, bounds.CenterZ), new Vector3(thickness, height, depth));
-        CreateAirWall(root, "P10_BoundaryAirWall_West", new Vector3(bounds.MinX - thickness * 0.5f, y, bounds.CenterZ), new Vector3(thickness, height, depth));
-    }
-
-    private void CreateAirWall(Transform root, string name, Vector3 center, Vector3 size)
-    {
-        GameObject wall = new GameObject(name);
-        wall.transform.SetParent(root, true);
-        wall.transform.position = center;
-        BoxCollider collider = wall.AddComponent<BoxCollider>();
-        collider.size = size;
-        collider.isTrigger = false;
-        LastPlayableAirWallColliderCount++;
-
-        Renderer[] renderers = wall.GetComponentsInChildren<Renderer>(true);
-        LastPlayableAirWallVisibleRendererCount += CountEnabledRenderers(renderers);
+        GameObject marker = new GameObject("P10_CircularBoundary_RuntimeClamp_Diagnostic");
+        marker.transform.SetParent(root, true);
+        marker.transform.position = new Vector3(boundary.Center.x, 0f, boundary.Center.y);
+        marker.SetActive(circularBoundaryConfig.debugVisible);
     }
 
     private static int CountEnabledRenderers(Renderer[] renderers)
@@ -3121,8 +3342,11 @@ public sealed class NewMapRuntimeBootstrap : MonoBehaviour
         support.transform.position = center;
         BoxCollider collider = support.AddComponent<BoxCollider>();
         NewMapSafeGroundConfig groundConfig = safeGroundConfig ?? NewMapSafeGroundConfig.Default();
-        float width = Mathf.Max(100f, groundConfig.supportSizeX);
-        float depth = Mathf.Max(100f, groundConfig.supportSizeZ);
+        float circularDiameter = LastCircularBoundaryEnabled && LastCircularBoundary.IsValid
+            ? LastCircularBoundary.DiameterMeters + 100f
+            : 0f;
+        float width = Mathf.Max(100f, groundConfig.supportSizeX, circularDiameter);
+        float depth = Mathf.Max(100f, groundConfig.supportSizeZ, circularDiameter);
         float thickness = Mathf.Clamp(groundConfig.supportThicknessMeters, 0.05f, 5f);
         collider.size = new Vector3(width, thickness, depth);
         collider.center = Vector3.down * (thickness * 0.5f);
@@ -4011,8 +4235,8 @@ public sealed class NewMapGroundCoverRaiseConfig
 public sealed class NewMapAirwallHardCleanupConfig
 {
     public bool enabled = true;
-    public bool keepBoundaryAirWalls = true;
-    public bool keepInvalidZoneBlockers = true;
+    public bool keepBoundaryAirWalls;
+    public bool keepInvalidZoneBlockers;
     public bool convertInteractionBlockersToTriggers = true;
     public bool convertUnknownPlayableBlockersToTriggers = true;
     public bool disableDebugTestColliders = true;
@@ -4020,7 +4244,7 @@ public sealed class NewMapAirwallHardCleanupConfig
     public float buildingObstacleMaxFootprintMeters = 180f;
     public float buildingObstacleInsetMeters = 0.25f;
     public float minDistanceFromBoundaryForPlayableCorridorMeters = 6f;
-    public string strategy = "hard_cleanup_unexpected_airwalls_preserve_boundary_and_invalid_zone_blockers";
+    public string strategy = "collision_whitelist_disable_old_airwalls_use_circular_boundary_clamp";
 
     public static NewMapAirwallHardCleanupConfig Default()
     {
@@ -4044,8 +4268,8 @@ public sealed class NewMapAirwallHardCleanupConfig
         }
 
         config.enabled = true;
-        config.keepBoundaryAirWalls = true;
-        config.keepInvalidZoneBlockers = true;
+        config.keepBoundaryAirWalls = false;
+        config.keepInvalidZoneBlockers = false;
         config.convertInteractionBlockersToTriggers = true;
         config.convertUnknownPlayableBlockersToTriggers = true;
         config.disableDebugTestColliders = true;
@@ -4176,6 +4400,71 @@ public sealed class NewMapSpawnConfig
     public int ResolveSeedForDiagnostics()
     {
         return deterministicSeedEnabled ? spawnRandomSeed : CreateSessionRandomSeed(spawnRandomSeed);
+    }
+}
+
+[System.Serializable]
+public struct NewMapCircularBoundary
+{
+    public bool Enabled;
+    public Vector2 Center;
+    public float RadiusMeters;
+    public float BoundaryHeightMeters;
+    public bool AffectsPlayer;
+    public bool AffectsNpc;
+    public string CenterSource;
+
+    public NewMapCircularBoundary(
+        bool enabled,
+        Vector2 center,
+        float radiusMeters,
+        float boundaryHeightMeters,
+        bool affectsPlayer,
+        bool affectsNpc,
+        string centerSource)
+    {
+        Enabled = enabled;
+        Center = center;
+        RadiusMeters = Mathf.Max(1f, radiusMeters);
+        BoundaryHeightMeters = Mathf.Max(1f, boundaryHeightMeters);
+        AffectsPlayer = affectsPlayer;
+        AffectsNpc = affectsNpc;
+        CenterSource = centerSource ?? "original_map_center";
+    }
+
+    public bool IsValid => Enabled && RadiusMeters > 1f;
+    public float DiameterMeters => RadiusMeters * 2f;
+
+    public bool ContainsXZ(Vector3 position, float insetMeters = 0f)
+    {
+        if (!IsValid)
+        {
+            return false;
+        }
+
+        float radius = Mathf.Max(0.1f, RadiusMeters - Mathf.Max(0f, insetMeters));
+        Vector2 delta = new Vector2(position.x - Center.x, position.z - Center.y);
+        return delta.sqrMagnitude <= radius * radius && position.y >= -50f && position.y <= BoundaryHeightMeters + 50f;
+    }
+
+    public Vector3 ClampXZ(Vector3 position, float insetMeters = 0f)
+    {
+        if (!IsValid)
+        {
+            return position;
+        }
+
+        float radius = Mathf.Max(0.1f, RadiusMeters - Mathf.Max(0f, insetMeters));
+        Vector2 delta = new Vector2(position.x - Center.x, position.z - Center.y);
+        float magnitude = delta.magnitude;
+        if (magnitude <= radius)
+        {
+            return position;
+        }
+
+        Vector2 direction = magnitude > 0.0001f ? delta / magnitude : Vector2.right;
+        Vector2 clamped = Center + direction * radius;
+        return new Vector3(clamped.x, position.y, clamped.y);
     }
 }
 
@@ -4313,6 +4602,53 @@ public sealed class NewMapPlayableBoundsConfig
         config.boundaryHeightMeters = Mathf.Clamp(config.boundaryHeightMeters, 5f, 500f);
         config.boundaryThicknessMeters = Mathf.Clamp(config.boundaryThicknessMeters, 0.5f, 50f);
         config.minSpawnDistanceFromAirWallMeters = Mathf.Clamp(config.minSpawnDistanceFromAirWallMeters, 0f, 100f);
+        return config;
+    }
+}
+
+[System.Serializable]
+public sealed class NewMapCircularBoundaryConfig
+{
+    public bool enabled = true;
+    public string centerSource = "original_map_center";
+    public float centerX;
+    public float centerZ;
+    public float radiusMeters = 3500f;
+    public float boundaryHeightMeters = 300f;
+    public string boundaryMode = "runtime_circular_clamp";
+    public bool visibleInNormalMode;
+    public bool debugVisible;
+    public bool affectsPlayer = true;
+    public bool affectsNpc = true;
+
+    public float RadiusMeters => Mathf.Clamp(radiusMeters, 1f, 10000f);
+    public float BoundaryHeightMeters => Mathf.Clamp(boundaryHeightMeters, 5f, 1000f);
+
+    public static NewMapCircularBoundaryConfig Default()
+    {
+        return new NewMapCircularBoundaryConfig();
+    }
+
+    public static NewMapCircularBoundaryConfig Load()
+    {
+        NewMapCircularBoundaryConfig config = Default();
+        string path = Path.Combine(Application.dataPath, "Data/P10/newmap_circular_boundary_config.json");
+        if (File.Exists(path))
+        {
+            try
+            {
+                config = JsonUtility.FromJson<NewMapCircularBoundaryConfig>(File.ReadAllText(path)) ?? config;
+            }
+            catch (System.Exception exception)
+            {
+                Debug.LogWarning($"NewMap circular boundary config could not be loaded; using defaults. {exception.Message}");
+            }
+        }
+
+        config.centerSource = string.IsNullOrWhiteSpace(config.centerSource) ? "original_map_center" : config.centerSource;
+        config.radiusMeters = config.RadiusMeters;
+        config.boundaryHeightMeters = config.BoundaryHeightMeters;
+        config.boundaryMode = string.IsNullOrWhiteSpace(config.boundaryMode) ? "runtime_circular_clamp" : config.boundaryMode;
         return config;
     }
 }

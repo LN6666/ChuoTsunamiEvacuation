@@ -4,7 +4,7 @@ param(
 
 $ErrorActionPreference = "Stop"
 $root = (Resolve-Path -LiteralPath $ProjectRoot).Path
-$configPath = Join-Path $root "Assets\Data\P10\newmap_playable_bounds_config.json"
+$configPath = Join-Path $root "Assets\Data\P10\newmap_circular_boundary_config.json"
 $reportPath = Join-Path $root "Assets\Data\P10\newmap_air_wall_regression_report.json"
 $bootstrapPath = Join-Path $root "Assets\Scripts\NewMap\NewMapRuntimeBootstrap.cs"
 $playModeTestsPath = Join-Path $root "Assets\Tests\PlayMode\NewMapRuntimePlayModeTests.cs"
@@ -23,27 +23,27 @@ $tests = Get-Content -Encoding UTF8 -LiteralPath $playModeTestsPath -Raw
 
 $ok =
     [bool]$config.enabled -and
-    -not [bool]$config.debugVisualizationEnabled -and
+    -not [bool]$config.visibleInNormalMode -and
     [double]$config.boundaryHeightMeters -gt 10.0 -and
-    [double]$config.boundaryThicknessMeters -gt 0.0 -and
-    [bool]$report.airWallsStillExist -and
+    [double]$config.radiusMeters -eq 3500.0 -and
+    -not [bool]$report.airWallsStillExist -and
     [bool]$report.airWallsInvisible -and
     [bool]$report.blockMapBoundary -and
     [bool]$report.spawnCannotOccurOutside -and
     [bool]$report.activeTargetsOutsideBoundsDisabled -and
-    [int]$report.expectedColliderCount -eq 4 -and
+    [int]$report.expectedColliderCount -eq 0 -and
     [int]$report.expectedVisibleRendererCount -eq 0 -and
-    $bootstrap -match "EnsurePlayableBoundsAirWalls" -and
-    $bootstrap -match "CreateAirWall" -and
+    $bootstrap -match "EnsureCircularBoundaryDiagnostics" -and
+    $bootstrap -match "ResolveCircularBoundary" -and
     $bootstrap -match "LastPlayableAirWallColliderCount" -and
     $bootstrap -match "LastPlayableAirWallVisibleRendererCount" -and
-    $tests -match "Air walls must not render" -and
-    $tests -match "PlayableBounds.ContainsXZ"
+    $tests -match "Old rectangular air-wall colliders must not be created" -and
+    $tests -match "LastCircularBoundary.ContainsXZ"
 
 if (-not $ok) {
     Write-Host "[FAIL] Air-wall regression validation failed."
     exit 1
 }
 
-Write-Host "[PASS] Air walls are configured as invisible boundary colliders and covered by tests."
+Write-Host "[PASS] Old air walls are replaced by the invisible 3.5km circular boundary clamp and covered by tests."
 exit 0

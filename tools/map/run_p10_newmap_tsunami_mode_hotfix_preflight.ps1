@@ -24,9 +24,11 @@ $required = @(
     "Assets\Data\P10\newmap_spawn_config.json",
     "Assets\Data\P10\newmap_player_stamina_config.json",
     "Assets\Data\P10\newmap_tsunami_mode_hotfix_config.json",
+    "Assets\Data\P10\newmap_circular_boundary_config.json",
     "Assets\Scripts\NewMap\NewMapGameController.cs",
     "Assets\Scripts\NewMap\NewMapHazardController.cs",
     "Assets\Scripts\NewMap\NewMapPlayerController.cs",
+    "Assets\Scripts\NewMap\NewMapShelterDirectLineController.cs",
     "Assets\Scripts\NewMap\NewMapBuildingEntryTrigger.cs",
     "Assets\Scripts\NewMap\NewMapRuntimeBootstrap.cs",
     "docs\P10_NEWMAP_TSUNAMI_MODE_HOTFIX_REPORT.md",
@@ -37,18 +39,31 @@ foreach ($path in $required) {
     Require-File $path
 }
 
-Require-Contains "Assets\Data\P10\newmap_player_stamina_config.json" '"staminaMultiplier": 100.0'
+Require-Contains "Assets\Data\P10\newmap_player_stamina_config.json" '"staminaMultiplier": 200.0'
+Require-Contains "Assets\Data\P10\newmap_player_stamina_config.json" '"sprintSpeedMultiplierAdditional": 1.35'
 Require-Contains "Assets\Data\P10\newmap_tsunami_mode_hotfix_config.json" '"tsunamiWarningDurationSeconds": 300.0'
 Require-Contains "Assets\Data\P10\newmap_tsunami_mode_hotfix_config.json" '"warningPhaseSeconds": 300.0'
 Require-Contains "Assets\Data\P10\newmap_tsunami_mode_hotfix_config.json" '"tsunamiStartSide": "south"'
 Require-Contains "Assets\Data\P10\newmap_tsunami_mode_hotfix_config.json" '"curtainHeightMeters": 1000.0'
+Require-Contains "Assets\Data\P10\newmap_tsunami_mode_hotfix_config.json" '"preWarningRandomMaxSeconds": 180.0'
+Require-Contains "Assets\Data\P10\newmap_tsunami_mode_hotfix_config.json" '"enableShelterDirectLines": true'
+Require-Contains "Assets\Data\P10\newmap_tsunami_mode_hotfix_config.json" '"maxDisplayedShelterLines": 0'
 Require-Contains "Assets\Data\P10\newmap_spawn_config.json" '"deterministicSeedEnabled": false'
 Require-Contains "Assets\Scripts\NewMap\NewMapGameController.cs" "NotifyBuildingEntryTouch"
+Require-Contains "Assets\Scripts\NewMap\NewMapGameController.cs" "PreWarningWait"
 Require-Contains "Assets\Scripts\NewMap\NewMapGameController.cs" "warning_duration_seconds"
+Require-Contains "Assets\Scripts\NewMap\NewMapGameController.cs" "shelterDirectLines"
+Require-Contains "Assets\Scripts\NewMap\NewMapShelterDirectLineController.cs" "LineRenderer"
+Require-Contains "Assets\Scripts\NewMap\NewMapShelterDirectLineController.cs" "NearestLineColor"
+Require-Contains "Assets\Scripts\NewMap\NewMapShelterDirectLineController.cs" "CountLineCollidersForDiagnostics"
 Require-Contains "Assets\Scripts\NewMap\NewMapRuntimeUI.cs" "Press E to enter building"
+Require-Contains "Assets\Scripts\NewMap\NewMapRuntimeUI.cs" "Shelter Ranking"
+Require-Contains "Assets\Scripts\NewMap\NewMapRuntimeUI.cs" "Straight shelter lines"
 Require-Contains "Assets\Scripts\NewMap\NewMapRuntimeUI.cs" "ResultRetryButton"
 Require-Contains "Assets\Scripts\NewMap\NewMapHazardController.cs" "GetFloodedSideSamplePointForDiagnostics"
-Require-Contains "Assets\Scripts\NewMap\NewMapRuntimeBootstrap.cs" "P10_BoundaryAirWall_North"
+Require-Contains "Assets\Scripts\NewMap\NewMapRuntimeBootstrap.cs" "shelter_direct_lines_created"
+Require-Contains "Assets\Scripts\NewMap\NewMapRuntimeBootstrap.cs" "ResolveCircularBoundary"
+Require-Contains "Assets\Scripts\NewMap\NewMapRuntimeBootstrap.cs" "P10_CircularBoundary_RuntimeClamp_Diagnostic"
 
 $forbiddenDirs = @(
     "Assets\Data\P10-E",

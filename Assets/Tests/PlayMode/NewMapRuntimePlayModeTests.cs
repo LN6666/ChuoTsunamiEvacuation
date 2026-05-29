@@ -149,9 +149,15 @@ public class NewMapRuntimePlayModeTests
         Assert.IsTrue(bootstrap.LastFallOutPreventionEnabled);
         Assert.AreEqual(0, bootstrap.LastVisibleLargeBlueGroundRendererCount);
         Assert.IsTrue(bootstrap.LastPlayableBoundsValid, "Playable bounds should be resolved for Chuo_BaseMap.");
-        Assert.AreEqual(4, bootstrap.LastPlayableAirWallColliderCount, "Invisible north/south/east/west air walls should be created.");
-        Assert.AreEqual(0, bootstrap.LastPlayableAirWallVisibleRendererCount, "Air walls must not render in normal player mode.");
+        Assert.IsTrue(bootstrap.LastCircularBoundaryEnabled, "The NewMap edge should be the 3.5km circular clamp.");
+        Assert.AreEqual(3500f, bootstrap.LastCircularBoundary.RadiusMeters, 0.001f);
+        Assert.IsTrue(bootstrap.LastCircularBoundaryPlayerClampEnabled);
+        Assert.IsTrue(bootstrap.LastCircularBoundaryNpcClampEnabled);
+        Assert.AreEqual(0, bootstrap.LastPlayableAirWallColliderCount, "Old rectangular air-wall colliders must not be created.");
+        Assert.AreEqual(0, bootstrap.LastPlayableAirWallVisibleRendererCount, "Circular boundary must be invisible in normal player mode.");
         Assert.IsTrue(bootstrap.LastPlayableBounds.ContainsXZ(player.transform.position, 0f), "Player spawn must remain inside playable bounds.");
+        Assert.IsTrue(bootstrap.LastCircularBoundary.ContainsXZ(player.transform.position, 0f), "Player spawn must remain inside the circular boundary.");
+        Assert.IsTrue(player.CircularBoundaryClampEnabled);
         Assert.LessOrEqual(Mathf.Abs(player.transform.position.y - bootstrap.LastGameplayGroundCoverY), 0.35f, "Player must stand on the visible gameplay ground cover.");
         Assert.LessOrEqual(bootstrap.LastPlayerSpawnGroundDelta, 0.35f, "Player spawn should sit near the aligned support surface.");
         Assert.IsFalse(bootstrap.LastMeshColliderDisableComplete, "Scene MeshCollider shutdown should not run at player startup because it caused the Pre2 spike.");
@@ -402,7 +408,7 @@ public class NewMapRuntimePlayModeTests
             Assert.GreaterOrEqual(delta.magnitude, crowd.MinDistanceFromPlayerMeters - 0.5f);
             Assert.GreaterOrEqual(position.y, bootstrap.LastRuntimeGroundSurfaceY - 0.75f);
             Assert.LessOrEqual(position.y, bootstrap.LastRuntimeGroundSurfaceY + 1.5f);
-            Assert.IsTrue(crowd.RuntimePlayableBounds.ContainsXZ(position, 0f), "NPC positions must stay inside the playable air-wall bounds.");
+            Assert.IsTrue(bootstrap.LastCircularBoundary.ContainsXZ(position, 0f), "NPC positions must stay inside the 3.5km circular boundary.");
         }
 
         Vector3[] deterministicA = NewMapNpcCrowdPrototype.GenerateDistributionForDiagnostics(player.transform.position, NewMapNpcDistributionConfig.Default());
@@ -616,6 +622,7 @@ public class NewMapRuntimePlayModeTests
             Assert.GreaterOrEqual(position.y, bootstrap.LastRuntimeGroundSurfaceY - 0.75f);
             Assert.LessOrEqual(position.y, bootstrap.LastRuntimeGroundSurfaceY + 1.5f);
             Assert.IsTrue(crowd.RuntimePlayableBounds.ContainsXZ(position, 0f));
+            Assert.IsTrue(bootstrap.LastCircularBoundary.ContainsXZ(position, 0f));
         }
 
         controller.ForceStageForDiagnostics(NewMapTsunamiStage.FrontApproaching);
@@ -641,8 +648,9 @@ public class NewMapRuntimePlayModeTests
         Assert.Greater(greenFrameChecks, 0, "Stage 2 should show green frames aligned to target/local support height.");
         Assert.AreEqual(0, bootstrap.LastActiveTargetHeightOffsetViolations, "Active official/candidate target anchors must remain aligned to the gameplay ground cover.");
         Assert.AreEqual(0, bootstrap.LastPlayableAirWallVisibleRendererCount);
-        Assert.AreEqual(4, bootstrap.LastPlayableAirWallColliderCount);
-        Assert.AreEqual(4, bootstrap.LastBoundaryAirWallsPreserved);
+        Assert.AreEqual(0, bootstrap.LastPlayableAirWallColliderCount);
+        Assert.AreEqual(0, bootstrap.LastBoundaryAirWallsPreserved);
+        Assert.IsTrue(bootstrap.LastCircularBoundaryEnabled);
         Assert.IsTrue(bootstrap.LastSampledValidPathsPassable);
     }
 
@@ -877,12 +885,44 @@ public class NewMapRuntimePlayModeTests
         Assert.NotNull(bootstrap);
         Assert.GreaterOrEqual(bootstrap.LastUnexpectedAirwallBlockersFound, 1);
         Assert.IsTrue(collider.isTrigger, "Unknown playable-area blockers should be converted to triggers instead of remaining invisible walls.");
-        Assert.AreEqual(4, bootstrap.LastPlayableAirWallColliderCount);
-        Assert.AreEqual(4, bootstrap.LastBoundaryAirWallsPreserved);
-        Assert.IsTrue(GameObject.Find("P10_BoundaryAirWall_North") != null);
-        Assert.IsTrue(GameObject.Find("P10_BoundaryAirWall_South") != null);
-        Assert.IsTrue(GameObject.Find("P10_BoundaryAirWall_East") != null);
-        Assert.IsTrue(GameObject.Find("P10_BoundaryAirWall_West") != null);
+        Assert.AreEqual(0, bootstrap.LastPlayableAirWallColliderCount);
+        Assert.AreEqual(0, bootstrap.LastBoundaryAirWallsPreserved);
+        Assert.IsTrue(bootstrap.LastCircularBoundaryEnabled);
+        Assert.IsNull(GameObject.Find("P10_BoundaryAirWall_North"));
+        Assert.IsNull(GameObject.Find("P10_BoundaryAirWall_South"));
+        Assert.IsNull(GameObject.Find("P10_BoundaryAirWall_East"));
+        Assert.IsNull(GameObject.Find("P10_BoundaryAirWall_West"));
+    }
+
+    [UnityTest]
+    public IEnumerator RuntimeCircularBoundaryClampsPlayerAndNpcsInsideThreePointFiveKm()
+    {
+        NewMapRuntimeBootstrap bootstrap = NewMapRuntimeBootstrap.CreateForCurrentScene();
+        NewMapPlayerController player = Object.FindObjectOfType<NewMapPlayerController>();
+        NewMapNpcCrowdPrototype crowd = Object.FindObjectOfType<NewMapNpcCrowdPrototype>();
+        Assert.NotNull(bootstrap);
+        Assert.NotNull(player);
+        Assert.NotNull(crowd);
+
+        Assert.IsTrue(bootstrap.LastCircularBoundaryEnabled);
+        Assert.AreEqual(3500f, bootstrap.LastCircularBoundary.RadiusMeters, 0.001f);
+        Assert.IsTrue(player.CircularBoundaryClampEnabled);
+        Assert.IsTrue(crowd.CircularBoundaryClampEnabled);
+
+        Vector3 outside = new Vector3(
+            bootstrap.LastCircularBoundary.Center.x + bootstrap.LastCircularBoundary.RadiusMeters + 125f,
+            player.transform.position.y,
+            bootstrap.LastCircularBoundary.Center.y);
+        player.transform.position = outside;
+        player.MoveForDiagnostics(Vector3.zero, 0f, false);
+        yield return null;
+
+        Assert.IsTrue(bootstrap.LastCircularBoundary.ContainsXZ(player.transform.position, 0f), "Player should be clamped back inside the circular boundary.");
+
+        foreach (Vector3 position in crowd.GetNpcPositionsForDiagnostics().Take(50))
+        {
+            Assert.IsTrue(bootstrap.LastCircularBoundary.ContainsXZ(position, 0f), "NPCs should spawn/remain inside the circular boundary.");
+        }
     }
 
     [UnityTest]
@@ -1261,15 +1301,23 @@ public class NewMapRuntimePlayModeTests
         controller.StartEvacuationMode();
         yield return null;
         player.transform.position = nonOfficial.Anchor.position + Vector3.right * 0.25f;
-        Assert.IsTrue(controller.ShowShelterRankingForDiagnostics());
+        Assert.IsTrue(controller.ToggleShelterRankingForDiagnostics(), "R-equivalent diagnostic toggle should show the ranking panel.");
         Assert.IsTrue(ui.IsShelterRankingVisible);
         StringAssert.Contains("Shelter distance ranking", ui.LastShelterRankingText);
+        StringAssert.Contains("R: show/hide", ui.LastShelterRankingText);
         StringAssert.Contains("Nearest", ui.LastShelterRankingText);
         StringAssert.Contains(nonOfficial.Id, ui.LastShelterRankingText);
         StringAssert.Contains("Official", ui.LastShelterRankingText);
         Assert.IsTrue(ui.LastShelterRankingText.Contains("Humanitarian") || ui.LastShelterRankingText.Contains("Proxy") || ui.LastShelterRankingText.Contains("Non-official"));
         Assert.AreEqual(nonOfficial.Id, controller.GetShelterRankingForDiagnostics()[0].TargetId);
         Assert.AreEqual(nonOfficial.Id, controller.NearestShelterLineTargetId);
+        Assert.IsFalse(controller.ToggleShelterRankingForDiagnostics(), "Second R-equivalent diagnostic toggle should hide the ranking panel.");
+        Assert.IsFalse(ui.IsShelterRankingVisible);
+        Assert.IsTrue(controller.ToggleShelterRankingForDiagnostics(), "Ranking panel should show again after being hidden.");
+        controller.SetPaused(true);
+        Assert.IsTrue(controller.ToggleShelterRankingForDiagnostics(), "R toggle should be ignored while pause UI is active.");
+        Assert.IsTrue(ui.IsShelterRankingVisible);
+        controller.SetPaused(false);
 
         player.transform.position = official.Anchor.position + Vector3.right * 0.25f;
         yield return new WaitForSeconds(0.7f);

@@ -1,0 +1,33 @@
+﻿{
+    "activeScene":  "Assets/Scenes/Chuo_BaseMap.unity",
+    "collisionPolicy":  "Only ground/support, buildings, NPC bodies or soft-blocking, and the circular map boundary may block player movement.",
+    "groundSupportBlocksPlayer":  true,
+    "buildingObstaclesBlockPlayer":  true,
+    "npcBodiesSoftBlockPlayer":  true,
+    "mapBoundaryBlocksPlayer":  true,
+    "mapBoundaryMethod":  "runtime_circular_clamp",
+    "routeLineVisualBlocksPlayer":  false,
+    "greenFrameVisualBlocksPlayer":  false,
+    "shelterMarkerVisualBlocksPlayer":  false,
+    "labelVisualBlocksPlayer":  false,
+    "hazardVisualBlocksPlayer":  false,
+    "debugTestBlocksPlayer":  false,
+    "oldRectangularAirWallsAllowed":  false,
+    "unknownBlockingCollidersAllowedInsidePlayableArea":  false,
+    "directLineGuidanceColliderCountExpected":  0,
+    "generatedAt":  "2026-05-30T06:12:18",
+    "runtimeCountersFromPlayerLog":  {
+                                         "airWallColliders":  0,
+                                         "airWallVisibleRenderers":  0,
+                                         "boundaryAirWallsPreserved":  0,
+                                         "oldRectangularAirWallsDisabled":  0,
+                                         "unknownBlockersInsidePlayableArea":  0,
+                                         "routeVisualBlockers":  0,
+                                         "greenFrameVisualBlockers":  0,
+                                         "labelVisualBlockers":  0,
+                                         "hazardVisualBlockers":  0,
+                                         "sampledValidPathsPassable":  true,
+                                         "directLineColliderScenarioPassed":  true
+                                     },
+    "finalStatus":  "validated_by_player_log"
+}

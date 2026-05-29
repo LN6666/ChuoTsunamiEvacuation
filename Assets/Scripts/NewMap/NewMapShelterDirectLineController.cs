@@ -252,11 +252,11 @@ public sealed class NewMapShelterDirectLineController : MonoBehaviour
     {
         var builder = new StringBuilder();
         builder.AppendLine("Shelter distance ranking (straight-line)");
-        builder.AppendLine("R: refresh | nearest line is red");
+        builder.AppendLine("R: show/hide | nearest line is red | estimated prototype guidance only");
 
         if (snapshots == null || snapshots.Count == 0)
         {
-            builder.AppendLine("No available shelter targets.");
+            builder.AppendLine("No active targets.");
             return builder.ToString();
         }
 

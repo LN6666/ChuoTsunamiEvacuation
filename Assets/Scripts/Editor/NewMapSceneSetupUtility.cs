@@ -132,6 +132,16 @@ public static class NewMapSceneSetupUtility
         BuildNewMapPlayer("D:/UnityProjects/ChuoTsunamiEvacuation-Builds/P10NewMapTsunamiModeHotfixPre", "ChuoTsunamiEvacuation_P10NewMapTsunamiModeHotfixPre.exe");
     }
 
+    public static void BuildNewMapLatestHotfixPrePlayerCommandLine()
+    {
+        BuildNewMapPlayer("D:/UnityProjects/ChuoTsunamiEvacuation-Builds/NewMapLatestHotfixPre", "ChuoTsunamiEvacuation_NewMapLatestHotfixPre.exe");
+    }
+
+    public static void BuildNewMapCollisionBoundaryLeaderboardPlayerCommandLine()
+    {
+        BuildNewMapPlayer("D:/UnityProjects/ChuoTsunamiEvacuation-Builds/NewMapCollisionBoundaryLeaderboardPre", "ChuoTsunamiEvacuation_NewMapCollisionBoundaryLeaderboardPre.exe");
+    }
+
     private static void BuildNewMapPlayer(string buildDirectory, string executableName)
     {
         Directory.CreateDirectory(buildDirectory);

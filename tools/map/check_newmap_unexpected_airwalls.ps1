@@ -21,21 +21,22 @@ $report = Get-Content -Encoding UTF8 -LiteralPath $reportPath -Raw | ConvertFrom
 
 $passed =
     [bool]$config.enabled -and
-    [bool]$config.keepBoundaryAirWalls -and
+    -not [bool]$config.keepBoundaryAirWalls -and
+    -not [bool]$config.keepInvalidZoneBlockers -and
     [bool]$config.convertInteractionBlockersToTriggers -and
     [double]$config.playerBuildingCollisionMarginMeters -le 0.1 -and
-    [bool]$report.boundaryAirWallsPreserved -and
+    -not [bool]$report.boundaryAirWallsPreserved -and
     [bool]$report.debugTestCollidersInactiveInNormalMode -and
     ($bootstrap -match "AuditAndCleanupUnexpectedAirwallColliders") -and
     ($bootstrap -match "ClassifyBlockingCollider") -and
     ($bootstrap -match "TryBuildConservativeBuildingObstacleBounds") -and
-    ($bootstrap -match "AirWall_North") -and
-    ($bootstrap -match "LastBoundaryAirWallsPreserved")
+    ($bootstrap -match "ResolveCircularBoundary") -and
+    ($bootstrap -match "LastOldRectangularAirWallDisabledCount")
 
 if (-not $passed) {
     Write-Host "[FAIL] Unexpected airwall cleanup validation failed."
     exit 1
 }
 
-Write-Host "[PASS] Unexpected airwall cleanup preserves boundaries and removes/reclassifies accidental blockers."
+Write-Host "[PASS] Unexpected airwall cleanup uses the circular boundary and removes/reclassifies accidental blockers."
 exit 0

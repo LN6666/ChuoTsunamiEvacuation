@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.IO;
 using System.Text;
 using UnityEngine;
 
@@ -21,6 +22,7 @@ public sealed class NewMapGameController : MonoBehaviour
     private NewMapRuntimeTarget activeSequenceTarget;
     private System.Action<NewMapPlayerController> respawnPlayerForRun;
     private NewMapTsunamiModeHotfixConfig tsunamiConfig;
+    private NewMapLeaderboardToggleConfig leaderboardToggleConfig;
     private bool paused;
     private bool resultLocked;
     private bool safeFloorSequenceActive;
@@ -77,6 +79,7 @@ public sealed class NewMapGameController : MonoBehaviour
         diagnostics = startupDiagnostics ?? string.Empty;
         respawnPlayerForRun = respawnHandler;
         tsunamiConfig = tsunamiHotfixConfig ?? NewMapTsunamiModeHotfixConfig.Load();
+        leaderboardToggleConfig = NewMapLeaderboardToggleConfig.Load();
         stage1WarningSeconds = tsunamiConfig.WarningPhaseSeconds;
         targets.Clear();
         if (runtimeTargets != null)
@@ -127,13 +130,13 @@ public sealed class NewMapGameController : MonoBehaviour
                     return;
                 }
             }
-
-            UpdateShelterRanking();
         }
         else
         {
             shelterDirectLines?.SetVisible(false);
         }
+
+        UpdateShelterRanking();
 
         UpdateInteraction();
         UpdateSafeFloorSequence();
@@ -332,7 +335,7 @@ public sealed class NewMapGameController : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.R))
         {
-            RefreshShelterRankingPanel();
+            ToggleShelterRankingPanelFromInput();
             return;
         }
 
@@ -358,6 +361,54 @@ public sealed class NewMapGameController : MonoBehaviour
         shelterDirectLines.ForceRefresh();
         ui.ShowShelterRanking(shelterDirectLines.LastRankingText);
         rankingRefreshTimer = shelterDirectLines.RankingAutoRefreshIntervalSeconds;
+    }
+
+    private void ToggleShelterRankingPanelFromInput()
+    {
+        if (!CanToggleShelterRankingFromInput())
+        {
+            return;
+        }
+
+        if (ui.IsShelterRankingVisible)
+        {
+            ui.HideShelterRanking();
+            return;
+        }
+
+        RefreshShelterRankingPanel();
+    }
+
+    private bool CanToggleShelterRankingFromInput()
+    {
+        if (leaderboardToggleConfig != null && !leaderboardToggleConfig.enabled)
+        {
+            return false;
+        }
+
+        if (ui == null || shelterDirectLines == null || mode == NewMapGameMode.None)
+        {
+            return false;
+        }
+
+        bool hideWhenMenuOpen = leaderboardToggleConfig == null || leaderboardToggleConfig.hideWhenMenuOpen;
+        if (hideWhenMenuOpen && ui.IsStartMenuVisible)
+        {
+            return false;
+        }
+
+        if (ui.IsPauseVisible || ui.IsRulesVisible)
+        {
+            return false;
+        }
+
+        bool hideWhenResultOpen = leaderboardToggleConfig == null || leaderboardToggleConfig.hideWhenResultPanelOpen;
+        if (hideWhenResultOpen && ui.IsResultVisible)
+        {
+            return false;
+        }
+
+        return true;
     }
 
     private void UpdateInteraction()
@@ -625,6 +676,17 @@ public sealed class NewMapGameController : MonoBehaviour
         return ui.IsShelterRankingVisible;
     }
 
+    public bool ToggleShelterRankingForDiagnostics()
+    {
+        ToggleShelterRankingPanelFromInput();
+        return ui != null && ui.IsShelterRankingVisible;
+    }
+
+    public void HideShelterRankingForDiagnostics()
+    {
+        ui?.HideShelterRanking();
+    }
+
     public NewMapShelterLineSnapshot[] GetShelterRankingForDiagnostics()
     {
         return shelterDirectLines != null
@@ -802,9 +864,9 @@ public sealed class NewMapGameController : MonoBehaviour
         {
             builder.AppendLine("ACTIVE TSUNAMI: coastal-side light curtain is advancing");
         }
-        if (mode == NewMapGameMode.Evacuation && ShelterDirectLineCount > 0)
+        if (mode != NewMapGameMode.None && ShelterDirectLineCount > 0)
         {
-            builder.AppendLine($"Shelter direct lines: {ShelterDirectLineCount} | R ranking");
+            builder.AppendLine($"Shelter ranking: {ShelterDirectLineCount} targets | R toggle");
         }
         builder.AppendLine($"Weather: {NewMapRuntimeConstants.GetWeatherLabel(weather)} x{NewMapRuntimeConstants.GetWeatherModifier(weather):0.00}");
         if (player != null)
@@ -829,5 +891,43 @@ public sealed class NewMapGameController : MonoBehaviour
         }
 
         ui.SetHud(builder.ToString());
+    }
+}
+
+[System.Serializable]
+public sealed class NewMapLeaderboardToggleConfig
+{
+    public bool enabled = true;
+    public string toggleKey = "R";
+    public bool hideWhenMenuOpen = true;
+    public bool hideWhenResultPanelOpen = true;
+    public bool showOfficialShelterRank = true;
+    public bool showNonOfficialCandidateRank = true;
+    public bool showPrototypeGuidance = true;
+    public bool preserveWarnings = true;
+
+    public static NewMapLeaderboardToggleConfig Default()
+    {
+        return new NewMapLeaderboardToggleConfig();
+    }
+
+    public static NewMapLeaderboardToggleConfig Load()
+    {
+        NewMapLeaderboardToggleConfig config = Default();
+        string path = Path.Combine(Application.dataPath, "Data/P10/newmap_leaderboard_toggle_config.json");
+        if (File.Exists(path))
+        {
+            try
+            {
+                config = JsonUtility.FromJson<NewMapLeaderboardToggleConfig>(File.ReadAllText(path)) ?? config;
+            }
+            catch (System.Exception exception)
+            {
+                Debug.LogWarning($"NewMap leaderboard toggle config could not be loaded; using defaults. {exception.Message}");
+            }
+        }
+
+        config.toggleKey = string.IsNullOrWhiteSpace(config.toggleKey) ? "R" : config.toggleKey;
+        return config;
     }
 }

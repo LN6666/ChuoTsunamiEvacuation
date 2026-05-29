@@ -63,14 +63,14 @@ $npc = Get-Content -Encoding UTF8 -LiteralPath $npcPath -Raw
 $labels = Get-Content -Encoding UTF8 -LiteralPath $labelPath -Raw
 
 Add-Check "Airwall runtime diagnostics logged" ($bootstrap -match "airwallHardCollidersScanned" -and $bootstrap -match "sampledValidPathsPassable") "NewMapRuntimeBootstrap"
-Add-Check "Boundary air walls preserved" ($bootstrap -match "AirWall_North" -and $bootstrap -match "AirWall_South" -and $bootstrap -match "AirWall_East" -and $bootstrap -match "AirWall_West") "NewMapRuntimeBootstrap"
+Add-Check "Circular boundary replaces old air walls" ($bootstrap -match "ResolveCircularBoundary" -and $bootstrap -match "P10_CircularBoundary_RuntimeClamp_Diagnostic" -and $bootstrap -notmatch "AirWall_North") "NewMapRuntimeBootstrap"
 Add-Check "Player uses NPC soft blocking" ($player -match "ConfigurePlayerNpcCollision" -and $player -match "ApplyPlayerNpcCollisionCorrection") "NewMapPlayerController"
 Add-Check "NPC exposes soft body collision" ($npc -match "ResolvePlayerPositionAgainstNpcs" -and $npc -match "CapsuleCollider" -and $npc -match "isTrigger = true") "NewMapNpcCrowdPrototype"
 Add-Check "Runtime label source remains offline" ($labels -match "NewMapNameCache.Load" -and $labels -match "RuntimeNetworkRequestsAllowed => false" -and $labels -notmatch "UnityWebRequest|HttpClient|WebRequest|System\.Net|Nominatim|https?://") "NewMapNameLabelController"
 
 if (Test-Path -LiteralPath $readinessPath -PathType Leaf) {
     $readiness = Get-Content -Encoding UTF8 -LiteralPath $readinessPath -Raw | ConvertFrom-Json
-    $allowed = @("ready_for_manual_playtest", "ready_with_documented_label_or_collision_limitations", "ready_with_documented_building_visual_limitations", "needs_quick_fix_before_manual_test", "blocked")
+    $allowed = @("ready_for_manual_playtest", "ready_with_documented_boundary_limitations", "ready_with_documented_label_or_collision_limitations", "ready_with_documented_building_visual_limitations", "needs_quick_fix_before_manual_test", "blocked")
     Add-Check "Manual readiness decision exists" ($allowed -contains [string]$readiness.manualReadinessDecision) ([string]$readiness.manualReadinessDecision)
 }
 else {

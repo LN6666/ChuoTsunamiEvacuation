@@ -1,0 +1,14 @@
+{
+  "generatedAt": "2026-05-30T00:00:00+09:00",
+  "activeScene": "Assets/Scenes/Chuo_BaseMap.unity",
+  "groundSupportCollidersRemainActive": true,
+  "visibleRoadLikeGroundCoverEnabled": true,
+  "supportRendererVisibleInNormalMode": false,
+  "blueSupportRegressionExpected": false,
+  "playerCannotFallThroughGround": true,
+  "fallRecoveryPreserved": true,
+  "spawnStartsOnGround": true,
+  "supportExpandedForCircularBoundary": true,
+  "runtimeCountersFromPlayerLog": "pending",
+  "finalStatus": "implemented_pending_runtime_validation"
+}

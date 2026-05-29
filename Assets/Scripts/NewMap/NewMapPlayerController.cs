@@ -38,9 +38,11 @@ public sealed class NewMapPlayerController : MonoBehaviour
     private Vector3 safeRecoveryPosition;
     private readonly List<Bounds> buildingCollisionBounds = new List<Bounds>();
     private NewMapPlayableBounds safetyPlayableBounds;
+    private NewMapCircularBoundary circularBoundary;
     private NewMapNpcCrowdPrototype playerNpcCollisionSource;
     private NewMapPlayerNpcCollisionConfig playerNpcCollisionConfig;
     private bool hasSafetyPlayableBounds;
+    private bool circularBoundaryClampEnabled;
     private bool recoverOutsidePlayableBounds = true;
     private bool logRecoveryEvents;
     private bool buildingCollisionEnabled;
@@ -103,6 +105,8 @@ public sealed class NewMapPlayerController : MonoBehaviour
     public int PlayerNpcCollisionSlowdownCount => playerNpcCollisionSlowdownCount;
     public int PlayerNpcCollisionEscapeCount => playerNpcCollisionEscapeCount;
     public float LastPlayerNpcSlowdownFactor => lastPlayerNpcSlowdownFactor;
+    public bool CircularBoundaryClampEnabled => circularBoundaryClampEnabled && circularBoundary.IsValid;
+    public float CircularBoundaryRadiusMeters => circularBoundary.RadiusMeters;
 
     public static NewMapPlayerController Create(Transform parent, Vector3 spawnPosition)
     {
@@ -134,6 +138,8 @@ public sealed class NewMapPlayerController : MonoBehaviour
     public void ConfigureGroundSafety(
         Vector3 safeSpawnPosition,
         NewMapPlayableBounds playableBounds,
+        NewMapCircularBoundary boundary,
+        bool enableCircularBoundaryClamp,
         float supportY,
         float recoverBelowY,
         bool recoverOutsideBounds,
@@ -143,6 +149,8 @@ public sealed class NewMapPlayerController : MonoBehaviour
         lastValidGroundPosition = safeSpawnPosition;
         safetyPlayableBounds = playableBounds;
         hasSafetyPlayableBounds = playableBounds.IsValid;
+        circularBoundary = boundary;
+        circularBoundaryClampEnabled = enableCircularBoundaryClamp && boundary.IsValid && boundary.AffectsPlayer;
         safeGroundY = Mathf.Clamp(supportY, -20f, 30f);
         fallRecoveryThresholdY = Mathf.Clamp(recoverBelowY, -50f, 5f);
         recoverOutsidePlayableBounds = recoverOutsideBounds;
@@ -351,6 +359,7 @@ public sealed class NewMapPlayerController : MonoBehaviour
 
         ApplyBuildingCollisionCorrection(previousPosition);
         ApplyPlayerNpcCollisionCorrection(previousPosition);
+        ApplyCircularBoundaryClamp();
 
         if (direction.sqrMagnitude > 0.01f)
         {
@@ -625,6 +634,7 @@ public sealed class NewMapPlayerController : MonoBehaviour
         characterController.Move(velocity * Time.deltaTime);
         ApplyBuildingCollisionCorrection(previousPosition);
         ApplyPlayerNpcCollisionCorrection(previousPosition);
+        ApplyCircularBoundaryClamp();
         SnapToRuntimeGroundSupport(4f);
 
         if (direction.sqrMagnitude > 0.01f)
@@ -641,8 +651,8 @@ public sealed class NewMapPlayerController : MonoBehaviour
         bool belowLastValid = transform.position.y < lastValidGroundPosition.y - fallRecoveryDistance;
         bool belowAbsoluteThreshold = transform.position.y < fallRecoveryThresholdY;
         bool outsidePlayableBounds = recoverOutsidePlayableBounds &&
-            hasSafetyPlayableBounds &&
-            !safetyPlayableBounds.ContainsXZ(transform.position, 0f);
+            ((CircularBoundaryClampEnabled && !circularBoundary.ContainsXZ(transform.position, 0f)) ||
+            (hasSafetyPlayableBounds && !safetyPlayableBounds.ContainsXZ(transform.position, 0f)));
 
         if (!belowLastValid && !belowAbsoluteThreshold && !outsidePlayableBounds)
         {
@@ -650,7 +660,11 @@ public sealed class NewMapPlayerController : MonoBehaviour
         }
 
         Vector3 recovery = belowAbsoluteThreshold || belowLastValid ? safeRecoveryPosition : transform.position;
-        if (hasSafetyPlayableBounds)
+        if (CircularBoundaryClampEnabled)
+        {
+            recovery = circularBoundary.ClampXZ(recovery, 2f);
+        }
+        else if (hasSafetyPlayableBounds)
         {
             recovery = safetyPlayableBounds.ClampXZ(recovery, 2f);
         }
@@ -665,6 +679,20 @@ public sealed class NewMapPlayerController : MonoBehaviour
         {
             Debug.Log($"NewMap player safety recovery reason={LastFallRecoveryReason} count={fallRecoveryCount}");
         }
+    }
+
+    private void ApplyCircularBoundaryClamp()
+    {
+        if (!CircularBoundaryClampEnabled || circularBoundary.ContainsXZ(transform.position, 0f))
+        {
+            return;
+        }
+
+        Vector3 clamped = circularBoundary.ClampXZ(transform.position, 0.5f);
+        clamped.y = Mathf.Max(clamped.y, safeGroundY + GroundSkinOffset);
+        transform.position = clamped;
+        verticalVelocity = Mathf.Min(verticalVelocity, -2f);
+        lastValidGroundPosition = clamped;
     }
 
     private void ApplyBuildingCollisionCorrection(Vector3 previousPosition)

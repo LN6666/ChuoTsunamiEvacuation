@@ -1,0 +1,13 @@
+{
+  "enabled": true,
+  "centerSource": "original_map_center",
+  "centerX": 0.0,
+  "centerZ": 0.0,
+  "radiusMeters": 3500.0,
+  "boundaryHeightMeters": 300.0,
+  "boundaryMode": "runtime_circular_clamp",
+  "visibleInNormalMode": false,
+  "debugVisible": false,
+  "affectsPlayer": true,
+  "affectsNpc": true
+}

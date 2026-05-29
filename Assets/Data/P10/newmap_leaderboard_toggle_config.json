@@ -1,0 +1,10 @@
+{
+  "enabled": true,
+  "toggleKey": "R",
+  "hideWhenMenuOpen": true,
+  "hideWhenResultPanelOpen": true,
+  "showOfficialShelterRank": true,
+  "showNonOfficialCandidateRank": true,
+  "showPrototypeGuidance": true,
+  "preserveWarnings": true
+}

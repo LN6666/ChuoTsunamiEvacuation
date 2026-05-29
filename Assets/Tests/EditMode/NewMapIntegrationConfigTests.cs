@@ -23,9 +23,13 @@ public class NewMapIntegrationConfigTests
         string staminaPath = Path.Combine(Application.dataPath, "Data/P10/newmap_player_stamina_config.json");
         string tsunamiPath = Path.Combine(Application.dataPath, "Data/P10/newmap_tsunami_mode_hotfix_config.json");
         string spawnPath = Path.Combine(Application.dataPath, "Data/P10/newmap_spawn_config.json");
+        string circularBoundaryPath = Path.Combine(Application.dataPath, "Data/P10/newmap_circular_boundary_config.json");
+        string leaderboardTogglePath = Path.Combine(Application.dataPath, "Data/P10/newmap_leaderboard_toggle_config.json");
         Assert.IsTrue(File.Exists(staminaPath), "100x stamina config must exist.");
         Assert.IsTrue(File.Exists(tsunamiPath), "Tsunami hotfix config must exist.");
         Assert.IsTrue(File.Exists(spawnPath), "Spawn config must exist.");
+        Assert.IsTrue(File.Exists(circularBoundaryPath), "Circular boundary config must exist.");
+        Assert.IsTrue(File.Exists(leaderboardTogglePath), "Leaderboard toggle config must exist.");
 
         NewMapPlayerStaminaConfig stamina = NewMapPlayerStaminaConfig.Load();
         Assert.AreEqual(100f, stamina.baselineMaxStamina, 0.001f);
@@ -52,6 +56,22 @@ public class NewMapIntegrationConfigTests
         Assert.GreaterOrEqual(tsunami.CurtainHeightMeters, 1000f);
         Assert.GreaterOrEqual(tsunami.MinimumCurtainLengthMeters, 1500f);
         Assert.IsFalse(tsunami.CurtainThicknessMeters <= 0f);
+
+        NewMapCircularBoundaryConfig boundary = NewMapCircularBoundaryConfig.Load();
+        Assert.IsTrue(boundary.enabled);
+        Assert.AreEqual("original_map_center", boundary.centerSource);
+        Assert.AreEqual(3500f, boundary.RadiusMeters, 0.001f);
+        Assert.AreEqual("runtime_circular_clamp", boundary.boundaryMode);
+        Assert.IsTrue(boundary.affectsPlayer);
+        Assert.IsTrue(boundary.affectsNpc);
+        Assert.IsFalse(boundary.visibleInNormalMode);
+
+        NewMapLeaderboardToggleConfig leaderboard = NewMapLeaderboardToggleConfig.Load();
+        Assert.IsTrue(leaderboard.enabled);
+        Assert.AreEqual("R", leaderboard.toggleKey);
+        Assert.IsTrue(leaderboard.hideWhenMenuOpen);
+        Assert.IsTrue(leaderboard.hideWhenResultPanelOpen);
+        Assert.IsTrue(leaderboard.preserveWarnings);
 
         NewMapSpawnConfig spawn = NewMapSpawnConfig.Load();
         Assert.IsTrue(spawn.randomSpawnEnabled);
@@ -348,6 +368,9 @@ public class NewMapIntegrationConfigTests
     {
         string audit = File.ReadAllText(Path.Combine(Application.dataPath, "Data/P10/newmap_unexpected_airwall_hard_audit.json"));
         string cleanup = File.ReadAllText(Path.Combine(Application.dataPath, "Data/P10/newmap_airwall_hard_cleanup_report.json"));
+        string cleanupConfig = File.ReadAllText(Path.Combine(Application.dataPath, "Data/P10/newmap_airwall_hard_cleanup_config.json"));
+        string whitelist = File.ReadAllText(Path.Combine(Application.dataPath, "Data/P10/newmap_collision_whitelist_report.json"));
+        string circularBoundary = File.ReadAllText(Path.Combine(Application.dataPath, "Data/P10/newmap_circular_boundary_report.json"));
         string collisionConfig = File.ReadAllText(Path.Combine(Application.dataPath, "Data/P10/newmap_player_npc_collision_config.json"));
         string collisionReport = File.ReadAllText(Path.Combine(Application.dataPath, "Data/P10/newmap_player_npc_collision_report.json"));
         string bootstrap = File.ReadAllText(Path.Combine(Application.dataPath, "Scripts/NewMap/NewMapRuntimeBootstrap.cs"));
@@ -356,10 +379,19 @@ public class NewMapIntegrationConfigTests
 
         string compactAudit = audit.Replace(" ", string.Empty);
         string compactCleanup = cleanup.Replace(" ", string.Empty);
+        string compactCleanupConfig = cleanupConfig.Replace(" ", string.Empty);
+        string compactWhitelist = whitelist.Replace(" ", string.Empty);
+        string compactCircularBoundary = circularBoundary.Replace(" ", string.Empty);
         string compactCollisionConfig = collisionConfig.Replace(" ", string.Empty);
         string compactCollisionReport = collisionReport.Replace(" ", string.Empty);
 
-        StringAssert.Contains("\"boundaryAirWallsPreserved\":true", compactCleanup);
+        StringAssert.Contains("\"boundaryAirWallsPreserved\":false", compactCleanup);
+        StringAssert.Contains("\"keepBoundaryAirWalls\":false", compactCleanupConfig);
+        StringAssert.Contains("\"keepInvalidZoneBlockers\":false", compactCleanupConfig);
+        StringAssert.Contains("\"oldRectangularAirWallsAllowed\":false", compactWhitelist);
+        StringAssert.Contains("\"routeLineVisualBlocksPlayer\":false", compactWhitelist);
+        StringAssert.Contains("\"boundaryMethod\":\"runtime_circular_clamp\"", compactCircularBoundary);
+        StringAssert.Contains("\"radiusMeters\":3500.0", compactCircularBoundary);
         StringAssert.Contains("\"debugTestCollidersInactiveInNormalMode\":true", compactCleanup);
         StringAssert.Contains("\"buildingObstacleBoundsShrunk\":", compactAudit);
         StringAssert.Contains("\"enabled\":true", compactCollisionConfig);
@@ -367,10 +399,14 @@ public class NewMapIntegrationConfigTests
         StringAssert.Contains("\"playerCannotPassStraightThroughNearNpc\":true", compactCollisionReport);
         StringAssert.Contains("\"physicsExplosionRisk\":false", compactCollisionReport);
         StringAssert.Contains("AuditAndCleanupUnexpectedAirwallColliders", bootstrap);
+        StringAssert.Contains("ResolveCircularBoundary", bootstrap);
+        StringAssert.Contains("EnsureCircularBoundaryDiagnostics", bootstrap);
         StringAssert.Contains("TryBuildConservativeBuildingObstacleBounds", bootstrap);
         StringAssert.Contains("ResolvePlayerBuildingCollisionMargin", bootstrap);
+        StringAssert.Contains("ApplyCircularBoundaryClamp", player);
         StringAssert.Contains("ConfigurePlayerNpcCollision", player);
         StringAssert.Contains("ApplyPlayerNpcCollisionCorrection", player);
+        StringAssert.Contains("ClampToMovementBoundary", npc);
         StringAssert.Contains("ResolvePlayerPositionAgainstNpcs", npc);
     }
 
@@ -429,6 +465,13 @@ public class NewMapIntegrationConfigTests
         Assert.IsFalse(bounds.debugVisualizationEnabled);
         Assert.Greater(bounds.boundaryHeightMeters, 10f);
         Assert.Greater(bounds.boundaryThicknessMeters, 0f);
+
+        NewMapCircularBoundaryConfig circle = NewMapCircularBoundaryConfig.Default();
+        Assert.IsTrue(circle.enabled);
+        Assert.AreEqual(3500f, circle.RadiusMeters, 0.001f);
+        Assert.IsTrue(circle.affectsPlayer);
+        Assert.IsTrue(circle.affectsNpc);
+        Assert.IsFalse(circle.visibleInNormalMode);
 
         NewMapPlayableBounds documented = NewMapPlayableBounds.DefaultDocumented().WithAppliedMargin();
         Assert.IsTrue(documented.IsValid);

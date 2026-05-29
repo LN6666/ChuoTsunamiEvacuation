@@ -1,0 +1,13 @@
+{
+  "generatedAt": "2026-05-30T00:00:00+09:00",
+  "activeScene": "Assets/Scenes/Chuo_BaseMap.unity",
+  "buildingObstacleProxiesRemainBlocking": true,
+  "playerCannotPassThroughSampledBuildings": true,
+  "npcAvoidBuildingsPreserved": true,
+  "spawnRejectsInsideBuildingPositions": true,
+  "buildingObstacleMaxFootprintMeters": 180.0,
+  "buildingObstacleInsetMeters": 0.25,
+  "playerBuildingCollisionMarginMeters": 0.05,
+  "runtimeCountersFromPlayerLog": "pending",
+  "finalStatus": "implemented_pending_runtime_validation"
+}

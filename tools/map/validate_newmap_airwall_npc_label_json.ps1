@@ -37,9 +37,10 @@ $labelRuntime = Read-RequiredJson "Assets\Data\P10\newmap_name_label_runtime_rep
 $readiness = Read-RequiredJson "Assets\Data\P10\newmap_manual_playtest_readiness.json"
 
 Require-Condition ([bool]$cleanupConfig.enabled) "Airwall hard cleanup config is disabled."
-Require-Condition ([bool]$cleanupConfig.keepBoundaryAirWalls) "Boundary air walls must be preserved."
+Require-Condition (-not [bool]$cleanupConfig.keepBoundaryAirWalls) "Old rectangular boundary air walls must not be preserved."
+Require-Condition (-not [bool]$cleanupConfig.keepInvalidZoneBlockers) "Invalid-zone blockers must not be preserved in normal play."
 Require-Condition ([double]$cleanupConfig.playerBuildingCollisionMarginMeters -le 0.1) "Player building collision margin remains too inflated."
-Require-Condition ([bool]$cleanup.boundaryAirWallsPreserved) "Cleanup report does not preserve boundary air walls."
+Require-Condition (-not [bool]$cleanup.boundaryAirWallsPreserved) "Cleanup report still preserves boundary air walls."
 Require-Condition ([bool]$cleanup.debugTestCollidersInactiveInNormalMode) "Debug/test colliders are not disabled in normal mode."
 Require-Condition ($audit.purposeClassifications -contains "unknown_blocker") "Audit must classify unknown blockers."
 
@@ -63,6 +64,7 @@ Require-Condition ([bool]$labelRuntime.nameCacheExists -or [bool]$labelRuntime.n
 
 $allowed = @(
     "ready_for_manual_playtest",
+    "ready_with_documented_boundary_limitations",
     "ready_with_documented_label_or_collision_limitations",
     "ready_with_documented_building_visual_limitations",
     "needs_quick_fix_before_manual_test",

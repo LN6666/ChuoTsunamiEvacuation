@@ -28,6 +28,7 @@ public sealed class NewMapNpcCrowdPrototype : MonoBehaviour
     private Vector3 center;
     private Vector3 requestedCenter;
     private NewMapPlayableBounds playableBounds;
+    private NewMapCircularBoundary circularBoundary;
     private NewMapNpcDistributionConfig distributionConfig;
     private NewMapNpcMovementConfig movementConfig;
     private NewMapNpcLifecycleConfig lifecycleConfig;
@@ -35,6 +36,7 @@ public sealed class NewMapNpcCrowdPrototype : MonoBehaviour
     private Transform referenceTransform;
     private bool crowdFailuresEnabled;
     private bool built;
+    private bool circularBoundaryClampEnabled;
     private int npcBodyColliderCount;
     private int npcCreatedAtStartupCount;
 
@@ -57,6 +59,8 @@ public sealed class NewMapNpcCrowdPrototype : MonoBehaviour
         ? movementConfig.farNpcStaticProxyMode
         : distributionConfig != null && distributionConfig.farNpcStaticProxyMode;
     public NewMapPlayableBounds RuntimePlayableBounds => playableBounds;
+    public bool CircularBoundaryClampEnabled => circularBoundaryClampEnabled && circularBoundary.IsValid;
+    public float CircularBoundaryRadiusMeters => circularBoundary.RadiusMeters;
     public float CurrentCongestionDelaySeconds { get; private set; }
     public int MovingCount { get; private set; }
     public int ArrivedCount { get; private set; }
@@ -94,6 +98,17 @@ public sealed class NewMapNpcCrowdPrototype : MonoBehaviour
 
     public static NewMapNpcCrowdPrototype Create(Transform parent, Vector3 centerPosition, NewMapPlayableBounds bounds, IEnumerable<Bounds> buildingBounds)
     {
+        return Create(parent, centerPosition, bounds, buildingBounds, default(NewMapCircularBoundary), false);
+    }
+
+    public static NewMapNpcCrowdPrototype Create(
+        Transform parent,
+        Vector3 centerPosition,
+        NewMapPlayableBounds bounds,
+        IEnumerable<Bounds> buildingBounds,
+        NewMapCircularBoundary boundary,
+        bool enableCircularBoundaryClamp)
+    {
         GameObject crowdObject = new GameObject("NewMap_NPC_CrowdPrototype");
         crowdObject.transform.SetParent(parent, false);
         NewMapNpcCrowdPrototype crowd = crowdObject.AddComponent<NewMapNpcCrowdPrototype>();
@@ -103,6 +118,8 @@ public sealed class NewMapNpcCrowdPrototype : MonoBehaviour
         crowd.playerNpcCollisionConfig = NewMapPlayerNpcCollisionConfig.Load();
         crowd.requestedCenter = centerPosition;
         crowd.playableBounds = bounds.IsValid ? bounds : NewMapPlayableBounds.DefaultDocumented();
+        crowd.circularBoundary = boundary;
+        crowd.circularBoundaryClampEnabled = enableCircularBoundaryClamp && boundary.IsValid && boundary.AffectsNpc;
         crowd.npcCap = Mathf.Clamp(crowd.distributionConfig.maxNpcCount, 0, 1000);
         if (buildingBounds != null)
         {
@@ -234,7 +251,7 @@ public sealed class NewMapNpcCrowdPrototype : MonoBehaviour
             float localWanderRadius = farNpc ? 1.5f : wanderRadius;
             float phase = Time.time * (farNpc ? 0.07f : 0.3f) + i * 1.7f;
             Vector3 target = home + new Vector3(Mathf.Sin(phase), 0f, Mathf.Cos(phase * 0.8f)) * localWanderRadius;
-            target = playableBounds.IsValid ? playableBounds.ClampXZ(target, 2f) : target;
+            target = ClampToMovementBoundary(target, 2f);
             if (movementConfig == null || movementConfig.continuousMovementEnabled)
             {
                 target = ResolveNpcTargetAvoidingBuildings(target, home, i);
@@ -257,10 +274,10 @@ public sealed class NewMapNpcCrowdPrototype : MonoBehaviour
                 SetNpcState(i, crowdFailuresEnabled ? NewMapNpcMovementState.QueuedAtEntrance : NewMapNpcMovementState.Wandering);
             }
 
-            if (playableBounds.IsValid && !playableBounds.ContainsXZ(npc.position))
+            if (!IsInsideRuntimePlayableBounds(npc.position))
             {
-                npc.position = playableBounds.ClampXZ(npc.position, 2f);
-                npcHomePositions[i] = playableBounds.ClampXZ(home, 2f);
+                npc.position = ClampToMovementBoundary(npc.position, 2f);
+                npcHomePositions[i] = ClampToMovementBoundary(home, 2f);
                 RecoveredCount++;
             }
 
@@ -350,6 +367,10 @@ public sealed class NewMapNpcCrowdPrototype : MonoBehaviour
 
         UsedSectorCount = CountUsedSectors(center, acceptedPositions, distributionConfig);
         UsedRingCount = usedRings.Count > 0 ? usedRings.Count : CountUsedRings(center, acceptedPositions, distributionConfig);
+        for (int i = 0; i < acceptedPositions.Count; i++)
+        {
+            acceptedPositions[i] = ClampToMovementBoundary(acceptedPositions[i], 2f);
+        }
 
         Material sharedMaterial = NewMapVisualFactory.CreateMaterial("NewMap_NPC_AmbientPedestrian_Material", new Color(1f, 0.62f, 0.12f, 1f));
         for (int i = 0; i < acceptedPositions.Count; i++)
@@ -469,12 +490,27 @@ public sealed class NewMapNpcCrowdPrototype : MonoBehaviour
 
     private bool IsInsideRuntimePlayableBounds(Vector3 position)
     {
+        if (CircularBoundaryClampEnabled)
+        {
+            return circularBoundary.ContainsXZ(position, 2f);
+        }
+
         if (playableBounds.IsValid)
         {
             return playableBounds.ContainsXZ(position, 2f);
         }
 
         return IsInsideDocumentedMapBounds(position);
+    }
+
+    private Vector3 ClampToMovementBoundary(Vector3 position, float insetMeters)
+    {
+        if (CircularBoundaryClampEnabled)
+        {
+            return circularBoundary.ClampXZ(position, insetMeters);
+        }
+
+        return playableBounds.IsValid ? playableBounds.ClampXZ(position, insetMeters) : position;
     }
 
     private static bool IsTooCloseToExisting(Vector3 candidate, List<Vector3> accepted, float minDistance)
@@ -629,7 +665,7 @@ public sealed class NewMapNpcCrowdPrototype : MonoBehaviour
 
         float phase = (index + 1) * 2.399963f + Time.time * 0.37f;
         Vector3 alternate = home + new Vector3(Mathf.Cos(phase), 0f, Mathf.Sin(phase)) * Mathf.Max(2f, wanderRadius);
-        alternate = playableBounds.IsValid ? playableBounds.ClampXZ(alternate, 2f) : alternate;
+        alternate = ClampToMovementBoundary(alternate, 2f);
         if (!IsInsideBuildingBounds(alternate, distributionConfig.minDistanceFromBuildingMeters))
         {
             SetNpcState(index, NewMapNpcMovementState.Repathing);
@@ -715,7 +751,7 @@ public sealed class NewMapNpcCrowdPrototype : MonoBehaviour
 
             direction.Normalize();
             Vector3 alternate = npcPosition + new Vector3(direction.x, 0f, direction.y) * step;
-            alternate = playableBounds.IsValid ? playableBounds.ClampXZ(alternate, 2f) : alternate;
+            alternate = ClampToMovementBoundary(alternate, 2f);
             alternate.y = npcPosition.y;
             if (!IsInsideBuildingBounds(alternate, distributionConfig.minDistanceFromBuildingMeters))
             {
@@ -1037,7 +1073,7 @@ public sealed class NewMapNpcCrowdPrototype : MonoBehaviour
                 Mathf.Cos(phase),
                 0f,
                 Mathf.Sin(phase * 1.17f)) * Mathf.Max(2f, wanderRadius * (0.45f + attempt * 0.08f));
-            recovery = playableBounds.IsValid ? playableBounds.ClampXZ(recovery, 2f) : recovery;
+            recovery = ClampToMovementBoundary(recovery, 2f);
             recovery.y = npc.position.y;
             if (!IsInsideBuildingBounds(recovery, distributionConfig.minDistanceFromBuildingMeters))
             {
@@ -1085,7 +1121,7 @@ public sealed class NewMapNpcCrowdPrototype : MonoBehaviour
 
             away.Normalize();
             Vector3 candidate = npc.position + away * Mathf.Max(2f, wanderRadius * 0.35f);
-            candidate = playableBounds.IsValid ? playableBounds.ClampXZ(candidate, 2f) : candidate;
+            candidate = ClampToMovementBoundary(candidate, 2f);
             candidate.y = npc.position.y;
             if (IsInsideBuildingBounds(candidate, distributionConfig.minDistanceFromBuildingMeters))
             {

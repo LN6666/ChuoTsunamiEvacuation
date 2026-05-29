@@ -545,7 +545,7 @@ public sealed class NewMapRuntimeUI : MonoBehaviour
             "New Chuo_BaseMap baseline\n" +
             "Tourism Mode: exploration only. Tsunami warning, light curtain, hazard failure, crowd failure, collapse/debris failure, and stamina drain are disabled.\n" +
             "Evacuation Mode: PRE_WARNING_WAIT starts first, then Stage 1 Warning shows the countdown while the light curtain stays hidden and risk contact is ignored. Stage 2 FrontApproaching shows the light curtain and hazard checks become active.\n" +
-            "Straight shelter lines are gameplay guidance only. Press R to refresh the mixed distance ranking.\n" +
+            "Straight shelter lines are gameplay guidance only. Press R to show/hide the mixed distance ranking.\n" +
             "Green frames mark prototype guidance targets only. A green frame does not mean official safety approval.\n" +
             "Non-official candidates require warnings and are not safe by default.\n" +
             "Routes are estimated prototype guidance, not official evacuation routes.\n" +

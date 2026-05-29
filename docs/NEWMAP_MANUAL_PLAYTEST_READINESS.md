@@ -1,6 +1,6 @@
 # NewMap Manual Playtest Readiness
 
-- Decision: ready_for_manual_playtest
+- Decision: ready_with_documented_boundary_limitations
 - Concave MeshCollider trigger errors: 0 in Player.log
 - Runtime concave MeshCollider offenders neutralized: 5835
 - NPC global refresh count: 0
@@ -17,16 +17,25 @@
 - Current runtime/NPC/label player smoke: passed
 - P10 tsunami-mode hotfix smoke: passed
 - Random spawn source: random_playable_support
-- Stamina max: 10000
+- Collision whitelist: only ground/support, buildings, NPC soft bodies, and circular boundary block movement
+- Circular boundary: 3500m radius from original map center, runtime clamp, invisible in normal mode
+- Old rectangular boundary air walls: disabled/replaced by circular clamp
+- Route lines / green frames / labels / markers / hazard visuals: nonblocking
+- R leaderboard: press R to show, press R again to hide during gameplay
+- Stamina max: 20000
+- Evacuation sprint speed: 6.75 m/s
+- Direct shelter lines in player smoke: 95, colliders: 0
+- Circular boundary runtime center/radius: -2.14, 474.58 / 3500m
+- R leaderboard player smoke: passed
 - Tsunami start side/direction: south / Vector3.forward
 - Warning phase duration: 300 seconds
 - Tsunami warning 300s smoke: passed
 - Building touch E-entry smoke: passed on an official shelter trigger
 - Light curtain height/length: 1000m / 8208.7m in player smoke
 - Building entry triggers: 97 trigger-only volumes, 0 physical blockers
-- Boundary air walls: P10_BoundaryAirWall_North/South/East/West
-- Player.log: 0 errors / 0 warnings
+- Boundary: runtime 3.5km circular clamp, no inner rectangular air walls
+- Player.log: 0 errors / 0 warnings / 0 exceptions
 - Tsunami-mode temp player: D:\UnityProjects\ChuoTsunamiEvacuation-Builds\P10NewMapTsunamiModeHotfixPre\ChuoTsunamiEvacuation_P10NewMapTsunamiModeHotfixPre.exe
-- Temp player: D:\UnityProjects\ChuoTsunamiEvacuation-Builds\NewMapRuntimeNpcLabelFixPre\ChuoTsunamiEvacuation_NewMapRuntimeNpcLabelFixPre.exe
+- Temp player: D:\UnityProjects\ChuoTsunamiEvacuation-Builds\NewMapCollisionBoundaryLeaderboardPre\ChuoTsunamiEvacuation_NewMapCollisionBoundaryLeaderboardPre.exe
 
 This does not claim GIS-grade terrain, road, route, or PLATEAU building elevation accuracy.

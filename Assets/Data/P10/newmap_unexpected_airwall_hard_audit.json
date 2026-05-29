@@ -2,7 +2,7 @@
     "activeScene":  "Assets/Scenes/Chuo_BaseMap.unity",
     "auditStage":  "runtime_player_build_scan_pending_parser_update",
     "colliderSourcesAudited":  [
-                                   "PlayableBoundsRoot boundary air walls",
+                                   "PlayableBoundsRoot circular boundary diagnostic marker",
                                    "GameplayGroundCoverRoot support colliders",
                                    "GameplaySupportRoot invisible support colliders",
                                    "CrowdRoot NPC trigger body colliders",
@@ -12,7 +12,7 @@
                                    "unknown invisible blocking colliders inside playable bounds"
                                ],
     "purposeClassifications":  [
-                                   "boundary_air_wall",
+                                   "map_boundary",
                                    "invalid_zone_blocker",
                                    "building_obstacle",
                                    "support_ground",
@@ -21,7 +21,9 @@
                                    "debug_test",
                                    "unknown_blocker"
                                ],
-    "boundaryAirWallsExpected":  4,
+    "boundaryAirWallsExpected":  0,
+    "circularBoundaryExpected":  true,
+    "circularBoundaryRadiusMeters":  3500.0,
     "runtimeLogTokens":  [
                              "airwallHardCollidersScanned",
                              "unexpectedAirwallBlockers",
@@ -31,13 +33,13 @@
                          ],
     "colliderSamples":  [
                             {
-                                "gameObjectPath":  "PlayableBoundsRoot/AirWall_North",
-                                "rootCategory":  "boundary_air_wall",
-                                "colliderType":  "BoxCollider",
+                                "gameObjectPath":  "PlayableBoundsRoot/P10_CircularBoundary_RuntimeClamp_Diagnostic",
+                                "rootCategory":  "map_boundary",
+                                "colliderType":  "none",
                                 "isTrigger":  false,
-                                "blocksPlayer":  true,
+                                "blocksPlayer":  false,
                                 "insideNormalPlayableArea":  false,
-                                "actionRecommended":  "preserve_outer_boundary"
+                                "actionRecommended":  "use_runtime_circular_clamp_instead_of_rectangular_air_wall"
                             },
                             {
                                 "gameObjectPath":  "GameplayGroundCoverRoot/GroundCover_Tile_*",

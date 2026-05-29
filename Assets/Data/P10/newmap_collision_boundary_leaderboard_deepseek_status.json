@@ -1,0 +1,10 @@
+{
+  "generatedAt": "2026-05-30T06:26:00+09:00",
+  "promptFile": "deepseek_review_prompt_newmap_collision_boundary_leaderboard.md",
+  "normalAttempt": "failed_api_connection_error_after_retries",
+  "escalatedAttempt": "failed_api_connection_error_after_retries",
+  "verdict": "unavailable_external_api_connection_error",
+  "reviewLog": "logs/deepseek_review.log",
+  "blockingValidationSubstitute": "EditMode 123/123, PlayMode 42/42, preflight passed, temporary player build passed, Player.log parse passed",
+  "finalStatus": "deepseek_unavailable"
+}

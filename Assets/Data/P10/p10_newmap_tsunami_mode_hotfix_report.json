@@ -25,20 +25,21 @@
     }
   },
   "airWalls": {
-    "boundaryAirWallCount": 4,
-    "boundaryAirWallNames": [
-      "P10_BoundaryAirWall_North",
-      "P10_BoundaryAirWall_South",
-      "P10_BoundaryAirWall_East",
-      "P10_BoundaryAirWall_West"
-    ],
+    "boundaryAirWallCount": 0,
+    "boundaryAirWallNames": [],
+    "boundaryMethod": "runtime_circular_clamp",
+    "circularBoundaryRadiusMeters": 3500.0,
     "buildingEntryPhysicalBlockers": 0,
     "unknownPlayableBlockersRemaining": 0
   },
   "stamina": {
     "baselineMaxStamina": 100.0,
-    "staminaMultiplier": 100.0,
-    "finalMaxStamina": 10000.0
+    "previousStaminaMultiplier": 100.0,
+    "staminaMultiplier": 200.0,
+    "previousFinalMaxStamina": 10000.0,
+    "finalMaxStamina": 20000.0,
+    "sprintSpeedMultiplierAdditional": 1.35,
+    "finalEvacuationSprintSpeed": 6.75
   },
   "tsunami": {
     "tsunamiWarningDurationSeconds": 300.0,

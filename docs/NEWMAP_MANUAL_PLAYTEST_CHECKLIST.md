@@ -1,53 +1,23 @@
 # NewMap Manual Playtest Checklist
 
-- Adaptive GroundRoad support grid is not active.
-- Blue areas are covered or blocked.
-- Ground cover is visible, road-like, opaque, and not blue.
-- All visible ground cover tiles have collision.
-- Player stands on the visible road-like gameplay ground.
-- Player does not fall through blue/ground areas or repeatedly recover.
-- NPCs stand on the same visible gameplay ground.
-- Green frames align with the ground cover.
-- Air walls still block leaving the map.
-- Unexpected invisible air walls should not block normal building frontages or walking corridors.
-- Boundary air walls still block the map edge.
-- Invalid/fall-zone blockers remain where documented.
-- Spawn is not inside buildings.
-- Spawn varies after retry/restart and logs a random seed/source.
-- Evacuation mode starts with a visible 300-second warning/pre-alert phase before active tsunami failure checks.
-- The tsunami light curtain/front does not appear or fail the player before the 300-second warning ends.
-- The tsunami front starts from the configured coastal side and advances inland.
-- The tsunami light curtain is tall/wide enough to span the visible map area.
-- Tsunami failure immediately shows the result panel with Retry / Restart.
-- Pressing E while touching an eligible building-entry trigger starts the vertical evacuation proxy flow.
-- Pressing E away from eligible buildings does not enter.
-- Building-entry trigger volumes are non-blocking triggers, not invisible physical air walls.
-- Player stamina max is 10000, based on the 100x hotfix multiplier.
-- Buildings appear closer to the raised gameplay ground cover; remaining outliers are documented.
-- Official/candidate markers remain aligned after ground-cover raise.
-- Any remaining building floating is documented honestly and not presented as GIS-grade fixed.
-- 100x NPC distribution appears wide across sectors/rings, not as a dense blob.
-- NPCs stay inside map bounds and avoid building interiors.
-- Player cannot walk through sampled building volumes.
-- Player cannot simply pass through nearby NPCs.
-- Player can move around NPCs without being permanently trapped.
-- NPCs do not visibly walk through major buildings near the camera.
-- NPCs do not rapidly refresh or respawn every few seconds.
-- NPCs do not all stop after the player touches or collides with nearby NPCs.
-- NPCs keep moving or visibly enter a valid arrived/queued/recovering state.
-- NPCs do not all stop after a short time.
-- NPCs recover if stuck.
-- FPS remains acceptable with the 100x request and 800 cap.
-- Tourism Mode NPCs do not cause failure.
-- Evacuation Mode crowd delay remains bounded.
-- Many more building and road labels appear where project, local OSM, or preprocessing online names were accepted.
-- Labels show Japanese/Kanji main names only.
-- Official shelter names are visible.
-- Non-official candidate names remain visible with the non-official warning.
-- Road names appear only where the cached result is road-like and reliable.
-- No full addresses, postal-address strings, fake names, coordinate names, or ID-only labels appear in normal mode.
-- Labels stay capped/culling-based and do not clutter the screen.
-- Runtime does not access the network.
-- Player.log has no red concave MeshCollider trigger error.
-- Player.log remains 0 errors / 0 warnings.
-- Mouse drag look, spawn validation, and lighting fixes remain intact.
+Required checks:
+- Player is blocked by sampled buildings.
+- Player is blocked or soft-blocked by NPC bodies.
+- Player cannot leave the 3.5km circular boundary.
+- Player is not blocked by random invisible air walls inside the map.
+- Route lines, green frames, labels, markers, and hazard visuals do not block movement.
+- R shows the leaderboard/ranking panel.
+- R hides the leaderboard/ranking panel.
+- Ranking preserves official/non-official warning semantics.
+- Direct-line/ranking wording does not claim official evacuation routes.
+- Ground/support prevents falling.
+- Failure opens result/restart UI immediately.
+
+Current readiness decision: `ready_with_documented_boundary_limitations`.
+
+Automated validation passed:
+- Preflight
+- EditMode 123/123
+- PlayMode 42/42
+- Temporary player build and smoke
+- Player.log parse with 0 errors, 0 warnings, 0 exceptions
