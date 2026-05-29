@@ -9,6 +9,9 @@
 - NPCs stand on the same visible gameplay ground.
 - Green frames align with the ground cover.
 - Air walls still block leaving the map.
+- Unexpected invisible air walls should not block normal building frontages or walking corridors.
+- Boundary air walls still block the map edge.
+- Invalid/fall-zone blockers remain where documented.
 - Spawn is not inside buildings.
 - Buildings appear closer to the raised gameplay ground cover; remaining outliers are documented.
 - Official/candidate markers remain aligned after ground-cover raise.
@@ -16,14 +19,17 @@
 - 100x NPC distribution appears wide across sectors/rings, not as a dense blob.
 - NPCs stay inside map bounds and avoid building interiors.
 - Player cannot walk through sampled building volumes.
+- Player cannot simply pass through nearby NPCs.
+- Player can move around NPCs without being permanently trapped.
 - NPCs do not visibly walk through major buildings near the camera.
+- NPCs do not rapidly refresh or respawn every few seconds.
 - NPCs keep moving or visibly enter a valid arrived/queued/recovering state.
 - NPCs do not all stop after a short time.
 - NPCs recover if stuck.
 - FPS remains acceptable with the 100x request and 800 cap.
 - Tourism Mode NPCs do not cause failure.
 - Evacuation Mode crowd delay remains bounded.
-- Building and road labels appear where project, local OSM, or preprocessing online names were accepted.
+- Many more building and road labels appear where project, local OSM, or preprocessing online names were accepted.
 - Labels show Japanese/Kanji main names only.
 - Official shelter names are visible.
 - Non-official candidate names remain visible with the non-official warning.

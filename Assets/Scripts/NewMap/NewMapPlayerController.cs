@@ -38,17 +38,24 @@ public sealed class NewMapPlayerController : MonoBehaviour
     private Vector3 safeRecoveryPosition;
     private readonly List<Bounds> buildingCollisionBounds = new List<Bounds>();
     private NewMapPlayableBounds safetyPlayableBounds;
+    private NewMapNpcCrowdPrototype playerNpcCollisionSource;
+    private NewMapPlayerNpcCollisionConfig playerNpcCollisionConfig;
     private bool hasSafetyPlayableBounds;
     private bool recoverOutsidePlayableBounds = true;
     private bool logRecoveryEvents;
     private bool buildingCollisionEnabled;
+    private bool playerNpcCollisionEnabled;
     private float buildingCollisionMarginMeters = 0.35f;
+    private float lastPlayerNpcSlowdownFactor = 1f;
     private float safeGroundY;
     private float fallRecoveryThresholdY = -8f;
     private float stamina = 100f;
     private int fallRecoveryCount;
     private int buildingCollisionBlockedCount;
     private int buildingCollisionRecoveryCount;
+    private int playerNpcCollisionBlockedCount;
+    private int playerNpcCollisionSlowdownCount;
+    private int playerNpcCollisionEscapeCount;
 
     public float WalkSpeedMetersPerSecond { get; private set; }
     public float SprintSpeedMetersPerSecond { get; private set; }
@@ -82,6 +89,11 @@ public sealed class NewMapPlayerController : MonoBehaviour
     public int BuildingCollisionBoundsCount => buildingCollisionBounds.Count;
     public int BuildingCollisionBlockedCount => buildingCollisionBlockedCount;
     public int BuildingCollisionRecoveryCount => buildingCollisionRecoveryCount;
+    public bool PlayerNpcCollisionEnabled => playerNpcCollisionEnabled;
+    public int PlayerNpcCollisionBlockedCount => playerNpcCollisionBlockedCount;
+    public int PlayerNpcCollisionSlowdownCount => playerNpcCollisionSlowdownCount;
+    public int PlayerNpcCollisionEscapeCount => playerNpcCollisionEscapeCount;
+    public float LastPlayerNpcSlowdownFactor => lastPlayerNpcSlowdownFactor;
 
     public static NewMapPlayerController Create(Transform parent, Vector3 spawnPosition)
     {
@@ -151,6 +163,16 @@ public sealed class NewMapPlayerController : MonoBehaviour
 
         buildingCollisionMarginMeters = Mathf.Clamp(marginMeters, 0f, 5f);
         buildingCollisionEnabled = enabled && buildingCollisionBounds.Count > 0;
+    }
+
+    public void ConfigurePlayerNpcCollision(NewMapNpcCrowdPrototype crowd, NewMapPlayerNpcCollisionConfig config)
+    {
+        playerNpcCollisionSource = crowd;
+        playerNpcCollisionConfig = config ?? NewMapPlayerNpcCollisionConfig.Default();
+        playerNpcCollisionEnabled =
+            playerNpcCollisionConfig.enabled &&
+            playerNpcCollisionConfig.preventDirectOverlap &&
+            playerNpcCollisionSource != null;
     }
 
     private static void TrySetPlayerTag(GameObject playerObject)
@@ -275,6 +297,7 @@ public sealed class NewMapPlayerController : MonoBehaviour
         Vector3 velocity = direction * speed;
         velocity.y = verticalVelocity;
         Vector3 previousPosition = transform.position;
+        ApplyPlayerNpcCollisionToVelocity(previousPosition, stepDelta, ref velocity);
         if (characterController != null)
         {
             characterController.Move(velocity * stepDelta);
@@ -285,6 +308,7 @@ public sealed class NewMapPlayerController : MonoBehaviour
         }
 
         ApplyBuildingCollisionCorrection(previousPosition);
+        ApplyPlayerNpcCollisionCorrection(previousPosition);
 
         if (direction.sqrMagnitude > 0.01f)
         {
@@ -554,8 +578,10 @@ public sealed class NewMapPlayerController : MonoBehaviour
         Vector3 velocity = direction * speed;
         velocity.y = verticalVelocity;
         Vector3 previousPosition = transform.position;
+        ApplyPlayerNpcCollisionToVelocity(previousPosition, Time.deltaTime, ref velocity);
         characterController.Move(velocity * Time.deltaTime);
         ApplyBuildingCollisionCorrection(previousPosition);
+        ApplyPlayerNpcCollisionCorrection(previousPosition);
         SnapToRuntimeGroundSupport(4f);
 
         if (direction.sqrMagnitude > 0.01f)
@@ -620,6 +646,80 @@ public sealed class NewMapPlayerController : MonoBehaviour
         {
             lastValidGroundPosition = corrected;
         }
+    }
+
+    private void ApplyPlayerNpcCollisionCorrection(Vector3 previousPosition)
+    {
+        if (!TryResolvePlayerNpcCollision(previousPosition, transform.position, out Vector3 corrected))
+        {
+            return;
+        }
+
+        transform.position = corrected;
+    }
+
+    private void ApplyPlayerNpcCollisionToVelocity(Vector3 previousPosition, float deltaTime, ref Vector3 velocity)
+    {
+        if (deltaTime <= 0.0001f)
+        {
+            return;
+        }
+
+        Vector3 intendedPosition = previousPosition + velocity * deltaTime;
+        if (!TryResolvePlayerNpcCollision(previousPosition, intendedPosition, out Vector3 corrected))
+        {
+            return;
+        }
+
+        velocity.x = (corrected.x - previousPosition.x) / deltaTime;
+        velocity.z = (corrected.z - previousPosition.z) / deltaTime;
+    }
+
+    private bool TryResolvePlayerNpcCollision(Vector3 previousPosition, Vector3 candidatePosition, out Vector3 corrected)
+    {
+        corrected = candidatePosition;
+        lastPlayerNpcSlowdownFactor = 1f;
+        if (!playerNpcCollisionEnabled || playerNpcCollisionSource == null)
+        {
+            return false;
+        }
+
+        if (!playerNpcCollisionSource.ResolvePlayerPositionAgainstNpcs(
+            previousPosition,
+            candidatePosition,
+            playerNpcCollisionConfig,
+            out corrected,
+            out bool blocked,
+            out bool slowed,
+            out bool escapeApplied,
+            out float slowdownFactor))
+        {
+            return false;
+        }
+
+        corrected.y = Mathf.Max(corrected.y, safeGroundY + GroundSkinOffset);
+        lastPlayerNpcSlowdownFactor = slowdownFactor;
+        if (blocked)
+        {
+            playerNpcCollisionBlockedCount++;
+        }
+
+        if (slowed)
+        {
+            playerNpcCollisionSlowdownCount++;
+        }
+
+        if (escapeApplied)
+        {
+            playerNpcCollisionEscapeCount++;
+        }
+
+        if (!IsInsideBuildingBoundsXZ(corrected, 0.02f))
+        {
+            lastValidGroundPosition = corrected;
+        }
+
+        return true;
     }
 
     private bool IsInsideBuildingBoundsXZ(Vector3 position, float marginMeters)

@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-29T21:46:22+09:00",
+  "generatedAt": "2026-05-29T23:32:16+09:00",
   "activeScene": "Assets/Scenes/Chuo_BaseMap.unity",
   "preprocessingOnly": true,
   "runtimeNetworkRequestsAllowed": false,
@@ -8,14 +8,14 @@
   "providerSummary": {
     "projectOfficialShelters": 15,
     "projectNonOfficialCandidates": 19,
-    "projectBuildingNames": 19,
-    "localOsmRoadLabels": 80,
+    "projectBuildingNames": 24,
+    "localOsmRoadLabels": 140,
     "localOsmBuildingLabels": 0,
     "localOsmLandmarkLabels": 1,
-    "onlineQueriesAttempted": 83,
-    "onlineQueriesSucceeded": 83,
-    "onlineLabelsAdded": 26,
-    "onlineLabelsRejected": 57
+    "onlineQueriesAttempted": 166,
+    "onlineQueriesSucceeded": 166,
+    "onlineLabelsAdded": 77,
+    "onlineLabelsRejected": 89
   },
   "labels": [
     {
@@ -50,7 +50,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": false,
-      "timestamp": "2026-05-29T21:46:22+09:00"
+      "timestamp": "2026-05-29T23:32:16+09:00"
     },
     {
       "id": "building_p8_plateau_highrise_candidate_002",
@@ -84,7 +84,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": false,
-      "timestamp": "2026-05-29T21:46:22+09:00"
+      "timestamp": "2026-05-29T23:32:16+09:00"
     },
     {
       "id": "building_p8_plateau_highrise_candidate_003",
@@ -118,7 +118,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": false,
-      "timestamp": "2026-05-29T21:46:22+09:00"
+      "timestamp": "2026-05-29T23:32:16+09:00"
     },
     {
       "id": "building_p8_plateau_highrise_candidate_004",
@@ -152,7 +152,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": false,
-      "timestamp": "2026-05-29T21:46:22+09:00"
+      "timestamp": "2026-05-29T23:32:16+09:00"
     },
     {
       "id": "building_p8_plateau_highrise_candidate_005",
@@ -186,7 +186,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": false,
-      "timestamp": "2026-05-29T21:46:22+09:00"
+      "timestamp": "2026-05-29T23:32:16+09:00"
     },
     {
       "id": "building_p8_plateau_highrise_candidate_006",
@@ -220,7 +220,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": false,
-      "timestamp": "2026-05-29T21:46:22+09:00"
+      "timestamp": "2026-05-29T23:32:16+09:00"
     },
     {
       "id": "building_p8_plateau_highrise_candidate_007",
@@ -254,7 +254,41 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": false,
-      "timestamp": "2026-05-29T21:46:22+09:00"
+      "timestamp": "2026-05-29T23:32:16+09:00"
+    },
+    {
+      "id": "building_p8_plateau_highrise_candidate_008",
+      "objectType": "building",
+      "name": "岩谷産業株式会社東京支店",
+      "finalDisplayName": "岩谷産業株式会社東京支店",
+      "finalDisplayNameLanguage": "ja",
+      "language": "ja",
+      "source": "Assets/Data/P8/humanitarian_highrise_candidate_audit_v1.json",
+      "provider": "project_dataset",
+      "sourceField": "buildingName",
+      "classification": "project_dataset_name",
+      "rawType": "plateau_building_attribute",
+      "confidence": 0.84,
+      "lat": 35.65646282,
+      "lon": 139.78234999,
+      "position": {
+        "x": 1087.566,
+        "y": 2.4,
+        "z": -2277.869
+      },
+      "unityPosition": {
+        "x": 1087.566,
+        "y": 2.4,
+        "z": -2277.869
+      },
+      "rawName": "岩谷産業株式会社東京支店",
+      "normalizedName": "岩谷産業株式会社東京支店",
+      "idOnly": false,
+      "disabled": false,
+      "hiddenInNormalMode": false,
+      "hiddenReason": "",
+      "attributionRequired": false,
+      "timestamp": "2026-05-29T23:32:16+09:00"
     },
     {
       "id": "building_p8_plateau_highrise_candidate_009",
@@ -288,7 +322,41 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": false,
-      "timestamp": "2026-05-29T21:46:22+09:00"
+      "timestamp": "2026-05-29T23:32:16+09:00"
+    },
+    {
+      "id": "building_p8_plateau_highrise_candidate_010",
+      "objectType": "building",
+      "name": "大川端リバーシティ21",
+      "finalDisplayName": "大川端リバーシティ21",
+      "finalDisplayNameLanguage": "ja",
+      "language": "ja",
+      "source": "Assets/Data/P8/humanitarian_highrise_candidate_audit_v1.json",
+      "provider": "project_dataset",
+      "sourceField": "buildingName",
+      "classification": "project_dataset_name",
+      "rawType": "plateau_building_attribute",
+      "confidence": 0.84,
+      "lat": 35.67041559,
+      "lon": 139.78572093,
+      "position": {
+        "x": 1395.275,
+        "y": 2.4,
+        "z": -740.4
+      },
+      "unityPosition": {
+        "x": 1395.275,
+        "y": 2.4,
+        "z": -740.4
+      },
+      "rawName": "大川端リバーシティ21",
+      "normalizedName": "大川端リバーシティ21",
+      "idOnly": false,
+      "disabled": false,
+      "hiddenInNormalMode": false,
+      "hiddenReason": "",
+      "attributionRequired": false,
+      "timestamp": "2026-05-29T23:32:16+09:00"
     },
     {
       "id": "building_p8_plateau_highrise_candidate_011",
@@ -322,7 +390,41 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": false,
-      "timestamp": "2026-05-29T21:46:22+09:00"
+      "timestamp": "2026-05-29T23:32:16+09:00"
+    },
+    {
+      "id": "building_p8_plateau_highrise_candidate_012",
+      "objectType": "building",
+      "name": "トルナーレ日本橋浜町",
+      "finalDisplayName": "トルナーレ日本橋浜町",
+      "finalDisplayNameLanguage": "ja",
+      "language": "ja",
+      "source": "Assets/Data/P8/humanitarian_highrise_candidate_audit_v1.json",
+      "provider": "project_dataset",
+      "sourceField": "buildingName",
+      "classification": "project_dataset_name",
+      "rawType": "plateau_building_attribute",
+      "confidence": 0.84,
+      "lat": 35.68469211,
+      "lon": 139.78803325,
+      "position": {
+        "x": 1607.321,
+        "y": 2.4,
+        "z": 833.176
+      },
+      "unityPosition": {
+        "x": 1607.321,
+        "y": 2.4,
+        "z": 833.176
+      },
+      "rawName": "トルナーレ日本橋浜町",
+      "normalizedName": "トルナーレ日本橋浜町",
+      "idOnly": false,
+      "disabled": false,
+      "hiddenInNormalMode": false,
+      "hiddenReason": "",
+      "attributionRequired": false,
+      "timestamp": "2026-05-29T23:32:16+09:00"
     },
     {
       "id": "building_p8_plateau_highrise_candidate_013",
@@ -356,7 +458,41 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": false,
-      "timestamp": "2026-05-29T21:46:22+09:00"
+      "timestamp": "2026-05-29T23:32:16+09:00"
+    },
+    {
+      "id": "building_p8_plateau_highrise_candidate_014",
+      "objectType": "building",
+      "name": "月島警察署",
+      "finalDisplayName": "月島警察署",
+      "finalDisplayNameLanguage": "ja",
+      "language": "ja",
+      "source": "Assets/Data/P8/humanitarian_highrise_candidate_audit_v1.json",
+      "provider": "project_dataset",
+      "sourceField": "buildingName",
+      "classification": "project_dataset_name",
+      "rawType": "plateau_building_attribute",
+      "confidence": 0.84,
+      "lat": 35.65381966,
+      "lon": 139.77852568,
+      "position": {
+        "x": 741.196,
+        "y": 2.4,
+        "z": -2567.909
+      },
+      "unityPosition": {
+        "x": 741.196,
+        "y": 2.4,
+        "z": -2567.909
+      },
+      "rawName": "月島警察署",
+      "normalizedName": "月島警察署",
+      "idOnly": false,
+      "disabled": false,
+      "hiddenInNormalMode": false,
+      "hiddenReason": "",
+      "attributionRequired": false,
+      "timestamp": "2026-05-29T23:32:16+09:00"
     },
     {
       "id": "building_p8_plateau_highrise_candidate_015",
@@ -390,7 +526,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": false,
-      "timestamp": "2026-05-29T21:46:22+09:00"
+      "timestamp": "2026-05-29T23:32:16+09:00"
     },
     {
       "id": "building_p8_plateau_highrise_candidate_016",
@@ -424,7 +560,41 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": false,
-      "timestamp": "2026-05-29T21:46:22+09:00"
+      "timestamp": "2026-05-29T23:32:16+09:00"
+    },
+    {
+      "id": "building_p8_plateau_highrise_candidate_017",
+      "objectType": "building",
+      "name": "晴海トリトンスクエア",
+      "finalDisplayName": "晴海トリトンスクエア",
+      "finalDisplayNameLanguage": "ja",
+      "language": "ja",
+      "source": "Assets/Data/P8/humanitarian_highrise_candidate_audit_v1.json",
+      "provider": "project_dataset",
+      "sourceField": "buildingName",
+      "classification": "project_dataset_name",
+      "rawType": "plateau_building_attribute",
+      "confidence": 0.84,
+      "lat": 35.65686782,
+      "lon": 139.78200109,
+      "position": {
+        "x": 1056.099,
+        "y": 2.4,
+        "z": -2233.072
+      },
+      "unityPosition": {
+        "x": 1056.099,
+        "y": 2.4,
+        "z": -2233.072
+      },
+      "rawName": "晴海トリトンスクエア",
+      "normalizedName": "晴海トリトンスクエア",
+      "idOnly": false,
+      "disabled": false,
+      "hiddenInNormalMode": false,
+      "hiddenReason": "",
+      "attributionRequired": false,
+      "timestamp": "2026-05-29T23:32:16+09:00"
     },
     {
       "id": "building_p8_plateau_highrise_candidate_018",
@@ -458,7 +628,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": false,
-      "timestamp": "2026-05-29T21:46:22+09:00"
+      "timestamp": "2026-05-29T23:32:16+09:00"
     },
     {
       "id": "building_p8_plateau_highrise_candidate_019",
@@ -492,7 +662,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": false,
-      "timestamp": "2026-05-29T21:46:22+09:00"
+      "timestamp": "2026-05-29T23:32:16+09:00"
     },
     {
       "id": "building_p8_plateau_highrise_candidate_020",
@@ -526,7 +696,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": false,
-      "timestamp": "2026-05-29T21:46:22+09:00"
+      "timestamp": "2026-05-29T23:32:16+09:00"
     },
     {
       "id": "building_p8_plateau_highrise_candidate_021",
@@ -560,7 +730,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": false,
-      "timestamp": "2026-05-29T21:46:22+09:00"
+      "timestamp": "2026-05-29T23:32:16+09:00"
     },
     {
       "id": "building_p8_plateau_highrise_candidate_022",
@@ -594,7 +764,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": false,
-      "timestamp": "2026-05-29T21:46:22+09:00"
+      "timestamp": "2026-05-29T23:32:16+09:00"
     },
     {
       "id": "building_p8_plateau_highrise_candidate_023",
@@ -628,7 +798,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": false,
-      "timestamp": "2026-05-29T21:46:22+09:00"
+      "timestamp": "2026-05-29T23:32:16+09:00"
     },
     {
       "id": "building_p8_plateau_highrise_candidate_024",
@@ -662,7 +832,41 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": false,
-      "timestamp": "2026-05-29T21:46:22+09:00"
+      "timestamp": "2026-05-29T23:32:16+09:00"
+    },
+    {
+      "id": "building_p8_plateau_highrise_candidate_026",
+      "objectType": "building",
+      "name": "ドゥ・トゥールキャナル＆スパ イースト棟",
+      "finalDisplayName": "ドゥ・トゥールキャナル＆スパ イースト棟",
+      "finalDisplayNameLanguage": "ja",
+      "language": "ja",
+      "source": "online_preprocessing_reverse_geocode",
+      "provider": "OpenStreetMap Nominatim",
+      "sourceField": "namedetails.name/name:ja_or_address.building",
+      "classification": "online_exact_or_near_match",
+      "rawType": "building:apartments",
+      "confidence": 0.72,
+      "lat": 35.65530945,
+      "lon": 139.77825479,
+      "position": {
+        "x": 717.008,
+        "y": 2.4,
+        "z": -2403.508
+      },
+      "unityPosition": {
+        "x": 717.008,
+        "y": 2.4,
+        "z": -2403.508
+      },
+      "rawName": "ドゥ・トゥールキャナル＆スパ イースト棟",
+      "normalizedName": "ドゥ・トゥールキャナル＆スパ イースト棟",
+      "idOnly": false,
+      "disabled": false,
+      "hiddenInNormalMode": false,
+      "hiddenReason": "",
+      "attributionRequired": true,
+      "timestamp": "2026-05-29T23:32:16+09:00"
     },
     {
       "id": "building_p8_plateau_highrise_candidate_029",
@@ -673,7 +877,7 @@
       "language": "ja",
       "source": "online_preprocessing_reverse_geocode",
       "provider": "OpenStreetMap Nominatim",
-      "sourceField": "namedetails.name/name:ja",
+      "sourceField": "namedetails.name/name:ja_or_address.building",
       "classification": "online_exact_or_near_match",
       "rawType": "tourism:museum",
       "confidence": 0.72,
@@ -696,7 +900,347 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": true,
-      "timestamp": "2026-05-29T21:46:22+09:00"
+      "timestamp": "2026-05-29T23:32:16+09:00"
+    },
+    {
+      "id": "building_p8_plateau_highrise_candidate_032",
+      "objectType": "building",
+      "name": "ポケモンセンター",
+      "finalDisplayName": "ポケモンセンター",
+      "finalDisplayNameLanguage": "ja",
+      "language": "ja",
+      "source": "online_preprocessing_reverse_geocode",
+      "provider": "OpenStreetMap Nominatim",
+      "sourceField": "namedetails.name/name:ja_or_address.building",
+      "classification": "online_exact_or_near_match",
+      "rawType": "shop:anime",
+      "confidence": 0.72,
+      "lat": 35.68047919,
+      "lon": 139.77441959,
+      "position": {
+        "x": 372.51,
+        "y": 0.08,
+        "z": 368.798
+      },
+      "unityPosition": {
+        "x": 372.51,
+        "y": 0.08,
+        "z": 368.798
+      },
+      "rawName": "ポケモンセンター",
+      "normalizedName": "ポケモンセンター",
+      "idOnly": false,
+      "disabled": false,
+      "hiddenInNormalMode": false,
+      "hiddenReason": "",
+      "attributionRequired": true,
+      "timestamp": "2026-05-29T23:32:16+09:00"
+    },
+    {
+      "id": "building_p8_plateau_highrise_candidate_036",
+      "objectType": "building",
+      "name": "ヴィノスやまざき",
+      "finalDisplayName": "ヴィノスやまざき",
+      "finalDisplayNameLanguage": "ja",
+      "language": "ja",
+      "source": "online_preprocessing_reverse_geocode",
+      "provider": "OpenStreetMap Nominatim",
+      "sourceField": "namedetails.name/name:ja_or_address.building",
+      "classification": "online_exact_or_near_match",
+      "rawType": "shop:alcohol",
+      "confidence": 0.72,
+      "lat": 35.68677303,
+      "lon": 139.77481805,
+      "position": {
+        "x": 411.26,
+        "y": 0.08,
+        "z": 1087.709
+      },
+      "unityPosition": {
+        "x": 411.26,
+        "y": 0.08,
+        "z": 1087.709
+      },
+      "rawName": "ヴィノスやまざき",
+      "normalizedName": "ヴィノスやまざき",
+      "idOnly": false,
+      "disabled": false,
+      "hiddenInNormalMode": false,
+      "hiddenReason": "",
+      "attributionRequired": true,
+      "timestamp": "2026-05-29T23:32:16+09:00"
+    },
+    {
+      "id": "building_p8_plateau_highrise_candidate_038",
+      "objectType": "building",
+      "name": "日本アイ・ビー・エム",
+      "finalDisplayName": "日本アイ・ビー・エム",
+      "finalDisplayNameLanguage": "ja",
+      "language": "ja",
+      "source": "online_preprocessing_reverse_geocode",
+      "provider": "OpenStreetMap Nominatim",
+      "sourceField": "namedetails.name/name:ja_or_address.building",
+      "classification": "online_exact_or_near_match",
+      "rawType": "office:company",
+      "confidence": 0.72,
+      "lat": 35.67865865,
+      "lon": 139.78715516,
+      "position": {
+        "x": 1526.671,
+        "y": 2.4,
+        "z": 168.123
+      },
+      "unityPosition": {
+        "x": 1526.671,
+        "y": 2.4,
+        "z": 168.123
+      },
+      "rawName": "日本アイ・ビー・エム",
+      "normalizedName": "日本アイ・ビー・エム",
+      "idOnly": false,
+      "disabled": false,
+      "hiddenInNormalMode": false,
+      "hiddenReason": "",
+      "attributionRequired": true,
+      "timestamp": "2026-05-29T23:32:16+09:00"
+    },
+    {
+      "id": "building_p8_plateau_highrise_candidate_046",
+      "objectType": "building",
+      "name": "セブン-イレブン",
+      "finalDisplayName": "セブン-イレブン",
+      "finalDisplayNameLanguage": "ja",
+      "language": "ja",
+      "source": "online_preprocessing_reverse_geocode",
+      "provider": "OpenStreetMap Nominatim",
+      "sourceField": "namedetails.name/name:ja_or_address.building",
+      "classification": "online_exact_or_near_match",
+      "rawType": "shop:convenience",
+      "confidence": 0.72,
+      "lat": 35.65952466,
+      "lon": 139.77689088,
+      "position": {
+        "x": 594.543,
+        "y": 2.4,
+        "z": -1938.123
+      },
+      "unityPosition": {
+        "x": 594.543,
+        "y": 2.4,
+        "z": -1938.123
+      },
+      "rawName": "セブン-イレブン",
+      "normalizedName": "セブン-イレブン",
+      "idOnly": false,
+      "disabled": false,
+      "hiddenInNormalMode": false,
+      "hiddenReason": "",
+      "attributionRequired": true,
+      "timestamp": "2026-05-29T23:32:16+09:00"
+    },
+    {
+      "id": "building_p8_plateau_highrise_candidate_047",
+      "objectType": "building",
+      "name": "パークタワー勝どきサウス",
+      "finalDisplayName": "パークタワー勝どきサウス",
+      "finalDisplayNameLanguage": "ja",
+      "language": "ja",
+      "source": "online_preprocessing_reverse_geocode",
+      "provider": "OpenStreetMap Nominatim",
+      "sourceField": "namedetails.name/name:ja_or_address.building",
+      "classification": "online_exact_or_near_match",
+      "rawType": "building:apartments",
+      "confidence": 0.72,
+      "lat": 35.6561971,
+      "lon": 139.77612905,
+      "position": {
+        "x": 524.965,
+        "y": 2.4,
+        "z": -2304.806
+      },
+      "unityPosition": {
+        "x": 524.965,
+        "y": 2.4,
+        "z": -2304.806
+      },
+      "rawName": "パークタワー勝どきサウス",
+      "normalizedName": "パークタワー勝どきサウス",
+      "idOnly": false,
+      "disabled": false,
+      "hiddenInNormalMode": false,
+      "hiddenReason": "",
+      "attributionRequired": true,
+      "timestamp": "2026-05-29T23:32:16+09:00"
+    },
+    {
+      "id": "building_p8_plateau_highrise_candidate_051",
+      "objectType": "building",
+      "name": "晴美パークタワー",
+      "finalDisplayName": "晴美パークタワー",
+      "finalDisplayNameLanguage": "ja",
+      "language": "ja",
+      "source": "online_preprocessing_reverse_geocode",
+      "provider": "OpenStreetMap Nominatim",
+      "sourceField": "namedetails.name/name:ja_or_address.building",
+      "classification": "online_exact_or_near_match",
+      "rawType": "building:yes",
+      "confidence": 0.72,
+      "lat": 35.65663043,
+      "lon": 139.78726246,
+      "position": {
+        "x": 1531.825,
+        "y": 2.4,
+        "z": -2261.254
+      },
+      "unityPosition": {
+        "x": 1531.825,
+        "y": 2.4,
+        "z": -2261.254
+      },
+      "rawName": "晴美パークタワー",
+      "normalizedName": "晴美パークタワー",
+      "idOnly": false,
+      "disabled": false,
+      "hiddenInNormalMode": false,
+      "hiddenReason": "",
+      "attributionRequired": true,
+      "timestamp": "2026-05-29T23:32:16+09:00"
+    },
+    {
+      "id": "building_p8_plateau_highrise_candidate_052",
+      "objectType": "building",
+      "name": "クロノレジデンス",
+      "finalDisplayName": "クロノレジデンス",
+      "finalDisplayNameLanguage": "ja",
+      "language": "ja",
+      "source": "online_preprocessing_reverse_geocode",
+      "provider": "OpenStreetMap Nominatim",
+      "sourceField": "namedetails.name/name:ja_or_address.building",
+      "classification": "online_exact_or_near_match",
+      "rawType": "building:apartments",
+      "confidence": 0.72,
+      "lat": 35.65518389,
+      "lon": 139.78500585,
+      "position": {
+        "x": 1327.466,
+        "y": 2.4,
+        "z": -2419.924
+      },
+      "unityPosition": {
+        "x": 1327.466,
+        "y": 2.4,
+        "z": -2419.924
+      },
+      "rawName": "クロノレジデンス",
+      "normalizedName": "クロノレジデンス",
+      "idOnly": false,
+      "disabled": false,
+      "hiddenInNormalMode": false,
+      "hiddenReason": "",
+      "attributionRequired": true,
+      "timestamp": "2026-05-29T23:32:16+09:00"
+    },
+    {
+      "id": "building_p8_plateau_highrise_candidate_053",
+      "objectType": "building",
+      "name": "パークタワー勝どきミッド",
+      "finalDisplayName": "パークタワー勝どきミッド",
+      "finalDisplayNameLanguage": "ja",
+      "language": "ja",
+      "source": "online_preprocessing_reverse_geocode",
+      "provider": "OpenStreetMap Nominatim",
+      "sourceField": "namedetails.name/name:ja_or_address.building",
+      "classification": "online_exact_or_near_match",
+      "rawType": "building:apartments",
+      "confidence": 0.72,
+      "lat": 35.65696783,
+      "lon": 139.77724423,
+      "position": {
+        "x": 625.968,
+        "y": 2.4,
+        "z": -2220.232
+      },
+      "unityPosition": {
+        "x": 625.968,
+        "y": 2.4,
+        "z": -2220.232
+      },
+      "rawName": "パークタワー勝どきミッド",
+      "normalizedName": "パークタワー勝どきミッド",
+      "idOnly": false,
+      "disabled": false,
+      "hiddenInNormalMode": false,
+      "hiddenReason": "",
+      "attributionRequired": true,
+      "timestamp": "2026-05-29T23:32:16+09:00"
+    },
+    {
+      "id": "building_p8_plateau_highrise_candidate_054",
+      "objectType": "building",
+      "name": "ザ・パークハウス晴海タワーズ・ティアロレジデンス",
+      "finalDisplayName": "ザ・パークハウス晴海タワーズ・ティアロレジデンス",
+      "finalDisplayNameLanguage": "ja",
+      "language": "ja",
+      "source": "online_preprocessing_reverse_geocode",
+      "provider": "OpenStreetMap Nominatim",
+      "sourceField": "namedetails.name/name:ja_or_address.building",
+      "classification": "online_exact_or_near_match",
+      "rawType": "building:apartments",
+      "confidence": 0.72,
+      "lat": 35.6559084,
+      "lon": 139.78603815,
+      "position": {
+        "x": 1420.964,
+        "y": 2.4,
+        "z": -2340.416
+      },
+      "unityPosition": {
+        "x": 1420.964,
+        "y": 2.4,
+        "z": -2340.416
+      },
+      "rawName": "ザ・パークハウス晴海タワーズ・ティアロレジデンス",
+      "normalizedName": "ザ・パークハウス晴海タワーズ・ティアロレジデンス",
+      "idOnly": false,
+      "disabled": false,
+      "hiddenInNormalMode": false,
+      "hiddenReason": "",
+      "attributionRequired": true,
+      "timestamp": "2026-05-29T23:32:16+09:00"
+    },
+    {
+      "id": "building_p8_plateau_highrise_candidate_055",
+      "objectType": "building",
+      "name": "セブン-イレブン",
+      "finalDisplayName": "セブン-イレブン",
+      "finalDisplayNameLanguage": "ja",
+      "language": "ja",
+      "source": "online_preprocessing_reverse_geocode",
+      "provider": "OpenStreetMap Nominatim",
+      "sourceField": "namedetails.name/name:ja_or_address.building",
+      "classification": "online_exact_or_near_match",
+      "rawType": "shop:convenience",
+      "confidence": 0.72,
+      "lat": 35.66076369,
+      "lon": 139.77693754,
+      "position": {
+        "x": 598.744,
+        "y": 0.08,
+        "z": -1807.303
+      },
+      "unityPosition": {
+        "x": 598.744,
+        "y": 0.08,
+        "z": -1807.303
+      },
+      "rawName": "セブン-イレブン",
+      "normalizedName": "セブン-イレブン",
+      "idOnly": false,
+      "disabled": false,
+      "hiddenInNormalMode": false,
+      "hiddenReason": "",
+      "attributionRequired": true,
+      "timestamp": "2026-05-29T23:32:16+09:00"
     },
     {
       "id": "building_p8_plateau_highrise_candidate_056",
@@ -707,7 +1251,7 @@
       "language": "ja",
       "source": "online_preprocessing_reverse_geocode",
       "provider": "OpenStreetMap Nominatim",
-      "sourceField": "namedetails.name/name:ja",
+      "sourceField": "namedetails.name/name:ja_or_address.building",
       "classification": "online_exact_or_near_match",
       "rawType": "tourism:museum",
       "confidence": 0.72,
@@ -730,7 +1274,245 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": true,
-      "timestamp": "2026-05-29T21:46:22+09:00"
+      "timestamp": "2026-05-29T23:32:16+09:00"
+    },
+    {
+      "id": "building_p8_plateau_highrise_candidate_060",
+      "objectType": "building",
+      "name": "信金中央金庫",
+      "finalDisplayName": "信金中央金庫",
+      "finalDisplayNameLanguage": "ja",
+      "language": "ja",
+      "source": "online_preprocessing_reverse_geocode",
+      "provider": "OpenStreetMap Nominatim",
+      "sourceField": "namedetails.name/name:ja_or_address.building",
+      "classification": "online_exact_or_near_match",
+      "rawType": "office:bank",
+      "confidence": 0.72,
+      "lat": 35.68289942,
+      "lon": 139.77181559,
+      "position": {
+        "x": 139.26,
+        "y": 0.08,
+        "z": 639.433
+      },
+      "unityPosition": {
+        "x": 139.26,
+        "y": 0.08,
+        "z": 639.433
+      },
+      "rawName": "信金中央金庫",
+      "normalizedName": "信金中央金庫",
+      "idOnly": false,
+      "disabled": false,
+      "hiddenInNormalMode": false,
+      "hiddenReason": "",
+      "attributionRequired": true,
+      "timestamp": "2026-05-29T23:32:16+09:00"
+    },
+    {
+      "id": "building_p8_plateau_highrise_candidate_061",
+      "objectType": "building",
+      "name": "Daiwaリバーゲート",
+      "finalDisplayName": "Daiwaリバーゲート",
+      "finalDisplayNameLanguage": "ja",
+      "language": "ja",
+      "source": "online_preprocessing_reverse_geocode",
+      "provider": "OpenStreetMap Nominatim",
+      "sourceField": "namedetails.name/name:ja_or_address.building",
+      "classification": "online_exact_or_near_match",
+      "rawType": "building:commercial",
+      "confidence": 0.72,
+      "lat": 35.68037055,
+      "lon": 139.78857331,
+      "position": {
+        "x": 1655.265,
+        "y": 2.4,
+        "z": 356.377
+      },
+      "unityPosition": {
+        "x": 1655.265,
+        "y": 2.4,
+        "z": 356.377
+      },
+      "rawName": "Daiwaリバーゲート",
+      "normalizedName": "Daiwaリバーゲート",
+      "idOnly": false,
+      "disabled": false,
+      "hiddenInNormalMode": false,
+      "hiddenReason": "",
+      "attributionRequired": true,
+      "timestamp": "2026-05-29T23:32:16+09:00"
+    },
+    {
+      "id": "building_p8_plateau_highrise_candidate_062",
+      "objectType": "building",
+      "name": "セブン-イレブン",
+      "finalDisplayName": "セブン-イレブン",
+      "finalDisplayNameLanguage": "ja",
+      "language": "ja",
+      "source": "online_preprocessing_reverse_geocode",
+      "provider": "OpenStreetMap Nominatim",
+      "sourceField": "namedetails.name/name:ja_or_address.building",
+      "classification": "online_exact_or_near_match",
+      "rawType": "shop:convenience",
+      "confidence": 0.72,
+      "lat": 35.67713929,
+      "lon": 139.78586464,
+      "position": {
+        "x": 1409.659,
+        "y": 2.4,
+        "z": 1.055
+      },
+      "unityPosition": {
+        "x": 1409.659,
+        "y": 2.4,
+        "z": 1.055
+      },
+      "rawName": "セブン-イレブン",
+      "normalizedName": "セブン-イレブン",
+      "idOnly": false,
+      "disabled": false,
+      "hiddenInNormalMode": false,
+      "hiddenReason": "",
+      "attributionRequired": true,
+      "timestamp": "2026-05-29T23:32:16+09:00"
+    },
+    {
+      "id": "building_p8_plateau_highrise_candidate_063",
+      "objectType": "building",
+      "name": "デリド湊店",
+      "finalDisplayName": "デリド湊店",
+      "finalDisplayNameLanguage": "ja",
+      "language": "ja",
+      "source": "online_preprocessing_reverse_geocode",
+      "provider": "OpenStreetMap Nominatim",
+      "sourceField": "namedetails.name/name:ja_or_address.building",
+      "classification": "online_exact_or_near_match",
+      "rawType": "shop:supermarket",
+      "confidence": 0.72,
+      "lat": 35.67120825,
+      "lon": 139.78070967,
+      "position": {
+        "x": 938.065,
+        "y": 0.08,
+        "z": -649.572
+      },
+      "unityPosition": {
+        "x": 938.065,
+        "y": 0.08,
+        "z": -649.572
+      },
+      "rawName": "デリド湊店",
+      "normalizedName": "デリド湊店",
+      "idOnly": false,
+      "disabled": false,
+      "hiddenInNormalMode": false,
+      "hiddenReason": "",
+      "attributionRequired": true,
+      "timestamp": "2026-05-29T23:32:16+09:00"
+    },
+    {
+      "id": "building_p8_plateau_highrise_candidate_071",
+      "objectType": "building",
+      "name": "日本橋浜町Fタワー",
+      "finalDisplayName": "日本橋浜町Fタワー",
+      "finalDisplayNameLanguage": "ja",
+      "language": "ja",
+      "source": "online_preprocessing_reverse_geocode",
+      "provider": "OpenStreetMap Nominatim",
+      "sourceField": "namedetails.name/name:ja_or_address.building",
+      "classification": "online_exact_or_near_match",
+      "rawType": "building:yes",
+      "confidence": 0.72,
+      "lat": 35.68521207,
+      "lon": 139.78896001,
+      "position": {
+        "x": 1691.233,
+        "y": 2.4,
+        "z": 890.166
+      },
+      "unityPosition": {
+        "x": 1691.233,
+        "y": 2.4,
+        "z": 890.166
+      },
+      "rawName": "日本橋浜町Fタワー",
+      "normalizedName": "日本橋浜町Fタワー",
+      "idOnly": false,
+      "disabled": false,
+      "hiddenInNormalMode": false,
+      "hiddenReason": "",
+      "attributionRequired": true,
+      "timestamp": "2026-05-29T23:32:16+09:00"
+    },
+    {
+      "id": "building_p8_plateau_highrise_candidate_072",
+      "objectType": "building",
+      "name": "セブン-イレブン",
+      "finalDisplayName": "セブン-イレブン",
+      "finalDisplayNameLanguage": "ja",
+      "language": "ja",
+      "source": "online_preprocessing_reverse_geocode",
+      "provider": "OpenStreetMap Nominatim",
+      "sourceField": "namedetails.name/name:ja_or_address.building",
+      "classification": "online_exact_or_near_match",
+      "rawType": "shop:convenience",
+      "confidence": 0.72,
+      "lat": 35.66613408,
+      "lon": 139.78444409,
+      "position": {
+        "x": 1277.884,
+        "y": 0.08,
+        "z": -1215.938
+      },
+      "unityPosition": {
+        "x": 1277.884,
+        "y": 0.08,
+        "z": -1215.938
+      },
+      "rawName": "セブン-イレブン",
+      "normalizedName": "セブン-イレブン",
+      "idOnly": false,
+      "disabled": false,
+      "hiddenInNormalMode": false,
+      "hiddenReason": "",
+      "attributionRequired": true,
+      "timestamp": "2026-05-29T23:32:16+09:00"
+    },
+    {
+      "id": "building_p8_plateau_highrise_candidate_073",
+      "objectType": "building",
+      "name": "アーバンプラザ",
+      "finalDisplayName": "アーバンプラザ",
+      "finalDisplayNameLanguage": "ja",
+      "language": "ja",
+      "source": "online_preprocessing_reverse_geocode",
+      "provider": "OpenStreetMap Nominatim",
+      "sourceField": "namedetails.name/name:ja_or_address.building",
+      "classification": "online_exact_or_near_match",
+      "rawType": "building:apartments",
+      "confidence": 0.72,
+      "lat": 35.65696723,
+      "lon": 139.78302727,
+      "position": {
+        "x": 1148.915,
+        "y": 2.4,
+        "z": -2222.499
+      },
+      "unityPosition": {
+        "x": 1148.915,
+        "y": 2.4,
+        "z": -2222.499
+      },
+      "rawName": "アーバンプラザ",
+      "normalizedName": "アーバンプラザ",
+      "idOnly": false,
+      "disabled": false,
+      "hiddenInNormalMode": false,
+      "hiddenReason": "",
+      "attributionRequired": true,
+      "timestamp": "2026-05-29T23:32:16+09:00"
     },
     {
       "id": "building_p8_plateau_highrise_candidate_074",
@@ -741,7 +1523,7 @@
       "language": "ja",
       "source": "online_preprocessing_reverse_geocode",
       "provider": "OpenStreetMap Nominatim",
-      "sourceField": "namedetails.name/name:ja",
+      "sourceField": "namedetails.name/name:ja_or_address.building",
       "classification": "online_exact_or_near_match",
       "rawType": "building:commercial",
       "confidence": 0.72,
@@ -764,7 +1546,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": true,
-      "timestamp": "2026-05-29T21:46:22+09:00"
+      "timestamp": "2026-05-29T23:32:16+09:00"
     },
     {
       "id": "building_p8_plateau_highrise_candidate_077",
@@ -775,7 +1557,7 @@
       "language": "ja",
       "source": "online_preprocessing_reverse_geocode",
       "provider": "OpenStreetMap Nominatim",
-      "sourceField": "namedetails.name/name:ja",
+      "sourceField": "namedetails.name/name:ja_or_address.building",
       "classification": "online_exact_or_near_match",
       "rawType": "building:yes",
       "confidence": 0.72,
@@ -798,41 +1580,177 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": true,
-      "timestamp": "2026-05-29T21:46:22+09:00"
+      "timestamp": "2026-05-29T23:32:16+09:00"
     },
     {
-      "id": "building_p8_plateau_highrise_candidate_078",
+      "id": "building_p8_plateau_highrise_candidate_079",
       "objectType": "building",
-      "name": "国立がん研究センター中央病院",
-      "finalDisplayName": "国立がん研究センター中央病院",
+      "name": "ロイヤルパークホテル",
+      "finalDisplayName": "ロイヤルパークホテル",
       "finalDisplayNameLanguage": "ja",
       "language": "ja",
       "source": "online_preprocessing_reverse_geocode",
       "provider": "OpenStreetMap Nominatim",
-      "sourceField": "namedetails.name/name:ja",
+      "sourceField": "namedetails.name/name:ja_or_address.building",
       "classification": "online_exact_or_near_match",
-      "rawType": "amenity:hospital",
+      "rawType": "tourism:hotel",
       "confidence": 0.72,
-      "lat": 35.66548188,
-      "lon": 139.76815987,
+      "lat": 35.68224614,
+      "lon": 139.78648165,
       "position": {
-        "x": -199.048,
-        "y": 0.08,
-        "z": -1284.266
+        "x": 1466.508,
+        "y": 2.4,
+        "z": 564.018
       },
       "unityPosition": {
-        "x": -199.048,
-        "y": 0.08,
-        "z": -1284.266
+        "x": 1466.508,
+        "y": 2.4,
+        "z": 564.018
       },
-      "rawName": "国立がん研究センター中央病院",
-      "normalizedName": "国立がん研究センター中央病院",
+      "rawName": "ロイヤルパークホテル",
+      "normalizedName": "ロイヤルパークホテル",
       "idOnly": false,
       "disabled": false,
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": true,
-      "timestamp": "2026-05-29T21:46:22+09:00"
+      "timestamp": "2026-05-29T23:32:16+09:00"
+    },
+    {
+      "id": "building_p8_plateau_highrise_candidate_080",
+      "objectType": "building",
+      "name": "ビュープラザ4号棟",
+      "finalDisplayName": "ビュープラザ4号棟",
+      "finalDisplayNameLanguage": "ja",
+      "language": "ja",
+      "source": "online_preprocessing_reverse_geocode",
+      "provider": "OpenStreetMap Nominatim",
+      "sourceField": "namedetails.name/name:ja_or_address.building",
+      "classification": "online_exact_or_near_match",
+      "rawType": "building:apartments",
+      "confidence": 0.72,
+      "lat": 35.65878634,
+      "lon": 139.78358786,
+      "position": {
+        "x": 1199.984,
+        "y": 2.4,
+        "z": -2022.096
+      },
+      "unityPosition": {
+        "x": 1199.984,
+        "y": 2.4,
+        "z": -2022.096
+      },
+      "rawName": "ビュープラザ4号棟",
+      "normalizedName": "ビュープラザ4号棟",
+      "idOnly": false,
+      "disabled": false,
+      "hiddenInNormalMode": false,
+      "hiddenReason": "",
+      "attributionRequired": true,
+      "timestamp": "2026-05-29T23:32:16+09:00"
+    },
+    {
+      "id": "building_p8_plateau_highrise_candidate_082",
+      "objectType": "building",
+      "name": "明治座",
+      "finalDisplayName": "明治座",
+      "finalDisplayNameLanguage": "ja",
+      "language": "ja",
+      "source": "online_preprocessing_reverse_geocode",
+      "provider": "OpenStreetMap Nominatim",
+      "sourceField": "namedetails.name/name:ja_or_address.building",
+      "classification": "online_exact_or_near_match",
+      "rawType": "amenity:theatre",
+      "confidence": 0.72,
+      "lat": 35.6877522,
+      "lon": 139.78709375,
+      "position": {
+        "x": 1522.996,
+        "y": 2.4,
+        "z": 1171.01
+      },
+      "unityPosition": {
+        "x": 1522.996,
+        "y": 2.4,
+        "z": 1171.01
+      },
+      "rawName": "明治座",
+      "normalizedName": "明治座",
+      "idOnly": false,
+      "disabled": false,
+      "hiddenInNormalMode": false,
+      "hiddenReason": "",
+      "attributionRequired": true,
+      "timestamp": "2026-05-29T23:32:16+09:00"
+    },
+    {
+      "id": "building_p8_plateau_highrise_candidate_083",
+      "objectType": "building",
+      "name": "マルエツプチ",
+      "finalDisplayName": "マルエツプチ",
+      "finalDisplayNameLanguage": "ja",
+      "language": "ja",
+      "source": "online_preprocessing_reverse_geocode",
+      "provider": "OpenStreetMap Nominatim",
+      "sourceField": "namedetails.name/name:ja_or_address.building",
+      "classification": "online_exact_or_near_match",
+      "rawType": "shop:supermarket",
+      "confidence": 0.72,
+      "lat": 35.68730969,
+      "lon": 139.77604959,
+      "position": {
+        "x": 526.465,
+        "y": 0.08,
+        "z": 1134.543
+      },
+      "unityPosition": {
+        "x": 526.465,
+        "y": 0.08,
+        "z": 1134.543
+      },
+      "rawName": "マルエツプチ",
+      "normalizedName": "マルエツプチ",
+      "idOnly": false,
+      "disabled": false,
+      "hiddenInNormalMode": false,
+      "hiddenReason": "",
+      "attributionRequired": true,
+      "timestamp": "2026-05-29T23:32:16+09:00"
+    },
+    {
+      "id": "building_p8_plateau_highrise_candidate_084",
+      "objectType": "building",
+      "name": "ファミリーマート",
+      "finalDisplayName": "ファミリーマート",
+      "finalDisplayNameLanguage": "ja",
+      "language": "ja",
+      "source": "online_preprocessing_reverse_geocode",
+      "provider": "OpenStreetMap Nominatim",
+      "sourceField": "namedetails.name/name:ja_or_address.building",
+      "classification": "online_exact_or_near_match",
+      "rawType": "shop:convenience",
+      "confidence": 0.72,
+      "lat": 35.65609675,
+      "lon": 139.78398947,
+      "position": {
+        "x": 1235.745,
+        "y": 2.4,
+        "z": -2318.865
+      },
+      "unityPosition": {
+        "x": 1235.745,
+        "y": 2.4,
+        "z": -2318.865
+      },
+      "rawName": "ファミリーマート",
+      "normalizedName": "ファミリーマート",
+      "idOnly": false,
+      "disabled": false,
+      "hiddenInNormalMode": false,
+      "hiddenReason": "",
+      "attributionRequired": true,
+      "timestamp": "2026-05-29T23:32:16+09:00"
     },
     {
       "id": "building_p8_plateau_highrise_candidate_087",
@@ -843,7 +1761,7 @@
       "language": "ja",
       "source": "online_preprocessing_reverse_geocode",
       "provider": "OpenStreetMap Nominatim",
-      "sourceField": "namedetails.name/name:ja",
+      "sourceField": "namedetails.name/name:ja_or_address.building",
       "classification": "online_exact_or_near_match",
       "rawType": "amenity:theatre",
       "confidence": 0.72,
@@ -866,7 +1784,41 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": true,
-      "timestamp": "2026-05-29T21:46:22+09:00"
+      "timestamp": "2026-05-29T23:32:16+09:00"
+    },
+    {
+      "id": "building_p8_plateau_highrise_candidate_093",
+      "objectType": "building",
+      "name": "ローソン",
+      "finalDisplayName": "ローソン",
+      "finalDisplayNameLanguage": "ja",
+      "language": "ja",
+      "source": "online_preprocessing_reverse_geocode",
+      "provider": "OpenStreetMap Nominatim",
+      "sourceField": "namedetails.name/name:ja_or_address.building",
+      "classification": "online_exact_or_near_match",
+      "rawType": "shop:convenience",
+      "confidence": 0.72,
+      "lat": 35.66226392,
+      "lon": 139.7656677,
+      "position": {
+        "x": -422.53,
+        "y": 0.08,
+        "z": -1637.672
+      },
+      "unityPosition": {
+        "x": -422.53,
+        "y": 0.08,
+        "z": -1637.672
+      },
+      "rawName": "ローソン",
+      "normalizedName": "ローソン",
+      "idOnly": false,
+      "disabled": false,
+      "hiddenInNormalMode": false,
+      "hiddenReason": "",
+      "attributionRequired": true,
+      "timestamp": "2026-05-29T23:32:16+09:00"
     },
     {
       "id": "building_p8_plateau_highrise_candidate_094",
@@ -877,7 +1829,7 @@
       "language": "ja",
       "source": "online_preprocessing_reverse_geocode",
       "provider": "OpenStreetMap Nominatim",
-      "sourceField": "namedetails.name/name:ja",
+      "sourceField": "namedetails.name/name:ja_or_address.building",
       "classification": "online_exact_or_near_match",
       "rawType": "building:commercial",
       "confidence": 0.72,
@@ -900,7 +1852,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": true,
-      "timestamp": "2026-05-29T21:46:22+09:00"
+      "timestamp": "2026-05-29T23:32:16+09:00"
     },
     {
       "id": "building_p8_plateau_highrise_candidate_096",
@@ -911,7 +1863,7 @@
       "language": "ja",
       "source": "online_preprocessing_reverse_geocode",
       "provider": "OpenStreetMap Nominatim",
-      "sourceField": "namedetails.name/name:ja",
+      "sourceField": "namedetails.name/name:ja_or_address.building",
       "classification": "online_exact_or_near_match",
       "rawType": "amenity:theatre",
       "confidence": 0.72,
@@ -934,7 +1886,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": true,
-      "timestamp": "2026-05-29T21:46:22+09:00"
+      "timestamp": "2026-05-29T23:32:16+09:00"
     },
     {
       "id": "building_p8_plateau_highrise_candidate_100",
@@ -945,7 +1897,7 @@
       "language": "ja",
       "source": "online_preprocessing_reverse_geocode",
       "provider": "OpenStreetMap Nominatim",
-      "sourceField": "namedetails.name/name:ja",
+      "sourceField": "namedetails.name/name:ja_or_address.building",
       "classification": "online_exact_or_near_match",
       "rawType": "tourism:museum",
       "confidence": 0.72,
@@ -968,7 +1920,41 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": true,
-      "timestamp": "2026-05-29T21:46:22+09:00"
+      "timestamp": "2026-05-29T23:32:16+09:00"
+    },
+    {
+      "id": "building_p8_plateau_highrise_candidate_101",
+      "objectType": "building",
+      "name": "時事通信本社",
+      "finalDisplayName": "時事通信本社",
+      "finalDisplayNameLanguage": "ja",
+      "language": "ja",
+      "source": "online_preprocessing_reverse_geocode",
+      "provider": "OpenStreetMap Nominatim",
+      "sourceField": "namedetails.name/name:ja_or_address.building",
+      "classification": "online_exact_or_near_match",
+      "rawType": "office:company",
+      "confidence": 0.72,
+      "lat": 35.66814735,
+      "lon": 139.76742462,
+      "position": {
+        "x": -270.065,
+        "y": -0.15,
+        "z": -998.462
+      },
+      "unityPosition": {
+        "x": -270.065,
+        "y": -0.15,
+        "z": -998.462
+      },
+      "rawName": "時事通信本社",
+      "normalizedName": "時事通信本社",
+      "idOnly": false,
+      "disabled": false,
+      "hiddenInNormalMode": false,
+      "hiddenReason": "",
+      "attributionRequired": true,
+      "timestamp": "2026-05-29T23:32:16+09:00"
     },
     {
       "id": "building_p8_plateau_highrise_candidate_103",
@@ -979,7 +1965,7 @@
       "language": "ja",
       "source": "online_preprocessing_reverse_geocode",
       "provider": "OpenStreetMap Nominatim",
-      "sourceField": "namedetails.name/name:ja",
+      "sourceField": "namedetails.name/name:ja_or_address.building",
       "classification": "online_exact_or_near_match",
       "rawType": "tourism:hotel",
       "confidence": 0.72,
@@ -1002,7 +1988,41 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": true,
-      "timestamp": "2026-05-29T21:46:22+09:00"
+      "timestamp": "2026-05-29T23:32:16+09:00"
+    },
+    {
+      "id": "building_p8_plateau_highrise_candidate_104",
+      "objectType": "building",
+      "name": "ファミリーマート",
+      "finalDisplayName": "ファミリーマート",
+      "finalDisplayNameLanguage": "ja",
+      "language": "ja",
+      "source": "online_preprocessing_reverse_geocode",
+      "provider": "OpenStreetMap Nominatim",
+      "sourceField": "namedetails.name/name:ja_or_address.building",
+      "classification": "online_exact_or_near_match",
+      "rawType": "shop:convenience",
+      "confidence": 0.72,
+      "lat": 35.67544968,
+      "lon": 139.77083959,
+      "position": {
+        "x": 48.665,
+        "y": 0.08,
+        "z": -175.547
+      },
+      "unityPosition": {
+        "x": 48.665,
+        "y": 0.08,
+        "z": -175.547
+      },
+      "rawName": "ファミリーマート",
+      "normalizedName": "ファミリーマート",
+      "idOnly": false,
+      "disabled": false,
+      "hiddenInNormalMode": false,
+      "hiddenReason": "",
+      "attributionRequired": true,
+      "timestamp": "2026-05-29T23:32:16+09:00"
     },
     {
       "id": "p8_plateau_highrise_candidate_001",
@@ -1036,7 +2056,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": false,
-      "timestamp": "2026-05-29T21:46:22+09:00"
+      "timestamp": "2026-05-29T23:32:16+09:00"
     },
     {
       "id": "p8_plateau_highrise_candidate_002",
@@ -1070,7 +2090,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": false,
-      "timestamp": "2026-05-29T21:46:22+09:00"
+      "timestamp": "2026-05-29T23:32:16+09:00"
     },
     {
       "id": "p8_plateau_highrise_candidate_003",
@@ -1104,7 +2124,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": false,
-      "timestamp": "2026-05-29T21:46:22+09:00"
+      "timestamp": "2026-05-29T23:32:16+09:00"
     },
     {
       "id": "p8_plateau_highrise_candidate_004",
@@ -1138,7 +2158,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": false,
-      "timestamp": "2026-05-29T21:46:22+09:00"
+      "timestamp": "2026-05-29T23:32:16+09:00"
     },
     {
       "id": "p8_plateau_highrise_candidate_005",
@@ -1172,7 +2192,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": false,
-      "timestamp": "2026-05-29T21:46:22+09:00"
+      "timestamp": "2026-05-29T23:32:16+09:00"
     },
     {
       "id": "p8_plateau_highrise_candidate_006",
@@ -1206,7 +2226,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": false,
-      "timestamp": "2026-05-29T21:46:22+09:00"
+      "timestamp": "2026-05-29T23:32:16+09:00"
     },
     {
       "id": "p8_plateau_highrise_candidate_007",
@@ -1240,7 +2260,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": false,
-      "timestamp": "2026-05-29T21:46:22+09:00"
+      "timestamp": "2026-05-29T23:32:16+09:00"
     },
     {
       "id": "p8_plateau_highrise_candidate_009",
@@ -1274,7 +2294,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": false,
-      "timestamp": "2026-05-29T21:46:22+09:00"
+      "timestamp": "2026-05-29T23:32:16+09:00"
     },
     {
       "id": "p8_plateau_highrise_candidate_011",
@@ -1308,7 +2328,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": false,
-      "timestamp": "2026-05-29T21:46:22+09:00"
+      "timestamp": "2026-05-29T23:32:16+09:00"
     },
     {
       "id": "p8_plateau_highrise_candidate_013",
@@ -1342,7 +2362,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": false,
-      "timestamp": "2026-05-29T21:46:22+09:00"
+      "timestamp": "2026-05-29T23:32:16+09:00"
     },
     {
       "id": "p8_plateau_highrise_candidate_015",
@@ -1376,7 +2396,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": false,
-      "timestamp": "2026-05-29T21:46:22+09:00"
+      "timestamp": "2026-05-29T23:32:16+09:00"
     },
     {
       "id": "p8_plateau_highrise_candidate_016",
@@ -1410,7 +2430,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": false,
-      "timestamp": "2026-05-29T21:46:22+09:00"
+      "timestamp": "2026-05-29T23:32:16+09:00"
     },
     {
       "id": "p8_plateau_highrise_candidate_018",
@@ -1444,7 +2464,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": false,
-      "timestamp": "2026-05-29T21:46:22+09:00"
+      "timestamp": "2026-05-29T23:32:16+09:00"
     },
     {
       "id": "p8_plateau_highrise_candidate_019",
@@ -1478,7 +2498,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": false,
-      "timestamp": "2026-05-29T21:46:22+09:00"
+      "timestamp": "2026-05-29T23:32:16+09:00"
     },
     {
       "id": "p8_plateau_highrise_candidate_020",
@@ -1512,7 +2532,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": false,
-      "timestamp": "2026-05-29T21:46:22+09:00"
+      "timestamp": "2026-05-29T23:32:16+09:00"
     },
     {
       "id": "p8_plateau_highrise_candidate_021",
@@ -1546,7 +2566,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": false,
-      "timestamp": "2026-05-29T21:46:22+09:00"
+      "timestamp": "2026-05-29T23:32:16+09:00"
     },
     {
       "id": "p8_plateau_highrise_candidate_022",
@@ -1580,7 +2600,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": false,
-      "timestamp": "2026-05-29T21:46:22+09:00"
+      "timestamp": "2026-05-29T23:32:16+09:00"
     },
     {
       "id": "p8_plateau_highrise_candidate_023",
@@ -1614,7 +2634,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": false,
-      "timestamp": "2026-05-29T21:46:22+09:00"
+      "timestamp": "2026-05-29T23:32:16+09:00"
     },
     {
       "id": "p8_plateau_highrise_candidate_024",
@@ -1648,7 +2668,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": false,
-      "timestamp": "2026-05-29T21:46:22+09:00"
+      "timestamp": "2026-05-29T23:32:16+09:00"
     },
     {
       "id": "landmark_tokyo_station",
@@ -1682,7 +2702,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": true,
-      "timestamp": "2026-05-29T21:46:22+09:00"
+      "timestamp": "2026-05-29T23:32:16+09:00"
     },
     {
       "id": "chuo_official_emergency_001",
@@ -1716,7 +2736,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": false,
-      "timestamp": "2026-05-29T21:46:22+09:00"
+      "timestamp": "2026-05-29T23:32:16+09:00"
     },
     {
       "id": "chuo_official_emergency_002",
@@ -1750,7 +2770,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": false,
-      "timestamp": "2026-05-29T21:46:22+09:00"
+      "timestamp": "2026-05-29T23:32:16+09:00"
     },
     {
       "id": "chuo_official_emergency_003",
@@ -1784,7 +2804,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": false,
-      "timestamp": "2026-05-29T21:46:22+09:00"
+      "timestamp": "2026-05-29T23:32:16+09:00"
     },
     {
       "id": "chuo_official_emergency_004",
@@ -1818,7 +2838,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": false,
-      "timestamp": "2026-05-29T21:46:22+09:00"
+      "timestamp": "2026-05-29T23:32:16+09:00"
     },
     {
       "id": "chuo_official_emergency_005",
@@ -1852,7 +2872,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": false,
-      "timestamp": "2026-05-29T21:46:22+09:00"
+      "timestamp": "2026-05-29T23:32:16+09:00"
     },
     {
       "id": "chuo_official_emergency_006",
@@ -1886,7 +2906,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": false,
-      "timestamp": "2026-05-29T21:46:22+09:00"
+      "timestamp": "2026-05-29T23:32:16+09:00"
     },
     {
       "id": "chuo_official_emergency_007",
@@ -1920,7 +2940,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": false,
-      "timestamp": "2026-05-29T21:46:22+09:00"
+      "timestamp": "2026-05-29T23:32:16+09:00"
     },
     {
       "id": "chuo_official_emergency_008",
@@ -1954,7 +2974,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": false,
-      "timestamp": "2026-05-29T21:46:22+09:00"
+      "timestamp": "2026-05-29T23:32:16+09:00"
     },
     {
       "id": "chuo_official_emergency_009",
@@ -1988,7 +3008,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": false,
-      "timestamp": "2026-05-29T21:46:22+09:00"
+      "timestamp": "2026-05-29T23:32:16+09:00"
     },
     {
       "id": "chuo_official_emergency_010",
@@ -2022,7 +3042,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": false,
-      "timestamp": "2026-05-29T21:46:22+09:00"
+      "timestamp": "2026-05-29T23:32:16+09:00"
     },
     {
       "id": "chuo_official_emergency_011",
@@ -2056,7 +3076,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": false,
-      "timestamp": "2026-05-29T21:46:22+09:00"
+      "timestamp": "2026-05-29T23:32:16+09:00"
     },
     {
       "id": "chuo_official_emergency_014",
@@ -2090,7 +3110,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": false,
-      "timestamp": "2026-05-29T21:46:22+09:00"
+      "timestamp": "2026-05-29T23:32:16+09:00"
     },
     {
       "id": "chuo_official_emergency_016",
@@ -2124,7 +3144,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": false,
-      "timestamp": "2026-05-29T21:46:22+09:00"
+      "timestamp": "2026-05-29T23:32:16+09:00"
     },
     {
       "id": "chuo_official_emergency_024",
@@ -2158,7 +3178,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": false,
-      "timestamp": "2026-05-29T21:46:22+09:00"
+      "timestamp": "2026-05-29T23:32:16+09:00"
     },
     {
       "id": "chuo_official_emergency_025",
@@ -2192,7 +3212,619 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": false,
-      "timestamp": "2026-05-29T21:46:22+09:00"
+      "timestamp": "2026-05-29T23:32:16+09:00"
+    },
+    {
+      "id": "road_osm_117923434",
+      "objectType": "road",
+      "name": "三原小路",
+      "finalDisplayName": "三原小路",
+      "finalDisplayNameLanguage": "ja",
+      "language": "ja",
+      "source": "data_pipeline/cache/osmnx/ac4148631a0cecd2591a515e45fb03a0edd933bc.json",
+      "provider": "OpenStreetMap",
+      "sourceField": "name/name:ja",
+      "classification": "local_osm_cache_name",
+      "rawType": "highway:pedestrian",
+      "confidence": 0.78,
+      "lat": 35.6701503,
+      "lon": 139.7656263,
+      "position": {
+        "x": -421.894,
+        "y": 2.4,
+        "z": -762.009
+      },
+      "unityPosition": {
+        "x": -421.894,
+        "y": 2.4,
+        "z": -762.009
+      },
+      "rawName": "三原小路",
+      "normalizedName": "三原小路",
+      "idOnly": false,
+      "disabled": false,
+      "hiddenInNormalMode": false,
+      "hiddenReason": "",
+      "attributionRequired": true,
+      "timestamp": "2026-05-29T23:32:16+09:00"
+    },
+    {
+      "id": "road_osm_120419639",
+      "objectType": "road",
+      "name": "みゆき通り",
+      "finalDisplayName": "みゆき通り",
+      "finalDisplayNameLanguage": "ja",
+      "language": "ja",
+      "source": "data_pipeline/cache/osmnx/ac4148631a0cecd2591a515e45fb03a0edd933bc.json",
+      "provider": "OpenStreetMap",
+      "sourceField": "name/name:ja",
+      "classification": "local_osm_cache_name",
+      "rawType": "highway:unclassified",
+      "confidence": 0.78,
+      "lat": 35.6877335,
+      "lon": 139.7788345,
+      "position": {
+        "x": 776.126,
+        "y": 2.4,
+        "z": 1172.091
+      },
+      "unityPosition": {
+        "x": 776.126,
+        "y": 2.4,
+        "z": 1172.091
+      },
+      "rawName": "みゆき通り",
+      "normalizedName": "みゆき通り",
+      "idOnly": false,
+      "disabled": false,
+      "hiddenInNormalMode": false,
+      "hiddenReason": "",
+      "attributionRequired": true,
+      "timestamp": "2026-05-29T23:32:16+09:00"
+    },
+    {
+      "id": "road_osm_123464022",
+      "objectType": "road",
+      "name": "小栗坂",
+      "finalDisplayName": "小栗坂",
+      "finalDisplayNameLanguage": "ja",
+      "language": "ja",
+      "source": "data_pipeline/cache/osmnx/ac4148631a0cecd2591a515e45fb03a0edd933bc.json",
+      "provider": "OpenStreetMap",
+      "sourceField": "name/name:ja",
+      "classification": "local_osm_cache_name",
+      "rawType": "highway:residential",
+      "confidence": 0.78,
+      "lat": 35.7008545,
+      "lon": 139.7569188,
+      "position": {
+        "x": -1202.953,
+        "y": 2.4,
+        "z": 2627.454
+      },
+      "unityPosition": {
+        "x": -1202.953,
+        "y": 2.4,
+        "z": 2627.454
+      },
+      "rawName": "小栗坂",
+      "normalizedName": "小栗坂",
+      "idOnly": false,
+      "disabled": false,
+      "hiddenInNormalMode": false,
+      "hiddenReason": "",
+      "attributionRequired": true,
+      "timestamp": "2026-05-29T23:32:16+09:00"
+    },
+    {
+      "id": "road_osm_124081177",
+      "objectType": "road",
+      "name": "小桜通り",
+      "finalDisplayName": "小桜通り",
+      "finalDisplayNameLanguage": "ja",
+      "language": "ja",
+      "source": "data_pipeline/cache/osmnx/ac4148631a0cecd2591a515e45fb03a0edd933bc.json",
+      "provider": "OpenStreetMap",
+      "sourceField": "name/name:ja",
+      "classification": "local_osm_cache_name",
+      "rawType": "highway:tertiary",
+      "confidence": 0.78,
+      "lat": 35.6984258,
+      "lon": 139.7637966,
+      "position": {
+        "x": -581.51,
+        "y": 2.4,
+        "z": 2356.992
+      },
+      "unityPosition": {
+        "x": -581.51,
+        "y": 2.4,
+        "z": 2356.992
+      },
+      "rawName": "小桜通り",
+      "normalizedName": "小桜通り",
+      "idOnly": false,
+      "disabled": false,
+      "hiddenInNormalMode": false,
+      "hiddenReason": "",
+      "attributionRequired": true,
+      "timestamp": "2026-05-29T23:32:16+09:00"
+    },
+    {
+      "id": "road_osm_126629762",
+      "objectType": "road",
+      "name": "さくら通り",
+      "finalDisplayName": "さくら通り",
+      "finalDisplayNameLanguage": "ja",
+      "language": "ja",
+      "source": "data_pipeline/cache/osmnx/ac4148631a0cecd2591a515e45fb03a0edd933bc.json",
+      "provider": "OpenStreetMap",
+      "sourceField": "name/name:ja",
+      "classification": "local_osm_cache_name",
+      "rawType": "highway:residential",
+      "confidence": 0.78,
+      "lat": 35.6952709,
+      "lon": 139.7571217,
+      "position": {
+        "x": -1185.759,
+        "y": 2.4,
+        "z": 2011.601
+      },
+      "unityPosition": {
+        "x": -1185.759,
+        "y": 2.4,
+        "z": 2011.601
+      },
+      "rawName": "さくら通り",
+      "normalizedName": "さくら通り",
+      "idOnly": false,
+      "disabled": false,
+      "hiddenInNormalMode": false,
+      "hiddenReason": "",
+      "attributionRequired": true,
+      "timestamp": "2026-05-29T23:32:16+09:00"
+    },
+    {
+      "id": "road_osm_128715110",
+      "objectType": "road",
+      "name": "駿河台道灌道",
+      "finalDisplayName": "駿河台道灌道",
+      "finalDisplayNameLanguage": "ja",
+      "language": "ja",
+      "source": "data_pipeline/cache/osmnx/ac4148631a0cecd2591a515e45fb03a0edd933bc.json",
+      "provider": "OpenStreetMap",
+      "sourceField": "name/name:ja",
+      "classification": "local_osm_cache_name",
+      "rawType": "highway:unclassified",
+      "confidence": 0.78,
+      "lat": 35.6964389,
+      "lon": 139.7627162,
+      "position": {
+        "x": -679.619,
+        "y": 2.4,
+        "z": 2138.282
+      },
+      "unityPosition": {
+        "x": -679.619,
+        "y": 2.4,
+        "z": 2138.282
+      },
+      "rawName": "駿河台道灌道",
+      "normalizedName": "駿河台道灌道",
+      "idOnly": false,
+      "disabled": false,
+      "hiddenInNormalMode": false,
+      "hiddenReason": "",
+      "attributionRequired": true,
+      "timestamp": "2026-05-29T23:32:16+09:00"
+    },
+    {
+      "id": "road_osm_128715160",
+      "objectType": "road",
+      "name": "甲賀通り",
+      "finalDisplayName": "甲賀通り",
+      "finalDisplayNameLanguage": "ja",
+      "language": "ja",
+      "source": "data_pipeline/cache/osmnx/ac4148631a0cecd2591a515e45fb03a0edd933bc.json",
+      "provider": "OpenStreetMap",
+      "sourceField": "name/name:ja",
+      "classification": "local_osm_cache_name",
+      "rawType": "highway:unclassified",
+      "confidence": 0.78,
+      "lat": 35.6975037,
+      "lon": 139.7630082,
+      "position": {
+        "x": -652.994,
+        "y": 2.4,
+        "z": 2255.6
+      },
+      "unityPosition": {
+        "x": -652.994,
+        "y": 2.4,
+        "z": 2255.6
+      },
+      "rawName": "甲賀通り",
+      "normalizedName": "甲賀通り",
+      "idOnly": false,
+      "disabled": false,
+      "hiddenInNormalMode": false,
+      "hiddenReason": "",
+      "attributionRequired": true,
+      "timestamp": "2026-05-29T23:32:16+09:00"
+    },
+    {
+      "id": "road_osm_131025950",
+      "objectType": "road",
+      "name": "東仲通り",
+      "finalDisplayName": "東仲通り",
+      "finalDisplayNameLanguage": "ja",
+      "language": "ja",
+      "source": "data_pipeline/cache/osmnx/ac4148631a0cecd2591a515e45fb03a0edd933bc.json",
+      "provider": "OpenStreetMap",
+      "sourceField": "name/name:ja",
+      "classification": "local_osm_cache_name",
+      "rawType": "highway:tertiary",
+      "confidence": 0.78,
+      "lat": 35.6619622,
+      "lon": 139.7836599,
+      "position": {
+        "x": 1207.154,
+        "y": 2.4,
+        "z": -1671.88
+      },
+      "unityPosition": {
+        "x": 1207.154,
+        "y": 2.4,
+        "z": -1671.88
+      },
+      "rawName": "東仲通り",
+      "normalizedName": "東仲通り",
+      "idOnly": false,
+      "disabled": false,
+      "hiddenInNormalMode": false,
+      "hiddenReason": "",
+      "attributionRequired": true,
+      "timestamp": "2026-05-29T23:32:16+09:00"
+    },
+    {
+      "id": "road_osm_131156023",
+      "objectType": "road",
+      "name": "清澄通り",
+      "finalDisplayName": "清澄通り",
+      "finalDisplayNameLanguage": "ja",
+      "language": "ja",
+      "source": "data_pipeline/cache/osmnx/ac4148631a0cecd2591a515e45fb03a0edd933bc.json",
+      "provider": "OpenStreetMap",
+      "sourceField": "name/name:ja",
+      "classification": "local_osm_cache_name",
+      "rawType": "highway:secondary",
+      "confidence": 0.78,
+      "lat": 35.6609837,
+      "lon": 139.7799551,
+      "position": {
+        "x": 871.935,
+        "y": 2.4,
+        "z": -1778.382
+      },
+      "unityPosition": {
+        "x": 871.935,
+        "y": 2.4,
+        "z": -1778.382
+      },
+      "rawName": "清澄通り",
+      "normalizedName": "清澄通り",
+      "idOnly": false,
+      "disabled": false,
+      "hiddenInNormalMode": false,
+      "hiddenReason": "",
+      "attributionRequired": true,
+      "timestamp": "2026-05-29T23:32:16+09:00"
+    },
+    {
+      "id": "road_osm_131156054",
+      "objectType": "road",
+      "name": "月島橋",
+      "finalDisplayName": "月島橋",
+      "finalDisplayNameLanguage": "ja",
+      "language": "ja",
+      "source": "data_pipeline/cache/osmnx/ac4148631a0cecd2591a515e45fb03a0edd933bc.json",
+      "provider": "OpenStreetMap",
+      "sourceField": "name/name:ja",
+      "classification": "local_osm_cache_name",
+      "rawType": "highway:secondary",
+      "confidence": 0.78,
+      "lat": 35.6604243,
+      "lon": 139.7791457,
+      "position": {
+        "x": 798.627,
+        "y": 2.4,
+        "z": -1839.766
+      },
+      "unityPosition": {
+        "x": 798.627,
+        "y": 2.4,
+        "z": -1839.766
+      },
+      "rawName": "月島橋",
+      "normalizedName": "月島橋",
+      "idOnly": false,
+      "disabled": false,
+      "hiddenInNormalMode": false,
+      "hiddenReason": "",
+      "attributionRequired": true,
+      "timestamp": "2026-05-29T23:32:16+09:00"
+    },
+    {
+      "id": "road_osm_131156088",
+      "objectType": "road",
+      "name": "西仲橋",
+      "finalDisplayName": "西仲橋",
+      "finalDisplayNameLanguage": "ja",
+      "language": "ja",
+      "source": "data_pipeline/cache/osmnx/ac4148631a0cecd2591a515e45fb03a0edd933bc.json",
+      "provider": "OpenStreetMap",
+      "sourceField": "name/name:ja",
+      "classification": "local_osm_cache_name",
+      "rawType": "highway:unclassified",
+      "confidence": 0.78,
+      "lat": 35.6612659,
+      "lon": 139.7782315,
+      "position": {
+        "x": 716.132,
+        "y": 2.4,
+        "z": -1746.604
+      },
+      "unityPosition": {
+        "x": 716.132,
+        "y": 2.4,
+        "z": -1746.604
+      },
+      "rawName": "西仲橋",
+      "normalizedName": "西仲橋",
+      "idOnly": false,
+      "disabled": false,
+      "hiddenInNormalMode": false,
+      "hiddenReason": "",
+      "attributionRequired": true,
+      "timestamp": "2026-05-29T23:32:16+09:00"
+    },
+    {
+      "id": "road_osm_135200960",
+      "objectType": "road",
+      "name": "隅田川テラス",
+      "finalDisplayName": "隅田川テラス",
+      "finalDisplayNameLanguage": "ja",
+      "language": "ja",
+      "source": "data_pipeline/cache/osmnx/ac4148631a0cecd2591a515e45fb03a0edd933bc.json",
+      "provider": "OpenStreetMap",
+      "sourceField": "name/name:ja",
+      "classification": "local_osm_cache_name",
+      "rawType": "highway:footway",
+      "confidence": 0.78,
+      "lat": 35.6674765,
+      "lon": 139.7798758,
+      "position": {
+        "x": 866.105,
+        "y": 2.4,
+        "z": -1062.307
+      },
+      "unityPosition": {
+        "x": 866.105,
+        "y": 2.4,
+        "z": -1062.307
+      },
+      "rawName": "隅田川テラス",
+      "normalizedName": "隅田川テラス",
+      "idOnly": false,
+      "disabled": false,
+      "hiddenInNormalMode": false,
+      "hiddenReason": "",
+      "attributionRequired": true,
+      "timestamp": "2026-05-29T23:32:16+09:00"
+    },
+    {
+      "id": "road_osm_139082447",
+      "objectType": "road",
+      "name": "汐留通り",
+      "finalDisplayName": "汐留通り",
+      "finalDisplayNameLanguage": "ja",
+      "language": "ja",
+      "source": "data_pipeline/cache/osmnx/ac4148631a0cecd2591a515e45fb03a0edd933bc.json",
+      "provider": "OpenStreetMap",
+      "sourceField": "name/name:ja",
+      "classification": "local_osm_cache_name",
+      "rawType": "highway:unclassified",
+      "confidence": 0.78,
+      "lat": 35.6653867,
+      "lon": 139.7601383,
+      "position": {
+        "x": -919.146,
+        "y": 2.4,
+        "z": -1285.264
+      },
+      "unityPosition": {
+        "x": -919.146,
+        "y": 2.4,
+        "z": -1285.264
+      },
+      "rawName": "汐留通り",
+      "normalizedName": "汐留通り",
+      "idOnly": false,
+      "disabled": false,
+      "hiddenInNormalMode": false,
+      "hiddenReason": "",
+      "attributionRequired": true,
+      "timestamp": "2026-05-29T23:32:16+09:00"
+    },
+    {
+      "id": "road_osm_139505519",
+      "objectType": "road",
+      "name": "千代田通り",
+      "finalDisplayName": "千代田通り",
+      "finalDisplayNameLanguage": "ja",
+      "language": "ja",
+      "source": "data_pipeline/cache/osmnx/ac4148631a0cecd2591a515e45fb03a0edd933bc.json",
+      "provider": "OpenStreetMap",
+      "sourceField": "name/name:ja",
+      "classification": "local_osm_cache_name",
+      "rawType": "highway:tertiary",
+      "confidence": 0.78,
+      "lat": 35.6920332,
+      "lon": 139.7609948,
+      "position": {
+        "x": -836.191,
+        "y": 2.4,
+        "z": 1653.064
+      },
+      "unityPosition": {
+        "x": -836.191,
+        "y": 2.4,
+        "z": 1653.064
+      },
+      "rawName": "千代田通り",
+      "normalizedName": "千代田通り",
+      "idOnly": false,
+      "disabled": false,
+      "hiddenInNormalMode": false,
+      "hiddenReason": "",
+      "attributionRequired": true,
+      "timestamp": "2026-05-29T23:32:16+09:00"
+    },
+    {
+      "id": "road_osm_145397103",
+      "objectType": "road",
+      "name": "大手町仲通り",
+      "finalDisplayName": "大手町仲通り",
+      "finalDisplayNameLanguage": "ja",
+      "language": "ja",
+      "source": "data_pipeline/cache/osmnx/ac4148631a0cecd2591a515e45fb03a0edd933bc.json",
+      "provider": "OpenStreetMap",
+      "sourceField": "name/name:ja",
+      "classification": "local_osm_cache_name",
+      "rawType": "highway:pedestrian",
+      "confidence": 0.78,
+      "lat": 35.6879307,
+      "lon": 139.7653323,
+      "position": {
+        "x": -444.808,
+        "y": 2.4,
+        "z": 1198.977
+      },
+      "unityPosition": {
+        "x": -444.808,
+        "y": 2.4,
+        "z": 1198.977
+      },
+      "rawName": "大手町仲通り",
+      "normalizedName": "大手町仲通り",
+      "idOnly": false,
+      "disabled": false,
+      "hiddenInNormalMode": false,
+      "hiddenReason": "",
+      "attributionRequired": true,
+      "timestamp": "2026-05-29T23:32:16+09:00"
+    },
+    {
+      "id": "road_osm_145402280",
+      "objectType": "road",
+      "name": "日比谷仲通り",
+      "finalDisplayName": "日比谷仲通り",
+      "finalDisplayNameLanguage": "ja",
+      "language": "ja",
+      "source": "data_pipeline/cache/osmnx/ac4148631a0cecd2591a515e45fb03a0edd933bc.json",
+      "provider": "OpenStreetMap",
+      "sourceField": "name/name:ja",
+      "classification": "local_osm_cache_name",
+      "rawType": "highway:pedestrian",
+      "confidence": 0.78,
+      "lat": 35.6735934,
+      "lon": 139.7599301,
+      "position": {
+        "x": -936.278,
+        "y": 2.4,
+        "z": -380.126
+      },
+      "unityPosition": {
+        "x": -936.278,
+        "y": 2.4,
+        "z": -380.126
+      },
+      "rawName": "日比谷仲通り",
+      "normalizedName": "日比谷仲通り",
+      "idOnly": false,
+      "disabled": false,
+      "hiddenInNormalMode": false,
+      "hiddenReason": "",
+      "attributionRequired": true,
+      "timestamp": "2026-05-29T23:32:16+09:00"
+    },
+    {
+      "id": "road_osm_145405913",
+      "objectType": "road",
+      "name": "丸の内仲通り",
+      "finalDisplayName": "丸の内仲通り",
+      "finalDisplayNameLanguage": "ja",
+      "language": "ja",
+      "source": "data_pipeline/cache/osmnx/ac4148631a0cecd2591a515e45fb03a0edd933bc.json",
+      "provider": "OpenStreetMap",
+      "sourceField": "name/name:ja",
+      "classification": "local_osm_cache_name",
+      "rawType": "highway:residential",
+      "confidence": 0.78,
+      "lat": 35.6831954,
+      "lon": 139.7638898,
+      "position": {
+        "x": -576.228,
+        "y": 2.4,
+        "z": 677.303
+      },
+      "unityPosition": {
+        "x": -576.228,
+        "y": 2.4,
+        "z": 677.303
+      },
+      "rawName": "丸の内仲通り",
+      "normalizedName": "丸の内仲通り",
+      "idOnly": false,
+      "disabled": false,
+      "hiddenInNormalMode": false,
+      "hiddenReason": "",
+      "attributionRequired": true,
+      "timestamp": "2026-05-29T23:32:16+09:00"
+    },
+    {
+      "id": "road_osm_145405916",
+      "objectType": "road",
+      "name": "丸の内 4th",
+      "finalDisplayName": "丸の内 4th",
+      "finalDisplayNameLanguage": "ja",
+      "language": "ja",
+      "source": "data_pipeline/cache/osmnx/ac4148631a0cecd2591a515e45fb03a0edd933bc.json",
+      "provider": "OpenStreetMap",
+      "sourceField": "name/name:ja",
+      "classification": "local_osm_cache_name",
+      "rawType": "highway:tertiary",
+      "confidence": 0.78,
+      "lat": 35.6770175,
+      "lon": 139.7624053,
+      "position": {
+        "x": -711.744,
+        "y": 2.4,
+        "z": -3.449
+      },
+      "unityPosition": {
+        "x": -711.744,
+        "y": 2.4,
+        "z": -3.449
+      },
+      "rawName": "丸の内 4th",
+      "normalizedName": "丸の内 4th",
+      "idOnly": false,
+      "disabled": false,
+      "hiddenInNormalMode": false,
+      "hiddenReason": "",
+      "attributionRequired": true,
+      "timestamp": "2026-05-29T23:32:16+09:00"
     },
     {
       "id": "road_osm_19779850",
@@ -2226,7 +3858,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": true,
-      "timestamp": "2026-05-29T21:46:22+09:00"
+      "timestamp": "2026-05-29T23:32:16+09:00"
     },
     {
       "id": "road_osm_21957620",
@@ -2260,7 +3892,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": true,
-      "timestamp": "2026-05-29T21:46:22+09:00"
+      "timestamp": "2026-05-29T23:32:16+09:00"
     },
     {
       "id": "road_osm_21957625",
@@ -2294,7 +3926,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": true,
-      "timestamp": "2026-05-29T21:46:22+09:00"
+      "timestamp": "2026-05-29T23:32:16+09:00"
     },
     {
       "id": "road_osm_22730603",
@@ -2328,7 +3960,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": true,
-      "timestamp": "2026-05-29T21:46:22+09:00"
+      "timestamp": "2026-05-29T23:32:16+09:00"
     },
     {
       "id": "road_osm_22989309",
@@ -2362,7 +3994,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": true,
-      "timestamp": "2026-05-29T21:46:22+09:00"
+      "timestamp": "2026-05-29T23:32:16+09:00"
     },
     {
       "id": "road_osm_23260464",
@@ -2396,7 +4028,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": true,
-      "timestamp": "2026-05-29T21:46:22+09:00"
+      "timestamp": "2026-05-29T23:32:16+09:00"
     },
     {
       "id": "road_osm_23260642",
@@ -2430,7 +4062,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": true,
-      "timestamp": "2026-05-29T21:46:22+09:00"
+      "timestamp": "2026-05-29T23:32:16+09:00"
     },
     {
       "id": "road_osm_23260750",
@@ -2464,7 +4096,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": true,
-      "timestamp": "2026-05-29T21:46:22+09:00"
+      "timestamp": "2026-05-29T23:32:16+09:00"
     },
     {
       "id": "road_osm_23456384",
@@ -2498,7 +4130,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": true,
-      "timestamp": "2026-05-29T21:46:22+09:00"
+      "timestamp": "2026-05-29T23:32:16+09:00"
     },
     {
       "id": "road_osm_23578870",
@@ -2532,7 +4164,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": true,
-      "timestamp": "2026-05-29T21:46:22+09:00"
+      "timestamp": "2026-05-29T23:32:16+09:00"
     },
     {
       "id": "road_osm_23579065",
@@ -2566,7 +4198,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": true,
-      "timestamp": "2026-05-29T21:46:22+09:00"
+      "timestamp": "2026-05-29T23:32:16+09:00"
     },
     {
       "id": "road_osm_23704749",
@@ -2600,7 +4232,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": true,
-      "timestamp": "2026-05-29T21:46:22+09:00"
+      "timestamp": "2026-05-29T23:32:16+09:00"
     },
     {
       "id": "road_osm_23815145",
@@ -2634,7 +4266,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": true,
-      "timestamp": "2026-05-29T21:46:22+09:00"
+      "timestamp": "2026-05-29T23:32:16+09:00"
     },
     {
       "id": "road_osm_24061029",
@@ -2668,7 +4300,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": true,
-      "timestamp": "2026-05-29T21:46:22+09:00"
+      "timestamp": "2026-05-29T23:32:16+09:00"
     },
     {
       "id": "road_osm_24989806",
@@ -2702,7 +4334,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": true,
-      "timestamp": "2026-05-29T21:46:22+09:00"
+      "timestamp": "2026-05-29T23:32:16+09:00"
     },
     {
       "id": "road_osm_27085148",
@@ -2736,7 +4368,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": true,
-      "timestamp": "2026-05-29T21:46:22+09:00"
+      "timestamp": "2026-05-29T23:32:16+09:00"
     },
     {
       "id": "road_osm_31046191",
@@ -2770,7 +4402,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": true,
-      "timestamp": "2026-05-29T21:46:22+09:00"
+      "timestamp": "2026-05-29T23:32:16+09:00"
     },
     {
       "id": "road_osm_31046466",
@@ -2804,7 +4436,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": true,
-      "timestamp": "2026-05-29T21:46:22+09:00"
+      "timestamp": "2026-05-29T23:32:16+09:00"
     },
     {
       "id": "road_osm_31046679",
@@ -2838,7 +4470,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": true,
-      "timestamp": "2026-05-29T21:46:22+09:00"
+      "timestamp": "2026-05-29T23:32:16+09:00"
     },
     {
       "id": "road_osm_31046766",
@@ -2872,7 +4504,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": true,
-      "timestamp": "2026-05-29T21:46:22+09:00"
+      "timestamp": "2026-05-29T23:32:16+09:00"
     },
     {
       "id": "road_osm_31046903",
@@ -2906,7 +4538,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": true,
-      "timestamp": "2026-05-29T21:46:22+09:00"
+      "timestamp": "2026-05-29T23:32:16+09:00"
     },
     {
       "id": "road_osm_31090134",
@@ -2940,7 +4572,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": true,
-      "timestamp": "2026-05-29T21:46:22+09:00"
+      "timestamp": "2026-05-29T23:32:16+09:00"
     },
     {
       "id": "road_osm_31624134",
@@ -2974,7 +4606,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": true,
-      "timestamp": "2026-05-29T21:46:22+09:00"
+      "timestamp": "2026-05-29T23:32:16+09:00"
     },
     {
       "id": "road_osm_31624221",
@@ -3008,7 +4640,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": true,
-      "timestamp": "2026-05-29T21:46:22+09:00"
+      "timestamp": "2026-05-29T23:32:16+09:00"
     },
     {
       "id": "road_osm_32122316",
@@ -3042,7 +4674,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": true,
-      "timestamp": "2026-05-29T21:46:22+09:00"
+      "timestamp": "2026-05-29T23:32:16+09:00"
     },
     {
       "id": "road_osm_32122518",
@@ -3076,7 +4708,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": true,
-      "timestamp": "2026-05-29T21:46:22+09:00"
+      "timestamp": "2026-05-29T23:32:16+09:00"
     },
     {
       "id": "road_osm_33118876",
@@ -3110,7 +4742,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": true,
-      "timestamp": "2026-05-29T21:46:22+09:00"
+      "timestamp": "2026-05-29T23:32:16+09:00"
     },
     {
       "id": "road_osm_33625073",
@@ -3144,7 +4776,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": true,
-      "timestamp": "2026-05-29T21:46:22+09:00"
+      "timestamp": "2026-05-29T23:32:16+09:00"
     },
     {
       "id": "road_osm_33626782",
@@ -3178,7 +4810,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": true,
-      "timestamp": "2026-05-29T21:46:22+09:00"
+      "timestamp": "2026-05-29T23:32:16+09:00"
     },
     {
       "id": "road_osm_33626801",
@@ -3212,7 +4844,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": true,
-      "timestamp": "2026-05-29T21:46:22+09:00"
+      "timestamp": "2026-05-29T23:32:16+09:00"
     },
     {
       "id": "road_osm_34951236",
@@ -3246,7 +4878,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": true,
-      "timestamp": "2026-05-29T21:46:22+09:00"
+      "timestamp": "2026-05-29T23:32:16+09:00"
     },
     {
       "id": "road_osm_35216007",
@@ -3280,7 +4912,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": true,
-      "timestamp": "2026-05-29T21:46:22+09:00"
+      "timestamp": "2026-05-29T23:32:16+09:00"
     },
     {
       "id": "road_osm_35216239",
@@ -3314,7 +4946,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": true,
-      "timestamp": "2026-05-29T21:46:22+09:00"
+      "timestamp": "2026-05-29T23:32:16+09:00"
     },
     {
       "id": "road_osm_35216758",
@@ -3348,7 +4980,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": true,
-      "timestamp": "2026-05-29T21:46:22+09:00"
+      "timestamp": "2026-05-29T23:32:16+09:00"
     },
     {
       "id": "road_osm_39169441",
@@ -3382,7 +5014,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": true,
-      "timestamp": "2026-05-29T21:46:22+09:00"
+      "timestamp": "2026-05-29T23:32:16+09:00"
     },
     {
       "id": "road_osm_39520581",
@@ -3416,7 +5048,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": true,
-      "timestamp": "2026-05-29T21:46:22+09:00"
+      "timestamp": "2026-05-29T23:32:16+09:00"
     },
     {
       "id": "road_osm_39521243",
@@ -3450,7 +5082,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": true,
-      "timestamp": "2026-05-29T21:46:22+09:00"
+      "timestamp": "2026-05-29T23:32:16+09:00"
     },
     {
       "id": "road_osm_39521349",
@@ -3484,7 +5116,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": true,
-      "timestamp": "2026-05-29T21:46:22+09:00"
+      "timestamp": "2026-05-29T23:32:16+09:00"
     },
     {
       "id": "road_osm_39521608",
@@ -3518,7 +5150,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": true,
-      "timestamp": "2026-05-29T21:46:22+09:00"
+      "timestamp": "2026-05-29T23:32:16+09:00"
     },
     {
       "id": "road_osm_39629166",
@@ -3552,7 +5184,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": true,
-      "timestamp": "2026-05-29T21:46:22+09:00"
+      "timestamp": "2026-05-29T23:32:16+09:00"
     },
     {
       "id": "road_osm_39629431",
@@ -3586,7 +5218,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": true,
-      "timestamp": "2026-05-29T21:46:22+09:00"
+      "timestamp": "2026-05-29T23:32:16+09:00"
     },
     {
       "id": "road_osm_39629550",
@@ -3620,7 +5252,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": true,
-      "timestamp": "2026-05-29T21:46:22+09:00"
+      "timestamp": "2026-05-29T23:32:16+09:00"
     },
     {
       "id": "road_osm_40969573",
@@ -3654,7 +5286,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": true,
-      "timestamp": "2026-05-29T21:46:22+09:00"
+      "timestamp": "2026-05-29T23:32:16+09:00"
     },
     {
       "id": "road_osm_40969574",
@@ -3688,7 +5320,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": true,
-      "timestamp": "2026-05-29T21:46:22+09:00"
+      "timestamp": "2026-05-29T23:32:16+09:00"
     },
     {
       "id": "road_osm_40969575",
@@ -3722,7 +5354,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": true,
-      "timestamp": "2026-05-29T21:46:22+09:00"
+      "timestamp": "2026-05-29T23:32:16+09:00"
     },
     {
       "id": "road_osm_40969585",
@@ -3756,7 +5388,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": true,
-      "timestamp": "2026-05-29T21:46:22+09:00"
+      "timestamp": "2026-05-29T23:32:16+09:00"
     },
     {
       "id": "road_osm_41519941",
@@ -3790,7 +5422,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": true,
-      "timestamp": "2026-05-29T21:46:22+09:00"
+      "timestamp": "2026-05-29T23:32:16+09:00"
     },
     {
       "id": "road_osm_41519943",
@@ -3824,7 +5456,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": true,
-      "timestamp": "2026-05-29T21:46:22+09:00"
+      "timestamp": "2026-05-29T23:32:16+09:00"
     },
     {
       "id": "road_osm_41818364",
@@ -3858,7 +5490,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": true,
-      "timestamp": "2026-05-29T21:46:22+09:00"
+      "timestamp": "2026-05-29T23:32:16+09:00"
     },
     {
       "id": "road_osm_42294744",
@@ -3892,7 +5524,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": true,
-      "timestamp": "2026-05-29T21:46:22+09:00"
+      "timestamp": "2026-05-29T23:32:16+09:00"
     },
     {
       "id": "road_osm_44492913",
@@ -3926,7 +5558,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": true,
-      "timestamp": "2026-05-29T21:46:22+09:00"
+      "timestamp": "2026-05-29T23:32:16+09:00"
     },
     {
       "id": "road_osm_44492914",
@@ -3960,7 +5592,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": true,
-      "timestamp": "2026-05-29T21:46:22+09:00"
+      "timestamp": "2026-05-29T23:32:16+09:00"
     },
     {
       "id": "road_osm_44492916",
@@ -3994,7 +5626,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": true,
-      "timestamp": "2026-05-29T21:46:22+09:00"
+      "timestamp": "2026-05-29T23:32:16+09:00"
     },
     {
       "id": "road_osm_45170509",
@@ -4028,7 +5660,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": true,
-      "timestamp": "2026-05-29T21:46:22+09:00"
+      "timestamp": "2026-05-29T23:32:16+09:00"
     },
     {
       "id": "road_osm_45170901",
@@ -4062,7 +5694,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": true,
-      "timestamp": "2026-05-29T21:46:22+09:00"
+      "timestamp": "2026-05-29T23:32:16+09:00"
     },
     {
       "id": "road_osm_46149028",
@@ -4096,7 +5728,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": true,
-      "timestamp": "2026-05-29T21:46:22+09:00"
+      "timestamp": "2026-05-29T23:32:16+09:00"
     },
     {
       "id": "road_osm_46869645",
@@ -4130,7 +5762,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": true,
-      "timestamp": "2026-05-29T21:46:22+09:00"
+      "timestamp": "2026-05-29T23:32:16+09:00"
     },
     {
       "id": "road_osm_46985715",
@@ -4164,7 +5796,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": true,
-      "timestamp": "2026-05-29T21:46:22+09:00"
+      "timestamp": "2026-05-29T23:32:16+09:00"
     },
     {
       "id": "road_osm_46985794",
@@ -4198,7 +5830,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": true,
-      "timestamp": "2026-05-29T21:46:22+09:00"
+      "timestamp": "2026-05-29T23:32:16+09:00"
     },
     {
       "id": "road_osm_46986253",
@@ -4232,7 +5864,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": true,
-      "timestamp": "2026-05-29T21:46:22+09:00"
+      "timestamp": "2026-05-29T23:32:16+09:00"
     },
     {
       "id": "road_osm_47418164",
@@ -4266,7 +5898,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": true,
-      "timestamp": "2026-05-29T21:46:22+09:00"
+      "timestamp": "2026-05-29T23:32:16+09:00"
     },
     {
       "id": "road_osm_47418248",
@@ -4300,7 +5932,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": true,
-      "timestamp": "2026-05-29T21:46:22+09:00"
+      "timestamp": "2026-05-29T23:32:16+09:00"
     },
     {
       "id": "road_osm_47418327",
@@ -4334,7 +5966,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": true,
-      "timestamp": "2026-05-29T21:46:22+09:00"
+      "timestamp": "2026-05-29T23:32:16+09:00"
     },
     {
       "id": "road_osm_47982503",
@@ -4368,7 +6000,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": true,
-      "timestamp": "2026-05-29T21:46:22+09:00"
+      "timestamp": "2026-05-29T23:32:16+09:00"
     },
     {
       "id": "road_osm_48037790",
@@ -4402,7 +6034,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": true,
-      "timestamp": "2026-05-29T21:46:22+09:00"
+      "timestamp": "2026-05-29T23:32:16+09:00"
     },
     {
       "id": "road_osm_48390839",
@@ -4436,7 +6068,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": true,
-      "timestamp": "2026-05-29T21:46:22+09:00"
+      "timestamp": "2026-05-29T23:32:16+09:00"
     },
     {
       "id": "road_osm_4848881",
@@ -4470,7 +6102,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": true,
-      "timestamp": "2026-05-29T21:46:22+09:00"
+      "timestamp": "2026-05-29T23:32:16+09:00"
     },
     {
       "id": "road_osm_4848911",
@@ -4504,7 +6136,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": true,
-      "timestamp": "2026-05-29T21:46:22+09:00"
+      "timestamp": "2026-05-29T23:32:16+09:00"
     },
     {
       "id": "road_osm_4848930",
@@ -4538,7 +6170,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": true,
-      "timestamp": "2026-05-29T21:46:22+09:00"
+      "timestamp": "2026-05-29T23:32:16+09:00"
     },
     {
       "id": "road_osm_4848945",
@@ -4572,7 +6204,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": true,
-      "timestamp": "2026-05-29T21:46:22+09:00"
+      "timestamp": "2026-05-29T23:32:16+09:00"
     },
     {
       "id": "road_osm_48780822",
@@ -4606,7 +6238,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": true,
-      "timestamp": "2026-05-29T21:46:22+09:00"
+      "timestamp": "2026-05-29T23:32:16+09:00"
     },
     {
       "id": "road_osm_48780823",
@@ -4640,7 +6272,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": true,
-      "timestamp": "2026-05-29T21:46:22+09:00"
+      "timestamp": "2026-05-29T23:32:16+09:00"
     },
     {
       "id": "road_osm_51771534",
@@ -4674,7 +6306,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": true,
-      "timestamp": "2026-05-29T21:46:22+09:00"
+      "timestamp": "2026-05-29T23:32:16+09:00"
     },
     {
       "id": "road_osm_52924701",
@@ -4708,7 +6340,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": true,
-      "timestamp": "2026-05-29T21:46:22+09:00"
+      "timestamp": "2026-05-29T23:32:16+09:00"
     },
     {
       "id": "road_osm_53162444",
@@ -4742,7 +6374,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": true,
-      "timestamp": "2026-05-29T21:46:22+09:00"
+      "timestamp": "2026-05-29T23:32:16+09:00"
     },
     {
       "id": "road_osm_62361251",
@@ -4776,7 +6408,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": true,
-      "timestamp": "2026-05-29T21:46:22+09:00"
+      "timestamp": "2026-05-29T23:32:16+09:00"
     },
     {
       "id": "road_osm_64304255",
@@ -4810,7 +6442,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": true,
-      "timestamp": "2026-05-29T21:46:22+09:00"
+      "timestamp": "2026-05-29T23:32:16+09:00"
     },
     {
       "id": "road_osm_67027577",
@@ -4844,7 +6476,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": true,
-      "timestamp": "2026-05-29T21:46:22+09:00"
+      "timestamp": "2026-05-29T23:32:16+09:00"
     },
     {
       "id": "road_osm_69963032",
@@ -4878,7 +6510,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": true,
-      "timestamp": "2026-05-29T21:46:22+09:00"
+      "timestamp": "2026-05-29T23:32:16+09:00"
     },
     {
       "id": "road_osm_69963038",
@@ -4912,20 +6544,1448 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": true,
-      "timestamp": "2026-05-29T21:46:22+09:00"
+      "timestamp": "2026-05-29T23:32:16+09:00"
+    },
+    {
+      "id": "road_osm_69963068",
+      "objectType": "road",
+      "name": "新橋西口通り",
+      "finalDisplayName": "新橋西口通り",
+      "finalDisplayNameLanguage": "ja",
+      "language": "ja",
+      "source": "data_pipeline/cache/osmnx/ac4148631a0cecd2591a515e45fb03a0edd933bc.json",
+      "provider": "OpenStreetMap",
+      "sourceField": "name/name:ja",
+      "classification": "local_osm_cache_name",
+      "rawType": "highway:residential",
+      "confidence": 0.78,
+      "lat": 35.6636757,
+      "lon": 139.7569393,
+      "position": {
+        "x": -1208.778,
+        "y": 2.4,
+        "z": -1472.741
+      },
+      "unityPosition": {
+        "x": -1208.778,
+        "y": 2.4,
+        "z": -1472.741
+      },
+      "rawName": "新橋西口通り",
+      "normalizedName": "新橋西口通り",
+      "idOnly": false,
+      "disabled": false,
+      "hiddenInNormalMode": false,
+      "hiddenReason": "",
+      "attributionRequired": true,
+      "timestamp": "2026-05-29T23:32:16+09:00"
+    },
+    {
+      "id": "road_osm_74314548",
+      "objectType": "road",
+      "name": "木挽町通り",
+      "finalDisplayName": "木挽町通り",
+      "finalDisplayNameLanguage": "ja",
+      "language": "ja",
+      "source": "data_pipeline/cache/osmnx/ac4148631a0cecd2591a515e45fb03a0edd933bc.json",
+      "provider": "OpenStreetMap",
+      "sourceField": "name/name:ja",
+      "classification": "local_osm_cache_name",
+      "rawType": "highway:residential",
+      "confidence": 0.78,
+      "lat": 35.6707657,
+      "lon": 139.7699166,
+      "position": {
+        "x": -33.805,
+        "y": 2.4,
+        "z": -695.774
+      },
+      "unityPosition": {
+        "x": -33.805,
+        "y": 2.4,
+        "z": -695.774
+      },
+      "rawName": "木挽町通り",
+      "normalizedName": "木挽町通り",
+      "idOnly": false,
+      "disabled": false,
+      "hiddenInNormalMode": false,
+      "hiddenReason": "",
+      "attributionRequired": true,
+      "timestamp": "2026-05-29T23:32:16+09:00"
+    },
+    {
+      "id": "road_osm_74314551",
+      "objectType": "road",
+      "name": "築地中通",
+      "finalDisplayName": "築地中通",
+      "finalDisplayNameLanguage": "ja",
+      "language": "ja",
+      "source": "data_pipeline/cache/osmnx/ac4148631a0cecd2591a515e45fb03a0edd933bc.json",
+      "provider": "OpenStreetMap",
+      "sourceField": "name/name:ja",
+      "classification": "local_osm_cache_name",
+      "rawType": "highway:residential",
+      "confidence": 0.78,
+      "lat": 35.6656119,
+      "lon": 139.7708495,
+      "position": {
+        "x": 49.491,
+        "y": 2.4,
+        "z": -1264.505
+      },
+      "unityPosition": {
+        "x": 49.491,
+        "y": 2.4,
+        "z": -1264.505
+      },
+      "rawName": "築地中通",
+      "normalizedName": "築地中通",
+      "idOnly": false,
+      "disabled": false,
+      "hiddenInNormalMode": false,
+      "hiddenReason": "",
+      "attributionRequired": true,
+      "timestamp": "2026-05-29T23:32:16+09:00"
+    },
+    {
+      "id": "road_osm_74314553",
+      "objectType": "road",
+      "name": "築地西通り",
+      "finalDisplayName": "築地西通り",
+      "finalDisplayNameLanguage": "ja",
+      "language": "ja",
+      "source": "data_pipeline/cache/osmnx/ac4148631a0cecd2591a515e45fb03a0edd933bc.json",
+      "provider": "OpenStreetMap",
+      "sourceField": "name/name:ja",
+      "classification": "local_osm_cache_name",
+      "rawType": "highway:residential",
+      "confidence": 0.78,
+      "lat": 35.6659134,
+      "lon": 139.7705248,
+      "position": {
+        "x": 20.192,
+        "y": 2.4,
+        "z": -1231.131
+      },
+      "unityPosition": {
+        "x": 20.192,
+        "y": 2.4,
+        "z": -1231.131
+      },
+      "rawName": "築地西通り",
+      "normalizedName": "築地西通り",
+      "idOnly": false,
+      "disabled": false,
+      "hiddenInNormalMode": false,
+      "hiddenReason": "",
+      "attributionRequired": true,
+      "timestamp": "2026-05-29T23:32:16+09:00"
+    },
+    {
+      "id": "road_osm_86867130",
+      "objectType": "road",
+      "name": "猿楽通り",
+      "finalDisplayName": "猿楽通り",
+      "finalDisplayNameLanguage": "ja",
+      "language": "ja",
+      "source": "data_pipeline/cache/osmnx/ac4148631a0cecd2591a515e45fb03a0edd933bc.json",
+      "provider": "OpenStreetMap",
+      "sourceField": "name/name:ja",
+      "classification": "local_osm_cache_name",
+      "rawType": "highway:unclassified",
+      "confidence": 0.78,
+      "lat": 35.6997234,
+      "lon": 139.7585199,
+      "position": {
+        "x": -1058.403,
+        "y": 2.4,
+        "z": 2502.103
+      },
+      "unityPosition": {
+        "x": -1058.403,
+        "y": 2.4,
+        "z": 2502.103
+      },
+      "rawName": "猿楽通り",
+      "normalizedName": "猿楽通り",
+      "idOnly": false,
+      "disabled": false,
+      "hiddenInNormalMode": false,
+      "hiddenReason": "",
+      "attributionRequired": true,
+      "timestamp": "2026-05-29T23:32:16+09:00"
+    },
+    {
+      "id": "road_osm_88690557",
+      "objectType": "road",
+      "name": "外濠環状線",
+      "finalDisplayName": "外濠環状線",
+      "finalDisplayNameLanguage": "ja",
+      "language": "ja",
+      "source": "data_pipeline/cache/osmnx/ac4148631a0cecd2591a515e45fb03a0edd933bc.json",
+      "provider": "OpenStreetMap",
+      "sourceField": "name/name:ja",
+      "classification": "local_osm_cache_name",
+      "rawType": "highway:secondary",
+      "confidence": 0.78,
+      "lat": 35.6657989,
+      "lon": 139.7590672,
+      "position": {
+        "x": -1015.918,
+        "y": 2.4,
+        "z": -1239.398
+      },
+      "unityPosition": {
+        "x": -1015.918,
+        "y": 2.4,
+        "z": -1239.398
+      },
+      "rawName": "外濠環状線",
+      "normalizedName": "外濠環状線",
+      "idOnly": false,
+      "disabled": false,
+      "hiddenInNormalMode": false,
+      "hiddenReason": "",
+      "attributionRequired": true,
+      "timestamp": "2026-05-29T23:32:16+09:00"
+    },
+    {
+      "id": "road_osm_89419989",
+      "objectType": "road",
+      "name": "油坂",
+      "finalDisplayName": "油坂",
+      "finalDisplayNameLanguage": "ja",
+      "language": "ja",
+      "source": "data_pipeline/cache/osmnx/ac4148631a0cecd2591a515e45fb03a0edd933bc.json",
+      "provider": "OpenStreetMap",
+      "sourceField": "name/name:ja",
+      "classification": "local_osm_cache_name",
+      "rawType": "highway:unclassified",
+      "confidence": 0.78,
+      "lat": 35.702034,
+      "lon": 139.7610888,
+      "position": {
+        "x": -825.626,
+        "y": 2.4,
+        "z": 2755.945
+      },
+      "unityPosition": {
+        "x": -825.626,
+        "y": 2.4,
+        "z": 2755.945
+      },
+      "rawName": "油坂",
+      "normalizedName": "油坂",
+      "idOnly": false,
+      "disabled": false,
+      "hiddenInNormalMode": false,
+      "hiddenReason": "",
+      "attributionRequired": true,
+      "timestamp": "2026-05-29T23:32:16+09:00"
+    },
+    {
+      "id": "road_osm_90636499",
+      "objectType": "road",
+      "name": "須田二仲通り",
+      "finalDisplayName": "須田二仲通り",
+      "finalDisplayNameLanguage": "ja",
+      "language": "ja",
+      "source": "data_pipeline/cache/osmnx/ac4148631a0cecd2591a515e45fb03a0edd933bc.json",
+      "provider": "OpenStreetMap",
+      "sourceField": "name/name:ja",
+      "classification": "local_osm_cache_name",
+      "rawType": "highway:unclassified",
+      "confidence": 0.78,
+      "lat": 35.69618,
+      "lon": 139.7731078,
+      "position": {
+        "x": 260.017,
+        "y": 2.4,
+        "z": 2105.775
+      },
+      "unityPosition": {
+        "x": 260.017,
+        "y": 2.4,
+        "z": 2105.775
+      },
+      "rawName": "須田二仲通り",
+      "normalizedName": "須田二仲通り",
+      "idOnly": false,
+      "disabled": false,
+      "hiddenInNormalMode": false,
+      "hiddenReason": "",
+      "attributionRequired": true,
+      "timestamp": "2026-05-29T23:32:16+09:00"
+    },
+    {
+      "id": "road_osm_90795033",
+      "objectType": "road",
+      "name": "神田ふれあい通",
+      "finalDisplayName": "神田ふれあい通",
+      "finalDisplayNameLanguage": "ja",
+      "language": "ja",
+      "source": "data_pipeline/cache/osmnx/ac4148631a0cecd2591a515e45fb03a0edd933bc.json",
+      "provider": "OpenStreetMap",
+      "sourceField": "name/name:ja",
+      "classification": "local_osm_cache_name",
+      "rawType": "highway:residential",
+      "confidence": 0.78,
+      "lat": 35.6947545,
+      "lon": 139.7725739,
+      "position": {
+        "x": 211.444,
+        "y": 2.4,
+        "z": 1948.77
+      },
+      "unityPosition": {
+        "x": 211.444,
+        "y": 2.4,
+        "z": 1948.77
+      },
+      "rawName": "神田ふれあい通",
+      "normalizedName": "神田ふれあい通",
+      "idOnly": false,
+      "disabled": false,
+      "hiddenInNormalMode": false,
+      "hiddenReason": "",
+      "attributionRequired": true,
+      "timestamp": "2026-05-29T23:32:16+09:00"
+    },
+    {
+      "id": "road_osm_90795477",
+      "objectType": "road",
+      "name": "馬二仲通り",
+      "finalDisplayName": "馬二仲通り",
+      "finalDisplayNameLanguage": "ja",
+      "language": "ja",
+      "source": "data_pipeline/cache/osmnx/ac4148631a0cecd2591a515e45fb03a0edd933bc.json",
+      "provider": "OpenStreetMap",
+      "sourceField": "name/name:ja",
+      "classification": "local_osm_cache_name",
+      "rawType": "highway:residential",
+      "confidence": 0.78,
+      "lat": 35.6955376,
+      "lon": 139.783744,
+      "position": {
+        "x": 1221.693,
+        "y": 2.4,
+        "z": 2030.881
+      },
+      "unityPosition": {
+        "x": 1221.693,
+        "y": 2.4,
+        "z": 2030.881
+      },
+      "rawName": "馬二仲通り",
+      "normalizedName": "馬二仲通り",
+      "idOnly": false,
+      "disabled": false,
+      "hiddenInNormalMode": false,
+      "hiddenReason": "",
+      "attributionRequired": true,
+      "timestamp": "2026-05-29T23:32:16+09:00"
+    },
+    {
+      "id": "road_osm_90837300",
+      "objectType": "road",
+      "name": "人形町通り",
+      "finalDisplayName": "人形町通り",
+      "finalDisplayNameLanguage": "ja",
+      "language": "ja",
+      "source": "data_pipeline/cache/osmnx/ac4148631a0cecd2591a515e45fb03a0edd933bc.json",
+      "provider": "OpenStreetMap",
+      "sourceField": "name/name:ja",
+      "classification": "local_osm_cache_name",
+      "rawType": "highway:tertiary",
+      "confidence": 0.78,
+      "lat": 35.6845493,
+      "lon": 139.783867,
+      "position": {
+        "x": 1230.547,
+        "y": 2.4,
+        "z": 819.013
+      },
+      "unityPosition": {
+        "x": 1230.547,
+        "y": 2.4,
+        "z": 819.013
+      },
+      "rawName": "人形町通り",
+      "normalizedName": "人形町通り",
+      "idOnly": false,
+      "disabled": false,
+      "hiddenInNormalMode": false,
+      "hiddenReason": "",
+      "attributionRequired": true,
+      "timestamp": "2026-05-29T23:32:16+09:00"
+    },
+    {
+      "id": "road_osm_92204285",
+      "objectType": "road",
+      "name": "富士見坂",
+      "finalDisplayName": "富士見坂",
+      "finalDisplayNameLanguage": "ja",
+      "language": "ja",
+      "source": "data_pipeline/cache/osmnx/ac4148631a0cecd2591a515e45fb03a0edd933bc.json",
+      "provider": "OpenStreetMap",
+      "sourceField": "name/name:ja",
+      "classification": "local_osm_cache_name",
+      "rawType": "highway:unclassified",
+      "confidence": 0.78,
+      "lat": 35.6963944,
+      "lon": 139.7611287,
+      "position": {
+        "x": -823.182,
+        "y": 2.4,
+        "z": 2133.979
+      },
+      "unityPosition": {
+        "x": -823.182,
+        "y": 2.4,
+        "z": 2133.979
+      },
+      "rawName": "富士見坂",
+      "normalizedName": "富士見坂",
+      "idOnly": false,
+      "disabled": false,
+      "hiddenInNormalMode": false,
+      "hiddenReason": "",
+      "attributionRequired": true,
+      "timestamp": "2026-05-29T23:32:16+09:00"
+    },
+    {
+      "id": "road_osm_92206658",
+      "objectType": "road",
+      "name": "千代田小通り",
+      "finalDisplayName": "千代田小通り",
+      "finalDisplayNameLanguage": "ja",
+      "language": "ja",
+      "source": "data_pipeline/cache/osmnx/ac4148631a0cecd2591a515e45fb03a0edd933bc.json",
+      "provider": "OpenStreetMap",
+      "sourceField": "name/name:ja",
+      "classification": "local_osm_cache_name",
+      "rawType": "highway:residential",
+      "confidence": 0.78,
+      "lat": 35.695105,
+      "lon": 139.7682248,
+      "position": {
+        "x": -181.764,
+        "y": 2.4,
+        "z": 1989.079
+      },
+      "unityPosition": {
+        "x": -181.764,
+        "y": 2.4,
+        "z": 1989.079
+      },
+      "rawName": "千代田小通り",
+      "normalizedName": "千代田小通り",
+      "idOnly": false,
+      "disabled": false,
+      "hiddenInNormalMode": false,
+      "hiddenReason": "",
+      "attributionRequired": true,
+      "timestamp": "2026-05-29T23:32:16+09:00"
+    },
+    {
+      "id": "road_osm_92219072",
+      "objectType": "road",
+      "name": "むろまち小路",
+      "finalDisplayName": "むろまち小路",
+      "finalDisplayNameLanguage": "ja",
+      "language": "ja",
+      "source": "data_pipeline/cache/osmnx/ac4148631a0cecd2591a515e45fb03a0edd933bc.json",
+      "provider": "OpenStreetMap",
+      "sourceField": "name/name:ja",
+      "classification": "local_osm_cache_name",
+      "rawType": "highway:unclassified",
+      "confidence": 0.78,
+      "lat": 35.6859137,
+      "lon": 139.7757387,
+      "position": {
+        "x": 495.804,
+        "y": 2.4,
+        "z": 972.576
+      },
+      "unityPosition": {
+        "x": 495.804,
+        "y": 2.4,
+        "z": 972.576
+      },
+      "rawName": "むろまち小路",
+      "normalizedName": "むろまち小路",
+      "idOnly": false,
+      "disabled": false,
+      "hiddenInNormalMode": false,
+      "hiddenReason": "",
+      "attributionRequired": true,
+      "timestamp": "2026-05-29T23:32:16+09:00"
+    },
+    {
+      "id": "road_osm_92219075",
+      "objectType": "road",
+      "name": "按針通り",
+      "finalDisplayName": "按針通り",
+      "finalDisplayNameLanguage": "ja",
+      "language": "ja",
+      "source": "data_pipeline/cache/osmnx/ac4148631a0cecd2591a515e45fb03a0edd933bc.json",
+      "provider": "OpenStreetMap",
+      "sourceField": "name/name:ja",
+      "classification": "local_osm_cache_name",
+      "rawType": "highway:unclassified",
+      "confidence": 0.78,
+      "lat": 35.6852085,
+      "lon": 139.7756165,
+      "position": {
+        "x": 484.608,
+        "y": 2.4,
+        "z": 894.851
+      },
+      "unityPosition": {
+        "x": 484.608,
+        "y": 2.4,
+        "z": 894.851
+      },
+      "rawName": "按針通り",
+      "normalizedName": "按針通り",
+      "idOnly": false,
+      "disabled": false,
+      "hiddenInNormalMode": false,
+      "hiddenReason": "",
+      "attributionRequired": true,
+      "timestamp": "2026-05-29T23:32:16+09:00"
+    },
+    {
+      "id": "road_osm_92403776",
+      "objectType": "road",
+      "name": "明神女坂",
+      "finalDisplayName": "明神女坂",
+      "finalDisplayNameLanguage": "ja",
+      "language": "ja",
+      "source": "data_pipeline/cache/osmnx/ac4148631a0cecd2591a515e45fb03a0edd933bc.json",
+      "provider": "OpenStreetMap",
+      "sourceField": "name/name:ja",
+      "classification": "local_osm_cache_name",
+      "rawType": "highway:steps",
+      "confidence": 0.78,
+      "lat": 35.7010055,
+      "lon": 139.767896,
+      "position": {
+        "x": -210.278,
+        "y": 2.4,
+        "z": 2639.929
+      },
+      "unityPosition": {
+        "x": -210.278,
+        "y": 2.4,
+        "z": 2639.929
+      },
+      "rawName": "明神女坂",
+      "normalizedName": "明神女坂",
+      "idOnly": false,
+      "disabled": false,
+      "hiddenInNormalMode": false,
+      "hiddenReason": "",
+      "attributionRequired": true,
+      "timestamp": "2026-05-29T23:32:16+09:00"
+    },
+    {
+      "id": "road_osm_92403838",
+      "objectType": "road",
+      "name": "小川町北通り",
+      "finalDisplayName": "小川町北通り",
+      "finalDisplayNameLanguage": "ja",
+      "language": "ja",
+      "source": "data_pipeline/cache/osmnx/ac4148631a0cecd2591a515e45fb03a0edd933bc.json",
+      "provider": "OpenStreetMap",
+      "sourceField": "name/name:ja",
+      "classification": "local_osm_cache_name",
+      "rawType": "highway:residential",
+      "confidence": 0.78,
+      "lat": 35.6948605,
+      "lon": 139.7635288,
+      "position": {
+        "x": -606.463,
+        "y": 2.4,
+        "z": 1963.902
+      },
+      "unityPosition": {
+        "x": -606.463,
+        "y": 2.4,
+        "z": 1963.902
+      },
+      "rawName": "小川町北通り",
+      "normalizedName": "小川町北通り",
+      "idOnly": false,
+      "disabled": false,
+      "hiddenInNormalMode": false,
+      "hiddenReason": "",
+      "attributionRequired": true,
+      "timestamp": "2026-05-29T23:32:16+09:00"
+    },
+    {
+      "id": "road_osm_93325435",
+      "objectType": "road",
+      "name": "神田すずらん通り",
+      "finalDisplayName": "神田すずらん通り",
+      "finalDisplayNameLanguage": "ja",
+      "language": "ja",
+      "source": "data_pipeline/cache/osmnx/ac4148631a0cecd2591a515e45fb03a0edd933bc.json",
+      "provider": "OpenStreetMap",
+      "sourceField": "name/name:ja",
+      "classification": "local_osm_cache_name",
+      "rawType": "highway:residential",
+      "confidence": 0.78,
+      "lat": 35.6953531,
+      "lon": 139.7596369,
+      "position": {
+        "x": -958.298,
+        "y": 2.4,
+        "z": 2019.709
+      },
+      "unityPosition": {
+        "x": -958.298,
+        "y": 2.4,
+        "z": 2019.709
+      },
+      "rawName": "神田すずらん通り",
+      "normalizedName": "神田すずらん通り",
+      "idOnly": false,
+      "disabled": false,
+      "hiddenInNormalMode": false,
+      "hiddenReason": "",
+      "attributionRequired": true,
+      "timestamp": "2026-05-29T23:32:16+09:00"
+    },
+    {
+      "id": "road_osm_94094786",
+      "objectType": "road",
+      "name": "馬喰町横山町東通り",
+      "finalDisplayName": "馬喰町横山町東通り",
+      "finalDisplayNameLanguage": "ja",
+      "language": "ja",
+      "source": "data_pipeline/cache/osmnx/ac4148631a0cecd2591a515e45fb03a0edd933bc.json",
+      "provider": "OpenStreetMap",
+      "sourceField": "name/name:ja",
+      "classification": "local_osm_cache_name",
+      "rawType": "highway:residential",
+      "confidence": 0.78,
+      "lat": 35.6944436,
+      "lon": 139.7840161,
+      "position": {
+        "x": 1246.073,
+        "y": 2.4,
+        "z": 1910.128
+      },
+      "unityPosition": {
+        "x": 1246.073,
+        "y": 2.4,
+        "z": 1910.128
+      },
+      "rawName": "馬喰町横山町東通り",
+      "normalizedName": "馬喰町横山町東通り",
+      "idOnly": false,
+      "disabled": false,
+      "hiddenInNormalMode": false,
+      "hiddenReason": "",
+      "attributionRequired": true,
+      "timestamp": "2026-05-29T23:32:16+09:00"
+    },
+    {
+      "id": "road_osm_94094802",
+      "objectType": "road",
+      "name": "不動院通り",
+      "finalDisplayName": "不動院通り",
+      "finalDisplayNameLanguage": "ja",
+      "language": "ja",
+      "source": "data_pipeline/cache/osmnx/ac4148631a0cecd2591a515e45fb03a0edd933bc.json",
+      "provider": "OpenStreetMap",
+      "sourceField": "name/name:ja",
+      "classification": "local_osm_cache_name",
+      "rawType": "highway:unclassified",
+      "confidence": 0.78,
+      "lat": 35.693139,
+      "lon": 139.7852009,
+      "position": {
+        "x": 1352.942,
+        "y": 2.4,
+        "z": 1765.802
+      },
+      "unityPosition": {
+        "x": 1352.942,
+        "y": 2.4,
+        "z": 1765.802
+      },
+      "rawName": "不動院通り",
+      "normalizedName": "不動院通り",
+      "idOnly": false,
+      "disabled": false,
+      "hiddenInNormalMode": false,
+      "hiddenReason": "",
+      "attributionRequired": true,
+      "timestamp": "2026-05-29T23:32:16+09:00"
+    },
+    {
+      "id": "road_osm_94094821",
+      "objectType": "road",
+      "name": "えびす通り",
+      "finalDisplayName": "えびす通り",
+      "finalDisplayNameLanguage": "ja",
+      "language": "ja",
+      "source": "data_pipeline/cache/osmnx/ac4148631a0cecd2591a515e45fb03a0edd933bc.json",
+      "provider": "OpenStreetMap",
+      "sourceField": "name/name:ja",
+      "classification": "local_osm_cache_name",
+      "rawType": "highway:residential",
+      "confidence": 0.78,
+      "lat": 35.6898835,
+      "lon": 139.7783354,
+      "position": {
+        "x": 731.438,
+        "y": 2.4,
+        "z": 1409.389
+      },
+      "unityPosition": {
+        "x": 731.438,
+        "y": 2.4,
+        "z": 1409.389
+      },
+      "rawName": "えびす通り",
+      "normalizedName": "えびす通り",
+      "idOnly": false,
+      "disabled": false,
+      "hiddenInNormalMode": false,
+      "hiddenReason": "",
+      "attributionRequired": true,
+      "timestamp": "2026-05-29T23:32:16+09:00"
+    },
+    {
+      "id": "road_osm_94094828",
+      "objectType": "road",
+      "name": "横山町大通り",
+      "finalDisplayName": "横山町大通り",
+      "finalDisplayNameLanguage": "ja",
+      "language": "ja",
+      "source": "data_pipeline/cache/osmnx/ac4148631a0cecd2591a515e45fb03a0edd933bc.json",
+      "provider": "OpenStreetMap",
+      "sourceField": "name/name:ja",
+      "classification": "local_osm_cache_name",
+      "rawType": "highway:residential",
+      "confidence": 0.78,
+      "lat": 35.6937263,
+      "lon": 139.7843964,
+      "position": {
+        "x": 1280.314,
+        "y": 2.4,
+        "z": 1830.877
+      },
+      "unityPosition": {
+        "x": 1280.314,
+        "y": 2.4,
+        "z": 1830.877
+      },
+      "rawName": "横山町大通り",
+      "normalizedName": "横山町大通り",
+      "idOnly": false,
+      "disabled": false,
+      "hiddenInNormalMode": false,
+      "hiddenReason": "",
+      "attributionRequired": true,
+      "timestamp": "2026-05-29T23:32:16+09:00"
+    },
+    {
+      "id": "road_osm_94094840",
+      "objectType": "road",
+      "name": "大伝馬本町通り",
+      "finalDisplayName": "大伝馬本町通り",
+      "finalDisplayNameLanguage": "ja",
+      "language": "ja",
+      "source": "data_pipeline/cache/osmnx/ac4148631a0cecd2591a515e45fb03a0edd933bc.json",
+      "provider": "OpenStreetMap",
+      "sourceField": "name/name:ja",
+      "classification": "local_osm_cache_name",
+      "rawType": "highway:residential",
+      "confidence": 0.78,
+      "lat": 35.6887272,
+      "lon": 139.7770668,
+      "position": {
+        "x": 616.482,
+        "y": 2.4,
+        "z": 1282.352
+      },
+      "unityPosition": {
+        "x": 616.482,
+        "y": 2.4,
+        "z": 1282.352
+      },
+      "rawName": "大伝馬本町通り",
+      "normalizedName": "大伝馬本町通り",
+      "idOnly": false,
+      "disabled": false,
+      "hiddenInNormalMode": false,
+      "hiddenReason": "",
+      "attributionRequired": true,
+      "timestamp": "2026-05-29T23:32:16+09:00"
+    },
+    {
+      "id": "road_osm_94094850",
+      "objectType": "road",
+      "name": "甘酒横丁",
+      "finalDisplayName": "甘酒横丁",
+      "finalDisplayNameLanguage": "ja",
+      "language": "ja",
+      "source": "data_pipeline/cache/osmnx/ac4148631a0cecd2591a515e45fb03a0edd933bc.json",
+      "provider": "OpenStreetMap",
+      "sourceField": "name/name:ja",
+      "classification": "local_osm_cache_name",
+      "rawType": "highway:unclassified",
+      "confidence": 0.78,
+      "lat": 35.6861409,
+      "lon": 139.7851564,
+      "position": {
+        "x": 1347.473,
+        "y": 2.4,
+        "z": 994.048
+      },
+      "unityPosition": {
+        "x": 1347.473,
+        "y": 2.4,
+        "z": 994.048
+      },
+      "rawName": "甘酒横丁",
+      "normalizedName": "甘酒横丁",
+      "idOnly": false,
+      "disabled": false,
+      "hiddenInNormalMode": false,
+      "hiddenReason": "",
+      "attributionRequired": true,
+      "timestamp": "2026-05-29T23:32:16+09:00"
+    },
+    {
+      "id": "road_osm_94094852",
+      "objectType": "road",
+      "name": "東日本橋三丁目中央通り",
+      "finalDisplayName": "東日本橋三丁目中央通り",
+      "finalDisplayNameLanguage": "ja",
+      "language": "ja",
+      "source": "data_pipeline/cache/osmnx/ac4148631a0cecd2591a515e45fb03a0edd933bc.json",
+      "provider": "OpenStreetMap",
+      "sourceField": "name/name:ja",
+      "classification": "local_osm_cache_name",
+      "rawType": "highway:unclassified",
+      "confidence": 0.78,
+      "lat": 35.6916833,
+      "lon": 139.7841308,
+      "position": {
+        "x": 1255.875,
+        "y": 2.4,
+        "z": 1605.671
+      },
+      "unityPosition": {
+        "x": 1255.875,
+        "y": 2.4,
+        "z": 1605.671
+      },
+      "rawName": "東日本橋三丁目中央通り",
+      "normalizedName": "東日本橋三丁目中央通り",
+      "idOnly": false,
+      "disabled": false,
+      "hiddenInNormalMode": false,
+      "hiddenReason": "",
+      "attributionRequired": true,
+      "timestamp": "2026-05-29T23:32:16+09:00"
+    },
+    {
+      "id": "road_osm_94094878",
+      "objectType": "road",
+      "name": "新道問屋街",
+      "finalDisplayName": "新道問屋街",
+      "finalDisplayNameLanguage": "ja",
+      "language": "ja",
+      "source": "data_pipeline/cache/osmnx/ac4148631a0cecd2591a515e45fb03a0edd933bc.json",
+      "provider": "OpenStreetMap",
+      "sourceField": "name/name:ja",
+      "classification": "local_osm_cache_name",
+      "rawType": "highway:residential",
+      "confidence": 0.78,
+      "lat": 35.6925241,
+      "lon": 139.7822259,
+      "position": {
+        "x": 1083.792,
+        "y": 2.4,
+        "z": 1699.121
+      },
+      "unityPosition": {
+        "x": 1083.792,
+        "y": 2.4,
+        "z": 1699.121
+      },
+      "rawName": "新道問屋街",
+      "normalizedName": "新道問屋街",
+      "idOnly": false,
+      "disabled": false,
+      "hiddenInNormalMode": false,
+      "hiddenReason": "",
+      "attributionRequired": true,
+      "timestamp": "2026-05-29T23:32:16+09:00"
+    },
+    {
+      "id": "road_osm_95274326",
+      "objectType": "road",
+      "name": "銀座三原通り",
+      "finalDisplayName": "銀座三原通り",
+      "finalDisplayNameLanguage": "ja",
+      "language": "ja",
+      "source": "data_pipeline/cache/osmnx/ac4148631a0cecd2591a515e45fb03a0edd933bc.json",
+      "provider": "OpenStreetMap",
+      "sourceField": "name/name:ja",
+      "classification": "local_osm_cache_name",
+      "rawType": "highway:unclassified",
+      "confidence": 0.78,
+      "lat": 35.6722931,
+      "lon": 139.7677838,
+      "position": {
+        "x": -226.354,
+        "y": 2.4,
+        "z": -526.516
+      },
+      "unityPosition": {
+        "x": -226.354,
+        "y": 2.4,
+        "z": -526.516
+      },
+      "rawName": "銀座三原通り",
+      "normalizedName": "銀座三原通り",
+      "idOnly": false,
+      "disabled": false,
+      "hiddenInNormalMode": false,
+      "hiddenReason": "",
+      "attributionRequired": true,
+      "timestamp": "2026-05-29T23:32:16+09:00"
+    },
+    {
+      "id": "road_osm_95274334",
+      "objectType": "road",
+      "name": "聖ルカ通り",
+      "finalDisplayName": "聖ルカ通り",
+      "finalDisplayNameLanguage": "ja",
+      "language": "ja",
+      "source": "data_pipeline/cache/osmnx/ac4148631a0cecd2591a515e45fb03a0edd933bc.json",
+      "provider": "OpenStreetMap",
+      "sourceField": "name/name:ja",
+      "classification": "local_osm_cache_name",
+      "rawType": "highway:tertiary",
+      "confidence": 0.78,
+      "lat": 35.667238,
+      "lon": 139.7750173,
+      "position": {
+        "x": 426.712,
+        "y": 2.4,
+        "z": -1086.76
+      },
+      "unityPosition": {
+        "x": 426.712,
+        "y": 2.4,
+        "z": -1086.76
+      },
+      "rawName": "聖ルカ通り",
+      "normalizedName": "聖ルカ通り",
+      "idOnly": false,
+      "disabled": false,
+      "hiddenInNormalMode": false,
+      "hiddenReason": "",
+      "attributionRequired": true,
+      "timestamp": "2026-05-29T23:32:16+09:00"
+    },
+    {
+      "id": "road_osm_95274339",
+      "objectType": "road",
+      "name": "明正通り",
+      "finalDisplayName": "明正通り",
+      "finalDisplayNameLanguage": "ja",
+      "language": "ja",
+      "source": "data_pipeline/cache/osmnx/ac4148631a0cecd2591a515e45fb03a0edd933bc.json",
+      "provider": "OpenStreetMap",
+      "sourceField": "name/name:ja",
+      "classification": "local_osm_cache_name",
+      "rawType": "highway:tertiary",
+      "confidence": 0.78,
+      "lat": 35.6774609,
+      "lon": 139.7804094,
+      "position": {
+        "x": 916.419,
+        "y": 2.4,
+        "z": 38.599
+      },
+      "unityPosition": {
+        "x": 916.419,
+        "y": 2.4,
+        "z": 38.599
+      },
+      "rawName": "明正通り",
+      "normalizedName": "明正通り",
+      "idOnly": false,
+      "disabled": false,
+      "hiddenInNormalMode": false,
+      "hiddenReason": "",
+      "attributionRequired": true,
+      "timestamp": "2026-05-29T23:32:16+09:00"
+    },
+    {
+      "id": "road_osm_95274380",
+      "objectType": "road",
+      "name": "居留地通り",
+      "finalDisplayName": "居留地通り",
+      "finalDisplayNameLanguage": "ja",
+      "language": "ja",
+      "source": "data_pipeline/cache/osmnx/ac4148631a0cecd2591a515e45fb03a0edd933bc.json",
+      "provider": "OpenStreetMap",
+      "sourceField": "name/name:ja",
+      "classification": "local_osm_cache_name",
+      "rawType": "highway:tertiary",
+      "confidence": 0.78,
+      "lat": 35.6683849,
+      "lon": 139.7753464,
+      "position": {
+        "x": 456.709,
+        "y": 2.4,
+        "z": -960.402
+      },
+      "unityPosition": {
+        "x": 456.709,
+        "y": 2.4,
+        "z": -960.402
+      },
+      "rawName": "居留地通り",
+      "normalizedName": "居留地通り",
+      "idOnly": false,
+      "disabled": false,
+      "hiddenInNormalMode": false,
+      "hiddenReason": "",
+      "attributionRequired": true,
+      "timestamp": "2026-05-29T23:32:16+09:00"
+    },
+    {
+      "id": "road_osm_95274400",
+      "objectType": "road",
+      "name": "新亀島橋",
+      "finalDisplayName": "新亀島橋",
+      "finalDisplayNameLanguage": "ja",
+      "language": "ja",
+      "source": "data_pipeline/cache/osmnx/ac4148631a0cecd2591a515e45fb03a0edd933bc.json",
+      "provider": "OpenStreetMap",
+      "sourceField": "name/name:ja",
+      "classification": "local_osm_cache_name",
+      "rawType": "highway:tertiary",
+      "confidence": 0.78,
+      "lat": 35.677556,
+      "lon": 139.7802498,
+      "position": {
+        "x": 902.007,
+        "y": 2.4,
+        "z": 49.148
+      },
+      "unityPosition": {
+        "x": 902.007,
+        "y": 2.4,
+        "z": 49.148
+      },
+      "rawName": "新亀島橋",
+      "normalizedName": "新亀島橋",
+      "idOnly": false,
+      "disabled": false,
+      "hiddenInNormalMode": false,
+      "hiddenReason": "",
+      "attributionRequired": true,
+      "timestamp": "2026-05-29T23:32:16+09:00"
+    },
+    {
+      "id": "road_osm_95277526",
+      "objectType": "road",
+      "name": "銀座柳通り",
+      "finalDisplayName": "銀座柳通り",
+      "finalDisplayNameLanguage": "ja",
+      "language": "ja",
+      "source": "data_pipeline/cache/osmnx/ac4148631a0cecd2591a515e45fb03a0edd933bc.json",
+      "provider": "OpenStreetMap",
+      "sourceField": "name/name:ja",
+      "classification": "local_osm_cache_name",
+      "rawType": "highway:unclassified",
+      "confidence": 0.78,
+      "lat": 35.674133,
+      "lon": 139.7673563,
+      "position": {
+        "x": -264.632,
+        "y": 2.4,
+        "z": -323.444
+      },
+      "unityPosition": {
+        "x": -264.632,
+        "y": 2.4,
+        "z": -323.444
+      },
+      "rawName": "銀座柳通り",
+      "normalizedName": "銀座柳通り",
+      "idOnly": false,
+      "disabled": false,
+      "hiddenInNormalMode": false,
+      "hiddenReason": "",
+      "attributionRequired": true,
+      "timestamp": "2026-05-29T23:32:16+09:00"
+    },
+    {
+      "id": "road_osm_95282550",
+      "objectType": "road",
+      "name": "小菊通り（芸者新道）",
+      "finalDisplayName": "小菊通り（芸者新道）",
+      "finalDisplayNameLanguage": "ja",
+      "language": "ja",
+      "source": "data_pipeline/cache/osmnx/ac4148631a0cecd2591a515e45fb03a0edd933bc.json",
+      "provider": "OpenStreetMap",
+      "sourceField": "name/name:ja",
+      "classification": "local_osm_cache_name",
+      "rawType": "highway:pedestrian",
+      "confidence": 0.78,
+      "lat": 35.6854808,
+      "lon": 139.7823162,
+      "position": {
+        "x": 1090.503,
+        "y": 2.4,
+        "z": 922.331
+      },
+      "unityPosition": {
+        "x": 1090.503,
+        "y": 2.4,
+        "z": 922.331
+      },
+      "rawName": "小菊通り（芸者新道）",
+      "normalizedName": "小菊通り（芸者新道）",
+      "idOnly": false,
+      "disabled": false,
+      "hiddenInNormalMode": false,
+      "hiddenReason": "",
+      "attributionRequired": true,
+      "timestamp": "2026-05-29T23:32:16+09:00"
+    },
+    {
+      "id": "road_osm_95282557",
+      "objectType": "road",
+      "name": "湊橋",
+      "finalDisplayName": "湊橋",
+      "finalDisplayNameLanguage": "ja",
+      "language": "ja",
+      "source": "data_pipeline/cache/osmnx/ac4148631a0cecd2591a515e45fb03a0edd933bc.json",
+      "provider": "OpenStreetMap",
+      "sourceField": "name/name:ja",
+      "classification": "local_osm_cache_name",
+      "rawType": "highway:tertiary",
+      "confidence": 0.78,
+      "lat": 35.6790478,
+      "lon": 139.7832461,
+      "position": {
+        "x": 1173.264,
+        "y": 2.4,
+        "z": 212.527
+      },
+      "unityPosition": {
+        "x": 1173.264,
+        "y": 2.4,
+        "z": 212.527
+      },
+      "rawName": "湊橋",
+      "normalizedName": "湊橋",
+      "idOnly": false,
+      "disabled": false,
+      "hiddenInNormalMode": false,
+      "hiddenReason": "",
+      "attributionRequired": true,
+      "timestamp": "2026-05-29T23:32:16+09:00"
+    },
+    {
+      "id": "road_osm_97671346",
+      "objectType": "road",
+      "name": "南高橋",
+      "finalDisplayName": "南高橋",
+      "finalDisplayNameLanguage": "ja",
+      "language": "ja",
+      "source": "data_pipeline/cache/osmnx/ac4148631a0cecd2591a515e45fb03a0edd933bc.json",
+      "provider": "OpenStreetMap",
+      "sourceField": "name/name:ja",
+      "classification": "local_osm_cache_name",
+      "rawType": "highway:tertiary",
+      "confidence": 0.78,
+      "lat": 35.6730944,
+      "lon": 139.7817534,
+      "position": {
+        "x": 1037.053,
+        "y": 2.4,
+        "z": -443.463
+      },
+      "unityPosition": {
+        "x": 1037.053,
+        "y": 2.4,
+        "z": -443.463
+      },
+      "rawName": "南高橋",
+      "normalizedName": "南高橋",
+      "idOnly": false,
+      "disabled": false,
+      "hiddenInNormalMode": false,
+      "hiddenReason": "",
+      "attributionRequired": true,
+      "timestamp": "2026-05-29T23:32:16+09:00"
+    },
+    {
+      "id": "road_osm_97671358",
+      "objectType": "road",
+      "name": "京橋宝通り",
+      "finalDisplayName": "京橋宝通り",
+      "finalDisplayNameLanguage": "ja",
+      "language": "ja",
+      "source": "data_pipeline/cache/osmnx/ac4148631a0cecd2591a515e45fb03a0edd933bc.json",
+      "provider": "OpenStreetMap",
+      "sourceField": "name/name:ja",
+      "classification": "local_osm_cache_name",
+      "rawType": "highway:residential",
+      "confidence": 0.78,
+      "lat": 35.6762414,
+      "lon": 139.7712288,
+      "position": {
+        "x": 85.986,
+        "y": 2.4,
+        "z": -92.397
+      },
+      "unityPosition": {
+        "x": 85.986,
+        "y": 2.4,
+        "z": -92.397
+      },
+      "rawName": "京橋宝通り",
+      "normalizedName": "京橋宝通り",
+      "idOnly": false,
+      "disabled": false,
+      "hiddenInNormalMode": false,
+      "hiddenReason": "",
+      "attributionRequired": true,
+      "timestamp": "2026-05-29T23:32:16+09:00"
+    },
+    {
+      "id": "road_osm_97671387",
+      "objectType": "road",
+      "name": "鈴らん通り",
+      "finalDisplayName": "鈴らん通り",
+      "finalDisplayNameLanguage": "ja",
+      "language": "ja",
+      "source": "data_pipeline/cache/osmnx/ac4148631a0cecd2591a515e45fb03a0edd933bc.json",
+      "provider": "OpenStreetMap",
+      "sourceField": "name/name:ja",
+      "classification": "local_osm_cache_name",
+      "rawType": "highway:residential",
+      "confidence": 0.78,
+      "lat": 35.6759949,
+      "lon": 139.7767491,
+      "position": {
+        "x": 585.124,
+        "y": 2.4,
+        "z": -121.683
+      },
+      "unityPosition": {
+        "x": 585.124,
+        "y": 2.4,
+        "z": -121.683
+      },
+      "rawName": "鈴らん通り",
+      "normalizedName": "鈴らん通り",
+      "idOnly": false,
+      "disabled": false,
+      "hiddenInNormalMode": false,
+      "hiddenReason": "",
+      "attributionRequired": true,
+      "timestamp": "2026-05-29T23:32:16+09:00"
+    },
+    {
+      "id": "road_osm_97671419",
+      "objectType": "road",
+      "name": "京橋竹河岸通り",
+      "finalDisplayName": "京橋竹河岸通り",
+      "finalDisplayNameLanguage": "ja",
+      "language": "ja",
+      "source": "data_pipeline/cache/osmnx/ac4148631a0cecd2591a515e45fb03a0edd933bc.json",
+      "provider": "OpenStreetMap",
+      "sourceField": "name/name:ja",
+      "classification": "local_osm_cache_name",
+      "rawType": "highway:residential",
+      "confidence": 0.78,
+      "lat": 35.6748489,
+      "lon": 139.7706257,
+      "position": {
+        "x": 31.161,
+        "y": 2.4,
+        "z": -245.737
+      },
+      "unityPosition": {
+        "x": 31.161,
+        "y": 2.4,
+        "z": -245.737
+      },
+      "rawName": "京橋竹河岸通り",
+      "normalizedName": "京橋竹河岸通り",
+      "idOnly": false,
+      "disabled": false,
+      "hiddenInNormalMode": false,
+      "hiddenReason": "",
+      "attributionRequired": true,
+      "timestamp": "2026-05-29T23:32:16+09:00"
+    },
+    {
+      "id": "road_osm_97671461",
+      "objectType": "road",
+      "name": "二八通り",
+      "finalDisplayName": "二八通り",
+      "finalDisplayNameLanguage": "ja",
+      "language": "ja",
+      "source": "data_pipeline/cache/osmnx/ac4148631a0cecd2591a515e45fb03a0edd933bc.json",
+      "provider": "OpenStreetMap",
+      "sourceField": "name/name:ja",
+      "classification": "local_osm_cache_name",
+      "rawType": "highway:residential",
+      "confidence": 0.78,
+      "lat": 35.6766073,
+      "lon": 139.776216,
+      "position": {
+        "x": 537.043,
+        "y": 2.4,
+        "z": -53.943
+      },
+      "unityPosition": {
+        "x": 537.043,
+        "y": 2.4,
+        "z": -53.943
+      },
+      "rawName": "二八通り",
+      "normalizedName": "二八通り",
+      "idOnly": false,
+      "disabled": false,
+      "hiddenInNormalMode": false,
+      "hiddenReason": "",
+      "attributionRequired": true,
+      "timestamp": "2026-05-29T23:32:16+09:00"
+    },
+    {
+      "id": "road_osm_97685613",
+      "objectType": "road",
+      "name": "演舞場通り",
+      "finalDisplayName": "演舞場通り",
+      "finalDisplayNameLanguage": "ja",
+      "language": "ja",
+      "source": "data_pipeline/cache/osmnx/ac4148631a0cecd2591a515e45fb03a0edd933bc.json",
+      "provider": "OpenStreetMap",
+      "sourceField": "name/name:ja",
+      "classification": "local_osm_cache_name",
+      "rawType": "highway:tertiary",
+      "confidence": 0.78,
+      "lat": 35.6673089,
+      "lon": 139.7658837,
+      "position": {
+        "x": -399.205,
+        "y": 2.4,
+        "z": -1075.465
+      },
+      "unityPosition": {
+        "x": -399.205,
+        "y": 2.4,
+        "z": -1075.465
+      },
+      "rawName": "演舞場通り",
+      "normalizedName": "演舞場通り",
+      "idOnly": false,
+      "disabled": false,
+      "hiddenInNormalMode": false,
+      "hiddenReason": "",
+      "attributionRequired": true,
+      "timestamp": "2026-05-29T23:32:16+09:00"
+    },
+    {
+      "id": "road_osm_97685619",
+      "objectType": "road",
+      "name": "信楽通り",
+      "finalDisplayName": "信楽通り",
+      "finalDisplayNameLanguage": "ja",
+      "language": "ja",
+      "source": "data_pipeline/cache/osmnx/ac4148631a0cecd2591a515e45fb03a0edd933bc.json",
+      "provider": "OpenStreetMap",
+      "sourceField": "name/name:ja",
+      "classification": "local_osm_cache_name",
+      "rawType": "highway:unclassified",
+      "confidence": 0.78,
+      "lat": 35.6682588,
+      "lon": 139.7626046,
+      "position": {
+        "x": -695.531,
+        "y": 2.4,
+        "z": -969.459
+      },
+      "unityPosition": {
+        "x": -695.531,
+        "y": 2.4,
+        "z": -969.459
+      },
+      "rawName": "信楽通り",
+      "normalizedName": "信楽通り",
+      "idOnly": false,
+      "disabled": false,
+      "hiddenInNormalMode": false,
+      "hiddenReason": "",
+      "attributionRequired": true,
+      "timestamp": "2026-05-29T23:32:16+09:00"
+    },
+    {
+      "id": "road_osm_97685687",
+      "objectType": "road",
+      "name": "築地東通り",
+      "finalDisplayName": "築地東通り",
+      "finalDisplayNameLanguage": "ja",
+      "language": "ja",
+      "source": "data_pipeline/cache/osmnx/ac4148631a0cecd2591a515e45fb03a0edd933bc.json",
+      "provider": "OpenStreetMap",
+      "sourceField": "name/name:ja",
+      "classification": "local_osm_cache_name",
+      "rawType": "highway:residential",
+      "confidence": 0.78,
+      "lat": 35.6653027,
+      "lon": 139.771187,
+      "position": {
+        "x": 79.947,
+        "y": 2.4,
+        "z": -1298.733
+      },
+      "unityPosition": {
+        "x": 79.947,
+        "y": 2.4,
+        "z": -1298.733
+      },
+      "rawName": "築地東通り",
+      "normalizedName": "築地東通り",
+      "idOnly": false,
+      "disabled": false,
+      "hiddenInNormalMode": false,
+      "hiddenReason": "",
+      "attributionRequired": true,
+      "timestamp": "2026-05-29T23:32:16+09:00"
     },
     {
       "id": "route_road_osm_route_01_002_23",
       "objectType": "road",
-      "name": "銀座桜通り",
-      "finalDisplayName": "銀座桜通り",
+      "name": "銀座三原通り",
+      "finalDisplayName": "銀座三原通り",
       "finalDisplayNameLanguage": "ja",
       "language": "ja",
       "source": "online_preprocessing_reverse_geocode",
       "provider": "OpenStreetMap Nominatim",
       "sourceField": "namedetails.name/name:ja_or_address.road",
       "classification": "online_exact_or_near_match",
-      "rawType": "highway:tertiary",
+      "rawType": "highway:unclassified",
       "confidence": 0.74,
       "lat": 35.6743414,
       "lon": 139.7695383,
@@ -4939,14 +7999,14 @@
         "y": 2.4,
         "z": -301.291
       },
-      "rawName": "銀座桜通り",
-      "normalizedName": "銀座桜通り",
+      "rawName": "銀座三原通り",
+      "normalizedName": "銀座三原通り",
       "idOnly": false,
       "disabled": false,
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": true,
-      "timestamp": "2026-05-29T21:46:22+09:00"
+      "timestamp": "2026-05-29T23:32:16+09:00"
     },
     {
       "id": "route_road_osm_route_01_003_14",
@@ -4980,7 +8040,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": true,
-      "timestamp": "2026-05-29T21:46:22+09:00"
+      "timestamp": "2026-05-29T23:32:16+09:00"
     },
     {
       "id": "route_road_osm_route_01_003_28",
@@ -5014,7 +8074,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": true,
-      "timestamp": "2026-05-29T21:46:22+09:00"
+      "timestamp": "2026-05-29T23:32:16+09:00"
     },
     {
       "id": "route_road_osm_route_01_004_41",
@@ -5048,7 +8108,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": true,
-      "timestamp": "2026-05-29T21:46:22+09:00"
+      "timestamp": "2026-05-29T23:32:16+09:00"
     },
     {
       "id": "route_road_osm_route_01_004_82",
@@ -5082,7 +8142,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": true,
-      "timestamp": "2026-05-29T21:46:22+09:00"
+      "timestamp": "2026-05-29T23:32:16+09:00"
     },
     {
       "id": "route_road_osm_route_01_005_36",
@@ -5116,7 +8176,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": true,
-      "timestamp": "2026-05-29T21:46:22+09:00"
+      "timestamp": "2026-05-29T23:32:16+09:00"
     },
     {
       "id": "route_road_osm_route_01_006_32",
@@ -5150,7 +8210,41 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": true,
-      "timestamp": "2026-05-29T21:46:22+09:00"
+      "timestamp": "2026-05-29T23:32:16+09:00"
+    },
+    {
+      "id": "route_road_osm_route_01_006_64",
+      "objectType": "road",
+      "name": "居留地中央通り",
+      "finalDisplayName": "居留地中央通り",
+      "finalDisplayNameLanguage": "ja",
+      "language": "ja",
+      "source": "online_preprocessing_reverse_geocode",
+      "provider": "OpenStreetMap Nominatim",
+      "sourceField": "namedetails.name/name:ja_or_address.road",
+      "classification": "online_exact_or_near_match",
+      "rawType": "highway:tertiary",
+      "confidence": 0.74,
+      "lat": 35.6685957,
+      "lon": 139.7768523,
+      "position": {
+        "x": 592.928,
+        "y": 2.4,
+        "z": -937.728
+      },
+      "unityPosition": {
+        "x": 592.928,
+        "y": 2.4,
+        "z": -937.728
+      },
+      "rawName": "居留地中央通り",
+      "normalizedName": "居留地中央通り",
+      "idOnly": false,
+      "disabled": false,
+      "hiddenInNormalMode": false,
+      "hiddenReason": "",
+      "attributionRequired": true,
+      "timestamp": "2026-05-29T23:32:16+09:00"
     },
     {
       "id": "route_road_osm_route_01_007_18",
@@ -5184,7 +8278,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": true,
-      "timestamp": "2026-05-29T21:46:22+09:00"
+      "timestamp": "2026-05-29T23:32:16+09:00"
     },
     {
       "id": "route_road_osm_route_01_008_35",
@@ -5218,7 +8312,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": true,
-      "timestamp": "2026-05-29T21:46:22+09:00"
+      "timestamp": "2026-05-29T23:32:16+09:00"
     },
     {
       "id": "route_road_osm_route_01_008_70",
@@ -5252,7 +8346,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": true,
-      "timestamp": "2026-05-29T21:46:22+09:00"
+      "timestamp": "2026-05-29T23:32:16+09:00"
     },
     {
       "id": "route_road_osm_route_01_009_117",
@@ -5286,7 +8380,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": true,
-      "timestamp": "2026-05-29T21:46:22+09:00"
+      "timestamp": "2026-05-29T23:32:16+09:00"
     },
     {
       "id": "route_road_osm_route_01_009_59",
@@ -5320,7 +8414,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": true,
-      "timestamp": "2026-05-29T21:46:22+09:00"
+      "timestamp": "2026-05-29T23:32:16+09:00"
     },
     {
       "id": "route_road_osm_route_01_010_134",
@@ -5354,7 +8448,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": true,
-      "timestamp": "2026-05-29T21:46:22+09:00"
+      "timestamp": "2026-05-29T23:32:16+09:00"
     },
     {
       "id": "route_road_osm_route_01_010_67",
@@ -5388,7 +8482,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": true,
-      "timestamp": "2026-05-29T21:46:22+09:00"
+      "timestamp": "2026-05-29T23:32:16+09:00"
     },
     {
       "id": "route_road_osm_route_01_011_83",
@@ -5422,7 +8516,7 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": true,
-      "timestamp": "2026-05-29T21:46:22+09:00"
+      "timestamp": "2026-05-29T23:32:16+09:00"
     },
     {
       "id": "route_road_osm_route_01_012_75",
@@ -5456,7 +8550,857 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": true,
-      "timestamp": "2026-05-29T21:46:22+09:00"
+      "timestamp": "2026-05-29T23:32:16+09:00"
+    },
+    {
+      "id": "route_road_osm_route_01_013_139",
+      "objectType": "road",
+      "name": "みどり通り",
+      "finalDisplayName": "みどり通り",
+      "finalDisplayNameLanguage": "ja",
+      "language": "ja",
+      "source": "online_preprocessing_reverse_geocode",
+      "provider": "OpenStreetMap Nominatim",
+      "sourceField": "namedetails.name/name:ja_or_address.road",
+      "classification": "online_exact_or_near_match",
+      "rawType": "highway:unclassified",
+      "confidence": 0.74,
+      "lat": 35.6831206,
+      "lon": 139.788297,
+      "position": {
+        "x": 1630.847,
+        "y": 2.4,
+        "z": 659.765
+      },
+      "unityPosition": {
+        "x": 1630.847,
+        "y": 2.4,
+        "z": 659.765
+      },
+      "rawName": "みどり通り",
+      "normalizedName": "みどり通り",
+      "idOnly": false,
+      "disabled": false,
+      "hiddenInNormalMode": false,
+      "hiddenReason": "",
+      "attributionRequired": true,
+      "timestamp": "2026-05-29T23:32:16+09:00"
+    },
+    {
+      "id": "route_road_osm_route_01_014_79",
+      "objectType": "road",
+      "name": "中央通り",
+      "finalDisplayName": "中央通り",
+      "finalDisplayNameLanguage": "ja",
+      "language": "ja",
+      "source": "online_preprocessing_reverse_geocode",
+      "provider": "OpenStreetMap Nominatim",
+      "sourceField": "namedetails.name/name:ja_or_address.road",
+      "classification": "online_exact_or_near_match",
+      "rawType": "highway:trunk",
+      "confidence": 0.74,
+      "lat": 35.6795464,
+      "lon": 139.771707,
+      "position": {
+        "x": 129.911,
+        "y": 2.4,
+        "z": 271.906
+      },
+      "unityPosition": {
+        "x": 129.911,
+        "y": 2.4,
+        "z": 271.906
+      },
+      "rawName": "中央通り",
+      "normalizedName": "中央通り",
+      "idOnly": false,
+      "disabled": false,
+      "hiddenInNormalMode": false,
+      "hiddenReason": "",
+      "attributionRequired": true,
+      "timestamp": "2026-05-29T23:32:16+09:00"
+    },
+    {
+      "id": "route_road_osm_route_01_015_182",
+      "objectType": "road",
+      "name": "不動院通り",
+      "finalDisplayName": "不動院通り",
+      "finalDisplayNameLanguage": "ja",
+      "language": "ja",
+      "source": "online_preprocessing_reverse_geocode",
+      "provider": "OpenStreetMap Nominatim",
+      "sourceField": "namedetails.name/name:ja_or_address.road",
+      "classification": "online_exact_or_near_match",
+      "rawType": "highway:residential",
+      "confidence": 0.74,
+      "lat": 35.6917845,
+      "lon": 139.7870176,
+      "position": {
+        "x": 1516.943,
+        "y": 2.4,
+        "z": 1615.733
+      },
+      "unityPosition": {
+        "x": 1516.943,
+        "y": 2.4,
+        "z": 1615.733
+      },
+      "rawName": "不動院通り",
+      "normalizedName": "不動院通り",
+      "idOnly": false,
+      "disabled": false,
+      "hiddenInNormalMode": false,
+      "hiddenReason": "",
+      "attributionRequired": true,
+      "timestamp": "2026-05-29T23:32:16+09:00"
+    },
+    {
+      "id": "route_road_osm_route_01_015_91",
+      "objectType": "road",
+      "name": "中央通り",
+      "finalDisplayName": "中央通り",
+      "finalDisplayNameLanguage": "ja",
+      "language": "ja",
+      "source": "online_preprocessing_reverse_geocode",
+      "provider": "OpenStreetMap Nominatim",
+      "sourceField": "namedetails.name/name:ja_or_address.road",
+      "classification": "online_exact_or_near_match",
+      "rawType": "highway:trunk",
+      "confidence": 0.74,
+      "lat": 35.6809184,
+      "lon": 139.77255,
+      "position": {
+        "x": 206.425,
+        "y": 2.4,
+        "z": 422.893
+      },
+      "unityPosition": {
+        "x": 206.425,
+        "y": 2.4,
+        "z": 422.893
+      },
+      "rawName": "中央通り",
+      "normalizedName": "中央通り",
+      "idOnly": false,
+      "disabled": false,
+      "hiddenInNormalMode": false,
+      "hiddenReason": "",
+      "attributionRequired": true,
+      "timestamp": "2026-05-29T23:32:16+09:00"
+    },
+    {
+      "id": "route_road_osm_route_01_017_109",
+      "objectType": "road",
+      "name": "上野月島線",
+      "finalDisplayName": "上野月島線",
+      "finalDisplayNameLanguage": "ja",
+      "language": "ja",
+      "source": "online_preprocessing_reverse_geocode",
+      "provider": "OpenStreetMap Nominatim",
+      "sourceField": "namedetails.name/name:ja_or_address.road",
+      "classification": "online_exact_or_near_match",
+      "rawType": "highway:secondary",
+      "confidence": 0.74,
+      "lat": 35.6688394,
+      "lon": 139.7844386,
+      "position": {
+        "x": 1278.991,
+        "y": 2.4,
+        "z": -913.739
+      },
+      "unityPosition": {
+        "x": 1278.991,
+        "y": 2.4,
+        "z": -913.739
+      },
+      "rawName": "上野月島線",
+      "normalizedName": "上野月島線",
+      "idOnly": false,
+      "disabled": false,
+      "hiddenInNormalMode": false,
+      "hiddenReason": "",
+      "attributionRequired": true,
+      "timestamp": "2026-05-29T23:32:16+09:00"
+    },
+    {
+      "id": "route_road_osm_route_01_018_49",
+      "objectType": "road",
+      "name": "佃大橋通り",
+      "finalDisplayName": "佃大橋通り",
+      "finalDisplayNameLanguage": "ja",
+      "language": "ja",
+      "source": "online_preprocessing_reverse_geocode",
+      "provider": "OpenStreetMap Nominatim",
+      "sourceField": "namedetails.name/name:ja_or_address.road",
+      "classification": "online_exact_or_near_match",
+      "rawType": "highway:secondary",
+      "confidence": 0.74,
+      "lat": 35.671,
+      "lon": 139.7731331,
+      "position": {
+        "x": 257.105,
+        "y": 2.4,
+        "z": -671.159
+      },
+      "unityPosition": {
+        "x": 257.105,
+        "y": 2.4,
+        "z": -671.159
+      },
+      "rawName": "佃大橋通り",
+      "normalizedName": "佃大橋通り",
+      "idOnly": false,
+      "disabled": false,
+      "hiddenInNormalMode": false,
+      "hiddenReason": "",
+      "attributionRequired": true,
+      "timestamp": "2026-05-29T23:32:16+09:00"
+    },
+    {
+      "id": "route_road_osm_route_01_019_149",
+      "objectType": "road",
+      "name": "清澄通り",
+      "finalDisplayName": "清澄通り",
+      "finalDisplayNameLanguage": "ja",
+      "language": "ja",
+      "source": "online_preprocessing_reverse_geocode",
+      "provider": "OpenStreetMap Nominatim",
+      "sourceField": "namedetails.name/name:ja_or_address.road",
+      "classification": "online_exact_or_near_match",
+      "rawType": "highway:secondary",
+      "confidence": 0.74,
+      "lat": 35.6609837,
+      "lon": 139.7799551,
+      "position": {
+        "x": 871.935,
+        "y": 2.4,
+        "z": -1778.382
+      },
+      "unityPosition": {
+        "x": 871.935,
+        "y": 2.4,
+        "z": -1778.382
+      },
+      "rawName": "清澄通り",
+      "normalizedName": "清澄通り",
+      "idOnly": false,
+      "disabled": false,
+      "hiddenInNormalMode": false,
+      "hiddenReason": "",
+      "attributionRequired": true,
+      "timestamp": "2026-05-29T23:32:16+09:00"
+    },
+    {
+      "id": "route_road_osm_route_01_019_75",
+      "objectType": "road",
+      "name": "平成通り",
+      "finalDisplayName": "平成通り",
+      "finalDisplayNameLanguage": "ja",
+      "language": "ja",
+      "source": "online_preprocessing_reverse_geocode",
+      "provider": "OpenStreetMap Nominatim",
+      "sourceField": "namedetails.name/name:ja_or_address.road",
+      "classification": "online_exact_or_near_match",
+      "rawType": "highway:tertiary",
+      "confidence": 0.74,
+      "lat": 35.6675403,
+      "lon": 139.7697328,
+      "position": {
+        "x": -51.091,
+        "y": 2.4,
+        "z": -1051.411
+      },
+      "unityPosition": {
+        "x": -51.091,
+        "y": 2.4,
+        "z": -1051.411
+      },
+      "rawName": "平成通り",
+      "normalizedName": "平成通り",
+      "idOnly": false,
+      "disabled": false,
+      "hiddenInNormalMode": false,
+      "hiddenReason": "",
+      "attributionRequired": true,
+      "timestamp": "2026-05-29T23:32:16+09:00"
+    },
+    {
+      "id": "route_road_osm_route_01_020_53",
+      "objectType": "road",
+      "name": "木挽町通り",
+      "finalDisplayName": "木挽町通り",
+      "finalDisplayNameLanguage": "ja",
+      "language": "ja",
+      "source": "online_preprocessing_reverse_geocode",
+      "provider": "OpenStreetMap Nominatim",
+      "sourceField": "namedetails.name/name:ja_or_address.road",
+      "classification": "online_exact_or_near_match",
+      "rawType": "highway:unclassified",
+      "confidence": 0.74,
+      "lat": 35.6690153,
+      "lon": 139.7679513,
+      "position": {
+        "x": -211.884,
+        "y": 2.4,
+        "z": -888.065
+      },
+      "unityPosition": {
+        "x": -211.884,
+        "y": 2.4,
+        "z": -888.065
+      },
+      "rawName": "木挽町通り",
+      "normalizedName": "木挽町通り",
+      "idOnly": false,
+      "disabled": false,
+      "hiddenInNormalMode": false,
+      "hiddenReason": "",
+      "attributionRequired": true,
+      "timestamp": "2026-05-29T23:32:16+09:00"
+    },
+    {
+      "id": "route_road_osm_route_01_021_87",
+      "objectType": "road",
+      "name": "新大橋通り",
+      "finalDisplayName": "新大橋通り",
+      "finalDisplayNameLanguage": "ja",
+      "language": "ja",
+      "source": "online_preprocessing_reverse_geocode",
+      "provider": "OpenStreetMap Nominatim",
+      "sourceField": "namedetails.name/name:ja_or_address.road",
+      "classification": "online_exact_or_near_match",
+      "rawType": "highway:primary",
+      "confidence": 0.74,
+      "lat": 35.6668072,
+      "lon": 139.7706953,
+      "position": {
+        "x": 35.794,
+        "y": 2.4,
+        "z": -1132.625
+      },
+      "unityPosition": {
+        "x": 35.794,
+        "y": 2.4,
+        "z": -1132.625
+      },
+      "rawName": "新大橋通り",
+      "normalizedName": "新大橋通り",
+      "idOnly": false,
+      "disabled": false,
+      "hiddenInNormalMode": false,
+      "hiddenReason": "",
+      "attributionRequired": true,
+      "timestamp": "2026-05-29T23:32:16+09:00"
+    },
+    {
+      "id": "route_road_osm_route_01_022_85",
+      "objectType": "road",
+      "name": "晴海通り",
+      "finalDisplayName": "晴海通り",
+      "finalDisplayNameLanguage": "ja",
+      "language": "ja",
+      "source": "online_preprocessing_reverse_geocode",
+      "provider": "OpenStreetMap Nominatim",
+      "sourceField": "namedetails.name/name:ja_or_address.road",
+      "classification": "online_exact_or_near_match",
+      "rawType": "highway:primary",
+      "confidence": 0.74,
+      "lat": 35.6668091,
+      "lon": 139.7705714,
+      "position": {
+        "x": 24.59,
+        "y": 2.4,
+        "z": -1132.369
+      },
+      "unityPosition": {
+        "x": 24.59,
+        "y": 2.4,
+        "z": -1132.369
+      },
+      "rawName": "晴海通り",
+      "normalizedName": "晴海通り",
+      "idOnly": false,
+      "disabled": false,
+      "hiddenInNormalMode": false,
+      "hiddenReason": "",
+      "attributionRequired": true,
+      "timestamp": "2026-05-29T23:32:16+09:00"
+    },
+    {
+      "id": "route_road_osm_route_01_024_27",
+      "objectType": "road",
+      "name": "木挽町通り",
+      "finalDisplayName": "木挽町通り",
+      "finalDisplayNameLanguage": "ja",
+      "language": "ja",
+      "source": "online_preprocessing_reverse_geocode",
+      "provider": "OpenStreetMap Nominatim",
+      "sourceField": "namedetails.name/name:ja_or_address.road",
+      "classification": "online_exact_or_near_match",
+      "rawType": "highway:residential",
+      "confidence": 0.74,
+      "lat": 35.6699268,
+      "lon": 139.7690274,
+      "position": {
+        "x": -114.386,
+        "y": 2.4,
+        "z": -787.952
+      },
+      "unityPosition": {
+        "x": -114.386,
+        "y": 2.4,
+        "z": -787.952
+      },
+      "rawName": "木挽町通り",
+      "normalizedName": "木挽町通り",
+      "idOnly": false,
+      "disabled": false,
+      "hiddenInNormalMode": false,
+      "hiddenReason": "",
+      "attributionRequired": true,
+      "timestamp": "2026-05-29T23:32:16+09:00"
+    },
+    {
+      "id": "route_road_osm_route_01_026_81",
+      "objectType": "road",
+      "name": "平成通り",
+      "finalDisplayName": "平成通り",
+      "finalDisplayNameLanguage": "ja",
+      "language": "ja",
+      "source": "online_preprocessing_reverse_geocode",
+      "provider": "OpenStreetMap Nominatim",
+      "sourceField": "namedetails.name/name:ja_or_address.road",
+      "classification": "online_exact_or_near_match",
+      "rawType": "highway:tertiary",
+      "confidence": 0.74,
+      "lat": 35.6674167,
+      "lon": 139.769855,
+      "position": {
+        "x": -40.067,
+        "y": 2.4,
+        "z": -1065.088
+      },
+      "unityPosition": {
+        "x": -40.067,
+        "y": 2.4,
+        "z": -1065.088
+      },
+      "rawName": "平成通り",
+      "normalizedName": "平成通り",
+      "idOnly": false,
+      "disabled": false,
+      "hiddenInNormalMode": false,
+      "hiddenReason": "",
+      "attributionRequired": true,
+      "timestamp": "2026-05-29T23:32:16+09:00"
+    },
+    {
+      "id": "route_road_osm_route_01_027_84",
+      "objectType": "road",
+      "name": "晴海通り",
+      "finalDisplayName": "晴海通り",
+      "finalDisplayNameLanguage": "ja",
+      "language": "ja",
+      "source": "online_preprocessing_reverse_geocode",
+      "provider": "OpenStreetMap Nominatim",
+      "sourceField": "namedetails.name/name:ja_or_address.road",
+      "classification": "online_exact_or_near_match",
+      "rawType": "highway:primary",
+      "confidence": 0.74,
+      "lat": 35.6663432,
+      "lon": 139.7707636,
+      "position": {
+        "x": 41.874,
+        "y": 2.4,
+        "z": -1183.823
+      },
+      "unityPosition": {
+        "x": 41.874,
+        "y": 2.4,
+        "z": -1183.823
+      },
+      "rawName": "晴海通り",
+      "normalizedName": "晴海通り",
+      "idOnly": false,
+      "disabled": false,
+      "hiddenInNormalMode": false,
+      "hiddenReason": "",
+      "attributionRequired": true,
+      "timestamp": "2026-05-29T23:32:16+09:00"
+    },
+    {
+      "id": "route_road_osm_route_02_001_30",
+      "objectType": "road",
+      "name": "中央通り",
+      "finalDisplayName": "中央通り",
+      "finalDisplayNameLanguage": "ja",
+      "language": "ja",
+      "source": "online_preprocessing_reverse_geocode",
+      "provider": "OpenStreetMap Nominatim",
+      "sourceField": "namedetails.name/name:ja_or_address.road",
+      "classification": "online_exact_or_near_match",
+      "rawType": "highway:trunk",
+      "confidence": 0.74,
+      "lat": 35.6794819,
+      "lon": 139.7718888,
+      "position": {
+        "x": 146.337,
+        "y": 2.4,
+        "z": 264.723
+      },
+      "unityPosition": {
+        "x": 146.337,
+        "y": 2.4,
+        "z": 264.723
+      },
+      "rawName": "中央通り",
+      "normalizedName": "中央通り",
+      "idOnly": false,
+      "disabled": false,
+      "hiddenInNormalMode": false,
+      "hiddenReason": "",
+      "attributionRequired": true,
+      "timestamp": "2026-05-29T23:32:16+09:00"
+    },
+    {
+      "id": "route_road_osm_route_02_002_33",
+      "objectType": "road",
+      "name": "八重洲通り",
+      "finalDisplayName": "八重洲通り",
+      "finalDisplayNameLanguage": "ja",
+      "language": "ja",
+      "source": "online_preprocessing_reverse_geocode",
+      "provider": "OpenStreetMap Nominatim",
+      "sourceField": "namedetails.name/name:ja_or_address.road",
+      "classification": "online_exact_or_near_match",
+      "rawType": "highway:tertiary",
+      "confidence": 0.74,
+      "lat": 35.6782659,
+      "lon": 139.7739828,
+      "position": {
+        "x": 335.442,
+        "y": 2.4,
+        "z": 129.823
+      },
+      "unityPosition": {
+        "x": 335.442,
+        "y": 2.4,
+        "z": 129.823
+      },
+      "rawName": "八重洲通り",
+      "normalizedName": "八重洲通り",
+      "idOnly": false,
+      "disabled": false,
+      "hiddenInNormalMode": false,
+      "hiddenReason": "",
+      "attributionRequired": true,
+      "timestamp": "2026-05-29T23:32:16+09:00"
+    },
+    {
+      "id": "route_road_osm_route_02_003_60",
+      "objectType": "road",
+      "name": "銀座桜通り",
+      "finalDisplayName": "銀座桜通り",
+      "finalDisplayNameLanguage": "ja",
+      "language": "ja",
+      "source": "online_preprocessing_reverse_geocode",
+      "provider": "OpenStreetMap Nominatim",
+      "sourceField": "namedetails.name/name:ja_or_address.road",
+      "classification": "online_exact_or_near_match",
+      "rawType": "highway:tertiary",
+      "confidence": 0.74,
+      "lat": 35.6751535,
+      "lon": 139.7675105,
+      "position": {
+        "x": -250.477,
+        "y": 2.4,
+        "z": -210.959
+      },
+      "unityPosition": {
+        "x": -250.477,
+        "y": 2.4,
+        "z": -210.959
+      },
+      "rawName": "銀座桜通り",
+      "normalizedName": "銀座桜通り",
+      "idOnly": false,
+      "disabled": false,
+      "hiddenInNormalMode": false,
+      "hiddenReason": "",
+      "attributionRequired": true,
+      "timestamp": "2026-05-29T23:32:16+09:00"
+    },
+    {
+      "id": "route_road_osm_route_02_005_35",
+      "objectType": "road",
+      "name": "鈴らん通り",
+      "finalDisplayName": "鈴らん通り",
+      "finalDisplayNameLanguage": "ja",
+      "language": "ja",
+      "source": "online_preprocessing_reverse_geocode",
+      "provider": "OpenStreetMap Nominatim",
+      "sourceField": "namedetails.name/name:ja_or_address.road",
+      "classification": "online_exact_or_near_match",
+      "rawType": "highway:unclassified",
+      "confidence": 0.74,
+      "lat": 35.6775689,
+      "lon": 139.7777436,
+      "position": {
+        "x": 675.379,
+        "y": 2.4,
+        "z": 51.524
+      },
+      "unityPosition": {
+        "x": 675.379,
+        "y": 2.4,
+        "z": 51.524
+      },
+      "rawName": "鈴らん通り",
+      "normalizedName": "鈴らん通り",
+      "idOnly": false,
+      "disabled": false,
+      "hiddenInNormalMode": false,
+      "hiddenReason": "",
+      "attributionRequired": true,
+      "timestamp": "2026-05-29T23:32:16+09:00"
+    },
+    {
+      "id": "route_road_osm_route_02_006_44",
+      "objectType": "road",
+      "name": "八重洲通り",
+      "finalDisplayName": "八重洲通り",
+      "finalDisplayNameLanguage": "ja",
+      "language": "ja",
+      "source": "online_preprocessing_reverse_geocode",
+      "provider": "OpenStreetMap Nominatim",
+      "sourceField": "namedetails.name/name:ja_or_address.road",
+      "classification": "online_exact_or_near_match",
+      "rawType": "highway:tertiary",
+      "confidence": 0.74,
+      "lat": 35.6765974,
+      "lon": 139.7783124,
+      "position": {
+        "x": 726.614,
+        "y": 2.4,
+        "z": -55.832
+      },
+      "unityPosition": {
+        "x": 726.614,
+        "y": 2.4,
+        "z": -55.832
+      },
+      "rawName": "八重洲通り",
+      "normalizedName": "八重洲通り",
+      "idOnly": false,
+      "disabled": false,
+      "hiddenInNormalMode": false,
+      "hiddenReason": "",
+      "attributionRequired": true,
+      "timestamp": "2026-05-29T23:32:16+09:00"
+    },
+    {
+      "id": "route_road_osm_route_02_008_32",
+      "objectType": "road",
+      "name": "江戸・もみじ通り",
+      "finalDisplayName": "江戸・もみじ通り",
+      "finalDisplayNameLanguage": "ja",
+      "language": "ja",
+      "source": "online_preprocessing_reverse_geocode",
+      "provider": "OpenStreetMap Nominatim",
+      "sourceField": "namedetails.name/name:ja_or_address.road",
+      "classification": "online_exact_or_near_match",
+      "rawType": "highway:unclassified",
+      "confidence": 0.74,
+      "lat": 35.6782846,
+      "lon": 139.7744586,
+      "position": {
+        "x": 378.472,
+        "y": 2.4,
+        "z": 131.704
+      },
+      "unityPosition": {
+        "x": 378.472,
+        "y": 2.4,
+        "z": 131.704
+      },
+      "rawName": "江戸・もみじ通り",
+      "normalizedName": "江戸・もみじ通り",
+      "idOnly": false,
+      "disabled": false,
+      "hiddenInNormalMode": false,
+      "hiddenReason": "",
+      "attributionRequired": true,
+      "timestamp": "2026-05-29T23:32:16+09:00"
+    },
+    {
+      "id": "route_road_osm_route_02_013_29",
+      "objectType": "road",
+      "name": "平成通り",
+      "finalDisplayName": "平成通り",
+      "finalDisplayNameLanguage": "ja",
+      "language": "ja",
+      "source": "online_preprocessing_reverse_geocode",
+      "provider": "OpenStreetMap Nominatim",
+      "sourceField": "namedetails.name/name:ja_or_address.road",
+      "classification": "online_exact_or_near_match",
+      "rawType": "highway:tertiary",
+      "confidence": 0.74,
+      "lat": 35.682023,
+      "lon": 139.7794807,
+      "position": {
+        "x": 833.381,
+        "y": 2.4,
+        "z": 542.074
+      },
+      "unityPosition": {
+        "x": 833.381,
+        "y": 2.4,
+        "z": 542.074
+      },
+      "rawName": "平成通り",
+      "normalizedName": "平成通り",
+      "idOnly": false,
+      "disabled": false,
+      "hiddenInNormalMode": false,
+      "hiddenReason": "",
+      "attributionRequired": true,
+      "timestamp": "2026-05-29T23:32:16+09:00"
+    },
+    {
+      "id": "route_road_osm_route_02_016_12",
+      "objectType": "road",
+      "name": "永代通り",
+      "finalDisplayName": "永代通り",
+      "finalDisplayNameLanguage": "ja",
+      "language": "ja",
+      "source": "online_preprocessing_reverse_geocode",
+      "provider": "OpenStreetMap Nominatim",
+      "sourceField": "namedetails.name/name:ja_or_address.road",
+      "classification": "online_exact_or_near_match",
+      "rawType": "highway:primary",
+      "confidence": 0.74,
+      "lat": 35.6814734,
+      "lon": 139.7765126,
+      "position": {
+        "x": 564.869,
+        "y": 2.4,
+        "z": 482.592
+      },
+      "unityPosition": {
+        "x": 564.869,
+        "y": 2.4,
+        "z": 482.592
+      },
+      "rawName": "永代通り",
+      "normalizedName": "永代通り",
+      "idOnly": false,
+      "disabled": false,
+      "hiddenInNormalMode": false,
+      "hiddenReason": "",
+      "attributionRequired": true,
+      "timestamp": "2026-05-29T23:32:16+09:00"
+    },
+    {
+      "id": "route_road_osm_route_02_017_46",
+      "objectType": "road",
+      "name": "新亀島橋",
+      "finalDisplayName": "新亀島橋",
+      "finalDisplayNameLanguage": "ja",
+      "language": "ja",
+      "source": "online_preprocessing_reverse_geocode",
+      "provider": "OpenStreetMap Nominatim",
+      "sourceField": "namedetails.name/name:ja_or_address.road",
+      "classification": "online_exact_or_near_match",
+      "rawType": "highway:tertiary",
+      "confidence": 0.74,
+      "lat": 35.6777257,
+      "lon": 139.7799545,
+      "position": {
+        "x": 875.338,
+        "y": 2.4,
+        "z": 67.975
+      },
+      "unityPosition": {
+        "x": 875.338,
+        "y": 2.4,
+        "z": 67.975
+      },
+      "rawName": "新亀島橋",
+      "normalizedName": "新亀島橋",
+      "idOnly": false,
+      "disabled": false,
+      "hiddenInNormalMode": false,
+      "hiddenReason": "",
+      "attributionRequired": true,
+      "timestamp": "2026-05-29T23:32:16+09:00"
+    },
+    {
+      "id": "route_road_osm_route_02_020_70",
+      "objectType": "road",
+      "name": "昭和通り",
+      "finalDisplayName": "昭和通り",
+      "finalDisplayNameLanguage": "ja",
+      "language": "ja",
+      "source": "online_preprocessing_reverse_geocode",
+      "provider": "OpenStreetMap Nominatim",
+      "sourceField": "namedetails.name/name:ja_or_address.road",
+      "classification": "online_exact_or_near_match",
+      "rawType": "highway:primary",
+      "confidence": 0.74,
+      "lat": 35.6705969,
+      "lon": 139.7677061,
+      "position": {
+        "x": -233.73,
+        "y": 2.4,
+        "z": -713.548
+      },
+      "unityPosition": {
+        "x": -233.73,
+        "y": 2.4,
+        "z": -713.548
+      },
+      "rawName": "昭和通り",
+      "normalizedName": "昭和通り",
+      "idOnly": false,
+      "disabled": false,
+      "hiddenInNormalMode": false,
+      "hiddenReason": "",
+      "attributionRequired": true,
+      "timestamp": "2026-05-29T23:32:16+09:00"
+    },
+    {
+      "id": "route_road_osm_route_02_025_29",
+      "objectType": "road",
+      "name": "平成通り",
+      "finalDisplayName": "平成通り",
+      "finalDisplayNameLanguage": "ja",
+      "language": "ja",
+      "source": "online_preprocessing_reverse_geocode",
+      "provider": "OpenStreetMap Nominatim",
+      "sourceField": "namedetails.name/name:ja_or_address.road",
+      "classification": "online_exact_or_near_match",
+      "rawType": "highway:tertiary",
+      "confidence": 0.74,
+      "lat": 35.682107,
+      "lon": 139.7794277,
+      "position": {
+        "x": 828.606,
+        "y": 2.4,
+        "z": 551.358
+      },
+      "unityPosition": {
+        "x": 828.606,
+        "y": 2.4,
+        "z": 551.358
+      },
+      "rawName": "平成通り",
+      "normalizedName": "平成通り",
+      "idOnly": false,
+      "disabled": false,
+      "hiddenInNormalMode": false,
+      "hiddenReason": "",
+      "attributionRequired": true,
+      "timestamp": "2026-05-29T23:32:16+09:00"
     }
   ]
 }

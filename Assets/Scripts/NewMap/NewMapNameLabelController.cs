@@ -674,8 +674,8 @@ public sealed class NewMapNameLabelConfig
     public bool showIdOnlyLabelsInDebug;
     public int maxVisibleLabels = 80;
     public int maxVisibleRoadLabels = 30;
-    public int maxVisibleBuildingLabels = 30;
-    public int maxCachedLabelSources = 300;
+    public int maxVisibleBuildingLabels = 45;
+    public int maxCachedLabelSources = 500;
     public float labelMaxDistanceMeters = 250f;
     public float importantLabelMaxDistanceMeters = 600f;
     public float minScreenSpacingPixels = 32f;

@@ -77,6 +77,17 @@ public sealed class NewMapRuntimeBootstrap : MonoBehaviour
     public int LastBlueDebugGroundRendererDisabledCount { get; private set; }
     public int LastPlayableAirWallColliderCount { get; private set; }
     public int LastPlayableAirWallVisibleRendererCount { get; private set; }
+    public int LastAirwallHardTotalCollidersScanned { get; private set; }
+    public int LastUnexpectedAirwallBlockersFound { get; private set; }
+    public int LastUnexpectedAirwallBlockersRemoved { get; private set; }
+    public int LastUnexpectedAirwallBlockersResized { get; private set; }
+    public int LastUnexpectedAirwallBlockersConvertedToTrigger { get; private set; }
+    public int LastBoundaryAirWallsPreserved { get; private set; }
+    public int LastInvalidZoneBlockersPreserved { get; private set; }
+    public int LastUnknownBlockersInsidePlayableArea { get; private set; }
+    public int LastBuildingObstacleBoundsFiltered { get; private set; }
+    public int LastBuildingObstacleBoundsShrunk { get; private set; }
+    public bool LastSampledValidPathsPassable { get; private set; }
     public bool LastPlayableBoundsValid { get; private set; }
     public NewMapPlayableBounds LastPlayableBounds { get; private set; }
     public string LastPlayableBoundsSource { get; private set; } = string.Empty;
@@ -161,6 +172,7 @@ public sealed class NewMapRuntimeBootstrap : MonoBehaviour
     private NewMapGameplayGroundCoverConfig groundCoverConfig;
     private NewMapFloatingBuildingSnapdownConfig buildingSnapdownConfig;
     private NewMapGroundCoverRaiseConfig groundRaiseConfig;
+    private NewMapAirwallHardCleanupConfig airwallCleanupConfig;
 
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
     private static void AutoBootstrap()
@@ -241,6 +253,7 @@ public sealed class NewMapRuntimeBootstrap : MonoBehaviour
         groundCoverConfig = NewMapGameplayGroundCoverConfig.Load();
         buildingSnapdownConfig = NewMapFloatingBuildingSnapdownConfig.Load();
         groundRaiseConfig = NewMapGroundCoverRaiseConfig.Load();
+        airwallCleanupConfig = NewMapAirwallHardCleanupConfig.Load();
         PrepareManualTestRoots(roots);
         EnforceSupportSurfaceVisibility(roots);
         if (groundRaiseConfig != null && groundRaiseConfig.enabled)
@@ -293,13 +306,14 @@ public sealed class NewMapRuntimeBootstrap : MonoBehaviour
             safeGroundConfig != null && safeGroundConfig.logRecoveryEvents);
         player.ConfigureBuildingCollision(
             buildingAvoidanceBounds,
-            groundRaiseConfig != null ? groundRaiseConfig.playerBuildingCollisionMarginMeters : 0.35f,
+            ResolvePlayerBuildingCollisionMargin(),
             groundRaiseConfig == null || groundRaiseConfig.playerBuildingCollisionEnabled);
         NewMapRuntimeUI.EnsureRuntimeEventSystem();
         NewMapRuntimeUI ui = NewMapRuntimeUI.Create(roots["UIAnchorRoot"]);
         NewMapLightingController lighting = NewMapLightingController.Create(roots["RuntimeSystemsRoot"]);
         NewMapHazardController hazard = NewMapHazardController.Create(roots["HazardVisualRoot"], roots["CollapseDebrisRoot"], spawn);
         NewMapNpcCrowdPrototype crowd = NewMapNpcCrowdPrototype.Create(roots["CrowdRoot"], spawn, LastPlayableBounds, buildingAvoidanceBounds);
+        player.ConfigurePlayerNpcCollision(crowd, NewMapPlayerNpcCollisionConfig.Load());
         NewMapPerformanceProbe.Create(roots["PerformanceMetricsRoot"]);
         long systemsMs = stopwatch.ElapsedMilliseconds - boundsMs - spawnSupportMs;
         List<NewMapRuntimeTarget> targets = CreateVerifiedOfficialShelterTargets(roots);
@@ -311,6 +325,7 @@ public sealed class NewMapRuntimeBootstrap : MonoBehaviour
 
         CalculateActiveTargetHeightOffsets(targets);
         NewMapNameLabelController.Create(roots["NavigationRoot"], player, targets);
+        AuditAndCleanupUnexpectedAirwallColliders();
         long targetsMs = stopwatch.ElapsedMilliseconds - boundsMs - spawnSupportMs - systemsMs;
 
         NewMapGameController controller = gameObject.AddComponent<NewMapGameController>();
@@ -344,12 +359,21 @@ public sealed class NewMapRuntimeBootstrap : MonoBehaviour
             $"spawnX={LastFinalSpawnPosition.x:F2} spawnY={LastFinalSpawnPosition.y:F2} spawnZ={LastFinalSpawnPosition.z:F2} " +
             $"playerBuildingCollisionEnabled={player.BuildingCollisionEnabled} playerBuildingCollisionBounds={player.BuildingCollisionBoundsCount} " +
             $"playerBuildingCollisionBlocked={player.BuildingCollisionBlockedCount} playerBuildingCollisionRecoveries={player.BuildingCollisionRecoveryCount} " +
+            $"playerNpcCollisionEnabled={player.PlayerNpcCollisionEnabled} playerNpcCollisionBlocked={player.PlayerNpcCollisionBlockedCount} " +
+            $"playerNpcCollisionSlowdowns={player.PlayerNpcCollisionSlowdownCount} playerNpcCollisionEscapes={player.PlayerNpcCollisionEscapeCount} " +
+            $"npcBodyColliders={crowd.NpcBodyColliderCount} npcSoftBlockingEnabled={crowd.PlayerNpcSoftBlockingEnabled} " +
             $"supportColliderActive={LastRuntimeCollisionSupportColliderActive} supportRendererCount={LastSupportRendererCount} " +
             $"supportVisibleRenderers={LastVisibleSupportRendererCount} supportDisabledRenderers={LastSupportRendererDisabledCount} " +
             $"blueDebugGroundDisabled={LastBlueDebugGroundRendererDisabledCount} playableBoundsValid={LastPlayableBoundsValid} " +
             $"playableBoundsSource={LastPlayableBoundsSource} playableMinX={LastPlayableBounds.MinX:F2} playableMaxX={LastPlayableBounds.MaxX:F2} " +
             $"playableMinZ={LastPlayableBounds.MinZ:F2} playableMaxZ={LastPlayableBounds.MaxZ:F2} " +
             $"airWallColliders={LastPlayableAirWallColliderCount} airWallVisibleRenderers={LastPlayableAirWallVisibleRendererCount} " +
+            $"airwallHardCollidersScanned={LastAirwallHardTotalCollidersScanned} unexpectedAirwallBlockers={LastUnexpectedAirwallBlockersFound} " +
+            $"airwallBlockersRemoved={LastUnexpectedAirwallBlockersRemoved} airwallBlockersResized={LastUnexpectedAirwallBlockersResized} " +
+            $"airwallBlockersConvertedToTrigger={LastUnexpectedAirwallBlockersConvertedToTrigger} boundaryAirWallsPreserved={LastBoundaryAirWallsPreserved} " +
+            $"invalidZoneBlockersPreserved={LastInvalidZoneBlockersPreserved} unknownBlockersInsidePlayableArea={LastUnknownBlockersInsidePlayableArea} " +
+            $"buildingObstacleBoundsFiltered={LastBuildingObstacleBoundsFiltered} buildingObstacleBoundsShrunk={LastBuildingObstacleBoundsShrunk} " +
+            $"sampledValidPathsPassable={LastSampledValidPathsPassable} " +
             $"roadSampleY={LastRoadSampleY:F2} roadSamples={LastRoadSampleCount} supportToRoadDelta={LastSupportToRoadDelta:F2} " +
             $"supportToBuildingBaseDelta={LastSupportToBuildingBaseDelta:F2} buildingRoadYOffsetApplied={LastBuildingRoadVerticalOffsetApplied:F2} " +
             $"buildingRoadAlignedRoots={LastBuildingRoadAlignedRootCount} buildingRoadAlignmentStatus={LastBuildingRoadAlignmentStatus} " +
@@ -818,6 +842,7 @@ public sealed class NewMapRuntimeBootstrap : MonoBehaviour
         var baseSamples = new List<float>();
         var roadSamples = new List<float>();
         buildingAvoidanceBounds.Clear();
+        ResetAirwallHardCleanupDiagnostics();
         ResetVisualGroundSamples();
 
         foreach (Renderer renderer in renderers)
@@ -848,9 +873,13 @@ public sealed class NewMapRuntimeBootstrap : MonoBehaviour
                 roadSamples.Add(renderer.bounds.max.y);
             }
 
-            if (IsUsableBuildingAvoidanceBounds(renderer.bounds))
+            if (TryBuildConservativeBuildingObstacleBounds(renderer, out Bounds obstacleBounds))
             {
-                buildingAvoidanceBounds.Add(renderer.bounds);
+                buildingAvoidanceBounds.Add(obstacleBounds);
+            }
+            else if (IsUsableBuildingAvoidanceBounds(renderer.bounds))
+            {
+                LastBuildingObstacleBoundsFiltered++;
             }
         }
 
@@ -1573,6 +1602,211 @@ public sealed class NewMapRuntimeBootstrap : MonoBehaviour
         }
 
         return bounds.min.y > -20f && bounds.min.y < 80f;
+    }
+
+    private bool TryBuildConservativeBuildingObstacleBounds(Renderer renderer, out Bounds obstacleBounds)
+    {
+        obstacleBounds = default(Bounds);
+        if (renderer == null || !IsUsableBuildingAvoidanceBounds(renderer.bounds))
+        {
+            return false;
+        }
+
+        string searchable = BuildRendererSearchText(renderer).ToLowerInvariant();
+        if (ContainsSnapdownExcludedText(searchable))
+        {
+            return false;
+        }
+
+        bool buildingLike = IsBuildingRendererCandidate(renderer) ||
+            searchable.Contains("bldg") ||
+            searchable.Contains("building");
+        if (!buildingLike)
+        {
+            return false;
+        }
+
+        NewMapAirwallHardCleanupConfig config = airwallCleanupConfig ?? NewMapAirwallHardCleanupConfig.Default();
+        float maxFootprint = Mathf.Max(8f, config.buildingObstacleMaxFootprintMeters);
+        Bounds bounds = renderer.bounds;
+        if (bounds.size.x > maxFootprint || bounds.size.z > maxFootprint)
+        {
+            return false;
+        }
+
+        float inset = Mathf.Clamp(config.buildingObstacleInsetMeters, 0f, 2f);
+        if (inset > 0f && bounds.size.x > inset * 2f + 0.5f && bounds.size.z > inset * 2f + 0.5f)
+        {
+            bounds.Expand(new Vector3(-inset * 2f, 0f, -inset * 2f));
+            LastBuildingObstacleBoundsShrunk++;
+        }
+
+        obstacleBounds = bounds;
+        return true;
+    }
+
+    private float ResolvePlayerBuildingCollisionMargin()
+    {
+        float margin = groundRaiseConfig != null ? groundRaiseConfig.playerBuildingCollisionMarginMeters : 0.35f;
+        NewMapAirwallHardCleanupConfig config = airwallCleanupConfig ?? NewMapAirwallHardCleanupConfig.Default();
+        if (config.enabled)
+        {
+            margin = Mathf.Min(margin, config.playerBuildingCollisionMarginMeters);
+        }
+
+        return Mathf.Clamp(margin, 0f, 5f);
+    }
+
+    private void ResetAirwallHardCleanupDiagnostics()
+    {
+        LastAirwallHardTotalCollidersScanned = 0;
+        LastUnexpectedAirwallBlockersFound = 0;
+        LastUnexpectedAirwallBlockersRemoved = 0;
+        LastUnexpectedAirwallBlockersResized = 0;
+        LastUnexpectedAirwallBlockersConvertedToTrigger = 0;
+        LastBoundaryAirWallsPreserved = 0;
+        LastInvalidZoneBlockersPreserved = 0;
+        LastUnknownBlockersInsidePlayableArea = 0;
+        LastBuildingObstacleBoundsFiltered = 0;
+        LastBuildingObstacleBoundsShrunk = 0;
+        LastSampledValidPathsPassable = false;
+    }
+
+    private void AuditAndCleanupUnexpectedAirwallColliders()
+    {
+        NewMapAirwallHardCleanupConfig config = airwallCleanupConfig ?? NewMapAirwallHardCleanupConfig.Default();
+        Collider[] colliders = FindObjectsOfType<Collider>(true);
+        LastAirwallHardTotalCollidersScanned = colliders.Length;
+        if (!config.enabled)
+        {
+            LastSampledValidPathsPassable = LastPlayableBoundsValid && LastPlayableAirWallColliderCount == 4;
+            return;
+        }
+
+        for (int i = 0; i < colliders.Length; i++)
+        {
+            Collider collider = colliders[i];
+            if (collider == null)
+            {
+                continue;
+            }
+
+            string path = GetTransformPath(collider.transform);
+            string category = ClassifyBlockingCollider(path, collider);
+            bool blocksPlayer = collider.enabled && collider.gameObject.activeInHierarchy && !collider.isTrigger;
+            bool insidePlayableArea = IsColliderInsideNormalPlayableArea(collider.bounds, config);
+
+            if (category == "boundary_air_wall")
+            {
+                if (blocksPlayer)
+                {
+                    LastBoundaryAirWallsPreserved++;
+                }
+
+                continue;
+            }
+
+            if (category == "invalid_zone_blocker")
+            {
+                if (blocksPlayer)
+                {
+                    LastInvalidZoneBlockersPreserved++;
+                }
+
+                continue;
+            }
+
+            if (!blocksPlayer || !insidePlayableArea)
+            {
+                continue;
+            }
+
+            if (category == "interaction_trigger" && config.convertInteractionBlockersToTriggers)
+            {
+                collider.isTrigger = true;
+                LastUnexpectedAirwallBlockersFound++;
+                LastUnexpectedAirwallBlockersConvertedToTrigger++;
+                continue;
+            }
+
+            if (category == "debug_test" && config.disableDebugTestColliders)
+            {
+                collider.enabled = false;
+                LastUnexpectedAirwallBlockersFound++;
+                LastUnexpectedAirwallBlockersRemoved++;
+                continue;
+            }
+
+            if (category == "unknown_blocker" && config.convertUnknownPlayableBlockersToTriggers)
+            {
+                collider.isTrigger = true;
+                LastUnexpectedAirwallBlockersFound++;
+                LastUnexpectedAirwallBlockersConvertedToTrigger++;
+            }
+        }
+
+        LastSampledValidPathsPassable =
+            LastPlayableBoundsValid &&
+            LastPlayableAirWallColliderCount == 4 &&
+            LastBoundaryAirWallsPreserved >= 4 &&
+            LastUnknownBlockersInsidePlayableArea == 0;
+    }
+
+    private bool IsColliderInsideNormalPlayableArea(Bounds bounds, NewMapAirwallHardCleanupConfig config)
+    {
+        if (!LastPlayableBoundsValid || !IsFiniteVector3(bounds.center) || !IsFiniteVector3(bounds.size))
+        {
+            return false;
+        }
+
+        float margin = Mathf.Max(0f, config.minDistanceFromBoundaryForPlayableCorridorMeters);
+        return LastPlayableBounds.ContainsXZ(bounds.center, margin);
+    }
+
+    private static string ClassifyBlockingCollider(string path, Collider collider)
+    {
+        string lower = (path ?? string.Empty).ToLowerInvariant();
+        if (lower.Contains("playableboundsroot") || lower.Contains("airwall_"))
+        {
+            return "boundary_air_wall";
+        }
+
+        if (lower.Contains("invalid") || lower.Contains("fall") || lower.Contains("blue") || lower.Contains("blocker"))
+        {
+            return "invalid_zone_blocker";
+        }
+
+        if (lower.Contains("gameplaygroundcoverroot") || lower.Contains("gameplaysupportroot") || lower.Contains("groundcover"))
+        {
+            return "support_ground";
+        }
+
+        if (lower.Contains("crowdroot") || lower.Contains("newmap_npc"))
+        {
+            return "npc_body";
+        }
+
+        if (lower.Contains("newmap_player") || lower.Contains("playerspawnroot"))
+        {
+            return "player_body";
+        }
+
+        if (lower.Contains("marker") || lower.Contains("target") || lower.Contains("interaction") || lower.Contains("shelterentrance"))
+        {
+            return "interaction_trigger";
+        }
+
+        if (lower.Contains("debug") || lower.Contains("diagnostic") || lower.Contains("test"))
+        {
+            return "debug_test";
+        }
+
+        if (lower.Contains("bldg") || lower.Contains("building"))
+        {
+            return "building_obstacle";
+        }
+
+        return "unknown_blocker";
     }
 
     private void ApplyRound3BuildingRoadVerticalAlignment()
@@ -3319,6 +3553,56 @@ public sealed class NewMapGroundCoverRaiseConfig
         config.playerBuildingCollisionMarginMeters = Mathf.Clamp(config.playerBuildingCollisionMarginMeters, 0f, 5f);
         config.keepImportedBuildingsFixed = true;
         config.playerBuildingCollisionEnabled = true;
+        return config;
+    }
+}
+
+[System.Serializable]
+public sealed class NewMapAirwallHardCleanupConfig
+{
+    public bool enabled = true;
+    public bool keepBoundaryAirWalls = true;
+    public bool keepInvalidZoneBlockers = true;
+    public bool convertInteractionBlockersToTriggers = true;
+    public bool convertUnknownPlayableBlockersToTriggers = true;
+    public bool disableDebugTestColliders = true;
+    public float playerBuildingCollisionMarginMeters = 0.05f;
+    public float buildingObstacleMaxFootprintMeters = 180f;
+    public float buildingObstacleInsetMeters = 0.25f;
+    public float minDistanceFromBoundaryForPlayableCorridorMeters = 6f;
+    public string strategy = "hard_cleanup_unexpected_airwalls_preserve_boundary_and_invalid_zone_blockers";
+
+    public static NewMapAirwallHardCleanupConfig Default()
+    {
+        return new NewMapAirwallHardCleanupConfig();
+    }
+
+    public static NewMapAirwallHardCleanupConfig Load()
+    {
+        NewMapAirwallHardCleanupConfig config = Default();
+        string path = Path.Combine(Application.dataPath, "Data/P10/newmap_airwall_hard_cleanup_config.json");
+        if (File.Exists(path))
+        {
+            try
+            {
+                config = JsonUtility.FromJson<NewMapAirwallHardCleanupConfig>(File.ReadAllText(path)) ?? config;
+            }
+            catch (System.Exception exception)
+            {
+                Debug.LogWarning($"NewMap airwall hard-cleanup config could not be loaded; using defaults. {exception.Message}");
+            }
+        }
+
+        config.enabled = true;
+        config.keepBoundaryAirWalls = true;
+        config.keepInvalidZoneBlockers = true;
+        config.convertInteractionBlockersToTriggers = true;
+        config.convertUnknownPlayableBlockersToTriggers = true;
+        config.disableDebugTestColliders = true;
+        config.playerBuildingCollisionMarginMeters = Mathf.Clamp(config.playerBuildingCollisionMarginMeters, 0f, 0.5f);
+        config.buildingObstacleMaxFootprintMeters = Mathf.Clamp(config.buildingObstacleMaxFootprintMeters, 20f, 400f);
+        config.buildingObstacleInsetMeters = Mathf.Clamp(config.buildingObstacleInsetMeters, 0f, 2f);
+        config.minDistanceFromBoundaryForPlayableCorridorMeters = Mathf.Clamp(config.minDistanceFromBoundaryForPlayableCorridorMeters, 0f, 50f);
         return config;
     }
 }

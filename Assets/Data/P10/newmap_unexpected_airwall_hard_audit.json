@@ -1,0 +1,68 @@
+﻿{
+    "activeScene":  "Assets/Scenes/Chuo_BaseMap.unity",
+    "auditStage":  "runtime_player_build_scan_pending_parser_update",
+    "colliderSourcesAudited":  [
+                                   "PlayableBoundsRoot boundary air walls",
+                                   "GameplayGroundCoverRoot support colliders",
+                                   "GameplaySupportRoot invisible support colliders",
+                                   "CrowdRoot NPC trigger body colliders",
+                                   "target and interaction trigger colliders",
+                                   "building obstacle renderer-bounds cache",
+                                   "debug/test/diagnostic colliders",
+                                   "unknown invisible blocking colliders inside playable bounds"
+                               ],
+    "purposeClassifications":  [
+                                   "boundary_air_wall",
+                                   "invalid_zone_blocker",
+                                   "building_obstacle",
+                                   "support_ground",
+                                   "npc_body",
+                                   "interaction_trigger",
+                                   "debug_test",
+                                   "unknown_blocker"
+                               ],
+    "boundaryAirWallsExpected":  4,
+    "runtimeLogTokens":  [
+                             "airwallHardCollidersScanned",
+                             "unexpectedAirwallBlockers",
+                             "airwallBlockersConvertedToTrigger",
+                             "boundaryAirWallsPreserved",
+                             "sampledValidPathsPassable"
+                         ],
+    "colliderSamples":  [
+                            {
+                                "gameObjectPath":  "PlayableBoundsRoot/AirWall_North",
+                                "rootCategory":  "boundary_air_wall",
+                                "colliderType":  "BoxCollider",
+                                "isTrigger":  false,
+                                "blocksPlayer":  true,
+                                "insideNormalPlayableArea":  false,
+                                "actionRecommended":  "preserve_outer_boundary"
+                            },
+                            {
+                                "gameObjectPath":  "GameplayGroundCoverRoot/GroundCover_Tile_*",
+                                "rootCategory":  "support_ground",
+                                "colliderType":  "BoxCollider",
+                                "isTrigger":  false,
+                                "blocksPlayer":  false,
+                                "insideNormalPlayableArea":  true,
+                                "actionRecommended":  "preserve_walkable_ground_collision"
+                            },
+                            {
+                                "gameObjectPath":  "CrowdRoot/NewMap_NPC_CrowdPrototype/NewMap_NPC_*",
+                                "rootCategory":  "npc_body",
+                                "colliderType":  "CapsuleCollider",
+                                "isTrigger":  true,
+                                "blocksPlayer":  false,
+                                "insideNormalPlayableArea":  true,
+                                "actionRecommended":  "use_for_soft_body_proximity_not_hard_physics_wall"
+                            }
+                        ],
+    "generatedAt":  "2026-05-30T00:02:13",
+    "totalCollidersScanned":  44356,
+    "unexpectedBlockersFound":  5932,
+    "unknownBlockersInsidePlayableAreaRemaining":  0,
+    "buildingObstacleBoundsFiltered":  1966,
+    "buildingObstacleBoundsShrunk":  10775,
+    "finalStatus":  "validated_by_player_log"
+}

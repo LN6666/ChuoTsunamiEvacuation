@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-29T21:46:22+09:00",
+  "generatedAt": "2026-05-29T23:32:16+09:00",
   "activeScene": "Assets/Scenes/Chuo_BaseMap.unity",
   "normalizationRulesApplied": true,
   "japaneseKanjiMainNameOnly": true,
@@ -13,7 +13,7 @@
   "visibleIdOnlyLabelCount": 0,
   "visibleAddressLikeLabelCount": 0,
   "visibleLowConfidenceLabelCount": 0,
-  "onlineResultsRejected": 57,
+  "onlineResultsRejected": 89,
   "rejectedReasonsSample": [
     {
       "id": "building_p5f_sample_humanitarian_review_004",
@@ -62,7 +62,7 @@
       "objectType": "building",
       "reason": "no_clean_japanese_main_name",
       "rawType": "highway:residential",
-      "displayName": "日本橋人形町一丁目, 日本橋人形町, 中央区, 東京都, 103-0013, 日本"
+      "displayName": "日本橋人形町一丁目, 日本橋人形町, 中央区, 東京都, 103-0014, 日本"
     },
     {
       "id": "building_p8_plateau_highrise_candidate_031",
@@ -70,13 +70,6 @@
       "reason": "no_clean_japanese_main_name",
       "rawType": "amenity:restaurant",
       "displayName": "1, 日本橋室町三丁目, 日本橋室町, 中央区, 東京都, 103-0022, 日本"
-    },
-    {
-      "id": "building_p8_plateau_highrise_candidate_032",
-      "objectType": "building",
-      "reason": "online_result_wrong_object_type",
-      "rawName": "ポケモンセンター",
-      "rawType": "shop:anime"
     },
     {
       "id": "building_p8_plateau_highrise_candidate_033",
@@ -98,6 +91,13 @@
       "reason": "online_result_wrong_object_type",
       "rawName": "三井のリパーク",
       "rawType": "amenity:parking"
+    },
+    {
+      "id": "building_p8_plateau_highrise_candidate_037",
+      "objectType": "building",
+      "reason": "no_clean_japanese_main_name",
+      "rawType": "office:company",
+      "displayName": "海岸通り, 銀座八丁目, 銀座, 中央区, 東京都, 104-0061, 日本"
     }
   ],
   "finalStatus": "passed"

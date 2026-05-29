@@ -1,0 +1,78 @@
+﻿{
+    "generatedAt":  "2026-05-30T00:02:13",
+    "logPath":  "C:\\Users\\liangjn\\AppData\\LocalLow\\DefaultCompany\\ChuoTsunamiEvacuation\\Player.log",
+    "errorCount":  0,
+    "warningCount":  0,
+    "airwallDiagnostics":  {
+                               "airwallHardCollidersScanned":  44356,
+                               "unexpectedAirwallBlockers":  5932,
+                               "airwallBlockersRemoved":  0,
+                               "airwallBlockersResized":  0,
+                               "airwallBlockersConvertedToTrigger":  5932,
+                               "boundaryAirWallsPreserved":  4,
+                               "invalidZoneBlockersPreserved":  0,
+                               "unknownBlockersInsidePlayableArea":  0,
+                               "buildingObstacleBoundsFiltered":  1966,
+                               "buildingObstacleBoundsShrunk":  10775,
+                               "sampledValidPathsPassable":  true,
+                               "airWallColliders":  4,
+                               "airWallVisibleRenderers":  0
+                           },
+    "playerNpcCollisionDiagnostics":  {
+                                          "playerNpcCollisionEnabled":  true,
+                                          "playerNpcCollisionBlocked":  0,
+                                          "playerNpcCollisionSlowdowns":  0,
+                                          "playerNpcCollisionEscapes":  0,
+                                          "npcBodyColliders":  800,
+                                          "npcSoftBlockingEnabled":  true
+                                      },
+    "npcDiagnostics":  {
+                           "requestedNpcCount":  800,
+                           "spawnedNpcCount":  800,
+                           "cappedNpcCount":  800,
+                           "rejectedInsideBuildings":  1025,
+                           "avoidBuildings":  true,
+                           "usePooling":  true,
+                           "continuousMovementEnabled":  true,
+                           "stuckRecoveryEnabled":  true,
+                           "buildingAvoidanceEnabled":  true,
+                           "npcBodyColliders":  800
+                       },
+    "nameLabelDiagnostics":  {
+                                 "availableLabels":  262,
+                                 "activeLabels":  6,
+                                 "officialShelterLabels":  15,
+                                 "nonOfficialCandidateLabels":  19,
+                                 "roadNameLabels":  182,
+                                 "buildingNameLabels":  45,
+                                 "tokyoStationLabels":  1,
+                                 "idOnlyLabels":  0,
+                                 "nameCacheLoaded":  true,
+                                 "nameCacheRecords":  276,
+                                 "reliableCacheLabels":  228,
+                                 "addressOnlyHidden":  0,
+                                 "lowConfidenceHidden":  0,
+                                 "runtimeNetworkRequestsAllowed":  false,
+                                 "sourceNameStatus":  "source_or_cached_names_available"
+                             },
+    "selfAuditCompleted":  true,
+    "selfAuditFailureCount":  0,
+    "cachePath":  "Assets/Data/P10/newmap_name_cache.json",
+    "cacheRecordCount":  276,
+    "onlineQueriesAttempted":  166,
+    "onlineQueriesSucceeded":  166,
+    "onlineLabelsAdded":  77,
+    "namesRejected":  89,
+    "runtimeNoWebPassed":  true,
+    "airwallCleanupPassed":  true,
+    "playerNpcCollisionPassed":  true,
+    "labelRuntimePassed":  true,
+    "npcRegressionPassed":  true,
+    "firstErrors":  [
+
+                    ],
+    "firstWarnings":  [
+
+                      ],
+    "finalStatus":  "completed_on_new_chuo_basemap"
+}

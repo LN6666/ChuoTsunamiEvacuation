@@ -126,8 +126,8 @@ def default_config() -> Dict[str, Any]:
         "runtimeNetworkRequestsAllowed": False,
         "allowOnlineLookup": True,
         "onlyQueryMissingNames": True,
-        "maxQueriesPerRun": 200,
-        "maxOnlineQueries": 200,
+        "maxQueriesPerRun": 500,
+        "maxOnlineQueries": 500,
         "rateLimitSeconds": 1.1,
         "onlineRateLimitSeconds": 1.1,
         "onlineTimeoutSeconds": 10.0,
@@ -136,11 +136,16 @@ def default_config() -> Dict[str, Any]:
         "hideIdOnlyInNormalMode": True,
         "usePublicNominatimCarefully": True,
         "userAgent": "ChuoTsunamiEvacuation-PBL10-NameEnrichment/1.0",
-        "maxRoadLabels": 80,
-        "maxBuildingLabels": 90,
+        "maxRoadLabels": 140,
+        "maxBuildingLabels": 160,
         "maxLocalOsmBuildingLabels": 40,
-        "maxRouteRoadQueryPoints": 24,
-        "maxMissingBuildingQueries": 80,
+        "maxRouteRoadQueryPoints": 80,
+        "maxMissingBuildingQueries": 420,
+        "queryBuildingsNearGameplayArea": True,
+        "queryRoadsNearRoutes": True,
+        "mainNameOnly": True,
+        "hideAddressLikeNames": True,
+        "cacheResults": True,
         "minConfidenceForRuntime": MIN_RUNTIME_CONFIDENCE,
         "sourcePriority": [
             "project official shelter names",
@@ -161,8 +166,11 @@ def load_config(project_root: Path) -> Dict[str, Any]:
     if str(config.get("userAgent", "")).startswith("ChuoTsunamiEvacuationNewMap"):
         config["userAgent"] = "ChuoTsunamiEvacuation-PBL10-NameEnrichment/1.0"
     config["sourcePriority"] = default_config()["sourcePriority"]
-    config["maxRoadLabels"] = max(80, int(config.get("maxRoadLabels", 80)))
+    config["maxRoadLabels"] = max(140, int(config.get("maxRoadLabels", 140)))
+    config["maxBuildingLabels"] = max(160, int(config.get("maxBuildingLabels", 160)))
     config["maxLocalOsmBuildingLabels"] = max(40, int(config.get("maxLocalOsmBuildingLabels", 40)))
+    config["maxRouteRoadQueryPoints"] = max(80, int(config.get("maxRouteRoadQueryPoints", 80)))
+    config["maxMissingBuildingQueries"] = max(420, int(config.get("maxMissingBuildingQueries", 420)))
     if "maxQueriesPerRun" not in config and "maxOnlineQueries" in config:
         config["maxQueriesPerRun"] = config["maxOnlineQueries"]
     config["maxQueriesPerRun"] = int(config.get("maxQueriesPerRun", 200))
@@ -171,6 +179,14 @@ def load_config(project_root: Path) -> Dict[str, Any]:
     config["onlineRateLimitSeconds"] = config["rateLimitSeconds"]
     config["runtimeNetworkRequestsAllowed"] = False
     config["preprocessingOnly"] = True
+    config["onlyQueryMissingNames"] = True
+    config["preferJapaneseNames"] = True
+    config["mainNameOnly"] = True
+    config["hideAddressLikeNames"] = True
+    config["hideIdOnlyInNormalMode"] = True
+    config["cacheResults"] = True
+    config["queryBuildingsNearGameplayArea"] = True
+    config["queryRoadsNearRoutes"] = True
     write_json(config_path, config)
     return config
 
@@ -401,6 +417,8 @@ def extract_project_building_labels(
     seen: set,
     active_candidates: Dict[str, Dict[str, Any]],
     candidate_geo: Dict[str, Tuple[float, float, Dict[str, Any]]],
+    fit: Optional[Dict[str, Any]],
+    fallback_y: float,
     max_building_labels: int,
     timestamp: str,
 ) -> int:
@@ -432,7 +450,42 @@ def extract_project_building_labels(
         if add_label(labels, seen, label):
             count += 1
             if count >= max_building_labels:
-                break
+                return count
+
+    for candidate_id, lat_lon_record in sorted(candidate_geo.items()):
+        if count >= max_building_labels:
+            break
+        label_id = "building_" + candidate_id
+        if label_id in seen:
+            continue
+
+        lat, lon, audit_record = lat_lon_record
+        raw_name = audit_record.get("buildingName")
+        if not normalize_main_name(raw_name):
+            continue
+
+        position = wgs84_to_unity(lat, lon, fit, fallback_y) if fit is not None else None
+        if position is None:
+            continue
+
+        label = make_label(
+            label_id,
+            "building",
+            raw_name,
+            position,
+            "project_dataset",
+            "Assets/Data/P8/humanitarian_highrise_candidate_audit_v1.json",
+            "project_dataset_name",
+            "plateau_building_attribute",
+            0.84,
+            "buildingName",
+            timestamp,
+            lat,
+            lon,
+            False,
+        )
+        if add_label(labels, seen, label):
+            count += 1
     return count
 
 
@@ -632,6 +685,7 @@ def build_query_list(
 ) -> Tuple[List[Dict[str, Any]], Dict[str, Any]]:
     existing = label_by_id(labels)
     query_list: List[Dict[str, Any]] = []
+    queued_ids = set()
     missing_building_count = 0
     missing_building_no_coordinate = 0
 
@@ -653,6 +707,7 @@ def build_query_list(
             missing_building_no_coordinate += 1
         missing_building_count += 1
         position = vec3(runtime.get("unityX", 0.0), runtime.get("unityY", fallback_y), runtime.get("unityZ", 0.0))
+        queued_ids.add(building_label_id)
         query_list.append({
             "id": building_label_id,
             "objectType": "building",
@@ -666,11 +721,37 @@ def build_query_list(
             "enabledForOnlineLookup": enabled,
         })
 
+    if config.get("queryBuildingsNearGameplayArea", True):
+        for candidate_id, lat_lon_record in sorted(candidate_geo.items()):
+            building_label_id = "building_" + candidate_id
+            if building_label_id in existing or building_label_id in queued_ids:
+                continue
+            lat, lon, audit_record = lat_lon_record
+            if normalize_main_name(audit_record.get("buildingName")):
+                continue
+            position = wgs84_to_unity(lat, lon, fit, fallback_y) if fit is not None else None
+            missing_building_count += 1
+            if position is None:
+                missing_building_no_coordinate += 1
+            queued_ids.add(building_label_id)
+            query_list.append({
+                "id": building_label_id,
+                "objectType": "building",
+                "unityPosition": position or vec3(0.0, fallback_y, 0.0),
+                "lat": lat,
+                "lon": lon,
+                "currentName": "",
+                "reasonForQuery": "expanded_visible_or_route_near_p8_building_name_missing",
+                "priority": 4,
+                "sourceDataPath": "Assets/Data/P8/humanitarian_highrise_candidate_audit_v1.json",
+                "enabledForOnlineLookup": position is not None,
+            })
+
     road_queries = collect_route_road_query_points(
         project_root,
         fit,
         fallback_y,
-        int(config.get("maxRouteRoadQueryPoints", 24)),
+        int(config.get("maxRouteRoadQueryPoints", 80)) if config.get("queryRoadsNearRoutes", True) else 0,
     )
     query_list.extend(road_queries)
     query_list.sort(key=lambda item: (int(item.get("priority", 99)), str(item.get("id", ""))))
@@ -724,6 +805,9 @@ def select_online_name(result: Dict[str, Any], object_type: str) -> Tuple[str, s
     if object_type == "road":
         candidates.extend([address.get("road"), address.get("pedestrian"), address.get("footway")])
         source_field = "namedetails.name/name:ja_or_address.road"
+    elif object_type == "building":
+        candidates.extend([address.get("building"), address.get("amenity"), address.get("tourism")])
+        source_field = "namedetails.name/name:ja_or_address.building"
     for candidate in candidates:
         normalized = normalize_main_name(candidate)
         if object_type == "road" and normalized and not is_road_main_name(normalized):
@@ -743,9 +827,11 @@ def online_result_matches_type(result: Dict[str, Any], object_type: str) -> bool
             return True
         if category == "amenity" and result_type in {"hospital", "school", "university", "college", "library", "theatre", "townhall", "public_building"}:
             return True
-        if category == "tourism" and result_type in {"museum", "hotel"}:
+        if category == "tourism" and result_type in {"museum", "hotel", "attraction"}:
             return True
-        if result_type in {"yes", "office", "commercial", "apartments", "school", "hospital", "university", "hotel"}:
+        if category in {"office", "shop"}:
+            return True
+        if result_type in {"yes", "office", "commercial", "retail", "apartments", "school", "hospital", "university", "hotel", "public_building"}:
             return True
         return False
     return True
@@ -989,6 +1075,20 @@ def write_docs(project_root: Path, audit: Dict[str, Any], query_list: List[Dict[
         "- Low-confidence, address-like, ID-only, and non-Japanese names are hidden from normal runtime labels.\n",
     )
     write_text(
+        "NEWMAP_NAME_ENRICHMENT_EXPANDED_BUILDINGS_ROADS.md",
+        "# NewMap Name Enrichment Expanded Buildings Roads\n\n"
+        "- Stage: preprocessing/tooling only.\n"
+        "- Runtime web requests: `false`.\n"
+        "- Scope: active official shelters, active non-official candidates, P8 gameplay-area building candidates, and route-near road sample points.\n"
+        f"- Query candidates built: `{len(query_list)}`\n"
+        f"- Online lookup candidates enabled: `{len([item for item in query_list if item.get('enabledForOnlineLookup')])}`\n"
+        f"- Max queries per run: `{report.get('maxQueriesPerRun', 'see config')}`\n"
+        f"- Building labels after normalization: `{report['buildingLabels']}`\n"
+        f"- Road labels after normalization: `{report['roadLabels']}`\n"
+        f"- Online queries attempted/succeeded: `{report['onlineQueriesAttempted']}` / `{report['onlineQueriesSucceeded']}`\n"
+        "- The tool does not query the entire map blindly and does not fabricate missing names.\n",
+    )
+    write_text(
         "NEWMAP_NAME_NORMALIZATION_RULES.md",
         "# NewMap Name Normalization Rules\n\n"
         "- Prefer `name:ja`, then `name`, `official_name`, and only then clearly valid `short_name`.\n"
@@ -996,6 +1096,19 @@ def write_docs(project_root: Path, audit: Dict[str, Any], query_list: List[Dict[
         "- Hide full postal addresses, coordinate strings, GML IDs, and `bldg_`/`13102-bldg-` IDs in normal mode.\n"
         "- Do not machine translate and do not fabricate names.\n"
         f"- Visible bad-label counts: ID `{normalization['visibleIdOnlyLabelCount']}`, address `{normalization['visibleAddressLikeLabelCount']}`, low-confidence `{normalization['visibleLowConfidenceLabelCount']}`.\n",
+    )
+    write_text(
+        "NEWMAP_NAME_NORMALIZATION_REPORT.md",
+        "# NewMap Name Normalization Report\n\n"
+        f"- Generated: `{normalization['generatedAt']}`\n"
+        f"- Japanese/Kanji main-name only: `{normalization['japaneseKanjiMainNameOnly']}`\n"
+        f"- Full addresses hidden: `{normalization['fullAddressesHidden']}`\n"
+        f"- GML/building IDs hidden: `{normalization['gmlAndBuildingIdsHidden']}`\n"
+        f"- Machine translation used: `{normalization['machineTranslationUsed']}`\n"
+        f"- Fabricated names allowed: `{normalization['fabricatedNamesAllowed']}`\n"
+        f"- Visible ID/address/low-confidence counts: `{normalization['visibleIdOnlyLabelCount']}` / `{normalization['visibleAddressLikeLabelCount']}` / `{normalization['visibleLowConfidenceLabelCount']}`\n"
+        f"- Online results rejected: `{normalization['onlineResultsRejected']}`\n"
+        f"- Final status: `{normalization['finalStatus']}`\n",
     )
     write_text(
         "NEWMAP_NAME_LABEL_ATTRIBUTION.md",
@@ -1042,6 +1155,8 @@ def main() -> int:
         seen,
         active_candidates,
         candidate_geo,
+        fit,
+        fallback_ground_y,
         int(config["maxBuildingLabels"]),
         timestamp,
     )
@@ -1121,6 +1236,7 @@ def main() -> int:
         "onlineLabelsAdded": online_added,
         "namesNewlyAdded": online_added,
         "namesRejected": online["rejected"],
+        "maxQueriesPerRun": config["maxQueriesPerRun"],
         "onlineErrors": online["errors"][:8],
         "rateLimitSeconds": config["rateLimitSeconds"],
         "userAgent": config["userAgent"],

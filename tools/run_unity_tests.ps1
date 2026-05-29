@@ -266,11 +266,9 @@ function Wait-UnityProcess {
             }
         }
 
-        if ($TestPlatform -eq "PlayMode") {
-            if (Copy-UnityGeneratedResultIfReady -LogPath $LogPath -ResultsPath $ResultsPath -StartedAt $StartedAt) {
-                Close-LaunchedUnityProcess -Process $Process
-                return [pscustomobject]@{ ResultHarvested = $true }
-            }
+        if (Copy-UnityGeneratedResultIfReady -LogPath $LogPath -ResultsPath $ResultsPath -StartedAt $StartedAt) {
+            Close-LaunchedUnityProcess -Process $Process
+            return [pscustomobject]@{ ResultHarvested = $true }
         }
 
         if ((Get-Date) -ge $deadline) {

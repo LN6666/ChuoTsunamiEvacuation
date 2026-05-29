@@ -1,0 +1,27 @@
+﻿{
+    "activeScene":  "Assets/Scenes/Chuo_BaseMap.unity",
+    "npcBuildingAvoidancePreserved":  true,
+    "npcSpawnRejectsBuildingOverlap":  true,
+    "npcMovementAvoidsBuildingBounds":  true,
+    "npcRapidRefreshDisabled":  true,
+    "npcStoppedWithoutReasonCount":  0,
+    "npc100xDistributionPreserved":  true,
+    "farNpcStaticProxyModeRuntimeMovementDisabled":  true,
+    "nearPlayerNpcCollisionUsesSoftBlocking":  true,
+    "heavyPerNpcPathfinding":  false,
+    "playerNpcCollisionDoesNotUseRigidBodyCrowdPhysics":  true,
+    "generatedAt":  "2026-05-30T00:02:13",
+    "runtimeDiagnostics":  {
+                               "requestedNpcCount":  800,
+                               "spawnedNpcCount":  800,
+                               "cappedNpcCount":  800,
+                               "rejectedInsideBuildings":  1025,
+                               "avoidBuildings":  true,
+                               "usePooling":  true,
+                               "continuousMovementEnabled":  true,
+                               "stuckRecoveryEnabled":  true,
+                               "buildingAvoidanceEnabled":  true,
+                               "npcBodyColliders":  800
+                           },
+    "finalStatus":  "validated_by_player_log"
+}

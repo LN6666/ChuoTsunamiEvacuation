@@ -1,0 +1,29 @@
+﻿{
+    "activeScene":  "Assets/Scenes/Chuo_BaseMap.unity",
+    "enabled":  true,
+    "mode":  "soft_blocking_with_near_capsules",
+    "nearNpcCollisionRadiusMeters":  0.45,
+    "nearNpcCollisionHeightMeters":  1.7,
+    "nearNpcCollisionDistanceMeters":  60.0,
+    "farNpcPhysicalCollisionDisabled":  true,
+    "softSlowdownEnabled":  true,
+    "maxSlowdownFactor":  0.55,
+    "preventDirectOverlap":  true,
+    "playerCannotPassStraightThroughNearNpc":  true,
+    "playerCanMoveAroundNpc":  true,
+    "playerNotPermanentlyTrapped":  true,
+    "npcBodyColliderType":  "CapsuleCollider trigger plus deterministic soft-block correction",
+    "physicsExplosionRisk":  false,
+    "tourismModeNpcFailure":  false,
+    "evacuationCrowdDelayBounded":  true,
+    "generatedAt":  "2026-05-30T00:02:13",
+    "runtimeDiagnostics":  {
+                               "playerNpcCollisionEnabled":  true,
+                               "playerNpcCollisionBlocked":  0,
+                               "playerNpcCollisionSlowdowns":  0,
+                               "playerNpcCollisionEscapes":  0,
+                               "npcBodyColliders":  800,
+                               "npcSoftBlockingEnabled":  true
+                           },
+    "finalStatus":  "validated_by_player_log_and_playmode"
+}

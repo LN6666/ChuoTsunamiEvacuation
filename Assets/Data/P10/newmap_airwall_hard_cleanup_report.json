@@ -1,0 +1,22 @@
+﻿{
+    "activeScene":  "Assets/Scenes/Chuo_BaseMap.unity",
+    "boundaryAirWallsPreserved":  true,
+    "invalidZonesPreserved":  true,
+    "debugTestCollidersInactiveInNormalMode":  true,
+    "interactionTriggersDoNotBlockPlayer":  true,
+    "buildingObstacleBoundsShrunkToReduceFrontageAirwalls":  true,
+    "playerBuildingCollisionMarginMeters":  0.05,
+    "buildingObstacleMaxFootprintMeters":  180.0,
+    "buildingObstacleInsetMeters":  0.25,
+    "playerBlockedAtMapBoundary":  true,
+    "playerCanReachActiveTargetsExpected":  true,
+    "normalModeAirwallVisualizationDisabled":  true,
+    "generatedAt":  "2026-05-30T00:02:13",
+    "totalCollidersScanned":  44356,
+    "unexpectedBlockersFound":  5932,
+    "blockersRemoved":  0,
+    "blockersResized":  0,
+    "blockersConvertedToTrigger":  5932,
+    "sampledValidPathsNowPassable":  true,
+    "finalStatus":  "validated_by_player_log"
+}

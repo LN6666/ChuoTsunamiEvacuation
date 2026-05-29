@@ -30,8 +30,10 @@ public sealed class NewMapNpcCrowdPrototype : MonoBehaviour
     private NewMapPlayableBounds playableBounds;
     private NewMapNpcDistributionConfig distributionConfig;
     private NewMapNpcMovementConfig movementConfig;
+    private NewMapPlayerNpcCollisionConfig playerNpcCollisionConfig;
     private bool crowdFailuresEnabled;
     private bool built;
+    private int npcBodyColliderCount;
 
     public int NpcCap => npcCap;
     public int ActiveNpcCount => npcs.Count;
@@ -62,6 +64,9 @@ public sealed class NewMapNpcCrowdPrototype : MonoBehaviour
     public int StoppedWithoutReasonCount { get; private set; }
     public int NpcBuildingAvoidanceRecoveryCount { get; private set; }
     public float AverageSpeedMetersPerSecond { get; private set; }
+    public int NpcBodyColliderCount => npcBodyColliderCount;
+    public bool PlayerNpcSoftBlockingEnabled => playerNpcCollisionConfig != null && playerNpcCollisionConfig.enabled;
+    public float NearNpcCollisionRadiusMeters => playerNpcCollisionConfig != null ? playerNpcCollisionConfig.nearNpcCollisionRadiusMeters : 0f;
 
     public static NewMapNpcCrowdPrototype Create(Transform parent, Vector3 centerPosition)
     {
@@ -80,6 +85,7 @@ public sealed class NewMapNpcCrowdPrototype : MonoBehaviour
         NewMapNpcCrowdPrototype crowd = crowdObject.AddComponent<NewMapNpcCrowdPrototype>();
         crowd.distributionConfig = NewMapNpcDistributionConfig.Load();
         crowd.movementConfig = NewMapNpcMovementConfig.Load();
+        crowd.playerNpcCollisionConfig = NewMapPlayerNpcCollisionConfig.Load();
         crowd.requestedCenter = centerPosition;
         crowd.playableBounds = bounds.IsValid ? bounds : NewMapPlayableBounds.DefaultDocumented();
         crowd.npcCap = Mathf.Clamp(crowd.distributionConfig.maxNpcCount, 0, 1000);
@@ -256,6 +262,8 @@ public sealed class NewMapNpcCrowdPrototype : MonoBehaviour
 
         distributionConfig = distributionConfig ?? NewMapNpcDistributionConfig.Load();
         movementConfig = movementConfig ?? NewMapNpcMovementConfig.Load();
+        playerNpcCollisionConfig = playerNpcCollisionConfig ?? NewMapPlayerNpcCollisionConfig.Load();
+        npcBodyColliderCount = 0;
         BuildBuildingBoundsSpatialIndex();
         if (!playableBounds.IsValid)
         {
@@ -326,6 +334,11 @@ public sealed class NewMapNpcCrowdPrototype : MonoBehaviour
             npc.transform.SetParent(transform, true);
             npc.transform.position = acceptedPositions[i];
             NewMapVisualFactory.CreateHumanoid(npc.transform, "NPCVisual", new Color(1f, 0.62f, 0.12f, 1f), sharedMaterial);
+            if (ConfigureNpcBodyCollider(npc))
+            {
+                npcBodyColliderCount++;
+            }
+
             npcs.Add(npc.transform);
             npcHomePositions.Add(acceptedPositions[i]);
             npcLastPositions.Add(acceptedPositions[i]);
@@ -341,7 +354,30 @@ public sealed class NewMapNpcCrowdPrototype : MonoBehaviour
             $"rejectedInsideBuildings={RejectedInsideBuildingCount} avoidBuildings={distributionConfig.avoidBuildings} " +
             $"usePooling={distributionConfig.usePooling} farNpcStaticProxyMode={FarNpcStaticProxyModeEnabled} " +
             $"continuousMovementEnabled={movementConfig.continuousMovementEnabled} stuckRecoveryEnabled={movementConfig.stuckRecoveryEnabled} " +
-            $"buildingAvoidanceEnabled={movementConfig.buildingAvoidanceEnabled}");
+            $"buildingAvoidanceEnabled={movementConfig.buildingAvoidanceEnabled} playerNpcCollisionEnabled={PlayerNpcSoftBlockingEnabled} " +
+            $"npcBodyColliders={NpcBodyColliderCount} nearNpcCollisionRadius={NearNpcCollisionRadiusMeters:F2}");
+    }
+
+    private bool ConfigureNpcBodyCollider(GameObject npc)
+    {
+        if (npc == null || playerNpcCollisionConfig == null || !playerNpcCollisionConfig.enabled)
+        {
+            return false;
+        }
+
+        CapsuleCollider collider = npc.GetComponent<CapsuleCollider>();
+        if (collider == null)
+        {
+            collider = npc.AddComponent<CapsuleCollider>();
+        }
+
+        collider.radius = Mathf.Clamp(playerNpcCollisionConfig.nearNpcCollisionRadiusMeters, 0.15f, 1.5f);
+        collider.height = Mathf.Clamp(playerNpcCollisionConfig.nearNpcCollisionHeightMeters, collider.radius * 2f, 3f);
+        collider.center = new Vector3(0f, collider.height * 0.5f, 0f);
+        collider.direction = 1;
+        collider.isTrigger = true;
+        collider.enabled = true;
+        return true;
     }
 
     private void EnsureBuilt()
@@ -702,6 +738,126 @@ public sealed class NewMapNpcCrowdPrototype : MonoBehaviour
             position.z <= bounds.max.z + margin;
     }
 
+    public bool ResolvePlayerPositionAgainstNpcs(
+        Vector3 previousPosition,
+        Vector3 candidatePosition,
+        NewMapPlayerNpcCollisionConfig config,
+        out Vector3 resolvedPosition,
+        out bool blocked,
+        out bool slowed,
+        out bool escapeApplied,
+        out float slowdownFactor)
+    {
+        resolvedPosition = candidatePosition;
+        blocked = false;
+        slowed = false;
+        escapeApplied = false;
+        slowdownFactor = 1f;
+
+        config = config ?? playerNpcCollisionConfig ?? NewMapPlayerNpcCollisionConfig.Default();
+        if (!config.enabled || !config.preventDirectOverlap)
+        {
+            return false;
+        }
+
+        EnsureBuilt();
+        if (npcs.Count == 0)
+        {
+            return false;
+        }
+
+        float npcRadius = Mathf.Clamp(config.nearNpcCollisionRadiusMeters, 0.15f, 1.5f);
+        float effectiveRadius = npcRadius + 0.26f;
+        float effectiveRadiusSquared = effectiveRadius * effectiveRadius;
+        float nearDistance = Mathf.Max(1f, config.nearNpcCollisionDistanceMeters);
+        float nearDistanceSquared = nearDistance * nearDistance;
+        float slowdownRadius = effectiveRadius + Mathf.Max(0.05f, npcRadius * 1.75f);
+        float slowdownRadiusSquared = slowdownRadius * slowdownRadius;
+        Vector2 previous = new Vector2(previousPosition.x, previousPosition.z);
+        Vector2 candidate = new Vector2(candidatePosition.x, candidatePosition.z);
+        Vector2 segment = candidate - previous;
+        float segmentLengthSquared = segment.sqrMagnitude;
+        float closestOverlap = 0f;
+        Vector2 bestNpcCenter = Vector2.zero;
+        bool hasBlockingNpc = false;
+
+        for (int i = 0; i < npcs.Count; i++)
+        {
+            Transform npc = npcs[i];
+            if (npc == null)
+            {
+                continue;
+            }
+
+            Vector2 center2 = new Vector2(npc.position.x, npc.position.z);
+            if ((center2 - previous).sqrMagnitude > nearDistanceSquared &&
+                (center2 - candidate).sqrMagnitude > nearDistanceSquared)
+            {
+                continue;
+            }
+
+            float t = 0f;
+            if (segmentLengthSquared > 0.0001f)
+            {
+                t = Mathf.Clamp01(Vector2.Dot(center2 - previous, segment) / segmentLengthSquared);
+            }
+
+            Vector2 closest = previous + segment * t;
+            float distanceSquared = (closest - center2).sqrMagnitude;
+            if (distanceSquared < effectiveRadiusSquared)
+            {
+                float overlap = effectiveRadius - Mathf.Sqrt(Mathf.Max(0f, distanceSquared));
+                if (overlap > closestOverlap)
+                {
+                    closestOverlap = overlap;
+                    bestNpcCenter = center2;
+                    hasBlockingNpc = true;
+                }
+            }
+            else if (config.softSlowdownEnabled && distanceSquared < slowdownRadiusSquared)
+            {
+                slowed = true;
+            }
+        }
+
+        if (hasBlockingNpc)
+        {
+            Vector2 pushDirection = previous - bestNpcCenter;
+            if (pushDirection.sqrMagnitude < 0.0001f)
+            {
+                pushDirection = candidate - bestNpcCenter;
+            }
+
+            if (pushDirection.sqrMagnitude < 0.0001f && segmentLengthSquared > 0.0001f)
+            {
+                pushDirection = new Vector2(-segment.y, segment.x);
+                escapeApplied = true;
+            }
+
+            if (pushDirection.sqrMagnitude < 0.0001f)
+            {
+                pushDirection = Vector2.right;
+                escapeApplied = true;
+            }
+
+            pushDirection.Normalize();
+            Vector2 corrected = bestNpcCenter + pushDirection * effectiveRadius;
+            resolvedPosition = new Vector3(corrected.x, candidatePosition.y, corrected.y);
+            blocked = true;
+            slowdownFactor = Mathf.Clamp(config.maxSlowdownFactor, 0.05f, 1f);
+            return true;
+        }
+
+        if (slowed)
+        {
+            slowdownFactor = Mathf.Clamp(config.maxSlowdownFactor, 0.05f, 1f);
+            resolvedPosition = Vector3.Lerp(previousPosition, candidatePosition, slowdownFactor);
+            return true;
+        }
+
+        return false;
+    }
+
     private static void TryResolveNearestOutsideBound(
         Vector3 position,
         Bounds bounds,
@@ -933,6 +1089,54 @@ public sealed class NewMapNpcMovementConfig
         config.stuckRecoveryEnabled = true;
         config.buildingAvoidanceEnabled = true;
         config.boundsClampEnabled = true;
+        return config;
+    }
+}
+
+[System.Serializable]
+public sealed class NewMapPlayerNpcCollisionConfig
+{
+    public bool enabled = true;
+    public string mode = "soft_blocking_with_near_capsules";
+    public float nearNpcCollisionRadiusMeters = 0.45f;
+    public float nearNpcCollisionHeightMeters = 1.7f;
+    public float nearNpcCollisionDistanceMeters = 60f;
+    public bool farNpcPhysicalCollisionDisabled = true;
+    public bool softSlowdownEnabled = true;
+    public float maxSlowdownFactor = 0.55f;
+    public bool preventDirectOverlap = true;
+    public bool stuckEscapeEnabled = true;
+
+    public static NewMapPlayerNpcCollisionConfig Default()
+    {
+        return new NewMapPlayerNpcCollisionConfig();
+    }
+
+    public static NewMapPlayerNpcCollisionConfig Load()
+    {
+        NewMapPlayerNpcCollisionConfig config = Default();
+        string path = Path.Combine(Application.dataPath, "Data/P10/newmap_player_npc_collision_config.json");
+        if (File.Exists(path))
+        {
+            try
+            {
+                config = JsonUtility.FromJson<NewMapPlayerNpcCollisionConfig>(File.ReadAllText(path)) ?? config;
+            }
+            catch (System.Exception exception)
+            {
+                Debug.LogWarning($"NewMap player/NPC collision config could not be loaded; using defaults. {exception.Message}");
+            }
+        }
+
+        config.enabled = true;
+        config.mode = string.IsNullOrWhiteSpace(config.mode) ? "soft_blocking_with_near_capsules" : config.mode;
+        config.nearNpcCollisionRadiusMeters = Mathf.Clamp(config.nearNpcCollisionRadiusMeters, 0.15f, 1.5f);
+        config.nearNpcCollisionHeightMeters = Mathf.Clamp(config.nearNpcCollisionHeightMeters, 0.8f, 3f);
+        config.nearNpcCollisionDistanceMeters = Mathf.Clamp(config.nearNpcCollisionDistanceMeters, 5f, 180f);
+        config.farNpcPhysicalCollisionDisabled = true;
+        config.maxSlowdownFactor = Mathf.Clamp(config.maxSlowdownFactor, 0.05f, 1f);
+        config.preventDirectOverlap = true;
+        config.stuckEscapeEnabled = true;
         return config;
     }
 }

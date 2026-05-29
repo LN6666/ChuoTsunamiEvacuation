@@ -184,7 +184,14 @@ public class NewMapIntegrationConfigTests
             "Data/P10/newmap_player_building_collision_report.json",
             "Data/P10/newmap_npc_building_collision_report.json",
             "Data/P10/newmap_npc_movement_config.json",
-            "Data/P10/newmap_npc_continuous_movement_report.json"
+            "Data/P10/newmap_npc_continuous_movement_report.json",
+            "Data/P10/newmap_unexpected_airwall_hard_audit.json",
+            "Data/P10/newmap_airwall_hard_cleanup_report.json",
+            "Data/P10/newmap_airwall_hard_cleanup_config.json",
+            "Data/P10/newmap_player_npc_collision_config.json",
+            "Data/P10/newmap_player_npc_collision_report.json",
+            "Data/P10/newmap_npc_collision_regression_after_player_collision.json",
+            "Data/P10/newmap_airwall_npc_label_regression.json"
         };
 
         foreach (string relativePath in requiredPaths)
@@ -210,6 +217,11 @@ public class NewMapIntegrationConfigTests
         StringAssert.Contains("\"stuckRecoveryEnabled\": true", movement);
         StringAssert.Contains("\"buildingAvoidanceEnabled\": true", movement);
         StringAssert.Contains("\"farNpcStaticProxyMode\": false", movement);
+
+        string playerNpcCollision = File.ReadAllText(Path.Combine(Application.dataPath, "Data/P10/newmap_player_npc_collision_config.json"));
+        StringAssert.Contains("\"enabled\": true", playerNpcCollision);
+        StringAssert.Contains("\"mode\": \"soft_blocking_with_near_capsules\"", playerNpcCollision);
+        StringAssert.Contains("\"preventDirectOverlap\": true", playerNpcCollision);
 
         string mouse = File.ReadAllText(Path.Combine(Application.dataPath, "Data/P10/newmap_mouse_drag_look_config.json"));
         StringAssert.Contains("\"lookRequiresMouseButton\": true", mouse);
@@ -279,6 +291,39 @@ public class NewMapIntegrationConfigTests
         StringAssert.Contains("IsInsideBuildingBounds", npc);
         StringAssert.Contains("NewMapNpcMovementState", npc);
         StringAssert.Contains("StoppedWithoutReasonCount", npc);
+        StringAssert.Contains("ResolvePlayerPositionAgainstNpcs", npc);
+        StringAssert.Contains("CapsuleCollider", npc);
+    }
+
+    [Test]
+    public void AirwallHardCleanupAndPlayerNpcSoftBlockingAreConfigured()
+    {
+        string audit = File.ReadAllText(Path.Combine(Application.dataPath, "Data/P10/newmap_unexpected_airwall_hard_audit.json"));
+        string cleanup = File.ReadAllText(Path.Combine(Application.dataPath, "Data/P10/newmap_airwall_hard_cleanup_report.json"));
+        string collisionConfig = File.ReadAllText(Path.Combine(Application.dataPath, "Data/P10/newmap_player_npc_collision_config.json"));
+        string collisionReport = File.ReadAllText(Path.Combine(Application.dataPath, "Data/P10/newmap_player_npc_collision_report.json"));
+        string bootstrap = File.ReadAllText(Path.Combine(Application.dataPath, "Scripts/NewMap/NewMapRuntimeBootstrap.cs"));
+        string player = File.ReadAllText(Path.Combine(Application.dataPath, "Scripts/NewMap/NewMapPlayerController.cs"));
+        string npc = File.ReadAllText(Path.Combine(Application.dataPath, "Scripts/NewMap/NewMapNpcCrowdPrototype.cs"));
+
+        string compactAudit = audit.Replace(" ", string.Empty);
+        string compactCleanup = cleanup.Replace(" ", string.Empty);
+        string compactCollisionConfig = collisionConfig.Replace(" ", string.Empty);
+        string compactCollisionReport = collisionReport.Replace(" ", string.Empty);
+
+        StringAssert.Contains("\"boundaryAirWallsPreserved\":true", compactCleanup);
+        StringAssert.Contains("\"debugTestCollidersInactiveInNormalMode\":true", compactCleanup);
+        StringAssert.Contains("\"buildingObstacleBoundsShrunk\":", compactAudit);
+        StringAssert.Contains("\"enabled\":true", compactCollisionConfig);
+        StringAssert.Contains("\"preventDirectOverlap\":true", compactCollisionConfig);
+        StringAssert.Contains("\"playerCannotPassStraightThroughNearNpc\":true", compactCollisionReport);
+        StringAssert.Contains("\"physicsExplosionRisk\":false", compactCollisionReport);
+        StringAssert.Contains("AuditAndCleanupUnexpectedAirwallColliders", bootstrap);
+        StringAssert.Contains("TryBuildConservativeBuildingObstacleBounds", bootstrap);
+        StringAssert.Contains("ResolvePlayerBuildingCollisionMargin", bootstrap);
+        StringAssert.Contains("ConfigurePlayerNpcCollision", player);
+        StringAssert.Contains("ApplyPlayerNpcCollisionCorrection", player);
+        StringAssert.Contains("ResolvePlayerPositionAgainstNpcs", npc);
     }
 
     [Test]
@@ -319,7 +364,8 @@ public class NewMapIntegrationConfigTests
         string enrichmentConfig = File.ReadAllText(Path.Combine(Application.dataPath, "Data/P10/newmap_name_enrichment_config.json"));
         StringAssert.Contains("\"runtimeNetworkRequestsAllowed\": false", enrichmentConfig);
         StringAssert.Contains("\"rateLimitSeconds\": 1.1", enrichmentConfig);
-        StringAssert.Contains("\"maxQueriesPerRun\": 200", enrichmentConfig);
+        StringAssert.Contains("\"maxQueriesPerRun\": 500", enrichmentConfig);
+        StringAssert.Contains("\"queryBuildingsNearGameplayArea\": true", enrichmentConfig);
         StringAssert.Contains("\"allowOnlineLookup\": true", enrichmentConfig);
 
         string labelRuntimeSource = File.ReadAllText(Path.Combine(Application.dataPath, "Scripts/NewMap/NewMapNameLabelController.cs"));
@@ -500,6 +546,7 @@ public class NewMapIntegrationConfigTests
         Assert.IsFalse(cache.Contains("address_only"), "Address-only reverse geocode strings must not become labels.");
         StringAssert.Contains("\"finalStatus\": \"completed\"", enrichment);
         Assert.IsFalse(enrichment.Contains("\"onlineQueriesAttempted\": 0"), "This pass must actually run online preprocessing lookup or clearly report failure.");
+        StringAssert.Contains("\"maxQueriesPerRun\": 500", enrichment);
         StringAssert.Contains("\"onlineQueriesSucceeded\":", enrichment);
         StringAssert.Contains("\"namesNewlyAdded\":", enrichment);
         StringAssert.Contains("\"hardRuleStatus\": \"online_queries_executed\"", coverageAudit);

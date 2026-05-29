@@ -423,6 +423,36 @@ public class NewMapRuntimePlayModeTests
     }
 
     [UnityTest]
+    public IEnumerator RuntimePlayerNpcSoftBlockingPreventsDirectOverlap()
+    {
+        NewMapRuntimeBootstrap.CreateForCurrentScene();
+        NewMapPlayerController player = Object.FindObjectOfType<NewMapPlayerController>();
+        NewMapGameController controller = Object.FindObjectOfType<NewMapGameController>();
+        NewMapNpcCrowdPrototype crowd = Object.FindObjectOfType<NewMapNpcCrowdPrototype>();
+        Assert.NotNull(player);
+        Assert.NotNull(controller);
+        Assert.NotNull(crowd);
+
+        controller.StartTourismMode();
+        yield return null;
+
+        Vector3[] positions = crowd.GetNpcPositionsForDiagnostics();
+        Assert.Greater(positions.Length, 0);
+        Vector3 npcPosition = positions[0];
+        player.transform.position = new Vector3(npcPosition.x - 1.2f, npcPosition.y, npcPosition.z);
+        int previousBlockedCount = player.PlayerNpcCollisionBlockedCount;
+
+        player.MoveForDiagnostics(Vector3.right, 0.35f, sprint: false);
+        yield return null;
+
+        Assert.IsTrue(player.PlayerNpcCollisionEnabled);
+        Assert.IsTrue(crowd.PlayerNpcSoftBlockingEnabled);
+        Assert.Greater(crowd.NpcBodyColliderCount, 0);
+        Assert.Greater(player.PlayerNpcCollisionBlockedCount, previousBlockedCount, "Player movement into an NPC body should be corrected by soft blocking.");
+        Assert.Less(player.transform.position.x, npcPosition.x - 0.45f, "The player should remain outside the near NPC body radius instead of passing through.");
+    }
+
+    [UnityTest]
     public IEnumerator RuntimeGroundRaiseKeepsBuildingsFixedAndRaisesCover()
     {
         GameObject floatingBuilding = GameObject.CreatePrimitive(PrimitiveType.Cube);
@@ -463,10 +493,10 @@ public class NewMapRuntimePlayModeTests
         Assert.IsFalse(labels.SceneWideMetadataScanPerformed, "Runtime labels should not full-scan the PLATEAU scene every frame.");
         Assert.IsFalse(labels.IdOnlyLabelsVisibleInNormalMode, "ID-only labels stay debug-only.");
         Assert.IsTrue(labels.NameCacheLoaded, "Runtime labels must load the generated local cache.");
-        Assert.GreaterOrEqual(labels.NameCacheRecordCount, 100);
-        Assert.GreaterOrEqual(labels.ReliableCacheLabelCount, 50);
-        Assert.Greater(labels.BuildingNameLabelCount, 0, "Reliable cache-backed building names should be shown.");
-        Assert.Greater(labels.RoadNameLabelCount, 0, "Reliable cache-backed road names should be shown.");
+        Assert.GreaterOrEqual(labels.NameCacheRecordCount, 180);
+        Assert.GreaterOrEqual(labels.ReliableCacheLabelCount, 90);
+        Assert.GreaterOrEqual(labels.BuildingNameLabelCount, 30, "Expanded reliable cache-backed building names should be shown.");
+        Assert.GreaterOrEqual(labels.RoadNameLabelCount, 80, "Expanded reliable cache-backed road names should be shown.");
         Assert.AreEqual(0, labels.IdOnlyLabelCount, "ID-only labels must stay hidden in normal mode.");
         Assert.AreEqual(0, labels.LowConfidenceHiddenCount, "Low-confidence names should be omitted before runtime display.");
         StringAssert.Contains("source_or_cached_names_available", labels.SourceNameAvailabilityStatus);
@@ -535,6 +565,8 @@ public class NewMapRuntimePlayModeTests
         Assert.AreEqual(0, bootstrap.LastActiveTargetHeightOffsetViolations, "Active official/candidate target anchors must remain aligned to the gameplay ground cover.");
         Assert.AreEqual(0, bootstrap.LastPlayableAirWallVisibleRendererCount);
         Assert.AreEqual(4, bootstrap.LastPlayableAirWallColliderCount);
+        Assert.AreEqual(4, bootstrap.LastBoundaryAirWallsPreserved);
+        Assert.IsTrue(bootstrap.LastSampledValidPathsPassable);
     }
 
     [UnityTest]
