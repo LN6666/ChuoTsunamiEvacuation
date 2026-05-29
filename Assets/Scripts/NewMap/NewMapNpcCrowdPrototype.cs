@@ -295,15 +295,6 @@ public sealed class NewMapNpcCrowdPrototype : MonoBehaviour
 
     private static bool TrySnapToGround(Vector3 candidate, float fallbackY, out Vector3 snapped)
     {
-        Vector3 origin = new Vector3(candidate.x, ProbeStartHeight, candidate.z);
-        if (Physics.Raycast(origin, Vector3.down, out RaycastHit hit, ProbeDistance, ~0, QueryTriggerInteraction.Ignore) &&
-            hit.point.y > -5f &&
-            hit.point.y < 8f)
-        {
-            snapped = new Vector3(candidate.x, hit.point.y + 0.04f, candidate.z);
-            return true;
-        }
-
         snapped = new Vector3(candidate.x, Mathf.Clamp(fallbackY, -20f, 30f), candidate.z);
         return true;
     }

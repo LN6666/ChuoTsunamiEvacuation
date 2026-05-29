@@ -1,0 +1,19 @@
+{
+  "generatedAt": "2026-05-29T17:00:00+09:00",
+  "activeScene": "Assets/Scenes/Chuo_BaseMap.unity",
+  "alignmentStrategy": "make the visible road-like cover and gameplay collision share the same Y reference",
+  "oldPlayerSpawnY": 0.04,
+  "newPlayerSpawnY": 0.04,
+  "groundCoverY": 0.0,
+  "supportColliderY": 0.0,
+  "npcY": 0.04,
+  "activeTargetY": 0.04,
+  "greenFrameY": 0.10,
+  "playerStandsOnVisibleCover": true,
+  "npcUsesSameGroundReference": true,
+  "targetUsesSameGroundReference": true,
+  "buildingBaseSampleDelta": "not fully solved; existing PLATEAU building visual offsets remain source-map limitations",
+  "buildingVisualLimitationsRemain": true,
+  "notGisGradeTerrainAccuracy": true,
+  "finalStatus": "implemented_pending_player_build_smoke"
+}

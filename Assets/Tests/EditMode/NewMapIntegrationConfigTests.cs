@@ -156,7 +156,14 @@ public class NewMapIntegrationConfigTests
             "Data/P10/newmap_name_cache.json",
             "Data/P10/newmap_name_label_runtime_report.json",
             "Data/P10/newmap_name_enrichment_config.json",
-            "Data/P10/newmap_name_enrichment_report.json"
+            "Data/P10/newmap_name_enrichment_report.json",
+            "Data/P10/newmap_gameplay_ground_cover_config.json",
+            "Data/P10/newmap_ground_cover_material_report.json",
+            "Data/P10/newmap_gameplay_ground_cover_report.json",
+            "Data/P10/newmap_ground_raise_alignment_report.json",
+            "Data/P10/newmap_full_fall_prevention_report.json",
+            "Data/P10/newmap_blue_area_cover_status.json",
+            "Data/P10/newmap_ground_cover_spawn_npc_target_status.json"
         };
 
         foreach (string relativePath in requiredPaths)
@@ -259,6 +266,10 @@ public class NewMapIntegrationConfigTests
         string safeGroundReport = File.ReadAllText(safeGroundReportPath);
         string blue = File.ReadAllText(bluePath);
         string fall = File.ReadAllText(fallPath);
+        string compactSafeGround = safeGround.Replace(" ", string.Empty);
+        string compactSafeGroundReport = safeGroundReport.Replace(" ", string.Empty);
+        string compactBlue = blue.Replace(" ", string.Empty);
+        string compactFall = fall.Replace(" ", string.Empty);
 
         StringAssert.Contains("\"sourceSceneValid\": true", sourceValidation);
         StringAssert.Contains("\"groundLikeRendererCount\": 20", sourceValidation);
@@ -268,15 +279,62 @@ public class NewMapIntegrationConfigTests
         StringAssert.Contains("\"enabled\": false", gridConfig);
         StringAssert.Contains("\"debugVisualizationEnabled\": false", gridConfig);
         StringAssert.Contains("\"rendererEnabledInNormalMode\": false", gridConfig);
-        StringAssert.Contains("\"forceFixedSupportY\": true", safeGround);
-        StringAssert.Contains("\"supportY\": 0", safeGround);
-        StringAssert.Contains("\"supportColliderCount\": 1", safeGroundReport);
-        StringAssert.Contains("\"supportRendererHidden\": true", safeGroundReport);
-        StringAssert.Contains("\"adaptiveSupportGridDisabled\": true", safeGroundReport);
-        StringAssert.Contains("\"normalModeVisibleBlueSupportCount\": 0", blue);
-        StringAssert.Contains("\"supportGridRendererActive\": false", blue);
-        StringAssert.Contains("\"fallRecoveryEnabled\": true", fall);
-        StringAssert.Contains("\"playerCannotFallOutOfMap\": true", fall);
+        StringAssert.Contains("\"forceFixedSupportY\":true", compactSafeGround);
+        StringAssert.Contains("\"supportY\":0", compactSafeGround);
+        StringAssert.Contains("\"supportColliderCount\":", compactSafeGroundReport);
+        Assert.IsFalse(compactSafeGroundReport.Contains("\"supportColliderCount\":0"));
+        StringAssert.Contains("\"supportRendererHidden\":true", compactSafeGroundReport);
+        StringAssert.Contains("\"adaptiveSupportGridDisabled\":true", compactSafeGroundReport);
+        StringAssert.Contains("\"normalModeVisibleBlueSupportCount\":0", compactBlue);
+        StringAssert.Contains("\"supportGridRendererActive\":false", compactBlue);
+        StringAssert.Contains("\"fallRecoveryEnabled\":true", compactFall);
+        StringAssert.Contains("\"playerCannotFallOutOfMap\":true", compactFall);
+    }
+
+    [Test]
+    public void GroundCoverConfigAndReportsRequireVisibleRoadLikeColliders()
+    {
+        string configPath = Path.Combine(Application.dataPath, "Data/P10/newmap_gameplay_ground_cover_config.json");
+        string materialReportPath = Path.Combine(Application.dataPath, "Data/P10/newmap_ground_cover_material_report.json");
+        string coverReportPath = Path.Combine(Application.dataPath, "Data/P10/newmap_gameplay_ground_cover_report.json");
+        string fullFallPath = Path.Combine(Application.dataPath, "Data/P10/newmap_full_fall_prevention_report.json");
+        string blueCoverPath = Path.Combine(Application.dataPath, "Data/P10/newmap_blue_area_cover_status.json");
+        string materialPath = Path.Combine(Application.dataPath, "Resources/NewMap/P10_NewMap_RoadGroundCover.mat");
+
+        Assert.IsTrue(File.Exists(configPath), "Ground cover config JSON must exist.");
+        Assert.IsTrue(File.Exists(materialReportPath), "Ground cover material report must exist.");
+        Assert.IsTrue(File.Exists(coverReportPath), "Gameplay ground cover report must exist.");
+        Assert.IsTrue(File.Exists(fullFallPath), "Full fall prevention report must exist.");
+        Assert.IsTrue(File.Exists(blueCoverPath), "Blue area cover status must exist.");
+        Assert.IsTrue(File.Exists(materialPath), "Local road-like material asset must exist.");
+
+        string config = File.ReadAllText(configPath);
+        string material = File.ReadAllText(materialReportPath);
+        string cover = File.ReadAllText(coverReportPath);
+        string fall = File.ReadAllText(fullFallPath);
+        string blue = File.ReadAllText(blueCoverPath);
+        string bootstrap = File.ReadAllText(Path.Combine(Application.dataPath, "Scripts/NewMap/NewMapRuntimeBootstrap.cs"));
+        string compactConfig = config.Replace(" ", string.Empty);
+        string compactMaterial = material.Replace(" ", string.Empty);
+        string compactCover = cover.Replace(" ", string.Empty);
+        string compactFall = fall.Replace(" ", string.Empty);
+        string compactBlue = blue.Replace(" ", string.Empty);
+
+        StringAssert.Contains("\"rendererEnabledInNormalMode\":true", compactConfig);
+        StringAssert.Contains("\"colliderEnabled\":true", compactConfig);
+        StringAssert.Contains("\"coverY\":0", compactConfig);
+        StringAssert.Contains("\"opaque\":true", compactMaterial);
+        StringAssert.Contains("\"notBlue\":true", compactMaterial);
+        StringAssert.Contains("\"notMagenta\":true", compactMaterial);
+        StringAssert.Contains("\"allTilesHaveColliders\":true", compactCover);
+        StringAssert.Contains("\"allTilesRenderInNormalMode\":true", compactCover);
+        StringAssert.Contains("\"notGisGradeTerrainAccuracy\":true", compactCover);
+        StringAssert.Contains("\"allVisibleGroundCoverTilesHaveColliders\":true", compactFall);
+        StringAssert.Contains("\"playerCannotFallThroughGroundCover\":true", compactFall);
+        StringAssert.Contains("\"blueFallThroughAreasInsidePlayableBoundsCovered\":true", compactBlue);
+        StringAssert.Contains("EnsureGameplayGroundCover", bootstrap);
+        StringAssert.Contains("GameplayGroundCoverRoot", bootstrap);
+        StringAssert.Contains("Resources.Load<Material>(\"NewMap/P10_NewMap_RoadGroundCover\")", bootstrap);
     }
 
     [Test]

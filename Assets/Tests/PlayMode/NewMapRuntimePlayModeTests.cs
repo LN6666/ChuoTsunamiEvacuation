@@ -75,6 +75,7 @@ public class NewMapRuntimePlayModeTests
             "UIAnchorRoot",
             "DebugDiagnosticsRoot",
             "GameplaySupportRoot",
+            "GameplayGroundCoverRoot",
             "PlayableBoundsRoot",
             "PerformanceMetricsRoot"
         };
@@ -109,25 +110,31 @@ public class NewMapRuntimePlayModeTests
         yield return new WaitForSeconds(2f);
         Assert.Greater(player.transform.position.y, startY - 8f, "Player should not fall endlessly through the map/support proxy.");
         Assert.AreEqual(0, player.FallRecoveryCount, "Normal spawn grounding should not need fall recovery.");
-        Assert.IsTrue(bootstrap.LastRuntimeCollisionSupportProxyActive, "Final NewMap manual test uses the documented runtime collision support proxy.");
-        Assert.IsTrue(bootstrap.LastRuntimeCollisionSupportColliderActive, "Support proxy must keep an enabled collider for movement/spawn support.");
-        Assert.IsFalse(bootstrap.LastRuntimeCollisionSupportRendererVisible, "Manual-test support proxy must be invisible.");
+        Assert.IsTrue(bootstrap.LastRuntimeCollisionSupportProxyActive, "Final NewMap manual test uses the documented runtime collision support.");
+        Assert.IsTrue(bootstrap.LastRuntimeCollisionSupportColliderActive, "Gameplay ground cover/support must keep enabled colliders for movement/spawn support.");
+        Assert.IsFalse(bootstrap.LastRuntimeCollisionSupportRendererVisible, "Old support/debug proxy renderers must stay invisible.");
         Assert.AreEqual(0, bootstrap.LastVisibleSupportRendererCount, "No blue/debug support renderer may remain visible in normal mode.");
         Assert.IsFalse(bootstrap.LastAdaptiveSupportGridEnabled, "Failed relief-based adaptive support grid must be disabled by default.");
         Assert.IsFalse(bootstrap.LastAdaptiveSupportGridActive, "Adaptive support grid must not be the rollback runtime collision support.");
         Assert.AreEqual(0, bootstrap.LastAdaptiveSupportGridCellCount);
         Assert.AreEqual(0, bootstrap.LastAdaptiveSupportGridColliderCount);
         Assert.AreEqual(0, bootstrap.LastAdaptiveSupportGridVisibleRendererCount);
-        Assert.IsTrue(bootstrap.LastSafeGroundEnabled, "Rollback must create the safe gameplay support surface.");
-        Assert.AreEqual(1, bootstrap.LastSafeGroundColliderCount);
-        Assert.IsTrue(bootstrap.LastSafeGroundRendererHidden);
+        Assert.IsTrue(bootstrap.LastSafeGroundEnabled, "Ground cover must create the safe gameplay support surface.");
+        Assert.IsTrue(bootstrap.LastGameplayGroundCoverActive, "Visible road-like gameplay ground cover must be active.");
+        Assert.Greater(bootstrap.LastGameplayGroundCoverTileCount, 0);
+        Assert.AreEqual(bootstrap.LastGameplayGroundCoverTileCount, bootstrap.LastGameplayGroundCoverColliderCount);
+        Assert.AreEqual(bootstrap.LastGameplayGroundCoverTileCount, bootstrap.LastGameplayGroundCoverVisibleRendererCount);
+        Assert.AreEqual(bootstrap.LastGameplayGroundCoverColliderCount, bootstrap.LastSafeGroundColliderCount);
+        Assert.IsFalse(bootstrap.LastGameplayGroundCoverMaterialBlueLike);
+        Assert.IsFalse(bootstrap.LastGameplayGroundCoverMaterialMagentaLike);
+        Assert.AreEqual(1f, bootstrap.LastGameplayGroundCoverOpacity, 0.001f);
         Assert.IsTrue(bootstrap.LastFallOutPreventionEnabled);
         Assert.AreEqual(0, bootstrap.LastVisibleLargeBlueGroundRendererCount);
         Assert.IsTrue(bootstrap.LastPlayableBoundsValid, "Playable bounds should be resolved for Chuo_BaseMap.");
         Assert.AreEqual(4, bootstrap.LastPlayableAirWallColliderCount, "Invisible north/south/east/west air walls should be created.");
         Assert.AreEqual(0, bootstrap.LastPlayableAirWallVisibleRendererCount, "Air walls must not render in normal player mode.");
         Assert.IsTrue(bootstrap.LastPlayableBounds.ContainsXZ(player.transform.position, 0f), "Player spawn must remain inside playable bounds.");
-        Assert.LessOrEqual(Mathf.Abs(player.transform.position.y - bootstrap.LastRuntimeGroundSurfaceY), 0.35f, "Player/support surface must align with the visible map ground height tolerance.");
+        Assert.LessOrEqual(Mathf.Abs(player.transform.position.y - bootstrap.LastGameplayGroundCoverY), 0.35f, "Player must stand on the visible gameplay ground cover.");
         Assert.LessOrEqual(bootstrap.LastPlayerSpawnGroundDelta, 0.35f, "Player spawn should sit near the aligned support surface.");
         Assert.IsFalse(bootstrap.LastMeshColliderDisableComplete, "Scene MeshCollider shutdown should not run at player startup because it caused the Pre2 spike.");
         Assert.AreEqual(0, bootstrap.LastDisabledSceneMeshColliderCount, "Scene MeshColliders should remain untouched during player startup.");
@@ -428,7 +435,11 @@ public class NewMapRuntimePlayModeTests
 
         Assert.IsFalse(bootstrap.LastAdaptiveSupportGridActive);
         Assert.IsTrue(bootstrap.LastSafeGroundEnabled);
-        Assert.AreEqual(1, bootstrap.LastSafeGroundColliderCount);
+        Assert.IsTrue(bootstrap.LastGameplayGroundCoverActive);
+        Assert.Greater(bootstrap.LastGameplayGroundCoverTileCount, 0);
+        Assert.AreEqual(bootstrap.LastGameplayGroundCoverTileCount, bootstrap.LastGameplayGroundCoverColliderCount);
+        Assert.AreEqual(bootstrap.LastGameplayGroundCoverTileCount, bootstrap.LastGameplayGroundCoverVisibleRendererCount);
+        Assert.AreEqual(bootstrap.LastGameplayGroundCoverColliderCount, bootstrap.LastSafeGroundColliderCount);
         Assert.AreEqual(0, bootstrap.LastAdaptiveSupportGridVisibleRendererCount);
         Assert.GreaterOrEqual(player.transform.position.y, bootstrap.LastRuntimeGroundSurfaceY - 0.75f);
         Assert.LessOrEqual(player.transform.position.y, bootstrap.LastRuntimeGroundSurfaceY + 1.5f);

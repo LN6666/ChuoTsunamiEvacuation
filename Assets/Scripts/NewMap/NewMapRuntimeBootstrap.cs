@@ -28,6 +28,7 @@ public sealed class NewMapRuntimeBootstrap : MonoBehaviour
         "UIAnchorRoot",
         "DebugDiagnosticsRoot",
         "GameplaySupportRoot",
+        "GameplayGroundCoverRoot",
         "PlayableBoundsRoot",
         "PerformanceMetricsRoot"
     };
@@ -110,6 +111,21 @@ public sealed class NewMapRuntimeBootstrap : MonoBehaviour
     public bool LastFallOutPreventionEnabled { get; private set; }
     public int LastLargeBlueGroundRendererDisabledCount { get; private set; }
     public int LastVisibleLargeBlueGroundRendererCount { get; private set; }
+    public bool LastGameplayGroundCoverEnabled { get; private set; }
+    public bool LastGameplayGroundCoverActive { get; private set; }
+    public int LastGameplayGroundCoverTileCount { get; private set; }
+    public int LastGameplayGroundCoverColliderCount { get; private set; }
+    public int LastGameplayGroundCoverRendererCount { get; private set; }
+    public int LastGameplayGroundCoverVisibleRendererCount { get; private set; }
+    public float LastGameplayGroundCoverY { get; private set; }
+    public float LastGameplayGroundCoverYMin { get; private set; }
+    public float LastGameplayGroundCoverYMax { get; private set; }
+    public float LastGameplayGroundCoverTotalArea { get; private set; }
+    public float LastGameplayGroundCoverOpacity { get; private set; }
+    public string LastGameplayGroundCoverMaterialName { get; private set; } = string.Empty;
+    public string LastGameplayGroundCoverMaterialSource { get; private set; } = string.Empty;
+    public bool LastGameplayGroundCoverMaterialBlueLike { get; private set; }
+    public bool LastGameplayGroundCoverMaterialMagentaLike { get; private set; }
 
     private readonly List<Bounds> buildingAvoidanceBounds = new List<Bounds>();
     private NewMapSpawnConfig spawnConfig;
@@ -117,6 +133,7 @@ public sealed class NewMapRuntimeBootstrap : MonoBehaviour
     private NewMapPlayableBoundsConfig playableBoundsConfig;
     private NewMapAdaptiveSupportGridRuntime adaptiveSupportGrid;
     private NewMapSafeGroundConfig safeGroundConfig;
+    private NewMapGameplayGroundCoverConfig groundCoverConfig;
 
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
     private static void AutoBootstrap()
@@ -194,6 +211,7 @@ public sealed class NewMapRuntimeBootstrap : MonoBehaviour
         safeSpawnDataset = NewMapSafeSpawnPointDataset.Load();
         playableBoundsConfig = NewMapPlayableBoundsConfig.Load();
         safeGroundConfig = NewMapSafeGroundConfig.Load();
+        groundCoverConfig = NewMapGameplayGroundCoverConfig.Load();
         PrepareManualTestRoots(roots);
         EnforceSupportSurfaceVisibility(roots);
         ApplyRound3BuildingRoadVerticalAlignment();
@@ -217,6 +235,7 @@ public sealed class NewMapRuntimeBootstrap : MonoBehaviour
         Vector3 spawn = ResolveSpawnPosition(mapBounds, LastMapBoundsValid, roots["DebugDiagnosticsRoot"]);
         LastFinalSpawnPosition = spawn;
         LastPlayerSpawnGroundDelta = spawn.y - LastRuntimeGroundSurfaceY;
+        EnsureGameplayGroundCover(roots["GameplayGroundCoverRoot"], LastPlayableBounds, LastRuntimeGroundSurfaceY);
         EnsureRuntimeCollisionSupport(roots["GameplaySupportRoot"], new Vector3(spawn.x, LastRuntimeGroundSurfaceY, spawn.z));
         EnforceSupportSurfaceVisibility(roots);
         EnsurePlayableBoundsAirWalls(roots["PlayableBoundsRoot"], LastPlayableBounds, LastRuntimeGroundSurfaceY);
@@ -302,7 +321,13 @@ public sealed class NewMapRuntimeBootstrap : MonoBehaviour
             $"safeGroundSupportY={LastSafeGroundSupportY:F2} safeGroundColliders={LastSafeGroundColliderCount} " +
             $"safeGroundRenderers={LastSafeGroundRendererCount} safeGroundRendererHidden={LastSafeGroundRendererHidden} " +
             $"fallOutPreventionEnabled={LastFallOutPreventionEnabled} largeBlueGroundDisabled={LastLargeBlueGroundRendererDisabledCount} " +
-            $"visibleLargeBlueGroundRenderers={LastVisibleLargeBlueGroundRendererCount}");
+            $"visibleLargeBlueGroundRenderers={LastVisibleLargeBlueGroundRendererCount} gameplayGroundCoverEnabled={LastGameplayGroundCoverEnabled} " +
+            $"gameplayGroundCoverActive={LastGameplayGroundCoverActive} gameplayGroundCoverTiles={LastGameplayGroundCoverTileCount} " +
+            $"gameplayGroundCoverColliders={LastGameplayGroundCoverColliderCount} gameplayGroundCoverRenderers={LastGameplayGroundCoverRendererCount} " +
+            $"gameplayGroundCoverVisibleRenderers={LastGameplayGroundCoverVisibleRendererCount} gameplayGroundCoverY={LastGameplayGroundCoverY:F2} " +
+            $"gameplayGroundCoverArea={LastGameplayGroundCoverTotalArea:F2} gameplayGroundCoverMaterial={SafeLog(LastGameplayGroundCoverMaterialName)} " +
+            $"gameplayGroundCoverMaterialSource={SafeLog(LastGameplayGroundCoverMaterialSource)} gameplayGroundCoverOpacity={LastGameplayGroundCoverOpacity:F2} " +
+            $"gameplayGroundCoverBlueLike={LastGameplayGroundCoverMaterialBlueLike} gameplayGroundCoverMagentaLike={LastGameplayGroundCoverMaterialMagentaLike}");
     }
 
     private static void PrepareManualTestRoots(Dictionary<string, Transform> roots)
@@ -310,6 +335,11 @@ public sealed class NewMapRuntimeBootstrap : MonoBehaviour
         if (roots.TryGetValue("GameplaySupportRoot", out Transform supportRoot) && supportRoot != null)
         {
             supportRoot.gameObject.SetActive(true);
+        }
+
+        if (roots.TryGetValue("GameplayGroundCoverRoot", out Transform groundCoverRoot) && groundCoverRoot != null)
+        {
+            groundCoverRoot.gameObject.SetActive(true);
         }
 
         if (roots.TryGetValue("PlayableBoundsRoot", out Transform boundsRoot) && boundsRoot != null)
@@ -655,6 +685,14 @@ public sealed class NewMapRuntimeBootstrap : MonoBehaviour
 
     private string BuildDiagnosticText()
     {
+        if (LastGameplayGroundCoverActive)
+        {
+            return
+                "Ground: visible road-like gameplay ground cover with collision; this is not GIS-grade terrain/road accuracy" +
+                " | Blue/fall-through gameplay gaps are covered or blocked by colliders and air walls" +
+                " | Old P3/P5 targets disabled unless remapped.";
+        }
+
         if (LastAdaptiveSupportGridActive)
         {
             return
@@ -874,6 +912,27 @@ public sealed class NewMapRuntimeBootstrap : MonoBehaviour
 
     private float ResolveSupportSurfaceY(Bounds mapBounds, bool hasBounds, Vector3 basePosition, float rayStartY)
     {
+        NewMapGameplayGroundCoverConfig coverConfig = groundCoverConfig ?? NewMapGameplayGroundCoverConfig.Default();
+        if (coverConfig.enabled && coverConfig.forceFixedCoverY)
+        {
+            float coverY = Mathf.Clamp(coverConfig.coverY, -20f, 30f);
+            LastGameplayGroundCoverEnabled = true;
+            LastGameplayGroundCoverY = coverY;
+            LastSafeGroundEnabled = true;
+            LastSafeGroundSupportY = coverY;
+            LastFallOutPreventionEnabled = true;
+            LastUsedGroundSupportProxy = true;
+            if (!LastVisualGroundSampleValid)
+            {
+                LastSampledMapMinY = hasBounds ? mapBounds.min.y : coverY;
+                LastSampledBuildingBaseY = coverY;
+                LastVisualGroundReferenceY = coverY;
+                LastVisualGroundSampleValid = true;
+            }
+
+            return coverY;
+        }
+
         NewMapSafeGroundConfig groundConfig = safeGroundConfig ?? NewMapSafeGroundConfig.Default();
         if (groundConfig.enabled && groundConfig.forceFixedSupportY)
         {
@@ -1193,6 +1252,7 @@ public sealed class NewMapRuntimeBootstrap : MonoBehaviour
             case "UIAnchorRoot":
             case "DebugDiagnosticsRoot":
             case "GameplaySupportRoot":
+            case "GameplayGroundCoverRoot":
             case "PlayableBoundsRoot":
             case "PerformanceMetricsRoot":
                 return true;
@@ -1509,6 +1569,20 @@ public sealed class NewMapRuntimeBootstrap : MonoBehaviour
             }
         }
 
+        if (roots != null && roots.TryGetValue("GameplayGroundCoverRoot", out Transform groundCoverRoot) && groundCoverRoot != null)
+        {
+            Collider[] groundCoverColliders = groundCoverRoot.GetComponentsInChildren<Collider>(true);
+            for (int i = 0; i < groundCoverColliders.Length; i++)
+            {
+                if (groundCoverColliders[i] != null && groundCoverColliders[i].enabled)
+                {
+                    LastRuntimeCollisionSupportProxyActive = true;
+                    LastRuntimeCollisionSupportColliderActive = true;
+                    break;
+                }
+            }
+        }
+
         Renderer[] renderers = FindObjectsOfType<Renderer>(true);
         for (int i = 0; i < renderers.Length; i++)
         {
@@ -1724,6 +1798,246 @@ public sealed class NewMapRuntimeBootstrap : MonoBehaviour
         }
 
         return count;
+    }
+
+    private void EnsureGameplayGroundCover(Transform root, NewMapPlayableBounds bounds, float coverY)
+    {
+        ResetGameplayGroundCoverDiagnostics();
+        NewMapGameplayGroundCoverConfig config = groundCoverConfig ?? NewMapGameplayGroundCoverConfig.Default();
+        LastGameplayGroundCoverEnabled = config.enabled;
+        LastGameplayGroundCoverY = coverY;
+        LastGameplayGroundCoverOpacity = Mathf.Clamp01(config.materialAlpha);
+
+        if (!config.enabled || root == null || !bounds.IsValid)
+        {
+            return;
+        }
+
+        ClearChildren(root);
+        Material material = ResolveGameplayGroundCoverMaterial(config, out string materialSource);
+        Color materialColor = ReadMaterialColor(material, config.ToColor());
+        LastGameplayGroundCoverMaterialName = material != null ? material.name : "missing_material";
+        LastGameplayGroundCoverMaterialSource = materialSource;
+        LastGameplayGroundCoverMaterialBlueLike = IsBlueLikeColor(materialColor);
+        LastGameplayGroundCoverMaterialMagentaLike = IsMagentaLikeColor(materialColor);
+
+        float tileSize = Mathf.Clamp(config.tileSizeMeters, 80f, 900f);
+        int maxTiles = Mathf.Clamp(config.maxTileCount, 1, 2000);
+        int columns = Mathf.Max(1, Mathf.CeilToInt(bounds.Width / tileSize));
+        int rows = Mathf.Max(1, Mathf.CeilToInt(bounds.Depth / tileSize));
+        if (columns * rows > maxTiles)
+        {
+            float adjusted = Mathf.Sqrt(Mathf.Max(1f, bounds.Width * bounds.Depth) / maxTiles) * 1.05f;
+            tileSize = Mathf.Clamp(adjusted, tileSize, 1200f);
+            columns = Mathf.Max(1, Mathf.CeilToInt(bounds.Width / tileSize));
+            rows = Mathf.Max(1, Mathf.CeilToInt(bounds.Depth / tileSize));
+        }
+
+        float thickness = Mathf.Clamp(config.thicknessMeters, 0.05f, 2f);
+        float overlap = Mathf.Clamp(config.overlapMeters, 0f, 2f);
+        int tileIndex = 1;
+        for (int row = 0; row < rows; row++)
+        {
+            float minZ = Mathf.Lerp(bounds.MinZ, bounds.MaxZ, row / (float)rows);
+            float maxZ = Mathf.Lerp(bounds.MinZ, bounds.MaxZ, (row + 1) / (float)rows);
+            for (int column = 0; column < columns; column++)
+            {
+                float minX = Mathf.Lerp(bounds.MinX, bounds.MaxX, column / (float)columns);
+                float maxX = Mathf.Lerp(bounds.MinX, bounds.MaxX, (column + 1) / (float)columns);
+                Vector3 center = new Vector3((minX + maxX) * 0.5f, coverY - thickness * 0.5f, (minZ + maxZ) * 0.5f);
+                Vector3 scale = new Vector3(Mathf.Max(0.1f, maxX - minX + overlap), thickness, Mathf.Max(0.1f, maxZ - minZ + overlap));
+                GameObject tile = GameObject.CreatePrimitive(PrimitiveType.Cube);
+                tile.name = $"GroundCover_Tile_{tileIndex:000}";
+                tile.transform.SetParent(root, true);
+                tile.transform.position = center;
+                tile.transform.localScale = scale;
+
+                Renderer renderer = tile.GetComponent<Renderer>();
+                if (renderer != null)
+                {
+                    renderer.enabled = config.rendererEnabledInNormalMode;
+                    if (material != null)
+                    {
+                        renderer.sharedMaterial = material;
+                    }
+
+                    LastGameplayGroundCoverRendererCount++;
+                    if (renderer.enabled)
+                    {
+                        LastGameplayGroundCoverVisibleRendererCount++;
+                    }
+                }
+
+                Collider collider = tile.GetComponent<Collider>();
+                if (collider != null)
+                {
+                    collider.enabled = config.colliderEnabled;
+                    collider.isTrigger = false;
+                    if (collider.enabled)
+                    {
+                        LastGameplayGroundCoverColliderCount++;
+                    }
+                }
+
+                LastGameplayGroundCoverTileCount++;
+                tileIndex++;
+            }
+        }
+
+        LastGameplayGroundCoverActive =
+            LastGameplayGroundCoverTileCount > 0 &&
+            LastGameplayGroundCoverColliderCount == LastGameplayGroundCoverTileCount &&
+            LastGameplayGroundCoverVisibleRendererCount == LastGameplayGroundCoverTileCount &&
+            !LastGameplayGroundCoverMaterialBlueLike &&
+            !LastGameplayGroundCoverMaterialMagentaLike;
+        LastGameplayGroundCoverYMin = coverY;
+        LastGameplayGroundCoverYMax = coverY;
+        LastGameplayGroundCoverTotalArea = bounds.Width * bounds.Depth;
+        LastRuntimeCollisionSupportProxyActive = LastRuntimeCollisionSupportProxyActive || LastGameplayGroundCoverColliderCount > 0;
+        LastRuntimeCollisionSupportColliderActive = LastRuntimeCollisionSupportColliderActive || LastGameplayGroundCoverColliderCount > 0;
+        LastRuntimeCollisionSupportRendererVisible = false;
+        LastSafeGroundEnabled = true;
+        LastSafeGroundSupportY = coverY;
+        LastSafeGroundColliderCount = LastGameplayGroundCoverColliderCount;
+        LastSafeGroundRendererCount = 0;
+        LastSafeGroundRendererHidden = true;
+        LastFallOutPreventionEnabled = true;
+        Physics.SyncTransforms();
+    }
+
+    private static void ClearChildren(Transform root)
+    {
+        for (int i = root.childCount - 1; i >= 0; i--)
+        {
+            Transform child = root.GetChild(i);
+            if (child == null)
+            {
+                continue;
+            }
+
+            if (Application.isEditor && !Application.isPlaying)
+            {
+                DestroyImmediate(child.gameObject);
+            }
+            else
+            {
+                Destroy(child.gameObject);
+            }
+        }
+    }
+
+    private void ResetGameplayGroundCoverDiagnostics()
+    {
+        LastGameplayGroundCoverEnabled = false;
+        LastGameplayGroundCoverActive = false;
+        LastGameplayGroundCoverTileCount = 0;
+        LastGameplayGroundCoverColliderCount = 0;
+        LastGameplayGroundCoverRendererCount = 0;
+        LastGameplayGroundCoverVisibleRendererCount = 0;
+        LastGameplayGroundCoverYMin = 0f;
+        LastGameplayGroundCoverYMax = 0f;
+        LastGameplayGroundCoverTotalArea = 0f;
+        LastGameplayGroundCoverOpacity = 0f;
+        LastGameplayGroundCoverMaterialName = string.Empty;
+        LastGameplayGroundCoverMaterialSource = string.Empty;
+        LastGameplayGroundCoverMaterialBlueLike = false;
+        LastGameplayGroundCoverMaterialMagentaLike = false;
+    }
+
+    private Material ResolveGameplayGroundCoverMaterial(NewMapGameplayGroundCoverConfig config, out string materialSource)
+    {
+        if (config.useImportedRoadMaterialIfAvailable && TryFindImportedRoadLikeMaterial(out Material importedMaterial))
+        {
+            materialSource = "imported_road_like_scene_material";
+            return importedMaterial;
+        }
+
+        Material resourceMaterial = Resources.Load<Material>("NewMap/P10_NewMap_RoadGroundCover");
+        if (resourceMaterial != null)
+        {
+            materialSource = "Assets/Resources/NewMap/P10_NewMap_RoadGroundCover.mat";
+            return resourceMaterial;
+        }
+
+        materialSource = "runtime_generated_neutral_asphalt_material";
+        return NewMapVisualFactory.CreateMaterial("P10_NewMap_RoadGroundCover_Runtime", config.ToColor(), false);
+    }
+
+    private bool TryFindImportedRoadLikeMaterial(out Material material)
+    {
+        material = null;
+        Renderer[] renderers = FindObjectsOfType<Renderer>(true);
+        for (int i = 0; i < renderers.Length; i++)
+        {
+            Renderer renderer = renderers[i];
+            if (renderer == null || IsRuntimeGeneratedOrUiRenderer(renderer))
+            {
+                continue;
+            }
+
+            Material candidate = renderer.sharedMaterial;
+            if (candidate == null || !IsRoadLikeMaterialName(candidate.name))
+            {
+                continue;
+            }
+
+            Color color = ReadMaterialColor(candidate, Color.gray);
+            if (IsBlueLikeColor(color) || IsMagentaLikeColor(color) || color.a < 0.99f)
+            {
+                continue;
+            }
+
+            material = candidate;
+            return true;
+        }
+
+        return false;
+    }
+
+    private static bool IsRoadLikeMaterialName(string value)
+    {
+        if (string.IsNullOrWhiteSpace(value))
+        {
+            return false;
+        }
+
+        string lower = value.ToLowerInvariant();
+        return lower.Contains("road") ||
+            lower.Contains("asphalt") ||
+            lower.Contains("transport") ||
+            lower.Contains("tran") ||
+            lower.Contains("street") ||
+            lower.Contains("surface");
+    }
+
+    private static Color ReadMaterialColor(Material material, Color fallback)
+    {
+        if (material == null)
+        {
+            return fallback;
+        }
+
+        if (material.HasProperty("_BaseColor"))
+        {
+            return material.GetColor("_BaseColor");
+        }
+
+        if (material.HasProperty("_Color"))
+        {
+            return material.color;
+        }
+
+        return fallback;
+    }
+
+    private static bool IsBlueLikeColor(Color color)
+    {
+        return color.b > 0.45f && color.b > color.r * 1.35f && color.b > color.g * 1.15f;
+    }
+
+    private static bool IsMagentaLikeColor(Color color)
+    {
+        return color.r > 0.65f && color.b > 0.65f && color.g < 0.3f;
     }
 
     private void CalculateActiveTargetHeightOffsets(List<NewMapRuntimeTarget> targets)
@@ -2363,6 +2677,69 @@ public sealed class NewMapRuntimeBootstrap : MonoBehaviour
         new OfficialShelterAnchorRecord { ShelterId = "chuo_official_emergency_026", DisplayName = "月島区民センター", PlateauGmlId = "bldg_fee39d2c-fd06-4f35-b0a1-a093a3e16fd5", MatchMethod = "contains", Confidence = "high", ManualReviewNeeded = false },
         new OfficialShelterAnchorRecord { ShelterId = "chuo_official_emergency_027", DisplayName = "(旧)ほっとプラザはるみ", PlateauGmlId = "bldg_c64d9bf2-61ed-48d8-8315-8efadf440863", MatchMethod = "contains", Confidence = "high", ManualReviewNeeded = false }
     };
+}
+
+[System.Serializable]
+public sealed class NewMapGameplayGroundCoverConfig
+{
+    public bool enabled = true;
+    public bool forceFixedCoverY = true;
+    public float coverY = 0f;
+    public float tileSizeMeters = 320f;
+    public int maxTileCount = 600;
+    public float thicknessMeters = 0.18f;
+    public float overlapMeters = 0.08f;
+    public bool rendererEnabledInNormalMode = true;
+    public bool colliderEnabled = true;
+    public bool useImportedRoadMaterialIfAvailable = true;
+    public float materialRed = 0.34f;
+    public float materialGreen = 0.35f;
+    public float materialBlue = 0.33f;
+    public float materialAlpha = 1f;
+    public string materialName = "P10_NewMap_RoadGroundCover";
+    public string strategy = "visible_road_like_gameplay_ground_cover_not_gis_grade";
+
+    public static NewMapGameplayGroundCoverConfig Default()
+    {
+        return new NewMapGameplayGroundCoverConfig();
+    }
+
+    public static NewMapGameplayGroundCoverConfig Load()
+    {
+        NewMapGameplayGroundCoverConfig config = Default();
+        string path = Path.Combine(Application.dataPath, "Data/P10/newmap_gameplay_ground_cover_config.json");
+        if (File.Exists(path))
+        {
+            try
+            {
+                config = JsonUtility.FromJson<NewMapGameplayGroundCoverConfig>(File.ReadAllText(path)) ?? config;
+            }
+            catch (System.Exception exception)
+            {
+                Debug.LogWarning($"NewMap gameplay ground-cover config could not be loaded; using defaults. {exception.Message}");
+            }
+        }
+
+        config.coverY = Mathf.Clamp(config.coverY, -20f, 30f);
+        config.tileSizeMeters = Mathf.Clamp(config.tileSizeMeters, 80f, 900f);
+        config.maxTileCount = Mathf.Clamp(config.maxTileCount, 1, 2000);
+        config.thicknessMeters = Mathf.Clamp(config.thicknessMeters, 0.05f, 2f);
+        config.overlapMeters = Mathf.Clamp(config.overlapMeters, 0f, 2f);
+        config.materialRed = Mathf.Clamp01(config.materialRed);
+        config.materialGreen = Mathf.Clamp01(config.materialGreen);
+        config.materialBlue = Mathf.Clamp01(config.materialBlue);
+        config.materialAlpha = 1f;
+        config.rendererEnabledInNormalMode = true;
+        config.colliderEnabled = true;
+        config.enabled = true;
+        config.forceFixedCoverY = true;
+        return config;
+    }
+
+    public Color ToColor()
+    {
+        return new Color(materialRed, materialGreen, materialBlue, materialAlpha);
+    }
 }
 
 [System.Serializable]

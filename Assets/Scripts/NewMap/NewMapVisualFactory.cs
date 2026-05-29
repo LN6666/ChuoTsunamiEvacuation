@@ -28,6 +28,10 @@ public static class NewMapVisualFactory
             name = name,
             color = color
         };
+        if (material.HasProperty("_BaseColor"))
+        {
+            material.SetColor("_BaseColor", color);
+        }
 
         if (transparent)
         {

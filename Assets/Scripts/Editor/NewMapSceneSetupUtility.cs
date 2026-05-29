@@ -97,6 +97,11 @@ public static class NewMapSceneSetupUtility
         BuildNewMapPlayer("D:/UnityProjects/ChuoTsunamiEvacuation-Builds/NewMapGroundRollbackPre", "ChuoTsunamiEvacuation_NewMapGroundRollbackPre.exe");
     }
 
+    public static void BuildNewMapGroundCoverPlayerCommandLine()
+    {
+        BuildNewMapPlayer("D:/UnityProjects/ChuoTsunamiEvacuation-Builds/NewMapGroundCoverPre", "ChuoTsunamiEvacuation_NewMapGroundCoverPre.exe");
+    }
+
     private static void BuildNewMapPlayer(string buildDirectory, string executableName)
     {
         Directory.CreateDirectory(buildDirectory);
@@ -166,6 +171,8 @@ public static class NewMapSceneSetupUtility
             "UIAnchorRoot",
             "DebugDiagnosticsRoot",
             "GameplaySupportRoot",
+            "GameplayGroundCoverRoot",
+            "PlayableBoundsRoot",
             "PerformanceMetricsRoot"
         };
 
