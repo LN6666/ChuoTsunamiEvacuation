@@ -723,6 +723,7 @@ public class NewMapRuntimePlayModeTests
         yield return null;
 
         Assert.AreEqual(NewMapTsunamiStage.Warning, controller.Stage);
+        Assert.AreEqual(300f, controller.WarningPhaseSeconds, 0.001f);
         Assert.IsFalse(hazard.RiskChecksActive);
         Assert.IsFalse(hazard.Stage2VisualsBuiltForDiagnostics);
         Assert.AreEqual("south", hazard.TsunamiStartSide);
@@ -781,9 +782,11 @@ public class NewMapRuntimePlayModeTests
         NewMapGameController controller = Object.FindObjectOfType<NewMapGameController>();
         NewMapRuntimeUI ui = Object.FindObjectOfType<NewMapRuntimeUI>();
         NewMapRuntimeBootstrap bootstrap = Object.FindObjectOfType<NewMapRuntimeBootstrap>();
+        NewMapPlayerController player = Object.FindObjectOfType<NewMapPlayerController>();
         Assert.NotNull(controller);
         Assert.NotNull(ui);
         Assert.NotNull(bootstrap);
+        Assert.NotNull(player);
 
         NewMapRuntimeTarget target = controller.RuntimeTargets.First(candidate => candidate.Id == "newmap_proxy_safe_floor");
         Assert.NotNull(target.EntryTrigger);
@@ -796,8 +799,15 @@ public class NewMapRuntimePlayModeTests
         yield return null;
 
         Assert.IsFalse(controller.TryInteractWithTouchedBuildingForDiagnostics(), "Pressing E away from a building-entry trigger should not enter.");
-        Assert.IsTrue(controller.TrySetTouchedBuildingForDiagnostics(target.Id, true));
+        StringAssert.Contains("No enterable building nearby", ui.LastInteractionText);
+
+        Bounds triggerBounds = target.EntryTrigger.Bounds;
+        player.transform.position = new Vector3(triggerBounds.center.x, target.Anchor.position.y + 0.4f, triggerBounds.center.z);
+        Physics.SyncTransforms();
+        yield return null;
+        Assert.IsTrue(controller.RefreshTouchedBuildingForDiagnostics(), "Touch/overlap with a valid building-entry trigger should mark the building enterable.");
         Assert.AreEqual(target, controller.CurrentEnterableBuilding);
+        StringAssert.Contains("Press E to enter building", ui.LastInteractionText);
         Assert.IsTrue(controller.TryInteractWithTouchedBuildingForDiagnostics());
         Assert.AreEqual("Entering shelter proxy", ui.LastResultReason);
         Assert.IsTrue(controller.SafeFloorSequenceActive);
@@ -806,7 +816,11 @@ public class NewMapRuntimePlayModeTests
         controller.ForceStageForDiagnostics(NewMapTsunamiStage.FrontApproaching);
         yield return null;
         NewMapRuntimeTarget blocked = controller.RuntimeTargets.First(candidate => candidate.Id == "newmap_proxy_blocked_entrance");
-        Assert.IsTrue(controller.TrySetTouchedBuildingForDiagnostics(blocked.Id, true));
+        Bounds blockedBounds = blocked.EntryTrigger.Bounds;
+        player.transform.position = new Vector3(blockedBounds.center.x, blocked.Anchor.position.y + 0.4f, blockedBounds.center.z);
+        Physics.SyncTransforms();
+        yield return null;
+        Assert.IsTrue(controller.RefreshTouchedBuildingForDiagnostics());
         Assert.IsTrue(controller.TryInteractWithTouchedBuildingForDiagnostics());
         Assert.AreEqual("entrance_blocked", ui.LastResultReason);
     }

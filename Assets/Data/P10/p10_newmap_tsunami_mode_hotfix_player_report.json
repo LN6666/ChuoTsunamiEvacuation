@@ -1,12 +1,12 @@
 ﻿{
-    "generatedAt":  "2026-05-30T02:26:06",
+    "generatedAt":  "2026-05-30T03:10:18",
     "task":  "P10 NewMap tsunami mode hotfix",
     "buildPath":  "D:\\UnityProjects\\ChuoTsunamiEvacuation-Builds\\P10NewMapTsunamiModeHotfixPre\\ChuoTsunamiEvacuation_P10NewMapTsunamiModeHotfixPre.exe",
     "buildExists":  true,
     "unityExitCode":  0,
     "buildLogPath":  "D:\\UnityProjects\\ChuoTsunamiEvacuation\\Logs\\p10_newmap_tsunami_mode_hotfix_build.log",
     "launchSmoke":  "completed_smoke_window",
-    "smokeStartedAt":  "2026-05-30T02:22:22",
+    "smokeStartedAt":  "2026-05-30T03:06:35",
     "smokeDurationSeconds":  210,
     "copiedConfigs":  [
                           "newmap_airwall_hard_cleanup_config.json",
@@ -29,6 +29,6 @@
                           "newmap_player_stamina_config.json",
                           "newmap_tsunami_mode_hotfix_config.json"
                       ],
-    "maxPrivateMemoryBytes":  21800054784,
-    "maxWorkingSetBytes":  7401439232
+    "maxPrivateMemoryBytes":  21794553856,
+    "maxWorkingSetBytes":  7397060608
 }

@@ -76,6 +76,10 @@ $warnings = @($lines | Where-Object {
 
 $bootstrapLine = [string](@($lines | Where-Object { $_ -match "NewMap runtime bootstrap completed" } | Select-Object -Last 1) | Select-Object -First 1)
 $hazardLine = [string](@($lines | Where-Object { $_ -match "NewMap tsunami configured" } | Select-Object -Last 1) | Select-Object -First 1)
+$warningLine = [string](@($lines | Where-Object { $_ -match "warning_duration_seconds" -and $_ -match "phase=WARNING" } | Select-Object -Last 1) | Select-Object -First 1)
+$activeLine = [string](@($lines | Where-Object { $_ -match "active tsunami state entered" } | Select-Object -Last 1) | Select-Object -First 1)
+$warningSmoke = [string](@($lines | Where-Object { $_ -match "scenario=tsunami_warning_300s_before_active result=pass" } | Select-Object -Last 1) | Select-Object -First 1)
+$buildingTouchSmoke = [string](@($lines | Where-Object { $_ -match "scenario=building_touch_e_entry result=pass" } | Select-Object -Last 1) | Select-Object -First 1)
 $frontFailureSmoke = [string](@($lines | Where-Object { $_ -match "scenario=tsunami_front_failure result=pass" } | Select-Object -Last 1) | Select-Object -First 1)
 $resultSmoke = [string](@($lines | Where-Object { $_ -match "NewMap gameplay self-audit smoke completed" } | Select-Object -Last 1) | Select-Object -First 1)
 $lifecycleLine = [string](@($lines | Where-Object { $_ -match "NewMap NPC lifecycle smoke" } | Select-Object -Last 1) | Select-Object -First 1)
@@ -89,6 +93,8 @@ $summary = [ordered]@{
     concaveMeshTriggerErrorCount = @($lines | Where-Object { $_ -match "Triggers on concave MeshColliders are not supported" }).Count
     bootstrapSeen = -not [string]::IsNullOrWhiteSpace($bootstrapLine)
     selfAuditCompleted = -not [string]::IsNullOrWhiteSpace($resultSmoke)
+    tsunamiWarning300SmokePassed = -not [string]::IsNullOrWhiteSpace($warningSmoke)
+    buildingTouchEntrySmokePassed = -not [string]::IsNullOrWhiteSpace($buildingTouchSmoke)
     tsunamiFrontFailureSmokePassed = -not [string]::IsNullOrWhiteSpace($frontFailureSmoke)
     spawnValidationPassed = As-Bool (Get-TokenValue $bootstrapLine "spawnValidationPassed")
     spawnValidationSource = Get-TokenValue $bootstrapLine "spawnValidationSource"
@@ -104,6 +110,9 @@ $summary = [ordered]@{
     unknownBlockersInsidePlayableArea = As-Int (Get-TokenValue $bootstrapLine "unknownBlockersInsidePlayableArea")
     buildingEntryTriggers = As-Int (Get-TokenValue $bootstrapLine "buildingEntryTriggers")
     buildingEntryPhysicalBlockers = As-Int (Get-TokenValue $bootstrapLine "buildingEntryPhysicalBlockers")
+    warningDurationSeconds = As-Double (Get-TokenValue $warningLine "warning_duration_seconds")
+    warningStartTimeSeconds = As-Double (Get-TokenValue $warningLine "warning_start_time")
+    activeTsunamiStartTimeSeconds = As-Double (Get-TokenValue $activeLine "tsunami_active_start_time")
     tsunamiStartSide = Get-TokenValue $hazardLine "startSide"
     tsunamiDirection = Get-TokenValue $hazardLine "direction"
     curtainHeightMeters = As-Double (Get-TokenValue $hazardLine "curtainHeight")
@@ -111,7 +120,7 @@ $summary = [ordered]@{
     globalRespawnCount = As-Int (Get-TokenValue $lifecycleLine "globalRespawnCount")
     allStopEventCount = As-Int (Get-TokenValue $lifecycleLine "allStopEventCount")
     stoppedWithoutReason = As-Int (Get-TokenValue $lifecycleLine "stoppedWithoutReason")
-    finalStatus = if ($errors.Count -eq 0 -and $warnings.Count -eq 0 -and -not [string]::IsNullOrWhiteSpace($resultSmoke)) { "passed" } else { "failed" }
+    finalStatus = if ($errors.Count -eq 0 -and $warnings.Count -eq 0 -and -not [string]::IsNullOrWhiteSpace($resultSmoke) -and -not [string]::IsNullOrWhiteSpace($warningSmoke) -and -not [string]::IsNullOrWhiteSpace($buildingTouchSmoke)) { "passed" } else { "failed" }
 }
 
 $outputFullPath = Join-Path $ProjectRoot $OutputPath

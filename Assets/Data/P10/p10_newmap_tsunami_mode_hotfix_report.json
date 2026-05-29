@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-30T02:26:31+09:00",
+  "generatedAt": "2026-05-30T03:10:24+09:00",
   "activeScene": "Assets/Scenes/Chuo_BaseMap.unity",
   "status": "ready_for_manual_hotfix_playtest",
   "failureResultRestartFlow": {
@@ -17,11 +17,11 @@
     "enabled": true,
     "normalSessionDeterministicSeedEnabled": false,
     "validationSource": "random_playable_support",
-    "lastPlayerSmokeSeed": 699022247,
+    "lastPlayerSmokeSeed": 1536696862,
     "lastPlayerSmokePosition": {
-      "x": -187.81,
+      "x": -170.39,
       "y": 3.04,
-      "z": 468.35
+      "z": 894.81
     }
   },
   "airWalls": {
@@ -41,7 +41,8 @@
     "finalMaxStamina": 10000.0
   },
   "tsunami": {
-    "warningPhaseSeconds": 20.0,
+    "tsunamiWarningDurationSeconds": 300.0,
+    "warningPhaseSeconds": 300.0,
     "activeFrontDurationSeconds": 120.0,
     "startSide": "south",
     "direction": "Vector3.forward",
@@ -53,6 +54,7 @@
   "buildingEntry": {
     "requiresTouchingBuildingOrEntryTrigger": true,
     "preciseEntranceMarkerRequired": false,
+    "triggerSource": "exact building renderer bounds for verified shelters where available; nearest building bounds or target proxy trigger fallback for candidates/proxies",
     "buildingEntryTriggerCountInPlayerSmoke": 97,
     "proxyVerticalEvacuationFlowUsedWhenNoInteriorExists": true,
     "realInteriorClaimed": false
@@ -74,6 +76,8 @@
     "playMode": "passed 39/39",
     "tempPlayerBuild": "passed",
     "playerLog": "passed 0 errors 0 warnings",
-    "deepSeek": "unavailable_api_connection_error_after_normal_and_escalated_retries"
+    "warning300Smoke": "passed",
+    "buildingTouchEntrySmoke": "passed",
+    "deepSeek": "unavailable_api_connection_error_and_timeout_after_normal_and_escalated_retries"
   }
 }

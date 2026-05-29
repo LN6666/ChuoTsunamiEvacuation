@@ -38,10 +38,14 @@ foreach ($path in $required) {
 }
 
 Require-Contains "Assets\Data\P10\newmap_player_stamina_config.json" '"staminaMultiplier": 100.0'
+Require-Contains "Assets\Data\P10\newmap_tsunami_mode_hotfix_config.json" '"tsunamiWarningDurationSeconds": 300.0'
+Require-Contains "Assets\Data\P10\newmap_tsunami_mode_hotfix_config.json" '"warningPhaseSeconds": 300.0'
 Require-Contains "Assets\Data\P10\newmap_tsunami_mode_hotfix_config.json" '"tsunamiStartSide": "south"'
 Require-Contains "Assets\Data\P10\newmap_tsunami_mode_hotfix_config.json" '"curtainHeightMeters": 1000.0'
 Require-Contains "Assets\Data\P10\newmap_spawn_config.json" '"deterministicSeedEnabled": false'
 Require-Contains "Assets\Scripts\NewMap\NewMapGameController.cs" "NotifyBuildingEntryTouch"
+Require-Contains "Assets\Scripts\NewMap\NewMapGameController.cs" "warning_duration_seconds"
+Require-Contains "Assets\Scripts\NewMap\NewMapRuntimeUI.cs" "Press E to enter building"
 Require-Contains "Assets\Scripts\NewMap\NewMapRuntimeUI.cs" "ResultRetryButton"
 Require-Contains "Assets\Scripts\NewMap\NewMapHazardController.cs" "GetFloodedSideSamplePointForDiagnostics"
 Require-Contains "Assets\Scripts\NewMap\NewMapRuntimeBootstrap.cs" "P10_BoundaryAirWall_North"

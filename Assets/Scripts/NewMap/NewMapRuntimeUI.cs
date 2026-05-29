@@ -20,6 +20,7 @@ public sealed class NewMapRuntimeUI : MonoBehaviour
     private Text modeTitleText;
     private Text forceQuitExplanationText;
     private bool japanese;
+    private string lastInteractionText = string.Empty;
     private string lastResultReason = string.Empty;
     private string lastResultDetail = string.Empty;
 
@@ -36,6 +37,7 @@ public sealed class NewMapRuntimeUI : MonoBehaviour
     public bool IsRulesVisible => rulesPanel != null && rulesPanel.activeSelf;
     public bool IsResultVisible => resultPanel != null && resultPanel.activeSelf;
     public bool RulesPanelHasScrollRect => rulesPanel != null && rulesPanel.GetComponentInChildren<ScrollRect>(true) != null;
+    public string LastInteractionText => lastInteractionText;
     public string LastResultReason => lastResultReason;
     public string LastResultDetail => lastResultDetail;
 
@@ -112,7 +114,27 @@ public sealed class NewMapRuntimeUI : MonoBehaviour
         string action = mode == NewMapGameMode.Tourism
             ? (japanese ? "E: 情報を見る" : "E: inspect")
             : (japanese ? "E: 入る" : "E: enter");
-        interactionText.text = $"{target.DisplayName}\n{warning}\n{action}";
+        if (mode != NewMapGameMode.Tourism)
+        {
+            action = "Press E to enter building / vertical evacuate";
+        }
+
+        lastInteractionText = $"{target.DisplayName}\n{warning}\n{action}";
+        interactionText.text = lastInteractionText;
+    }
+
+    public void ShowNoEnterableBuildingPrompt(NewMapGameMode mode)
+    {
+        if (interactionText == null || mode == NewMapGameMode.None)
+        {
+            return;
+        }
+
+        lastInteractionText = japanese
+            ? "No enterable building nearby."
+            : "No enterable building nearby. Touch an eligible building and press E.";
+        interactionText.gameObject.SetActive(true);
+        interactionText.text = lastInteractionText;
     }
 
     public void HideInteraction()
@@ -122,6 +144,8 @@ public sealed class NewMapRuntimeUI : MonoBehaviour
             interactionText.gameObject.SetActive(false);
             interactionText.text = string.Empty;
         }
+
+        lastInteractionText = string.Empty;
     }
 
     public void ShowResult(bool success, string reason, string detail)

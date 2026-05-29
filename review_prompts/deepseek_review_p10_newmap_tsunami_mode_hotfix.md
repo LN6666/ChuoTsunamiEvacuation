@@ -14,7 +14,7 @@ Verify:
 4. Unexpected playable-area invisible blockers are converted/disabled while boundary air walls remain named/preserved.
 5. Player stamina is exactly 100x the previous 100 baseline.
 6. Tsunami starts from a configured sea/coastal side, currently `south`, and moves inland.
-7. Tsunami warning/pre-alert phase is distinct from active tsunami-front phase.
+7. Tsunami warning/pre-alert phase defaults to exactly 300 seconds, remains distinct from active tsunami-front phase, and does not show/activate the tsunami hazard before it ends.
 8. Light curtain height/length are large enough to cover the NewMap playable area.
 9. Pressing E requires touching/overlapping an eligible building-entry trigger volume, not aiming at a precise entrance.
 10. Generic/proxy vertical evacuation flow is clearly documented and does not claim real interiors.

@@ -41,6 +41,8 @@ public sealed class NewMapRuntimeTarget
     public GameObject GreenFrame;
     public GameObject RouteGuide;
     public NewMapBuildingEntryTrigger EntryTrigger;
+    public bool HasBuildingEntryBounds;
+    public Bounds BuildingEntryBounds;
     public System.Func<GameObject> GreenFrameFactory;
     public System.Func<GameObject> RouteGuideFactory;
 

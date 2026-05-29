@@ -14,7 +14,8 @@
 - Invalid/fall-zone blockers remain where documented.
 - Spawn is not inside buildings.
 - Spawn varies after retry/restart and logs a random seed/source.
-- Evacuation mode starts with a visible warning/pre-alert phase before active tsunami failure checks.
+- Evacuation mode starts with a visible 300-second warning/pre-alert phase before active tsunami failure checks.
+- The tsunami light curtain/front does not appear or fail the player before the 300-second warning ends.
 - The tsunami front starts from the configured coastal side and advances inland.
 - The tsunami light curtain is tall/wide enough to span the visible map area.
 - Tsunami failure immediately shows the result panel with Retry / Restart.

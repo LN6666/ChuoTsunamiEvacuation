@@ -38,6 +38,64 @@ public sealed class NewMapBuildingEntryTrigger : MonoBehaviour
         return trigger;
     }
 
+    public static NewMapBuildingEntryTrigger CreateFromBounds(
+        Transform parent,
+        NewMapRuntimeTarget runtimeTarget,
+        NewMapGameController gameController,
+        Bounds buildingBounds,
+        float horizontalMarginMeters,
+        float minimumHeightMeters)
+    {
+        if (runtimeTarget == null || runtimeTarget.Anchor == null || buildingBounds.size.sqrMagnitude <= 0.01f)
+        {
+            return null;
+        }
+
+        float margin = Mathf.Clamp(horizontalMarginMeters, 0.25f, 8f);
+        float bottomY = Mathf.Min(buildingBounds.min.y, runtimeTarget.Anchor.position.y - 0.5f);
+        float topY = Mathf.Max(buildingBounds.max.y, runtimeTarget.Anchor.position.y + Mathf.Max(2f, minimumHeightMeters));
+        float sizeY = Mathf.Clamp(topY - bottomY, 2f, 140f);
+        Vector3 center = new Vector3(buildingBounds.center.x, bottomY + sizeY * 0.5f, buildingBounds.center.z);
+        Vector3 size = new Vector3(
+            Mathf.Clamp(buildingBounds.size.x + margin * 2f, 2f, 240f),
+            sizeY,
+            Mathf.Clamp(buildingBounds.size.z + margin * 2f, 2f, 240f));
+
+        GameObject triggerObject = new GameObject("P10_BuildingEntryTrigger_" + SanitizeName(runtimeTarget.Id));
+        triggerObject.transform.SetParent(parent != null ? parent : runtimeTarget.Anchor, true);
+        triggerObject.transform.position = center;
+
+        BoxCollider box = triggerObject.AddComponent<BoxCollider>();
+        box.size = size;
+        box.isTrigger = true;
+
+        NewMapBuildingEntryTrigger trigger = triggerObject.AddComponent<NewMapBuildingEntryTrigger>();
+        trigger.Initialize(runtimeTarget, gameController, box);
+        runtimeTarget.EntryTrigger = trigger;
+        return trigger;
+    }
+
+    public bool OverlapsPlayer(Bounds playerBounds, Vector3 playerPosition)
+    {
+        if (triggerCollider == null)
+        {
+            return false;
+        }
+
+        Bounds bounds = triggerCollider.bounds;
+        if (bounds.Intersects(playerBounds))
+        {
+            return true;
+        }
+
+        return playerPosition.x >= bounds.min.x &&
+            playerPosition.x <= bounds.max.x &&
+            playerPosition.z >= bounds.min.z &&
+            playerPosition.z <= bounds.max.z &&
+            playerPosition.y >= bounds.min.y - 1f &&
+            playerPosition.y <= bounds.max.y + 1f;
+    }
+
     public void Initialize(NewMapRuntimeTarget runtimeTarget, NewMapGameController gameController, Collider collider)
     {
         target = runtimeTarget;

@@ -19,7 +19,9 @@
 - Random spawn source: random_playable_support
 - Stamina max: 10000
 - Tsunami start side/direction: south / Vector3.forward
-- Warning phase duration: 20 seconds
+- Warning phase duration: 300 seconds
+- Tsunami warning 300s smoke: passed
+- Building touch E-entry smoke: passed on an official shelter trigger
 - Light curtain height/length: 1000m / 8208.7m in player smoke
 - Building entry triggers: 97 trigger-only volumes, 0 physical blockers
 - Boundary air walls: P10_BoundaryAirWall_North/South/East/West

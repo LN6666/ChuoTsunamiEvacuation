@@ -169,7 +169,10 @@ public sealed class NewMapGameController : MonoBehaviour
         SetTargetGuidanceVisible(false);
         ui?.HideResult();
         ui?.ShowHud();
-        Debug.Log($"NewMap Evacuation Mode started. Stage 1 warning is active for {stage1WarningSeconds:0.0}s; light curtain and hazard checks are hidden/ignored.");
+        Debug.Log(
+            $"NewMap tsunami warning_start_time={warningStartedAtSeconds:0.0} " +
+            $"warning_duration_seconds={stage1WarningSeconds:0.0} phase=WARNING " +
+            "lightCurtainVisible=false hazardChecksActive=false");
     }
 
     public void SetWeather(NewMapWeatherPreset preset)
@@ -249,7 +252,11 @@ public sealed class NewMapGameController : MonoBehaviour
         activeTsunamiStartedAtSeconds = modeElapsedSeconds;
         hazard?.SetStage(stage);
         SetTargetGuidanceVisible(true);
-        Debug.Log($"NewMap tsunami Stage 2 FrontApproaching started at t={modeElapsedSeconds:0.0}s. Light curtain is visible and hazard checks are active.");
+        Debug.Log(
+            $"NewMap tsunami_active_start_time={activeTsunamiStartedAtSeconds:0.0} " +
+            $"warning_start_time={warningStartedAtSeconds:0.0} " +
+            $"warning_duration_seconds={stage1WarningSeconds:0.0} " +
+            "phase=ACTIVE_TSUNAMI active tsunami state entered lightCurtainVisible=true hazardChecksActive=true");
     }
 
     private void UpdateInteraction()
@@ -300,14 +307,11 @@ public sealed class NewMapGameController : MonoBehaviour
             return;
         }
 
-        CharacterController character = player.GetComponent<CharacterController>();
-        Bounds playerBounds = character != null
-            ? character.bounds
-            : new Bounds(player.transform.position + Vector3.up * 0.9f, new Vector3(0.7f, 1.8f, 0.7f));
+        Bounds playerBounds = GetPlayerEntryBounds();
         if (touchedBuildingTarget != null &&
             touchedBuildingTarget.ActiveInGame &&
             touchedBuildingTarget.EntryTrigger != null &&
-            touchedBuildingTarget.EntryTrigger.Bounds.Intersects(playerBounds))
+            touchedBuildingTarget.EntryTrigger.OverlapsPlayer(playerBounds, player.transform.position))
         {
             return;
         }
@@ -321,12 +325,25 @@ public sealed class NewMapGameController : MonoBehaviour
                 continue;
             }
 
-            if (target.EntryTrigger.Bounds.Intersects(playerBounds))
+            if (target.EntryTrigger.OverlapsPlayer(playerBounds, player.transform.position))
             {
                 touchedBuildingTarget = target;
                 return;
             }
         }
+    }
+
+    private Bounds GetPlayerEntryBounds()
+    {
+        if (player == null)
+        {
+            return new Bounds(Vector3.zero, Vector3.zero);
+        }
+
+        CharacterController character = player.GetComponent<CharacterController>();
+        return character != null
+            ? character.bounds
+            : new Bounds(player.transform.position + Vector3.up * 0.9f, new Vector3(0.7f, 1.8f, 0.7f));
     }
 
     private void TryInteract(NewMapRuntimeTarget target)
@@ -379,16 +396,14 @@ public sealed class NewMapGameController : MonoBehaviour
 
     public bool TryInteractWithNearestTargetFromInput()
     {
+        RefreshTouchedBuildingFromOverlap();
         NewMapRuntimeTarget target = CurrentEnterableBuilding;
-        if (target == null)
-        {
-            nearestTarget = FindNearestTarget();
-            target = CurrentEnterableBuilding;
-        }
 
         if (target == null || resultLocked || safeFloorSequenceActive || mode == NewMapGameMode.None)
         {
-            Debug.Log("NewMap building entry rejected reason=no_current_enterable_building");
+            ui?.ShowNoEnterableBuildingPrompt(mode);
+            string position = player != null ? player.transform.position.ToString("F2") : "missing_player";
+            Debug.Log($"NewMap building entry rejected reason=no_current_enterable_building playerPosition={position}");
             return false;
         }
 
@@ -400,6 +415,12 @@ public sealed class NewMapGameController : MonoBehaviour
     public bool TryInteractWithTouchedBuildingForDiagnostics()
     {
         return TryInteractWithNearestTargetFromInput();
+    }
+
+    public bool RefreshTouchedBuildingForDiagnostics()
+    {
+        RefreshTouchedBuildingFromOverlap();
+        return CurrentEnterableBuilding != null;
     }
 
     public bool TrySetTouchedBuildingForDiagnostics(string targetId, bool touching)
@@ -619,7 +640,11 @@ public sealed class NewMapGameController : MonoBehaviour
         builder.AppendLine($"Stage: {stage}");
         if (mode == NewMapGameMode.Evacuation && stage == NewMapTsunamiStage.Warning)
         {
-            builder.AppendLine($"Warning phase: {Mathf.Max(0f, stage1WarningSeconds - modeElapsedSeconds):0.0}s until tsunami start");
+            builder.AppendLine($"TSUNAMI WARNING / PRE-ALERT: {Mathf.Max(0f, stage1WarningSeconds - modeElapsedSeconds):0.0}s until tsunami start");
+        }
+        else if (mode == NewMapGameMode.Evacuation && stage == NewMapTsunamiStage.FrontApproaching)
+        {
+            builder.AppendLine("ACTIVE TSUNAMI: coastal-side light curtain is advancing");
         }
         builder.AppendLine($"Weather: {NewMapRuntimeConstants.GetWeatherLabel(weather)} x{NewMapRuntimeConstants.GetWeatherModifier(weather):0.00}");
         if (player != null)

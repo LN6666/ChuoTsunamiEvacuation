@@ -257,7 +257,8 @@ public sealed class NewMapHazardController : MonoBehaviour
 [System.Serializable]
 public sealed class NewMapTsunamiModeHotfixConfig
 {
-    public float warningPhaseSeconds = 20f;
+    public float tsunamiWarningDurationSeconds = -1f;
+    public float warningPhaseSeconds = 300f;
     public float activeFrontDurationSeconds = 120f;
     public string tsunamiStartSide = "south";
     public float curtainHeightMeters = 1000f;
@@ -266,7 +267,10 @@ public sealed class NewMapTsunamiModeHotfixConfig
     public float curtainThicknessMeters = 12f;
     public float curtainStartMarginMeters = 60f;
 
-    public float WarningPhaseSeconds => Mathf.Clamp(warningPhaseSeconds, 1f, 600f);
+    public float WarningPhaseSeconds => Mathf.Clamp(
+        tsunamiWarningDurationSeconds > 0f ? tsunamiWarningDurationSeconds : warningPhaseSeconds,
+        1f,
+        600f);
     public float ActiveFrontDurationSeconds => Mathf.Clamp(activeFrontDurationSeconds, 5f, 3600f);
     public float CurtainHeightMeters => Mathf.Clamp(curtainHeightMeters, 100f, 5000f);
     public float MinimumCurtainLengthMeters => Mathf.Clamp(minimumCurtainLengthMeters, 100f, 10000f);
@@ -276,6 +280,15 @@ public sealed class NewMapTsunamiModeHotfixConfig
     public static NewMapTsunamiModeHotfixConfig Default()
     {
         return new NewMapTsunamiModeHotfixConfig();
+    }
+
+    public static NewMapTsunamiModeHotfixConfig CreateForDiagnostics(float warningDurationSeconds)
+    {
+        NewMapTsunamiModeHotfixConfig config = Default();
+        float duration = Mathf.Clamp(warningDurationSeconds, 1f, 600f);
+        config.tsunamiWarningDurationSeconds = duration;
+        config.warningPhaseSeconds = duration;
+        return config;
     }
 
     public static NewMapTsunamiModeHotfixConfig Load()
@@ -294,7 +307,9 @@ public sealed class NewMapTsunamiModeHotfixConfig
             }
         }
 
-        config.warningPhaseSeconds = config.WarningPhaseSeconds;
+        float warningDuration = config.WarningPhaseSeconds;
+        config.tsunamiWarningDurationSeconds = warningDuration;
+        config.warningPhaseSeconds = warningDuration;
         config.activeFrontDurationSeconds = config.ActiveFrontDurationSeconds;
         config.tsunamiStartSide = config.NormalizedTsunamiStartSide;
         config.curtainHeightMeters = config.CurtainHeightMeters;

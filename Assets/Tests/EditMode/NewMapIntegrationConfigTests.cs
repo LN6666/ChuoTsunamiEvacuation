@@ -34,7 +34,10 @@ public class NewMapIntegrationConfigTests
 
         NewMapTsunamiModeHotfixConfig tsunami = NewMapTsunamiModeHotfixConfig.Load();
         Assert.AreEqual("south", tsunami.NormalizedTsunamiStartSide);
-        Assert.GreaterOrEqual(tsunami.WarningPhaseSeconds, 1f);
+        Assert.AreEqual(300f, tsunami.WarningPhaseSeconds, 0.001f);
+        Assert.AreEqual(300f, tsunami.tsunamiWarningDurationSeconds, 0.001f);
+        Assert.AreEqual(300f, NewMapTsunamiModeHotfixConfig.Default().WarningPhaseSeconds, 0.001f);
+        Assert.AreEqual(3f, NewMapTsunamiModeHotfixConfig.CreateForDiagnostics(3f).WarningPhaseSeconds, 0.001f);
         Assert.GreaterOrEqual(tsunami.CurtainHeightMeters, 1000f);
         Assert.GreaterOrEqual(tsunami.MinimumCurtainLengthMeters, 1500f);
         Assert.IsFalse(tsunami.CurtainThicknessMeters <= 0f);

@@ -632,6 +632,25 @@ public sealed class NewMapRuntimeBootstrap : MonoBehaviour
             controller.Mode == NewMapGameMode.Evacuation && controller.Stage == NewMapTsunamiStage.Warning && hazard != null && !hazard.RiskChecksActive && player != null && player.StaminaEnabled,
             "Evacuation starts in Stage 1 with hazard checks inactive and stamina enabled");
 
+        float configuredWarningSeconds = controller.WarningPhaseSeconds;
+        bool defaultWarningIsFiveMinutes = Mathf.Abs(configuredWarningSeconds - 300f) <= 0.01f;
+        controller.AdvanceEvacuationTimeForDiagnostics(Mathf.Max(0f, configuredWarningSeconds - 1f));
+        yield return null;
+        bool inactiveBeforeWarningEnds = controller.Stage == NewMapTsunamiStage.Warning &&
+            hazard != null &&
+            !hazard.RiskChecksActive &&
+            !hazard.LightCurtainVisibleForDiagnostics;
+        controller.AdvanceEvacuationTimeForDiagnostics(2f);
+        yield return null;
+        bool activeAfterWarningEnds = controller.Stage == NewMapTsunamiStage.FrontApproaching &&
+            hazard != null &&
+            hazard.RiskChecksActive &&
+            hazard.LightCurtainVisibleForDiagnostics;
+        LogGameplaySmoke(
+            "tsunami_warning_300s_before_active",
+            defaultWarningIsFiveMinutes && inactiveBeforeWarningEnds && activeAfterWarningEnds,
+            $"warningSeconds={configuredWarningSeconds:0.0} inactiveBeforeEnd={inactiveBeforeWarningEnds} activeAfterEnd={activeAfterWarningEnds}");
+
         controller.SetWeather(NewMapWeatherPreset.NightClear);
         yield return null;
         float nightSkyBrightness = lighting != null ? lighting.SkyBrightness : 1f;
@@ -717,6 +736,31 @@ public sealed class NewMapRuntimeBootstrap : MonoBehaviour
         else
         {
             LogGameplaySmoke("route_proxy_wording", false, "No runtime route proxy target was active");
+        }
+
+        NewMapRuntimeTarget touchEntryTarget = official ?? recoveredNonOfficial ?? routeProxy;
+        if (touchEntryTarget != null && touchEntryTarget.EntryTrigger != null && player != null)
+        {
+            controller.StartEvacuationMode();
+            controller.ForceStageForDiagnostics(NewMapTsunamiStage.FrontApproaching);
+            Bounds triggerBounds = touchEntryTarget.EntryTrigger.Bounds;
+            player.transform.position = new Vector3(
+                triggerBounds.center.x,
+                touchEntryTarget.Anchor.position.y + 0.4f,
+                triggerBounds.center.z);
+            Physics.SyncTransforms();
+            yield return null;
+            bool touchDetected = controller.RefreshTouchedBuildingForDiagnostics();
+            bool entered = controller.TryInteractWithTouchedBuildingForDiagnostics();
+            bool completed = controller.CompleteSafeFloorSequenceForDiagnostics();
+            LogGameplaySmoke(
+                "building_touch_e_entry",
+                touchDetected && entered && completed && ui != null && ui.LastResultReason == "safe_floor_reached",
+                $"target={touchEntryTarget.Id} touchDetected={touchDetected} finalReason={SafeLog(ui != null ? ui.LastResultReason : string.Empty)}");
+        }
+        else
+        {
+            LogGameplaySmoke("building_touch_e_entry", false, "No active target with an entry trigger was available");
         }
 
         controller.StartEvacuationMode();
@@ -3134,7 +3178,7 @@ public sealed class NewMapRuntimeBootstrap : MonoBehaviour
             }
 
             position.y = ResolveLocalSupportSurfaceY(position, LastRuntimeGroundSurfaceY) + GroundSkinOffset;
-            targets.Add(CreateOfficialShelterTarget(roots, record, position));
+            targets.Add(CreateOfficialShelterTarget(roots, record, position, bounds));
         }
 
         return targets;
@@ -3272,7 +3316,8 @@ public sealed class NewMapRuntimeBootstrap : MonoBehaviour
     private static NewMapRuntimeTarget CreateOfficialShelterTarget(
         Dictionary<string, Transform> roots,
         OfficialShelterAnchorRecord record,
-        Vector3 position)
+        Vector3 position,
+        Bounds buildingBounds)
     {
         GameObject anchor = new GameObject(record.ShelterId);
         anchor.transform.SetParent(roots["ShelterMarkerRoot"], true);
@@ -3324,6 +3369,8 @@ public sealed class NewMapRuntimeBootstrap : MonoBehaviour
             Marker = marker,
             GreenFrame = frame,
             RouteGuide = null,
+            HasBuildingEntryBounds = true,
+            BuildingEntryBounds = buildingBounds,
             FinalBehavior =
                 "Official shelter record activated only because the matched PLATEAU GML object exists in Chuo_BaseMap. " +
                 "Safe-floor timing is a gameplay prototype; no official route or GIS-grade route validation is claimed."
@@ -3396,12 +3443,26 @@ public sealed class NewMapRuntimeBootstrap : MonoBehaviour
                 continue;
             }
 
-            NewMapBuildingEntryTrigger trigger = NewMapBuildingEntryTrigger.Create(
-                parent,
-                target,
-                controller,
-                ResolveBuildingEntryTriggerRadius(target),
-                6f);
+            NewMapBuildingEntryTrigger trigger;
+            if (TryResolveBuildingEntryBounds(target, out Bounds entryBounds))
+            {
+                trigger = NewMapBuildingEntryTrigger.CreateFromBounds(
+                    parent,
+                    target,
+                    controller,
+                    entryBounds,
+                    2.5f,
+                    8f);
+            }
+            else
+            {
+                trigger = NewMapBuildingEntryTrigger.Create(
+                    parent,
+                    target,
+                    controller,
+                    ResolveBuildingEntryTriggerRadius(target),
+                    6f);
+            }
             if (trigger == null)
             {
                 continue;
@@ -3413,6 +3474,58 @@ public sealed class NewMapRuntimeBootstrap : MonoBehaviour
                 LastBuildingEntryPhysicalBlockerCount++;
             }
         }
+    }
+
+    private bool TryResolveBuildingEntryBounds(NewMapRuntimeTarget target, out Bounds bounds)
+    {
+        bounds = default(Bounds);
+        if (target == null || target.Anchor == null)
+        {
+            return false;
+        }
+
+        if (target.HasBuildingEntryBounds && target.BuildingEntryBounds.size.sqrMagnitude > 0.01f)
+        {
+            bounds = target.BuildingEntryBounds;
+            return true;
+        }
+
+        if (IsLocalRuntimeTrainingTarget(target))
+        {
+            return false;
+        }
+
+        return TryFindNearestBuildingBounds(target.Anchor.position, 45f, out bounds);
+    }
+
+    private bool TryFindNearestBuildingBounds(Vector3 position, float maxDistanceMeters, out Bounds bounds)
+    {
+        bounds = default(Bounds);
+        float bestDistance = Mathf.Max(1f, maxDistanceMeters);
+        bool found = false;
+        for (int i = 0; i < buildingAvoidanceBounds.Count; i++)
+        {
+            Bounds candidate = buildingAvoidanceBounds[i];
+            Vector3 closest = candidate.ClosestPoint(position);
+            float horizontalDistance = Vector2.Distance(
+                new Vector2(position.x, position.z),
+                new Vector2(closest.x, closest.z));
+            if (horizontalDistance > bestDistance)
+            {
+                continue;
+            }
+
+            bestDistance = horizontalDistance;
+            bounds = candidate;
+            found = true;
+        }
+
+        return found;
+    }
+
+    private static bool IsLocalRuntimeTrainingTarget(NewMapRuntimeTarget target)
+    {
+        return target != null && !string.IsNullOrWhiteSpace(target.Id) && target.Id.StartsWith("newmap_proxy_", System.StringComparison.Ordinal);
     }
 
     private static float ResolveBuildingEntryTriggerRadius(NewMapRuntimeTarget target)
