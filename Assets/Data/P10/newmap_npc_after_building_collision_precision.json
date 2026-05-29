@@ -1,0 +1,11 @@
+﻿{
+    "activeScene":  "Assets/Scenes/Chuo_BaseMap.unity",
+    "generatedAt":  "2026-05-30T07:10:45",
+    "npcAvoidBuildingsPreserved":  true,
+    "npcClipThroughBuildingsNearPlayer":  false,
+    "npcAllStopRegression":  false,
+    "npcRapidRefreshRegression":  false,
+    "playerNpcSoftBlockingPreserved":  true,
+    "buildingAvoidanceBoundsCount":  10817,
+    "finalStatus":  "validated"
+}

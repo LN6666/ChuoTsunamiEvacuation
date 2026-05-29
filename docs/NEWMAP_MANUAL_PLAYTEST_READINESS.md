@@ -18,6 +18,7 @@
 - P10 tsunami-mode hotfix smoke: passed
 - Random spawn source: random_playable_support
 - Collision whitelist: only ground/support, buildings, NPC soft bodies, and circular boundary block movement
+- Building collision precision: 10,686 tight runtime footprint proxies created, 101 inflated cluster/root bounds skipped, 46 active target clearance zones carved, 516 sampled corridors passed
 - Circular boundary: 3500m radius from original map center, runtime clamp, invisible in normal mode
 - Old rectangular boundary air walls: disabled/replaced by circular clamp
 - Route lines / green frames / labels / markers / hazard visuals: nonblocking
@@ -37,5 +38,7 @@
 - Player.log: 0 errors / 0 warnings / 0 exceptions
 - Tsunami-mode temp player: D:\UnityProjects\ChuoTsunamiEvacuation-Builds\P10NewMapTsunamiModeHotfixPre\ChuoTsunamiEvacuation_P10NewMapTsunamiModeHotfixPre.exe
 - Temp player: D:\UnityProjects\ChuoTsunamiEvacuation-Builds\NewMapCollisionBoundaryLeaderboardPre\ChuoTsunamiEvacuation_NewMapCollisionBoundaryLeaderboardPre.exe
+- Building precision temp player target: D:\UnityProjects\ChuoTsunamiEvacuation-Builds\NewMapBuildingCollisionPrecisionPre\ChuoTsunamiEvacuation_NewMapBuildingCollisionPrecisionPre.exe
+- Building precision Player.log: 0 errors / 0 warnings / 0 exceptions; unexpected corridor blockers 0; active target approach blocked 0
 
 This does not claim GIS-grade terrain, road, route, or PLATEAU building elevation accuracy.

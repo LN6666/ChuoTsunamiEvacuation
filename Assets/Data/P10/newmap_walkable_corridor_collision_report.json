@@ -1,0 +1,27 @@
+﻿{
+    "activeScene":  "Assets/Scenes/Chuo_BaseMap.unity",
+    "sampleScope":  [
+                        "player spawn cardinal samples",
+                        "active official shelter approach rings",
+                        "active non-official candidate approach rings",
+                        "runtime proxy route target approach rings"
+                    ],
+    "expectedBlockers":  [
+                             "building_tight_proxy_expected",
+                             "boundary_expected",
+                             "npc_expected",
+                             "ground_support_expected"
+                         ],
+    "unexpectedBlockersFailBuild":  [
+                                        "unexpected_building_inflated",
+                                        "unknown_blocker",
+                                        "debug_test",
+                                        "route_marker_label_green_frame_visual"
+                                    ],
+    "generatedAt":  "2026-05-30T07:10:45",
+    "sampledCorridorCount":  516,
+    "unexpectedBlockerCount":  0,
+    "activeTargetApproachBlockedCount":  0,
+    "activeTargetApproachStatus":  "passable_in_sampled_approaches",
+    "finalStatus":  "validated_by_player_log"
+}

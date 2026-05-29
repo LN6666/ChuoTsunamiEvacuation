@@ -182,6 +182,16 @@ public sealed class NewMapPlayerController : MonoBehaviour
         buildingCollisionEnabled = enabled && buildingCollisionBounds.Count > 0;
     }
 
+    public Bounds[] GetBuildingCollisionBoundsForDiagnostics()
+    {
+        return buildingCollisionBounds.ToArray();
+    }
+
+    public bool IsInsideBuildingForDiagnostics(Vector3 position, float marginMeters = 0f)
+    {
+        return IsInsideBuildingBoundsXZ(position, marginMeters);
+    }
+
     public void ConfigurePlayerNpcCollision(NewMapNpcCrowdPrototype crowd, NewMapPlayerNpcCollisionConfig config)
     {
         playerNpcCollisionSource = crowd;

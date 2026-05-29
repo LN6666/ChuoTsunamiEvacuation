@@ -1,0 +1,28 @@
+﻿{
+    "activeScene":  "Assets/Scenes/Chuo_BaseMap.unity",
+    "allowedPlayerBlockers":  [
+                                  "ground_support",
+                                  "tight_building_footprint_proxy",
+                                  "npc_body_or_soft_blocking",
+                                  "map_boundary"
+                              ],
+    "nonBlockingCategories":  [
+                                  "interaction_trigger",
+                                  "route_line_visual",
+                                  "green_frame_visual",
+                                  "shelter_marker_visual",
+                                  "label_visual",
+                                  "hazard_visual",
+                                  "debug_test",
+                                  "old_air_wall",
+                                  "invalid_zone_blocker"
+                              ],
+    "buildingCollisionDisabledEntirely":  false,
+    "generatedAt":  "2026-05-30T07:10:45",
+    "oldLargeRectangularAirWallInsidePlayableMap":  false,
+    "routeGreenFrameLabelMarkerBlocksPlayer":  false,
+    "inflatedClusterBuildingColliderRemainsActive":  false,
+    "unknownBlockerInSampledWalkableCorridors":  false,
+    "playerCanWalkThroughBuildingFootprint":  false,
+    "finalStatus":  "validated"
+}

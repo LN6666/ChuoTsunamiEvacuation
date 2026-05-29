@@ -1,0 +1,14 @@
+﻿{
+    "activeScene":  "Assets/Scenes/Chuo_BaseMap.unity",
+    "generatedAt":  "2026-05-30T07:10:45",
+    "playerCannotWalkThroughSampledBuildingFootprints":  true,
+    "playerCanWalkAlongSampledRoadsNearBuildings":  true,
+    "playerCanApproachOfficialShelterMarker":  true,
+    "playerCanApproachNonOfficialCandidateMarker":  true,
+    "noLargeInvisibleWallOutsideBuildingFootprint":  true,
+    "spawnRemainsOutsideBuildings":  true,
+    "npcsAvoidTightBuildingProxies":  true,
+    "npcsDoNotGetStuckInInflatedOldColliders":  true,
+    "playerLogClean":  true,
+    "finalStatus":  "validated"
+}

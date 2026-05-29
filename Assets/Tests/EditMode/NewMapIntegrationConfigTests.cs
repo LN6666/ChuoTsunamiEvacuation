@@ -411,6 +411,55 @@ public class NewMapIntegrationConfigTests
     }
 
     [Test]
+    public void BuildingCollisionPrecisionConfigReportsAndSourceAreConfigured()
+    {
+        string config = File.ReadAllText(Path.Combine(Application.dataPath, "Data/P10/newmap_building_collision_precision_config.json"));
+        string audit = File.ReadAllText(Path.Combine(Application.dataPath, "Data/P10/newmap_building_collision_precision_audit.json"));
+        string report = File.ReadAllText(Path.Combine(Application.dataPath, "Data/P10/newmap_building_collision_precision_report.json"));
+        string corridors = File.ReadAllText(Path.Combine(Application.dataPath, "Data/P10/newmap_walkable_corridor_collision_report.json"));
+        string gameplay = File.ReadAllText(Path.Combine(Application.dataPath, "Data/P10/newmap_building_collision_gameplay_validation.json"));
+        string npcReport = File.ReadAllText(Path.Combine(Application.dataPath, "Data/P10/newmap_npc_after_building_collision_precision.json"));
+        string whitelistFinal = File.ReadAllText(Path.Combine(Application.dataPath, "Data/P10/newmap_collision_whitelist_final_report.json"));
+        string bootstrap = File.ReadAllText(Path.Combine(Application.dataPath, "Scripts/NewMap/NewMapRuntimeBootstrap.cs"));
+        string player = File.ReadAllText(Path.Combine(Application.dataPath, "Scripts/NewMap/NewMapPlayerController.cs"));
+        string npc = File.ReadAllText(Path.Combine(Application.dataPath, "Scripts/NewMap/NewMapNpcCrowdPrototype.cs"));
+
+        string compactConfig = config.Replace(" ", string.Empty);
+        string compactAudit = audit.Replace(" ", string.Empty);
+        string compactReport = report.Replace(" ", string.Empty);
+        string compactFinal = whitelistFinal.Replace(" ", string.Empty);
+
+        StringAssert.Contains("\"collisionMode\":\"tight_footprint_box_proxies\"", compactConfig);
+        StringAssert.Contains("\"shrinkFactorXZ\":0.9", compactConfig);
+        StringAssert.Contains("\"maxColliderWidthMeters\":80.0", compactConfig);
+        StringAssert.Contains("\"maxColliderDepthMeters\":80.0", compactConfig);
+        StringAssert.Contains("\"colliderHeightMeters\":5.0", compactConfig);
+        StringAssert.Contains("\"disableClusterRootColliders\":true", compactConfig);
+        StringAssert.Contains("\"sampleWalkCorridorValidation\":true", compactConfig);
+        StringAssert.Contains("\"carveActiveTargetInteractionClearance\":true", compactConfig);
+        StringAssert.Contains("\"targetInteractionClearanceMeters\":14.0", compactConfig);
+        StringAssert.Contains("\"notGisGradeFootprintAccuracyClaim\":true", compactAudit);
+        StringAssert.Contains("\"notGisGradeFootprintAccuracyClaim\":true", compactReport);
+        StringAssert.Contains("\"tightFootprintProxiesCreated\"", report);
+        StringAssert.Contains("\"activeTargetApproachBlockedCount\"", corridors);
+        StringAssert.Contains("\"playerCanWalkAlongSampledRoadsNearBuildings\"", gameplay);
+        StringAssert.Contains("\"npcAvoidBuildingsPreserved\"", npcReport);
+        StringAssert.Contains("\"tight_building_footprint_proxy\"", compactFinal);
+        StringAssert.Contains("NewMapBuildingCollisionPrecisionConfig", bootstrap);
+        StringAssert.Contains("TryBuildProjectedMeshFootprintBounds", bootstrap);
+        StringAssert.Contains("BuildTightBuildingFootprintBounds", bootstrap);
+        StringAssert.Contains("NormalizeBuildingPrecisionBoundsToGroundY", bootstrap);
+        StringAssert.Contains("CarveBuildingPrecisionTargetClearances", bootstrap);
+        StringAssert.Contains("AddSplitBuildingBoundsAroundClearance", bootstrap);
+        StringAssert.Contains("RunBuildingCollisionPrecisionCorridorDiagnostics", bootstrap);
+        StringAssert.Contains("building_collision_precision_tight_proxies", bootstrap);
+        StringAssert.Contains("building_collision_precision_corridors", bootstrap);
+        StringAssert.Contains("GetBuildingCollisionBoundsForDiagnostics", player);
+        StringAssert.Contains("IsInsideBuildingForDiagnostics", player);
+        StringAssert.Contains("BuildingAvoidanceBoundsCount", npc);
+    }
+
+    [Test]
     public void RuntimeErrorNpcLifecycleAndExpandedLabelsAreConfigured()
     {
         string concaveAudit = File.ReadAllText(Path.Combine(Application.dataPath, "Data/P10/newmap_concave_mesh_trigger_audit.json"));

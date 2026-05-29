@@ -104,6 +104,24 @@ public sealed class NewMapRuntimeBootstrap : MonoBehaviour
     public int LastUnknownBlockersInsidePlayableArea { get; private set; }
     public int LastBuildingObstacleBoundsFiltered { get; private set; }
     public int LastBuildingObstacleBoundsShrunk { get; private set; }
+    public bool LastBuildingPrecisionEnabled { get; private set; }
+    public int LastBuildingPrecisionCandidateCount { get; private set; }
+    public int LastBuildingPrecisionInflatedBoundsFound { get; private set; }
+    public int LastBuildingPrecisionInflatedBoundsSkipped { get; private set; }
+    public int LastBuildingPrecisionTightProxyCount { get; private set; }
+    public int LastBuildingPrecisionMeshFootprintCount { get; private set; }
+    public int LastBuildingPrecisionRendererFallbackCount { get; private set; }
+    public int LastBuildingPrecisionSkippedClusterRootCount { get; private set; }
+    public float LastBuildingPrecisionAverageShrinkRatio { get; private set; }
+    public float LastBuildingPrecisionMaxWidth { get; private set; }
+    public float LastBuildingPrecisionMaxDepth { get; private set; }
+    public float LastBuildingPrecisionColliderHeight { get; private set; }
+    public int LastBuildingPrecisionSampledCorridorCount { get; private set; }
+    public int LastBuildingPrecisionUnexpectedCorridorBlockers { get; private set; }
+    public int LastBuildingPrecisionActiveTargetApproachBlocked { get; private set; }
+    public int LastBuildingPrecisionTargetClearanceBoundsSplit { get; private set; }
+    public int LastBuildingPrecisionTargetClearanceBoundsRemoved { get; private set; }
+    public int LastBuildingPrecisionTargetClearanceZones { get; private set; }
     public bool LastSampledValidPathsPassable { get; private set; }
     public bool LastPlayableBoundsValid { get; private set; }
     public NewMapPlayableBounds LastPlayableBounds { get; private set; }
@@ -191,8 +209,10 @@ public sealed class NewMapRuntimeBootstrap : MonoBehaviour
     private NewMapFloatingBuildingSnapdownConfig buildingSnapdownConfig;
     private NewMapGroundCoverRaiseConfig groundRaiseConfig;
     private NewMapAirwallHardCleanupConfig airwallCleanupConfig;
+    private NewMapBuildingCollisionPrecisionConfig buildingPrecisionConfig;
     private NewMapTsunamiModeHotfixConfig tsunamiHotfixConfig;
     private Transform debugDiagnosticsRoot;
+    private float buildingPrecisionShrinkRatioTotal;
 
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
     private static void AutoBootstrap()
@@ -275,6 +295,7 @@ public sealed class NewMapRuntimeBootstrap : MonoBehaviour
         buildingSnapdownConfig = NewMapFloatingBuildingSnapdownConfig.Load();
         groundRaiseConfig = NewMapGroundCoverRaiseConfig.Load();
         airwallCleanupConfig = NewMapAirwallHardCleanupConfig.Load();
+        buildingPrecisionConfig = NewMapBuildingCollisionPrecisionConfig.Load();
         tsunamiHotfixConfig = NewMapTsunamiModeHotfixConfig.Load();
         debugDiagnosticsRoot = roots["DebugDiagnosticsRoot"];
         PrepareManualTestRoots(roots);
@@ -319,12 +340,24 @@ public sealed class NewMapRuntimeBootstrap : MonoBehaviour
         EnsureRuntimeCollisionSupport(roots["GameplaySupportRoot"], supportCenter);
         EnforceSupportSurfaceVisibility(roots);
         EnsureCircularBoundaryDiagnostics(roots["PlayableBoundsRoot"], LastCircularBoundary);
+        NormalizeBuildingPrecisionBoundsToGroundY();
         Physics.SyncTransforms();
         if (SuppressSceneMeshCollidersForManualTest)
         {
             StartCoroutine(DisableSceneMeshCollidersStaged());
         }
         long spawnSupportMs = stopwatch.ElapsedMilliseconds - boundsMs;
+
+        List<NewMapRuntimeTarget> targets = CreateVerifiedOfficialShelterTargets(roots);
+        targets.AddRange(CreateRecoveredNonOfficialCandidateTargets(roots, spawn));
+        if (ShouldEnableLocalTrainingProxyTargets())
+        {
+            targets.AddRange(CreateLocalRuntimeTargets(roots, spawn));
+        }
+
+        CarveBuildingPrecisionTargetClearances(targets);
+        RunBuildingCollisionPrecisionCorridorDiagnostics(targets, spawn);
+        Physics.SyncTransforms();
 
         NewMapPlayerController player = NewMapPlayerController.Create(roots["PlayerSpawnRoot"], spawn);
         player.ConfigureGroundSafety(
@@ -361,13 +394,6 @@ public sealed class NewMapRuntimeBootstrap : MonoBehaviour
         player.ConfigurePlayerNpcCollision(crowd, NewMapPlayerNpcCollisionConfig.Load());
         NewMapPerformanceProbe.Create(roots["PerformanceMetricsRoot"]);
         long systemsMs = stopwatch.ElapsedMilliseconds - boundsMs - spawnSupportMs;
-        List<NewMapRuntimeTarget> targets = CreateVerifiedOfficialShelterTargets(roots);
-        targets.AddRange(CreateRecoveredNonOfficialCandidateTargets(roots, spawn));
-        if (ShouldEnableLocalTrainingProxyTargets())
-        {
-            targets.AddRange(CreateLocalRuntimeTargets(roots, spawn));
-        }
-
         CalculateActiveTargetHeightOffsets(targets);
         NewMapNameLabelController.Create(roots["NavigationRoot"], player, targets);
         NewMapShelterDirectLineController directLines = NewMapShelterDirectLineController.Create(
@@ -436,6 +462,18 @@ public sealed class NewMapRuntimeBootstrap : MonoBehaviour
             $"buildingEntryPhysicalBlockers={LastBuildingEntryPhysicalBlockerCount} " +
             $"invalidZoneBlockersPreserved={LastInvalidZoneBlockersPreserved} unknownBlockersInsidePlayableArea={LastUnknownBlockersInsidePlayableArea} " +
             $"buildingObstacleBoundsFiltered={LastBuildingObstacleBoundsFiltered} buildingObstacleBoundsShrunk={LastBuildingObstacleBoundsShrunk} " +
+            $"buildingPrecisionEnabled={LastBuildingPrecisionEnabled} buildingPrecisionCandidates={LastBuildingPrecisionCandidateCount} " +
+            $"buildingPrecisionInflatedFound={LastBuildingPrecisionInflatedBoundsFound} buildingPrecisionInflatedSkipped={LastBuildingPrecisionInflatedBoundsSkipped} " +
+            $"buildingPrecisionTightProxies={LastBuildingPrecisionTightProxyCount} buildingPrecisionMeshFootprints={LastBuildingPrecisionMeshFootprintCount} " +
+            $"buildingPrecisionRendererFallbacks={LastBuildingPrecisionRendererFallbackCount} buildingPrecisionSkippedClusters={LastBuildingPrecisionSkippedClusterRootCount} " +
+            $"buildingPrecisionAverageShrinkRatio={LastBuildingPrecisionAverageShrinkRatio:F3} buildingPrecisionMaxWidth={LastBuildingPrecisionMaxWidth:F2} " +
+            $"buildingPrecisionMaxDepth={LastBuildingPrecisionMaxDepth:F2} buildingPrecisionColliderHeight={LastBuildingPrecisionColliderHeight:F2} " +
+            $"buildingPrecisionTargetClearanceZones={LastBuildingPrecisionTargetClearanceZones} " +
+            $"buildingPrecisionTargetClearanceBoundsSplit={LastBuildingPrecisionTargetClearanceBoundsSplit} " +
+            $"buildingPrecisionTargetClearanceBoundsRemoved={LastBuildingPrecisionTargetClearanceBoundsRemoved} " +
+            $"buildingPrecisionSampledCorridors={LastBuildingPrecisionSampledCorridorCount} " +
+            $"buildingPrecisionUnexpectedCorridorBlockers={LastBuildingPrecisionUnexpectedCorridorBlockers} " +
+            $"buildingPrecisionActiveTargetApproachBlocked={LastBuildingPrecisionActiveTargetApproachBlocked} " +
             $"sampledValidPathsPassable={LastSampledValidPathsPassable} " +
             $"roadSampleY={LastRoadSampleY:F2} roadSamples={LastRoadSampleCount} supportToRoadDelta={LastSupportToRoadDelta:F2} " +
             $"supportToBuildingBaseDelta={LastSupportToBuildingBaseDelta:F2} buildingRoadYOffsetApplied={LastBuildingRoadVerticalOffsetApplied:F2} " +
@@ -707,6 +745,23 @@ public sealed class NewMapRuntimeBootstrap : MonoBehaviour
             LastLabelBlockingColliderCount == 0 &&
             LastHazardVisualBlockingColliderCount == 0,
             $"circularBoundary={LastCircularBoundaryEnabled} oldAirWalls={LastPlayableAirWallColliderCount} unknown={LastUnknownBlockersInsidePlayableArea} route={LastRouteVisualBlockingColliderCount} green={LastGreenFrameBlockingColliderCount} label={LastLabelBlockingColliderCount} hazard={LastHazardVisualBlockingColliderCount}");
+
+        LogGameplaySmoke(
+            "building_collision_precision_tight_proxies",
+            LastBuildingPrecisionEnabled &&
+            LastBuildingPrecisionTightProxyCount > 0 &&
+            LastBuildingPrecisionMaxWidth <= 80.01f &&
+            LastBuildingPrecisionMaxDepth <= 80.01f &&
+            player != null &&
+            player.BuildingCollisionEnabled,
+            $"candidates={LastBuildingPrecisionCandidateCount} inflated={LastBuildingPrecisionInflatedBoundsFound} skipped={LastBuildingPrecisionInflatedBoundsSkipped} tight={LastBuildingPrecisionTightProxyCount} maxWidth={LastBuildingPrecisionMaxWidth:0.00} maxDepth={LastBuildingPrecisionMaxDepth:0.00} clearanceZones={LastBuildingPrecisionTargetClearanceZones} clearanceSplits={LastBuildingPrecisionTargetClearanceBoundsSplit} playerBounds={(player != null ? player.BuildingCollisionBoundsCount : 0)}");
+
+        LogGameplaySmoke(
+            "building_collision_precision_corridors",
+            LastBuildingPrecisionSampledCorridorCount > 0 &&
+            LastBuildingPrecisionUnexpectedCorridorBlockers == 0 &&
+            LastBuildingPrecisionActiveTargetApproachBlocked == 0,
+            $"sampled={LastBuildingPrecisionSampledCorridorCount} unexpected={LastBuildingPrecisionUnexpectedCorridorBlockers} activeTargetBlocked={LastBuildingPrecisionActiveTargetApproachBlocked}");
 
         if (player != null && LastCircularBoundaryEnabled && LastCircularBoundary.IsValid)
         {
@@ -1753,13 +1808,24 @@ public sealed class NewMapRuntimeBootstrap : MonoBehaviour
 
     private bool IsInsideBuildingBounds(Vector3 position)
     {
-        for (int i = 0; i < buildingAvoidanceBounds.Count; i++)
+        return IsInsideBuildingBoundsXZ(position, buildingAvoidanceBounds, 0f);
+    }
+
+    private static bool IsInsideBuildingBoundsXZ(Vector3 position, List<Bounds> boundsList, float marginMeters)
+    {
+        if (boundsList == null || boundsList.Count == 0)
         {
-            Bounds bounds = buildingAvoidanceBounds[i];
-            if (position.x >= bounds.min.x &&
-                position.x <= bounds.max.x &&
-                position.z >= bounds.min.z &&
-                position.z <= bounds.max.z)
+            return false;
+        }
+
+        float margin = Mathf.Max(0f, marginMeters);
+        for (int i = 0; i < boundsList.Count; i++)
+        {
+            Bounds bounds = boundsList[i];
+            if (position.x >= bounds.min.x - margin &&
+                position.x <= bounds.max.x + margin &&
+                position.z >= bounds.min.z - margin &&
+                position.z <= bounds.max.z + margin)
             {
                 return true;
             }
@@ -1976,23 +2042,390 @@ public sealed class NewMapRuntimeBootstrap : MonoBehaviour
             return false;
         }
 
-        NewMapAirwallHardCleanupConfig config = airwallCleanupConfig ?? NewMapAirwallHardCleanupConfig.Default();
-        float maxFootprint = Mathf.Max(8f, config.buildingObstacleMaxFootprintMeters);
-        Bounds bounds = renderer.bounds;
-        if (bounds.size.x > maxFootprint || bounds.size.z > maxFootprint)
+        LastBuildingPrecisionCandidateCount++;
+        NewMapBuildingCollisionPrecisionConfig precision = buildingPrecisionConfig ?? NewMapBuildingCollisionPrecisionConfig.Default();
+        LastBuildingPrecisionEnabled = precision.enabled;
+        Bounds sourceBounds = renderer.bounds;
+        if (!precision.enabled)
+        {
+            NewMapAirwallHardCleanupConfig legacyConfig = airwallCleanupConfig ?? NewMapAirwallHardCleanupConfig.Default();
+            float maxFootprint = Mathf.Max(8f, legacyConfig.buildingObstacleMaxFootprintMeters);
+            if (sourceBounds.size.x > maxFootprint || sourceBounds.size.z > maxFootprint)
+            {
+                LastBuildingObstacleBoundsFiltered++;
+                return false;
+            }
+
+            obstacleBounds = sourceBounds;
+            LastBuildingPrecisionTightProxyCount++;
+            return true;
+        }
+
+        bool sourceLooksInflated =
+            sourceBounds.size.x > precision.LargeBoundsThresholdMeters ||
+            sourceBounds.size.z > precision.LargeBoundsThresholdMeters ||
+            sourceBounds.size.x > precision.MaxColliderWidthMeters ||
+            sourceBounds.size.z > precision.MaxColliderDepthMeters;
+        if (sourceLooksInflated)
+        {
+            LastBuildingPrecisionInflatedBoundsFound++;
+        }
+
+        bool usedMeshFootprint = TryBuildProjectedMeshFootprintBounds(renderer, sourceBounds, precision, out Bounds footprintBounds);
+        if (usedMeshFootprint)
+        {
+            LastBuildingPrecisionMeshFootprintCount++;
+        }
+        else
+        {
+            LastBuildingPrecisionRendererFallbackCount++;
+            footprintBounds = sourceBounds;
+        }
+
+        if (footprintBounds.size.x > precision.MaxColliderWidthMeters ||
+            footprintBounds.size.z > precision.MaxColliderDepthMeters ||
+            footprintBounds.size.x < precision.MinColliderWidthMeters ||
+            footprintBounds.size.z < precision.MinColliderWidthMeters)
+        {
+            LastBuildingPrecisionInflatedBoundsSkipped++;
+            LastBuildingObstacleBoundsFiltered++;
+            if (sourceLooksInflated)
+            {
+                LastBuildingPrecisionSkippedClusterRootCount++;
+            }
+
+            return false;
+        }
+
+        obstacleBounds = BuildTightBuildingFootprintBounds(footprintBounds, sourceBounds, precision);
+        LastBuildingObstacleBoundsShrunk++;
+        LastBuildingPrecisionTightProxyCount++;
+        LastBuildingPrecisionMaxWidth = Mathf.Max(LastBuildingPrecisionMaxWidth, obstacleBounds.size.x);
+        LastBuildingPrecisionMaxDepth = Mathf.Max(LastBuildingPrecisionMaxDepth, obstacleBounds.size.z);
+        LastBuildingPrecisionColliderHeight = precision.ColliderHeightMeters;
+
+        float sourceArea = Mathf.Max(0.01f, sourceBounds.size.x * sourceBounds.size.z);
+        float proxyArea = Mathf.Max(0.01f, obstacleBounds.size.x * obstacleBounds.size.z);
+        buildingPrecisionShrinkRatioTotal += Mathf.Clamp(proxyArea / sourceArea, 0f, 10f);
+        LastBuildingPrecisionAverageShrinkRatio = buildingPrecisionShrinkRatioTotal / Mathf.Max(1, LastBuildingPrecisionTightProxyCount);
+        return true;
+    }
+
+    private static Bounds BuildTightBuildingFootprintBounds(
+        Bounds footprintBounds,
+        Bounds sourceBounds,
+        NewMapBuildingCollisionPrecisionConfig config)
+    {
+        float shrink = config.ShrinkFactorXZ;
+        float width = Mathf.Clamp(
+            footprintBounds.size.x * shrink,
+            config.MinColliderWidthMeters,
+            config.MaxColliderWidthMeters);
+        float depth = Mathf.Clamp(
+            footprintBounds.size.z * shrink,
+            config.MinColliderWidthMeters,
+            config.MaxColliderDepthMeters);
+        float height = config.ColliderHeightMeters;
+        float baseY = sourceBounds.min.y;
+        Vector3 center = new Vector3(
+            footprintBounds.center.x,
+            baseY + height * 0.5f,
+            footprintBounds.center.z);
+        return new Bounds(center, new Vector3(width, height, depth));
+    }
+
+    private static bool TryBuildProjectedMeshFootprintBounds(
+        Renderer renderer,
+        Bounds sourceBounds,
+        NewMapBuildingCollisionPrecisionConfig config,
+        out Bounds footprintBounds)
+    {
+        footprintBounds = default(Bounds);
+        MeshFilter filter = renderer.GetComponent<MeshFilter>();
+        Mesh mesh = filter != null ? filter.sharedMesh : null;
+        if (mesh == null || !mesh.isReadable || mesh.vertexCount < 4)
         {
             return false;
         }
 
-        float inset = Mathf.Clamp(config.buildingObstacleInsetMeters, 0f, 2f);
-        if (inset > 0f && bounds.size.x > inset * 2f + 0.5f && bounds.size.z > inset * 2f + 0.5f)
+        Vector3[] vertices = mesh.vertices;
+        int maxSamples = Mathf.Clamp(config.maxFootprintVertexSamples, 8, 4096);
+        int step = Mathf.Max(1, Mathf.CeilToInt(vertices.Length / (float)maxSamples));
+        var xs = new List<float>();
+        var zs = new List<float>();
+        for (int i = 0; i < vertices.Length; i += step)
         {
-            bounds.Expand(new Vector3(-inset * 2f, 0f, -inset * 2f));
-            LastBuildingObstacleBoundsShrunk++;
+            Vector3 world = filter.transform.TransformPoint(vertices[i]);
+            if (!IsFiniteVector3(world))
+            {
+                continue;
+            }
+
+            xs.Add(world.x);
+            zs.Add(world.z);
         }
 
-        obstacleBounds = bounds;
-        return true;
+        if (xs.Count < 4 || zs.Count < 4)
+        {
+            return false;
+        }
+
+        xs.Sort();
+        zs.Sort();
+        float trim = Mathf.Clamp(config.vertexTrimPercent, 0f, 0.2f);
+        float minX = Percentile(xs, trim);
+        float maxX = Percentile(xs, 1f - trim);
+        float minZ = Percentile(zs, trim);
+        float maxZ = Percentile(zs, 1f - trim);
+        if (maxX - minX < 0.1f || maxZ - minZ < 0.1f)
+        {
+            return false;
+        }
+
+        footprintBounds = new Bounds(
+            new Vector3((minX + maxX) * 0.5f, sourceBounds.center.y, (minZ + maxZ) * 0.5f),
+            new Vector3(maxX - minX, sourceBounds.size.y, maxZ - minZ));
+        return IsFiniteVector3(footprintBounds.center) && IsFiniteVector3(footprintBounds.size);
+    }
+
+    private void NormalizeBuildingPrecisionBoundsToGroundY()
+    {
+        NewMapBuildingCollisionPrecisionConfig precision = buildingPrecisionConfig ?? NewMapBuildingCollisionPrecisionConfig.Default();
+        if (!precision.enabled || !precision.useGroundCoverY || buildingAvoidanceBounds.Count == 0)
+        {
+            return;
+        }
+
+        float height = precision.ColliderHeightMeters;
+        float baseY = Mathf.Clamp(LastRuntimeGroundSurfaceY, -20f, 30f);
+        for (int i = 0; i < buildingAvoidanceBounds.Count; i++)
+        {
+            Bounds bounds = buildingAvoidanceBounds[i];
+            bounds.center = new Vector3(bounds.center.x, baseY + height * 0.5f, bounds.center.z);
+            bounds.size = new Vector3(bounds.size.x, height, bounds.size.z);
+            buildingAvoidanceBounds[i] = bounds;
+        }
+
+        LastBuildingPrecisionColliderHeight = height;
+    }
+
+    private void CarveBuildingPrecisionTargetClearances(List<NewMapRuntimeTarget> targets)
+    {
+        LastBuildingPrecisionTargetClearanceBoundsSplit = 0;
+        LastBuildingPrecisionTargetClearanceBoundsRemoved = 0;
+        LastBuildingPrecisionTargetClearanceZones = 0;
+
+        NewMapBuildingCollisionPrecisionConfig precision = buildingPrecisionConfig ?? NewMapBuildingCollisionPrecisionConfig.Default();
+        if (!precision.enabled || !precision.carveActiveTargetInteractionClearance || targets == null || targets.Count == 0 || buildingAvoidanceBounds.Count == 0)
+        {
+            return;
+        }
+
+        float halfSize = precision.TargetInteractionClearanceMeters;
+        float minSize = precision.MinColliderWidthMeters;
+        for (int targetIndex = 0; targetIndex < targets.Count; targetIndex++)
+        {
+            NewMapRuntimeTarget target = targets[targetIndex];
+            if (target == null || target.Anchor == null || !target.ActiveInGame)
+            {
+                continue;
+            }
+
+            Vector3 targetPosition = target.Anchor.position;
+            if (!IsInsideMovementBoundaryForDiagnostics(targetPosition))
+            {
+                continue;
+            }
+
+            Bounds clearance = new Bounds(
+                new Vector3(targetPosition.x, LastRuntimeGroundSurfaceY + precision.ColliderHeightMeters * 0.5f, targetPosition.z),
+                new Vector3(halfSize * 2f, precision.ColliderHeightMeters, halfSize * 2f));
+
+            bool touchedAny = false;
+            var replacement = new List<Bounds>(buildingAvoidanceBounds.Count + 4);
+            for (int i = 0; i < buildingAvoidanceBounds.Count; i++)
+            {
+                Bounds source = buildingAvoidanceBounds[i];
+                if (!IntersectsXZ(source, clearance))
+                {
+                    replacement.Add(source);
+                    continue;
+                }
+
+                touchedAny = true;
+                int before = replacement.Count;
+                AddSplitBuildingBoundsAroundClearance(source, clearance, minSize, replacement);
+                int added = replacement.Count - before;
+                if (added == 0)
+                {
+                    LastBuildingPrecisionTargetClearanceBoundsRemoved++;
+                }
+                else
+                {
+                    LastBuildingPrecisionTargetClearanceBoundsSplit += added;
+                }
+            }
+
+            if (touchedAny)
+            {
+                LastBuildingPrecisionTargetClearanceZones++;
+                buildingAvoidanceBounds.Clear();
+                buildingAvoidanceBounds.AddRange(replacement);
+            }
+        }
+
+        LastBuildingBoundsCacheCount = buildingAvoidanceBounds.Count;
+        LastBuildingBoundsCacheBuilt = LastBuildingBoundsCacheCount > 0;
+        RecalculateBuildingPrecisionMaxBounds();
+    }
+
+    private void RecalculateBuildingPrecisionMaxBounds()
+    {
+        LastBuildingPrecisionMaxWidth = 0f;
+        LastBuildingPrecisionMaxDepth = 0f;
+        for (int i = 0; i < buildingAvoidanceBounds.Count; i++)
+        {
+            Bounds bounds = buildingAvoidanceBounds[i];
+            LastBuildingPrecisionMaxWidth = Mathf.Max(LastBuildingPrecisionMaxWidth, bounds.size.x);
+            LastBuildingPrecisionMaxDepth = Mathf.Max(LastBuildingPrecisionMaxDepth, bounds.size.z);
+        }
+    }
+
+    private static void AddSplitBuildingBoundsAroundClearance(Bounds source, Bounds clearance, float minSize, List<Bounds> output)
+    {
+        float minX = source.min.x;
+        float maxX = source.max.x;
+        float minZ = source.min.z;
+        float maxZ = source.max.z;
+        float carveMinX = Mathf.Clamp(clearance.min.x, minX, maxX);
+        float carveMaxX = Mathf.Clamp(clearance.max.x, minX, maxX);
+        float carveMinZ = Mathf.Clamp(clearance.min.z, minZ, maxZ);
+        float carveMaxZ = Mathf.Clamp(clearance.max.z, minZ, maxZ);
+
+        AddBuildingBoundsStrip(minX, carveMinX, minZ, maxZ, source, minSize, output);
+        AddBuildingBoundsStrip(carveMaxX, maxX, minZ, maxZ, source, minSize, output);
+        AddBuildingBoundsStrip(carveMinX, carveMaxX, minZ, carveMinZ, source, minSize, output);
+        AddBuildingBoundsStrip(carveMinX, carveMaxX, carveMaxZ, maxZ, source, minSize, output);
+    }
+
+    private static void AddBuildingBoundsStrip(float minX, float maxX, float minZ, float maxZ, Bounds source, float minSize, List<Bounds> output)
+    {
+        float width = maxX - minX;
+        float depth = maxZ - minZ;
+        if (width < minSize || depth < minSize)
+        {
+            return;
+        }
+
+        output.Add(new Bounds(
+            new Vector3((minX + maxX) * 0.5f, source.center.y, (minZ + maxZ) * 0.5f),
+            new Vector3(width, source.size.y, depth)));
+    }
+
+    private static bool IntersectsXZ(Bounds a, Bounds b)
+    {
+        return a.min.x < b.max.x &&
+            a.max.x > b.min.x &&
+            a.min.z < b.max.z &&
+            a.max.z > b.min.z;
+    }
+
+    private void RunBuildingCollisionPrecisionCorridorDiagnostics(List<NewMapRuntimeTarget> targets, Vector3 spawn)
+    {
+        LastBuildingPrecisionSampledCorridorCount = 0;
+        LastBuildingPrecisionUnexpectedCorridorBlockers = 0;
+        LastBuildingPrecisionActiveTargetApproachBlocked = 0;
+
+        NewMapBuildingCollisionPrecisionConfig precision = buildingPrecisionConfig ?? NewMapBuildingCollisionPrecisionConfig.Default();
+        if (!precision.enabled || !precision.sampleWalkCorridorValidation || buildingAvoidanceBounds.Count == 0)
+        {
+            return;
+        }
+
+        float clearance = precision.ApproachSampleClearanceMeters;
+        Vector3[] directions =
+        {
+            Vector3.forward,
+            Vector3.back,
+            Vector3.right,
+            Vector3.left
+        };
+
+        for (int i = 0; i < directions.Length; i++)
+        {
+            Vector3 sample = spawn + directions[i] * 6f;
+            sample.y = LastRuntimeGroundSurfaceY + GroundSkinOffset;
+            LastBuildingPrecisionSampledCorridorCount++;
+            if (IsInsideBuildingPrecisionBoundsXZ(sample, clearance))
+            {
+                LastBuildingPrecisionUnexpectedCorridorBlockers++;
+            }
+        }
+
+        if (targets == null || targets.Count == 0)
+        {
+            return;
+        }
+
+        int inspectedTargets = 0;
+        for (int targetIndex = 0; targetIndex < targets.Count && inspectedTargets < 32; targetIndex++)
+        {
+            NewMapRuntimeTarget target = targets[targetIndex];
+            if (target == null || target.Anchor == null || !target.ActiveInGame)
+            {
+                continue;
+            }
+
+            inspectedTargets++;
+            bool anyApproachClear = false;
+            float[] radii =
+            {
+                Mathf.Max(4f, precision.ActiveTargetApproachRadiusMeters * 0.5f),
+                Mathf.Max(8f, precision.ActiveTargetApproachRadiusMeters),
+                Mathf.Max(12f, precision.ActiveTargetApproachRadiusMeters * 1.5f),
+                Mathf.Max(18f, precision.ActiveTargetApproachRadiusMeters * 2f)
+            };
+
+            for (int radiusIndex = 0; radiusIndex < radii.Length; radiusIndex++)
+            {
+                float radius = radii[radiusIndex];
+                for (int directionIndex = 0; directionIndex < directions.Length; directionIndex++)
+                {
+                    Vector3 sample = target.Anchor.position + directions[directionIndex] * radius;
+                    sample.y = LastRuntimeGroundSurfaceY + GroundSkinOffset;
+                    if (!IsInsideMovementBoundaryForDiagnostics(sample))
+                    {
+                        continue;
+                    }
+
+                    LastBuildingPrecisionSampledCorridorCount++;
+                    if (!IsInsideBuildingPrecisionBoundsXZ(sample, clearance))
+                    {
+                        anyApproachClear = true;
+                    }
+                }
+            }
+
+            if (!anyApproachClear)
+            {
+                LastBuildingPrecisionActiveTargetApproachBlocked++;
+            }
+        }
+    }
+
+    private bool IsInsideMovementBoundaryForDiagnostics(Vector3 position)
+    {
+        if (LastCircularBoundaryEnabled && LastCircularBoundary.IsValid)
+        {
+            return LastCircularBoundary.ContainsXZ(position, 0f);
+        }
+
+        return !LastPlayableBoundsValid || LastPlayableBounds.ContainsXZ(position, 0f);
+    }
+
+    private bool IsInsideBuildingPrecisionBoundsXZ(Vector3 position, float marginMeters)
+    {
+        return IsInsideBuildingBoundsXZ(position, buildingAvoidanceBounds, marginMeters);
     }
 
     private float ResolvePlayerBuildingCollisionMargin()
@@ -2027,6 +2460,25 @@ public sealed class NewMapRuntimeBootstrap : MonoBehaviour
         LastUnknownBlockersInsidePlayableArea = 0;
         LastBuildingObstacleBoundsFiltered = 0;
         LastBuildingObstacleBoundsShrunk = 0;
+        LastBuildingPrecisionEnabled = buildingPrecisionConfig == null || buildingPrecisionConfig.enabled;
+        LastBuildingPrecisionCandidateCount = 0;
+        LastBuildingPrecisionInflatedBoundsFound = 0;
+        LastBuildingPrecisionInflatedBoundsSkipped = 0;
+        LastBuildingPrecisionTightProxyCount = 0;
+        LastBuildingPrecisionMeshFootprintCount = 0;
+        LastBuildingPrecisionRendererFallbackCount = 0;
+        LastBuildingPrecisionSkippedClusterRootCount = 0;
+        LastBuildingPrecisionAverageShrinkRatio = 0f;
+        LastBuildingPrecisionMaxWidth = 0f;
+        LastBuildingPrecisionMaxDepth = 0f;
+        LastBuildingPrecisionColliderHeight = 0f;
+        LastBuildingPrecisionSampledCorridorCount = 0;
+        LastBuildingPrecisionUnexpectedCorridorBlockers = 0;
+        LastBuildingPrecisionActiveTargetApproachBlocked = 0;
+        LastBuildingPrecisionTargetClearanceBoundsSplit = 0;
+        LastBuildingPrecisionTargetClearanceBoundsRemoved = 0;
+        LastBuildingPrecisionTargetClearanceZones = 0;
+        buildingPrecisionShrinkRatioTotal = 0f;
         LastSampledValidPathsPassable = false;
     }
 
@@ -2040,7 +2492,9 @@ public sealed class NewMapRuntimeBootstrap : MonoBehaviour
             LastSampledValidPathsPassable =
                 LastPlayableBoundsValid &&
                 LastCircularBoundaryEnabled &&
-                LastPlayableAirWallColliderCount == 0;
+                LastPlayableAirWallColliderCount == 0 &&
+                LastBuildingPrecisionUnexpectedCorridorBlockers == 0 &&
+                LastBuildingPrecisionActiveTargetApproachBlocked == 0;
             return;
         }
 
@@ -2148,7 +2602,9 @@ public sealed class NewMapRuntimeBootstrap : MonoBehaviour
             LastPlayableBoundsValid &&
             LastCircularBoundaryEnabled &&
             LastPlayableAirWallColliderCount == 0 &&
-            LastUnknownBlockersInsidePlayableArea == 0;
+            LastUnknownBlockersInsidePlayableArea == 0 &&
+            LastBuildingPrecisionUnexpectedCorridorBlockers == 0 &&
+            LastBuildingPrecisionActiveTargetApproachBlocked == 0;
     }
 
     private static bool IsAllowedPlayerBlockingCategory(string category)
@@ -4277,6 +4733,81 @@ public sealed class NewMapAirwallHardCleanupConfig
         config.buildingObstacleMaxFootprintMeters = Mathf.Clamp(config.buildingObstacleMaxFootprintMeters, 20f, 400f);
         config.buildingObstacleInsetMeters = Mathf.Clamp(config.buildingObstacleInsetMeters, 0f, 2f);
         config.minDistanceFromBoundaryForPlayableCorridorMeters = Mathf.Clamp(config.minDistanceFromBoundaryForPlayableCorridorMeters, 0f, 50f);
+        return config;
+    }
+}
+
+[System.Serializable]
+public sealed class NewMapBuildingCollisionPrecisionConfig
+{
+    public bool enabled = true;
+    public string collisionMode = "tight_footprint_box_proxies";
+    public float shrinkFactorXZ = 0.90f;
+    public float minColliderWidthMeters = 1.0f;
+    public float maxColliderWidthMeters = 80.0f;
+    public float maxColliderDepthMeters = 80.0f;
+    public float colliderHeightMeters = 5.0f;
+    public bool useGroundCoverY = true;
+    public bool splitLargeBounds = true;
+    public float largeBoundsThresholdMeters = 80.0f;
+    public bool disableClusterRootColliders = true;
+    public bool sampleWalkCorridorValidation = true;
+    public bool carveActiveTargetInteractionClearance = true;
+    public float vertexTrimPercent = 0.02f;
+    public int maxFootprintVertexSamples = 512;
+    public float approachSampleClearanceMeters = 0.25f;
+    public float activeTargetApproachRadiusMeters = 12.0f;
+    public float targetInteractionClearanceMeters = 14.0f;
+    public string strategy = "project_renderer_mesh_to_xz_shrink_and_cap_runtime_building_obstacle_bounds_not_gis_grade";
+
+    public float ShrinkFactorXZ => Mathf.Clamp(shrinkFactorXZ, 0.50f, 1.0f);
+    public float MinColliderWidthMeters => Mathf.Clamp(minColliderWidthMeters, 0.25f, 20.0f);
+    public float MaxColliderWidthMeters => Mathf.Clamp(maxColliderWidthMeters, 5.0f, 120.0f);
+    public float MaxColliderDepthMeters => Mathf.Clamp(maxColliderDepthMeters, 5.0f, 120.0f);
+    public float ColliderHeightMeters => Mathf.Clamp(colliderHeightMeters, 1.0f, 12.0f);
+    public float LargeBoundsThresholdMeters => Mathf.Clamp(largeBoundsThresholdMeters, 10.0f, 200.0f);
+    public float ApproachSampleClearanceMeters => Mathf.Clamp(approachSampleClearanceMeters, 0.0f, 3.0f);
+    public float ActiveTargetApproachRadiusMeters => Mathf.Clamp(activeTargetApproachRadiusMeters, 4.0f, 40.0f);
+    public float TargetInteractionClearanceMeters => Mathf.Clamp(targetInteractionClearanceMeters, 4.0f, 30.0f);
+
+    public static NewMapBuildingCollisionPrecisionConfig Default()
+    {
+        return new NewMapBuildingCollisionPrecisionConfig();
+    }
+
+    public static NewMapBuildingCollisionPrecisionConfig Load()
+    {
+        NewMapBuildingCollisionPrecisionConfig config = Default();
+        string path = Path.Combine(Application.dataPath, "Data/P10/newmap_building_collision_precision_config.json");
+        if (File.Exists(path))
+        {
+            try
+            {
+                config = JsonUtility.FromJson<NewMapBuildingCollisionPrecisionConfig>(File.ReadAllText(path)) ?? config;
+            }
+            catch (System.Exception exception)
+            {
+                Debug.LogWarning($"NewMap building collision precision config could not be loaded; using defaults. {exception.Message}");
+            }
+        }
+
+        config.enabled = true;
+        config.collisionMode = string.IsNullOrWhiteSpace(config.collisionMode)
+            ? "tight_footprint_box_proxies"
+            : config.collisionMode;
+        config.shrinkFactorXZ = config.ShrinkFactorXZ;
+        config.minColliderWidthMeters = config.MinColliderWidthMeters;
+        config.maxColliderWidthMeters = config.MaxColliderWidthMeters;
+        config.maxColliderDepthMeters = config.MaxColliderDepthMeters;
+        config.colliderHeightMeters = config.ColliderHeightMeters;
+        config.largeBoundsThresholdMeters = config.LargeBoundsThresholdMeters;
+        config.vertexTrimPercent = Mathf.Clamp(config.vertexTrimPercent, 0f, 0.2f);
+        config.maxFootprintVertexSamples = Mathf.Clamp(config.maxFootprintVertexSamples, 8, 4096);
+        config.approachSampleClearanceMeters = config.ApproachSampleClearanceMeters;
+        config.activeTargetApproachRadiusMeters = config.ActiveTargetApproachRadiusMeters;
+        config.targetInteractionClearanceMeters = config.TargetInteractionClearanceMeters;
+        config.carveActiveTargetInteractionClearance = true;
+        config.disableClusterRootColliders = true;
         return config;
     }
 }

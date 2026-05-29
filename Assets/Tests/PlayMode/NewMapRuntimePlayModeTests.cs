@@ -79,6 +79,18 @@ public class NewMapRuntimePlayModeTests
             Object.DestroyImmediate(unexpectedWallFixture);
         }
 
+        GameObject precisionFixture = GameObject.Find("bldg_precision_fixture_tight");
+        if (precisionFixture != null)
+        {
+            Object.DestroyImmediate(precisionFixture);
+        }
+
+        GameObject precisionClusterFixture = GameObject.Find("bldg_precision_fixture_cluster");
+        if (precisionClusterFixture != null)
+        {
+            Object.DestroyImmediate(precisionClusterFixture);
+        }
+
         string[] runtimeRootNames =
         {
             "RuntimeSystemsRoot",
@@ -162,6 +174,75 @@ public class NewMapRuntimePlayModeTests
         Assert.LessOrEqual(bootstrap.LastPlayerSpawnGroundDelta, 0.35f, "Player spawn should sit near the aligned support surface.");
         Assert.IsFalse(bootstrap.LastMeshColliderDisableComplete, "Scene MeshCollider shutdown should not run at player startup because it caused the Pre2 spike.");
         Assert.AreEqual(0, bootstrap.LastDisabledSceneMeshColliderCount, "Scene MeshColliders should remain untouched during player startup.");
+    }
+
+    [UnityTest]
+    public IEnumerator RuntimeBuildingCollisionUsesTightFootprintProxies()
+    {
+        GameObject tightFixture = GameObject.CreatePrimitive(PrimitiveType.Cube);
+        tightFixture.name = "bldg_precision_fixture_tight";
+        tightFixture.transform.position = new Vector3(36f, 2.5f, 36f);
+        tightFixture.transform.localScale = new Vector3(20f, 5f, 18f);
+        Collider tightCollider = tightFixture.GetComponent<Collider>();
+        if (tightCollider != null)
+        {
+            Object.DestroyImmediate(tightCollider);
+        }
+
+        GameObject clusterFixture = GameObject.CreatePrimitive(PrimitiveType.Cube);
+        clusterFixture.name = "bldg_precision_fixture_cluster";
+        clusterFixture.transform.position = new Vector3(90f, 2.5f, 36f);
+        clusterFixture.transform.localScale = new Vector3(120f, 5f, 18f);
+        Collider clusterCollider = clusterFixture.GetComponent<Collider>();
+        if (clusterCollider != null)
+        {
+            Object.DestroyImmediate(clusterCollider);
+        }
+
+        NewMapRuntimeBootstrap bootstrap = NewMapRuntimeBootstrap.CreateForCurrentScene();
+        yield return null;
+
+        NewMapPlayerController player = Object.FindObjectOfType<NewMapPlayerController>();
+        NewMapNpcCrowdPrototype crowd = Object.FindObjectOfType<NewMapNpcCrowdPrototype>();
+        Assert.NotNull(bootstrap);
+        Assert.NotNull(player);
+        Assert.NotNull(crowd);
+        Assert.IsTrue(bootstrap.LastBuildingPrecisionEnabled);
+        Assert.GreaterOrEqual(bootstrap.LastBuildingPrecisionCandidateCount, 2);
+        Assert.GreaterOrEqual(bootstrap.LastBuildingPrecisionInflatedBoundsFound, 1);
+        Assert.GreaterOrEqual(bootstrap.LastBuildingPrecisionInflatedBoundsSkipped, 1);
+        Assert.Greater(bootstrap.LastBuildingPrecisionTightProxyCount, 0);
+        Assert.LessOrEqual(bootstrap.LastBuildingPrecisionMaxWidth, 80.01f);
+        Assert.LessOrEqual(bootstrap.LastBuildingPrecisionMaxDepth, 80.01f);
+        Assert.AreEqual(5f, bootstrap.LastBuildingPrecisionColliderHeight, 0.01f);
+        Assert.AreEqual(0, bootstrap.LastBuildingPrecisionUnexpectedCorridorBlockers);
+        Assert.AreEqual(0, bootstrap.LastBuildingPrecisionActiveTargetApproachBlocked);
+        Assert.IsTrue(player.BuildingCollisionEnabled);
+        Assert.AreEqual(bootstrap.LastBuildingBoundsCacheCount, player.BuildingCollisionBoundsCount);
+        Assert.AreEqual(bootstrap.LastBuildingBoundsCacheCount, crowd.BuildingAvoidanceBoundsCount);
+
+        Bounds[] bounds = player.GetBuildingCollisionBoundsForDiagnostics();
+        Bounds fixtureBounds = bounds
+            .Where(candidate => Vector2.Distance(new Vector2(candidate.center.x, candidate.center.z), new Vector2(36f, 36f)) < 2f)
+            .OrderBy(candidate => candidate.size.x * candidate.size.z)
+            .FirstOrDefault();
+        Assert.Greater(fixtureBounds.size.x, 1f, "Fixture building footprint proxy should be present.");
+        Assert.Less(fixtureBounds.size.x, 20f, "Fixture footprint should be shrunk from the visual bounds.");
+
+        NewMapGameController controller = Object.FindObjectOfType<NewMapGameController>();
+        Assert.NotNull(controller);
+        controller.StartTourismMode();
+        yield return null;
+
+        Vector3 previous = player.transform.position;
+        player.transform.position = new Vector3(fixtureBounds.center.x, previous.y, fixtureBounds.center.z);
+        player.MoveForDiagnostics(Vector3.zero, 0.05f, false);
+        Assert.IsFalse(player.IsInsideBuildingForDiagnostics(player.transform.position, 0.02f), "Player must be corrected out of a sampled tight building footprint.");
+
+        Vector3 roadLikePoint = new Vector3(fixtureBounds.max.x + 1.5f, player.transform.position.y, fixtureBounds.center.z);
+        player.transform.position = roadLikePoint;
+        player.MoveForDiagnostics(Vector3.forward, 0.1f, false);
+        Assert.IsFalse(player.IsInsideBuildingForDiagnostics(player.transform.position, 0.02f), "Player should remain passable just outside the tight footprint.");
     }
 
     [UnityTest]

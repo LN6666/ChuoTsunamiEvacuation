@@ -74,6 +74,7 @@ public sealed class NewMapNpcCrowdPrototype : MonoBehaviour
     public int NpcBodyColliderCount => npcBodyColliderCount;
     public bool PlayerNpcSoftBlockingEnabled => playerNpcCollisionConfig != null && playerNpcCollisionConfig.enabled;
     public float NearNpcCollisionRadiusMeters => playerNpcCollisionConfig != null ? playerNpcCollisionConfig.nearNpcCollisionRadiusMeters : 0f;
+    public int BuildingAvoidanceBoundsCount => buildingAvoidanceBounds.Count;
     public int NpcCreatedAtStartupCount => npcCreatedAtStartupCount;
     public int GlobalRespawnCount { get; private set; }
     public int IndividualRespawnCount { get; private set; }

@@ -1,0 +1,21 @@
+{
+  "enabled": true,
+  "collisionMode": "tight_footprint_box_proxies",
+  "shrinkFactorXZ": 0.9,
+  "minColliderWidthMeters": 1.0,
+  "maxColliderWidthMeters": 80.0,
+  "maxColliderDepthMeters": 80.0,
+  "colliderHeightMeters": 5.0,
+  "useGroundCoverY": true,
+  "splitLargeBounds": true,
+  "largeBoundsThresholdMeters": 80.0,
+  "disableClusterRootColliders": true,
+  "sampleWalkCorridorValidation": true,
+  "carveActiveTargetInteractionClearance": true,
+  "vertexTrimPercent": 0.02,
+  "maxFootprintVertexSamples": 512,
+  "approachSampleClearanceMeters": 0.25,
+  "activeTargetApproachRadiusMeters": 12.0,
+  "targetInteractionClearanceMeters": 14.0,
+  "strategy": "project_renderer_mesh_to_xz_shrink_and_cap_runtime_building_obstacle_bounds_not_gis_grade"
+}
