@@ -127,6 +127,11 @@ public static class NewMapSceneSetupUtility
         BuildNewMapPlayer("D:/UnityProjects/ChuoTsunamiEvacuation-Builds/NewMapRuntimeNpcLabelFixPre", "ChuoTsunamiEvacuation_NewMapRuntimeNpcLabelFixPre.exe");
     }
 
+    public static void BuildP10NewMapTsunamiModeHotfixPlayerCommandLine()
+    {
+        BuildNewMapPlayer("D:/UnityProjects/ChuoTsunamiEvacuation-Builds/P10NewMapTsunamiModeHotfixPre", "ChuoTsunamiEvacuation_P10NewMapTsunamiModeHotfixPre.exe");
+    }
+
     private static void BuildNewMapPlayer(string buildDirectory, string executableName)
     {
         Directory.CreateDirectory(buildDirectory);

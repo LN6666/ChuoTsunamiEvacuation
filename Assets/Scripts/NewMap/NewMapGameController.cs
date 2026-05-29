@@ -16,13 +16,21 @@ public sealed class NewMapGameController : MonoBehaviour
     private NewMapWeatherPreset weather = NewMapWeatherPreset.ClearDay;
     private NewMapTsunamiStage stage = NewMapTsunamiStage.Inactive;
     private NewMapRuntimeTarget nearestTarget;
+    private NewMapRuntimeTarget touchedBuildingTarget;
     private NewMapRuntimeTarget activeSequenceTarget;
+    private System.Action<NewMapPlayerController> respawnPlayerForRun;
+    private NewMapTsunamiModeHotfixConfig tsunamiConfig;
     private bool paused;
     private bool resultLocked;
     private bool safeFloorSequenceActive;
+    private bool skipNextResetRespawn;
     private float modeElapsedSeconds;
     private float safeFloorRemainingSeconds;
     private string diagnostics = string.Empty;
+    private float warningStartedAtSeconds = -1f;
+    private float activeTsunamiStartedAtSeconds = -1f;
+    private float lastFailureAtSeconds = -1f;
+    private string lastFailureCode = string.Empty;
 
     public NewMapGameMode Mode => mode;
     public NewMapTsunamiStage Stage => stage;
@@ -30,6 +38,12 @@ public sealed class NewMapGameController : MonoBehaviour
     public bool IsPaused => paused;
     public int ActiveTargetCount => targets.Count;
     public bool SafeFloorSequenceActive => safeFloorSequenceActive;
+    public float WarningPhaseSeconds => stage1WarningSeconds;
+    public float WarningStartedAtSeconds => warningStartedAtSeconds;
+    public float ActiveTsunamiStartedAtSeconds => activeTsunamiStartedAtSeconds;
+    public float LastFailureAtSeconds => lastFailureAtSeconds;
+    public string LastFailureCode => lastFailureCode;
+    public NewMapRuntimeTarget CurrentEnterableBuilding => touchedBuildingTarget != null && touchedBuildingTarget.ActiveInGame ? touchedBuildingTarget : null;
     public IEnumerable<NewMapRuntimeTarget> RuntimeTargets => targets;
 
     public void Configure(
@@ -39,7 +53,9 @@ public sealed class NewMapGameController : MonoBehaviour
         NewMapHazardController hazardController,
         NewMapNpcCrowdPrototype crowdPrototype,
         IEnumerable<NewMapRuntimeTarget> runtimeTargets,
-        string startupDiagnostics)
+        string startupDiagnostics,
+        System.Action<NewMapPlayerController> respawnHandler = null,
+        NewMapTsunamiModeHotfixConfig tsunamiHotfixConfig = null)
     {
         player = playerController;
         ui = runtimeUi;
@@ -47,6 +63,9 @@ public sealed class NewMapGameController : MonoBehaviour
         hazard = hazardController;
         crowd = crowdPrototype;
         diagnostics = startupDiagnostics ?? string.Empty;
+        respawnPlayerForRun = respawnHandler;
+        tsunamiConfig = tsunamiHotfixConfig ?? NewMapTsunamiModeHotfixConfig.Load();
+        stage1WarningSeconds = tsunamiConfig.WarningPhaseSeconds;
         targets.Clear();
         if (runtimeTargets != null)
         {
@@ -59,6 +78,7 @@ public sealed class NewMapGameController : MonoBehaviour
         ui.ResetRequested += ResetToStartMenu;
         ui.ForceQuitRequested += ForceQuit;
         ui.WeatherRequested += SetWeather;
+        skipNextResetRespawn = true;
         ResetToStartMenu();
     }
 
@@ -109,6 +129,11 @@ public sealed class NewMapGameController : MonoBehaviour
         resultLocked = false;
         safeFloorSequenceActive = false;
         activeSequenceTarget = null;
+        touchedBuildingTarget = null;
+        warningStartedAtSeconds = -1f;
+        activeTsunamiStartedAtSeconds = -1f;
+        lastFailureAtSeconds = -1f;
+        lastFailureCode = string.Empty;
         safeFloorRemainingSeconds = 0f;
         paused = false;
         player?.SetMode(mode, weather);
@@ -128,6 +153,12 @@ public sealed class NewMapGameController : MonoBehaviour
         modeElapsedSeconds = 0f;
         resultLocked = false;
         safeFloorSequenceActive = false;
+        touchedBuildingTarget = null;
+        activeSequenceTarget = null;
+        warningStartedAtSeconds = 0f;
+        activeTsunamiStartedAtSeconds = -1f;
+        lastFailureAtSeconds = -1f;
+        lastFailureCode = string.Empty;
         safeFloorRemainingSeconds = 0f;
         paused = false;
         player?.SetMode(mode, weather);
@@ -138,7 +169,7 @@ public sealed class NewMapGameController : MonoBehaviour
         SetTargetGuidanceVisible(false);
         ui?.HideResult();
         ui?.ShowHud();
-        Debug.Log("NewMap Evacuation Mode started. Stage 1 warning is active; light curtain and hazard checks are hidden/ignored.");
+        Debug.Log($"NewMap Evacuation Mode started. Stage 1 warning is active for {stage1WarningSeconds:0.0}s; light curtain and hazard checks are hidden/ignored.");
     }
 
     public void SetWeather(NewMapWeatherPreset preset)
@@ -151,6 +182,14 @@ public sealed class NewMapGameController : MonoBehaviour
 
     public void ResetToStartMenu()
     {
+        if (skipNextResetRespawn)
+        {
+            skipNextResetRespawn = false;
+        }
+        else
+        {
+            RespawnPlayerForNewRun("reset_to_start_menu");
+        }
         mode = NewMapGameMode.None;
         stage = NewMapTsunamiStage.Inactive;
         modeElapsedSeconds = 0f;
@@ -158,7 +197,12 @@ public sealed class NewMapGameController : MonoBehaviour
         resultLocked = false;
         safeFloorSequenceActive = false;
         activeSequenceTarget = null;
+        touchedBuildingTarget = null;
         nearestTarget = null;
+        warningStartedAtSeconds = -1f;
+        activeTsunamiStartedAtSeconds = -1f;
+        lastFailureAtSeconds = -1f;
+        lastFailureCode = string.Empty;
         player?.SetMode(NewMapGameMode.Tourism, weather);
         player?.SetControlEnabled(false);
         hazard?.SetStage(NewMapTsunamiStage.Inactive);
@@ -172,6 +216,17 @@ public sealed class NewMapGameController : MonoBehaviour
         paused = value;
         player?.SetControlEnabled(!paused && mode != NewMapGameMode.None && !safeFloorSequenceActive);
         ui?.SetPauseVisible(paused);
+    }
+
+    private void RespawnPlayerForNewRun(string reason)
+    {
+        if (player == null || respawnPlayerForRun == null)
+        {
+            return;
+        }
+
+        respawnPlayerForRun(player);
+        Debug.Log($"NewMap player respawned for {reason} position={player.transform.position}");
     }
 
     private void ForceQuit()
@@ -191,15 +246,17 @@ public sealed class NewMapGameController : MonoBehaviour
         }
 
         stage = NewMapTsunamiStage.FrontApproaching;
+        activeTsunamiStartedAtSeconds = modeElapsedSeconds;
         hazard?.SetStage(stage);
         SetTargetGuidanceVisible(true);
-        Debug.Log("NewMap tsunami Stage 2 FrontApproaching started. Light curtain is visible and hazard checks are active.");
+        Debug.Log($"NewMap tsunami Stage 2 FrontApproaching started at t={modeElapsedSeconds:0.0}s. Light curtain is visible and hazard checks are active.");
     }
 
     private void UpdateInteraction()
     {
+        RefreshTouchedBuildingFromOverlap();
         nearestTarget = FindNearestTarget();
-        ui?.ShowInteraction(nearestTarget, mode);
+        ui?.ShowInteraction(CurrentEnterableBuilding, mode);
 
         if (!Input.GetKeyDown(KeyCode.E))
         {
@@ -234,6 +291,42 @@ public sealed class NewMapGameController : MonoBehaviour
         }
 
         return best;
+    }
+
+    private void RefreshTouchedBuildingFromOverlap()
+    {
+        if (player == null)
+        {
+            return;
+        }
+
+        CharacterController character = player.GetComponent<CharacterController>();
+        Bounds playerBounds = character != null
+            ? character.bounds
+            : new Bounds(player.transform.position + Vector3.up * 0.9f, new Vector3(0.7f, 1.8f, 0.7f));
+        if (touchedBuildingTarget != null &&
+            touchedBuildingTarget.ActiveInGame &&
+            touchedBuildingTarget.EntryTrigger != null &&
+            touchedBuildingTarget.EntryTrigger.Bounds.Intersects(playerBounds))
+        {
+            return;
+        }
+
+        touchedBuildingTarget = null;
+        for (int i = 0; i < targets.Count; i++)
+        {
+            NewMapRuntimeTarget target = targets[i];
+            if (target == null || !target.ActiveInGame || target.EntryTrigger == null)
+            {
+                continue;
+            }
+
+            if (target.EntryTrigger.Bounds.Intersects(playerBounds))
+            {
+                touchedBuildingTarget = target;
+                return;
+            }
+        }
     }
 
     private void TryInteract(NewMapRuntimeTarget target)
@@ -286,18 +379,58 @@ public sealed class NewMapGameController : MonoBehaviour
 
     public bool TryInteractWithNearestTargetFromInput()
     {
-        if (nearestTarget == null)
+        NewMapRuntimeTarget target = CurrentEnterableBuilding;
+        if (target == null)
         {
             nearestTarget = FindNearestTarget();
+            target = CurrentEnterableBuilding;
         }
 
-        if (nearestTarget == null || resultLocked || safeFloorSequenceActive || mode == NewMapGameMode.None)
+        if (target == null || resultLocked || safeFloorSequenceActive || mode == NewMapGameMode.None)
+        {
+            Debug.Log("NewMap building entry rejected reason=no_current_enterable_building");
+            return false;
+        }
+
+        Debug.Log($"NewMap E pressed for building id={target.Id} name={target.DisplayName} official={target.IsOfficialShelter}");
+        TryInteract(target);
+        return true;
+    }
+
+    public bool TryInteractWithTouchedBuildingForDiagnostics()
+    {
+        return TryInteractWithNearestTargetFromInput();
+    }
+
+    public bool TrySetTouchedBuildingForDiagnostics(string targetId, bool touching)
+    {
+        NewMapRuntimeTarget target = targets.Find(candidate => candidate != null && candidate.Id == targetId && candidate.ActiveInGame);
+        if (target == null)
         {
             return false;
         }
 
-        TryInteract(nearestTarget);
+        NotifyBuildingEntryTouch(target, touching);
         return true;
+    }
+
+    public void NotifyBuildingEntryTouch(NewMapRuntimeTarget target, bool touching)
+    {
+        if (target == null || !target.ActiveInGame)
+        {
+            return;
+        }
+
+        if (touching)
+        {
+            touchedBuildingTarget = target;
+            return;
+        }
+
+        if (touchedBuildingTarget == target)
+        {
+            touchedBuildingTarget = null;
+        }
     }
 
     public bool TryInteractForDiagnostics(string targetId)
@@ -315,8 +448,30 @@ public sealed class NewMapGameController : MonoBehaviour
     public void ForceStageForDiagnostics(NewMapTsunamiStage forcedStage)
     {
         stage = forcedStage;
+        if (forcedStage == NewMapTsunamiStage.Warning)
+        {
+            warningStartedAtSeconds = Mathf.Max(0f, modeElapsedSeconds);
+            activeTsunamiStartedAtSeconds = -1f;
+        }
+        else if (forcedStage == NewMapTsunamiStage.FrontApproaching && activeTsunamiStartedAtSeconds < 0f)
+        {
+            activeTsunamiStartedAtSeconds = Mathf.Max(0f, modeElapsedSeconds);
+        }
+
         hazard?.SetStage(forcedStage);
         SetTargetGuidanceVisible(mode == NewMapGameMode.Evacuation && forcedStage == NewMapTsunamiStage.FrontApproaching);
+    }
+
+    public void AdvanceEvacuationTimeForDiagnostics(float seconds)
+    {
+        if (mode != NewMapGameMode.Evacuation)
+        {
+            return;
+        }
+
+        modeElapsedSeconds += Mathf.Max(0f, seconds);
+        UpdateEvacuationStages();
+        hazard?.Tick(Mathf.Max(0f, seconds));
     }
 
     public bool TryApplyDebrisExposureForDiagnostics(float exposureSeconds)
@@ -441,9 +596,15 @@ public sealed class NewMapGameController : MonoBehaviour
         resultLocked = true;
         safeFloorSequenceActive = false;
         activeSequenceTarget = null;
+        touchedBuildingTarget = null;
+        lastFailureCode = code ?? string.Empty;
+        lastFailureAtSeconds = modeElapsedSeconds;
         player?.SetControlEnabled(false);
-        ui?.ShowResult(false, code, reason);
-        Debug.Log($"NewMap failure outcome: {code} - {reason}");
+        string stageNote = activeTsunamiStartedAtSeconds >= 0f
+            ? $"Failure after active tsunami start at t={activeTsunamiStartedAtSeconds:0.0}s."
+            : "Failure happened before active tsunami start.";
+        ui?.ShowResult(false, code, $"{reason}\n{stageNote}\nUse Retry / Restart to return to the start menu.");
+        Debug.Log($"NewMap failure outcome: {code} - {reason} failureTime={lastFailureAtSeconds:0.0}s activeStart={activeTsunamiStartedAtSeconds:0.0}s");
     }
 
     private void UpdateHud()
@@ -456,6 +617,10 @@ public sealed class NewMapGameController : MonoBehaviour
         var builder = new StringBuilder();
         builder.AppendLine(mode == NewMapGameMode.Tourism ? "Tourism Mode / 観光モード" : "Evacuation Mode / 避難モード");
         builder.AppendLine($"Stage: {stage}");
+        if (mode == NewMapGameMode.Evacuation && stage == NewMapTsunamiStage.Warning)
+        {
+            builder.AppendLine($"Warning phase: {Mathf.Max(0f, stage1WarningSeconds - modeElapsedSeconds):0.0}s until tsunami start");
+        }
         builder.AppendLine($"Weather: {NewMapRuntimeConstants.GetWeatherLabel(weather)} x{NewMapRuntimeConstants.GetWeatherModifier(weather):0.00}");
         if (player != null)
         {

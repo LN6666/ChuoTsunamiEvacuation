@@ -49,6 +49,10 @@ public sealed class NewMapPlayerController : MonoBehaviour
     private float lastPlayerNpcSlowdownFactor = 1f;
     private float safeGroundY;
     private float fallRecoveryThresholdY = -8f;
+    private NewMapPlayerStaminaConfig staminaConfig;
+    private float maxStamina = 100f;
+    private float staminaMultiplier = 1f;
+    private float baselineMaxStamina = 100f;
     private float stamina = 100f;
     private int fallRecoveryCount;
     private int buildingCollisionBlockedCount;
@@ -61,7 +65,10 @@ public sealed class NewMapPlayerController : MonoBehaviour
     public float SprintSpeedMetersPerSecond { get; private set; }
     public bool StaminaEnabled => currentMode == NewMapGameMode.Evacuation;
     public float Stamina => stamina;
-    public float Stamina01 => Mathf.Clamp01(stamina / 100f);
+    public float MaxStamina => maxStamina;
+    public float BaselineMaxStamina => baselineMaxStamina;
+    public float StaminaMultiplier => staminaMultiplier;
+    public float Stamina01 => Mathf.Clamp01(stamina / Mathf.Max(1f, maxStamina));
     public NewMapGameMode CurrentMode => currentMode;
     public NewMapWeatherPreset CurrentWeather => currentWeather;
     public bool ControlEnabled => controlEnabled;
@@ -190,6 +197,7 @@ public sealed class NewMapPlayerController : MonoBehaviour
     private void Awake()
     {
         characterController = GetComponent<CharacterController>();
+        EnsureStaminaConfig();
         if (cameraPivot == null || cameraTransform == null)
         {
             CreateCameraRig();
@@ -224,6 +232,7 @@ public sealed class NewMapPlayerController : MonoBehaviour
 
     public void SetMode(NewMapGameMode mode, NewMapWeatherPreset weather)
     {
+        EnsureStaminaConfig();
         currentMode = mode;
         currentWeather = weather;
         float modifier = NewMapRuntimeConstants.GetWeatherModifier(weather);
@@ -232,18 +241,45 @@ public sealed class NewMapPlayerController : MonoBehaviour
         {
             WalkSpeedMetersPerSecond = NewMapRuntimeConstants.EvacuationWalkSpeed * modifier;
             SprintSpeedMetersPerSecond = NewMapRuntimeConstants.EvacuationSprintSpeed * modifier;
-            stamina = Mathf.Clamp(stamina, 0f, 100f);
+            stamina = Mathf.Clamp(stamina, 0f, maxStamina);
             return;
         }
 
         WalkSpeedMetersPerSecond = NewMapRuntimeConstants.TourismWalkSpeed * modifier;
         SprintSpeedMetersPerSecond = NewMapRuntimeConstants.TourismSprintSpeed * modifier;
-        stamina = 100f;
+        stamina = maxStamina;
     }
 
     public void ResetStamina()
     {
-        stamina = 100f;
+        EnsureStaminaConfig();
+        stamina = maxStamina;
+    }
+
+    public void TeleportToSpawn(Vector3 spawnPosition)
+    {
+        if (characterController == null)
+        {
+            characterController = GetComponent<CharacterController>();
+        }
+
+        bool wasEnabled = characterController != null && characterController.enabled;
+        if (characterController != null)
+        {
+            characterController.enabled = false;
+        }
+
+        transform.position = spawnPosition;
+        verticalVelocity = 0f;
+        lastValidGroundPosition = spawnPosition;
+        safeRecoveryPosition = spawnPosition;
+        safeGroundY = spawnPosition.y - GroundSkinOffset;
+        ResetStamina();
+
+        if (characterController != null)
+        {
+            characterController.enabled = wasEnabled;
+        }
     }
 
     public void SetControlEnabled(bool enabled)
@@ -261,6 +297,7 @@ public sealed class NewMapPlayerController : MonoBehaviour
 
     public void MoveForDiagnostics(Vector3 worldDirection, float deltaTime, bool sprint)
     {
+        EnsureStaminaConfig();
         if (characterController == null)
         {
             characterController = GetComponent<CharacterController>();
@@ -283,7 +320,7 @@ public sealed class NewMapPlayerController : MonoBehaviour
             }
             else
             {
-                stamina = Mathf.Min(100f, stamina + 16f * stepDelta);
+                stamina = Mathf.Min(maxStamina, stamina + 16f * stepDelta);
             }
         }
 
@@ -546,6 +583,7 @@ public sealed class NewMapPlayerController : MonoBehaviour
 
     private void UpdateMovement()
     {
+        EnsureStaminaConfig();
         Vector2 input = ReadMovementInput();
         Vector3 direction = GetCameraRelativeMovement(input);
         bool wantsSprint = Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift);
@@ -560,12 +598,12 @@ public sealed class NewMapPlayerController : MonoBehaviour
             }
             else
             {
-                stamina = Mathf.Min(100f, stamina + 16f * Time.deltaTime);
+                stamina = Mathf.Min(maxStamina, stamina + 16f * Time.deltaTime);
             }
         }
         else
         {
-            stamina = 100f;
+            stamina = maxStamina;
         }
 
         if (characterController.isGrounded && verticalVelocity < 0f)
@@ -852,6 +890,55 @@ public sealed class NewMapPlayerController : MonoBehaviour
         forward.Normalize();
         right.Normalize();
         return Vector3.ClampMagnitude(forward * input.y + right * input.x, 1f);
+    }
+
+    private void EnsureStaminaConfig()
+    {
+        if (staminaConfig != null)
+        {
+            return;
+        }
+
+        staminaConfig = NewMapPlayerStaminaConfig.Load();
+        baselineMaxStamina = staminaConfig.baselineMaxStamina;
+        staminaMultiplier = staminaConfig.staminaMultiplier;
+        maxStamina = staminaConfig.MaxStamina;
+        stamina = Mathf.Clamp(stamina, 0f, maxStamina);
+    }
+}
+
+[System.Serializable]
+public sealed class NewMapPlayerStaminaConfig
+{
+    public float baselineMaxStamina = 100f;
+    public float staminaMultiplier = 100f;
+
+    public float MaxStamina => Mathf.Max(1f, baselineMaxStamina) * Mathf.Max(1f, staminaMultiplier);
+
+    public static NewMapPlayerStaminaConfig Default()
+    {
+        return new NewMapPlayerStaminaConfig();
+    }
+
+    public static NewMapPlayerStaminaConfig Load()
+    {
+        NewMapPlayerStaminaConfig config = Default();
+        string path = Path.Combine(Application.dataPath, "Data/P10/newmap_player_stamina_config.json");
+        if (File.Exists(path))
+        {
+            try
+            {
+                config = JsonUtility.FromJson<NewMapPlayerStaminaConfig>(File.ReadAllText(path)) ?? config;
+            }
+            catch (System.Exception exception)
+            {
+                Debug.LogWarning($"NewMap player stamina config could not be loaded; using 100x defaults. {exception.Message}");
+            }
+        }
+
+        config.baselineMaxStamina = Mathf.Clamp(config.baselineMaxStamina, 1f, 10000f);
+        config.staminaMultiplier = Mathf.Clamp(config.staminaMultiplier, 1f, 1000f);
+        return config;
     }
 }
 

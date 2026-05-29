@@ -73,6 +73,12 @@ public class NewMapRuntimePlayModeTests
             Object.DestroyImmediate(nonBuildingSnapdownFixture);
         }
 
+        GameObject unexpectedWallFixture = GameObject.Find("UnexpectedStreetInvisibleWallFixture");
+        if (unexpectedWallFixture != null)
+        {
+            Object.DestroyImmediate(unexpectedWallFixture);
+        }
+
         string[] runtimeRootNames =
         {
             "RuntimeSystemsRoot",
@@ -269,7 +275,7 @@ public class NewMapRuntimePlayModeTests
         Assert.IsTrue(bootstrap.LastSpawnValidationPassed, "Spawn must pass the road/playable-ground validator before the player is created.");
         Assert.AreEqual(1, bootstrap.LastSpawnAcceptedCount);
         Assert.GreaterOrEqual(bootstrap.LastSpawnAttemptCount, 1);
-        Assert.GreaterOrEqual(bootstrap.LastSpawnRejectedInsideBuildingCount, 1, "The map-bounds center fixture should be rejected as inside a building.");
+        Assert.AreEqual("random_playable_support", bootstrap.LastSpawnValidationSource, "Hotfix spawn should try randomized playable support before the old fixed map-center point.");
         Assert.GreaterOrEqual(bootstrap.LastBuildingBoundsCacheCount, 1);
         Assert.IsFalse(bootstrap.LastAdaptiveSupportGridActive, "Spawn validation must not use the failed adaptive relief grid in rollback mode.");
         Assert.IsTrue(bootstrap.LastSafeGroundEnabled);
@@ -658,11 +664,174 @@ public class NewMapRuntimePlayModeTests
         Assert.AreEqual(1.0f, player.WalkSpeedMetersPerSecond, 0.001f);
         Assert.AreEqual(5.0f, player.SprintSpeedMetersPerSecond, 0.001f);
         Assert.IsTrue(player.StaminaEnabled);
+        Assert.AreEqual(100f, player.BaselineMaxStamina, 0.001f);
+        Assert.AreEqual(100f, player.StaminaMultiplier, 0.001f);
+        Assert.AreEqual(10000f, player.MaxStamina, 0.001f);
+        Assert.AreEqual(10000f, player.Stamina, 0.001f);
 
         controller.SetWeather(NewMapWeatherPreset.NightRain);
         yield return null;
         Assert.AreEqual(0.65f, player.WalkSpeedMetersPerSecond, 0.001f);
         Assert.AreEqual(3.25f, player.SprintSpeedMetersPerSecond, 0.001f);
+    }
+
+    [UnityTest]
+    public IEnumerator RuntimeRandomizedSpawnUsesSessionSeedAndAvoidsMapCenterFirst()
+    {
+        NewMapRuntimeBootstrap bootstrap = NewMapRuntimeBootstrap.CreateForCurrentScene();
+        NewMapPlayerController player = Object.FindObjectOfType<NewMapPlayerController>();
+        NewMapGameController controller = Object.FindObjectOfType<NewMapGameController>();
+        Assert.NotNull(bootstrap);
+        Assert.NotNull(player);
+        Assert.NotNull(controller);
+
+        int initialSeed = bootstrap.LastSpawnRandomSeedUsed;
+        Vector3 initialSpawn = player.transform.position;
+        Assert.IsFalse(bootstrap.LastSpawnDeterministicSeedEnabled);
+        Assert.AreEqual("random_playable_support", bootstrap.LastSpawnValidationSource);
+
+        controller.ResetToStartMenu();
+        yield return null;
+
+        Assert.IsTrue(bootstrap.LastSpawnValidationPassed);
+        Assert.AreEqual(1, bootstrap.LastSpawnAcceptedCount);
+        Assert.AreNotEqual(initialSeed, bootstrap.LastSpawnRandomSeedUsed, "Normal play sessions should vary the spawn seed.");
+        Assert.Greater(Vector3.Distance(initialSpawn, player.transform.position), 0.1f, "Retry/mode start should choose a fresh randomized spawn.");
+        Assert.IsTrue(bootstrap.LastPlayableBounds.ContainsXZ(player.transform.position, 0f));
+        Assert.GreaterOrEqual(bootstrap.LastNearestBuildingDistance, NewMapSpawnConfig.Default().minDistanceFromBuildingMeters - 0.01f);
+
+        NewMapSpawnConfig deterministic = NewMapSpawnConfig.Default();
+        deterministic.deterministicSeedEnabled = true;
+        deterministic.spawnRandomSeed = 12345;
+        Assert.AreEqual(12345, deterministic.ResolveSeedForDiagnostics());
+        NewMapSpawnConfig session = NewMapSpawnConfig.Default();
+        session.deterministicSeedEnabled = false;
+        Assert.AreNotEqual(session.ResolveSeedForDiagnostics(), session.ResolveSeedForDiagnostics());
+    }
+
+    [UnityTest]
+    public IEnumerator RuntimeTsunamiWarningPrecedesCoastalHugeCurtain()
+    {
+        NewMapRuntimeBootstrap bootstrap = NewMapRuntimeBootstrap.CreateForCurrentScene();
+        NewMapGameController controller = Object.FindObjectOfType<NewMapGameController>();
+        NewMapHazardController hazard = Object.FindObjectOfType<NewMapHazardController>();
+        Assert.NotNull(bootstrap);
+        Assert.NotNull(controller);
+        Assert.NotNull(hazard);
+
+        controller.StartEvacuationMode();
+        yield return null;
+
+        Assert.AreEqual(NewMapTsunamiStage.Warning, controller.Stage);
+        Assert.IsFalse(hazard.RiskChecksActive);
+        Assert.IsFalse(hazard.Stage2VisualsBuiltForDiagnostics);
+        Assert.AreEqual("south", hazard.TsunamiStartSide);
+        Assert.AreEqual(Vector3.forward, hazard.TsunamiDirection);
+        Assert.GreaterOrEqual(hazard.CurtainHeightMeters, 1000f);
+        Assert.GreaterOrEqual(hazard.CurtainLengthMeters, Mathf.Sqrt(bootstrap.LastPlayableBounds.Width * bootstrap.LastPlayableBounds.Width + bootstrap.LastPlayableBounds.Depth * bootstrap.LastPlayableBounds.Depth) * 1.49f);
+
+        controller.AdvanceEvacuationTimeForDiagnostics(Mathf.Max(0f, controller.WarningPhaseSeconds - 1.0f));
+        yield return null;
+        Assert.AreEqual(NewMapTsunamiStage.Warning, controller.Stage, "Warning phase should not immediately fail or activate tsunami risk.");
+        Assert.IsFalse(hazard.RiskChecksActive);
+
+        controller.AdvanceEvacuationTimeForDiagnostics(2.0f);
+        yield return null;
+        Assert.AreEqual(NewMapTsunamiStage.FrontApproaching, controller.Stage);
+        Assert.IsTrue(hazard.RiskChecksActive);
+        Assert.IsTrue(hazard.LightCurtainVisibleForDiagnostics);
+        Assert.GreaterOrEqual(controller.ActiveTsunamiStartedAtSeconds, controller.WarningPhaseSeconds);
+    }
+
+    [UnityTest]
+    public IEnumerator RuntimeFailureShowsResultAndRetryCanReset()
+    {
+        NewMapRuntimeBootstrap.CreateForCurrentScene();
+        NewMapGameController controller = Object.FindObjectOfType<NewMapGameController>();
+        NewMapRuntimeUI ui = Object.FindObjectOfType<NewMapRuntimeUI>();
+        NewMapHazardController hazard = Object.FindObjectOfType<NewMapHazardController>();
+        Assert.NotNull(controller);
+        Assert.NotNull(ui);
+        Assert.NotNull(hazard);
+
+        controller.StartEvacuationMode();
+        controller.ForceStageForDiagnostics(NewMapTsunamiStage.FrontApproaching);
+        yield return null;
+        Assert.IsTrue(controller.TryApplyTsunamiFrontForDiagnostics(hazard.GetFloodedSideSamplePointForDiagnostics()));
+        yield return null;
+
+        Assert.IsTrue(ui.IsResultVisible);
+        Assert.AreEqual("tsunami_front_contact", ui.LastResultReason);
+        Assert.AreEqual("tsunami_front_contact", controller.LastFailureCode);
+        Assert.GreaterOrEqual(controller.LastFailureAtSeconds, 0f);
+        Assert.NotNull(GameObject.Find("ResultRetryButton"));
+
+        ui.ResetRequested?.Invoke();
+        yield return null;
+        Assert.IsTrue(ui.IsStartMenuVisible);
+        Assert.IsFalse(ui.IsResultVisible);
+        Assert.AreEqual(NewMapGameMode.None, controller.Mode);
+        Assert.AreEqual(NewMapTsunamiStage.Inactive, controller.Stage);
+    }
+
+    [UnityTest]
+    public IEnumerator RuntimeBuildingTouchEntryProxyUsesTriggerContact()
+    {
+        NewMapRuntimeBootstrap.CreateForCurrentScene();
+        NewMapGameController controller = Object.FindObjectOfType<NewMapGameController>();
+        NewMapRuntimeUI ui = Object.FindObjectOfType<NewMapRuntimeUI>();
+        NewMapRuntimeBootstrap bootstrap = Object.FindObjectOfType<NewMapRuntimeBootstrap>();
+        Assert.NotNull(controller);
+        Assert.NotNull(ui);
+        Assert.NotNull(bootstrap);
+
+        NewMapRuntimeTarget target = controller.RuntimeTargets.First(candidate => candidate.Id == "newmap_proxy_safe_floor");
+        Assert.NotNull(target.EntryTrigger);
+        Assert.IsTrue(target.EntryTrigger.IsTriggerCollider, "Building entry proxy volumes must be triggers, not invisible physical air walls.");
+        Assert.Greater(bootstrap.LastBuildingEntryTriggerCount, 0);
+        Assert.AreEqual(0, bootstrap.LastBuildingEntryPhysicalBlockerCount);
+
+        controller.StartEvacuationMode();
+        controller.ForceStageForDiagnostics(NewMapTsunamiStage.FrontApproaching);
+        yield return null;
+
+        Assert.IsFalse(controller.TryInteractWithTouchedBuildingForDiagnostics(), "Pressing E away from a building-entry trigger should not enter.");
+        Assert.IsTrue(controller.TrySetTouchedBuildingForDiagnostics(target.Id, true));
+        Assert.AreEqual(target, controller.CurrentEnterableBuilding);
+        Assert.IsTrue(controller.TryInteractWithTouchedBuildingForDiagnostics());
+        Assert.AreEqual("Entering shelter proxy", ui.LastResultReason);
+        Assert.IsTrue(controller.SafeFloorSequenceActive);
+
+        controller.StartEvacuationMode();
+        controller.ForceStageForDiagnostics(NewMapTsunamiStage.FrontApproaching);
+        yield return null;
+        NewMapRuntimeTarget blocked = controller.RuntimeTargets.First(candidate => candidate.Id == "newmap_proxy_blocked_entrance");
+        Assert.IsTrue(controller.TrySetTouchedBuildingForDiagnostics(blocked.Id, true));
+        Assert.IsTrue(controller.TryInteractWithTouchedBuildingForDiagnostics());
+        Assert.AreEqual("entrance_blocked", ui.LastResultReason);
+    }
+
+    [UnityTest]
+    public IEnumerator RuntimeUnexpectedAirwallCleanupConvertsPlayableUnknownBlocker()
+    {
+        GameObject blocker = new GameObject("UnexpectedStreetInvisibleWallFixture");
+        blocker.transform.position = Vector3.zero;
+        BoxCollider collider = blocker.AddComponent<BoxCollider>();
+        collider.size = new Vector3(6f, 4f, 1f);
+        collider.isTrigger = false;
+
+        NewMapRuntimeBootstrap bootstrap = NewMapRuntimeBootstrap.CreateForCurrentScene();
+        yield return null;
+
+        Assert.NotNull(bootstrap);
+        Assert.GreaterOrEqual(bootstrap.LastUnexpectedAirwallBlockersFound, 1);
+        Assert.IsTrue(collider.isTrigger, "Unknown playable-area blockers should be converted to triggers instead of remaining invisible walls.");
+        Assert.AreEqual(4, bootstrap.LastPlayableAirWallColliderCount);
+        Assert.AreEqual(4, bootstrap.LastBoundaryAirWallsPreserved);
+        Assert.IsTrue(GameObject.Find("P10_BoundaryAirWall_North") != null);
+        Assert.IsTrue(GameObject.Find("P10_BoundaryAirWall_South") != null);
+        Assert.IsTrue(GameObject.Find("P10_BoundaryAirWall_East") != null);
+        Assert.IsTrue(GameObject.Find("P10_BoundaryAirWall_West") != null);
     }
 
     [UnityTest]
@@ -881,7 +1050,7 @@ public class NewMapRuntimePlayModeTests
         controller.StartEvacuationMode();
         controller.ForceStageForDiagnostics(NewMapTsunamiStage.FrontApproaching);
         yield return null;
-        Assert.IsTrue(controller.TryApplyTsunamiFrontForDiagnostics(player.transform.position + new Vector3(-200f, 0f, 0f)));
+        Assert.IsTrue(controller.TryApplyTsunamiFrontForDiagnostics(hazard.GetFloodedSideSamplePointForDiagnostics()));
         Assert.AreEqual("tsunami_front_contact", ui.LastResultReason);
 
         Assert.IsFalse(controller.TryInteractForDiagnostics("disabled_out_of_new_map_candidate_probe"));

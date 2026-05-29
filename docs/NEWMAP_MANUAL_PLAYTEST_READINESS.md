@@ -15,7 +15,16 @@
 - Full-address or ID-only normal labels: 0 / 0
 - Runtime web requests allowed: False
 - Current runtime/NPC/label player smoke: passed
+- P10 tsunami-mode hotfix smoke: passed
+- Random spawn source: random_playable_support
+- Stamina max: 10000
+- Tsunami start side/direction: south / Vector3.forward
+- Warning phase duration: 20 seconds
+- Light curtain height/length: 1000m / 8208.7m in player smoke
+- Building entry triggers: 97 trigger-only volumes, 0 physical blockers
+- Boundary air walls: P10_BoundaryAirWall_North/South/East/West
 - Player.log: 0 errors / 0 warnings
+- Tsunami-mode temp player: D:\UnityProjects\ChuoTsunamiEvacuation-Builds\P10NewMapTsunamiModeHotfixPre\ChuoTsunamiEvacuation_P10NewMapTsunamiModeHotfixPre.exe
 - Temp player: D:\UnityProjects\ChuoTsunamiEvacuation-Builds\NewMapRuntimeNpcLabelFixPre\ChuoTsunamiEvacuation_NewMapRuntimeNpcLabelFixPre.exe
 
 This does not claim GIS-grade terrain, road, route, or PLATEAU building elevation accuracy.

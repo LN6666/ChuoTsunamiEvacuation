@@ -9,5 +9,8 @@
   "useGroundSupportFallback": true,
   "fallbackSafeSpawnId": "newmap_safe_spawn_01",
   "spawnRandomSeed": 20260529,
+  "deterministicSeedEnabled": false,
+  "tryRandomBeforeMapCenter": true,
+  "randomizeFallbackSafeSpawnOrder": true,
   "minDistanceFromAirWallMeters": 2.0
 }

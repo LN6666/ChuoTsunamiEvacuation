@@ -13,6 +13,15 @@
 - Boundary air walls still block the map edge.
 - Invalid/fall-zone blockers remain where documented.
 - Spawn is not inside buildings.
+- Spawn varies after retry/restart and logs a random seed/source.
+- Evacuation mode starts with a visible warning/pre-alert phase before active tsunami failure checks.
+- The tsunami front starts from the configured coastal side and advances inland.
+- The tsunami light curtain is tall/wide enough to span the visible map area.
+- Tsunami failure immediately shows the result panel with Retry / Restart.
+- Pressing E while touching an eligible building-entry trigger starts the vertical evacuation proxy flow.
+- Pressing E away from eligible buildings does not enter.
+- Building-entry trigger volumes are non-blocking triggers, not invisible physical air walls.
+- Player stamina max is 10000, based on the 100x hotfix multiplier.
 - Buildings appear closer to the raised gameplay ground cover; remaining outliers are documented.
 - Official/candidate markers remain aligned after ground-cover raise.
 - Any remaining building floating is documented honestly and not presented as GIS-grade fixed.

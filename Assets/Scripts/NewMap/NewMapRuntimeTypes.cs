@@ -40,6 +40,7 @@ public sealed class NewMapRuntimeTarget
     public GameObject Marker;
     public GameObject GreenFrame;
     public GameObject RouteGuide;
+    public NewMapBuildingEntryTrigger EntryTrigger;
     public System.Func<GameObject> GreenFrameFactory;
     public System.Func<GameObject> RouteGuideFactory;
 

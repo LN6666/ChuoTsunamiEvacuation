@@ -126,6 +126,9 @@ public sealed class NewMapRuntimeUI : MonoBehaviour
 
     public void ShowResult(bool success, string reason, string detail)
     {
+        SetActive(startPanel, false);
+        SetActive(pausePanel, false);
+        SetActive(rulesPanel, false);
         SetActive(resultPanel, true);
         lastResultReason = reason ?? string.Empty;
         lastResultDetail = detail ?? string.Empty;
@@ -191,7 +194,8 @@ public sealed class NewMapRuntimeUI : MonoBehaviour
         resultPanel = CreatePanel("NewMap_ResultPanel", new Vector2(0f, 0f), new Vector2(860f, 540f), new Color(0.04f, 0.05f, 0.06f, 0.92f));
         resultTitleText = CreateText("ResultTitle", resultPanel.transform, new Vector2(0f, -45f), new Vector2(760f, 58f), 28, TextAnchor.MiddleCenter);
         resultBodyText = CreateText("ResultBody", resultPanel.transform, new Vector2(0f, -150f), new Vector2(760f, 320f), 19, TextAnchor.UpperLeft);
-        CreateButton("ResultCloseButton", resultPanel.transform, new Vector2(0f, -230f), new Vector2(180f, 44f), "Close", HideResult);
+        CreateButton("ResultRetryButton", resultPanel.transform, new Vector2(-115f, -230f), new Vector2(210f, 44f), "Retry / Restart", () => ResetRequested?.Invoke());
+        CreateButton("ResultCloseButton", resultPanel.transform, new Vector2(125f, -230f), new Vector2(150f, 44f), "Close", HideResult);
 
         RefreshStaticText();
         ShowStartMenu();

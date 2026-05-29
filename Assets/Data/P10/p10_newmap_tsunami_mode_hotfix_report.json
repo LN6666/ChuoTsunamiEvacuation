@@ -1,0 +1,79 @@
+{
+  "generatedAt": "2026-05-30T02:26:31+09:00",
+  "activeScene": "Assets/Scenes/Chuo_BaseMap.unity",
+  "status": "ready_for_manual_hotfix_playtest",
+  "failureResultRestartFlow": {
+    "implemented": true,
+    "resultRetryButton": "ResultRetryButton",
+    "failureReasonCodes": [
+      "tsunami_front_contact",
+      "collapse_debris_exposure",
+      "entrance_blocked",
+      "safe_floor_unavailable"
+    ],
+    "playerLogTsunamiFrontFailureSmokePassed": true
+  },
+  "randomizedSpawn": {
+    "enabled": true,
+    "normalSessionDeterministicSeedEnabled": false,
+    "validationSource": "random_playable_support",
+    "lastPlayerSmokeSeed": 699022247,
+    "lastPlayerSmokePosition": {
+      "x": -187.81,
+      "y": 3.04,
+      "z": 468.35
+    }
+  },
+  "airWalls": {
+    "boundaryAirWallCount": 4,
+    "boundaryAirWallNames": [
+      "P10_BoundaryAirWall_North",
+      "P10_BoundaryAirWall_South",
+      "P10_BoundaryAirWall_East",
+      "P10_BoundaryAirWall_West"
+    ],
+    "buildingEntryPhysicalBlockers": 0,
+    "unknownPlayableBlockersRemaining": 0
+  },
+  "stamina": {
+    "baselineMaxStamina": 100.0,
+    "staminaMultiplier": 100.0,
+    "finalMaxStamina": 10000.0
+  },
+  "tsunami": {
+    "warningPhaseSeconds": 20.0,
+    "activeFrontDurationSeconds": 120.0,
+    "startSide": "south",
+    "direction": "Vector3.forward",
+    "curtainHeightMeters": 1000.0,
+    "curtainLengthMetersInPlayerSmoke": 8208.7,
+    "minimumCurtainLengthMeters": 1500.0,
+    "curtainLengthMapDiagonalMultiplier": 1.5
+  },
+  "buildingEntry": {
+    "requiresTouchingBuildingOrEntryTrigger": true,
+    "preciseEntranceMarkerRequired": false,
+    "buildingEntryTriggerCountInPlayerSmoke": 97,
+    "proxyVerticalEvacuationFlowUsedWhenNoInteriorExists": true,
+    "realInteriorClaimed": false
+  },
+  "regression": {
+    "mouseDragPreserved": true,
+    "lightingNightNotReworked": true,
+    "groundCoverPreserved": true,
+    "nameCachePreserved": true,
+    "npcGlobalRespawnCount": 0,
+    "npcAllStopEventCount": 0,
+    "npcStoppedWithoutReason": 0,
+    "runtimeWebRequestsAllowed": false
+  },
+  "validation": {
+    "hotfixPreflight": "passed",
+    "runtimeNpcLabelPreflight": "passed",
+    "editMode": "passed 123/123",
+    "playMode": "passed 39/39",
+    "tempPlayerBuild": "passed",
+    "playerLog": "passed 0 errors 0 warnings",
+    "deepSeek": "unavailable_api_connection_error_after_normal_and_escalated_retries"
+  }
+}

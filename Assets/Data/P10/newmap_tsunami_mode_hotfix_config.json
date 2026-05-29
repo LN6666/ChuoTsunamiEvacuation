@@ -1,0 +1,10 @@
+{
+  "warningPhaseSeconds": 20.0,
+  "activeFrontDurationSeconds": 120.0,
+  "tsunamiStartSide": "south",
+  "curtainHeightMeters": 1000.0,
+  "minimumCurtainLengthMeters": 1500.0,
+  "curtainLengthMapDiagonalMultiplier": 1.5,
+  "curtainThicknessMeters": 12.0,
+  "curtainStartMarginMeters": 60.0
+}

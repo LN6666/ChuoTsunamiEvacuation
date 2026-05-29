@@ -18,6 +18,38 @@ public class NewMapIntegrationConfigTests
     }
 
     [Test]
+    public void TsunamiModeHotfixConfigsAreExplicit()
+    {
+        string staminaPath = Path.Combine(Application.dataPath, "Data/P10/newmap_player_stamina_config.json");
+        string tsunamiPath = Path.Combine(Application.dataPath, "Data/P10/newmap_tsunami_mode_hotfix_config.json");
+        string spawnPath = Path.Combine(Application.dataPath, "Data/P10/newmap_spawn_config.json");
+        Assert.IsTrue(File.Exists(staminaPath), "100x stamina config must exist.");
+        Assert.IsTrue(File.Exists(tsunamiPath), "Tsunami hotfix config must exist.");
+        Assert.IsTrue(File.Exists(spawnPath), "Spawn config must exist.");
+
+        NewMapPlayerStaminaConfig stamina = NewMapPlayerStaminaConfig.Load();
+        Assert.AreEqual(100f, stamina.baselineMaxStamina, 0.001f);
+        Assert.AreEqual(100f, stamina.staminaMultiplier, 0.001f);
+        Assert.AreEqual(10000f, stamina.MaxStamina, 0.001f);
+
+        NewMapTsunamiModeHotfixConfig tsunami = NewMapTsunamiModeHotfixConfig.Load();
+        Assert.AreEqual("south", tsunami.NormalizedTsunamiStartSide);
+        Assert.GreaterOrEqual(tsunami.WarningPhaseSeconds, 1f);
+        Assert.GreaterOrEqual(tsunami.CurtainHeightMeters, 1000f);
+        Assert.GreaterOrEqual(tsunami.MinimumCurtainLengthMeters, 1500f);
+        Assert.IsFalse(tsunami.CurtainThicknessMeters <= 0f);
+
+        NewMapSpawnConfig spawn = NewMapSpawnConfig.Load();
+        Assert.IsTrue(spawn.randomSpawnEnabled);
+        Assert.IsTrue(spawn.tryRandomBeforeMapCenter);
+        Assert.IsTrue(spawn.randomizeFallbackSafeSpawnOrder);
+        Assert.IsFalse(spawn.deterministicSeedEnabled, "Normal player sessions must not use the fixed diagnostic seed.");
+        spawn.deterministicSeedEnabled = true;
+        spawn.spawnRandomSeed = 2468;
+        Assert.AreEqual(2468, spawn.ResolveSeedForDiagnostics());
+    }
+
+    [Test]
     public void NewMapStatusFilesUseStrictCompletionStatuses()
     {
         string matrixPath = Path.Combine(Application.dataPath, "Data/P10/newmap_p2_p10_full_completion_matrix.json");
@@ -191,7 +223,9 @@ public class NewMapIntegrationConfigTests
             "Data/P10/newmap_player_npc_collision_config.json",
             "Data/P10/newmap_player_npc_collision_report.json",
             "Data/P10/newmap_npc_collision_regression_after_player_collision.json",
-            "Data/P10/newmap_airwall_npc_label_regression.json"
+            "Data/P10/newmap_airwall_npc_label_regression.json",
+            "Data/P10/newmap_player_stamina_config.json",
+            "Data/P10/newmap_tsunami_mode_hotfix_config.json"
         };
 
         foreach (string relativePath in requiredPaths)
