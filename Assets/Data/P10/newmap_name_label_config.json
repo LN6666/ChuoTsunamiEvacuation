@@ -2,7 +2,7 @@
   "enabled": true,
   "showOfficialShelterNames": true,
   "showNonOfficialCandidateNames": true,
-  "showBuildingNames": false,
+  "showBuildingNames": true,
   "showRoadNames": true,
   "showTokyoStationName": true,
   "showIdOnlyLabelsInDebug": false,

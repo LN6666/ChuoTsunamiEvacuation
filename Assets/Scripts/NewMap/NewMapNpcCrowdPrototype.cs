@@ -10,6 +10,8 @@ public sealed class NewMapNpcCrowdPrototype : MonoBehaviour
     private const float MaxCrowdDelaySeconds = 8f;
     private const float ProbeStartHeight = 320f;
     private const float ProbeDistance = 700f;
+    private const float BuildingBoundsCellSize = 64f;
+    private const int MaxIndexedCellsPerBuildingBound = 64;
 
     [SerializeField] private int npcCap = BaseNpcCount;
     [SerializeField] private float wanderRadius = 9f;
@@ -17,11 +19,17 @@ public sealed class NewMapNpcCrowdPrototype : MonoBehaviour
 
     private readonly List<Transform> npcs = new List<Transform>();
     private readonly List<Vector3> npcHomePositions = new List<Vector3>();
+    private readonly List<Vector3> npcLastPositions = new List<Vector3>();
+    private readonly List<float> npcStoppedSeconds = new List<float>();
+    private readonly List<NewMapNpcMovementState> npcStates = new List<NewMapNpcMovementState>();
     private readonly List<Bounds> buildingAvoidanceBounds = new List<Bounds>();
+    private readonly Dictionary<long, List<int>> buildingBoundsSpatialIndex = new Dictionary<long, List<int>>();
+    private readonly List<int> largeBuildingBoundsIndices = new List<int>();
     private Vector3 center;
     private Vector3 requestedCenter;
     private NewMapPlayableBounds playableBounds;
     private NewMapNpcDistributionConfig distributionConfig;
+    private NewMapNpcMovementConfig movementConfig;
     private bool crowdFailuresEnabled;
     private bool built;
 
@@ -40,9 +48,20 @@ public sealed class NewMapNpcCrowdPrototype : MonoBehaviour
     public float MinDistanceBetweenNpcMeters => distributionConfig != null ? distributionConfig.minDistanceBetweenNpcMeters : 0f;
     public bool AvoidBuildingsEnabled => distributionConfig != null && distributionConfig.avoidBuildings;
     public bool UsePoolingEnabled => distributionConfig != null && distributionConfig.usePooling;
-    public bool FarNpcStaticProxyModeEnabled => distributionConfig != null && distributionConfig.farNpcStaticProxyMode;
+    public bool FarNpcStaticProxyModeEnabled => movementConfig != null
+        ? movementConfig.farNpcStaticProxyMode
+        : distributionConfig != null && distributionConfig.farNpcStaticProxyMode;
     public NewMapPlayableBounds RuntimePlayableBounds => playableBounds;
     public float CurrentCongestionDelaySeconds { get; private set; }
+    public int MovingCount { get; private set; }
+    public int ArrivedCount { get; private set; }
+    public int QueuedCount { get; private set; }
+    public int StuckCount { get; private set; }
+    public int RecoveredCount { get; private set; }
+    public int StaticProxyCount { get; private set; }
+    public int StoppedWithoutReasonCount { get; private set; }
+    public int NpcBuildingAvoidanceRecoveryCount { get; private set; }
+    public float AverageSpeedMetersPerSecond { get; private set; }
 
     public static NewMapNpcCrowdPrototype Create(Transform parent, Vector3 centerPosition)
     {
@@ -60,6 +79,7 @@ public sealed class NewMapNpcCrowdPrototype : MonoBehaviour
         crowdObject.transform.SetParent(parent, false);
         NewMapNpcCrowdPrototype crowd = crowdObject.AddComponent<NewMapNpcCrowdPrototype>();
         crowd.distributionConfig = NewMapNpcDistributionConfig.Load();
+        crowd.movementConfig = NewMapNpcMovementConfig.Load();
         crowd.requestedCenter = centerPosition;
         crowd.playableBounds = bounds.IsValid ? bounds : NewMapPlayableBounds.DefaultDocumented();
         crowd.npcCap = Mathf.Clamp(crowd.distributionConfig.maxNpcCount, 0, 1000);
@@ -71,6 +91,7 @@ public sealed class NewMapNpcCrowdPrototype : MonoBehaviour
             }
         }
 
+        crowd.BuildBuildingBoundsSpatialIndex();
         return crowd;
     }
 
@@ -149,6 +170,15 @@ public sealed class NewMapNpcCrowdPrototype : MonoBehaviour
         }
 
         Vector3 referencePosition = requestedCenter;
+        MovingCount = 0;
+        ArrivedCount = 0;
+        QueuedCount = 0;
+        StuckCount = 0;
+        StaticProxyCount = 0;
+        StoppedWithoutReasonCount = 0;
+        float speedTotal = 0f;
+        int speedSamples = 0;
+
         for (int i = 0; i < npcs.Count; i++)
         {
             Transform npc = npcs[i];
@@ -161,13 +191,16 @@ public sealed class NewMapNpcCrowdPrototype : MonoBehaviour
             bool farNpc = distributionConfig != null &&
                 distributionConfig.farNpcUpdateThrottle &&
                 distanceToPlayer > FarNpcUpdateDistance;
-            if (farNpc && distributionConfig.farNpcStaticProxyMode)
+            if (farNpc && movementConfig != null && movementConfig.farNpcStaticProxyMode)
             {
+                SetNpcState(i, NewMapNpcMovementState.StaticFarProxy);
+                StaticProxyCount++;
                 continue;
             }
 
             if (farNpc && Mathf.Repeat(Time.time + i * 0.071f, FarNpcUpdateIntervalSeconds) > Time.deltaTime)
             {
+                CountNpcStateForDiagnostics(i);
                 continue;
             }
 
@@ -176,20 +209,42 @@ public sealed class NewMapNpcCrowdPrototype : MonoBehaviour
             float phase = Time.time * (farNpc ? 0.07f : 0.3f) + i * 1.7f;
             Vector3 target = home + new Vector3(Mathf.Sin(phase), 0f, Mathf.Cos(phase * 0.8f)) * localWanderRadius;
             target = playableBounds.IsValid ? playableBounds.ClampXZ(target, 2f) : target;
+            if (movementConfig == null || movementConfig.continuousMovementEnabled)
+            {
+                target = ResolveNpcTargetAvoidingBuildings(target, home, i);
+            }
+
             Vector3 delta = target - npc.position;
             delta.y = 0f;
+            Vector3 previous = npc.position;
             if (delta.sqrMagnitude > 0.01f)
             {
-                npc.position += delta.normalized * wanderSpeed * Time.deltaTime;
+                Vector3 candidate = npc.position + delta.normalized * wanderSpeed * Time.deltaTime;
+                candidate = ResolveNpcPositionAfterBuildingCollision(candidate, previous, i);
+                npc.position = candidate;
                 npc.rotation = Quaternion.LookRotation(delta.normalized, Vector3.up);
+                SetNpcState(i, NewMapNpcMovementState.Moving);
+            }
+            else
+            {
+                SetNpcState(i, NewMapNpcMovementState.Arrived);
             }
 
             if (playableBounds.IsValid && !playableBounds.ContainsXZ(npc.position))
             {
                 npc.position = playableBounds.ClampXZ(npc.position, 2f);
                 npcHomePositions[i] = playableBounds.ClampXZ(home, 2f);
+                RecoveredCount++;
             }
+
+            float moved = Vector3.Distance(previous, npc.position);
+            speedTotal += Time.deltaTime > 0f ? moved / Time.deltaTime : 0f;
+            speedSamples++;
+            UpdateNpcStuckState(i, moved, previous);
+            CountNpcStateForDiagnostics(i);
         }
+
+        AverageSpeedMetersPerSecond = speedSamples > 0 ? speedTotal / speedSamples : 0f;
     }
 
     private void Build(Vector3 centerPosition)
@@ -200,6 +255,8 @@ public sealed class NewMapNpcCrowdPrototype : MonoBehaviour
         }
 
         distributionConfig = distributionConfig ?? NewMapNpcDistributionConfig.Load();
+        movementConfig = movementConfig ?? NewMapNpcMovementConfig.Load();
+        BuildBuildingBoundsSpatialIndex();
         if (!playableBounds.IsValid)
         {
             playableBounds = NewMapPlayableBounds.DefaultDocumented();
@@ -271,6 +328,9 @@ public sealed class NewMapNpcCrowdPrototype : MonoBehaviour
             NewMapVisualFactory.CreateHumanoid(npc.transform, "NPCVisual", new Color(1f, 0.62f, 0.12f, 1f), sharedMaterial);
             npcs.Add(npc.transform);
             npcHomePositions.Add(acceptedPositions[i]);
+            npcLastPositions.Add(acceptedPositions[i]);
+            npcStoppedSeconds.Add(0f);
+            npcStates.Add(NewMapNpcMovementState.Moving);
         }
 
         built = true;
@@ -279,7 +339,9 @@ public sealed class NewMapNpcCrowdPrototype : MonoBehaviour
             $"cappedNpcCount={CappedNpcCount} capReason={CapReason} radiusMeters={distributionConfig.distributionRadiusMeters} " +
             $"usedSectors={UsedSectorCount} usedRings={UsedRingCount} invalidPlacementRetries={InvalidPlacementRetryCount} " +
             $"rejectedInsideBuildings={RejectedInsideBuildingCount} avoidBuildings={distributionConfig.avoidBuildings} " +
-            $"usePooling={distributionConfig.usePooling} farNpcStaticProxyMode={distributionConfig.farNpcStaticProxyMode}");
+            $"usePooling={distributionConfig.usePooling} farNpcStaticProxyMode={FarNpcStaticProxyModeEnabled} " +
+            $"continuousMovementEnabled={movementConfig.continuousMovementEnabled} stuckRecoveryEnabled={movementConfig.stuckRecoveryEnabled} " +
+            $"buildingAvoidanceEnabled={movementConfig.buildingAvoidanceEnabled}");
     }
 
     private void EnsureBuilt()
@@ -396,7 +458,7 @@ public sealed class NewMapNpcCrowdPrototype : MonoBehaviour
                     IsInsideBuildingBounds(candidate, buildingBounds, config.minDistanceFromBuildingMeters);
                 if (insideBounds && !insideBuilding && !IsTooCloseToExisting(candidate, accepted, config != null ? config.minDistanceBetweenNpcMeters : 6f))
                 {
-                    accepted.Add(new Vector3(candidate.x, Mathf.Clamp(centerPosition.y, -1f, 2f), candidate.z));
+                    accepted.Add(new Vector3(candidate.x, Mathf.Clamp(centerPosition.y, -20f, 30f), candidate.z));
                 }
             }
 
@@ -451,7 +513,323 @@ public sealed class NewMapNpcCrowdPrototype : MonoBehaviour
 
     private bool IsInsideBuildingBounds(Vector3 position, float marginMeters)
     {
-        return IsInsideBuildingBounds(position, buildingAvoidanceBounds, marginMeters);
+        if (buildingAvoidanceBounds.Count == 0)
+        {
+            return false;
+        }
+
+        if (buildingBoundsSpatialIndex.Count == 0)
+        {
+            return IsInsideBuildingBounds(position, buildingAvoidanceBounds, marginMeters);
+        }
+
+        float margin = Mathf.Max(0f, marginMeters);
+        for (int i = 0; i < largeBuildingBoundsIndices.Count; i++)
+        {
+            if (IsInsideExpandedBoundsXZ(position, buildingAvoidanceBounds[largeBuildingBoundsIndices[i]], margin))
+            {
+                return true;
+            }
+        }
+
+        int radius = Mathf.Clamp(Mathf.CeilToInt(margin / BuildingBoundsCellSize) + 1, 1, 4);
+        int centerX = CellCoordinate(position.x);
+        int centerZ = CellCoordinate(position.z);
+        for (int z = centerZ - radius; z <= centerZ + radius; z++)
+        {
+            for (int x = centerX - radius; x <= centerX + radius; x++)
+            {
+                if (!buildingBoundsSpatialIndex.TryGetValue(CellKey(x, z), out List<int> indices))
+                {
+                    continue;
+                }
+
+                for (int i = 0; i < indices.Count; i++)
+                {
+                    if (IsInsideExpandedBoundsXZ(position, buildingAvoidanceBounds[indices[i]], margin))
+                    {
+                        return true;
+                    }
+                }
+            }
+        }
+
+        return false;
+    }
+
+    private Vector3 ResolveNpcTargetAvoidingBuildings(Vector3 target, Vector3 home, int index)
+    {
+        if (movementConfig == null || !movementConfig.buildingAvoidanceEnabled || !IsInsideBuildingBounds(target, distributionConfig.minDistanceFromBuildingMeters))
+        {
+            return target;
+        }
+
+        float phase = (index + 1) * 2.399963f + Time.time * 0.37f;
+        Vector3 alternate = home + new Vector3(Mathf.Cos(phase), 0f, Mathf.Sin(phase)) * Mathf.Max(2f, wanderRadius);
+        alternate = playableBounds.IsValid ? playableBounds.ClampXZ(alternate, 2f) : alternate;
+        if (!IsInsideBuildingBounds(alternate, distributionConfig.minDistanceFromBuildingMeters))
+        {
+            SetNpcState(index, NewMapNpcMovementState.Repathing);
+            return alternate;
+        }
+
+        SetNpcState(index, NewMapNpcMovementState.WaitingAtCrossingOrCrowd);
+        return home;
+    }
+
+    private Vector3 ResolveNpcPositionAfterBuildingCollision(Vector3 candidate, Vector3 previous, int index)
+    {
+        if (movementConfig == null || !movementConfig.buildingAvoidanceEnabled || !IsInsideBuildingBounds(candidate, distributionConfig.minDistanceFromBuildingMeters))
+        {
+            return candidate;
+        }
+
+        Vector3 corrected = ResolveNearestOutsideBuildingPosition(candidate, distributionConfig.minDistanceFromBuildingMeters + 0.2f);
+        if (IsInsideBuildingBounds(corrected, 0.05f))
+        {
+            corrected = previous;
+        }
+
+        NpcBuildingAvoidanceRecoveryCount++;
+        RecoveredCount++;
+        SetNpcState(index, NewMapNpcMovementState.StuckRecovering);
+        corrected.y = candidate.y;
+        return corrected;
+    }
+
+    private Vector3 ResolveNearestOutsideBuildingPosition(Vector3 position, float marginMeters)
+    {
+        Vector3 corrected = position;
+        float bestDistance = float.MaxValue;
+        if (buildingBoundsSpatialIndex.Count == 0)
+        {
+            for (int i = 0; i < buildingAvoidanceBounds.Count; i++)
+            {
+                TryResolveNearestOutsideBound(position, buildingAvoidanceBounds[i], marginMeters, ref corrected, ref bestDistance);
+            }
+
+            return corrected;
+        }
+
+        for (int i = 0; i < largeBuildingBoundsIndices.Count; i++)
+        {
+            TryResolveNearestOutsideBound(position, buildingAvoidanceBounds[largeBuildingBoundsIndices[i]], marginMeters, ref corrected, ref bestDistance);
+        }
+
+        int radius = Mathf.Clamp(Mathf.CeilToInt(Mathf.Max(0f, marginMeters) / BuildingBoundsCellSize) + 1, 1, 4);
+        int centerX = CellCoordinate(position.x);
+        int centerZ = CellCoordinate(position.z);
+        for (int z = centerZ - radius; z <= centerZ + radius; z++)
+        {
+            for (int x = centerX - radius; x <= centerX + radius; x++)
+            {
+                if (!buildingBoundsSpatialIndex.TryGetValue(CellKey(x, z), out List<int> indices))
+                {
+                    continue;
+                }
+
+                for (int i = 0; i < indices.Count; i++)
+                {
+                    TryResolveNearestOutsideBound(position, buildingAvoidanceBounds[indices[i]], marginMeters, ref corrected, ref bestDistance);
+                }
+            }
+        }
+
+        return corrected;
+    }
+
+    private void BuildBuildingBoundsSpatialIndex()
+    {
+        buildingBoundsSpatialIndex.Clear();
+        largeBuildingBoundsIndices.Clear();
+        for (int i = 0; i < buildingAvoidanceBounds.Count; i++)
+        {
+            Bounds bounds = buildingAvoidanceBounds[i];
+            if (!IsFiniteBounds(bounds))
+            {
+                continue;
+            }
+
+            int minX = CellCoordinate(bounds.min.x);
+            int maxX = CellCoordinate(bounds.max.x);
+            int minZ = CellCoordinate(bounds.min.z);
+            int maxZ = CellCoordinate(bounds.max.z);
+            int cellCount = (maxX - minX + 1) * (maxZ - minZ + 1);
+            if (cellCount > MaxIndexedCellsPerBuildingBound)
+            {
+                largeBuildingBoundsIndices.Add(i);
+                continue;
+            }
+
+            for (int z = minZ; z <= maxZ; z++)
+            {
+                for (int x = minX; x <= maxX; x++)
+                {
+                    long key = CellKey(x, z);
+                    if (!buildingBoundsSpatialIndex.TryGetValue(key, out List<int> indices))
+                    {
+                        indices = new List<int>();
+                        buildingBoundsSpatialIndex.Add(key, indices);
+                    }
+
+                    indices.Add(i);
+                }
+            }
+        }
+    }
+
+    private static int CellCoordinate(float value)
+    {
+        return Mathf.FloorToInt(value / BuildingBoundsCellSize);
+    }
+
+    private static long CellKey(int x, int z)
+    {
+        return ((long)x << 32) ^ (uint)z;
+    }
+
+    private static bool IsInsideExpandedBoundsXZ(Vector3 position, Bounds bounds, float marginMeters)
+    {
+        if (!IsFiniteBounds(bounds))
+        {
+            return false;
+        }
+
+        float margin = Mathf.Max(0f, marginMeters);
+        return position.x >= bounds.min.x - margin &&
+            position.x <= bounds.max.x + margin &&
+            position.z >= bounds.min.z - margin &&
+            position.z <= bounds.max.z + margin;
+    }
+
+    private static void TryResolveNearestOutsideBound(
+        Vector3 position,
+        Bounds bounds,
+        float marginMeters,
+        ref Vector3 corrected,
+        ref float bestDistance)
+    {
+        if (!IsInsideExpandedBoundsXZ(position, bounds, marginMeters))
+        {
+            return;
+        }
+
+        float margin = Mathf.Max(0f, marginMeters);
+        float minX = bounds.min.x - margin;
+        float maxX = bounds.max.x + margin;
+        float minZ = bounds.min.z - margin;
+        float maxZ = bounds.max.z + margin;
+        float left = Mathf.Abs(position.x - minX);
+        float right = Mathf.Abs(maxX - position.x);
+        float back = Mathf.Abs(position.z - minZ);
+        float front = Mathf.Abs(maxZ - position.z);
+        float nearest = Mathf.Min(Mathf.Min(left, right), Mathf.Min(back, front));
+        if (nearest >= bestDistance)
+        {
+            return;
+        }
+
+        bestDistance = nearest;
+        if (nearest == left)
+        {
+            corrected = new Vector3(minX, position.y, position.z);
+        }
+        else if (nearest == right)
+        {
+            corrected = new Vector3(maxX, position.y, position.z);
+        }
+        else if (nearest == back)
+        {
+            corrected = new Vector3(position.x, position.y, minZ);
+        }
+        else
+        {
+            corrected = new Vector3(position.x, position.y, maxZ);
+        }
+    }
+
+    private void UpdateNpcStuckState(int index, float movedDistance, Vector3 previous)
+    {
+        if (movementConfig == null || !movementConfig.stuckRecoveryEnabled || index < 0 || index >= npcStoppedSeconds.Count)
+        {
+            return;
+        }
+
+        if (movedDistance > 0.02f)
+        {
+            npcStoppedSeconds[index] = 0f;
+            npcLastPositions[index] = npcs[index] != null ? npcs[index].position : previous;
+            return;
+        }
+
+        npcStoppedSeconds[index] += Time.deltaTime;
+        if (npcStoppedSeconds[index] < movementConfig.maxIdleWithoutReasonSeconds)
+        {
+            return;
+        }
+
+        Transform npc = npcs[index];
+        if (npc == null)
+        {
+            return;
+        }
+
+        Vector3 recovery = npcHomePositions[index] + new Vector3(
+            Mathf.Cos(index * 1.37f + Time.time),
+            0f,
+            Mathf.Sin(index * 1.91f + Time.time)) * Mathf.Max(2f, wanderRadius * 0.5f);
+        recovery = playableBounds.IsValid ? playableBounds.ClampXZ(recovery, 2f) : recovery;
+        recovery.y = npc.position.y;
+        if (!IsInsideBuildingBounds(recovery, distributionConfig.minDistanceFromBuildingMeters))
+        {
+            npc.position = recovery;
+            npcHomePositions[index] = recovery;
+            RecoveredCount++;
+            SetNpcState(index, NewMapNpcMovementState.StuckRecovering);
+        }
+        else
+        {
+            StoppedWithoutReasonCount++;
+        }
+
+        npcStoppedSeconds[index] = 0f;
+    }
+
+    private void SetNpcState(int index, NewMapNpcMovementState state)
+    {
+        if (index >= 0 && index < npcStates.Count)
+        {
+            npcStates[index] = state;
+        }
+    }
+
+    private void CountNpcStateForDiagnostics(int index)
+    {
+        if (index < 0 || index >= npcStates.Count)
+        {
+            return;
+        }
+
+        switch (npcStates[index])
+        {
+            case NewMapNpcMovementState.Moving:
+            case NewMapNpcMovementState.Repathing:
+                MovingCount++;
+                break;
+            case NewMapNpcMovementState.Arrived:
+                ArrivedCount++;
+                break;
+            case NewMapNpcMovementState.QueuedAtEntrance:
+            case NewMapNpcMovementState.WaitingAtCrossingOrCrowd:
+                QueuedCount++;
+                break;
+            case NewMapNpcMovementState.StuckRecovering:
+                StuckCount++;
+                break;
+            case NewMapNpcMovementState.StaticFarProxy:
+                StaticProxyCount++;
+                break;
+        }
     }
 
     private static bool IsInsideBuildingBounds(Vector3 position, List<Bounds> boundsList, float marginMeters)
@@ -495,6 +873,67 @@ public sealed class NewMapNpcCrowdPrototype : MonoBehaviour
     private static bool IsFinite(float value)
     {
         return !float.IsNaN(value) && !float.IsInfinity(value);
+    }
+}
+
+public enum NewMapNpcMovementState
+{
+    Moving,
+    WaitingAtCrossingOrCrowd,
+    QueuedAtEntrance,
+    Arrived,
+    Repathing,
+    StuckRecovering,
+    PausedByMode,
+    StaticFarProxy
+}
+
+[System.Serializable]
+public sealed class NewMapNpcMovementConfig
+{
+    public bool continuousMovementEnabled = true;
+    public bool wanderInTourismMode = true;
+    public bool evacuationTargetSeekingEnabled = true;
+    public float stuckDetectionSeconds = 5f;
+    public float repathIntervalSeconds = 3f;
+    public float maxIdleWithoutReasonSeconds = 4f;
+    public bool farNpcUpdateThrottle = true;
+    public bool farNpcStaticProxyMode;
+    public bool reactivateFarNpcNearPlayer = true;
+    public bool stuckRecoveryEnabled = true;
+    public bool buildingAvoidanceEnabled = true;
+    public bool boundsClampEnabled = true;
+
+    public static NewMapNpcMovementConfig Default()
+    {
+        return new NewMapNpcMovementConfig();
+    }
+
+    public static NewMapNpcMovementConfig Load()
+    {
+        NewMapNpcMovementConfig config = Default();
+        string path = Path.Combine(Application.dataPath, "Data/P10/newmap_npc_movement_config.json");
+        if (File.Exists(path))
+        {
+            try
+            {
+                config = JsonUtility.FromJson<NewMapNpcMovementConfig>(File.ReadAllText(path)) ?? config;
+            }
+            catch (System.Exception exception)
+            {
+                Debug.LogWarning($"NewMap NPC movement config could not be loaded; using defaults. {exception.Message}");
+            }
+        }
+
+        config.stuckDetectionSeconds = Mathf.Clamp(config.stuckDetectionSeconds, 1f, 30f);
+        config.repathIntervalSeconds = Mathf.Clamp(config.repathIntervalSeconds, 0.5f, 30f);
+        config.maxIdleWithoutReasonSeconds = Mathf.Clamp(config.maxIdleWithoutReasonSeconds, 1f, 30f);
+        config.continuousMovementEnabled = true;
+        config.wanderInTourismMode = true;
+        config.stuckRecoveryEnabled = true;
+        config.buildingAvoidanceEnabled = true;
+        config.boundsClampEnabled = true;
+        return config;
     }
 }
 

@@ -1,4 +1,12 @@
 #!/usr/bin/env python3
+"""Build NewMap runtime label cache from project data and preprocessing lookups.
+
+This script is intentionally preprocessing-only. Unity runtime reads the cache
+that this tool writes and must not perform web requests.
+"""
+
+from __future__ import annotations
+
 import argparse
 import json
 import math
@@ -7,371 +15,601 @@ import sys
 import time
 import urllib.parse
 import urllib.request
-from datetime import datetime, timezone
+from datetime import datetime, timezone, timedelta
 from pathlib import Path
+from typing import Any, Dict, Iterable, List, Optional, Tuple
 
 
-PROJECT_ROOT = Path(__file__).resolve().parents[2]
-DATA_DIR = PROJECT_ROOT / "Assets" / "Data" / "P10"
-CONFIG_PATH = DATA_DIR / "newmap_name_enrichment_config.json"
-INPUT_POINTS_PATH = DATA_DIR / "newmap_name_enrichment_input_points.json"
-CACHE_PATH = DATA_DIR / "newmap_name_cache.json"
-REPORT_PATH = DATA_DIR / "newmap_name_enrichment_report.json"
-CANDIDATE_RESOURCE_PATH = PROJECT_ROOT / "Assets" / "Resources" / "NewMap" / "newmap_runtime_non_official_candidates.json"
-ID_ONLY_RE = re.compile(r"^(?:bldg|tran|dem|brid|wtr|road)?[_-]?[0-9a-f]{8,}(?:[-_][0-9a-f]{4,})*$", re.IGNORECASE)
-ADDRESS_TOKEN_RE = re.compile(r"(丁目|番地|番|号|〒|\d+-\d+|\d+番)")
+JST = timezone(timedelta(hours=9))
+ACTIVE_SCENE = "Assets/Scenes/Chuo_BaseMap.unity"
 
 
-def default_config():
-    return {
-        "enabled": True,
-        "runtimeNetworkRequestsAllowed": False,
-        "preferSourceMetadata": True,
-        "allowOnlineLookup": True,
-        "providerPriority": ["source_metadata", "project_data", "osm_nominatim", "gsi"],
-        "cacheResults": True,
-        "rateLimitSeconds": 1.1,
-        "maxQueriesPerRun": 200,
-        "onlyQueryMissingNames": True,
-        "queryBuildings": True,
-        "queryRoads": True,
-        "minConfidence": 0.6,
-        "writeAttribution": True,
-        "userAgent": "ChuoTsunamiEvacuationNewMapNameEnrichment/1.0",
-        "nominatimEndpoint": "https://nominatim.openstreetmap.org/reverse",
-        "acceptLanguage": "ja,en",
-        "saveRawResponses": False
-    }
+def now_jst() -> str:
+    return datetime.now(JST).isoformat(timespec="seconds")
 
 
-def load_json(path, fallback):
+def read_json(path: Path, default: Any) -> Any:
     if not path.exists():
-        return fallback
-    with path.open("r", encoding="utf-8") as handle:
-        return json.load(handle)
+        return default
+    return json.loads(path.read_text(encoding="utf-8"))
 
 
-def write_json(path, data):
+def write_json(path: Path, data: Any) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
-    with path.open("w", encoding="utf-8", newline="\n") as handle:
-        json.dump(data, handle, ensure_ascii=False, indent=2)
-        handle.write("\n")
+    path.write_text(json.dumps(data, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
 
 
-def merged_config():
-    config = default_config()
-    if CONFIG_PATH.exists():
-        loaded = load_json(CONFIG_PATH, {})
-        if isinstance(loaded, dict):
-            config.update(loaded)
-    config["runtimeNetworkRequestsAllowed"] = False
-    config["rateLimitSeconds"] = max(1.1, float(config.get("rateLimitSeconds", 1.1)))
-    config["maxQueriesPerRun"] = max(0, int(config.get("maxQueriesPerRun", 0)))
-    config["minConfidence"] = min(1.0, max(0.0, float(config.get("minConfidence", 0.6))))
-    return config
+def has_japanese(value: str) -> bool:
+    return any(
+        ("\u3040" <= ch <= "\u30ff") or
+        ("\u3400" <= ch <= "\u9fff")
+        for ch in value
+    )
 
 
-def as_float(value):
-    try:
-        result = float(value)
-    except (TypeError, ValueError):
-        return None
-    if math.isnan(result) or math.isinf(result):
-        return None
-    return result
-
-
-def normalize_input_point(raw, source):
-    if not isinstance(raw, dict):
-        return None
-    lat = as_float(raw.get("lat", raw.get("latitude")))
-    lon = as_float(raw.get("lon", raw.get("longitude")))
-    unity = raw.get("unityPosition") or raw.get("position") or {}
-    point = {
-        "id": str(raw.get("id", "")).strip(),
-        "objectType": str(raw.get("objectType", raw.get("type", ""))).strip().lower(),
-        "sourceName": str(raw.get("sourceName", raw.get("name", ""))).strip(),
-        "displayName": str(raw.get("displayName", "")).strip(),
-        "lat": lat,
-        "lon": lon,
-        "unityPosition": {
-            "x": as_float(unity.get("x")) or as_float(raw.get("unityX")) or 0.0,
-            "y": as_float(unity.get("y")) or as_float(raw.get("unityY")) or 0.0,
-            "z": as_float(unity.get("z")) or as_float(raw.get("unityZ")) or 0.0,
-        },
-        "source": source,
-    }
-    if not point["id"]:
-        return None
-    return point
-
-
-def looks_id_only(value):
-    text = str(value or "").strip()
-    if not text:
-        return False
-    if ID_ONLY_RE.match(text):
+def looks_like_id(value: str) -> bool:
+    lower = value.strip().lower()
+    if not lower:
         return True
-    return text.startswith(("13102-bldg-", "bldg_", "tran_", "dem_", "brid_", "wtr_"))
+    if lower.startswith(("bldg_", "gml_", "sample_plateau")):
+        return True
+    if lower.startswith("13102-bldg-"):
+        return True
+    if "_unknown_" in lower or lower in {"unknown", "unnamed", "none", "null"}:
+        return True
+    if re.fullmatch(r"[-+]?\d+(\.\d+)?\s*,\s*[-+]?\d+(\.\d+)?", lower):
+        return True
+    return False
 
 
-def looks_full_address(value):
-    text = str(value or "").strip()
-    if not text:
+def looks_like_address(value: str) -> bool:
+    if not value:
         return False
-    return bool(ADDRESS_TOKEN_RE.search(text)) and ("区" in text or "都" in text or "中央" in text)
+    lower = value.lower()
+    if "postal" in lower or "address" in lower or "\u3012" in value:
+        return True
+    return (
+        "\u6771\u4eac\u90fd" in value and
+        "\u4e2d\u592e\u533a" in value and
+        ("\u4e01\u76ee" in value or "\u756a" in value or "\u53f7" in value)
+    )
 
 
-def choose_main_name(*values):
-    for value in values:
-        name = str(value or "").strip()
+def looks_like_mojibake(value: str) -> bool:
+    if "\ufffd" in value:
+        return True
+    halfwidth = sum(1 for ch in value if "\uff61" <= ch <= "\uff9f")
+    if halfwidth >= 2:
+        return True
+    return any(token in value for token in (
+        "\u7e3a", "\u7e5d", "\u90e2", "\u8b5a", "\u83a0",
+        "\u9b27", "\u9a5b", "\u86f9", "\u8373", "\u87c6"
+    ))
+
+
+def normalize_main_name(value: Optional[str]) -> str:
+    if not value:
+        return ""
+    name = str(value).strip()
+    if not name:
+        return ""
+    name = re.split(r"[\r\n]", name, maxsplit=1)[0].strip()
+    name = name.split(";")[0].strip()
+    name = re.sub(r"\s+", " ", name)
+    if looks_like_id(name) or looks_like_address(name) or looks_like_mojibake(name):
+        return ""
+    if not has_japanese(name):
+        return ""
+    return name
+
+
+def vec3(x: float, y: float, z: float) -> Dict[str, float]:
+    return {"x": round(float(x), 3), "y": round(float(y), 3), "z": round(float(z), 3)}
+
+
+def add_label(
+    labels: List[Dict[str, Any]],
+    seen: set,
+    label_id: str,
+    object_type: str,
+    name: Optional[str],
+    position: Dict[str, float],
+    provider: str,
+    source: str,
+    classification: str,
+    raw_type: str,
+    confidence: float,
+    disabled: bool = False,
+) -> bool:
+    normalized = normalize_main_name(name)
+    if not normalized:
+        return False
+    if label_id in seen:
+        return False
+    seen.add(label_id)
+    labels.append({
+        "id": label_id,
+        "objectType": object_type,
+        "name": normalized,
+        "language": "ja",
+        "provider": provider,
+        "source": source,
+        "classification": classification,
+        "rawType": raw_type,
+        "confidence": round(float(confidence), 3),
+        "idOnly": False,
+        "disabled": bool(disabled),
+        "position": position,
+    })
+    return True
+
+
+def load_transform(project_root: Path) -> Optional[Dict[str, Any]]:
+    path = project_root / "Assets/Data/P10/newmap_coordinate_transform_anchor_fit.json"
+    data = read_json(path, {})
+    fit = data.get("fit") if isinstance(data, dict) else None
+    if not isinstance(fit, dict) or fit.get("status") != "transform_validated_from_official_anchors":
+        return None
+    return fit
+
+
+def wgs84_to_unity(lat: float, lon: float, fit: Dict[str, Any], fallback_y: float) -> Optional[Dict[str, float]]:
+    origin = fit.get("origin") or {}
+    affine = fit.get("affine2d") or {}
+    x_fit = affine.get("unityX") or {}
+    z_fit = affine.get("unityZ") or {}
+    try:
+        origin_lat = float(origin["lat"])
+        origin_lon = float(origin["lon"])
+        lat_rad = math.radians(origin_lat)
+        meters_per_degree_lat = (
+            111132.92 -
+            559.82 * math.cos(2 * lat_rad) +
+            1.175 * math.cos(4 * lat_rad)
+        )
+        meters_per_degree_lon = (
+            111412.84 * math.cos(lat_rad) -
+            93.5 * math.cos(3 * lat_rad)
+        )
+        east = (lon - origin_lon) * meters_per_degree_lon
+        north = (lat - origin_lat) * meters_per_degree_lat
+        x = float(x_fit["eastCoefficient"]) * east + float(x_fit["northCoefficient"]) * north + float(x_fit["offset"])
+        z = float(z_fit["eastCoefficient"]) * east + float(z_fit["northCoefficient"]) * north + float(z_fit["offset"])
+        return vec3(x, fallback_y, z)
+    except (KeyError, TypeError, ValueError):
+        return None
+
+
+def bounds_contains(position: Dict[str, float], bounds: Dict[str, Any]) -> bool:
+    if not bounds:
+        return True
+    try:
+        mn = bounds["min"]
+        mx = bounds["max"]
+        return (
+            float(mn["x"]) <= position["x"] <= float(mx["x"]) and
+            float(mn["z"]) <= position["z"] <= float(mx["z"])
+        )
+    except (KeyError, TypeError, ValueError):
+        return True
+
+
+def extract_official_labels(project_root: Path, labels: List[Dict[str, Any]], seen: set) -> int:
+    path = project_root / "Assets/Data/P10/newmap_official_shelter_anchor_report.json"
+    data = read_json(path, {})
+    count = 0
+    for record in data.get("records", []):
+        if not record.get("activeInGame", False):
+            continue
+        pos = record.get("unityMarkerPosition") or {}
+        if not {"x", "y", "z"} <= set(pos):
+            continue
+        position = vec3(pos["x"], pos["y"], pos["z"])
+        if add_label(
+            labels,
+            seen,
+            str(record.get("id", "")),
+            "official_shelter",
+            record.get("name"),
+            position,
+            "project",
+            "Assets/Data/P10/newmap_official_shelter_anchor_report.json",
+            "project_dataset_name",
+            "official_shelter",
+            1.0,
+        ):
+            count += 1
+    return count
+
+
+def extract_candidate_labels(project_root: Path, labels: List[Dict[str, Any]], seen: set) -> Tuple[int, Dict[str, Dict[str, Any]]]:
+    path = project_root / "Assets/Resources/NewMap/newmap_runtime_non_official_candidates.json"
+    data = read_json(path, {})
+    active_candidates: Dict[str, Dict[str, Any]] = {}
+    count = 0
+    for record in data.get("records", []):
+        if not record.get("activeInGame", False):
+            continue
+        if record.get("isOfficialShelter", False) or not record.get("nonOfficialWarningRequired", False):
+            continue
+        candidate_id = str(record.get("id", ""))
+        position = vec3(record.get("unityX", 0.0), record.get("unityY", 0.0), record.get("unityZ", 0.0))
+        active_candidates[candidate_id] = record
+        if add_label(
+            labels,
+            seen,
+            candidate_id,
+            "candidate",
+            record.get("displayName"),
+            position,
+            "project",
+            "Assets/Resources/NewMap/newmap_runtime_non_official_candidates.json",
+            "project_dataset_name_non_official_warning_required",
+            "non_official_candidate",
+            0.95,
+        ):
+            count += 1
+    return count, active_candidates
+
+
+def extract_building_labels(
+    project_root: Path,
+    labels: List[Dict[str, Any]],
+    seen: set,
+    active_candidates: Dict[str, Dict[str, Any]],
+    max_building_labels: int,
+) -> int:
+    path = project_root / "Assets/Data/P8/humanitarian_highrise_candidate_audit_v1.json"
+    data = read_json(path, {})
+    count = 0
+    for record in data.get("records", []):
+        candidate_id = str(record.get("candidateId", ""))
+        runtime = active_candidates.get(candidate_id)
+        if runtime is None:
+            continue
+        position = vec3(runtime.get("unityX", 0.0), runtime.get("unityY", 0.0), runtime.get("unityZ", 0.0))
+        if add_label(
+            labels,
+            seen,
+            "building_" + candidate_id,
+            "building",
+            record.get("buildingName") or runtime.get("displayName"),
+            position,
+            "project",
+            "Assets/Data/P8/humanitarian_highrise_candidate_audit_v1.json",
+            "project_dataset_name",
+            "plateau_building_attribute",
+            0.86,
+        ):
+            count += 1
+            if count >= max_building_labels:
+                break
+    return count
+
+
+def way_midpoint(element: Dict[str, Any], nodes: Dict[int, Tuple[float, float]]) -> Optional[Tuple[float, float]]:
+    node_ids = element.get("nodes") or []
+    coords = [nodes.get(int(node_id)) for node_id in node_ids if int(node_id) in nodes]
+    coords = [coord for coord in coords if coord is not None]
+    if not coords:
+        center = element.get("center")
+        if isinstance(center, dict) and "lat" in center and "lon" in center:
+            return float(center["lat"]), float(center["lon"])
+        return None
+    return coords[len(coords) // 2]
+
+
+def extract_local_osm_labels(
+    project_root: Path,
+    labels: List[Dict[str, Any]],
+    seen: set,
+    fit: Optional[Dict[str, Any]],
+    map_bounds: Dict[str, Any],
+    max_road_labels: int,
+    fallback_y: float,
+) -> Tuple[int, int, bool]:
+    if fit is None:
+        return 0, 0, False
+
+    cache_dir = project_root / "data_pipeline/cache/osmnx"
+    files = list(cache_dir.glob("*.json"))
+    if not files:
+        return 0, 0, False
+
+    data = read_json(files[0], {})
+    elements = data.get("elements", [])
+    nodes: Dict[int, Tuple[float, float]] = {}
+    for element in elements:
+        if element.get("type") == "node" and "lat" in element and "lon" in element:
+            nodes[int(element["id"])] = (float(element["lat"]), float(element["lon"]))
+
+    road_names_seen = set()
+    road_count = 0
+    landmark_count = 0
+    source = str(files[0].relative_to(project_root)).replace("\\", "/")
+
+    for element in elements:
+        tags = element.get("tags") or {}
+        raw_type = tags.get("highway") or tags.get("railway") or tags.get("amenity") or element.get("type", "osm")
+        name = normalize_main_name(tags.get("name:ja") or tags.get("name") or tags.get("official_name"))
         if not name:
             continue
-        if looks_id_only(name) or looks_full_address(name):
+
+        if name == "\u6771\u4eac\u99c5" and landmark_count == 0:
+            if element.get("type") == "node":
+                lat_lon = (float(element["lat"]), float(element["lon"]))
+            else:
+                lat_lon = way_midpoint(element, nodes)
+            if lat_lon:
+                position = wgs84_to_unity(lat_lon[0], lat_lon[1], fit, fallback_y)
+                if position and bounds_contains(position, map_bounds):
+                    if add_label(
+                        labels,
+                        seen,
+                        "landmark_tokyo_station",
+                        "landmark",
+                        name,
+                        position,
+                        "OpenStreetMap",
+                        source,
+                        "local_osm_cache_name",
+                        str(raw_type),
+                        0.82,
+                    ):
+                        landmark_count += 1
             continue
-        return name
-    return ""
+
+        if element.get("type") != "way" or "highway" not in tags:
+            continue
+        if name in road_names_seen:
+            continue
+        if road_count >= max_road_labels:
+            continue
+        lat_lon = way_midpoint(element, nodes)
+        if not lat_lon:
+            continue
+        position = wgs84_to_unity(lat_lon[0], lat_lon[1], fit, fallback_y)
+        if not position or not bounds_contains(position, map_bounds):
+            continue
+        if add_label(
+            labels,
+            seen,
+            "road_osm_" + str(element.get("id")),
+            "road",
+            name,
+            position,
+            "OpenStreetMap",
+            source,
+            "local_osm_cache_name",
+            "highway:" + str(tags.get("highway")),
+            0.78,
+        ):
+            road_names_seen.add(name)
+            road_count += 1
+
+    return road_count, landmark_count, True
 
 
-def collect_points():
-    points = []
-    if INPUT_POINTS_PATH.exists():
-        loaded = load_json(INPUT_POINTS_PATH, {})
-        raw_points = loaded.get("points", loaded if isinstance(loaded, list) else [])
-        for raw in raw_points:
-            point = normalize_input_point(raw, "enrichment_input_points")
-            if point:
-                points.append(point)
-
-    if CANDIDATE_RESOURCE_PATH.exists():
-        loaded = load_json(CANDIDATE_RESOURCE_PATH, {})
-        for raw in loaded.get("records", []):
-            point = normalize_input_point(
-                {
-                    "id": raw.get("id"),
-                    "objectType": "candidate",
-                    "sourceName": raw.get("displayName"),
-                    "unityX": raw.get("unityX"),
-                    "unityY": raw.get("unityY"),
-                    "unityZ": raw.get("unityZ"),
-                },
-                "project_data_non_official_candidate_resource",
-            )
-            if point:
-                points.append(point)
-
-    return points
-
-
-def is_queryable(point, config):
-    object_type = point["objectType"]
-    if object_type == "building" and not config.get("queryBuildings", True):
-        return False
-    if object_type == "road" and not config.get("queryRoads", True):
-        return False
-    if object_type not in {"building", "road"}:
-        return False
-    if config.get("onlyQueryMissingNames", True) and (point["sourceName"] or point["displayName"]):
-        return False
-    return point["lat"] is not None and point["lon"] is not None
-
-
-def nominatim_reverse(point, config):
-    params = {
+def reverse_lookup_name(lat: float, lon: float, user_agent: str, timeout_seconds: float) -> Optional[Dict[str, Any]]:
+    params = urllib.parse.urlencode({
         "format": "jsonv2",
-        "lat": f"{point['lat']:.8f}",
-        "lon": f"{point['lon']:.8f}",
-        "zoom": "18" if point["objectType"] == "building" else "17",
-        "addressdetails": "1",
-        "namedetails": "1",
-        "extratags": "1",
-        "accept-language": config.get("acceptLanguage", "ja,en"),
-    }
-    url = config.get("nominatimEndpoint", default_config()["nominatimEndpoint"]) + "?" + urllib.parse.urlencode(params)
-    request = urllib.request.Request(
-        url,
-        headers={
-            "User-Agent": config.get("userAgent", default_config()["userAgent"]),
-            "Accept": "application/json",
-        },
-    )
-    with urllib.request.urlopen(request, timeout=20) as response:
+        "lat": f"{lat:.7f}",
+        "lon": f"{lon:.7f}",
+        "namedetails": 1,
+        "accept-language": "ja",
+        "zoom": 18,
+    })
+    url = "https://nominatim.openstreetmap.org/reverse?" + params
+    request = urllib.request.Request(url, headers={"User-Agent": user_agent})
+    with urllib.request.urlopen(request, timeout=timeout_seconds) as response:
         return json.loads(response.read().decode("utf-8"))
 
 
-def classify_online_result(point, response, min_confidence):
-    address = response.get("address") or {}
-    namedetails = response.get("namedetails") or {}
-    name = choose_main_name(
-        namedetails.get("name:ja"),
-        namedetails.get("official_name:ja"),
-        namedetails.get("name"),
-        namedetails.get("official_name"),
-        response.get("name"),
+def run_online_queries(
+    labels: List[Dict[str, Any]],
+    seen: set,
+    fit: Optional[Dict[str, Any]],
+    query_points: List[Dict[str, Any]],
+    config: Dict[str, Any],
+    fallback_y: float,
+) -> Tuple[str, int, int, List[str]]:
+    if not config.get("allowOnlineLookup", True):
+        return "disabled_by_config", 0, 0, []
+    if fit is None:
+        return "skipped_missing_coordinate_transform", 0, 0, []
+
+    max_queries = int(config.get("maxOnlineQueries", 12))
+    if max_queries <= 0 or not query_points:
+        return "not_needed_source_and_local_osm_cache_provided_names", 0, 0, []
+
+    user_agent = str(config.get("userAgent", "ChuoTsunamiEvacuationNewMapNamePreprocessor/1.0"))
+    rate_seconds = float(config.get("onlineRateLimitSeconds", 1.1))
+    timeout_seconds = float(config.get("onlineTimeoutSeconds", 8.0))
+    attempted = 0
+    added = 0
+    errors: List[str] = []
+
+    for point in query_points[:max_queries]:
+        attempted += 1
+        try:
+            result = reverse_lookup_name(float(point["lat"]), float(point["lon"]), user_agent, timeout_seconds)
+            namedetails = result.get("namedetails") or {}
+            name = (
+                namedetails.get("name:ja") or
+                namedetails.get("name") or
+                result.get("name")
+            )
+            normalized = normalize_main_name(name)
+            if normalized:
+                position = wgs84_to_unity(float(point["lat"]), float(point["lon"]), fit, fallback_y)
+                if position:
+                    if add_label(
+                        labels,
+                        seen,
+                        "online_" + str(point["id"]),
+                        str(point.get("objectType", "landmark")),
+                        normalized,
+                        position,
+                        "OpenStreetMap Nominatim",
+                        "online_preprocessing_reverse_geocode",
+                        "online_exact_or_near_match",
+                        str(result.get("category", "")) + ":" + str(result.get("type", "")),
+                        0.7,
+                    ):
+                        added += 1
+            time.sleep(max(0.0, rate_seconds))
+        except Exception as exc:  # noqa: BLE001 - report graceful online failure
+            errors.append(f"{point.get('id')}: {exc}")
+            break
+
+    if errors:
+        return "failed_or_pending", attempted, added, errors
+    return ("completed" if attempted > 0 else "not_needed_source_and_local_osm_cache_provided_names"), attempted, added, errors
+
+
+def collect_missing_online_points(road_count: int, config: Dict[str, Any]) -> List[Dict[str, Any]]:
+    minimum_road_labels = int(config.get("minimumRoadLabelsBeforeOnline", 8))
+    if road_count >= minimum_road_labels:
+        return []
+    # Controlled representative Chuo/Tokyo Station area points, queried only when
+    # local/source data did not produce enough reliable road labels.
+    return [
+        {"id": "tokyo_station_area", "objectType": "landmark", "lat": 35.681236, "lon": 139.767125},
+        {"id": "nihonbashi_area", "objectType": "road", "lat": 35.682839, "lon": 139.773542},
+        {"id": "ginza_area", "objectType": "road", "lat": 35.671989, "lon": 139.763965},
+    ]
+
+
+def default_config() -> Dict[str, Any]:
+    return {
+        "enabled": True,
+        "preprocessingOnly": True,
+        "runtimeNetworkRequestsAllowed": False,
+        "allowOnlineLookup": True,
+        "maxOnlineQueries": 12,
+        "onlineRateLimitSeconds": 1.1,
+        "onlineTimeoutSeconds": 8.0,
+        "minimumRoadLabelsBeforeOnline": 8,
+        "maxRoadLabels": 40,
+        "maxBuildingLabels": 60,
+        "minConfidenceForRuntime": 0.6,
+        "userAgent": "ChuoTsunamiEvacuationNewMapNamePreprocessor/1.0",
+        "sourcePriority": [
+            "project official shelter names",
+            "project non-official candidate names",
+            "local PLATEAU/GameObject metadata",
+            "local OSM cache",
+            "online reverse lookup for missing selected names only"
+        ],
+    }
+
+
+def main() -> int:
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--project-root", default=str(Path(__file__).resolve().parents[2]))
+    args = parser.parse_args()
+
+    project_root = Path(args.project_root).resolve()
+    config_path = project_root / "Assets/Data/P10/newmap_name_enrichment_config.json"
+    config = default_config()
+    existing = read_json(config_path, {})
+    if isinstance(existing, dict):
+        config.update(existing)
+    config["runtimeNetworkRequestsAllowed"] = False
+    config["preprocessingOnly"] = True
+    write_json(config_path, config)
+
+    fallback_ground_y = 2.4
+    raise_config = read_json(project_root / "Assets/Data/P10/newmap_ground_cover_raise_config.json", {})
+    cover_config = read_json(project_root / "Assets/Data/P10/newmap_gameplay_ground_cover_config.json", {})
+    if isinstance(raise_config, dict):
+        fallback_ground_y = float(cover_config.get("coverY", 0.0)) + float(raise_config.get("fallbackRaiseOffsetMeters", 2.4))
+
+    official_report = read_json(project_root / "Assets/Data/P10/newmap_official_shelter_anchor_report.json", {})
+    map_bounds = official_report.get("mapBoundsFromSceneMeshAabbs") if isinstance(official_report, dict) else {}
+    fit = load_transform(project_root)
+    labels: List[Dict[str, Any]] = []
+    seen: set = set()
+
+    official_count = extract_official_labels(project_root, labels, seen)
+    candidate_count, active_candidates = extract_candidate_labels(project_root, labels, seen)
+    building_count = extract_building_labels(project_root, labels, seen, active_candidates, int(config["maxBuildingLabels"]))
+    road_count, landmark_count, local_osm_available = extract_local_osm_labels(
+        project_root,
+        labels,
+        seen,
+        fit,
+        map_bounds or {},
+        int(config["maxRoadLabels"]),
+        fallback_ground_y,
     )
-    raw_category = str(response.get("category", "")).lower()
-    raw_type = str(response.get("type", "")).lower()
-    object_type = point["objectType"]
+    online_points = collect_missing_online_points(road_count, config)
+    online_status, online_attempted, online_added, online_errors = run_online_queries(
+        labels,
+        seen,
+        fit,
+        online_points,
+        config,
+        fallback_ground_y,
+    )
 
-    if object_type == "road":
-        road_name = choose_main_name(name, address.get("road"), address.get("pedestrian"), address.get("footway"))
-        if road_name and (raw_category == "highway" or raw_type in {"road", "street", "pedestrian", "footway", "path"} or address.get("road")):
-            return road_name, "online_exact_or_near_match", max(min_confidence, 0.72), raw_category + "/" + raw_type
-        if address:
-            return "", "online_address_only", 0.4, raw_category + "/" + raw_type
-        return "", "no_name_found", 0.0, raw_category + "/" + raw_type
-
-    if object_type == "building":
-        building_like = raw_category in {"building", "amenity", "tourism", "shop", "office", "leisure", "historic"} or raw_type in {"building", "yes", "apartments", "commercial", "school", "hospital"}
-        if name and building_like:
-            return name, "online_exact_or_near_match", max(min_confidence, 0.72), raw_category + "/" + raw_type
-        if address:
-            return "", "online_address_only", 0.4, raw_category + "/" + raw_type
-        return "", "no_name_found", 0.0, raw_category + "/" + raw_type
-
-    return "", "no_name_found", 0.0, raw_category + "/" + raw_type
-
-
-def label_from_source(point):
-    name = choose_main_name(point["sourceName"], point["displayName"])
-    if not name:
-        return None
-    object_type = point["objectType"]
-    classification = "project_dataset_name" if point["source"].startswith("project_data") else "source_metadata_name"
-    return {
-        "id": point["id"],
-        "objectType": object_type,
-        "name": name,
-        "language": "ja_or_source_main_name",
-        "provider": point["source"],
-        "source": point["source"],
-        "classification": classification,
-        "rawType": object_type,
-        "confidence": 1.0,
-        "idOnly": False,
-        "disabled": False,
-        "position": point["unityPosition"],
-    }
-
-
-def label_from_online(point, name, classification, confidence, raw_type):
-    name = choose_main_name(name)
-    return {
-        "id": point["id"],
-        "objectType": point["objectType"],
-        "name": name,
-        "language": "ja",
-        "provider": "osm_nominatim",
-        "source": "coordinate_reverse_lookup_cache",
-        "classification": classification,
-        "rawType": raw_type,
-        "confidence": confidence,
-        "idOnly": False,
-        "disabled": not name or looks_id_only(name) or looks_full_address(name) or confidence < 0.6 or classification in {"online_address_only", "online_low_confidence", "no_name_found"},
-        "position": point["unityPosition"],
-    }
-
-
-def main(argv):
-    parser = argparse.ArgumentParser(description="Enrich NewMap building/road labels from coordinate-based preprocessing.")
-    parser.add_argument("--allow-online", action="store_true", help="Permit online lookup when config also allows it.")
-    parser.add_argument("--dry-run", action="store_true", help="Build the report without writing cache/report files.")
-    args = parser.parse_args(argv)
-
-    config = merged_config()
-    points = collect_points()
-    labels = []
-    report = {
-        "generatedAt": datetime.now(timezone.utc).isoformat(),
-        "runtimeNetworkRequestsAllowed": False,
-        "configPath": str(CONFIG_PATH.relative_to(PROJECT_ROOT)),
-        "cachePath": str(CACHE_PATH.relative_to(PROJECT_ROOT)),
-        "inputPointCount": len(points),
-        "sourceOrProjectNamesUsed": 0,
-        "queryableMissingNamePoints": 0,
-        "onlineQueriesAttempted": 0,
-        "onlineNamesAccepted": 0,
-        "onlineAddressOnlyRejected": 0,
-        "onlineNoNameFound": 0,
-        "skippedNoCoordinates": 0,
-        "skippedOnlineDisabled": 0,
-        "providerAttribution": [],
-        "status": "not_run",
-        "errors": [],
-    }
-
-    if not config.get("enabled", True):
-        report["status"] = "disabled"
-    else:
-        for point in points:
-            source_label = label_from_source(point)
-            if source_label and point["objectType"] in {"building", "road", "landmark", "candidate", "shelter"}:
-                labels.append(source_label)
-                report["sourceOrProjectNamesUsed"] += 1
-                continue
-
-            if not is_queryable(point, config):
-                if point["lat"] is None or point["lon"] is None:
-                    report["skippedNoCoordinates"] += 1
-                continue
-
-            report["queryableMissingNamePoints"] += 1
-            online_allowed = args.allow_online and bool(config.get("allowOnlineLookup", False))
-            if not online_allowed:
-                report["skippedOnlineDisabled"] += 1
-                continue
-
-            if report["onlineQueriesAttempted"] >= int(config["maxQueriesPerRun"]):
-                break
-
-            try:
-                if report["onlineQueriesAttempted"] > 0:
-                    time.sleep(float(config["rateLimitSeconds"]))
-                response = nominatim_reverse(point, config)
-                report["onlineQueriesAttempted"] += 1
-                name, classification, confidence, raw_type = classify_online_result(point, response, float(config["minConfidence"]))
-                labels.append(label_from_online(point, name, classification, confidence, raw_type))
-                if name and confidence >= float(config["minConfidence"]) and classification == "online_exact_or_near_match":
-                    report["onlineNamesAccepted"] += 1
-                elif classification == "online_address_only":
-                    report["onlineAddressOnlyRejected"] += 1
-                else:
-                    report["onlineNoNameFound"] += 1
-            except Exception as exc:  # noqa: BLE001
-                report["errors"].append({"id": point["id"], "error": str(exc)})
-
-        if report["queryableMissingNamePoints"] > 0 and report["onlineQueriesAttempted"] == 0 and report["skippedOnlineDisabled"] > 0:
-            report["status"] = "pending_user_network_run"
-        else:
-            report["status"] = "completed"
-
+    labels.sort(key=lambda item: (item["objectType"], item["id"]))
+    generated_at = now_jst()
+    source_status = "source_project_and_local_osm_names_available" if local_osm_available else "source_project_names_available"
+    if online_added > 0:
+        source_status += "_online_enriched"
     cache = {
-        "generatedAt": report["generatedAt"],
+        "generatedAt": generated_at,
+        "activeScene": ACTIVE_SCENE,
+        "preprocessingOnly": True,
         "runtimeNetworkRequestsAllowed": False,
-        "sourceStatus": "source_or_cached_names_available" if any(label["objectType"] in {"building", "road"} and not label["disabled"] for label in labels) else "no_source_name_available",
+        "sourceStatus": source_status,
+        "onlineEnrichmentStatus": online_status,
+        "providerSummary": {
+            "projectOfficialShelters": official_count,
+            "projectNonOfficialCandidates": candidate_count,
+            "projectBuildingNames": building_count,
+            "localOsmRoadLabels": road_count,
+            "localOsmLandmarkLabels": landmark_count,
+            "onlineQueriesAttempted": online_attempted,
+            "onlineLabelsAdded": online_added,
+        },
         "labels": labels,
     }
-    if config.get("writeAttribution", True) and report["onlineQueriesAttempted"] > 0:
-        report["providerAttribution"].append(
-            {
-                "provider": "OpenStreetMap/Nominatim",
-                "usagePolicy": "https://operations.osmfoundation.org/policies/nominatim/",
-                "dataLicense": "ODbL",
-                "note": "Results are cached locally; Unity player runtime performs no web requests.",
-            }
-        )
+    report = {
+        "generatedAt": generated_at,
+        "activeScene": ACTIVE_SCENE,
+        "preprocessingOnly": True,
+        "runtimeNetworkRequestsAllowed": False,
+        "sourcePriorityApplied": config["sourcePriority"],
+        "cachePath": "Assets/Data/P10/newmap_name_cache.json",
+        "labelCount": len(labels),
+        "officialShelterLabels": official_count,
+        "nonOfficialCandidateLabels": candidate_count,
+        "buildingLabels": building_count,
+        "roadLabels": road_count,
+        "landmarkLabels": landmark_count,
+        "localOsmCacheAvailable": local_osm_available,
+        "onlineEnrichmentStatus": online_status,
+        "onlineQueriesAttempted": online_attempted,
+        "onlineLabelsAdded": online_added,
+        "onlineErrors": online_errors[:8],
+        "normalization": {
+            "japaneseKanjiMainNameOnly": True,
+            "fullAddressesHidden": True,
+            "idOnlyHidden": True,
+            "machineTranslationUsed": False,
+            "fabricatedNamesAllowed": False,
+            "lowConfidenceHiddenInNormalMode": True,
+        },
+        "finalStatus": "completed" if labels else "failed_no_labels",
+    }
+    write_json(project_root / "Assets/Data/P10/newmap_name_cache.json", cache)
+    write_json(project_root / "Assets/Data/P10/newmap_name_enrichment_report.json", report)
 
-    report["cachedLabelCount"] = len(labels)
-    report["normalRuntimeBuildingRoadLabels"] = sum(
-        1 for label in labels if label["objectType"] in {"building", "road"} and not label["disabled"] and label["confidence"] >= float(config["minConfidence"])
-    )
-
-    if not args.dry_run:
-        write_json(CACHE_PATH, cache)
-        write_json(REPORT_PATH, report)
     print(json.dumps(report, ensure_ascii=False, indent=2))
-    return 0 if not report["errors"] else 2
+    return 0 if labels else 1
 
 
 if __name__ == "__main__":
-    raise SystemExit(main(sys.argv[1:]))
+    sys.exit(main())

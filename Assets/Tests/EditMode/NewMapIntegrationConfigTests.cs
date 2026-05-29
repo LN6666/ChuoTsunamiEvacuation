@@ -172,7 +172,16 @@ public class NewMapIntegrationConfigTests
             "Data/P10/newmap_npc_100x_distribution_report.json",
             "Data/P10/newmap_npc_crowd_100x_gameplay_status.json",
             "Data/P10/newmap_npc_100x_performance_report.json",
-            "Data/P10/newmap_building_snap_npc100x_regression.json"
+            "Data/P10/newmap_building_snap_npc100x_regression.json",
+            "Data/P10/newmap_ground_cover_raise_config.json",
+            "Data/P10/newmap_ground_cover_raise_report.json",
+            "Data/P10/newmap_ground_raise_runtime_resnap_status.json",
+            "Data/P10/newmap_building_floating_after_ground_raise.json",
+            "Data/P10/newmap_name_normalization_rules.json",
+            "Data/P10/newmap_player_building_collision_report.json",
+            "Data/P10/newmap_npc_building_collision_report.json",
+            "Data/P10/newmap_npc_movement_config.json",
+            "Data/P10/newmap_npc_continuous_movement_report.json"
         };
 
         foreach (string relativePath in requiredPaths)
@@ -193,6 +202,12 @@ public class NewMapIntegrationConfigTests
         StringAssert.Contains("\"usePooling\": true", config);
         StringAssert.Contains("\"farNpcStaticProxyMode\": true", config);
 
+        string movement = File.ReadAllText(Path.Combine(Application.dataPath, "Data/P10/newmap_npc_movement_config.json"));
+        StringAssert.Contains("\"continuousMovementEnabled\": true", movement);
+        StringAssert.Contains("\"stuckRecoveryEnabled\": true", movement);
+        StringAssert.Contains("\"buildingAvoidanceEnabled\": true", movement);
+        StringAssert.Contains("\"farNpcStaticProxyMode\": false", movement);
+
         string mouse = File.ReadAllText(Path.Combine(Application.dataPath, "Data/P10/newmap_mouse_drag_look_config.json"));
         StringAssert.Contains("\"lookRequiresMouseButton\": true", mouse);
         StringAssert.Contains("\"lookMouseButton\": \"RightMouse\"", mouse);
@@ -212,11 +227,15 @@ public class NewMapIntegrationConfigTests
     }
 
     [Test]
-    public void BuildingSnapdownAndNpc100xReportsAreConstrained()
+    public void GroundRaiseNameCollisionAndNpc100xReportsAreConstrained()
     {
         string snapConfig = File.ReadAllText(Path.Combine(Application.dataPath, "Data/P10/newmap_floating_building_snapdown_config.json"));
         string snapReport = File.ReadAllText(Path.Combine(Application.dataPath, "Data/P10/newmap_floating_building_snapdown_report.json"));
         string targetReport = File.ReadAllText(Path.Combine(Application.dataPath, "Data/P10/newmap_target_height_after_building_snapdown.json"));
+        string raiseConfig = File.ReadAllText(Path.Combine(Application.dataPath, "Data/P10/newmap_ground_cover_raise_config.json"));
+        string raiseReport = File.ReadAllText(Path.Combine(Application.dataPath, "Data/P10/newmap_ground_cover_raise_report.json"));
+        string playerCollision = File.ReadAllText(Path.Combine(Application.dataPath, "Data/P10/newmap_player_building_collision_report.json"));
+        string npcMovement = File.ReadAllText(Path.Combine(Application.dataPath, "Data/P10/newmap_npc_continuous_movement_report.json"));
         string npcReport = File.ReadAllText(Path.Combine(Application.dataPath, "Data/P10/newmap_npc_100x_distribution_report.json"));
         string npcGameplay = File.ReadAllText(Path.Combine(Application.dataPath, "Data/P10/newmap_npc_crowd_100x_gameplay_status.json"));
         string bootstrap = File.ReadAllText(Path.Combine(Application.dataPath, "Scripts/NewMap/NewMapRuntimeBootstrap.cs"));
@@ -225,6 +244,10 @@ public class NewMapIntegrationConfigTests
         string compactSnapConfig = snapConfig.Replace(" ", string.Empty);
         string compactSnapReport = snapReport.Replace(" ", string.Empty);
         string compactTargetReport = targetReport.Replace(" ", string.Empty);
+        string compactRaiseConfig = raiseConfig.Replace(" ", string.Empty);
+        string compactRaiseReport = raiseReport.Replace(" ", string.Empty);
+        string compactPlayerCollision = playerCollision.Replace(" ", string.Empty);
+        string compactNpcMovement = npcMovement.Replace(" ", string.Empty);
         string compactNpcReport = npcReport.Replace(" ", string.Empty);
         string compactNpcGameplay = npcGameplay.Replace(" ", string.Empty);
 
@@ -233,6 +256,12 @@ public class NewMapIntegrationConfigTests
         StringAssert.Contains("\"notGisGradeTerrainAccuracy\":true", compactSnapReport);
         StringAssert.Contains("\"markerGreenFrameRealignmentStatus\"", snapReport);
         StringAssert.Contains("\"greenFramesAlignToGroundCover\":true", compactTargetReport);
+        StringAssert.Contains("\"keepImportedBuildingsFixed\":true", compactRaiseConfig);
+        StringAssert.Contains("\"maxRaiseOffsetMeters\":10.0", compactRaiseConfig);
+        StringAssert.Contains("\"buildingsMoved\":false", compactRaiseReport);
+        StringAssert.Contains("\"playerBuildingCollisionEnabled\":true", compactPlayerCollision);
+        StringAssert.Contains("\"continuousMovementEnabled\":true", compactNpcMovement);
+        StringAssert.Contains("\"stoppedWithoutReasonCount\":0", compactNpcMovement);
         StringAssert.Contains("\"npcCountMultiplier\":100", compactNpcReport);
         StringAssert.Contains("\"requestedNpcCount\":800", compactNpcReport);
         StringAssert.Contains("\"maxNpcCount\":800", compactNpcReport);
@@ -240,10 +269,13 @@ public class NewMapIntegrationConfigTests
         StringAssert.Contains("\"usePooling\":true", compactNpcReport);
         StringAssert.Contains("\"evacuationCrowdDelayBounded\":true", compactNpcGameplay);
         StringAssert.Contains("ApplyFloatingBuildingSnapdownToGameplayGroundCover", bootstrap);
+        StringAssert.Contains("DisableBuildingVerticalMovesForGroundCoverRaise", bootstrap);
+        StringAssert.Contains("ResolveRaisedGroundCoverY", bootstrap);
         StringAssert.Contains("ContainsSnapdownExcludedText", bootstrap);
-        StringAssert.Contains("buildingSnapdownStatus", bootstrap);
+        StringAssert.Contains("groundRaiseStatus", bootstrap);
         StringAssert.Contains("IsInsideBuildingBounds", npc);
-        StringAssert.Contains("farNpcStaticProxyMode", npc);
+        StringAssert.Contains("NewMapNpcMovementState", npc);
+        StringAssert.Contains("StoppedWithoutReasonCount", npc);
     }
 
     [Test]
@@ -265,7 +297,7 @@ public class NewMapIntegrationConfigTests
         Assert.IsTrue(labelConfig.enabled);
         Assert.IsTrue(labelConfig.showOfficialShelterNames);
         Assert.IsTrue(labelConfig.showNonOfficialCandidateNames);
-        Assert.IsFalse(labelConfig.showBuildingNames, "Generic building labels should remain hidden unless a reliable cache/source enables them.");
+        Assert.IsTrue(labelConfig.showBuildingNames, "Reliable cache-backed building labels should be visible.");
         Assert.IsTrue(labelConfig.showRoadNames);
         Assert.IsFalse(labelConfig.showIdOnlyLabelsInDebug);
         Assert.IsFalse(labelConfig.runtimeNetworkRequestsAllowed);
@@ -276,9 +308,10 @@ public class NewMapIntegrationConfigTests
         StringAssert.Contains("\"supportRendererAllowedInNormalMode\": false", support);
         StringAssert.Contains("\"blueDebugGroundMaterialAllowedInNormalMode\": false", support);
 
-        string labelSource = File.ReadAllText(Path.Combine(Application.dataPath, "Data/P10/newmap_object_name_label_source_report.json"));
-        StringAssert.Contains("no_source_name_available_for_generic_building_or_road_names", labelSource);
-        StringAssert.Contains("No fabricated road/building names", labelSource);
+        string cache = File.ReadAllText(Path.Combine(Application.dataPath, "Data/P10/newmap_name_cache.json"));
+        StringAssert.Contains("source_project_and_local_osm_names_available", cache);
+        StringAssert.Contains("東京駅", cache);
+        StringAssert.Contains("昭和通り", cache);
 
         string enrichmentConfig = File.ReadAllText(Path.Combine(Application.dataPath, "Data/P10/newmap_name_enrichment_config.json"));
         StringAssert.Contains("\"runtimeNetworkRequestsAllowed\": false", enrichmentConfig);
@@ -451,9 +484,10 @@ public class NewMapIntegrationConfigTests
         StringAssert.Contains("\u8056\u8def\u52a0\u30ac\u30fc\u30c7\u30f3\u30bf\u30ef\u30fc", cache);
         Assert.IsFalse(cache.Contains("\"idOnly\": true"), "ID-only cache entries must not be normal labels.");
         Assert.IsFalse(cache.Contains("address_only"), "Address-only reverse geocode strings must not become labels.");
-        StringAssert.Contains("\"status\": \"completed\"", enrichment);
+        StringAssert.Contains("\"finalStatus\": \"completed\"", enrichment);
         StringAssert.Contains("\"onlineQueriesAttempted\": 0", enrichment);
         StringAssert.Contains("\"runtimeNetworkRequestsAllowed\": false", labelConfig);
+        StringAssert.Contains("\"showBuildingNames\": true", labelConfig);
         StringAssert.Contains("\"showIdOnlyLabelsInDebug\": false", labelConfig);
     }
 

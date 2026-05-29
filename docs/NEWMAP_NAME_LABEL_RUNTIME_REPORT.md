@@ -1,20 +1,23 @@
 ﻿# NewMap Name Label Runtime Report
 
-Generated: 2026-05-29T15:01:52
+Generated: 2026-05-29T20:41:47
 
-Runtime label system:
-- Reads local config/cache only.
-- Performs no web requests in Unity runtime.
-- Hides low-confidence and ID-only labels in normal mode.
-- Preserves official and non-official target semantics.
+- Cache loaded: True
+- Cache records: 94
+- Official labels: 15
+- Non-official labels: 77
+- Building labels: 19
+- Road labels: 40
+- Tokyo Station labels: 1
+- ID-only labels visible: 0
+- Runtime network requests allowed: False
+- Final status: validated_by_player_smoke
 
-Player smoke:
-- Available labels: 93
-- Active labels: 8
-- Official shelter labels: 15
-- Non-official candidate labels: 78
-- Road name labels: 0
-- Building name labels: 0
-- ID-only labels: 0
-- Runtime network requests: False
-- Source status: no_source_name_available_for_generic_building_or_road_names
+Player-smoke label counts:
+- cache records loaded: 94
+- official shelter labels: 15
+- non-official candidate labels: 77
+- building labels: 19
+- road labels: 40
+- Tokyo Station labels: 1
+- ID-only visible labels: 0

@@ -381,7 +381,7 @@ public class NewMapRuntimePlayModeTests
         Assert.GreaterOrEqual(crowd.UsedRingCount, 5);
         Assert.IsTrue(crowd.AvoidBuildingsEnabled);
         Assert.IsTrue(crowd.UsePoolingEnabled);
-        Assert.IsTrue(crowd.FarNpcStaticProxyModeEnabled);
+        Assert.IsFalse(crowd.FarNpcStaticProxyModeEnabled, "Continuous movement validation disables static far proxies so NPCs do not silently freeze.");
 
         Vector3[] positions = crowd.GetNpcPositionsForDiagnostics();
         Assert.AreEqual(crowd.SpawnedNpcCount, positions.Length);
@@ -405,6 +405,14 @@ public class NewMapRuntimePlayModeTests
             Assert.AreEqual(deterministicA[i].z, deterministicB[i].z, 0.001f);
         }
 
+        for (int i = 0; i < 20; i++)
+        {
+            yield return null;
+        }
+
+        Assert.AreEqual(0, crowd.StoppedWithoutReasonCount, "NPCs may be moving, arrived, queued, or recovering, but not silently stopped.");
+        Assert.GreaterOrEqual(crowd.MovingCount + crowd.ArrivedCount + crowd.QueuedCount + crowd.StuckCount + crowd.StaticProxyCount, 1);
+
         controller.StartEvacuationMode();
         controller.ForceStageForDiagnostics(NewMapTsunamiStage.FrontApproaching);
         yield return null;
@@ -415,7 +423,7 @@ public class NewMapRuntimePlayModeTests
     }
 
     [UnityTest]
-    public IEnumerator RuntimeSnapdownLowersFloatingBuildingRootsWithoutMovingRoadLikeObjects()
+    public IEnumerator RuntimeGroundRaiseKeepsBuildingsFixedAndRaisesCover()
     {
         GameObject floatingBuilding = GameObject.CreatePrimitive(PrimitiveType.Cube);
         floatingBuilding.name = "bldg_snapdown_fixture_root";
@@ -431,12 +439,13 @@ public class NewMapRuntimePlayModeTests
         yield return null;
 
         Assert.NotNull(bootstrap);
-        Assert.IsTrue(bootstrap.LastBuildingSnapdownEnabled);
-        Assert.GreaterOrEqual(bootstrap.LastFloatingBuildingCandidateCount, 1);
-        Assert.GreaterOrEqual(bootstrap.LastBuildingSnapdownMovedCount, 1);
-        Assert.GreaterOrEqual(bootstrap.LastBuildingSnapdownAverageOffset, 1.9f);
-        Assert.LessOrEqual(Mathf.Abs(floatingBuilding.GetComponent<Renderer>().bounds.min.y - bootstrap.LastGameplayGroundCoverY), 0.05f);
-        Assert.AreEqual(3f, nonBuilding.transform.position.y, 0.01f, "Road/ground-like non-building objects must not be snapdown candidates.");
+        Assert.IsTrue(bootstrap.LastGroundCoverRaiseEnabled);
+        Assert.Greater(bootstrap.LastGroundCoverRaiseOffset, 0.1f);
+        Assert.Greater(bootstrap.LastGameplayGroundCoverY, bootstrap.LastGroundCoverRaiseOldY);
+        Assert.IsFalse(bootstrap.LastBuildingSnapdownEnabled, "Ground raise pass keeps imported buildings fixed and disables runtime snapdown.");
+        Assert.AreEqual(0, bootstrap.LastBuildingSnapdownMovedCount);
+        Assert.AreEqual(3f, floatingBuilding.transform.position.y, 0.01f, "Buildings must remain fixed as visual reference in this pass.");
+        Assert.AreEqual(3f, nonBuilding.transform.position.y, 0.01f, "Road/ground-like non-building objects must not move.");
     }
 
     [UnityTest]
@@ -453,9 +462,12 @@ public class NewMapRuntimePlayModeTests
         Assert.IsFalse(labels.RuntimeNetworkRequestsAllowed, "Runtime labels must not perform online geocoding/name lookup.");
         Assert.IsFalse(labels.SceneWideMetadataScanPerformed, "Runtime labels should not full-scan the PLATEAU scene every frame.");
         Assert.IsFalse(labels.IdOnlyLabelsVisibleInNormalMode, "ID-only labels stay debug-only.");
-        Assert.AreEqual(0, labels.BuildingNameLabelCount, "No generic building names should be fabricated when no source/cache name exists.");
-        Assert.AreEqual(0, labels.RoadNameLabelCount, "No road names should be fabricated when no source/cache name exists.");
-        StringAssert.Contains("no_source_name_available", labels.SourceNameAvailabilityStatus);
+        Assert.IsTrue(labels.NameCacheLoaded, "Runtime labels must load the generated local cache.");
+        Assert.GreaterOrEqual(labels.NameCacheRecordCount, 50);
+        Assert.Greater(labels.BuildingNameLabelCount, 0, "Reliable cache-backed building names should be shown.");
+        Assert.Greater(labels.RoadNameLabelCount, 0, "Reliable cache-backed road names should be shown.");
+        Assert.AreEqual(0, labels.IdOnlyLabelCount, "ID-only labels must stay hidden in normal mode.");
+        StringAssert.Contains("source_or_cached_names_available", labels.SourceNameAvailabilityStatus);
         Assert.Greater(labels.NonOfficialCandidateLabelCount, 0, "Existing non-official candidate dataset names should be label sources.");
         Assert.LessOrEqual(labels.ActiveLabelCount, NewMapNameLabelConfig.Default().maxVisibleLabels);
         Assert.IsTrue(controller.RuntimeTargets.Any(target => target.NonOfficialWarningRequired), "Label test expects non-official warning targets to remain active.");

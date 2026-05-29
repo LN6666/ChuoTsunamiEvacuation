@@ -1,0 +1,15 @@
+{
+  "enabled": true,
+  "keepImportedBuildingsFixed": true,
+  "fallbackRaiseOffsetMeters": 2.4,
+  "maxRaiseOffsetMeters": 10.0,
+  "selectedPercentile": 0.5,
+  "outlierIqrMultiplier": 1.5,
+  "minimumBuildingBaseSampleCount": 16,
+  "minimumActionableRaiseOffsetMeters": 0.5,
+  "minimumBuildingFootprintMeters": 1.0,
+  "minimumBuildingHeightMeters": 1.0,
+  "playerBuildingCollisionEnabled": true,
+  "playerBuildingCollisionMarginMeters": 0.35,
+  "strategy": "raise_current_gameplay_ground_cover_to_building_base_samples_not_gis_grade"
+}

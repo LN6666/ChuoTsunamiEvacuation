@@ -126,6 +126,20 @@ public sealed class NewMapRuntimeBootstrap : MonoBehaviour
     public string LastGameplayGroundCoverMaterialSource { get; private set; } = string.Empty;
     public bool LastGameplayGroundCoverMaterialBlueLike { get; private set; }
     public bool LastGameplayGroundCoverMaterialMagentaLike { get; private set; }
+    public bool LastGroundCoverRaiseEnabled { get; private set; }
+    public float LastGroundCoverRaiseOldY { get; private set; }
+    public float LastGroundCoverRaiseNewY { get; private set; }
+    public float LastGroundCoverRaiseOffset { get; private set; }
+    public float LastGroundCoverRaiseMedianBuildingBaseY { get; private set; }
+    public float LastGroundCoverRaiseAverageBuildingBaseY { get; private set; }
+    public float LastGroundCoverRaiseP25BuildingBaseY { get; private set; }
+    public int LastGroundCoverRaiseSampleCount { get; private set; }
+    public int LastGroundCoverRaiseOutlierCount { get; private set; }
+    public int LastGroundCoverRaiseSkippedObjectCount { get; private set; }
+    public bool LastGroundCoverRaiseCapped { get; private set; }
+    public float LastGroundCoverRaiseRemainingAverageGap { get; private set; }
+    public float LastGroundCoverRaiseRemainingMaxGap { get; private set; }
+    public string LastGroundCoverRaiseStatus { get; private set; } = "not_evaluated";
     public bool LastBuildingSnapdownEnabled { get; private set; }
     public int LastBuildingSnapdownScannedCount { get; private set; }
     public int LastFloatingBuildingCandidateCount { get; private set; }
@@ -146,6 +160,7 @@ public sealed class NewMapRuntimeBootstrap : MonoBehaviour
     private NewMapSafeGroundConfig safeGroundConfig;
     private NewMapGameplayGroundCoverConfig groundCoverConfig;
     private NewMapFloatingBuildingSnapdownConfig buildingSnapdownConfig;
+    private NewMapGroundCoverRaiseConfig groundRaiseConfig;
 
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
     private static void AutoBootstrap()
@@ -225,10 +240,18 @@ public sealed class NewMapRuntimeBootstrap : MonoBehaviour
         safeGroundConfig = NewMapSafeGroundConfig.Load();
         groundCoverConfig = NewMapGameplayGroundCoverConfig.Load();
         buildingSnapdownConfig = NewMapFloatingBuildingSnapdownConfig.Load();
+        groundRaiseConfig = NewMapGroundCoverRaiseConfig.Load();
         PrepareManualTestRoots(roots);
         EnforceSupportSurfaceVisibility(roots);
-        ApplyRound3BuildingRoadVerticalAlignment();
-        ApplyFloatingBuildingSnapdownToGameplayGroundCover();
+        if (groundRaiseConfig != null && groundRaiseConfig.enabled)
+        {
+            DisableBuildingVerticalMovesForGroundCoverRaise();
+        }
+        else
+        {
+            ApplyRound3BuildingRoadVerticalAlignment();
+            ApplyFloatingBuildingSnapdownToGameplayGroundCover();
+        }
         Physics.SyncTransforms();
         LastMapBoundsValid = TryResolveRuntimeMapBounds(out Bounds mapBounds, out int rendererCount, out int colliderCount);
         LastMapBounds = mapBounds;
@@ -268,6 +291,10 @@ public sealed class NewMapRuntimeBootstrap : MonoBehaviour
             safeGroundConfig != null ? safeGroundConfig.fallRecoveryBelowY : -8f,
             safeGroundConfig == null || safeGroundConfig.recoverOutsidePlayableBounds,
             safeGroundConfig != null && safeGroundConfig.logRecoveryEvents);
+        player.ConfigureBuildingCollision(
+            buildingAvoidanceBounds,
+            groundRaiseConfig != null ? groundRaiseConfig.playerBuildingCollisionMarginMeters : 0.35f,
+            groundRaiseConfig == null || groundRaiseConfig.playerBuildingCollisionEnabled);
         NewMapRuntimeUI.EnsureRuntimeEventSystem();
         NewMapRuntimeUI ui = NewMapRuntimeUI.Create(roots["UIAnchorRoot"]);
         NewMapLightingController lighting = NewMapLightingController.Create(roots["RuntimeSystemsRoot"]);
@@ -315,6 +342,8 @@ public sealed class NewMapRuntimeBootstrap : MonoBehaviour
             $"spawnFallbackUsed={LastSpawnFallbackUsed} fallbackSafeSpawnId={LastFallbackSafeSpawnId} " +
             $"nearestBuildingDistance={LastNearestBuildingDistance:F2} buildingBoundsCached={LastBuildingBoundsCacheCount} " +
             $"spawnX={LastFinalSpawnPosition.x:F2} spawnY={LastFinalSpawnPosition.y:F2} spawnZ={LastFinalSpawnPosition.z:F2} " +
+            $"playerBuildingCollisionEnabled={player.BuildingCollisionEnabled} playerBuildingCollisionBounds={player.BuildingCollisionBoundsCount} " +
+            $"playerBuildingCollisionBlocked={player.BuildingCollisionBlockedCount} playerBuildingCollisionRecoveries={player.BuildingCollisionRecoveryCount} " +
             $"supportColliderActive={LastRuntimeCollisionSupportColliderActive} supportRendererCount={LastSupportRendererCount} " +
             $"supportVisibleRenderers={LastVisibleSupportRendererCount} supportDisabledRenderers={LastSupportRendererDisabledCount} " +
             $"blueDebugGroundDisabled={LastBlueDebugGroundRendererDisabledCount} playableBoundsValid={LastPlayableBoundsValid} " +
@@ -342,6 +371,13 @@ public sealed class NewMapRuntimeBootstrap : MonoBehaviour
             $"gameplayGroundCoverArea={LastGameplayGroundCoverTotalArea:F2} gameplayGroundCoverMaterial={SafeLog(LastGameplayGroundCoverMaterialName)} " +
             $"gameplayGroundCoverMaterialSource={SafeLog(LastGameplayGroundCoverMaterialSource)} gameplayGroundCoverOpacity={LastGameplayGroundCoverOpacity:F2} " +
             $"gameplayGroundCoverBlueLike={LastGameplayGroundCoverMaterialBlueLike} gameplayGroundCoverMagentaLike={LastGameplayGroundCoverMaterialMagentaLike} " +
+            $"groundRaiseEnabled={LastGroundCoverRaiseEnabled} groundRaiseOldY={LastGroundCoverRaiseOldY:F2} " +
+            $"groundRaiseNewY={LastGroundCoverRaiseNewY:F2} groundRaiseOffset={LastGroundCoverRaiseOffset:F2} " +
+            $"groundRaiseSamples={LastGroundCoverRaiseSampleCount} groundRaiseMedianBaseY={LastGroundCoverRaiseMedianBuildingBaseY:F2} " +
+            $"groundRaiseAverageBaseY={LastGroundCoverRaiseAverageBuildingBaseY:F2} groundRaiseP25BaseY={LastGroundCoverRaiseP25BuildingBaseY:F2} " +
+            $"groundRaiseOutliers={LastGroundCoverRaiseOutlierCount} groundRaiseSkipped={LastGroundCoverRaiseSkippedObjectCount} " +
+            $"groundRaiseCapped={LastGroundCoverRaiseCapped} groundRaiseRemainingAvgGap={LastGroundCoverRaiseRemainingAverageGap:F2} " +
+            $"groundRaiseRemainingMaxGap={LastGroundCoverRaiseRemainingMaxGap:F2} groundRaiseStatus={SafeLog(LastGroundCoverRaiseStatus)} " +
             $"buildingSnapdownEnabled={LastBuildingSnapdownEnabled} buildingSnapdownScanned={LastBuildingSnapdownScannedCount} " +
             $"floatingBuildingCandidates={LastFloatingBuildingCandidateCount} buildingsSnappedDown={LastBuildingSnapdownMovedCount} " +
             $"buildingSnapdownSkipped={LastBuildingSnapdownSkippedCount} buildingSnapdownRemainingFloating={LastBuildingSnapdownRemainingFloatingCount} " +
@@ -935,7 +971,7 @@ public sealed class NewMapRuntimeBootstrap : MonoBehaviour
         NewMapGameplayGroundCoverConfig coverConfig = groundCoverConfig ?? NewMapGameplayGroundCoverConfig.Default();
         if (coverConfig.enabled && coverConfig.forceFixedCoverY)
         {
-            float coverY = Mathf.Clamp(coverConfig.coverY, -20f, 30f);
+            float coverY = ResolveRaisedGroundCoverY(Mathf.Clamp(coverConfig.coverY, -20f, 30f));
             LastGameplayGroundCoverEnabled = true;
             LastGameplayGroundCoverY = coverY;
             LastSafeGroundEnabled = true;
@@ -1019,6 +1055,174 @@ public sealed class NewMapRuntimeBootstrap : MonoBehaviour
         LastSampledBuildingBaseY = supportSurfaceY;
         LastVisualGroundReferenceY = supportSurfaceY;
         return supportSurfaceY;
+    }
+
+    private void DisableBuildingVerticalMovesForGroundCoverRaise()
+    {
+        LastBuildingRoadVerticalOffsetApplied = 0f;
+        LastBuildingRoadAlignedRootCount = 0;
+        LastBuildingRoadAlignmentStatus = "disabled_by_ground_cover_raise_buildings_fixed";
+        ResetBuildingSnapdownDiagnostics();
+        LastBuildingSnapdownEnabled = false;
+        LastBuildingSnapdownReferenceY = groundCoverConfig != null ? groundCoverConfig.coverY : 0f;
+        LastBuildingSnapdownStatus = "disabled_by_ground_cover_raise_buildings_fixed";
+    }
+
+    private float ResolveRaisedGroundCoverY(float oldCoverY)
+    {
+        NewMapGroundCoverRaiseConfig config = groundRaiseConfig ?? NewMapGroundCoverRaiseConfig.Default();
+        LastGroundCoverRaiseEnabled = config.enabled;
+        LastGroundCoverRaiseOldY = oldCoverY;
+
+        if (!config.enabled)
+        {
+            LastGroundCoverRaiseNewY = oldCoverY;
+            LastGroundCoverRaiseOffset = 0f;
+            LastGroundCoverRaiseStatus = "disabled_by_config";
+            return oldCoverY;
+        }
+
+        if (LastGroundCoverRaiseStatus != "not_evaluated")
+        {
+            return LastGroundCoverRaiseNewY;
+        }
+
+        List<float> samples = CollectGroundCoverRaiseBuildingBaseSamples(config, out int skipped);
+        LastGroundCoverRaiseSkippedObjectCount = skipped;
+        LastGroundCoverRaiseSampleCount = samples.Count;
+        float selectedOffset;
+        if (samples.Count >= config.minimumBuildingBaseSampleCount)
+        {
+            samples.Sort();
+            float p25 = Percentile(samples, 0.25f);
+            float median = Percentile(samples, 0.50f);
+            float p75 = Percentile(samples, 0.75f);
+            float iqr = Mathf.Max(0.01f, p75 - p25);
+            float lowFence = p25 - iqr * Mathf.Max(0f, config.outlierIqrMultiplier);
+            float highFence = p75 + iqr * Mathf.Max(0f, config.outlierIqrMultiplier);
+            var trimmed = new List<float>();
+            for (int i = 0; i < samples.Count; i++)
+            {
+                float sample = samples[i];
+                if (sample < lowFence || sample > highFence)
+                {
+                    LastGroundCoverRaiseOutlierCount++;
+                    continue;
+                }
+
+                trimmed.Add(sample);
+            }
+
+            if (trimmed.Count == 0)
+            {
+                trimmed.AddRange(samples);
+            }
+
+            trimmed.Sort();
+            LastGroundCoverRaiseP25BuildingBaseY = Percentile(trimmed, 0.25f);
+            LastGroundCoverRaiseMedianBuildingBaseY = Percentile(trimmed, config.selectedPercentile);
+            LastGroundCoverRaiseAverageBuildingBaseY = Average(trimmed);
+            selectedOffset = Mathf.Max(0f, LastGroundCoverRaiseMedianBuildingBaseY - oldCoverY);
+            if (selectedOffset < config.minimumActionableRaiseOffsetMeters && config.fallbackRaiseOffsetMeters > selectedOffset)
+            {
+                selectedOffset = config.fallbackRaiseOffsetMeters;
+                LastGroundCoverRaiseStatus = "sampled_offset_below_actionable_threshold_using_configured_fallback";
+            }
+            else
+            {
+                LastGroundCoverRaiseStatus = "computed_from_building_base_samples";
+            }
+        }
+        else
+        {
+            selectedOffset = Mathf.Max(0f, config.fallbackRaiseOffsetMeters);
+            LastGroundCoverRaiseMedianBuildingBaseY = oldCoverY + selectedOffset;
+            LastGroundCoverRaiseAverageBuildingBaseY = LastGroundCoverRaiseMedianBuildingBaseY;
+            LastGroundCoverRaiseP25BuildingBaseY = LastGroundCoverRaiseMedianBuildingBaseY;
+            LastGroundCoverRaiseStatus = "insufficient_building_samples_using_configured_fallback";
+        }
+
+        float cappedOffset = Mathf.Clamp(selectedOffset, 0f, Mathf.Max(0f, config.maxRaiseOffsetMeters));
+        LastGroundCoverRaiseCapped = Mathf.Abs(cappedOffset - selectedOffset) > 0.001f;
+        if (LastGroundCoverRaiseCapped)
+        {
+            LastGroundCoverRaiseStatus += "_capped";
+        }
+
+        LastGroundCoverRaiseOffset = cappedOffset;
+        LastGroundCoverRaiseNewY = Mathf.Clamp(oldCoverY + cappedOffset, -20f, 30f);
+        LastSampledBuildingBaseY = LastGroundCoverRaiseMedianBuildingBaseY;
+        LastVisualGroundReferenceY = LastGroundCoverRaiseNewY;
+        LastVisualGroundSampleValid = true;
+        CalculateRemainingBuildingGapAfterRaise(samples, LastGroundCoverRaiseNewY);
+        return LastGroundCoverRaiseNewY;
+    }
+
+    private List<float> CollectGroundCoverRaiseBuildingBaseSamples(NewMapGroundCoverRaiseConfig config, out int skipped)
+    {
+        skipped = 0;
+        var samples = new List<float>();
+        Renderer[] renderers = FindObjectsOfType<Renderer>();
+        for (int i = 0; i < renderers.Length; i++)
+        {
+            Renderer renderer = renderers[i];
+            if (!IsBuildingSnapdownRendererCandidate(renderer))
+            {
+                skipped++;
+                continue;
+            }
+
+            Bounds bounds = renderer.bounds;
+            if (bounds.size.x < config.minimumBuildingFootprintMeters ||
+                bounds.size.z < config.minimumBuildingFootprintMeters ||
+                bounds.size.y < config.minimumBuildingHeightMeters)
+            {
+                skipped++;
+                continue;
+            }
+
+            samples.Add(bounds.min.y);
+        }
+
+        return samples;
+    }
+
+    private void CalculateRemainingBuildingGapAfterRaise(List<float> samples, float raisedY)
+    {
+        LastGroundCoverRaiseRemainingAverageGap = 0f;
+        LastGroundCoverRaiseRemainingMaxGap = 0f;
+        if (samples == null || samples.Count == 0)
+        {
+            return;
+        }
+
+        float total = 0f;
+        int count = 0;
+        for (int i = 0; i < samples.Count; i++)
+        {
+            float gap = Mathf.Max(0f, samples[i] - raisedY);
+            total += gap;
+            LastGroundCoverRaiseRemainingMaxGap = Mathf.Max(LastGroundCoverRaiseRemainingMaxGap, gap);
+            count++;
+        }
+
+        LastGroundCoverRaiseRemainingAverageGap = count > 0 ? total / count : 0f;
+    }
+
+    private static float Average(List<float> values)
+    {
+        if (values == null || values.Count == 0)
+        {
+            return 0f;
+        }
+
+        float total = 0f;
+        for (int i = 0; i < values.Count; i++)
+        {
+            total += values[i];
+        }
+
+        return total / values.Count;
     }
 
     private float ResolveLocalSupportSurfaceY(Vector3 position, float fallbackY)
@@ -3062,6 +3266,59 @@ public sealed class NewMapFloatingBuildingSnapdownConfig
         config.maxSnapdownMeters = Mathf.Clamp(config.maxSnapdownMeters, config.floatingGapThresholdMeters, 20f);
         config.useGameplayGroundCoverAsReference = true;
         config.preserveXZRotationScale = true;
+        return config;
+    }
+}
+
+[System.Serializable]
+public sealed class NewMapGroundCoverRaiseConfig
+{
+    public bool enabled = true;
+    public bool keepImportedBuildingsFixed = true;
+    public float fallbackRaiseOffsetMeters = 2.4f;
+    public float maxRaiseOffsetMeters = 10f;
+    public float selectedPercentile = 0.50f;
+    public float outlierIqrMultiplier = 1.5f;
+    public int minimumBuildingBaseSampleCount = 16;
+    public float minimumActionableRaiseOffsetMeters = 0.5f;
+    public float minimumBuildingFootprintMeters = 1.0f;
+    public float minimumBuildingHeightMeters = 1.0f;
+    public bool playerBuildingCollisionEnabled = true;
+    public float playerBuildingCollisionMarginMeters = 0.35f;
+    public string strategy = "raise_current_gameplay_ground_cover_to_building_base_samples_not_gis_grade";
+
+    public static NewMapGroundCoverRaiseConfig Default()
+    {
+        return new NewMapGroundCoverRaiseConfig();
+    }
+
+    public static NewMapGroundCoverRaiseConfig Load()
+    {
+        NewMapGroundCoverRaiseConfig config = Default();
+        string path = Path.Combine(Application.dataPath, "Data/P10/newmap_ground_cover_raise_config.json");
+        if (File.Exists(path))
+        {
+            try
+            {
+                config = JsonUtility.FromJson<NewMapGroundCoverRaiseConfig>(File.ReadAllText(path)) ?? config;
+            }
+            catch (System.Exception exception)
+            {
+                Debug.LogWarning($"NewMap ground-cover raise config could not be loaded; using defaults. {exception.Message}");
+            }
+        }
+
+        config.fallbackRaiseOffsetMeters = Mathf.Clamp(config.fallbackRaiseOffsetMeters, 0f, 10f);
+        config.maxRaiseOffsetMeters = Mathf.Clamp(config.maxRaiseOffsetMeters, 0f, 10f);
+        config.selectedPercentile = Mathf.Clamp(config.selectedPercentile, 0.25f, 0.75f);
+        config.outlierIqrMultiplier = Mathf.Clamp(config.outlierIqrMultiplier, 0f, 4f);
+        config.minimumBuildingBaseSampleCount = Mathf.Clamp(config.minimumBuildingBaseSampleCount, 1, 1000);
+        config.minimumActionableRaiseOffsetMeters = Mathf.Clamp(config.minimumActionableRaiseOffsetMeters, 0f, 5f);
+        config.minimumBuildingFootprintMeters = Mathf.Clamp(config.minimumBuildingFootprintMeters, 0.1f, 20f);
+        config.minimumBuildingHeightMeters = Mathf.Clamp(config.minimumBuildingHeightMeters, 0.1f, 20f);
+        config.playerBuildingCollisionMarginMeters = Mathf.Clamp(config.playerBuildingCollisionMarginMeters, 0f, 5f);
+        config.keepImportedBuildingsFixed = true;
+        config.playerBuildingCollisionEnabled = true;
         return config;
     }
 }

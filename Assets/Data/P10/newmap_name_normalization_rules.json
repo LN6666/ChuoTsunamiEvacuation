@@ -1,0 +1,30 @@
+{
+  "generatedAt": "2026-05-29T00:00:00+09:00",
+  "runtimeNetworkRequestsAllowed": false,
+  "preferOrder": [
+    "name:ja",
+    "name",
+    "official_name",
+    "alt_name_if_better"
+  ],
+  "showOnlyMainName": true,
+  "hideFullAddress": true,
+  "hidePostalAddress": true,
+  "hideGmlIds": true,
+  "hideBuildingIds": true,
+  "hideCoordinateNames": true,
+  "machineTranslationAllowed": false,
+  "fabricatedNamesAllowed": false,
+  "lowConfidenceHiddenInNormalMode": true,
+  "minimumRuntimeConfidence": 0.6,
+  "examplesShow": [
+    "東京駅",
+    "日本橋三越本店",
+    "昭和通り"
+  ],
+  "examplesHide": [
+    "東京都中央区〇〇丁目...",
+    "bldg_533...",
+    "35.68,139.76"
+  ]
+}

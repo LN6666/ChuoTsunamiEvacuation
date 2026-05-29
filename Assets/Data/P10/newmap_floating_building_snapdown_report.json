@@ -1,7 +1,9 @@
 ﻿{
     "generatedAt":  "2026-05-29T19:00:00+09:00",
     "activeScene":  "Assets/Scenes/Chuo_BaseMap.unity",
-    "runtimeSnapdownEnabled":  true,
+    "runtimeSnapdownEnabled":  false,
+    "supersededByGroundCoverRaise":  true,
+    "buildingsMovedThisPass":  0,
     "groundCoverReferenceY":  0.0,
     "floatingGapThresholdMeters":  0.5,
     "maxSnapdownMeters":  8.0,
@@ -15,6 +17,6 @@
     "averageDownwardOffsetMeters":  2.42,
     "maxDownwardOffsetMeters":  2.47,
     "remainingFloatingCount":  0,
-    "runtimeStatus":  "floating_buildings_snapped_to_gameplay_ground_cover",
-    "finalStatus":  "validated_by_player_smoke"
+    "runtimeStatus":  "disabled_by_ground_cover_raise_buildings_fixed",
+    "finalStatus":  "superseded_by_ground_cover_raise"
 }

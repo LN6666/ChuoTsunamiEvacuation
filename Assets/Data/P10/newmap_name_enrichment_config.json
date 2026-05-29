@@ -1,8 +1,24 @@
 {
   "enabled": true,
+  "preprocessingOnly": true,
   "runtimeNetworkRequestsAllowed": false,
-  "preferSourceMetadata": true,
   "allowOnlineLookup": true,
+  "maxOnlineQueries": 12,
+  "onlineRateLimitSeconds": 1.1,
+  "onlineTimeoutSeconds": 8.0,
+  "minimumRoadLabelsBeforeOnline": 8,
+  "maxRoadLabels": 40,
+  "maxBuildingLabels": 60,
+  "minConfidenceForRuntime": 0.6,
+  "userAgent": "ChuoTsunamiEvacuationNewMapNameEnrichment/1.0",
+  "sourcePriority": [
+    "project official shelter names",
+    "project non-official candidate names",
+    "local PLATEAU/GameObject metadata",
+    "local OSM cache",
+    "online reverse lookup for missing selected names only"
+  ],
+  "preferSourceMetadata": true,
   "providerPriority": [
     "source_metadata",
     "project_data",
@@ -17,7 +33,6 @@
   "queryRoads": true,
   "minConfidence": 0.6,
   "writeAttribution": true,
-  "userAgent": "ChuoTsunamiEvacuationNewMapNameEnrichment/1.0",
   "nominatimEndpoint": "https://nominatim.openstreetmap.org/reverse",
   "acceptLanguage": "ja,en",
   "saveRawResponses": false

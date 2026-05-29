@@ -36,14 +36,19 @@ public sealed class NewMapPlayerController : MonoBehaviour
     private bool isMouseLookDragging;
     private Vector3 lastValidGroundPosition;
     private Vector3 safeRecoveryPosition;
+    private readonly List<Bounds> buildingCollisionBounds = new List<Bounds>();
     private NewMapPlayableBounds safetyPlayableBounds;
     private bool hasSafetyPlayableBounds;
     private bool recoverOutsidePlayableBounds = true;
     private bool logRecoveryEvents;
+    private bool buildingCollisionEnabled;
+    private float buildingCollisionMarginMeters = 0.35f;
     private float safeGroundY;
     private float fallRecoveryThresholdY = -8f;
     private float stamina = 100f;
     private int fallRecoveryCount;
+    private int buildingCollisionBlockedCount;
+    private int buildingCollisionRecoveryCount;
 
     public float WalkSpeedMetersPerSecond { get; private set; }
     public float SprintSpeedMetersPerSecond { get; private set; }
@@ -73,6 +78,10 @@ public sealed class NewMapPlayerController : MonoBehaviour
     public float FallRecoveryThresholdY => fallRecoveryThresholdY;
     public string LastFallRecoveryReason { get; private set; } = string.Empty;
     public int FallRecoveryCount => fallRecoveryCount;
+    public bool BuildingCollisionEnabled => buildingCollisionEnabled;
+    public int BuildingCollisionBoundsCount => buildingCollisionBounds.Count;
+    public int BuildingCollisionBlockedCount => buildingCollisionBlockedCount;
+    public int BuildingCollisionRecoveryCount => buildingCollisionRecoveryCount;
 
     public static NewMapPlayerController Create(Transform parent, Vector3 spawnPosition)
     {
@@ -124,6 +133,24 @@ public sealed class NewMapPlayerController : MonoBehaviour
         int previousCount = fallRecoveryCount;
         RecoverIfFalling();
         return fallRecoveryCount > previousCount;
+    }
+
+    public void ConfigureBuildingCollision(IEnumerable<Bounds> buildingBounds, float marginMeters, bool enabled)
+    {
+        buildingCollisionBounds.Clear();
+        if (buildingBounds != null)
+        {
+            foreach (Bounds bounds in buildingBounds)
+            {
+                if (IsFiniteBounds(bounds) && bounds.size.x >= 0.5f && bounds.size.z >= 0.5f && bounds.size.y >= 1f)
+                {
+                    buildingCollisionBounds.Add(bounds);
+                }
+            }
+        }
+
+        buildingCollisionMarginMeters = Mathf.Clamp(marginMeters, 0f, 5f);
+        buildingCollisionEnabled = enabled && buildingCollisionBounds.Count > 0;
     }
 
     private static void TrySetPlayerTag(GameObject playerObject)
@@ -247,6 +274,7 @@ public sealed class NewMapPlayerController : MonoBehaviour
         verticalVelocity += gravity * stepDelta;
         Vector3 velocity = direction * speed;
         velocity.y = verticalVelocity;
+        Vector3 previousPosition = transform.position;
         if (characterController != null)
         {
             characterController.Move(velocity * stepDelta);
@@ -255,6 +283,8 @@ public sealed class NewMapPlayerController : MonoBehaviour
         {
             transform.position += velocity * stepDelta;
         }
+
+        ApplyBuildingCollisionCorrection(previousPosition);
 
         if (direction.sqrMagnitude > 0.01f)
         {
@@ -523,7 +553,9 @@ public sealed class NewMapPlayerController : MonoBehaviour
         verticalVelocity += gravity * Time.deltaTime;
         Vector3 velocity = direction * speed;
         velocity.y = verticalVelocity;
+        Vector3 previousPosition = transform.position;
         characterController.Move(velocity * Time.deltaTime);
+        ApplyBuildingCollisionCorrection(previousPosition);
         SnapToRuntimeGroundSupport(4f);
 
         if (direction.sqrMagnitude > 0.01f)
@@ -564,6 +596,111 @@ public sealed class NewMapPlayerController : MonoBehaviour
         {
             Debug.Log($"NewMap player safety recovery reason={LastFallRecoveryReason} count={fallRecoveryCount}");
         }
+    }
+
+    private void ApplyBuildingCollisionCorrection(Vector3 previousPosition)
+    {
+        if (!buildingCollisionEnabled || !IsInsideBuildingBoundsXZ(transform.position, buildingCollisionMarginMeters))
+        {
+            return;
+        }
+
+        buildingCollisionBlockedCount++;
+        Vector3 corrected = ResolveNearestOutsideBuildingPosition(transform.position, buildingCollisionMarginMeters + 0.15f);
+        if (IsInsideBuildingBoundsXZ(corrected, 0.02f))
+        {
+            corrected = previousPosition;
+            buildingCollisionRecoveryCount++;
+        }
+
+        corrected.y = Mathf.Max(corrected.y, safeGroundY + GroundSkinOffset);
+        transform.position = corrected;
+        verticalVelocity = Mathf.Min(verticalVelocity, -2f);
+        if (!IsInsideBuildingBoundsXZ(corrected, 0.02f))
+        {
+            lastValidGroundPosition = corrected;
+        }
+    }
+
+    private bool IsInsideBuildingBoundsXZ(Vector3 position, float marginMeters)
+    {
+        float margin = Mathf.Max(0f, marginMeters);
+        for (int i = 0; i < buildingCollisionBounds.Count; i++)
+        {
+            Bounds bounds = buildingCollisionBounds[i];
+            if (position.x >= bounds.min.x - margin &&
+                position.x <= bounds.max.x + margin &&
+                position.z >= bounds.min.z - margin &&
+                position.z <= bounds.max.z + margin)
+            {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    private Vector3 ResolveNearestOutsideBuildingPosition(Vector3 position, float marginMeters)
+    {
+        Vector3 corrected = position;
+        float bestDistance = float.MaxValue;
+        for (int i = 0; i < buildingCollisionBounds.Count; i++)
+        {
+            Bounds bounds = buildingCollisionBounds[i];
+            float minX = bounds.min.x - marginMeters;
+            float maxX = bounds.max.x + marginMeters;
+            float minZ = bounds.min.z - marginMeters;
+            float maxZ = bounds.max.z + marginMeters;
+            if (position.x < minX || position.x > maxX || position.z < minZ || position.z > maxZ)
+            {
+                continue;
+            }
+
+            float left = Mathf.Abs(position.x - minX);
+            float right = Mathf.Abs(maxX - position.x);
+            float back = Mathf.Abs(position.z - minZ);
+            float front = Mathf.Abs(maxZ - position.z);
+            float nearest = Mathf.Min(Mathf.Min(left, right), Mathf.Min(back, front));
+            if (nearest >= bestDistance)
+            {
+                continue;
+            }
+
+            bestDistance = nearest;
+            if (nearest == left)
+            {
+                corrected = new Vector3(minX, position.y, position.z);
+            }
+            else if (nearest == right)
+            {
+                corrected = new Vector3(maxX, position.y, position.z);
+            }
+            else if (nearest == back)
+            {
+                corrected = new Vector3(position.x, position.y, minZ);
+            }
+            else
+            {
+                corrected = new Vector3(position.x, position.y, maxZ);
+            }
+        }
+
+        return corrected;
+    }
+
+    private static bool IsFiniteBounds(Bounds bounds)
+    {
+        return IsFinite(bounds.min.x) &&
+            IsFinite(bounds.min.y) &&
+            IsFinite(bounds.min.z) &&
+            IsFinite(bounds.max.x) &&
+            IsFinite(bounds.max.y) &&
+            IsFinite(bounds.max.z);
+    }
+
+    private static bool IsFinite(float value)
+    {
+        return !float.IsNaN(value) && !float.IsInfinity(value);
     }
 
     private static Vector2 ReadMovementInput()

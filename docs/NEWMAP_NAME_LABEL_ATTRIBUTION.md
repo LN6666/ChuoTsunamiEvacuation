@@ -1,20 +1,13 @@
 # NewMap Name Label Attribution
 
-Generated: 2026-05-29T00:00:00+09:00
+Runtime labels are loaded from `Assets/Data/P10/newmap_name_cache.json`.
 
-Current runtime cache status: no online-derived building or road labels have been added.
+Sources used:
+- Project official shelter anchor report
+- Project non-official candidate resource
+- Project P8 humanitarian high-rise candidate audit
+- Local OpenStreetMap cache where road or landmark names are present
 
-Current preprocessing status:
-- `tools/map/enrich_newmap_names_from_coordinates.ps1` has been run without online lookup.
-- The cache currently contains project/source candidate labels only.
-- Japanese/Kanji main names are kept when present in project data.
-- ID-only strings, full-address-like strings, and low-confidence entries are not normal-mode labels.
-- Disabled/out-of-map targets have no runtime labels.
+OpenStreetMap-derived labels require OSM attribution. They are used only as local cached preprocessing outputs and are not queried at runtime.
 
-If `tools/map/enrich_newmap_names_from_coordinates.ps1 -AllowOnline` is used:
-- Query results are cached in `Assets/Data/P10/newmap_name_cache.json`.
-- The enrichment report records provider, query count, and accepted/rejected names.
-- OSM/Nominatim-derived labels require OpenStreetMap attribution and ODbL/data-source consideration.
-- Labels are informational only and are not official shelter, safety, or evacuation route certification.
-
-Runtime remains offline-only.
+The cache stores provider, source, confidence, raw type/class, timestamp, and disabled/id-only flags for each label.

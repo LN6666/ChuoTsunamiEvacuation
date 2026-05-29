@@ -11,6 +11,8 @@
     "usePooling":  true,
     "farNpcUpdateThrottle":  true,
     "farNpcStaticProxyMode":  true,
+    "movementFarNpcStaticProxyMode":  false,
+    "continuousMovementEnabled":  true,
     "wideDistributionRequired":  true,
     "requestedNpcCount":  800,
     "maxNpcCount":  800,

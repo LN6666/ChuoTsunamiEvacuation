@@ -1,0 +1,15 @@
+﻿{
+    "generatedAt":  "2026-05-29T20:20:00+09:00",
+    "activeScene":  "Assets/Scenes/Chuo_BaseMap.unity",
+    "groundCoverRaised":  true,
+    "fallThroughRegression":  false,
+    "npc100xDistributionPreserved":  true,
+    "leftRightMouseDragPreserved":  "covered_by_existing_mouse_drag_tests",
+    "playerSpawnMatchesRaisedGround":  true,
+    "npcFootSupportDeltaWithinTolerance":  true,
+    "activeTargetMarkerHeightWithinTolerance":  true,
+    "greenFrameHeightWithinTolerance":  true,
+    "spawnAvoidsBuildings":  true,
+    "airWallsBlockBounds":  true,
+    "runtimeValidationStatus":  "validated_by_player_smoke"
+}

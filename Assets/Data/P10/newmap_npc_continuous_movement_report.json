@@ -1,0 +1,29 @@
+﻿{
+    "generatedAt":  "2026-05-29T20:20:00+09:00",
+    "activeScene":  "Assets/Scenes/Chuo_BaseMap.unity",
+    "continuousMovementEnabled":  true,
+    "explicitStates":  [
+                           "Moving",
+                           "WaitingAtCrossingOrCrowd",
+                           "QueuedAtEntrance",
+                           "Arrived",
+                           "Repathing",
+                           "StuckRecovering",
+                           "PausedByMode",
+                           "StaticFarProxy"
+                       ],
+    "tourismModeWanders":  true,
+    "evacuationModeTargetSeekingOrQueueing":  true,
+    "farNpcThrottlingDoesNotFreezeAllNpcs":  true,
+    "heavyPerNpcPathfinding":  false,
+    "npcCount":  800,
+    "movingCount":  791,
+    "arrivedCount":  9,
+    "queuedCount":  0,
+    "stuckCount":  0,
+    "recoveredCount":  4378,
+    "staticProxyCount":  0,
+    "averageSpeed":  0.785,
+    "stoppedWithoutReasonCount":  0,
+    "runtimeValidationStatus":  "validated_by_180s_player_smoke"
+}
