@@ -343,11 +343,16 @@ public sealed class NewMapRuntimeBootstrap : MonoBehaviour
 
         CalculateActiveTargetHeightOffsets(targets);
         NewMapNameLabelController.Create(roots["NavigationRoot"], player, targets);
+        NewMapShelterDirectLineController directLines = NewMapShelterDirectLineController.Create(
+            roots["NavigationRoot"],
+            player,
+            targets,
+            tsunamiHotfixConfig.DirectLineConfig);
         AuditAndCleanupUnexpectedAirwallColliders();
         long targetsMs = stopwatch.ElapsedMilliseconds - boundsMs - spawnSupportMs - systemsMs;
 
         NewMapGameController controller = gameObject.AddComponent<NewMapGameController>();
-        controller.Configure(player, ui, lighting, hazard, crowd, targets, BuildDiagnosticText(), RespawnPlayerForNewRun, tsunamiHotfixConfig);
+        controller.Configure(player, ui, lighting, hazard, crowd, directLines, targets, BuildDiagnosticText(), RespawnPlayerForNewRun, tsunamiHotfixConfig);
         CreateBuildingEntryTriggers(roots["CandidateMarkerRoot"], targets, controller);
         if (ShouldRunGameplaySelfAuditSmoke())
         {
@@ -515,12 +520,18 @@ public sealed class NewMapRuntimeBootstrap : MonoBehaviour
         NewMapRuntimeTarget routeProxy = null;
         int officialCount = 0;
         int nonOfficialCount = 0;
+        int rankableGuidanceCount = 0;
         int routeGuideCount = 0;
         foreach (NewMapRuntimeTarget target in controller.RuntimeTargets)
         {
             if (target == null || !target.ActiveInGame)
             {
                 continue;
+            }
+
+            if (target.SafeFloorAvailable && !target.EntranceBlocked)
+            {
+                rankableGuidanceCount++;
             }
 
             if (target.IsOfficialShelter)
@@ -627,10 +638,39 @@ public sealed class NewMapRuntimeBootstrap : MonoBehaviour
 
         controller.StartEvacuationMode();
         yield return null;
+        bool initialPreWarningStage =
+            controller.Stage == NewMapTsunamiStage.PreWarningWait ||
+            (controller.Stage == NewMapTsunamiStage.Warning && controller.PreWarningRandomDurationSeconds <= 0.5f);
+        LogGameplaySmoke(
+            "evacuation_pre_warning_wait",
+            controller.Mode == NewMapGameMode.Evacuation &&
+            initialPreWarningStage &&
+            controller.PreWarningRandomDurationSeconds >= 0f &&
+            controller.PreWarningRandomDurationSeconds <= 180f &&
+            hazard != null &&
+            !hazard.RiskChecksActive &&
+            player != null &&
+            player.StaminaEnabled,
+            $"Evacuation starts in PRE_WARNING_WAIT duration={controller.PreWarningRandomDurationSeconds:0.0}s hazardInactive={hazard != null && !hazard.RiskChecksActive}");
+
+        LogGameplaySmoke(
+            "shelter_direct_lines_created",
+            controller.ShelterDirectLineCount == rankableGuidanceCount &&
+            controller.ShelterDirectLineCount > 0 &&
+            controller.CountShelterDirectLineCollidersForDiagnostics() == 0,
+            $"lines={controller.ShelterDirectLineCount} rankableTargets={rankableGuidanceCount} colliders={controller.CountShelterDirectLineCollidersForDiagnostics()}");
+
+        controller.AdvanceEvacuationTimeForDiagnostics(controller.PreWarningRandomDurationSeconds + 0.1f);
+        yield return null;
         LogGameplaySmoke(
             "evacuation_stage1_warning",
-            controller.Mode == NewMapGameMode.Evacuation && controller.Stage == NewMapTsunamiStage.Warning && hazard != null && !hazard.RiskChecksActive && player != null && player.StaminaEnabled,
-            "Evacuation starts in Stage 1 with hazard checks inactive and stamina enabled");
+            controller.Mode == NewMapGameMode.Evacuation &&
+            controller.Stage == NewMapTsunamiStage.Warning &&
+            hazard != null &&
+            !hazard.RiskChecksActive &&
+            player != null &&
+            player.StaminaEnabled,
+            "Warning starts after PRE_WARNING_WAIT with hazard checks inactive and stamina enabled");
 
         float configuredWarningSeconds = controller.WarningPhaseSeconds;
         bool defaultWarningIsFiveMinutes = Mathf.Abs(configuredWarningSeconds - 300f) <= 0.01f;

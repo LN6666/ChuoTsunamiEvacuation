@@ -29,15 +29,26 @@ public class NewMapIntegrationConfigTests
 
         NewMapPlayerStaminaConfig stamina = NewMapPlayerStaminaConfig.Load();
         Assert.AreEqual(100f, stamina.baselineMaxStamina, 0.001f);
-        Assert.AreEqual(100f, stamina.staminaMultiplier, 0.001f);
-        Assert.AreEqual(10000f, stamina.MaxStamina, 0.001f);
+        Assert.AreEqual(200f, stamina.staminaMultiplier, 0.001f);
+        Assert.AreEqual(20000f, stamina.MaxStamina, 0.001f);
+        Assert.AreEqual(1.35f, stamina.SprintSpeedMultiplierAdditional, 0.001f);
+        Assert.AreEqual(6.75f, stamina.FinalEvacuationSprintSpeed, 0.001f);
 
         NewMapTsunamiModeHotfixConfig tsunami = NewMapTsunamiModeHotfixConfig.Load();
         Assert.AreEqual("south", tsunami.NormalizedTsunamiStartSide);
         Assert.AreEqual(300f, tsunami.WarningPhaseSeconds, 0.001f);
         Assert.AreEqual(300f, tsunami.tsunamiWarningDurationSeconds, 0.001f);
+        Assert.AreEqual(180f, tsunami.PreWarningRandomMaxSeconds, 0.001f);
+        Assert.IsFalse(tsunami.deterministicPreWarningSeedEnabled);
+        Assert.IsTrue(tsunami.DirectLineConfig.enableShelterDirectLines);
+        Assert.AreEqual(0, tsunami.DirectLineConfig.maxDisplayedShelterLines);
+        Assert.AreEqual(0.2f, tsunami.DirectLineConfig.LineUpdateIntervalSeconds, 0.001f);
+        Assert.AreEqual(0.5f, tsunami.DirectLineConfig.RankingAutoRefreshIntervalSeconds, 0.001f);
         Assert.AreEqual(300f, NewMapTsunamiModeHotfixConfig.Default().WarningPhaseSeconds, 0.001f);
+        Assert.AreEqual(180f, NewMapTsunamiModeHotfixConfig.Default().PreWarningRandomMaxSeconds, 0.001f);
         Assert.AreEqual(3f, NewMapTsunamiModeHotfixConfig.CreateForDiagnostics(3f).WarningPhaseSeconds, 0.001f);
+        Assert.AreEqual(0f, NewMapTsunamiModeHotfixConfig.CreateForDiagnostics(3f).ResolvePreWarningWaitSeconds(), 0.001f);
+        Assert.AreEqual(2f, NewMapTsunamiModeHotfixConfig.CreateForDiagnostics(3f, 2f).ResolvePreWarningWaitSeconds(), 0.001f);
         Assert.GreaterOrEqual(tsunami.CurtainHeightMeters, 1000f);
         Assert.GreaterOrEqual(tsunami.MinimumCurtainLengthMeters, 1500f);
         Assert.IsFalse(tsunami.CurtainThicknessMeters <= 0f);

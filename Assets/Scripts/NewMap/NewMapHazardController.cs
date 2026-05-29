@@ -266,6 +266,16 @@ public sealed class NewMapTsunamiModeHotfixConfig
     public float curtainLengthMapDiagonalMultiplier = 1.5f;
     public float curtainThicknessMeters = 12f;
     public float curtainStartMarginMeters = 60f;
+    public float preWarningRandomMaxSeconds = 180f;
+    public int preWarningRandomSeed = 20260530;
+    public bool deterministicPreWarningSeedEnabled;
+    public float preWarningTestOverrideSeconds = -1f;
+    public bool enableShelterDirectLines = true;
+    public int maxDisplayedShelterLines;
+    public float lineUpdateIntervalSeconds = 0.2f;
+    public float rankingAutoRefreshIntervalSeconds = 0.5f;
+    public float directLineHeightOffsetMeters = 0.35f;
+    public float directLineWidthMeters = 0.08f;
 
     public float WarningPhaseSeconds => Mathf.Clamp(
         tsunamiWarningDurationSeconds > 0f ? tsunamiWarningDurationSeconds : warningPhaseSeconds,
@@ -275,7 +285,17 @@ public sealed class NewMapTsunamiModeHotfixConfig
     public float CurtainHeightMeters => Mathf.Clamp(curtainHeightMeters, 100f, 5000f);
     public float MinimumCurtainLengthMeters => Mathf.Clamp(minimumCurtainLengthMeters, 100f, 10000f);
     public float CurtainThicknessMeters => Mathf.Clamp(curtainThicknessMeters, 1f, 200f);
+    public float PreWarningRandomMaxSeconds => Mathf.Clamp(preWarningRandomMaxSeconds, 0f, 180f);
     public string NormalizedTsunamiStartSide => NormalizeSide(tsunamiStartSide);
+    public NewMapShelterDirectLineConfig DirectLineConfig => new NewMapShelterDirectLineConfig
+    {
+        enableShelterDirectLines = enableShelterDirectLines,
+        maxDisplayedShelterLines = maxDisplayedShelterLines,
+        lineUpdateIntervalSeconds = lineUpdateIntervalSeconds,
+        rankingAutoRefreshIntervalSeconds = rankingAutoRefreshIntervalSeconds,
+        directLineHeightOffsetMeters = directLineHeightOffsetMeters,
+        directLineWidthMeters = directLineWidthMeters
+    };
 
     public static NewMapTsunamiModeHotfixConfig Default()
     {
@@ -288,7 +308,40 @@ public sealed class NewMapTsunamiModeHotfixConfig
         float duration = Mathf.Clamp(warningDurationSeconds, 1f, 600f);
         config.tsunamiWarningDurationSeconds = duration;
         config.warningPhaseSeconds = duration;
+        config.preWarningRandomMaxSeconds = 0f;
+        config.preWarningTestOverrideSeconds = 0f;
         return config;
+    }
+
+    public static NewMapTsunamiModeHotfixConfig CreateForDiagnostics(float warningDurationSeconds, float preWarningSeconds)
+    {
+        NewMapTsunamiModeHotfixConfig config = CreateForDiagnostics(warningDurationSeconds);
+        config.preWarningRandomMaxSeconds = Mathf.Clamp(preWarningSeconds, 0f, 180f);
+        config.preWarningTestOverrideSeconds = Mathf.Clamp(preWarningSeconds, 0f, 180f);
+        return config;
+    }
+
+    public float ResolvePreWarningWaitSeconds()
+    {
+        float max = PreWarningRandomMaxSeconds;
+        if (preWarningTestOverrideSeconds >= 0f)
+        {
+            return Mathf.Clamp(preWarningTestOverrideSeconds, 0f, max);
+        }
+
+        if (max <= 0.001f)
+        {
+            return 0f;
+        }
+
+        if (deterministicPreWarningSeedEnabled)
+        {
+            var random = new System.Random(preWarningRandomSeed == 0 ? 1 : preWarningRandomSeed);
+            return (float)(random.NextDouble() * max);
+        }
+
+        var sessionRandom = new System.Random(CreateSessionRandomSeed(preWarningRandomSeed));
+        return (float)(sessionRandom.NextDouble() * max);
     }
 
     public static NewMapTsunamiModeHotfixConfig Load()
@@ -317,7 +370,28 @@ public sealed class NewMapTsunamiModeHotfixConfig
         config.curtainLengthMapDiagonalMultiplier = Mathf.Clamp(config.curtainLengthMapDiagonalMultiplier, 1f, 5f);
         config.curtainThicknessMeters = config.CurtainThicknessMeters;
         config.curtainStartMarginMeters = Mathf.Clamp(config.curtainStartMarginMeters, 0f, 1000f);
+        config.preWarningRandomMaxSeconds = config.PreWarningRandomMaxSeconds;
+        config.preWarningTestOverrideSeconds = config.preWarningTestOverrideSeconds < 0f
+            ? -1f
+            : Mathf.Clamp(config.preWarningTestOverrideSeconds, 0f, config.preWarningRandomMaxSeconds);
+        config.lineUpdateIntervalSeconds = config.DirectLineConfig.LineUpdateIntervalSeconds;
+        config.rankingAutoRefreshIntervalSeconds = config.DirectLineConfig.RankingAutoRefreshIntervalSeconds;
+        config.directLineHeightOffsetMeters = config.DirectLineConfig.LineHeightOffsetMeters;
+        config.directLineWidthMeters = config.DirectLineConfig.LineWidthMeters;
+        config.maxDisplayedShelterLines = config.DirectLineConfig.MaxDisplayedShelterLines;
         return config;
+    }
+
+    private static int CreateSessionRandomSeed(int configuredSeed)
+    {
+        unchecked
+        {
+            int seed = configuredSeed == 0 ? 1 : configuredSeed;
+            seed = (seed * 397) ^ System.Environment.TickCount;
+            seed = (seed * 397) ^ System.Guid.NewGuid().GetHashCode();
+            seed = (seed * 397) ^ (int)(System.DateTime.UtcNow.Ticks & 0x7fffffff);
+            return seed == 0 ? 1 : seed;
+        }
     }
 
     private static string NormalizeSide(string side)

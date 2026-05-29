@@ -188,8 +188,11 @@ public class NewMapRuntimePlayModeTests
         Assert.AreNotEqual(pitch, player.CurrentPitch);
         Assert.IsTrue(player.IsMouseLookDragging);
         Assert.IsTrue(player.WantsLockedCursor);
-        Assert.AreEqual(CursorLockMode.Locked, Cursor.lockState);
-        Assert.IsFalse(Cursor.visible);
+        if (!Application.isBatchMode)
+        {
+            Assert.AreEqual(CursorLockMode.Locked, Cursor.lockState);
+            Assert.IsFalse(Cursor.visible);
+        }
         Assert.GreaterOrEqual(player.CurrentPitch, player.MinPitch);
         Assert.LessOrEqual(player.CurrentPitch, player.MaxPitch);
         player.ReleaseLookDragForDiagnostics();
@@ -662,17 +665,18 @@ public class NewMapRuntimePlayModeTests
         controller.StartEvacuationMode();
         yield return null;
         Assert.AreEqual(1.0f, player.WalkSpeedMetersPerSecond, 0.001f);
-        Assert.AreEqual(5.0f, player.SprintSpeedMetersPerSecond, 0.001f);
+        Assert.AreEqual(6.75f, player.SprintSpeedMetersPerSecond, 0.001f);
         Assert.IsTrue(player.StaminaEnabled);
         Assert.AreEqual(100f, player.BaselineMaxStamina, 0.001f);
-        Assert.AreEqual(100f, player.StaminaMultiplier, 0.001f);
-        Assert.AreEqual(10000f, player.MaxStamina, 0.001f);
-        Assert.AreEqual(10000f, player.Stamina, 0.001f);
+        Assert.AreEqual(200f, player.StaminaMultiplier, 0.001f);
+        Assert.AreEqual(1.35f, player.SprintSpeedMultiplierAdditional, 0.001f);
+        Assert.AreEqual(20000f, player.MaxStamina, 0.001f);
+        Assert.AreEqual(20000f, player.Stamina, 0.001f);
 
         controller.SetWeather(NewMapWeatherPreset.NightRain);
         yield return null;
         Assert.AreEqual(0.65f, player.WalkSpeedMetersPerSecond, 0.001f);
-        Assert.AreEqual(3.25f, player.SprintSpeedMetersPerSecond, 0.001f);
+        Assert.AreEqual(4.3875f, player.SprintSpeedMetersPerSecond, 0.001f);
     }
 
     [UnityTest]
@@ -722,14 +726,47 @@ public class NewMapRuntimePlayModeTests
         controller.StartEvacuationMode();
         yield return null;
 
-        Assert.AreEqual(NewMapTsunamiStage.Warning, controller.Stage);
+        bool initialPreWarningStage =
+            controller.Stage == NewMapTsunamiStage.PreWarningWait ||
+            (controller.Stage == NewMapTsunamiStage.Warning && controller.PreWarningRandomDurationSeconds <= 0.5f);
+        Assert.IsTrue(initialPreWarningStage, "Evacuation should begin in PRE_WARNING_WAIT unless the random wait is effectively immediate.");
+        Assert.AreEqual(180f, controller.PreWarningRandomMaxSeconds, 0.001f);
+        Assert.GreaterOrEqual(controller.PreWarningRandomDurationSeconds, 0f);
+        Assert.LessOrEqual(controller.PreWarningRandomDurationSeconds, 180f);
         Assert.AreEqual(300f, controller.WarningPhaseSeconds, 0.001f);
+        if (controller.Stage == NewMapTsunamiStage.PreWarningWait)
+        {
+            Assert.AreEqual(-1f, controller.WarningStartedAtSeconds, 0.001f);
+        }
+        else
+        {
+            Assert.GreaterOrEqual(controller.WarningStartedAtSeconds, 0f);
+        }
         Assert.IsFalse(hazard.RiskChecksActive);
         Assert.IsFalse(hazard.Stage2VisualsBuiltForDiagnostics);
         Assert.AreEqual("south", hazard.TsunamiStartSide);
         Assert.AreEqual(Vector3.forward, hazard.TsunamiDirection);
         Assert.GreaterOrEqual(hazard.CurtainHeightMeters, 1000f);
         Assert.GreaterOrEqual(hazard.CurtainLengthMeters, Mathf.Sqrt(bootstrap.LastPlayableBounds.Width * bootstrap.LastPlayableBounds.Width + bootstrap.LastPlayableBounds.Depth * bootstrap.LastPlayableBounds.Depth) * 1.49f);
+        Assert.IsFalse(controller.TryApplyTsunamiFrontForDiagnostics(hazard.GetFloodedSideSamplePointForDiagnostics()), "Tsunami failure must be inactive during PRE_WARNING_WAIT.");
+
+        if (controller.PreWarningRandomDurationSeconds > 2f)
+        {
+            controller.AdvanceEvacuationTimeForDiagnostics(controller.PreWarningRandomDurationSeconds - 1f);
+            yield return null;
+            Assert.AreEqual(NewMapTsunamiStage.PreWarningWait, controller.Stage);
+            Assert.IsFalse(hazard.RiskChecksActive);
+            controller.AdvanceEvacuationTimeForDiagnostics(1.2f);
+        }
+        else
+        {
+            controller.AdvanceEvacuationTimeForDiagnostics(controller.PreWarningRandomDurationSeconds + 0.2f);
+        }
+        yield return null;
+        Assert.AreEqual(NewMapTsunamiStage.Warning, controller.Stage);
+        Assert.GreaterOrEqual(controller.WarningStartedAtSeconds, 0f);
+        Assert.IsFalse(hazard.RiskChecksActive);
+        Assert.IsFalse(controller.TryApplyTsunamiFrontForDiagnostics(hazard.GetFloodedSideSamplePointForDiagnostics()), "Tsunami failure must be inactive during WARNING.");
 
         controller.AdvanceEvacuationTimeForDiagnostics(Mathf.Max(0f, controller.WarningPhaseSeconds - 1.0f));
         yield return null;
@@ -741,7 +778,7 @@ public class NewMapRuntimePlayModeTests
         Assert.AreEqual(NewMapTsunamiStage.FrontApproaching, controller.Stage);
         Assert.IsTrue(hazard.RiskChecksActive);
         Assert.IsTrue(hazard.LightCurtainVisibleForDiagnostics);
-        Assert.GreaterOrEqual(controller.ActiveTsunamiStartedAtSeconds, controller.WarningPhaseSeconds);
+        Assert.AreEqual(controller.WarningStartedAtSeconds + controller.WarningPhaseSeconds, controller.ActiveTsunamiStartedAtSeconds, 0.01f);
     }
 
     [UnityTest]
@@ -869,7 +906,7 @@ public class NewMapRuntimePlayModeTests
         Assert.IsFalse(controller.RuntimeTargets.Any(target => target.RouteGuide != null && target.RouteGuide.activeSelf));
         NewMapHazardController hazard = Object.FindObjectOfType<NewMapHazardController>();
         Assert.NotNull(hazard);
-        Assert.IsFalse(hazard.Stage2VisualsBuiltForDiagnostics, "Stage 1 Warning should not build the light curtain/debris visual set at startup.");
+        Assert.IsFalse(hazard.Stage2VisualsBuiltForDiagnostics, "PRE_WARNING_WAIT should not build the light curtain/debris visual set at startup.");
 
         controller.SetPaused(true);
         yield return null;
@@ -1009,7 +1046,9 @@ public class NewMapRuntimePlayModeTests
 
         controller.StartEvacuationMode();
         yield return null;
-        Assert.AreEqual(NewMapTsunamiStage.Warning, controller.Stage);
+        Assert.IsTrue(
+            controller.Stage == NewMapTsunamiStage.PreWarningWait ||
+            (controller.Stage == NewMapTsunamiStage.Warning && controller.PreWarningRandomDurationSeconds <= 0.5f));
         Assert.IsTrue(player.StaminaEnabled);
         Assert.Greater(crowd.ActiveNpcCount, 0, "Evacuation Mode should lazily build visible NPC humanoids.");
         Assert.IsFalse(hazard.LightCurtainVisibleForDiagnostics);
@@ -1091,7 +1130,10 @@ public class NewMapRuntimePlayModeTests
 
         controller.StartEvacuationMode();
         yield return null;
-        Assert.AreEqual(NewMapTsunamiStage.Warning, controller.Stage, "warning_before_front starts in Stage 1 Warning.");
+        Assert.IsTrue(
+            controller.Stage == NewMapTsunamiStage.PreWarningWait ||
+            (controller.Stage == NewMapTsunamiStage.Warning && controller.PreWarningRandomDurationSeconds <= 0.5f),
+            "warning_before_front starts with PRE_WARNING_WAIT unless the random wait is effectively immediate.");
         Assert.IsFalse(controller.RuntimeTargets.Any(target => target.GreenFrame != null && target.GreenFrame.activeSelf));
 
         controller.ForceStageForDiagnostics(NewMapTsunamiStage.FrontApproaching);
@@ -1134,6 +1176,109 @@ public class NewMapRuntimePlayModeTests
     }
 
     [UnityTest]
+    public IEnumerator RuntimeShelterDirectLinesRankAndRecolorDynamically()
+    {
+        GameObject officialAnchor = GameObject.CreatePrimitive(PrimitiveType.Cube);
+        officialAnchor.name = "bldg_25d370de-2c35-457b-b756-3444a3d02eb3";
+        officialAnchor.transform.position = new Vector3(24f, 3f, 18f);
+        officialAnchor.transform.localScale = new Vector3(4f, 6f, 4f);
+
+        NewMapRuntimeBootstrap.CreateForCurrentScene();
+        NewMapGameController controller = Object.FindObjectOfType<NewMapGameController>();
+        NewMapPlayerController player = Object.FindObjectOfType<NewMapPlayerController>();
+        Assert.NotNull(controller);
+        Assert.NotNull(player);
+
+        NewMapRuntimeTarget official = controller.RuntimeTargets.FirstOrDefault(target => target.IsOfficialShelter);
+        NewMapRuntimeTarget nonOfficial = controller.RuntimeTargets.FirstOrDefault(target =>
+            !target.IsOfficialShelter &&
+            target.ActiveInGame &&
+            target.SafeFloorAvailable &&
+            !target.EntranceBlocked);
+        Assert.NotNull(official);
+        Assert.NotNull(nonOfficial);
+
+        int expectedLineCount = controller.RuntimeTargets.Count(target =>
+            target.ActiveInGame &&
+            target.SafeFloorAvailable &&
+            !target.EntranceBlocked);
+
+        controller.StartEvacuationMode();
+        yield return null;
+
+        Assert.AreEqual(expectedLineCount, controller.ShelterDirectLineCount);
+        Assert.AreEqual(0, controller.CountShelterDirectLineCollidersForDiagnostics(), "Direct guidance lines must not add blocking colliders.");
+
+        player.transform.position = official.Anchor.position + Vector3.right * 0.25f;
+        controller.RefreshShelterDirectLinesForDiagnostics();
+        Assert.AreEqual(official.Id, controller.NearestShelterLineTargetId);
+        Assert.IsTrue(controller.TryGetShelterLineColorForDiagnostics(official.Id, out Color officialNearestColor));
+        AssertColorApproximately(NewMapShelterDirectLineController.NearestLineColor, officialNearestColor);
+        Assert.IsTrue(controller.TryGetShelterLineColorForDiagnostics(nonOfficial.Id, out Color nonOfficialFarColor));
+        AssertColorApproximately(NewMapShelterDirectLineController.NonOfficialLineColor, nonOfficialFarColor);
+
+        player.transform.position = nonOfficial.Anchor.position + Vector3.right * 0.25f;
+        controller.RefreshShelterDirectLinesForDiagnostics();
+        Assert.AreEqual(nonOfficial.Id, controller.NearestShelterLineTargetId);
+        Assert.IsTrue(controller.TryGetShelterLineColorForDiagnostics(nonOfficial.Id, out Color nonOfficialNearestColor));
+        AssertColorApproximately(NewMapShelterDirectLineController.NearestLineColor, nonOfficialNearestColor);
+        Assert.IsTrue(controller.TryGetShelterLineColorForDiagnostics(official.Id, out Color officialFarColor));
+        AssertColorApproximately(NewMapShelterDirectLineController.OfficialLineColor, officialFarColor);
+
+        NewMapShelterLineSnapshot[] ranking = controller.GetShelterRankingForDiagnostics();
+        Assert.AreEqual(nonOfficial.Id, ranking[0].TargetId);
+        for (int i = 1; i < ranking.Length; i++)
+        {
+            Assert.LessOrEqual(ranking[i - 1].DistanceMeters, ranking[i].DistanceMeters + 0.001f);
+        }
+    }
+
+    [UnityTest]
+    public IEnumerator RuntimeShelterRankingUiRefreshesMixedStraightLineDistances()
+    {
+        GameObject officialAnchor = GameObject.CreatePrimitive(PrimitiveType.Cube);
+        officialAnchor.name = "bldg_25d370de-2c35-457b-b756-3444a3d02eb3";
+        officialAnchor.transform.position = new Vector3(24f, 3f, 18f);
+        officialAnchor.transform.localScale = new Vector3(4f, 6f, 4f);
+
+        NewMapRuntimeBootstrap.CreateForCurrentScene();
+        NewMapGameController controller = Object.FindObjectOfType<NewMapGameController>();
+        NewMapRuntimeUI ui = Object.FindObjectOfType<NewMapRuntimeUI>();
+        NewMapPlayerController player = Object.FindObjectOfType<NewMapPlayerController>();
+        Assert.NotNull(controller);
+        Assert.NotNull(ui);
+        Assert.NotNull(player);
+
+        NewMapRuntimeTarget official = controller.RuntimeTargets.FirstOrDefault(target => target.IsOfficialShelter);
+        NewMapRuntimeTarget nonOfficial = controller.RuntimeTargets.FirstOrDefault(target =>
+            !target.IsOfficialShelter &&
+            target.ActiveInGame &&
+            target.SafeFloorAvailable &&
+            !target.EntranceBlocked);
+        Assert.NotNull(official);
+        Assert.NotNull(nonOfficial);
+
+        controller.StartEvacuationMode();
+        yield return null;
+        player.transform.position = nonOfficial.Anchor.position + Vector3.right * 0.25f;
+        Assert.IsTrue(controller.ShowShelterRankingForDiagnostics());
+        Assert.IsTrue(ui.IsShelterRankingVisible);
+        StringAssert.Contains("Shelter distance ranking", ui.LastShelterRankingText);
+        StringAssert.Contains("Nearest", ui.LastShelterRankingText);
+        StringAssert.Contains(nonOfficial.Id, ui.LastShelterRankingText);
+        StringAssert.Contains("Official", ui.LastShelterRankingText);
+        Assert.IsTrue(ui.LastShelterRankingText.Contains("Humanitarian") || ui.LastShelterRankingText.Contains("Proxy") || ui.LastShelterRankingText.Contains("Non-official"));
+        Assert.AreEqual(nonOfficial.Id, controller.GetShelterRankingForDiagnostics()[0].TargetId);
+        Assert.AreEqual(nonOfficial.Id, controller.NearestShelterLineTargetId);
+
+        player.transform.position = official.Anchor.position + Vector3.right * 0.25f;
+        yield return new WaitForSeconds(0.7f);
+        Assert.AreEqual(official.Id, controller.GetShelterRankingForDiagnostics()[0].TargetId);
+        Assert.AreEqual(official.Id, controller.NearestShelterLineTargetId);
+        StringAssert.Contains(official.Id, ui.LastShelterRankingText);
+    }
+
+    [UnityTest]
     public IEnumerator RuntimeOfficialShelterRequiresVerifiedGmlAnchor()
     {
         GameObject officialAnchor = GameObject.CreatePrimitive(PrimitiveType.Cube);
@@ -1160,5 +1305,13 @@ public class NewMapRuntimePlayModeTests
         Assert.IsTrue(controller.TryInteractForDiagnostics("chuo_official_emergency_001"));
         Assert.AreEqual("Entering official shelter anchor", ui.LastResultReason);
         StringAssert.Contains("no official route is claimed", ui.LastResultDetail);
+    }
+
+    private static void AssertColorApproximately(Color expected, Color actual)
+    {
+        Assert.AreEqual(expected.r, actual.r, 0.01f);
+        Assert.AreEqual(expected.g, actual.g, 0.01f);
+        Assert.AreEqual(expected.b, actual.b, 0.01f);
+        Assert.AreEqual(expected.a, actual.a, 0.01f);
     }
 }

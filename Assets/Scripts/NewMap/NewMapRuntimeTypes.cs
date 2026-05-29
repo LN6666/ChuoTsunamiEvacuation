@@ -10,6 +10,7 @@ public enum NewMapGameMode
 public enum NewMapTsunamiStage
 {
     Inactive,
+    PreWarningWait,
     Warning,
     FrontApproaching
 }

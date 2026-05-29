@@ -12,6 +12,7 @@ public sealed class NewMapGameController : MonoBehaviour
     private NewMapLightingController lighting;
     private NewMapHazardController hazard;
     private NewMapNpcCrowdPrototype crowd;
+    private NewMapShelterDirectLineController shelterDirectLines;
     private NewMapGameMode mode = NewMapGameMode.None;
     private NewMapWeatherPreset weather = NewMapWeatherPreset.ClearDay;
     private NewMapTsunamiStage stage = NewMapTsunamiStage.Inactive;
@@ -27,9 +28,12 @@ public sealed class NewMapGameController : MonoBehaviour
     private float modeElapsedSeconds;
     private float safeFloorRemainingSeconds;
     private string diagnostics = string.Empty;
+    private float preWarningStartedAtSeconds = -1f;
+    private float preWarningRandomDurationSeconds;
     private float warningStartedAtSeconds = -1f;
     private float activeTsunamiStartedAtSeconds = -1f;
     private float lastFailureAtSeconds = -1f;
+    private float rankingRefreshTimer;
     private string lastFailureCode = string.Empty;
 
     public NewMapGameMode Mode => mode;
@@ -39,10 +43,16 @@ public sealed class NewMapGameController : MonoBehaviour
     public int ActiveTargetCount => targets.Count;
     public bool SafeFloorSequenceActive => safeFloorSequenceActive;
     public float WarningPhaseSeconds => stage1WarningSeconds;
+    public float PreWarningStartedAtSeconds => preWarningStartedAtSeconds;
+    public float PreWarningRandomDurationSeconds => preWarningRandomDurationSeconds;
+    public float PreWarningRandomMaxSeconds => tsunamiConfig != null ? tsunamiConfig.PreWarningRandomMaxSeconds : 180f;
     public float WarningStartedAtSeconds => warningStartedAtSeconds;
     public float ActiveTsunamiStartedAtSeconds => activeTsunamiStartedAtSeconds;
     public float LastFailureAtSeconds => lastFailureAtSeconds;
     public string LastFailureCode => lastFailureCode;
+    public int ShelterDirectLineCount => shelterDirectLines != null ? shelterDirectLines.LineCount : 0;
+    public string NearestShelterLineTargetId => shelterDirectLines != null ? shelterDirectLines.NearestTargetId : string.Empty;
+    public string LastShelterRankingText => shelterDirectLines != null ? shelterDirectLines.LastRankingText : string.Empty;
     public NewMapRuntimeTarget CurrentEnterableBuilding => touchedBuildingTarget != null && touchedBuildingTarget.ActiveInGame ? touchedBuildingTarget : null;
     public IEnumerable<NewMapRuntimeTarget> RuntimeTargets => targets;
 
@@ -52,6 +62,7 @@ public sealed class NewMapGameController : MonoBehaviour
         NewMapLightingController lightingController,
         NewMapHazardController hazardController,
         NewMapNpcCrowdPrototype crowdPrototype,
+        NewMapShelterDirectLineController directLineController,
         IEnumerable<NewMapRuntimeTarget> runtimeTargets,
         string startupDiagnostics,
         System.Action<NewMapPlayerController> respawnHandler = null,
@@ -62,6 +73,7 @@ public sealed class NewMapGameController : MonoBehaviour
         lighting = lightingController;
         hazard = hazardController;
         crowd = crowdPrototype;
+        shelterDirectLines = directLineController;
         diagnostics = startupDiagnostics ?? string.Empty;
         respawnPlayerForRun = respawnHandler;
         tsunamiConfig = tsunamiHotfixConfig ?? NewMapTsunamiModeHotfixConfig.Load();
@@ -98,6 +110,7 @@ public sealed class NewMapGameController : MonoBehaviour
 
         if (mode == NewMapGameMode.Evacuation)
         {
+            shelterDirectLines?.Tick(Time.deltaTime, !resultLocked);
             UpdateEvacuationStages();
             hazard?.Tick(Time.deltaTime);
             if (!resultLocked && player != null && hazard != null)
@@ -114,6 +127,12 @@ public sealed class NewMapGameController : MonoBehaviour
                     return;
                 }
             }
+
+            UpdateShelterRanking();
+        }
+        else
+        {
+            shelterDirectLines?.SetVisible(false);
         }
 
         UpdateInteraction();
@@ -131,6 +150,8 @@ public sealed class NewMapGameController : MonoBehaviour
         activeSequenceTarget = null;
         touchedBuildingTarget = null;
         warningStartedAtSeconds = -1f;
+        preWarningStartedAtSeconds = -1f;
+        preWarningRandomDurationSeconds = 0f;
         activeTsunamiStartedAtSeconds = -1f;
         lastFailureAtSeconds = -1f;
         lastFailureCode = string.Empty;
@@ -140,7 +161,9 @@ public sealed class NewMapGameController : MonoBehaviour
         player?.SetControlEnabled(true);
         hazard?.SetStage(NewMapTsunamiStage.Inactive);
         crowd?.SetCrowdFailuresEnabled(false);
+        shelterDirectLines?.SetVisible(false);
         SetTargetGuidanceVisible(false);
+        ui?.HideShelterRanking();
         ui?.HideResult();
         ui?.ShowHud();
         Debug.Log("NewMap Tourism Mode started. Hazards, crowd failure, collapse/debris failure, and stamina drain are disabled.");
@@ -149,30 +172,38 @@ public sealed class NewMapGameController : MonoBehaviour
     public void StartEvacuationMode()
     {
         mode = NewMapGameMode.Evacuation;
-        stage = NewMapTsunamiStage.Warning;
+        stage = NewMapTsunamiStage.PreWarningWait;
         modeElapsedSeconds = 0f;
         resultLocked = false;
         safeFloorSequenceActive = false;
         touchedBuildingTarget = null;
         activeSequenceTarget = null;
-        warningStartedAtSeconds = 0f;
+        preWarningStartedAtSeconds = 0f;
+        preWarningRandomDurationSeconds = tsunamiConfig != null ? tsunamiConfig.ResolvePreWarningWaitSeconds() : 0f;
+        warningStartedAtSeconds = -1f;
         activeTsunamiStartedAtSeconds = -1f;
         lastFailureAtSeconds = -1f;
         lastFailureCode = string.Empty;
         safeFloorRemainingSeconds = 0f;
+        rankingRefreshTimer = 0f;
         paused = false;
         player?.SetMode(mode, weather);
         player?.ResetStamina();
         player?.SetControlEnabled(true);
-        hazard?.SetStage(NewMapTsunamiStage.Warning);
+        hazard?.SetStage(NewMapTsunamiStage.PreWarningWait);
         crowd?.SetCrowdFailuresEnabled(true);
+        shelterDirectLines?.SetVisible(true);
+        shelterDirectLines?.ForceRefresh();
         SetTargetGuidanceVisible(false);
+        ui?.HideShelterRanking();
         ui?.HideResult();
         ui?.ShowHud();
         Debug.Log(
-            $"NewMap tsunami warning_start_time={warningStartedAtSeconds:0.0} " +
-            $"warning_duration_seconds={stage1WarningSeconds:0.0} phase=WARNING " +
+            $"NewMap pre_warning_start_time={preWarningStartedAtSeconds:0.0} " +
+            $"pre_warning_random_duration_seconds={preWarningRandomDurationSeconds:0.0} " +
+            $"pre_warning_random_max_seconds={PreWarningRandomMaxSeconds:0.0} phase=PRE_WARNING_WAIT " +
             "lightCurtainVisible=false hazardChecksActive=false");
+        UpdateEvacuationStages();
     }
 
     public void SetWeather(NewMapWeatherPreset preset)
@@ -202,6 +233,8 @@ public sealed class NewMapGameController : MonoBehaviour
         activeSequenceTarget = null;
         touchedBuildingTarget = null;
         nearestTarget = null;
+        preWarningStartedAtSeconds = -1f;
+        preWarningRandomDurationSeconds = 0f;
         warningStartedAtSeconds = -1f;
         activeTsunamiStartedAtSeconds = -1f;
         lastFailureAtSeconds = -1f;
@@ -210,7 +243,9 @@ public sealed class NewMapGameController : MonoBehaviour
         player?.SetControlEnabled(false);
         hazard?.SetStage(NewMapTsunamiStage.Inactive);
         crowd?.SetCrowdFailuresEnabled(false);
+        shelterDirectLines?.SetVisible(false);
         SetTargetGuidanceVisible(false);
+        ui?.HideShelterRanking();
         ui?.ShowStartMenu();
     }
 
@@ -243,20 +278,86 @@ public sealed class NewMapGameController : MonoBehaviour
 
     private void UpdateEvacuationStages()
     {
-        if (stage != NewMapTsunamiStage.Warning || modeElapsedSeconds < stage1WarningSeconds)
+        if (stage == NewMapTsunamiStage.PreWarningWait &&
+            modeElapsedSeconds >= preWarningStartedAtSeconds + preWarningRandomDurationSeconds)
+        {
+            StartWarningPhase(preWarningStartedAtSeconds + preWarningRandomDurationSeconds);
+        }
+
+        if (stage != NewMapTsunamiStage.Warning ||
+            warningStartedAtSeconds < 0f ||
+            modeElapsedSeconds - warningStartedAtSeconds < stage1WarningSeconds)
         {
             return;
         }
 
+        StartActiveTsunamiPhase(warningStartedAtSeconds + stage1WarningSeconds);
+    }
+
+    private void StartWarningPhase(float startTimeSeconds)
+    {
+        stage = NewMapTsunamiStage.Warning;
+        warningStartedAtSeconds = Mathf.Max(0f, startTimeSeconds);
+        hazard?.SetStage(NewMapTsunamiStage.Warning);
+        Debug.Log(
+            $"NewMap warning_start_time={warningStartedAtSeconds:0.0} " +
+            $"pre_warning_start_time={preWarningStartedAtSeconds:0.0} " +
+            $"pre_warning_random_duration_seconds={preWarningRandomDurationSeconds:0.0} " +
+            $"warning_duration_seconds={stage1WarningSeconds:0.0} phase=WARNING " +
+            "lightCurtainVisible=false hazardChecksActive=false");
+    }
+
+    private void StartActiveTsunamiPhase(float startTimeSeconds)
+    {
         stage = NewMapTsunamiStage.FrontApproaching;
-        activeTsunamiStartedAtSeconds = modeElapsedSeconds;
+        activeTsunamiStartedAtSeconds = Mathf.Max(0f, startTimeSeconds);
         hazard?.SetStage(stage);
         SetTargetGuidanceVisible(true);
+        string startSide = hazard != null ? hazard.TsunamiStartSide : (tsunamiConfig != null ? tsunamiConfig.NormalizedTsunamiStartSide : "south");
+        string direction = hazard != null ? hazard.TsunamiDirection.ToString("F2") : Vector3.forward.ToString("F2");
         Debug.Log(
             $"NewMap tsunami_active_start_time={activeTsunamiStartedAtSeconds:0.0} " +
             $"warning_start_time={warningStartedAtSeconds:0.0} " +
             $"warning_duration_seconds={stage1WarningSeconds:0.0} " +
+            $"active_tsunami_start_side={startSide} active_tsunami_direction={direction} " +
             "phase=ACTIVE_TSUNAMI active tsunami state entered lightCurtainVisible=true hazardChecksActive=true");
+    }
+
+    private void UpdateShelterRanking()
+    {
+        if (shelterDirectLines == null || ui == null)
+        {
+            return;
+        }
+
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            RefreshShelterRankingPanel();
+            return;
+        }
+
+        if (!ui.IsShelterRankingVisible)
+        {
+            return;
+        }
+
+        rankingRefreshTimer -= Time.deltaTime;
+        if (rankingRefreshTimer <= 0f)
+        {
+            RefreshShelterRankingPanel();
+        }
+    }
+
+    private void RefreshShelterRankingPanel()
+    {
+        if (shelterDirectLines == null || ui == null)
+        {
+            return;
+        }
+
+        shelterDirectLines.ForceRefresh();
+        ui.ShowShelterRanking(shelterDirectLines.LastRankingText);
+        rankingRefreshTimer = shelterDirectLines.RankingAutoRefreshIntervalSeconds;
     }
 
     private void UpdateInteraction()
@@ -474,13 +575,25 @@ public sealed class NewMapGameController : MonoBehaviour
             warningStartedAtSeconds = Mathf.Max(0f, modeElapsedSeconds);
             activeTsunamiStartedAtSeconds = -1f;
         }
+        else if (forcedStage == NewMapTsunamiStage.PreWarningWait)
+        {
+            preWarningStartedAtSeconds = Mathf.Max(0f, modeElapsedSeconds);
+            warningStartedAtSeconds = -1f;
+            activeTsunamiStartedAtSeconds = -1f;
+        }
         else if (forcedStage == NewMapTsunamiStage.FrontApproaching && activeTsunamiStartedAtSeconds < 0f)
         {
+            if (warningStartedAtSeconds < 0f)
+            {
+                warningStartedAtSeconds = Mathf.Max(0f, modeElapsedSeconds);
+            }
+
             activeTsunamiStartedAtSeconds = Mathf.Max(0f, modeElapsedSeconds);
         }
 
         hazard?.SetStage(forcedStage);
         SetTargetGuidanceVisible(mode == NewMapGameMode.Evacuation && forcedStage == NewMapTsunamiStage.FrontApproaching);
+        shelterDirectLines?.SetVisible(mode == NewMapGameMode.Evacuation);
     }
 
     public void AdvanceEvacuationTimeForDiagnostics(float seconds)
@@ -493,6 +606,41 @@ public sealed class NewMapGameController : MonoBehaviour
         modeElapsedSeconds += Mathf.Max(0f, seconds);
         UpdateEvacuationStages();
         hazard?.Tick(Mathf.Max(0f, seconds));
+    }
+
+    public void RefreshShelterDirectLinesForDiagnostics()
+    {
+        shelterDirectLines?.SetVisible(mode == NewMapGameMode.Evacuation);
+        shelterDirectLines?.ForceRefresh();
+    }
+
+    public bool ShowShelterRankingForDiagnostics()
+    {
+        if (shelterDirectLines == null || ui == null)
+        {
+            return false;
+        }
+
+        RefreshShelterRankingPanel();
+        return ui.IsShelterRankingVisible;
+    }
+
+    public NewMapShelterLineSnapshot[] GetShelterRankingForDiagnostics()
+    {
+        return shelterDirectLines != null
+            ? shelterDirectLines.GetSortedSnapshots()
+            : new NewMapShelterLineSnapshot[0];
+    }
+
+    public bool TryGetShelterLineColorForDiagnostics(string targetId, out Color color)
+    {
+        color = Color.clear;
+        return shelterDirectLines != null && shelterDirectLines.TryGetLineColorForDiagnostics(targetId, out color);
+    }
+
+    public int CountShelterDirectLineCollidersForDiagnostics()
+    {
+        return shelterDirectLines != null ? shelterDirectLines.CountLineCollidersForDiagnostics() : 0;
     }
 
     public bool TryApplyDebrisExposureForDiagnostics(float exposureSeconds)
@@ -602,6 +750,8 @@ public sealed class NewMapGameController : MonoBehaviour
         safeFloorSequenceActive = false;
         resultLocked = true;
         player?.SetControlEnabled(false);
+        shelterDirectLines?.SetVisible(false);
+        ui?.HideShelterRanking();
         string detail = activeSequenceTarget != null && activeSequenceTarget.IsOfficialShelter
             ? "Reached the verified official shelter anchor before the Stage 2 risk front arrived. Route geometry remains unclaimed because no WGS84-to-Unity transform is proven."
             : "Reached the runtime safe-floor proxy before the Stage 2 risk front arrived.";
@@ -621,6 +771,8 @@ public sealed class NewMapGameController : MonoBehaviour
         lastFailureCode = code ?? string.Empty;
         lastFailureAtSeconds = modeElapsedSeconds;
         player?.SetControlEnabled(false);
+        shelterDirectLines?.SetVisible(false);
+        ui?.HideShelterRanking();
         string stageNote = activeTsunamiStartedAtSeconds >= 0f
             ? $"Failure after active tsunami start at t={activeTsunamiStartedAtSeconds:0.0}s."
             : "Failure happened before active tsunami start.";
@@ -638,13 +790,21 @@ public sealed class NewMapGameController : MonoBehaviour
         var builder = new StringBuilder();
         builder.AppendLine(mode == NewMapGameMode.Tourism ? "Tourism Mode / 観光モード" : "Evacuation Mode / 避難モード");
         builder.AppendLine($"Stage: {stage}");
-        if (mode == NewMapGameMode.Evacuation && stage == NewMapTsunamiStage.Warning)
+        if (mode == NewMapGameMode.Evacuation && stage == NewMapTsunamiStage.PreWarningWait)
         {
-            builder.AppendLine($"TSUNAMI WARNING / PRE-ALERT: {Mathf.Max(0f, stage1WarningSeconds - modeElapsedSeconds):0.0}s until tsunami start");
+            builder.AppendLine($"PRE_WARNING_WAIT: warning pending in {Mathf.Max(0f, preWarningStartedAtSeconds + preWarningRandomDurationSeconds - modeElapsedSeconds):0.0}s");
+        }
+        else if (mode == NewMapGameMode.Evacuation && stage == NewMapTsunamiStage.Warning)
+        {
+            builder.AppendLine($"TSUNAMI WARNING / PRE-ALERT: {Mathf.Max(0f, stage1WarningSeconds - (modeElapsedSeconds - warningStartedAtSeconds)):0.0}s until tsunami start");
         }
         else if (mode == NewMapGameMode.Evacuation && stage == NewMapTsunamiStage.FrontApproaching)
         {
             builder.AppendLine("ACTIVE TSUNAMI: coastal-side light curtain is advancing");
+        }
+        if (mode == NewMapGameMode.Evacuation && ShelterDirectLineCount > 0)
+        {
+            builder.AppendLine($"Shelter direct lines: {ShelterDirectLineCount} | R ranking");
         }
         builder.AppendLine($"Weather: {NewMapRuntimeConstants.GetWeatherLabel(weather)} x{NewMapRuntimeConstants.GetWeatherModifier(weather):0.00}");
         if (player != null)

@@ -52,6 +52,7 @@ public sealed class NewMapPlayerController : MonoBehaviour
     private NewMapPlayerStaminaConfig staminaConfig;
     private float maxStamina = 100f;
     private float staminaMultiplier = 1f;
+    private float sprintSpeedMultiplierAdditional = 1f;
     private float baselineMaxStamina = 100f;
     private float stamina = 100f;
     private int fallRecoveryCount;
@@ -68,6 +69,7 @@ public sealed class NewMapPlayerController : MonoBehaviour
     public float MaxStamina => maxStamina;
     public float BaselineMaxStamina => baselineMaxStamina;
     public float StaminaMultiplier => staminaMultiplier;
+    public float SprintSpeedMultiplierAdditional => sprintSpeedMultiplierAdditional;
     public float Stamina01 => Mathf.Clamp01(stamina / Mathf.Max(1f, maxStamina));
     public NewMapGameMode CurrentMode => currentMode;
     public NewMapWeatherPreset CurrentWeather => currentWeather;
@@ -240,7 +242,10 @@ public sealed class NewMapPlayerController : MonoBehaviour
         if (mode == NewMapGameMode.Evacuation)
         {
             WalkSpeedMetersPerSecond = NewMapRuntimeConstants.EvacuationWalkSpeed * modifier;
-            SprintSpeedMetersPerSecond = NewMapRuntimeConstants.EvacuationSprintSpeed * modifier;
+            SprintSpeedMetersPerSecond =
+                NewMapRuntimeConstants.EvacuationSprintSpeed *
+                staminaConfig.SprintSpeedMultiplierAdditional *
+                modifier;
             stamina = Mathf.Clamp(stamina, 0f, maxStamina);
             return;
         }
@@ -902,6 +907,7 @@ public sealed class NewMapPlayerController : MonoBehaviour
         staminaConfig = NewMapPlayerStaminaConfig.Load();
         baselineMaxStamina = staminaConfig.baselineMaxStamina;
         staminaMultiplier = staminaConfig.staminaMultiplier;
+        sprintSpeedMultiplierAdditional = staminaConfig.SprintSpeedMultiplierAdditional;
         maxStamina = staminaConfig.MaxStamina;
         stamina = Mathf.Clamp(stamina, 0f, maxStamina);
     }
@@ -911,9 +917,12 @@ public sealed class NewMapPlayerController : MonoBehaviour
 public sealed class NewMapPlayerStaminaConfig
 {
     public float baselineMaxStamina = 100f;
-    public float staminaMultiplier = 100f;
+    public float staminaMultiplier = 200f;
+    public float sprintSpeedMultiplierAdditional = 1.35f;
 
     public float MaxStamina => Mathf.Max(1f, baselineMaxStamina) * Mathf.Max(1f, staminaMultiplier);
+    public float SprintSpeedMultiplierAdditional => Mathf.Clamp(sprintSpeedMultiplierAdditional, 0.1f, 10f);
+    public float FinalEvacuationSprintSpeed => NewMapRuntimeConstants.EvacuationSprintSpeed * SprintSpeedMultiplierAdditional;
 
     public static NewMapPlayerStaminaConfig Default()
     {
@@ -938,6 +947,7 @@ public sealed class NewMapPlayerStaminaConfig
 
         config.baselineMaxStamina = Mathf.Clamp(config.baselineMaxStamina, 1f, 10000f);
         config.staminaMultiplier = Mathf.Clamp(config.staminaMultiplier, 1f, 1000f);
+        config.sprintSpeedMultiplierAdditional = config.SprintSpeedMultiplierAdditional;
         return config;
     }
 }

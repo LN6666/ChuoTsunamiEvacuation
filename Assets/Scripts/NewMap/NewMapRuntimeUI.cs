@@ -12,17 +12,21 @@ public sealed class NewMapRuntimeUI : MonoBehaviour
     private GameObject pausePanel;
     private GameObject rulesPanel;
     private GameObject resultPanel;
+    private GameObject shelterRankingPanel;
     private Text hudText;
     private Text interactionText;
     private Text rulesText;
+    private Text shelterRankingText;
     private Text resultTitleText;
     private Text resultBodyText;
     private Text modeTitleText;
     private Text forceQuitExplanationText;
+    private RectTransform shelterRankingContentRect;
     private bool japanese;
     private string lastInteractionText = string.Empty;
     private string lastResultReason = string.Empty;
     private string lastResultDetail = string.Empty;
+    private string lastShelterRankingText = string.Empty;
 
     public Action TourismRequested;
     public Action EvacuationRequested;
@@ -36,10 +40,12 @@ public sealed class NewMapRuntimeUI : MonoBehaviour
     public bool IsPauseVisible => pausePanel != null && pausePanel.activeSelf;
     public bool IsRulesVisible => rulesPanel != null && rulesPanel.activeSelf;
     public bool IsResultVisible => resultPanel != null && resultPanel.activeSelf;
+    public bool IsShelterRankingVisible => shelterRankingPanel != null && shelterRankingPanel.activeSelf;
     public bool RulesPanelHasScrollRect => rulesPanel != null && rulesPanel.GetComponentInChildren<ScrollRect>(true) != null;
     public string LastInteractionText => lastInteractionText;
     public string LastResultReason => lastResultReason;
     public string LastResultDetail => lastResultDetail;
+    public string LastShelterRankingText => lastShelterRankingText;
 
     public static NewMapRuntimeUI Create(Transform parent)
     {
@@ -62,6 +68,7 @@ public sealed class NewMapRuntimeUI : MonoBehaviour
         SetActive(pausePanel, false);
         SetActive(rulesPanel, false);
         SetActive(resultPanel, false);
+        SetActive(shelterRankingPanel, false);
         HideInteraction();
         SetHud("Select mode.");
     }
@@ -148,11 +155,30 @@ public sealed class NewMapRuntimeUI : MonoBehaviour
         lastInteractionText = string.Empty;
     }
 
+    public void ShowShelterRanking(string rankingText)
+    {
+        if (shelterRankingPanel == null || shelterRankingText == null)
+        {
+            return;
+        }
+
+        lastShelterRankingText = rankingText ?? string.Empty;
+        shelterRankingText.text = lastShelterRankingText;
+        ResizeShelterRankingContent(lastShelterRankingText);
+        shelterRankingPanel.SetActive(true);
+    }
+
+    public void HideShelterRanking()
+    {
+        SetActive(shelterRankingPanel, false);
+    }
+
     public void ShowResult(bool success, string reason, string detail)
     {
         SetActive(startPanel, false);
         SetActive(pausePanel, false);
         SetActive(rulesPanel, false);
+        SetActive(shelterRankingPanel, false);
         SetActive(resultPanel, true);
         lastResultReason = reason ?? string.Empty;
         lastResultDetail = detail ?? string.Empty;
@@ -214,6 +240,8 @@ public sealed class NewMapRuntimeUI : MonoBehaviour
         rulesPanel = CreatePanel("NewMap_RulesPanel", new Vector2(0f, 0f), new Vector2(980f, 700f), new Color(0.03f, 0.04f, 0.05f, 0.94f));
         rulesText = CreateRulesScrollArea(rulesPanel.transform);
         CreateButton("CloseRulesButton", rulesPanel.transform, new Vector2(0f, -325f), new Vector2(180f, 44f), "Close", ToggleRules);
+
+        shelterRankingPanel = CreateShelterRankingPanel();
 
         resultPanel = CreatePanel("NewMap_ResultPanel", new Vector2(0f, 0f), new Vector2(860f, 540f), new Color(0.04f, 0.05f, 0.06f, 0.92f));
         resultTitleText = CreateText("ResultTitle", resultPanel.transform, new Vector2(0f, -45f), new Vector2(760f, 58f), 28, TextAnchor.MiddleCenter);
@@ -299,6 +327,104 @@ public sealed class NewMapRuntimeUI : MonoBehaviour
         scrollRect.viewport = viewportRect;
         scrollRect.content = contentRect;
         return text;
+    }
+
+    private GameObject CreateShelterRankingPanel()
+    {
+        GameObject panel = new GameObject("NewMap_ShelterRankingPanel");
+        panel.transform.SetParent(transform, false);
+        RectTransform panelRect = panel.AddComponent<RectTransform>();
+        panelRect.anchorMin = new Vector2(1f, 1f);
+        panelRect.anchorMax = new Vector2(1f, 1f);
+        panelRect.pivot = new Vector2(1f, 1f);
+        panelRect.anchoredPosition = new Vector2(-18f, -18f);
+        panelRect.sizeDelta = new Vector2(650f, 620f);
+        Image panelImage = panel.AddComponent<Image>();
+        panelImage.color = new Color(0.03f, 0.04f, 0.045f, 0.9f);
+
+        Text title = CreateText("ShelterRankingTitle", panel.transform, new Vector2(0f, -16f), new Vector2(610f, 34f), 18, TextAnchor.UpperLeft);
+        title.text = "Shelter Ranking";
+        title.rectTransform.anchorMin = new Vector2(0f, 1f);
+        title.rectTransform.anchorMax = new Vector2(1f, 1f);
+        title.rectTransform.pivot = new Vector2(0.5f, 1f);
+        title.rectTransform.anchoredPosition = new Vector2(0f, -14f);
+        title.rectTransform.sizeDelta = new Vector2(-36f, 34f);
+
+        GameObject scrollObject = new GameObject("ShelterRankingScrollView");
+        scrollObject.transform.SetParent(panel.transform, false);
+        RectTransform scrollRectTransform = scrollObject.AddComponent<RectTransform>();
+        scrollRectTransform.anchorMin = new Vector2(0f, 0f);
+        scrollRectTransform.anchorMax = new Vector2(1f, 1f);
+        scrollRectTransform.pivot = new Vector2(0.5f, 0.5f);
+        scrollRectTransform.offsetMin = new Vector2(18f, 18f);
+        scrollRectTransform.offsetMax = new Vector2(-18f, -62f);
+        Image scrollImage = scrollObject.AddComponent<Image>();
+        scrollImage.color = new Color(0f, 0f, 0f, 0.16f);
+        ScrollRect scrollRect = scrollObject.AddComponent<ScrollRect>();
+        scrollRect.horizontal = false;
+        scrollRect.vertical = true;
+        scrollRect.movementType = ScrollRect.MovementType.Clamped;
+        scrollRect.scrollSensitivity = 38f;
+
+        GameObject viewport = new GameObject("Viewport");
+        viewport.transform.SetParent(scrollObject.transform, false);
+        RectTransform viewportRect = viewport.AddComponent<RectTransform>();
+        viewportRect.anchorMin = Vector2.zero;
+        viewportRect.anchorMax = Vector2.one;
+        viewportRect.pivot = new Vector2(0.5f, 0.5f);
+        viewportRect.offsetMin = new Vector2(10f, 10f);
+        viewportRect.offsetMax = new Vector2(-10f, -10f);
+        Image viewportImage = viewport.AddComponent<Image>();
+        viewportImage.color = new Color(0f, 0f, 0f, 0.01f);
+        Mask mask = viewport.AddComponent<Mask>();
+        mask.showMaskGraphic = false;
+
+        GameObject content = new GameObject("Content");
+        content.transform.SetParent(viewport.transform, false);
+        shelterRankingContentRect = content.AddComponent<RectTransform>();
+        shelterRankingContentRect.anchorMin = new Vector2(0f, 1f);
+        shelterRankingContentRect.anchorMax = new Vector2(1f, 1f);
+        shelterRankingContentRect.pivot = new Vector2(0.5f, 1f);
+        shelterRankingContentRect.anchoredPosition = Vector2.zero;
+        shelterRankingContentRect.sizeDelta = new Vector2(0f, 760f);
+
+        shelterRankingText = CreateText("ShelterRankingText", content.transform, Vector2.zero, new Vector2(590f, 740f), 15, TextAnchor.UpperLeft);
+        shelterRankingText.rectTransform.anchorMin = new Vector2(0f, 1f);
+        shelterRankingText.rectTransform.anchorMax = new Vector2(1f, 1f);
+        shelterRankingText.rectTransform.pivot = new Vector2(0.5f, 1f);
+        shelterRankingText.rectTransform.anchoredPosition = Vector2.zero;
+        shelterRankingText.rectTransform.sizeDelta = new Vector2(0f, 740f);
+        shelterRankingText.verticalOverflow = VerticalWrapMode.Overflow;
+        shelterRankingText.resizeTextForBestFit = false;
+
+        scrollRect.viewport = viewportRect;
+        scrollRect.content = shelterRankingContentRect;
+        panel.SetActive(false);
+        return panel;
+    }
+
+    private void ResizeShelterRankingContent(string text)
+    {
+        if (shelterRankingContentRect == null || shelterRankingText == null)
+        {
+            return;
+        }
+
+        int lines = 1;
+        if (!string.IsNullOrEmpty(text))
+        {
+            for (int i = 0; i < text.Length; i++)
+            {
+                if (text[i] == '\n')
+                {
+                    lines++;
+                }
+            }
+        }
+
+        float height = Mathf.Clamp(lines * 22f + 40f, 740f, 3200f);
+        shelterRankingContentRect.sizeDelta = new Vector2(0f, height);
+        shelterRankingText.rectTransform.sizeDelta = new Vector2(0f, height - 20f);
     }
 
     private GameObject CreatePanel(string name, Vector2 anchoredPosition, Vector2 size, Color color)
@@ -418,7 +544,8 @@ public sealed class NewMapRuntimeUI : MonoBehaviour
         return
             "New Chuo_BaseMap baseline\n" +
             "Tourism Mode: exploration only. Tsunami warning, light curtain, hazard failure, crowd failure, collapse/debris failure, and stamina drain are disabled.\n" +
-            "Evacuation Mode: Stage 1 Warning shows the countdown while the light curtain stays hidden and risk contact is ignored. Stage 2 FrontApproaching shows the light curtain and hazard checks become active.\n" +
+            "Evacuation Mode: PRE_WARNING_WAIT starts first, then Stage 1 Warning shows the countdown while the light curtain stays hidden and risk contact is ignored. Stage 2 FrontApproaching shows the light curtain and hazard checks become active.\n" +
+            "Straight shelter lines are gameplay guidance only. Press R to refresh the mixed distance ranking.\n" +
             "Green frames mark prototype guidance targets only. A green frame does not mean official safety approval.\n" +
             "Non-official candidates require warnings and are not safe by default.\n" +
             "Routes are estimated prototype guidance, not official evacuation routes.\n" +
