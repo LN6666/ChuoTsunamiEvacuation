@@ -1,0 +1,14 @@
+{
+  "enabled": true,
+  "forceFixedSupportY": true,
+  "supportY": 0.0,
+  "supportSizeX": 6000.0,
+  "supportSizeZ": 6000.0,
+  "supportThicknessMeters": 0.5,
+  "rendererEnabledInNormalMode": false,
+  "fallRecoveryEnabled": true,
+  "fallRecoveryBelowY": -8.0,
+  "recoverOutsidePlayableBounds": true,
+  "logRecoveryEvents": false,
+  "strategy": "rollback_safe_single_invisible_support_surface"
+}

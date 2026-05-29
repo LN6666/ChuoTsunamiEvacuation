@@ -426,7 +426,7 @@ public sealed class NewMapAdaptiveSupportGridRuntime
 [System.Serializable]
 public sealed class NewMapAdaptiveSupportGridConfig
 {
-    public bool enabled = true;
+    public bool enabled;
     public bool debugVisualizationEnabled;
     public bool rendererEnabledInNormalMode;
     public float cellSizeMeters = 160f;
@@ -472,6 +472,7 @@ public sealed class NewMapAdaptiveSupportGridConfig
             config.maxSupportY = temp;
         }
 
+        config.enabled = false;
         config.debugVisualizationEnabled = false;
         config.rendererEnabledInNormalMode = false;
         return config;

@@ -1,5 +1,5 @@
 {
-    "enabled": true,
+    "enabled": false,
     "debugVisualizationEnabled": false,
     "rendererEnabledInNormalMode": false,
     "cellSizeMeters": 160.0,

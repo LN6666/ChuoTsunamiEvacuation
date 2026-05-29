@@ -1,0 +1,14 @@
+{
+  "generatedAt": "2026-05-29T16:00:00+09:00",
+  "activeScene": "Assets/Scenes/Chuo_BaseMap.unity",
+  "adaptiveSupportGridDisabledByDefault": true,
+  "reliefBasedSupportHeightProviderDisabled": true,
+  "sourceSceneUsedForRuntimeHeights": false,
+  "sourceSampleBuildingAlignmentFallbackDisabled": true,
+  "safeGroundStrategy": "single_invisible_gameplay_support_surface",
+  "spawnBuildingOverlapRejectionPreserved": true,
+  "airWallsPreserved": true,
+  "mouseDragLookPreserved": true,
+  "lightingNotReworked": true,
+  "finalStatus": "rollback_safe_ground_enabled"
+}

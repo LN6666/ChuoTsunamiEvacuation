@@ -102,12 +102,21 @@ public sealed class NewMapRuntimeBootstrap : MonoBehaviour
     public float LastAdaptiveSupportYMax { get; private set; }
     public float LastAdaptiveSupportYAverage { get; private set; }
     public string LastAdaptiveSupportGridStatus { get; private set; } = "not_built";
+    public bool LastSafeGroundEnabled { get; private set; }
+    public int LastSafeGroundColliderCount { get; private set; }
+    public int LastSafeGroundRendererCount { get; private set; }
+    public bool LastSafeGroundRendererHidden { get; private set; }
+    public float LastSafeGroundSupportY { get; private set; }
+    public bool LastFallOutPreventionEnabled { get; private set; }
+    public int LastLargeBlueGroundRendererDisabledCount { get; private set; }
+    public int LastVisibleLargeBlueGroundRendererCount { get; private set; }
 
     private readonly List<Bounds> buildingAvoidanceBounds = new List<Bounds>();
     private NewMapSpawnConfig spawnConfig;
     private NewMapSafeSpawnPointDataset safeSpawnDataset;
     private NewMapPlayableBoundsConfig playableBoundsConfig;
     private NewMapAdaptiveSupportGridRuntime adaptiveSupportGrid;
+    private NewMapSafeGroundConfig safeGroundConfig;
 
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
     private static void AutoBootstrap()
@@ -184,6 +193,7 @@ public sealed class NewMapRuntimeBootstrap : MonoBehaviour
         spawnConfig = NewMapSpawnConfig.Load();
         safeSpawnDataset = NewMapSafeSpawnPointDataset.Load();
         playableBoundsConfig = NewMapPlayableBoundsConfig.Load();
+        safeGroundConfig = NewMapSafeGroundConfig.Load();
         PrepareManualTestRoots(roots);
         EnforceSupportSurfaceVisibility(roots);
         ApplyRound3BuildingRoadVerticalAlignment();
@@ -195,7 +205,10 @@ public sealed class NewMapRuntimeBootstrap : MonoBehaviour
         LastPlayableBounds = ResolvePlayableBounds(mapBounds, LastMapBoundsValid, playableBoundsConfig);
         LastPlayableBoundsValid = LastPlayableBounds.IsValid;
         adaptiveSupportGrid = NewMapAdaptiveSupportGridRuntime.Load();
-        adaptiveSupportGrid.BuildCollisionGrid(roots["GameplaySupportRoot"], LastPlayableBounds, LastVisualGroundReferenceY);
+        if (adaptiveSupportGrid.Enabled)
+        {
+            adaptiveSupportGrid.BuildCollisionGrid(roots["GameplaySupportRoot"], LastPlayableBounds, LastVisualGroundReferenceY);
+        }
         ApplyAdaptiveSupportGridDiagnostics();
         Physics.SyncTransforms();
         long boundsMs = stopwatch.ElapsedMilliseconds;
@@ -215,6 +228,13 @@ public sealed class NewMapRuntimeBootstrap : MonoBehaviour
         long spawnSupportMs = stopwatch.ElapsedMilliseconds - boundsMs;
 
         NewMapPlayerController player = NewMapPlayerController.Create(roots["PlayerSpawnRoot"], spawn);
+        player.ConfigureGroundSafety(
+            spawn,
+            LastPlayableBounds,
+            LastRuntimeGroundSurfaceY,
+            safeGroundConfig != null ? safeGroundConfig.fallRecoveryBelowY : -8f,
+            safeGroundConfig == null || safeGroundConfig.recoverOutsidePlayableBounds,
+            safeGroundConfig != null && safeGroundConfig.logRecoveryEvents);
         NewMapRuntimeUI.EnsureRuntimeEventSystem();
         NewMapRuntimeUI ui = NewMapRuntimeUI.Create(roots["UIAnchorRoot"]);
         NewMapLightingController lighting = NewMapLightingController.Create(roots["RuntimeSystemsRoot"]);
@@ -278,7 +298,11 @@ public sealed class NewMapRuntimeBootstrap : MonoBehaviour
             $"adaptiveBridgeCells={LastAdaptiveCellsUsingBridge} adaptiveBuildingFallbackCells={LastAdaptiveCellsUsingBuildingBaseFallback} " +
             $"adaptiveGlobalFallbackCells={LastAdaptiveCellsUsingGlobalFallback} adaptiveSupportYMin={LastAdaptiveSupportYMin:F2} " +
             $"adaptiveSupportYMax={LastAdaptiveSupportYMax:F2} adaptiveSupportYAvg={LastAdaptiveSupportYAverage:F2} " +
-            $"adaptiveGridStatus={LastAdaptiveSupportGridStatus}");
+            $"adaptiveGridStatus={LastAdaptiveSupportGridStatus} safeGroundEnabled={LastSafeGroundEnabled} " +
+            $"safeGroundSupportY={LastSafeGroundSupportY:F2} safeGroundColliders={LastSafeGroundColliderCount} " +
+            $"safeGroundRenderers={LastSafeGroundRendererCount} safeGroundRendererHidden={LastSafeGroundRendererHidden} " +
+            $"fallOutPreventionEnabled={LastFallOutPreventionEnabled} largeBlueGroundDisabled={LastLargeBlueGroundRendererDisabledCount} " +
+            $"visibleLargeBlueGroundRenderers={LastVisibleLargeBlueGroundRendererCount}");
     }
 
     private static void PrepareManualTestRoots(Dictionary<string, Transform> roots)
@@ -639,6 +663,14 @@ public sealed class NewMapRuntimeBootstrap : MonoBehaviour
                 " | Old P3/P5 targets disabled unless remapped.";
         }
 
+        if (LastSafeGroundEnabled)
+        {
+            return
+                "Ground: rollback-safe invisible gameplay support surface; adaptive relief grid disabled" +
+                " | Runtime support collider active and renderers hidden; scene MeshCollider shutdown is disabled at player startup" +
+                " | Old P3/P5 targets disabled unless remapped.";
+        }
+
         string ground = LastUsedGroundSupportProxy
             ? "Ground: invisible runtime support proxy aligned to the round-2 fallback visual height"
             : "Ground: invisible runtime support proxy aligned to sampled visual building/ground base";
@@ -842,6 +874,25 @@ public sealed class NewMapRuntimeBootstrap : MonoBehaviour
 
     private float ResolveSupportSurfaceY(Bounds mapBounds, bool hasBounds, Vector3 basePosition, float rayStartY)
     {
+        NewMapSafeGroundConfig groundConfig = safeGroundConfig ?? NewMapSafeGroundConfig.Default();
+        if (groundConfig.enabled && groundConfig.forceFixedSupportY)
+        {
+            float rollbackSupportY = Mathf.Clamp(groundConfig.supportY, -20f, 30f);
+            LastSafeGroundEnabled = true;
+            LastSafeGroundSupportY = rollbackSupportY;
+            LastFallOutPreventionEnabled = groundConfig.fallRecoveryEnabled;
+            LastUsedGroundSupportProxy = true;
+            if (!LastVisualGroundSampleValid)
+            {
+                LastSampledMapMinY = hasBounds ? mapBounds.min.y : rollbackSupportY;
+                LastSampledBuildingBaseY = rollbackSupportY;
+                LastVisualGroundReferenceY = rollbackSupportY;
+                LastVisualGroundSampleValid = true;
+            }
+
+            return rollbackSupportY;
+        }
+
         if (adaptiveSupportGrid != null && adaptiveSupportGrid.TryResolveSupportY(basePosition, out float adaptiveSupportY, out _))
         {
             LastUsedGroundSupportProxy = false;
@@ -893,7 +944,7 @@ public sealed class NewMapRuntimeBootstrap : MonoBehaviour
 
     private float ResolveLocalSupportSurfaceY(Vector3 position, float fallbackY)
     {
-        if (adaptiveSupportGrid != null)
+        if (adaptiveSupportGrid != null && adaptiveSupportGrid.Enabled && adaptiveSupportGrid.HasUsableGrid)
         {
             return adaptiveSupportGrid.ResolveSupportY(position, fallbackY);
         }
@@ -1277,12 +1328,7 @@ public sealed class NewMapRuntimeBootstrap : MonoBehaviour
 
         if (roadSamples.Count < 32 || buildingSamples.Count < 32 || buildingTransforms.Count == 0)
         {
-            if (TryApplySourceSampleBuildingVerticalAlignment(buildingSamples, buildingTransforms))
-            {
-                return;
-            }
-
-            LastBuildingRoadAlignmentStatus = "insufficient_road_or_building_samples";
+            LastBuildingRoadAlignmentStatus = "insufficient_road_or_building_samples_source_relief_alignment_disabled";
             return;
         }
 
@@ -1430,6 +1476,8 @@ public sealed class NewMapRuntimeBootstrap : MonoBehaviour
         LastBlueDebugGroundRendererDisabledCount = 0;
         LastRuntimeCollisionSupportRendererVisible = false;
         LastRuntimeCollisionSupportColliderActive = false;
+        LastLargeBlueGroundRendererDisabledCount = 0;
+        LastVisibleLargeBlueGroundRendererCount = 0;
 
         if (roots != null && roots.TryGetValue("GameplaySupportRoot", out Transform supportRoot) && supportRoot != null)
         {
@@ -1465,7 +1513,14 @@ public sealed class NewMapRuntimeBootstrap : MonoBehaviour
         for (int i = 0; i < renderers.Length; i++)
         {
             Renderer renderer = renderers[i];
-            if (renderer == null || !IsDebugSupportGroundCandidate(renderer.transform))
+            if (renderer == null)
+            {
+                continue;
+            }
+
+            bool debugSupport = IsDebugSupportGroundCandidate(renderer.transform);
+            bool largeBlueGround = IsLargeBlueGroundSurfaceCandidate(renderer);
+            if (!debugSupport && !largeBlueGround)
             {
                 continue;
             }
@@ -1479,12 +1534,21 @@ public sealed class NewMapRuntimeBootstrap : MonoBehaviour
                 {
                     LastBlueDebugGroundRendererDisabledCount++;
                 }
+
+                if (largeBlueGround)
+                {
+                    LastLargeBlueGroundRendererDisabledCount++;
+                }
             }
 
             if (renderer.enabled)
             {
                 LastVisibleSupportRendererCount++;
                 LastRuntimeCollisionSupportRendererVisible = true;
+                if (largeBlueGround)
+                {
+                    LastVisibleLargeBlueGroundRendererCount++;
+                }
             }
         }
     }
@@ -1524,6 +1588,39 @@ public sealed class NewMapRuntimeBootstrap : MonoBehaviour
 
         Color color = material.color;
         return color.b > 0.45f && color.b > color.r * 1.35f && color.b > color.g * 1.15f;
+    }
+
+    private static bool IsLargeBlueGroundSurfaceCandidate(Renderer renderer)
+    {
+        if (renderer == null || !renderer.enabled || !IsBlueishMaterial(renderer))
+        {
+            return false;
+        }
+
+        if (renderer.GetComponentInParent<Canvas>() != null || renderer is LineRenderer || renderer is TrailRenderer)
+        {
+            return false;
+        }
+
+        Bounds bounds = renderer.bounds;
+        if (!IsFiniteVector3(bounds.center) || !IsFiniteVector3(bounds.size))
+        {
+            return false;
+        }
+
+        bool largeFlatSurface = bounds.size.y <= 2.5f && (bounds.size.x >= 25f || bounds.size.z >= 25f);
+        if (!largeFlatSurface)
+        {
+            return false;
+        }
+
+        string searchable = BuildRendererSearchText(renderer).ToLowerInvariant();
+        if (searchable.Contains("sky") || searchable.Contains("label") || searchable.Contains("marker") || searchable.Contains("ui"))
+        {
+            return false;
+        }
+
+        return true;
     }
 
     private NewMapPlayableBounds ResolvePlayableBounds(Bounds mapBounds, bool hasBounds, NewMapPlayableBoundsConfig config)
@@ -1657,7 +1754,7 @@ public sealed class NewMapRuntimeBootstrap : MonoBehaviour
 
     private void EnsureRuntimeCollisionSupport(Transform parent, Vector3 center)
     {
-        if (adaptiveSupportGrid != null && adaptiveSupportGrid.HasUsableGrid)
+        if (adaptiveSupportGrid != null && adaptiveSupportGrid.Enabled && adaptiveSupportGrid.HasUsableGrid)
         {
             LastRuntimeCollisionSupportProxyActive = true;
             LastRuntimeCollisionSupportColliderActive = adaptiveSupportGrid.ColliderCount > 0;
@@ -1686,12 +1783,22 @@ public sealed class NewMapRuntimeBootstrap : MonoBehaviour
         support.transform.SetParent(parent, true);
         support.transform.position = center;
         BoxCollider collider = support.AddComponent<BoxCollider>();
-        collider.size = new Vector3(6000f, 0.5f, 6000f);
-        collider.center = Vector3.down * 0.25f;
+        NewMapSafeGroundConfig groundConfig = safeGroundConfig ?? NewMapSafeGroundConfig.Default();
+        float width = Mathf.Max(100f, groundConfig.supportSizeX);
+        float depth = Mathf.Max(100f, groundConfig.supportSizeZ);
+        float thickness = Mathf.Clamp(groundConfig.supportThicknessMeters, 0.05f, 5f);
+        collider.size = new Vector3(width, thickness, depth);
+        collider.center = Vector3.down * (thickness * 0.5f);
         collider.isTrigger = false;
 
         LastRuntimeCollisionSupportColliderActive = collider.enabled;
         LastRuntimeCollisionSupportRendererVisible = false;
+        LastSafeGroundEnabled = groundConfig.enabled;
+        LastSafeGroundSupportY = center.y;
+        LastSafeGroundColliderCount = collider.enabled ? 1 : 0;
+        LastSafeGroundRendererCount = support.GetComponentsInChildren<Renderer>(true).Length;
+        LastSafeGroundRendererHidden = LastSafeGroundRendererCount == 0;
+        LastFallOutPreventionEnabled = groundConfig.fallRecoveryEnabled;
     }
 
     private IEnumerator DisableSceneMeshCollidersStaged()
@@ -2256,6 +2363,54 @@ public sealed class NewMapRuntimeBootstrap : MonoBehaviour
         new OfficialShelterAnchorRecord { ShelterId = "chuo_official_emergency_026", DisplayName = "月島区民センター", PlateauGmlId = "bldg_fee39d2c-fd06-4f35-b0a1-a093a3e16fd5", MatchMethod = "contains", Confidence = "high", ManualReviewNeeded = false },
         new OfficialShelterAnchorRecord { ShelterId = "chuo_official_emergency_027", DisplayName = "(旧)ほっとプラザはるみ", PlateauGmlId = "bldg_c64d9bf2-61ed-48d8-8315-8efadf440863", MatchMethod = "contains", Confidence = "high", ManualReviewNeeded = false }
     };
+}
+
+[System.Serializable]
+public sealed class NewMapSafeGroundConfig
+{
+    public bool enabled = true;
+    public bool forceFixedSupportY = true;
+    public float supportY = 0f;
+    public float supportSizeX = 6000f;
+    public float supportSizeZ = 6000f;
+    public float supportThicknessMeters = 0.5f;
+    public bool rendererEnabledInNormalMode;
+    public bool fallRecoveryEnabled = true;
+    public float fallRecoveryBelowY = -8f;
+    public bool recoverOutsidePlayableBounds = true;
+    public bool logRecoveryEvents;
+    public string strategy = "rollback_safe_single_invisible_support_surface";
+
+    public static NewMapSafeGroundConfig Default()
+    {
+        return new NewMapSafeGroundConfig();
+    }
+
+    public static NewMapSafeGroundConfig Load()
+    {
+        NewMapSafeGroundConfig config = Default();
+        string path = Path.Combine(Application.dataPath, "Data/P10/newmap_safe_ground_config.json");
+        if (File.Exists(path))
+        {
+            try
+            {
+                config = JsonUtility.FromJson<NewMapSafeGroundConfig>(File.ReadAllText(path)) ?? config;
+            }
+            catch (System.Exception exception)
+            {
+                Debug.LogWarning($"NewMap safe ground config could not be loaded; using defaults. {exception.Message}");
+            }
+        }
+
+        config.supportY = Mathf.Clamp(config.supportY, -20f, 30f);
+        config.supportSizeX = Mathf.Clamp(config.supportSizeX, 100f, 10000f);
+        config.supportSizeZ = Mathf.Clamp(config.supportSizeZ, 100f, 10000f);
+        config.supportThicknessMeters = Mathf.Clamp(config.supportThicknessMeters, 0.05f, 5f);
+        config.fallRecoveryBelowY = Mathf.Clamp(config.fallRecoveryBelowY, -50f, 5f);
+        config.rendererEnabledInNormalMode = false;
+        config.forceFixedSupportY = true;
+        return config;
+    }
 }
 
 [System.Serializable]

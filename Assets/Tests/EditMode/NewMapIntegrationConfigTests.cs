@@ -235,48 +235,48 @@ public class NewMapIntegrationConfigTests
     }
 
     [Test]
-    public void GroundRoadAdaptiveSupportGridConfigAndReportsStayInvisibleAndLocal()
+    public void GroundRoadRollbackDisablesAdaptiveGridAndConfiguresSafeGround()
     {
         string sourceValidationPath = Path.Combine(Application.dataPath, "Data/P10/newmap_ground_road_source_validation.json");
         string samplingPath = Path.Combine(Application.dataPath, "Data/P10/newmap_ground_road_sampling_report.json");
         string gridConfigPath = Path.Combine(Application.dataPath, "Data/P10/newmap_adaptive_support_grid_config.json");
-        string gridReportPath = Path.Combine(Application.dataPath, "Data/P10/newmap_adaptive_support_grid_report.json");
-        string bluePath = Path.Combine(Application.dataPath, "Data/P10/newmap_blue_area_final_fix.json");
-        string heightPath = Path.Combine(Application.dataPath, "Data/P10/newmap_height_integration_report.json");
+        string safeGroundPath = Path.Combine(Application.dataPath, "Data/P10/newmap_safe_ground_config.json");
+        string safeGroundReportPath = Path.Combine(Application.dataPath, "Data/P10/newmap_safe_ground_report.json");
+        string bluePath = Path.Combine(Application.dataPath, "Data/P10/newmap_blue_area_hard_removal.json");
+        string fallPath = Path.Combine(Application.dataPath, "Data/P10/newmap_fall_out_prevention_report.json");
         Assert.IsTrue(File.Exists(sourceValidationPath), "Ground/road source validation JSON must exist.");
         Assert.IsTrue(File.Exists(samplingPath), "Ground/road sampling report JSON must exist.");
         Assert.IsTrue(File.Exists(gridConfigPath), "Adaptive support grid config JSON must exist.");
-        Assert.IsTrue(File.Exists(gridReportPath), "Adaptive support grid report JSON must exist.");
-        Assert.IsTrue(File.Exists(bluePath), "Blue area final fix JSON must exist.");
-        Assert.IsTrue(File.Exists(heightPath), "Height integration report JSON must exist.");
+        Assert.IsTrue(File.Exists(safeGroundPath), "Safe ground config JSON must exist.");
+        Assert.IsTrue(File.Exists(safeGroundReportPath), "Safe ground report JSON must exist.");
+        Assert.IsTrue(File.Exists(bluePath), "Blue hard-removal JSON must exist.");
+        Assert.IsTrue(File.Exists(fallPath), "Fall-out prevention report JSON must exist.");
 
         string sourceValidation = File.ReadAllText(sourceValidationPath);
         string sampling = File.ReadAllText(samplingPath);
         string gridConfig = File.ReadAllText(gridConfigPath);
-        string gridReport = File.ReadAllText(gridReportPath);
+        string safeGround = File.ReadAllText(safeGroundPath);
+        string safeGroundReport = File.ReadAllText(safeGroundReportPath);
         string blue = File.ReadAllText(bluePath);
-        string height = File.ReadAllText(heightPath);
+        string fall = File.ReadAllText(fallPath);
 
         StringAssert.Contains("\"sourceSceneValid\": true", sourceValidation);
         StringAssert.Contains("\"groundLikeRendererCount\": 20", sourceValidation);
+        StringAssert.Contains("\"roadLikeRendererCount\": 0", sourceValidation);
         StringAssert.Contains("\"reliefSamples\": 20", sampling);
         StringAssert.Contains("not GIS-grade", sampling);
-        StringAssert.Contains("\"enabled\": true", gridConfig);
+        StringAssert.Contains("\"enabled\": false", gridConfig);
         StringAssert.Contains("\"debugVisualizationEnabled\": false", gridConfig);
         StringAssert.Contains("\"rendererEnabledInNormalMode\": false", gridConfig);
-        StringAssert.Contains("\"gridCellCount\": 510", gridReport);
-        StringAssert.Contains("\"colliderCount\": 510", gridReport);
-        StringAssert.Contains("\"cellsUsingReliefSamples\": 163", gridReport);
-        StringAssert.Contains("\"cellsUsingBuildingBaseFallback\": 226", gridReport);
-        StringAssert.Contains("\"renderersDisabled\": true", gridReport);
-        StringAssert.Contains("\"blueSupportVisualActive\": false", gridReport);
-        StringAssert.Contains("\"playerUsesAdaptiveGrid\": true", gridReport);
-        StringAssert.Contains("\"npcUsesAdaptiveGrid\": true", gridReport);
-        StringAssert.Contains("\"targetsUseLocalHeight\": true", gridReport);
-        StringAssert.Contains("\"normalModeVisibleSuspectCount\": 0", blue);
-        StringAssert.Contains("\"supportGridRendererVisibleInNormalMode\": false", blue);
-        StringAssert.Contains("\"playerSpawnUsesAdaptiveSupportCell\": true", height);
-        StringAssert.Contains("\"greenFramesUseLocalSupportHeight\": true", height);
+        StringAssert.Contains("\"forceFixedSupportY\": true", safeGround);
+        StringAssert.Contains("\"supportY\": 0", safeGround);
+        StringAssert.Contains("\"supportColliderCount\": 1", safeGroundReport);
+        StringAssert.Contains("\"supportRendererHidden\": true", safeGroundReport);
+        StringAssert.Contains("\"adaptiveSupportGridDisabled\": true", safeGroundReport);
+        StringAssert.Contains("\"normalModeVisibleBlueSupportCount\": 0", blue);
+        StringAssert.Contains("\"supportGridRendererActive\": false", blue);
+        StringAssert.Contains("\"fallRecoveryEnabled\": true", fall);
+        StringAssert.Contains("\"playerCannotFallOutOfMap\": true", fall);
     }
 
     [Test]
@@ -286,6 +286,7 @@ public class NewMapIntegrationConfigTests
         try
         {
             NewMapAdaptiveSupportGridConfig config = NewMapAdaptiveSupportGridConfig.Default();
+            config.enabled = true;
             config.cellSizeMeters = 10f;
             config.maxGridCells = 20;
             config.nearestSampleRadiusMeters = 12f;

@@ -35,6 +35,13 @@ public sealed class NewMapPlayerController : MonoBehaviour
     private bool wantsLockedCursor;
     private bool isMouseLookDragging;
     private Vector3 lastValidGroundPosition;
+    private Vector3 safeRecoveryPosition;
+    private NewMapPlayableBounds safetyPlayableBounds;
+    private bool hasSafetyPlayableBounds;
+    private bool recoverOutsidePlayableBounds = true;
+    private bool logRecoveryEvents;
+    private float safeGroundY;
+    private float fallRecoveryThresholdY = -8f;
     private float stamina = 100f;
     private int fallRecoveryCount;
 
@@ -62,6 +69,9 @@ public sealed class NewMapPlayerController : MonoBehaviour
     public float CurrentPitch => pitch;
     public bool HasActiveCamera => cameraTransform != null && cameraTransform.GetComponent<Camera>() != null;
     public Vector3 LastValidGroundPosition => lastValidGroundPosition;
+    public Vector3 SafeRecoveryPosition => safeRecoveryPosition;
+    public float FallRecoveryThresholdY => fallRecoveryThresholdY;
+    public string LastFallRecoveryReason { get; private set; } = string.Empty;
     public int FallRecoveryCount => fallRecoveryCount;
 
     public static NewMapPlayerController Create(Transform parent, Vector3 spawnPosition)
@@ -84,9 +94,36 @@ public sealed class NewMapPlayerController : MonoBehaviour
         player.CreateCameraRig();
         NewMapVisualFactory.CreateHumanoid(playerObject.transform, "PlayerVisual", new Color(0.1f, 0.55f, 1f, 1f));
         player.lastValidGroundPosition = spawnPosition;
+        player.safeRecoveryPosition = spawnPosition;
+        player.safeGroundY = spawnPosition.y - GroundSkinOffset;
         player.SetMode(NewMapGameMode.Tourism, NewMapWeatherPreset.ClearDay);
         player.SetControlEnabled(false);
         return player;
+    }
+
+    public void ConfigureGroundSafety(
+        Vector3 safeSpawnPosition,
+        NewMapPlayableBounds playableBounds,
+        float supportY,
+        float recoverBelowY,
+        bool recoverOutsideBounds,
+        bool logRecoveries)
+    {
+        safeRecoveryPosition = safeSpawnPosition;
+        lastValidGroundPosition = safeSpawnPosition;
+        safetyPlayableBounds = playableBounds;
+        hasSafetyPlayableBounds = playableBounds.IsValid;
+        safeGroundY = Mathf.Clamp(supportY, -20f, 30f);
+        fallRecoveryThresholdY = Mathf.Clamp(recoverBelowY, -50f, 5f);
+        recoverOutsidePlayableBounds = recoverOutsideBounds;
+        logRecoveryEvents = logRecoveries;
+    }
+
+    public bool TryRecoverForDiagnostics()
+    {
+        int previousCount = fallRecoveryCount;
+        RecoverIfFalling();
+        return fallRecoveryCount > previousCount;
     }
 
     private static void TrySetPlayerTag(GameObject playerObject)
@@ -500,15 +537,33 @@ public sealed class NewMapPlayerController : MonoBehaviour
 
     private void RecoverIfFalling()
     {
-        if (transform.position.y >= lastValidGroundPosition.y - fallRecoveryDistance)
+        bool belowLastValid = transform.position.y < lastValidGroundPosition.y - fallRecoveryDistance;
+        bool belowAbsoluteThreshold = transform.position.y < fallRecoveryThresholdY;
+        bool outsidePlayableBounds = recoverOutsidePlayableBounds &&
+            hasSafetyPlayableBounds &&
+            !safetyPlayableBounds.ContainsXZ(transform.position, 0f);
+
+        if (!belowLastValid && !belowAbsoluteThreshold && !outsidePlayableBounds)
         {
             return;
         }
 
-        transform.position = lastValidGroundPosition + Vector3.up * 1.5f;
+        Vector3 recovery = belowAbsoluteThreshold || belowLastValid ? safeRecoveryPosition : transform.position;
+        if (hasSafetyPlayableBounds)
+        {
+            recovery = safetyPlayableBounds.ClampXZ(recovery, 2f);
+        }
+
+        recovery.y = Mathf.Max(safeGroundY + GroundSkinOffset, safeRecoveryPosition.y);
+        transform.position = recovery;
         verticalVelocity = 0f;
+        lastValidGroundPosition = recovery;
         fallRecoveryCount++;
-        Debug.LogWarning("NewMap player fall recovery returned the player to the last valid ground position.");
+        LastFallRecoveryReason = (belowAbsoluteThreshold || belowLastValid) ? "below_fall_threshold" : "outside_playable_bounds";
+        if (logRecoveryEvents)
+        {
+            Debug.Log($"NewMap player safety recovery reason={LastFallRecoveryReason} count={fallRecoveryCount}");
+        }
     }
 
     private static Vector2 ReadMovementInput()

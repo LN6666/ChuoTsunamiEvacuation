@@ -1,0 +1,13 @@
+﻿{
+    "generatedAt":  "2026-05-29T16:28:16",
+    "fallRecoveryEnabled":  true,
+    "recoverBelowY":  -8,
+    "recoverOutsidePlayableBounds":  true,
+    "recoveryTarget":  "last validated safe spawn on safe support surface",
+    "playerCannotFallOutOfMap":  true,
+    "playerCannotLeaveAirWallBounds":  true,
+    "invalidSupportHolesDoNotPersist":  true,
+    "normalRunRepeatedRecoveryExpected":  false,
+    "playerLogWarningSpamExpected":  false,
+    "finalStatus":  "validated_by_player_smoke"
+}

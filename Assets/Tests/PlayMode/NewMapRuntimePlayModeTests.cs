@@ -113,22 +113,21 @@ public class NewMapRuntimePlayModeTests
         Assert.IsTrue(bootstrap.LastRuntimeCollisionSupportColliderActive, "Support proxy must keep an enabled collider for movement/spawn support.");
         Assert.IsFalse(bootstrap.LastRuntimeCollisionSupportRendererVisible, "Manual-test support proxy must be invisible.");
         Assert.AreEqual(0, bootstrap.LastVisibleSupportRendererCount, "No blue/debug support renderer may remain visible in normal mode.");
-        Assert.IsTrue(bootstrap.LastAdaptiveSupportGridEnabled, "Adaptive support grid must be enabled for ground/road merge validation.");
-        Assert.IsTrue(bootstrap.LastAdaptiveSupportGridActive, "Adaptive support grid must be the primary runtime collision support.");
-        Assert.Greater(bootstrap.LastAdaptiveSupportGridCellCount, 0);
-        Assert.AreEqual(bootstrap.LastAdaptiveSupportGridCellCount, bootstrap.LastAdaptiveSupportGridColliderCount);
-        Assert.AreEqual(0, bootstrap.LastAdaptiveSupportGridVisibleRendererCount, "Adaptive support grid must not render in normal mode.");
-        Assert.Greater(bootstrap.LastAdaptiveSupportYMax, bootstrap.LastAdaptiveSupportYMin, "Adaptive support grid should preserve varied local heights.");
+        Assert.IsFalse(bootstrap.LastAdaptiveSupportGridEnabled, "Failed relief-based adaptive support grid must be disabled by default.");
+        Assert.IsFalse(bootstrap.LastAdaptiveSupportGridActive, "Adaptive support grid must not be the rollback runtime collision support.");
+        Assert.AreEqual(0, bootstrap.LastAdaptiveSupportGridCellCount);
+        Assert.AreEqual(0, bootstrap.LastAdaptiveSupportGridColliderCount);
+        Assert.AreEqual(0, bootstrap.LastAdaptiveSupportGridVisibleRendererCount);
+        Assert.IsTrue(bootstrap.LastSafeGroundEnabled, "Rollback must create the safe gameplay support surface.");
+        Assert.AreEqual(1, bootstrap.LastSafeGroundColliderCount);
+        Assert.IsTrue(bootstrap.LastSafeGroundRendererHidden);
+        Assert.IsTrue(bootstrap.LastFallOutPreventionEnabled);
+        Assert.AreEqual(0, bootstrap.LastVisibleLargeBlueGroundRendererCount);
         Assert.IsTrue(bootstrap.LastPlayableBoundsValid, "Playable bounds should be resolved for Chuo_BaseMap.");
         Assert.AreEqual(4, bootstrap.LastPlayableAirWallColliderCount, "Invisible north/south/east/west air walls should be created.");
         Assert.AreEqual(0, bootstrap.LastPlayableAirWallVisibleRendererCount, "Air walls must not render in normal player mode.");
         Assert.IsTrue(bootstrap.LastPlayableBounds.ContainsXZ(player.transform.position, 0f), "Player spawn must remain inside playable bounds.");
         Assert.LessOrEqual(Mathf.Abs(player.transform.position.y - bootstrap.LastRuntimeGroundSurfaceY), 0.35f, "Player/support surface must align with the visible map ground height tolerance.");
-        if (!bootstrap.LastAdaptiveSupportGridActive)
-        {
-            Assert.LessOrEqual(bootstrap.LastSupportToVisualGroundDelta, 0.35f, "Fallback support surface should align to the sampled visual building/ground base.");
-        }
-
         Assert.LessOrEqual(bootstrap.LastPlayerSpawnGroundDelta, 0.35f, "Player spawn should sit near the aligned support surface.");
         Assert.IsFalse(bootstrap.LastMeshColliderDisableComplete, "Scene MeshCollider shutdown should not run at player startup because it caused the Pre2 spike.");
         Assert.AreEqual(0, bootstrap.LastDisabledSceneMeshColliderCount, "Scene MeshColliders should remain untouched during player startup.");
@@ -212,6 +211,28 @@ public class NewMapRuntimePlayModeTests
     }
 
     [UnityTest]
+    public IEnumerator RuntimeFallOutPreventionRecoversPlayerToSafeGround()
+    {
+        NewMapRuntimeBootstrap bootstrap = NewMapRuntimeBootstrap.CreateForCurrentScene();
+        NewMapPlayerController player = Object.FindObjectOfType<NewMapPlayerController>();
+        NewMapGameController controller = Object.FindObjectOfType<NewMapGameController>();
+        Assert.NotNull(bootstrap);
+        Assert.NotNull(player);
+        Assert.NotNull(controller);
+
+        controller.StartTourismMode();
+        yield return null;
+        Vector3 safe = player.SafeRecoveryPosition;
+        player.transform.position = new Vector3(safe.x, player.FallRecoveryThresholdY - 20f, safe.z);
+        Assert.IsTrue(player.TryRecoverForDiagnostics());
+
+        Assert.AreEqual(1, player.FallRecoveryCount);
+        Assert.AreEqual("below_fall_threshold", player.LastFallRecoveryReason);
+        Assert.LessOrEqual(Mathf.Abs(player.transform.position.y - safe.y), 0.1f);
+        Assert.IsTrue(bootstrap.LastPlayableBounds.ContainsXZ(player.transform.position, 0f));
+    }
+
+    [UnityTest]
     public IEnumerator RuntimeSpawnValidationRejectsBuildingOverlapAndUsesPlayableSupport()
     {
         GameObject building = GameObject.CreatePrimitive(PrimitiveType.Cube);
@@ -231,7 +252,8 @@ public class NewMapRuntimePlayModeTests
         Assert.GreaterOrEqual(bootstrap.LastSpawnAttemptCount, 1);
         Assert.GreaterOrEqual(bootstrap.LastSpawnRejectedInsideBuildingCount, 1, "The map-bounds center fixture should be rejected as inside a building.");
         Assert.GreaterOrEqual(bootstrap.LastBuildingBoundsCacheCount, 1);
-        Assert.IsTrue(bootstrap.LastAdaptiveSupportGridActive, "Spawn validation should run against adaptive local support when available.");
+        Assert.IsFalse(bootstrap.LastAdaptiveSupportGridActive, "Spawn validation must not use the failed adaptive relief grid in rollback mode.");
+        Assert.IsTrue(bootstrap.LastSafeGroundEnabled);
         Assert.GreaterOrEqual(bootstrap.LastNearestBuildingDistance, NewMapSpawnConfig.Default().minDistanceFromBuildingMeters - 0.01f);
         Assert.LessOrEqual(Mathf.Abs(player.transform.position.y - bootstrap.LastRuntimeGroundSurfaceY), 0.5f);
         Bounds buildingBounds = building.GetComponent<Renderer>().bounds;
@@ -346,8 +368,8 @@ public class NewMapRuntimePlayModeTests
             delta.y = 0f;
             Assert.LessOrEqual(delta.magnitude, 1000.5f);
             Assert.GreaterOrEqual(delta.magnitude, crowd.MinDistanceFromPlayerMeters - 0.5f);
-            Assert.GreaterOrEqual(position.y, bootstrap.LastAdaptiveSupportYMin - 0.75f);
-            Assert.LessOrEqual(position.y, bootstrap.LastAdaptiveSupportYMax + 1.5f);
+            Assert.GreaterOrEqual(position.y, bootstrap.LastRuntimeGroundSurfaceY - 0.75f);
+            Assert.LessOrEqual(position.y, bootstrap.LastRuntimeGroundSurfaceY + 1.5f);
             Assert.IsTrue(crowd.RuntimePlayableBounds.ContainsXZ(position, 0f), "NPC positions must stay inside the playable air-wall bounds.");
         }
 
@@ -392,7 +414,7 @@ public class NewMapRuntimePlayModeTests
     }
 
     [UnityTest]
-    public IEnumerator RuntimeAdaptiveSupportGridAlignsPlayerNpcsTargetsAndGuidance()
+    public IEnumerator RuntimeSafeGroundAlignsPlayerNpcsTargetsAndGuidance()
     {
         NewMapRuntimeBootstrap.CreateForCurrentScene();
         NewMapPlayerController player = Object.FindObjectOfType<NewMapPlayerController>();
@@ -404,11 +426,12 @@ public class NewMapRuntimePlayModeTests
         Assert.NotNull(crowd);
         Assert.NotNull(bootstrap);
 
-        Assert.IsTrue(bootstrap.LastAdaptiveSupportGridActive);
-        Assert.Greater(bootstrap.LastAdaptiveSupportGridCellCount, 0);
+        Assert.IsFalse(bootstrap.LastAdaptiveSupportGridActive);
+        Assert.IsTrue(bootstrap.LastSafeGroundEnabled);
+        Assert.AreEqual(1, bootstrap.LastSafeGroundColliderCount);
         Assert.AreEqual(0, bootstrap.LastAdaptiveSupportGridVisibleRendererCount);
-        Assert.GreaterOrEqual(player.transform.position.y, bootstrap.LastAdaptiveSupportYMin - 0.75f);
-        Assert.LessOrEqual(player.transform.position.y, bootstrap.LastAdaptiveSupportYMax + 1.5f);
+        Assert.GreaterOrEqual(player.transform.position.y, bootstrap.LastRuntimeGroundSurfaceY - 0.75f);
+        Assert.LessOrEqual(player.transform.position.y, bootstrap.LastRuntimeGroundSurfaceY + 1.5f);
         Assert.IsTrue(bootstrap.LastPlayableBounds.ContainsXZ(player.transform.position, 0f));
 
         controller.StartEvacuationMode();
@@ -417,8 +440,8 @@ public class NewMapRuntimePlayModeTests
         Assert.Greater(npcPositions.Length, 0);
         foreach (Vector3 position in npcPositions.Take(20))
         {
-            Assert.GreaterOrEqual(position.y, bootstrap.LastAdaptiveSupportYMin - 0.75f);
-            Assert.LessOrEqual(position.y, bootstrap.LastAdaptiveSupportYMax + 1.5f);
+            Assert.GreaterOrEqual(position.y, bootstrap.LastRuntimeGroundSurfaceY - 0.75f);
+            Assert.LessOrEqual(position.y, bootstrap.LastRuntimeGroundSurfaceY + 1.5f);
             Assert.IsTrue(crowd.RuntimePlayableBounds.ContainsXZ(position, 0f));
         }
 
@@ -430,8 +453,8 @@ public class NewMapRuntimePlayModeTests
         foreach (NewMapRuntimeTarget target in controller.RuntimeTargets.Where(target => target != null && target.ActiveInGame))
         {
             Assert.NotNull(target.Anchor);
-            Assert.GreaterOrEqual(target.Anchor.position.y, bootstrap.LastAdaptiveSupportYMin - 0.75f);
-            Assert.LessOrEqual(target.Anchor.position.y, bootstrap.LastAdaptiveSupportYMax + 1.5f);
+            Assert.GreaterOrEqual(target.Anchor.position.y, bootstrap.LastRuntimeGroundSurfaceY - 0.75f);
+            Assert.LessOrEqual(target.Anchor.position.y, bootstrap.LastRuntimeGroundSurfaceY + 1.5f);
             activeTargetChecks++;
 
             if (target.GreenFrame != null && target.GreenFrame.activeSelf)

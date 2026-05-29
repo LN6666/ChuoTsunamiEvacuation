@@ -1,0 +1,25 @@
+{
+  "generatedAt": "2026-05-29T16:00:00+09:00",
+  "failedBuild": "D:/UnityProjects/ChuoTsunamiEvacuation-Builds/NewMapGroundRoadMergePre/ChuoTsunamiEvacuation_NewMapGroundRoadMergePre.exe",
+  "manualFailureAcknowledged": true,
+  "sourceScene": "Assets/Scenes/Chuo_GroundRoad_Import_Source.unity",
+  "sourceSceneValidButInsufficient": true,
+  "sourceRoadLikeRendererCount": 0,
+  "sourceReliefRendererCount": 20,
+  "faultySystemsIdentified": [
+    "NewMapAdaptiveSupportGridRuntime",
+    "Assets/Data/P10/newmap_adaptive_support_grid_config.json",
+    "Assets/Data/P10/newmap_ground_road_height_samples.json relief/DEM sampling",
+    "relief/DEM local support height path in NewMapRuntimeBootstrap",
+    "source-sample building vertical alignment fallback"
+  ],
+  "disabledOrRolledBack": {
+    "adaptiveSupportGridDefaultEnabled": false,
+    "reliefBasedRuntimeHeightProvider": false,
+    "sourceSampleBuildingAlignmentFallback": false,
+    "singleSafeSupportSurfaceEnabled": true
+  },
+  "whyReliefDemInsufficient": "The supplemental source validation found 20 relief renderers and 0 road/transport renderers. Relief/DEM heights are not true walkable road surfaces and produced unsafe support variation in manual gameplay.",
+  "detectableFailureCause": "Adaptive cells used relief and building-base fallback without verified road surfaces, causing mismatched player/building heights and possible holes where visible surfaces did not have reliable collision.",
+  "finalStatus": "failed_groundroad_merge_disabled_for_safe_ground_recovery"
+}

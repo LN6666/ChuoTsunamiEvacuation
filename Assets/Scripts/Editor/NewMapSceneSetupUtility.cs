@@ -92,6 +92,11 @@ public static class NewMapSceneSetupUtility
         BuildNewMapPlayer("D:/UnityProjects/ChuoTsunamiEvacuation-Builds/NewMapGroundRoadMergePre", "ChuoTsunamiEvacuation_NewMapGroundRoadMergePre.exe");
     }
 
+    public static void BuildNewMapGroundRollbackPlayerCommandLine()
+    {
+        BuildNewMapPlayer("D:/UnityProjects/ChuoTsunamiEvacuation-Builds/NewMapGroundRollbackPre", "ChuoTsunamiEvacuation_NewMapGroundRollbackPre.exe");
+    }
+
     private static void BuildNewMapPlayer(string buildDirectory, string executableName)
     {
         Directory.CreateDirectory(buildDirectory);

@@ -1,0 +1,15 @@
+{
+  "generatedAt": "2026-05-29T16:00:00+09:00",
+  "checkedAfterRollback": true,
+  "supportStrategy": "single gameplay-safe support surface at Y=0",
+  "fullVisualBuildingFixClaimed": false,
+  "manyBuildingsMayStillFloat": true,
+  "likelyCauses": [
+    "supplemental source did not include true road/transport surfaces",
+    "PLATEAU building and relief elevations are not consistently aligned for gameplay collision",
+    "safe ground intentionally prioritizes player stability over global visual terrain matching"
+  ],
+  "doNotMoveBuildingsRandomly": true,
+  "remainingIssue": "visual limitation requiring better road/terrain import or PLATEAU asset correction",
+  "finalStatus": "documented_visual_limitation_playability_first"
+}
