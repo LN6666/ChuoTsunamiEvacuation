@@ -304,7 +304,7 @@ public sealed class NewMapNpcCrowdPrototype : MonoBehaviour
             return true;
         }
 
-        snapped = new Vector3(candidate.x, Mathf.Clamp(fallbackY, -1f, 2f), candidate.z);
+        snapped = new Vector3(candidate.x, Mathf.Clamp(fallbackY, -20f, 30f), candidate.z);
         return true;
     }
 

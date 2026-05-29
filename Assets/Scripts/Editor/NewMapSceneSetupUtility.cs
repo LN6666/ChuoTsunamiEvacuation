@@ -87,6 +87,11 @@ public static class NewMapSceneSetupUtility
         BuildNewMapPlayer("D:/UnityProjects/ChuoTsunamiEvacuation-Builds/NewMapGroundVisualRound3Pre", "ChuoTsunamiEvacuation_NewMapGroundVisualRound3Pre.exe");
     }
 
+    public static void BuildNewMapGroundRoadMergePlayerCommandLine()
+    {
+        BuildNewMapPlayer("D:/UnityProjects/ChuoTsunamiEvacuation-Builds/NewMapGroundRoadMergePre", "ChuoTsunamiEvacuation_NewMapGroundRoadMergePre.exe");
+    }
+
     private static void BuildNewMapPlayer(string buildDirectory, string executableName)
     {
         Directory.CreateDirectory(buildDirectory);

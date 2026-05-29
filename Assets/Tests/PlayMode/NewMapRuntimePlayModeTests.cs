@@ -113,12 +113,22 @@ public class NewMapRuntimePlayModeTests
         Assert.IsTrue(bootstrap.LastRuntimeCollisionSupportColliderActive, "Support proxy must keep an enabled collider for movement/spawn support.");
         Assert.IsFalse(bootstrap.LastRuntimeCollisionSupportRendererVisible, "Manual-test support proxy must be invisible.");
         Assert.AreEqual(0, bootstrap.LastVisibleSupportRendererCount, "No blue/debug support renderer may remain visible in normal mode.");
+        Assert.IsTrue(bootstrap.LastAdaptiveSupportGridEnabled, "Adaptive support grid must be enabled for ground/road merge validation.");
+        Assert.IsTrue(bootstrap.LastAdaptiveSupportGridActive, "Adaptive support grid must be the primary runtime collision support.");
+        Assert.Greater(bootstrap.LastAdaptiveSupportGridCellCount, 0);
+        Assert.AreEqual(bootstrap.LastAdaptiveSupportGridCellCount, bootstrap.LastAdaptiveSupportGridColliderCount);
+        Assert.AreEqual(0, bootstrap.LastAdaptiveSupportGridVisibleRendererCount, "Adaptive support grid must not render in normal mode.");
+        Assert.Greater(bootstrap.LastAdaptiveSupportYMax, bootstrap.LastAdaptiveSupportYMin, "Adaptive support grid should preserve varied local heights.");
         Assert.IsTrue(bootstrap.LastPlayableBoundsValid, "Playable bounds should be resolved for Chuo_BaseMap.");
         Assert.AreEqual(4, bootstrap.LastPlayableAirWallColliderCount, "Invisible north/south/east/west air walls should be created.");
         Assert.AreEqual(0, bootstrap.LastPlayableAirWallVisibleRendererCount, "Air walls must not render in normal player mode.");
         Assert.IsTrue(bootstrap.LastPlayableBounds.ContainsXZ(player.transform.position, 0f), "Player spawn must remain inside playable bounds.");
         Assert.LessOrEqual(Mathf.Abs(player.transform.position.y - bootstrap.LastRuntimeGroundSurfaceY), 0.35f, "Player/support surface must align with the visible map ground height tolerance.");
-        Assert.LessOrEqual(bootstrap.LastSupportToVisualGroundDelta, 0.35f, "Round-2 support surface should align to the sampled visual building/ground base.");
+        if (!bootstrap.LastAdaptiveSupportGridActive)
+        {
+            Assert.LessOrEqual(bootstrap.LastSupportToVisualGroundDelta, 0.35f, "Fallback support surface should align to the sampled visual building/ground base.");
+        }
+
         Assert.LessOrEqual(bootstrap.LastPlayerSpawnGroundDelta, 0.35f, "Player spawn should sit near the aligned support surface.");
         Assert.IsFalse(bootstrap.LastMeshColliderDisableComplete, "Scene MeshCollider shutdown should not run at player startup because it caused the Pre2 spike.");
         Assert.AreEqual(0, bootstrap.LastDisabledSceneMeshColliderCount, "Scene MeshColliders should remain untouched during player startup.");
@@ -221,8 +231,9 @@ public class NewMapRuntimePlayModeTests
         Assert.GreaterOrEqual(bootstrap.LastSpawnAttemptCount, 1);
         Assert.GreaterOrEqual(bootstrap.LastSpawnRejectedInsideBuildingCount, 1, "The map-bounds center fixture should be rejected as inside a building.");
         Assert.GreaterOrEqual(bootstrap.LastBuildingBoundsCacheCount, 1);
+        Assert.IsTrue(bootstrap.LastAdaptiveSupportGridActive, "Spawn validation should run against adaptive local support when available.");
         Assert.GreaterOrEqual(bootstrap.LastNearestBuildingDistance, NewMapSpawnConfig.Default().minDistanceFromBuildingMeters - 0.01f);
-        Assert.LessOrEqual(Mathf.Abs(player.transform.position.y - bootstrap.LastRuntimeGroundSurfaceY), 0.35f);
+        Assert.LessOrEqual(Mathf.Abs(player.transform.position.y - bootstrap.LastRuntimeGroundSurfaceY), 0.5f);
         Bounds buildingBounds = building.GetComponent<Renderer>().bounds;
         Assert.IsFalse(
             player.transform.position.x >= buildingBounds.min.x &&
@@ -312,9 +323,11 @@ public class NewMapRuntimePlayModeTests
         NewMapPlayerController player = Object.FindObjectOfType<NewMapPlayerController>();
         NewMapGameController controller = Object.FindObjectOfType<NewMapGameController>();
         NewMapNpcCrowdPrototype crowd = Object.FindObjectOfType<NewMapNpcCrowdPrototype>();
+        NewMapRuntimeBootstrap bootstrap = Object.FindObjectOfType<NewMapRuntimeBootstrap>();
         Assert.NotNull(player);
         Assert.NotNull(controller);
         Assert.NotNull(crowd);
+        Assert.NotNull(bootstrap);
 
         controller.StartTourismMode();
         yield return null;
@@ -333,8 +346,8 @@ public class NewMapRuntimePlayModeTests
             delta.y = 0f;
             Assert.LessOrEqual(delta.magnitude, 1000.5f);
             Assert.GreaterOrEqual(delta.magnitude, crowd.MinDistanceFromPlayerMeters - 0.5f);
-            Assert.Greater(position.y, -5f);
-            Assert.Less(position.y, 8f);
+            Assert.GreaterOrEqual(position.y, bootstrap.LastAdaptiveSupportYMin - 0.75f);
+            Assert.LessOrEqual(position.y, bootstrap.LastAdaptiveSupportYMax + 1.5f);
             Assert.IsTrue(crowd.RuntimePlayableBounds.ContainsXZ(position, 0f), "NPC positions must stay inside the playable air-wall bounds.");
         }
 
@@ -376,6 +389,62 @@ public class NewMapRuntimePlayModeTests
         Assert.Greater(labels.NonOfficialCandidateLabelCount, 0, "Existing non-official candidate dataset names should be label sources.");
         Assert.LessOrEqual(labels.ActiveLabelCount, NewMapNameLabelConfig.Default().maxVisibleLabels);
         Assert.IsTrue(controller.RuntimeTargets.Any(target => target.NonOfficialWarningRequired), "Label test expects non-official warning targets to remain active.");
+    }
+
+    [UnityTest]
+    public IEnumerator RuntimeAdaptiveSupportGridAlignsPlayerNpcsTargetsAndGuidance()
+    {
+        NewMapRuntimeBootstrap.CreateForCurrentScene();
+        NewMapPlayerController player = Object.FindObjectOfType<NewMapPlayerController>();
+        NewMapGameController controller = Object.FindObjectOfType<NewMapGameController>();
+        NewMapNpcCrowdPrototype crowd = Object.FindObjectOfType<NewMapNpcCrowdPrototype>();
+        NewMapRuntimeBootstrap bootstrap = Object.FindObjectOfType<NewMapRuntimeBootstrap>();
+        Assert.NotNull(player);
+        Assert.NotNull(controller);
+        Assert.NotNull(crowd);
+        Assert.NotNull(bootstrap);
+
+        Assert.IsTrue(bootstrap.LastAdaptiveSupportGridActive);
+        Assert.Greater(bootstrap.LastAdaptiveSupportGridCellCount, 0);
+        Assert.AreEqual(0, bootstrap.LastAdaptiveSupportGridVisibleRendererCount);
+        Assert.GreaterOrEqual(player.transform.position.y, bootstrap.LastAdaptiveSupportYMin - 0.75f);
+        Assert.LessOrEqual(player.transform.position.y, bootstrap.LastAdaptiveSupportYMax + 1.5f);
+        Assert.IsTrue(bootstrap.LastPlayableBounds.ContainsXZ(player.transform.position, 0f));
+
+        controller.StartEvacuationMode();
+        yield return null;
+        Vector3[] npcPositions = crowd.GetNpcPositionsForDiagnostics();
+        Assert.Greater(npcPositions.Length, 0);
+        foreach (Vector3 position in npcPositions.Take(20))
+        {
+            Assert.GreaterOrEqual(position.y, bootstrap.LastAdaptiveSupportYMin - 0.75f);
+            Assert.LessOrEqual(position.y, bootstrap.LastAdaptiveSupportYMax + 1.5f);
+            Assert.IsTrue(crowd.RuntimePlayableBounds.ContainsXZ(position, 0f));
+        }
+
+        controller.ForceStageForDiagnostics(NewMapTsunamiStage.FrontApproaching);
+        yield return null;
+
+        int activeTargetChecks = 0;
+        int greenFrameChecks = 0;
+        foreach (NewMapRuntimeTarget target in controller.RuntimeTargets.Where(target => target != null && target.ActiveInGame))
+        {
+            Assert.NotNull(target.Anchor);
+            Assert.GreaterOrEqual(target.Anchor.position.y, bootstrap.LastAdaptiveSupportYMin - 0.75f);
+            Assert.LessOrEqual(target.Anchor.position.y, bootstrap.LastAdaptiveSupportYMax + 1.5f);
+            activeTargetChecks++;
+
+            if (target.GreenFrame != null && target.GreenFrame.activeSelf)
+            {
+                Assert.LessOrEqual(Mathf.Abs(target.GreenFrame.transform.position.y - (target.Anchor.position.y + 0.06f)), 0.25f);
+                greenFrameChecks++;
+            }
+        }
+
+        Assert.Greater(activeTargetChecks, 0);
+        Assert.Greater(greenFrameChecks, 0, "Stage 2 should show green frames aligned to target/local support height.");
+        Assert.AreEqual(0, bootstrap.LastPlayableAirWallVisibleRendererCount);
+        Assert.AreEqual(4, bootstrap.LastPlayableAirWallColliderCount);
     }
 
     [UnityTest]

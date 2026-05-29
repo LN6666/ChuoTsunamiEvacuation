@@ -2,6 +2,7 @@
 import argparse
 import json
 import math
+import re
 import sys
 import time
 import urllib.parse
@@ -17,6 +18,8 @@ INPUT_POINTS_PATH = DATA_DIR / "newmap_name_enrichment_input_points.json"
 CACHE_PATH = DATA_DIR / "newmap_name_cache.json"
 REPORT_PATH = DATA_DIR / "newmap_name_enrichment_report.json"
 CANDIDATE_RESOURCE_PATH = PROJECT_ROOT / "Assets" / "Resources" / "NewMap" / "newmap_runtime_non_official_candidates.json"
+ID_ONLY_RE = re.compile(r"^(?:bldg|tran|dem|brid|wtr|road)?[_-]?[0-9a-f]{8,}(?:[-_][0-9a-f]{4,})*$", re.IGNORECASE)
+ADDRESS_TOKEN_RE = re.compile(r"(丁目|番地|番|号|〒|\d+-\d+|\d+番)")
 
 
 def default_config():
@@ -103,6 +106,33 @@ def normalize_input_point(raw, source):
     return point
 
 
+def looks_id_only(value):
+    text = str(value or "").strip()
+    if not text:
+        return False
+    if ID_ONLY_RE.match(text):
+        return True
+    return text.startswith(("13102-bldg-", "bldg_", "tran_", "dem_", "brid_", "wtr_"))
+
+
+def looks_full_address(value):
+    text = str(value or "").strip()
+    if not text:
+        return False
+    return bool(ADDRESS_TOKEN_RE.search(text)) and ("区" in text or "都" in text or "中央" in text)
+
+
+def choose_main_name(*values):
+    for value in values:
+        name = str(value or "").strip()
+        if not name:
+            continue
+        if looks_id_only(name) or looks_full_address(name):
+            continue
+        return name
+    return ""
+
+
 def collect_points():
     points = []
     if INPUT_POINTS_PATH.exists():
@@ -172,13 +202,19 @@ def nominatim_reverse(point, config):
 def classify_online_result(point, response, min_confidence):
     address = response.get("address") or {}
     namedetails = response.get("namedetails") or {}
-    name = response.get("name") or namedetails.get("name:ja") or namedetails.get("name:en") or namedetails.get("name")
+    name = choose_main_name(
+        namedetails.get("name:ja"),
+        namedetails.get("official_name:ja"),
+        namedetails.get("name"),
+        namedetails.get("official_name"),
+        response.get("name"),
+    )
     raw_category = str(response.get("category", "")).lower()
     raw_type = str(response.get("type", "")).lower()
     object_type = point["objectType"]
 
     if object_type == "road":
-        road_name = name or address.get("road") or address.get("pedestrian") or address.get("footway")
+        road_name = choose_main_name(name, address.get("road"), address.get("pedestrian"), address.get("footway"))
         if road_name and (raw_category == "highway" or raw_type in {"road", "street", "pedestrian", "footway", "path"} or address.get("road")):
             return road_name, "online_exact_or_near_match", max(min_confidence, 0.72), raw_category + "/" + raw_type
         if address:
@@ -197,7 +233,7 @@ def classify_online_result(point, response, min_confidence):
 
 
 def label_from_source(point):
-    name = point["sourceName"] or point["displayName"]
+    name = choose_main_name(point["sourceName"], point["displayName"])
     if not name:
         return None
     object_type = point["objectType"]
@@ -206,7 +242,7 @@ def label_from_source(point):
         "id": point["id"],
         "objectType": object_type,
         "name": name,
-        "language": "source",
+        "language": "ja_or_source_main_name",
         "provider": point["source"],
         "source": point["source"],
         "classification": classification,
@@ -219,18 +255,19 @@ def label_from_source(point):
 
 
 def label_from_online(point, name, classification, confidence, raw_type):
+    name = choose_main_name(name)
     return {
         "id": point["id"],
         "objectType": point["objectType"],
         "name": name,
-        "language": "source",
+        "language": "ja",
         "provider": "osm_nominatim",
         "source": "coordinate_reverse_lookup_cache",
         "classification": classification,
         "rawType": raw_type,
         "confidence": confidence,
         "idOnly": False,
-        "disabled": not name or confidence < 0.6 or classification in {"online_address_only", "online_low_confidence", "no_name_found"},
+        "disabled": not name or looks_id_only(name) or looks_full_address(name) or confidence < 0.6 or classification in {"online_address_only", "online_low_confidence", "no_name_found"},
         "position": point["unityPosition"],
     }
 
@@ -303,7 +340,10 @@ def main(argv):
             except Exception as exc:  # noqa: BLE001
                 report["errors"].append({"id": point["id"], "error": str(exc)})
 
-        report["status"] = "completed"
+        if report["queryableMissingNamePoints"] > 0 and report["onlineQueriesAttempted"] == 0 and report["skippedOnlineDisabled"] > 0:
+            report["status"] = "pending_user_network_run"
+        else:
+            report["status"] = "completed"
 
     cache = {
         "generatedAt": report["generatedAt"],

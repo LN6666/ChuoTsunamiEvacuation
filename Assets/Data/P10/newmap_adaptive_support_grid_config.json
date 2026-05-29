@@ -1,0 +1,14 @@
+{
+    "enabled": true,
+    "debugVisualizationEnabled": false,
+    "rendererEnabledInNormalMode": false,
+    "cellSizeMeters": 160.0,
+    "maxGridCells": 900,
+    "supportThicknessMeters": 0.5,
+    "nearestSampleRadiusMeters": 320.0,
+    "minSampleConfidence": 0.44999998807907107,
+    "minSupportY": -20.0,
+    "maxSupportY": 30.0,
+    "useBuildingBaseFallback": true,
+    "useGlobalFallback": true
+}

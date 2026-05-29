@@ -1,6 +1,421 @@
 {
-  "generatedAt": "2026-05-29T00:00:00+09:00",
+  "generatedAt": "2026-05-29T04:03:42.466602+00:00",
   "runtimeNetworkRequestsAllowed": false,
   "sourceStatus": "no_source_name_available",
-  "labels": []
+  "labels": [
+    {
+      "id": "p8_plateau_highrise_candidate_001",
+      "objectType": "candidate",
+      "name": "聖路加ガーデンタワー",
+      "language": "ja_or_source_main_name",
+      "provider": "project_data_non_official_candidate_resource",
+      "source": "project_data_non_official_candidate_resource",
+      "classification": "project_dataset_name",
+      "rawType": "candidate",
+      "confidence": 1.0,
+      "idOnly": false,
+      "disabled": false,
+      "position": {
+        "x": 744.65,
+        "y": 0.08,
+        "z": -1147.793
+      }
+    },
+    {
+      "id": "p8_plateau_highrise_candidate_002",
+      "objectType": "candidate",
+      "name": "日本橋三井タワー",
+      "language": "ja_or_source_main_name",
+      "provider": "project_data_non_official_candidate_resource",
+      "source": "project_data_non_official_candidate_resource",
+      "classification": "project_dataset_name",
+      "rawType": "candidate",
+      "confidence": 1.0,
+      "idOnly": false,
+      "disabled": false,
+      "position": {
+        "x": 253.978,
+        "y": 0.08,
+        "z": 1093.152
+      }
+    },
+    {
+      "id": "p8_plateau_highrise_candidate_003",
+      "objectType": "candidate",
+      "name": "東京日本橋タワー",
+      "language": "ja_or_source_main_name",
+      "provider": "project_data_non_official_candidate_resource",
+      "source": "project_data_non_official_candidate_resource",
+      "classification": "project_dataset_name",
+      "rawType": "candidate",
+      "confidence": 1.0,
+      "idOnly": false,
+      "disabled": false,
+      "position": {
+        "x": 363.135,
+        "y": 0.08,
+        "z": 528.833
+      }
+    },
+    {
+      "id": "p8_plateau_highrise_candidate_004",
+      "objectType": "candidate",
+      "name": "日本橋高島屋三井ビルディング",
+      "language": "ja_or_source_main_name",
+      "provider": "project_data_non_official_candidate_resource",
+      "source": "project_data_non_official_candidate_resource",
+      "classification": "project_dataset_name",
+      "rawType": "candidate",
+      "confidence": 1.0,
+      "idOnly": false,
+      "disabled": false,
+      "position": {
+        "x": 319.03,
+        "y": 0.08,
+        "z": 469.958
+      }
+    },
+    {
+      "id": "p8_plateau_highrise_candidate_005",
+      "objectType": "candidate",
+      "name": "電源開発株式会社(本店)",
+      "language": "ja_or_source_main_name",
+      "provider": "project_data_non_official_candidate_resource",
+      "source": "project_data_non_official_candidate_resource",
+      "classification": "project_dataset_name",
+      "rawType": "candidate",
+      "confidence": 1.0,
+      "idOnly": false,
+      "disabled": false,
+      "position": {
+        "x": -370.07,
+        "y": 0.08,
+        "z": -986.252
+      }
+    },
+    {
+      "id": "p8_plateau_highrise_candidate_006",
+      "objectType": "candidate",
+      "name": "アーティゾン美術館",
+      "language": "ja_or_source_main_name",
+      "provider": "project_data_non_official_candidate_resource",
+      "source": "project_data_non_official_candidate_resource",
+      "classification": "project_dataset_name",
+      "rawType": "candidate",
+      "confidence": 1.0,
+      "idOnly": false,
+      "disabled": false,
+      "position": {
+        "x": 154.534,
+        "y": 0.08,
+        "z": 184.783
+      }
+    },
+    {
+      "id": "p8_plateau_highrise_candidate_007",
+      "objectType": "candidate",
+      "name": "早稲田大学日本橋キャンパス",
+      "language": "ja_or_source_main_name",
+      "provider": "project_data_non_official_candidate_resource",
+      "source": "project_data_non_official_candidate_resource",
+      "classification": "project_dataset_name",
+      "rawType": "candidate",
+      "confidence": 1.0,
+      "idOnly": false,
+      "disabled": false,
+      "position": {
+        "x": 391.155,
+        "y": 0.08,
+        "z": 607.978
+      }
+    },
+    {
+      "id": "p8_plateau_highrise_candidate_009",
+      "objectType": "candidate",
+      "name": "特別養護老人ホーム「つきしま」",
+      "language": "ja_or_source_main_name",
+      "provider": "project_data_non_official_candidate_resource",
+      "source": "project_data_non_official_candidate_resource",
+      "classification": "project_dataset_name",
+      "rawType": "candidate",
+      "confidence": 1.0,
+      "idOnly": false,
+      "disabled": false,
+      "position": {
+        "x": 1212.405,
+        "y": 0.08,
+        "z": -1433.836
+      }
+    },
+    {
+      "id": "p8_plateau_highrise_candidate_011",
+      "objectType": "candidate",
+      "name": "特別養護老人ホーム「マイホーム新川」",
+      "language": "ja_or_source_main_name",
+      "provider": "project_data_non_official_candidate_resource",
+      "source": "project_data_non_official_candidate_resource",
+      "classification": "project_dataset_name",
+      "rawType": "candidate",
+      "confidence": 1.0,
+      "idOnly": false,
+      "disabled": false,
+      "position": {
+        "x": 1234.24,
+        "y": 0.08,
+        "z": -447.447
+      }
+    },
+    {
+      "id": "p8_plateau_highrise_candidate_013",
+      "objectType": "candidate",
+      "name": "中央築地六郵便局",
+      "language": "ja_or_source_main_name",
+      "provider": "project_data_non_official_candidate_resource",
+      "source": "project_data_non_official_candidate_resource",
+      "classification": "project_dataset_name",
+      "rawType": "candidate",
+      "confidence": 1.0,
+      "idOnly": false,
+      "disabled": false,
+      "position": {
+        "x": 262.194,
+        "y": 0.08,
+        "z": -1364.247
+      }
+    },
+    {
+      "id": "p8_plateau_highrise_candidate_015",
+      "objectType": "candidate",
+      "name": "日本銀行(本店)",
+      "language": "ja_or_source_main_name",
+      "provider": "project_data_non_official_candidate_resource",
+      "source": "project_data_non_official_candidate_resource",
+      "classification": "project_dataset_name",
+      "rawType": "candidate",
+      "confidence": 1.0,
+      "idOnly": false,
+      "disabled": false,
+      "position": {
+        "x": 111.272,
+        "y": 0.08,
+        "z": 1054.088
+      }
+    },
+    {
+      "id": "p8_plateau_highrise_candidate_016",
+      "objectType": "candidate",
+      "name": "築地警察署銀座八丁目交番",
+      "language": "ja_or_source_main_name",
+      "provider": "project_data_non_official_candidate_resource",
+      "source": "project_data_non_official_candidate_resource",
+      "classification": "project_dataset_name",
+      "rawType": "candidate",
+      "confidence": 1.0,
+      "idOnly": false,
+      "disabled": false,
+      "position": {
+        "x": -668.895,
+        "y": 0.08,
+        "z": -1029.105
+      }
+    },
+    {
+      "id": "p8_plateau_highrise_candidate_018",
+      "objectType": "candidate",
+      "name": "ヤマト運輸（ヤマト銀座ビル）",
+      "language": "ja_or_source_main_name",
+      "provider": "project_data_non_official_candidate_resource",
+      "source": "project_data_non_official_candidate_resource",
+      "classification": "project_dataset_name",
+      "rawType": "candidate",
+      "confidence": 1.0,
+      "idOnly": false,
+      "disabled": false,
+      "position": {
+        "x": 19.282,
+        "y": 0.08,
+        "z": -710.452
+      }
+    },
+    {
+      "id": "p8_plateau_highrise_candidate_019",
+      "objectType": "candidate",
+      "name": "聖路加国際病院",
+      "language": "ja_or_source_main_name",
+      "provider": "project_data_non_official_candidate_resource",
+      "source": "project_data_non_official_candidate_resource",
+      "classification": "project_dataset_name",
+      "rawType": "candidate",
+      "confidence": 1.0,
+      "idOnly": false,
+      "disabled": false,
+      "position": {
+        "x": 609.685,
+        "y": 0.08,
+        "z": -1083.872
+      }
+    },
+    {
+      "id": "p8_plateau_highrise_candidate_020",
+      "objectType": "candidate",
+      "name": "日本橋大伝馬町郵便局",
+      "language": "ja_or_source_main_name",
+      "provider": "project_data_non_official_candidate_resource",
+      "source": "project_data_non_official_candidate_resource",
+      "classification": "project_dataset_name",
+      "rawType": "candidate",
+      "confidence": 1.0,
+      "idOnly": false,
+      "disabled": false,
+      "position": {
+        "x": 959.055,
+        "y": 0.08,
+        "z": 1446.022
+      }
+    },
+    {
+      "id": "p8_plateau_highrise_candidate_021",
+      "objectType": "candidate",
+      "name": "区立日本橋小学校",
+      "language": "ja_or_source_main_name",
+      "provider": "project_data_non_official_candidate_resource",
+      "source": "project_data_non_official_candidate_resource",
+      "classification": "project_dataset_name",
+      "rawType": "candidate",
+      "confidence": 1.0,
+      "idOnly": false,
+      "disabled": false,
+      "position": {
+        "x": 1012.065,
+        "y": 0.08,
+        "z": 841.938
+      }
+    },
+    {
+      "id": "p8_plateau_highrise_candidate_022",
+      "objectType": "candidate",
+      "name": "東京国税局",
+      "language": "ja_or_source_main_name",
+      "provider": "project_data_non_official_candidate_resource",
+      "source": "project_data_non_official_candidate_resource",
+      "classification": "project_dataset_name",
+      "rawType": "candidate",
+      "confidence": 1.0,
+      "idOnly": false,
+      "disabled": false,
+      "position": {
+        "x": -391.029,
+        "y": 0.08,
+        "z": -1376.306
+      }
+    },
+    {
+      "id": "p8_plateau_highrise_candidate_023",
+      "objectType": "candidate",
+      "name": "中央警察署",
+      "language": "ja_or_source_main_name",
+      "provider": "project_data_non_official_candidate_resource",
+      "source": "project_data_non_official_candidate_resource",
+      "classification": "project_dataset_name",
+      "rawType": "candidate",
+      "confidence": 1.0,
+      "idOnly": false,
+      "disabled": false,
+      "position": {
+        "x": 612.155,
+        "y": 0.08,
+        "z": 366.553
+      }
+    },
+    {
+      "id": "p8_plateau_highrise_candidate_024",
+      "objectType": "candidate",
+      "name": "聖路加国際大学",
+      "language": "ja_or_source_main_name",
+      "provider": "project_data_non_official_candidate_resource",
+      "source": "project_data_non_official_candidate_resource",
+      "classification": "project_dataset_name",
+      "rawType": "candidate",
+      "confidence": 1.0,
+      "idOnly": false,
+      "disabled": false,
+      "position": {
+        "x": 500.012,
+        "y": 0.08,
+        "z": -1018.133
+      }
+    },
+    {
+      "id": "p5f_sample_humanitarian_review_004",
+      "objectType": "candidate",
+      "name": "Sample High-Rise Apartment Building",
+      "language": "ja_or_source_main_name",
+      "provider": "project_data_non_official_candidate_resource",
+      "source": "project_data_non_official_candidate_resource",
+      "classification": "project_dataset_name",
+      "rawType": "candidate",
+      "confidence": 1.0,
+      "idOnly": false,
+      "disabled": false,
+      "position": {
+        "x": 920.675,
+        "y": 0.08,
+        "z": -1727.187
+      }
+    },
+    {
+      "id": "p5f_sample_humanitarian_weak_005",
+      "objectType": "candidate",
+      "name": "Sample Mid-Rise Commercial Building",
+      "language": "ja_or_source_main_name",
+      "provider": "project_data_non_official_candidate_resource",
+      "source": "project_data_non_official_candidate_resource",
+      "classification": "project_dataset_name",
+      "rawType": "candidate",
+      "confidence": 1.0,
+      "idOnly": false,
+      "disabled": false,
+      "position": {
+        "x": 554.88,
+        "y": 2.18,
+        "z": -740.292
+      }
+    },
+    {
+      "id": "p5f_sample_not_recommended_007",
+      "objectType": "candidate",
+      "name": "Sample Low-Rise Building With Seismic Concern",
+      "language": "ja_or_source_main_name",
+      "provider": "project_data_non_official_candidate_resource",
+      "source": "project_data_non_official_candidate_resource",
+      "classification": "project_dataset_name",
+      "rawType": "candidate",
+      "confidence": 1.0,
+      "idOnly": false,
+      "disabled": false,
+      "position": {
+        "x": -135.752,
+        "y": 0.08,
+        "z": -1523.574
+      }
+    },
+    {
+      "id": "p5f_sample_unknown_006",
+      "objectType": "candidate",
+      "name": "sample_plateau_bldg_unknown_005",
+      "language": "ja_or_source_main_name",
+      "provider": "project_data_non_official_candidate_resource",
+      "source": "project_data_non_official_candidate_resource",
+      "classification": "project_dataset_name",
+      "rawType": "candidate",
+      "confidence": 1.0,
+      "idOnly": false,
+      "disabled": false,
+      "position": {
+        "x": 984.63,
+        "y": 0.08,
+        "z": -1038.063
+      }
+    }
+  ]
 }

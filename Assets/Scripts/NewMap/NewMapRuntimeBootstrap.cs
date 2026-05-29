@@ -87,11 +87,27 @@ public sealed class NewMapRuntimeBootstrap : MonoBehaviour
     public float LastBuildingRoadVerticalOffsetApplied { get; private set; }
     public int LastBuildingRoadAlignedRootCount { get; private set; }
     public string LastBuildingRoadAlignmentStatus { get; private set; } = "not_evaluated";
+    public bool LastAdaptiveSupportGridEnabled { get; private set; }
+    public bool LastAdaptiveSupportGridActive { get; private set; }
+    public int LastAdaptiveSupportGridCellCount { get; private set; }
+    public int LastAdaptiveSupportGridColliderCount { get; private set; }
+    public int LastAdaptiveSupportGridVisibleRendererCount { get; private set; }
+    public int LastAdaptiveCellsUsingRoad { get; private set; }
+    public int LastAdaptiveCellsUsingTerrain { get; private set; }
+    public int LastAdaptiveCellsUsingRelief { get; private set; }
+    public int LastAdaptiveCellsUsingBridge { get; private set; }
+    public int LastAdaptiveCellsUsingBuildingBaseFallback { get; private set; }
+    public int LastAdaptiveCellsUsingGlobalFallback { get; private set; }
+    public float LastAdaptiveSupportYMin { get; private set; }
+    public float LastAdaptiveSupportYMax { get; private set; }
+    public float LastAdaptiveSupportYAverage { get; private set; }
+    public string LastAdaptiveSupportGridStatus { get; private set; } = "not_built";
 
     private readonly List<Bounds> buildingAvoidanceBounds = new List<Bounds>();
     private NewMapSpawnConfig spawnConfig;
     private NewMapSafeSpawnPointDataset safeSpawnDataset;
     private NewMapPlayableBoundsConfig playableBoundsConfig;
+    private NewMapAdaptiveSupportGridRuntime adaptiveSupportGrid;
 
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
     private static void AutoBootstrap()
@@ -178,13 +194,17 @@ public sealed class NewMapRuntimeBootstrap : MonoBehaviour
         LastColliderCount = colliderCount;
         LastPlayableBounds = ResolvePlayableBounds(mapBounds, LastMapBoundsValid, playableBoundsConfig);
         LastPlayableBoundsValid = LastPlayableBounds.IsValid;
+        adaptiveSupportGrid = NewMapAdaptiveSupportGridRuntime.Load();
+        adaptiveSupportGrid.BuildCollisionGrid(roots["GameplaySupportRoot"], LastPlayableBounds, LastVisualGroundReferenceY);
+        ApplyAdaptiveSupportGridDiagnostics();
+        Physics.SyncTransforms();
         long boundsMs = stopwatch.ElapsedMilliseconds;
 
         LastOldRuntimeGroundSurfaceY = 0f;
         Vector3 spawn = ResolveSpawnPosition(mapBounds, LastMapBoundsValid, roots["DebugDiagnosticsRoot"]);
         LastFinalSpawnPosition = spawn;
         LastPlayerSpawnGroundDelta = spawn.y - LastRuntimeGroundSurfaceY;
-        EnsureRuntimeCollisionSupportProxy(roots["GameplaySupportRoot"], new Vector3(spawn.x, LastRuntimeGroundSurfaceY, spawn.z));
+        EnsureRuntimeCollisionSupport(roots["GameplaySupportRoot"], new Vector3(spawn.x, LastRuntimeGroundSurfaceY, spawn.z));
         EnforceSupportSurfaceVisibility(roots);
         EnsurePlayableBoundsAirWalls(roots["PlayableBoundsRoot"], LastPlayableBounds, LastRuntimeGroundSurfaceY);
         Physics.SyncTransforms();
@@ -250,7 +270,15 @@ public sealed class NewMapRuntimeBootstrap : MonoBehaviour
             $"airWallColliders={LastPlayableAirWallColliderCount} airWallVisibleRenderers={LastPlayableAirWallVisibleRendererCount} " +
             $"roadSampleY={LastRoadSampleY:F2} roadSamples={LastRoadSampleCount} supportToRoadDelta={LastSupportToRoadDelta:F2} " +
             $"supportToBuildingBaseDelta={LastSupportToBuildingBaseDelta:F2} buildingRoadYOffsetApplied={LastBuildingRoadVerticalOffsetApplied:F2} " +
-            $"buildingRoadAlignedRoots={LastBuildingRoadAlignedRootCount} buildingRoadAlignmentStatus={LastBuildingRoadAlignmentStatus}");
+            $"buildingRoadAlignedRoots={LastBuildingRoadAlignedRootCount} buildingRoadAlignmentStatus={LastBuildingRoadAlignmentStatus} " +
+            $"adaptiveGridEnabled={LastAdaptiveSupportGridEnabled} adaptiveGridActive={LastAdaptiveSupportGridActive} " +
+            $"adaptiveGridCells={LastAdaptiveSupportGridCellCount} adaptiveGridColliders={LastAdaptiveSupportGridColliderCount} " +
+            $"adaptiveGridVisibleRenderers={LastAdaptiveSupportGridVisibleRendererCount} adaptiveRoadCells={LastAdaptiveCellsUsingRoad} " +
+            $"adaptiveTerrainCells={LastAdaptiveCellsUsingTerrain} adaptiveReliefCells={LastAdaptiveCellsUsingRelief} " +
+            $"adaptiveBridgeCells={LastAdaptiveCellsUsingBridge} adaptiveBuildingFallbackCells={LastAdaptiveCellsUsingBuildingBaseFallback} " +
+            $"adaptiveGlobalFallbackCells={LastAdaptiveCellsUsingGlobalFallback} adaptiveSupportYMin={LastAdaptiveSupportYMin:F2} " +
+            $"adaptiveSupportYMax={LastAdaptiveSupportYMax:F2} adaptiveSupportYAvg={LastAdaptiveSupportYAverage:F2} " +
+            $"adaptiveGridStatus={LastAdaptiveSupportGridStatus}");
     }
 
     private static void PrepareManualTestRoots(Dictionary<string, Transform> roots)
@@ -582,6 +610,7 @@ public sealed class NewMapRuntimeBootstrap : MonoBehaviour
             LogGameplaySmoke("ui_rules_pause_result_panel", false, "Runtime UI was not created");
         }
 
+        player?.SetControlEnabled(false);
         Debug.Log("NewMap gameplay self-audit smoke completed.");
     }
 
@@ -602,6 +631,14 @@ public sealed class NewMapRuntimeBootstrap : MonoBehaviour
 
     private string BuildDiagnosticText()
     {
+        if (LastAdaptiveSupportGridActive)
+        {
+            return
+                "Ground: adaptive invisible support grid aligned to local ground/road sample cache" +
+                " | Runtime support colliders active and renderers hidden; scene MeshCollider shutdown is disabled at player startup" +
+                " | Old P3/P5 targets disabled unless remapped.";
+        }
+
         string ground = LastUsedGroundSupportProxy
             ? "Ground: invisible runtime support proxy aligned to the round-2 fallback visual height"
             : "Ground: invisible runtime support proxy aligned to sampled visual building/ground base";
@@ -609,6 +646,25 @@ public sealed class NewMapRuntimeBootstrap : MonoBehaviour
             ? " | Runtime collision support proxy active and renderer hidden; scene MeshCollider shutdown is disabled at player startup"
             : string.Empty;
         return $"{ground}{collisionProxy} | Old P3/P5 targets disabled unless remapped.";
+    }
+
+    private void ApplyAdaptiveSupportGridDiagnostics()
+    {
+        LastAdaptiveSupportGridEnabled = adaptiveSupportGrid != null && adaptiveSupportGrid.Enabled;
+        LastAdaptiveSupportGridActive = adaptiveSupportGrid != null && adaptiveSupportGrid.HasUsableGrid;
+        LastAdaptiveSupportGridCellCount = adaptiveSupportGrid != null ? adaptiveSupportGrid.CellCount : 0;
+        LastAdaptiveSupportGridColliderCount = adaptiveSupportGrid != null ? adaptiveSupportGrid.ColliderCount : 0;
+        LastAdaptiveSupportGridVisibleRendererCount = adaptiveSupportGrid != null ? adaptiveSupportGrid.VisibleRendererCount : 0;
+        LastAdaptiveCellsUsingRoad = adaptiveSupportGrid != null ? adaptiveSupportGrid.CellsUsingRoad : 0;
+        LastAdaptiveCellsUsingTerrain = adaptiveSupportGrid != null ? adaptiveSupportGrid.CellsUsingTerrain : 0;
+        LastAdaptiveCellsUsingRelief = adaptiveSupportGrid != null ? adaptiveSupportGrid.CellsUsingRelief : 0;
+        LastAdaptiveCellsUsingBridge = adaptiveSupportGrid != null ? adaptiveSupportGrid.CellsUsingBridge : 0;
+        LastAdaptiveCellsUsingBuildingBaseFallback = adaptiveSupportGrid != null ? adaptiveSupportGrid.CellsUsingBuildingBaseFallback : 0;
+        LastAdaptiveCellsUsingGlobalFallback = adaptiveSupportGrid != null ? adaptiveSupportGrid.CellsUsingGlobalFallback : 0;
+        LastAdaptiveSupportYMin = adaptiveSupportGrid != null ? adaptiveSupportGrid.SupportYMin : 0f;
+        LastAdaptiveSupportYMax = adaptiveSupportGrid != null ? adaptiveSupportGrid.SupportYMax : 0f;
+        LastAdaptiveSupportYAverage = adaptiveSupportGrid != null ? adaptiveSupportGrid.SupportYAverage : 0f;
+        LastAdaptiveSupportGridStatus = adaptiveSupportGrid != null ? adaptiveSupportGrid.Status : "not_loaded";
     }
 
     private bool TryResolveRuntimeMapBounds(out Bounds bounds, out int rendererCount, out int colliderCount)
@@ -733,8 +789,10 @@ public sealed class NewMapRuntimeBootstrap : MonoBehaviour
         LastSupportToBuildingBaseDelta = Mathf.Abs(LastRuntimeGroundSurfaceY - LastSampledBuildingBaseY);
         bool hasSupportSurface = LastVisualGroundSampleValid || hasBounds || LastUsedGroundSupportProxy;
 
-        Vector3 candidate = new Vector3(basePosition.x, supportSurfaceY + GroundSkinOffset, basePosition.z);
-        if (TryValidateSpawnCandidate(candidate, supportSurfaceY, hasSupportSurface, mapBounds, hasBounds, config, "map_bounds_center", out Vector3 accepted))
+        Vector3 candidate = new Vector3(basePosition.x, 0f, basePosition.z);
+        float candidateSupportY = ResolveLocalSupportSurfaceY(candidate, supportSurfaceY);
+        candidate.y = candidateSupportY + GroundSkinOffset;
+        if (TryValidateSpawnCandidate(candidate, candidateSupportY, hasSupportSurface, mapBounds, hasBounds, config, "map_bounds_center", out Vector3 accepted))
         {
             return accepted;
         }
@@ -747,9 +805,10 @@ public sealed class NewMapRuntimeBootstrap : MonoBehaviour
             float angle = (float)random.NextDouble() * Mathf.PI * 2f;
             float distance = Mathf.Sqrt((float)random.NextDouble()) * radius;
             candidate = basePosition + new Vector3(Mathf.Cos(angle) * distance, 0f, Mathf.Sin(angle) * distance);
-            candidate.y = supportSurfaceY + GroundSkinOffset;
+            candidateSupportY = ResolveLocalSupportSurfaceY(candidate, supportSurfaceY);
+            candidate.y = candidateSupportY + GroundSkinOffset;
 
-            if (TryValidateSpawnCandidate(candidate, supportSurfaceY, hasSupportSurface, mapBounds, hasBounds, config, "random_playable_support", out accepted))
+            if (TryValidateSpawnCandidate(candidate, candidateSupportY, hasSupportSurface, mapBounds, hasBounds, config, "random_playable_support", out accepted))
             {
                 return accepted;
             }
@@ -763,8 +822,10 @@ public sealed class NewMapRuntimeBootstrap : MonoBehaviour
                 continue;
             }
 
-            candidate = new Vector3(safePoint.position.x, supportSurfaceY + GroundSkinOffset, safePoint.position.z);
-            if (TryValidateSpawnCandidate(candidate, supportSurfaceY, hasSupportSurface, mapBounds, hasBounds, config, "fallback_safe_spawn:" + safePoint.id, out accepted))
+            candidate = new Vector3(safePoint.position.x, 0f, safePoint.position.z);
+            candidateSupportY = ResolveLocalSupportSurfaceY(candidate, supportSurfaceY);
+            candidate.y = candidateSupportY + GroundSkinOffset;
+            if (TryValidateSpawnCandidate(candidate, candidateSupportY, hasSupportSurface, mapBounds, hasBounds, config, "fallback_safe_spawn:" + safePoint.id, out accepted))
             {
                 LastFallbackSafeSpawnId = safePoint.id;
                 return accepted;
@@ -775,11 +836,20 @@ public sealed class NewMapRuntimeBootstrap : MonoBehaviour
         LastFallbackSafeSpawnId = string.IsNullOrWhiteSpace(config.fallbackSafeSpawnId) ? "none" : config.fallbackSafeSpawnId;
         LastNearestBuildingDistance = CalculateNearestBuildingDistance(candidate);
         LastSpawnValidationSource = "unvalidated_last_resort_support_center";
-        return new Vector3(basePosition.x, supportSurfaceY + GroundSkinOffset, basePosition.z);
+        LastRuntimeGroundSurfaceY = ResolveLocalSupportSurfaceY(basePosition, supportSurfaceY);
+        return new Vector3(basePosition.x, LastRuntimeGroundSurfaceY + GroundSkinOffset, basePosition.z);
     }
 
     private float ResolveSupportSurfaceY(Bounds mapBounds, bool hasBounds, Vector3 basePosition, float rayStartY)
     {
+        if (adaptiveSupportGrid != null && adaptiveSupportGrid.TryResolveSupportY(basePosition, out float adaptiveSupportY, out _))
+        {
+            LastUsedGroundSupportProxy = false;
+            LastVisualGroundSampleValid = true;
+            LastVisualGroundReferenceY = adaptiveSupportY;
+            return adaptiveSupportY;
+        }
+
         Vector3[] offsets =
         {
             Vector3.zero,
@@ -819,6 +889,16 @@ public sealed class NewMapRuntimeBootstrap : MonoBehaviour
         LastSampledBuildingBaseY = supportSurfaceY;
         LastVisualGroundReferenceY = supportSurfaceY;
         return supportSurfaceY;
+    }
+
+    private float ResolveLocalSupportSurfaceY(Vector3 position, float fallbackY)
+    {
+        if (adaptiveSupportGrid != null)
+        {
+            return adaptiveSupportGrid.ResolveSupportY(position, fallbackY);
+        }
+
+        return fallbackY;
     }
 
     private void ResetSpawnValidationDiagnostics()
@@ -864,7 +944,7 @@ public sealed class NewMapRuntimeBootstrap : MonoBehaviour
         LastSpawnAttemptCount++;
         accepted = Vector3.zero;
 
-        if (!TryResolveGroundedSpawn(candidate, supportSurfaceY, hasSupportSurface, config, out Vector3 grounded))
+        if (!TryResolveGroundedSpawn(candidate, supportSurfaceY, hasSupportSurface, LastAdaptiveSupportGridActive, config, out Vector3 grounded))
         {
             LastSpawnRejectedNoGroundCount++;
             return false;
@@ -898,6 +978,7 @@ public sealed class NewMapRuntimeBootstrap : MonoBehaviour
         LastSpawnValidationSource = source;
         LastNearestBuildingDistance = nearestDistance;
         LastFinalSpawnPosition = accepted;
+        LastRuntimeGroundSurfaceY = supportSurfaceY;
         return true;
     }
 
@@ -905,6 +986,7 @@ public sealed class NewMapRuntimeBootstrap : MonoBehaviour
         Vector3 candidate,
         float supportSurfaceY,
         bool hasSupportSurface,
+        bool preferSupportSurface,
         NewMapSpawnConfig config,
         out Vector3 grounded)
     {
@@ -912,6 +994,11 @@ public sealed class NewMapRuntimeBootstrap : MonoBehaviour
         if (!IsFiniteVector3(grounded) || supportSurfaceY < -20f || supportSurfaceY > 30f)
         {
             return false;
+        }
+
+        if (preferSupportSurface && hasSupportSurface && config.useGroundSupportFallback)
+        {
+            return true;
         }
 
         if (config.useGroundProbe)
@@ -959,9 +1046,7 @@ public sealed class NewMapRuntimeBootstrap : MonoBehaviour
             if (position.x >= bounds.min.x &&
                 position.x <= bounds.max.x &&
                 position.z >= bounds.min.z &&
-                position.z <= bounds.max.z &&
-                position.y >= bounds.min.y - 2f &&
-                position.y <= bounds.max.y + 2f)
+                position.z <= bounds.max.z)
             {
                 return true;
             }
@@ -981,11 +1066,6 @@ public sealed class NewMapRuntimeBootstrap : MonoBehaviour
         for (int i = 0; i < buildingAvoidanceBounds.Count; i++)
         {
             Bounds bounds = buildingAvoidanceBounds[i];
-            if (position.y < bounds.min.y - 3f || position.y > bounds.max.y + 3f)
-            {
-                continue;
-            }
-
             float dx = AxisDistance(position.x, bounds.min.x, bounds.max.x);
             float dz = AxisDistance(position.z, bounds.min.z, bounds.max.z);
             nearest = Mathf.Min(nearest, Mathf.Sqrt(dx * dx + dz * dz));
@@ -1197,6 +1277,11 @@ public sealed class NewMapRuntimeBootstrap : MonoBehaviour
 
         if (roadSamples.Count < 32 || buildingSamples.Count < 32 || buildingTransforms.Count == 0)
         {
+            if (TryApplySourceSampleBuildingVerticalAlignment(buildingSamples, buildingTransforms))
+            {
+                return;
+            }
+
             LastBuildingRoadAlignmentStatus = "insufficient_road_or_building_samples";
             return;
         }
@@ -1232,6 +1317,92 @@ public sealed class NewMapRuntimeBootstrap : MonoBehaviour
         LastBuildingRoadVerticalOffsetApplied = offset;
         LastBuildingRoadAlignmentStatus = "building_roots_shifted_to_transport_ground_reference";
         Physics.SyncTransforms();
+    }
+
+    private bool TryApplySourceSampleBuildingVerticalAlignment(List<float> buildingSamples, HashSet<Transform> buildingTransforms)
+    {
+        if (buildingSamples == null || buildingSamples.Count < 32 || buildingTransforms == null || buildingTransforms.Count == 0)
+        {
+            return false;
+        }
+
+        NewMapGroundRoadHeightSampleCache cache = NewMapGroundRoadHeightSampleCache.Load();
+        if (cache.samples == null || cache.samples.Length < 8)
+        {
+            return false;
+        }
+
+        var sourceGroundSamples = new List<float>();
+        for (int i = 0; i < cache.samples.Length; i++)
+        {
+            NewMapGroundRoadHeightSample sample = cache.samples[i];
+            if (sample == null || !sample.usableForSupport || sample.confidence < 0.45f)
+            {
+                continue;
+            }
+
+            string category = NewMapAdaptiveSupportGridRuntime.NormalizeCategory(sample.category);
+            if (category == "road" || category == "terrain" || category == "relief" || category == "bridge")
+            {
+                sourceGroundSamples.Add(sample.position.y);
+            }
+        }
+
+        if (sourceGroundSamples.Count < 8)
+        {
+            return false;
+        }
+
+        sourceGroundSamples.Sort();
+        float sourceRange = sourceGroundSamples[sourceGroundSamples.Count - 1] - sourceGroundSamples[0];
+        if (sourceRange > 6f)
+        {
+            LastBuildingRoadAlignmentStatus = "source_ground_varies_too_much_for_global_building_shift";
+            return true;
+        }
+
+        buildingSamples.Sort();
+        float sourceGroundY = Percentile(sourceGroundSamples, 0.50f);
+        float buildingBaseY = Percentile(buildingSamples, 0.10f);
+        float offset = buildingBaseY - sourceGroundY;
+        if (Mathf.Abs(offset) < 0.5f)
+        {
+            LastBuildingRoadAlignmentStatus = "source_ground_and_building_bases_already_aligned";
+            return true;
+        }
+
+        if (Mathf.Abs(offset) > 5f)
+        {
+            LastBuildingRoadAlignmentStatus = "source_ground_offset_too_large_documented_only";
+            return true;
+        }
+
+        foreach (Transform root in buildingTransforms)
+        {
+            if (root == null)
+            {
+                continue;
+            }
+
+            root.position -= Vector3.up * offset;
+            LastBuildingRoadAlignedRootCount++;
+        }
+
+        LastBuildingRoadVerticalOffsetApplied = offset;
+        LastBuildingRoadAlignmentStatus = "building_roots_shifted_to_source_ground_road_reference";
+        Physics.SyncTransforms();
+        return true;
+    }
+
+    private static float Percentile(List<float> sortedValues, float percentile)
+    {
+        if (sortedValues == null || sortedValues.Count == 0)
+        {
+            return 0f;
+        }
+
+        int index = Mathf.Clamp(Mathf.RoundToInt((sortedValues.Count - 1) * Mathf.Clamp01(percentile)), 0, sortedValues.Count - 1);
+        return sortedValues[index];
     }
 
     private static bool IsBuildingRendererCandidate(Renderer renderer)
@@ -1474,13 +1645,27 @@ public sealed class NewMapRuntimeBootstrap : MonoBehaviour
                 continue;
             }
 
-            float offset = Mathf.Abs(target.Anchor.position.y - (LastRuntimeGroundSurfaceY + GroundSkinOffset));
+            float localSupportY = ResolveLocalSupportSurfaceY(target.Anchor.position, LastRuntimeGroundSurfaceY);
+            float offset = Mathf.Abs(target.Anchor.position.y - (localSupportY + GroundSkinOffset));
             LastMaxActiveTargetHeightOffset = Mathf.Max(LastMaxActiveTargetHeightOffset, offset);
             if (offset > 2.5f)
             {
                 LastActiveTargetHeightOffsetViolations++;
             }
         }
+    }
+
+    private void EnsureRuntimeCollisionSupport(Transform parent, Vector3 center)
+    {
+        if (adaptiveSupportGrid != null && adaptiveSupportGrid.HasUsableGrid)
+        {
+            LastRuntimeCollisionSupportProxyActive = true;
+            LastRuntimeCollisionSupportColliderActive = adaptiveSupportGrid.ColliderCount > 0;
+            LastRuntimeCollisionSupportRendererVisible = adaptiveSupportGrid.VisibleRendererCount > 0;
+            return;
+        }
+
+        EnsureRuntimeCollisionSupportProxy(parent, center);
     }
 
     private void EnsureRuntimeCollisionSupportProxy(Transform parent, Vector3 center)
@@ -1557,7 +1742,7 @@ public sealed class NewMapRuntimeBootstrap : MonoBehaviour
         Debug.Log($"NewMap staged MeshCollider shutdown completed. disabledSceneMeshColliders={disabled}");
     }
 
-    private static List<NewMapRuntimeTarget> CreateVerifiedOfficialShelterTargets(Dictionary<string, Transform> roots)
+    private List<NewMapRuntimeTarget> CreateVerifiedOfficialShelterTargets(Dictionary<string, Transform> roots)
     {
         var targets = new List<NewMapRuntimeTarget>();
         var wantedGmlIds = new HashSet<string>();
@@ -1588,13 +1773,14 @@ public sealed class NewMapRuntimeBootstrap : MonoBehaviour
                 continue;
             }
 
+            position.y = ResolveLocalSupportSurfaceY(position, bounds.min.y) + GroundSkinOffset;
             targets.Add(CreateOfficialShelterTarget(roots, record, position));
         }
 
         return targets;
     }
 
-    private static List<NewMapRuntimeTarget> CreateRecoveredNonOfficialCandidateTargets(Dictionary<string, Transform> roots, Vector3 spawn)
+    private List<NewMapRuntimeTarget> CreateRecoveredNonOfficialCandidateTargets(Dictionary<string, Transform> roots, Vector3 spawn)
     {
         var targets = new List<NewMapRuntimeTarget>();
         TextAsset candidateAsset = Resources.Load<TextAsset>(RuntimeNonOfficialCandidateResourcePath);
@@ -1636,7 +1822,7 @@ public sealed class NewMapRuntimeBootstrap : MonoBehaviour
                 continue;
             }
 
-            position.y = spawn.y;
+            position.y = ResolveLocalSupportSurfaceY(position, spawn.y - GroundSkinOffset) + GroundSkinOffset;
             targets.Add(CreateRecoveredCandidateTarget(roots, record, spawn, position));
         }
 
@@ -1784,7 +1970,7 @@ public sealed class NewMapRuntimeBootstrap : MonoBehaviour
         };
     }
 
-    private static List<NewMapRuntimeTarget> CreateLocalRuntimeTargets(Dictionary<string, Transform> roots, Vector3 spawn)
+    private List<NewMapRuntimeTarget> CreateLocalRuntimeTargets(Dictionary<string, Transform> roots, Vector3 spawn)
     {
         var targets = new List<NewMapRuntimeTarget>
         {
@@ -1793,7 +1979,7 @@ public sealed class NewMapRuntimeBootstrap : MonoBehaviour
                 "newmap_proxy_safe_floor",
                 "Local Training Proxy - Safe Floor",
                 spawn,
-                spawn + new Vector3(12f, 0f, 10f),
+                AlignToLocalSupport(spawn + new Vector3(12f, 0f, 10f), spawn.y - GroundSkinOffset),
                 false,
                 false,
                 true,
@@ -1803,7 +1989,7 @@ public sealed class NewMapRuntimeBootstrap : MonoBehaviour
                 "newmap_proxy_blocked_entrance",
                 "Local Training Proxy - Blocked Entrance",
                 spawn,
-                spawn + new Vector3(18f, 0f, -7f),
+                AlignToLocalSupport(spawn + new Vector3(18f, 0f, -7f), spawn.y - GroundSkinOffset),
                 false,
                 true,
                 true,
@@ -1813,7 +1999,7 @@ public sealed class NewMapRuntimeBootstrap : MonoBehaviour
                 "newmap_proxy_no_safe_floor",
                 "Local Training Proxy - No Safe Floor",
                 spawn,
-                spawn + new Vector3(-13f, 0f, 11f),
+                AlignToLocalSupport(spawn + new Vector3(-13f, 0f, 11f), spawn.y - GroundSkinOffset),
                 false,
                 false,
                 false,
@@ -1823,7 +2009,7 @@ public sealed class NewMapRuntimeBootstrap : MonoBehaviour
                 "newmap_proxy_crowd_delay",
                 "Local Training Proxy - Crowd Delay",
                 spawn,
-                spawn + new Vector3(8f, 0f, 4f),
+                AlignToLocalSupport(spawn + new Vector3(8f, 0f, 4f), spawn.y - GroundSkinOffset),
                 false,
                 false,
                 true,
@@ -1831,6 +2017,12 @@ public sealed class NewMapRuntimeBootstrap : MonoBehaviour
         };
 
         return targets;
+    }
+
+    private Vector3 AlignToLocalSupport(Vector3 position, float fallbackY)
+    {
+        position.y = ResolveLocalSupportSurfaceY(position, fallbackY) + GroundSkinOffset;
+        return position;
     }
 
     private static NewMapRuntimeTarget CreateTarget(

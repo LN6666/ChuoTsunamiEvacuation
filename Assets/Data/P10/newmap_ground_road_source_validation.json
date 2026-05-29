@@ -1,0 +1,50 @@
+{
+    "generatedAt": "2026-05-29T13:02:08+09:00",
+    "sourceScenePath": "Assets/Scenes/Chuo_GroundRoad_Import_Source.unity",
+    "sourceSceneExists": true,
+    "rootObjectNames": [
+        "GroundRoadImportRoot",
+        "ImportedRoadRoot",
+        "ImportedTerrainRoot",
+        "ImportedReliefRoot",
+        "ImportedBridgeRoot",
+        "ImportedWaterRoot",
+        "ImportDiagnosticsRoot",
+        "Chuo_2025_CityGML",
+        "CoroutineDispatcher"
+    ],
+    "rendererCount": 20,
+    "colliderCount": 20,
+    "meshFilterCount": 20,
+    "roadLikeRendererCount": 0,
+    "terrainRendererCount": 0,
+    "reliefRendererCount": 20,
+    "bridgeRendererCount": 0,
+    "waterRendererCount": 0,
+    "groundLikeRendererCount": 20,
+    "bounds": {
+        "min": {
+            "x": -1449.09912109375,
+            "y": -8.850000381469727,
+            "z": -2567.148681640625
+        },
+        "max": {
+            "x": 1445.90087890625,
+            "y": 9.30000114440918,
+            "z": 2567.851318359375
+        },
+        "center": {
+            "x": -1.59912109375,
+            "y": 0.22500038146972657,
+            "z": 0.351318359375
+        },
+        "size": {
+            "x": 2895.0,
+            "y": 18.150001525878908,
+            "z": 5135.0
+        }
+    },
+    "sourceSceneValid": true,
+    "invalidReason": "",
+    "note": "Validated with Unity Editor renderer/collider APIs. Source scene is used for sampling only; no PLATEAU import was performed by Codex."
+}

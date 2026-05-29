@@ -235,6 +235,120 @@ public class NewMapIntegrationConfigTests
     }
 
     [Test]
+    public void GroundRoadAdaptiveSupportGridConfigAndReportsStayInvisibleAndLocal()
+    {
+        string sourceValidationPath = Path.Combine(Application.dataPath, "Data/P10/newmap_ground_road_source_validation.json");
+        string samplingPath = Path.Combine(Application.dataPath, "Data/P10/newmap_ground_road_sampling_report.json");
+        string gridConfigPath = Path.Combine(Application.dataPath, "Data/P10/newmap_adaptive_support_grid_config.json");
+        string gridReportPath = Path.Combine(Application.dataPath, "Data/P10/newmap_adaptive_support_grid_report.json");
+        string bluePath = Path.Combine(Application.dataPath, "Data/P10/newmap_blue_area_final_fix.json");
+        string heightPath = Path.Combine(Application.dataPath, "Data/P10/newmap_height_integration_report.json");
+        Assert.IsTrue(File.Exists(sourceValidationPath), "Ground/road source validation JSON must exist.");
+        Assert.IsTrue(File.Exists(samplingPath), "Ground/road sampling report JSON must exist.");
+        Assert.IsTrue(File.Exists(gridConfigPath), "Adaptive support grid config JSON must exist.");
+        Assert.IsTrue(File.Exists(gridReportPath), "Adaptive support grid report JSON must exist.");
+        Assert.IsTrue(File.Exists(bluePath), "Blue area final fix JSON must exist.");
+        Assert.IsTrue(File.Exists(heightPath), "Height integration report JSON must exist.");
+
+        string sourceValidation = File.ReadAllText(sourceValidationPath);
+        string sampling = File.ReadAllText(samplingPath);
+        string gridConfig = File.ReadAllText(gridConfigPath);
+        string gridReport = File.ReadAllText(gridReportPath);
+        string blue = File.ReadAllText(bluePath);
+        string height = File.ReadAllText(heightPath);
+
+        StringAssert.Contains("\"sourceSceneValid\": true", sourceValidation);
+        StringAssert.Contains("\"groundLikeRendererCount\": 20", sourceValidation);
+        StringAssert.Contains("\"reliefSamples\": 20", sampling);
+        StringAssert.Contains("not GIS-grade", sampling);
+        StringAssert.Contains("\"enabled\": true", gridConfig);
+        StringAssert.Contains("\"debugVisualizationEnabled\": false", gridConfig);
+        StringAssert.Contains("\"rendererEnabledInNormalMode\": false", gridConfig);
+        StringAssert.Contains("\"gridCellCount\": 510", gridReport);
+        StringAssert.Contains("\"colliderCount\": 510", gridReport);
+        StringAssert.Contains("\"cellsUsingReliefSamples\": 163", gridReport);
+        StringAssert.Contains("\"cellsUsingBuildingBaseFallback\": 226", gridReport);
+        StringAssert.Contains("\"renderersDisabled\": true", gridReport);
+        StringAssert.Contains("\"blueSupportVisualActive\": false", gridReport);
+        StringAssert.Contains("\"playerUsesAdaptiveGrid\": true", gridReport);
+        StringAssert.Contains("\"npcUsesAdaptiveGrid\": true", gridReport);
+        StringAssert.Contains("\"targetsUseLocalHeight\": true", gridReport);
+        StringAssert.Contains("\"normalModeVisibleSuspectCount\": 0", blue);
+        StringAssert.Contains("\"supportGridRendererVisibleInNormalMode\": false", blue);
+        StringAssert.Contains("\"playerSpawnUsesAdaptiveSupportCell\": true", height);
+        StringAssert.Contains("\"greenFramesUseLocalSupportHeight\": true", height);
+    }
+
+    [Test]
+    public void AdaptiveSupportGridRuntimeBuildsVariedInvisibleColliderCells()
+    {
+        GameObject root = new GameObject("AdaptiveSupportGridTestRoot");
+        try
+        {
+            NewMapAdaptiveSupportGridConfig config = NewMapAdaptiveSupportGridConfig.Default();
+            config.cellSizeMeters = 10f;
+            config.maxGridCells = 20;
+            config.nearestSampleRadiusMeters = 12f;
+            config.minSampleConfidence = 0.5f;
+            config.useBuildingBaseFallback = true;
+            config.useGlobalFallback = true;
+
+            NewMapGroundRoadHeightSample[] samples =
+            {
+                CreateSupportSample("road_01", "road", -15f, 1f, 0f, 0.95f),
+                CreateSupportSample("relief_01", "relief", 15f, 5f, 0f, 0.90f),
+                CreateSupportSample("building_01", "building_base_fallback", 30f, 2f, 0f, 0.80f)
+            };
+
+            NewMapAdaptiveSupportGridRuntime runtime = NewMapAdaptiveSupportGridRuntime.CreateForDiagnostics(config, samples);
+            runtime.BuildCollisionGrid(root.transform, new NewMapPlayableBounds(-20f, 20f, -5f, 5f, 0f, 80f, 4f), -3f);
+
+            Assert.IsTrue(runtime.Enabled);
+            Assert.IsTrue(runtime.HasUsableGrid);
+            Assert.AreEqual(2, runtime.CellCount);
+            Assert.AreEqual(runtime.CellCount, runtime.ColliderCount);
+            Assert.AreEqual(0, runtime.VisibleRendererCount);
+            Assert.Greater(runtime.CellsUsingRoad, 0);
+            Assert.Greater(runtime.CellsUsingRelief, 0);
+            Assert.AreEqual(0, runtime.CellsUsingGlobalFallback);
+            Assert.AreEqual(1f, runtime.SupportYMin, 0.001f);
+            Assert.AreEqual(5f, runtime.SupportYMax, 0.001f);
+            Assert.AreEqual(1f, runtime.ResolveSupportY(new Vector3(-15f, 0f, 0f), -3f, out string roadSource), 0.001f);
+            Assert.AreEqual("road", roadSource);
+            Assert.AreEqual(5f, runtime.ResolveSupportY(new Vector3(15f, 0f, 0f), -3f, out string reliefSource), 0.001f);
+            Assert.AreEqual("relief", reliefSource);
+        }
+        finally
+        {
+            Object.DestroyImmediate(root);
+        }
+    }
+
+    [Test]
+    public void NameCacheRuntimeIsOfflineJapaneseMainNameOnly()
+    {
+        string cachePath = Path.Combine(Application.dataPath, "Data/P10/newmap_name_cache.json");
+        string enrichmentReportPath = Path.Combine(Application.dataPath, "Data/P10/newmap_name_enrichment_report.json");
+        string labelConfigPath = Path.Combine(Application.dataPath, "Data/P10/newmap_name_label_config.json");
+        Assert.IsTrue(File.Exists(cachePath), "Name cache JSON must exist.");
+        Assert.IsTrue(File.Exists(enrichmentReportPath), "Name enrichment report JSON must exist.");
+        Assert.IsTrue(File.Exists(labelConfigPath), "Name label config JSON must exist.");
+
+        string cache = File.ReadAllText(cachePath);
+        string enrichment = File.ReadAllText(enrichmentReportPath);
+        string labelConfig = File.ReadAllText(labelConfigPath);
+
+        StringAssert.Contains("\"runtimeNetworkRequestsAllowed\": false", cache);
+        StringAssert.Contains("\u8056\u8def\u52a0\u30ac\u30fc\u30c7\u30f3\u30bf\u30ef\u30fc", cache);
+        Assert.IsFalse(cache.Contains("\"idOnly\": true"), "ID-only cache entries must not be normal labels.");
+        Assert.IsFalse(cache.Contains("address_only"), "Address-only reverse geocode strings must not become labels.");
+        StringAssert.Contains("\"status\": \"completed\"", enrichment);
+        StringAssert.Contains("\"onlineQueriesAttempted\": 0", enrichment);
+        StringAssert.Contains("\"runtimeNetworkRequestsAllowed\": false", labelConfig);
+        StringAssert.Contains("\"showIdOnlyLabelsInDebug\": false", labelConfig);
+    }
+
+    [Test]
     public void Round2MouseGroundLightingConfigDefaultsMatchManualFeedback()
     {
         NewMapMouseDragLookConfig mouse = NewMapMouseDragLookConfig.Default();
@@ -293,5 +407,18 @@ public class NewMapIntegrationConfigTests
 
         Assert.GreaterOrEqual(sectors.Count, 20);
         Assert.GreaterOrEqual(rings.Count, 5);
+    }
+
+    private static NewMapGroundRoadHeightSample CreateSupportSample(string id, string category, float x, float y, float z, float confidence)
+    {
+        return new NewMapGroundRoadHeightSample
+        {
+            sampleId = id,
+            sourceObjectPath = "diagnostic/" + id,
+            category = category,
+            position = new NewMapVector3Data(x, y, z),
+            confidence = confidence,
+            usableForSupport = true
+        };
     }
 }

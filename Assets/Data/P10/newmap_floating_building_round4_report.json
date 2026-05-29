@@ -1,0 +1,11 @@
+{
+    "generatedAt": "2026-05-29T13:03:18+09:00",
+    "sampleAreasChecked": 2500,
+    "averageVisibleDelta": 3.6521780490875246,
+    "worstVisibleDelta": 10.980001449584961,
+    "floatingRiskCount": 2215,
+    "improvedAreas": "player_npc_target_support_heights_use_local_grid; runtime_global_building_shift_only_when_consistent_offset_is_detected",
+    "remainingFloatingAreas": "some_building_bases_still_differ_from_nearest_ground_proxy_sample",
+    "needsAdditionalTerrainRoadImportOrPlateauCorrection": true,
+    "limitation": "Buildings are not randomly moved. Remaining visible floating may require better terrain/road import, PLATEAU asset correction, or manual per-area review."
+}
