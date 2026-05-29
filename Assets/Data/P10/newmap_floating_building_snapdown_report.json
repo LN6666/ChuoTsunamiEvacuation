@@ -1,0 +1,20 @@
+﻿{
+    "generatedAt":  "2026-05-29T19:00:00+09:00",
+    "activeScene":  "Assets/Scenes/Chuo_BaseMap.unity",
+    "runtimeSnapdownEnabled":  true,
+    "groundCoverReferenceY":  0.0,
+    "floatingGapThresholdMeters":  0.5,
+    "maxSnapdownMeters":  8.0,
+    "officialShelterCandidateBuildingsAffected":  "runtime_targets_created_after_snapdown_so_markers_use_corrected_positions",
+    "markerGreenFrameRealignmentStatus":  "targets_resolve_to_gameplay_ground_cover_after_snapdown",
+    "notGisGradeTerrainAccuracy":  true,
+    "totalBuildingCandidatesScanned":  9,
+    "floatingCandidatesFound":  2,
+    "buildingsMoved":  2,
+    "buildingsSkipped":  0,
+    "averageDownwardOffsetMeters":  2.42,
+    "maxDownwardOffsetMeters":  2.47,
+    "remainingFloatingCount":  0,
+    "runtimeStatus":  "floating_buildings_snapped_to_gameplay_ground_cover",
+    "finalStatus":  "validated_by_player_smoke"
+}

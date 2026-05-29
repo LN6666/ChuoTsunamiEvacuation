@@ -126,6 +126,17 @@ public sealed class NewMapRuntimeBootstrap : MonoBehaviour
     public string LastGameplayGroundCoverMaterialSource { get; private set; } = string.Empty;
     public bool LastGameplayGroundCoverMaterialBlueLike { get; private set; }
     public bool LastGameplayGroundCoverMaterialMagentaLike { get; private set; }
+    public bool LastBuildingSnapdownEnabled { get; private set; }
+    public int LastBuildingSnapdownScannedCount { get; private set; }
+    public int LastFloatingBuildingCandidateCount { get; private set; }
+    public int LastBuildingSnapdownMovedCount { get; private set; }
+    public int LastBuildingSnapdownSkippedCount { get; private set; }
+    public int LastBuildingSnapdownRemainingFloatingCount { get; private set; }
+    public float LastBuildingSnapdownAverageOffset { get; private set; }
+    public float LastBuildingSnapdownMaxOffset { get; private set; }
+    public float LastBuildingSnapdownReferenceY { get; private set; }
+    public float LastBuildingSnapdownThresholdMeters { get; private set; }
+    public string LastBuildingSnapdownStatus { get; private set; } = "not_evaluated";
 
     private readonly List<Bounds> buildingAvoidanceBounds = new List<Bounds>();
     private NewMapSpawnConfig spawnConfig;
@@ -134,6 +145,7 @@ public sealed class NewMapRuntimeBootstrap : MonoBehaviour
     private NewMapAdaptiveSupportGridRuntime adaptiveSupportGrid;
     private NewMapSafeGroundConfig safeGroundConfig;
     private NewMapGameplayGroundCoverConfig groundCoverConfig;
+    private NewMapFloatingBuildingSnapdownConfig buildingSnapdownConfig;
 
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
     private static void AutoBootstrap()
@@ -212,9 +224,11 @@ public sealed class NewMapRuntimeBootstrap : MonoBehaviour
         playableBoundsConfig = NewMapPlayableBoundsConfig.Load();
         safeGroundConfig = NewMapSafeGroundConfig.Load();
         groundCoverConfig = NewMapGameplayGroundCoverConfig.Load();
+        buildingSnapdownConfig = NewMapFloatingBuildingSnapdownConfig.Load();
         PrepareManualTestRoots(roots);
         EnforceSupportSurfaceVisibility(roots);
         ApplyRound3BuildingRoadVerticalAlignment();
+        ApplyFloatingBuildingSnapdownToGameplayGroundCover();
         Physics.SyncTransforms();
         LastMapBoundsValid = TryResolveRuntimeMapBounds(out Bounds mapBounds, out int rendererCount, out int colliderCount);
         LastMapBounds = mapBounds;
@@ -258,7 +272,7 @@ public sealed class NewMapRuntimeBootstrap : MonoBehaviour
         NewMapRuntimeUI ui = NewMapRuntimeUI.Create(roots["UIAnchorRoot"]);
         NewMapLightingController lighting = NewMapLightingController.Create(roots["RuntimeSystemsRoot"]);
         NewMapHazardController hazard = NewMapHazardController.Create(roots["HazardVisualRoot"], roots["CollapseDebrisRoot"], spawn);
-        NewMapNpcCrowdPrototype crowd = NewMapNpcCrowdPrototype.Create(roots["CrowdRoot"], spawn, LastPlayableBounds);
+        NewMapNpcCrowdPrototype crowd = NewMapNpcCrowdPrototype.Create(roots["CrowdRoot"], spawn, LastPlayableBounds, buildingAvoidanceBounds);
         NewMapPerformanceProbe.Create(roots["PerformanceMetricsRoot"]);
         long systemsMs = stopwatch.ElapsedMilliseconds - boundsMs - spawnSupportMs;
         List<NewMapRuntimeTarget> targets = CreateVerifiedOfficialShelterTargets(roots);
@@ -327,7 +341,13 @@ public sealed class NewMapRuntimeBootstrap : MonoBehaviour
             $"gameplayGroundCoverVisibleRenderers={LastGameplayGroundCoverVisibleRendererCount} gameplayGroundCoverY={LastGameplayGroundCoverY:F2} " +
             $"gameplayGroundCoverArea={LastGameplayGroundCoverTotalArea:F2} gameplayGroundCoverMaterial={SafeLog(LastGameplayGroundCoverMaterialName)} " +
             $"gameplayGroundCoverMaterialSource={SafeLog(LastGameplayGroundCoverMaterialSource)} gameplayGroundCoverOpacity={LastGameplayGroundCoverOpacity:F2} " +
-            $"gameplayGroundCoverBlueLike={LastGameplayGroundCoverMaterialBlueLike} gameplayGroundCoverMagentaLike={LastGameplayGroundCoverMaterialMagentaLike}");
+            $"gameplayGroundCoverBlueLike={LastGameplayGroundCoverMaterialBlueLike} gameplayGroundCoverMagentaLike={LastGameplayGroundCoverMaterialMagentaLike} " +
+            $"buildingSnapdownEnabled={LastBuildingSnapdownEnabled} buildingSnapdownScanned={LastBuildingSnapdownScannedCount} " +
+            $"floatingBuildingCandidates={LastFloatingBuildingCandidateCount} buildingsSnappedDown={LastBuildingSnapdownMovedCount} " +
+            $"buildingSnapdownSkipped={LastBuildingSnapdownSkippedCount} buildingSnapdownRemainingFloating={LastBuildingSnapdownRemainingFloatingCount} " +
+            $"buildingSnapdownAverageOffset={LastBuildingSnapdownAverageOffset:F2} buildingSnapdownMaxOffset={LastBuildingSnapdownMaxOffset:F2} " +
+            $"buildingSnapdownReferenceY={LastBuildingSnapdownReferenceY:F2} buildingSnapdownThreshold={LastBuildingSnapdownThresholdMeters:F2} " +
+            $"buildingSnapdownStatus={SafeLog(LastBuildingSnapdownStatus)}");
     }
 
     private static void PrepareManualTestRoots(Dictionary<string, Transform> roots)
@@ -1500,6 +1520,247 @@ public sealed class NewMapRuntimeBootstrap : MonoBehaviour
         return true;
     }
 
+    private void ApplyFloatingBuildingSnapdownToGameplayGroundCover()
+    {
+        ResetBuildingSnapdownDiagnostics();
+        NewMapFloatingBuildingSnapdownConfig config = buildingSnapdownConfig ?? NewMapFloatingBuildingSnapdownConfig.Default();
+        LastBuildingSnapdownEnabled = config.enabled;
+        LastBuildingSnapdownThresholdMeters = config.floatingGapThresholdMeters;
+
+        NewMapGameplayGroundCoverConfig coverConfig = groundCoverConfig ?? NewMapGameplayGroundCoverConfig.Default();
+        float referenceY = coverConfig.enabled && coverConfig.forceFixedCoverY
+            ? Mathf.Clamp(coverConfig.coverY, -20f, 30f)
+            : Mathf.Clamp(LastGameplayGroundCoverY, -20f, 30f);
+        LastBuildingSnapdownReferenceY = referenceY;
+
+        if (!config.enabled)
+        {
+            LastBuildingSnapdownStatus = "disabled_by_config";
+            return;
+        }
+
+        Dictionary<Transform, BuildingSnapdownGroup> groups = CollectBuildingSnapdownGroups();
+        LastBuildingSnapdownScannedCount = groups.Count;
+        if (groups.Count == 0)
+        {
+            LastBuildingSnapdownStatus = "no_building_like_renderer_groups_found";
+            return;
+        }
+
+        float totalOffset = 0f;
+        foreach (BuildingSnapdownGroup group in groups.Values)
+        {
+            if (group == null || group.Root == null || !group.HasBounds)
+            {
+                LastBuildingSnapdownSkippedCount++;
+                continue;
+            }
+
+            float gap = group.Bounds.min.y - referenceY;
+            if (gap < config.floatingGapThresholdMeters)
+            {
+                continue;
+            }
+
+            LastFloatingBuildingCandidateCount++;
+            bool safeToMove =
+                group.RendererCount > 0 &&
+                gap <= config.maxSnapdownMeters &&
+                !ContainsSnapdownExcludedText(GetTransformPath(group.Root).ToLowerInvariant());
+            if (!safeToMove)
+            {
+                LastBuildingSnapdownSkippedCount++;
+                LastBuildingSnapdownRemainingFloatingCount++;
+                continue;
+            }
+
+            group.Root.position -= Vector3.up * gap;
+            LastBuildingSnapdownMovedCount++;
+            totalOffset += gap;
+            LastBuildingSnapdownMaxOffset = Mathf.Max(LastBuildingSnapdownMaxOffset, gap);
+        }
+
+        if (LastBuildingSnapdownMovedCount > 0)
+        {
+            LastBuildingSnapdownAverageOffset = totalOffset / LastBuildingSnapdownMovedCount;
+            LastBuildingSnapdownStatus = LastBuildingSnapdownSkippedCount > 0
+                ? "floating_buildings_snapped_to_gameplay_ground_cover_with_skips"
+                : "floating_buildings_snapped_to_gameplay_ground_cover";
+            Physics.SyncTransforms();
+        }
+        else if (LastFloatingBuildingCandidateCount > 0)
+        {
+            LastBuildingSnapdownStatus = "floating_candidates_found_but_skipped_by_safety_limits";
+        }
+        else
+        {
+            LastBuildingSnapdownStatus = "no_floating_buildings_above_threshold";
+        }
+    }
+
+    private Dictionary<Transform, BuildingSnapdownGroup> CollectBuildingSnapdownGroups()
+    {
+        var groups = new Dictionary<Transform, BuildingSnapdownGroup>();
+        Renderer[] renderers = FindObjectsOfType<Renderer>();
+        for (int i = 0; i < renderers.Length; i++)
+        {
+            Renderer renderer = renderers[i];
+            if (!IsBuildingSnapdownRendererCandidate(renderer))
+            {
+                continue;
+            }
+
+            Transform root = ResolveBuildingSnapdownRoot(renderer.transform);
+            if (root == null || IsRuntimeRootName(root.name) || string.Equals(root.name, "MapRoot", System.StringComparison.Ordinal))
+            {
+                continue;
+            }
+
+            if (!groups.TryGetValue(root, out BuildingSnapdownGroup group))
+            {
+                group = new BuildingSnapdownGroup
+                {
+                    Root = root,
+                    ObjectPath = GetTransformPath(root)
+                };
+                groups[root] = group;
+            }
+
+            group.Add(renderer.bounds);
+        }
+
+        return groups;
+    }
+
+    private static bool IsBuildingSnapdownRendererCandidate(Renderer renderer)
+    {
+        if (renderer == null || !renderer.enabled || renderer.GetComponentInParent<Canvas>() != null || IsRuntimeGeneratedOrUiRenderer(renderer))
+        {
+            return false;
+        }
+
+        if (renderer is LineRenderer || renderer is TrailRenderer || IsUsableRoadOrGroundSample(renderer))
+        {
+            return false;
+        }
+
+        Bounds bounds = renderer.bounds;
+        if (!IsUsableBuildingAvoidanceBounds(bounds))
+        {
+            return false;
+        }
+
+        string searchable = BuildRendererSearchText(renderer).ToLowerInvariant();
+        if (ContainsSnapdownExcludedText(searchable))
+        {
+            return false;
+        }
+
+        return IsBuildingRendererCandidate(renderer) ||
+            searchable.Contains("bldg") ||
+            searchable.Contains("building");
+    }
+
+    private static Transform ResolveBuildingSnapdownRoot(Transform rendererTransform)
+    {
+        Transform current = rendererTransform;
+        Transform best = null;
+        while (current != null)
+        {
+            if (IsRuntimeRootName(current.name) || string.Equals(current.name, "MapRoot", System.StringComparison.Ordinal))
+            {
+                break;
+            }
+
+            if (IsStrongBuildingRootName(current.name))
+            {
+                best = current;
+            }
+
+            current = current.parent;
+        }
+
+        return best != null ? best : rendererTransform;
+    }
+
+    private static bool IsStrongBuildingRootName(string name)
+    {
+        if (string.IsNullOrWhiteSpace(name))
+        {
+            return false;
+        }
+
+        string lower = name.ToLowerInvariant();
+        return lower.StartsWith("bldg_", System.StringComparison.Ordinal) ||
+            lower.Contains("bldg_") ||
+            lower.Contains("building");
+    }
+
+    private static bool ContainsSnapdownExcludedText(string searchable)
+    {
+        if (string.IsNullOrWhiteSpace(searchable))
+        {
+            return false;
+        }
+
+        return searchable.Contains("road") ||
+            searchable.Contains("street") ||
+            searchable.Contains("tran") ||
+            searchable.Contains("traffic") ||
+            searchable.Contains("ground") ||
+            searchable.Contains("terrain") ||
+            searchable.Contains("relief") ||
+            searchable.Contains("water") ||
+            searchable.Contains("river") ||
+            searchable.Contains("sea") ||
+            searchable.Contains("support") ||
+            searchable.Contains("collider") ||
+            searchable.Contains("airwall") ||
+            searchable.Contains("playablebounds") ||
+            searchable.Contains("marker") ||
+            searchable.Contains("label") ||
+            searchable.Contains("greenframe") ||
+            searchable.Contains("npc") ||
+            searchable.Contains("player") ||
+            searchable.Contains("ui") ||
+            searchable.Contains("hazard") ||
+            searchable.Contains("tsunami");
+    }
+
+    private static string GetTransformPath(Transform transform)
+    {
+        if (transform == null)
+        {
+            return string.Empty;
+        }
+
+        var names = new List<string>();
+        Transform current = transform;
+        while (current != null)
+        {
+            names.Add(current.name);
+            current = current.parent;
+        }
+
+        names.Reverse();
+        return string.Join("/", names.ToArray());
+    }
+
+    private void ResetBuildingSnapdownDiagnostics()
+    {
+        LastBuildingSnapdownEnabled = false;
+        LastBuildingSnapdownScannedCount = 0;
+        LastFloatingBuildingCandidateCount = 0;
+        LastBuildingSnapdownMovedCount = 0;
+        LastBuildingSnapdownSkippedCount = 0;
+        LastBuildingSnapdownRemainingFloatingCount = 0;
+        LastBuildingSnapdownAverageOffset = 0f;
+        LastBuildingSnapdownMaxOffset = 0f;
+        LastBuildingSnapdownReferenceY = 0f;
+        LastBuildingSnapdownThresholdMeters = 0f;
+        LastBuildingSnapdownStatus = "not_evaluated";
+    }
+
     private static float Percentile(List<float> sortedValues, float percentile)
     {
         if (sortedValues == null || sortedValues.Count == 0)
@@ -2194,7 +2455,7 @@ public sealed class NewMapRuntimeBootstrap : MonoBehaviour
                 continue;
             }
 
-            position.y = ResolveLocalSupportSurfaceY(position, bounds.min.y) + GroundSkinOffset;
+            position.y = ResolveLocalSupportSurfaceY(position, LastRuntimeGroundSurfaceY) + GroundSkinOffset;
             targets.Add(CreateOfficialShelterTarget(roots, record, position));
         }
 
@@ -2631,6 +2892,30 @@ public sealed class NewMapRuntimeBootstrap : MonoBehaviour
         public float unityZ;
     }
 
+    private sealed class BuildingSnapdownGroup
+    {
+        public Transform Root;
+        public string ObjectPath;
+        public Bounds Bounds;
+        public bool HasBounds;
+        public int RendererCount;
+
+        public void Add(Bounds bounds)
+        {
+            if (!HasBounds)
+            {
+                Bounds = bounds;
+                HasBounds = true;
+            }
+            else
+            {
+                Bounds.Encapsulate(bounds);
+            }
+
+            RendererCount++;
+        }
+    }
+
     private sealed class OfficialShelterAnchorRecord
     {
         public string ShelterId;
@@ -2739,6 +3024,45 @@ public sealed class NewMapGameplayGroundCoverConfig
     public Color ToColor()
     {
         return new Color(materialRed, materialGreen, materialBlue, materialAlpha);
+    }
+}
+
+[System.Serializable]
+public sealed class NewMapFloatingBuildingSnapdownConfig
+{
+    public bool enabled = true;
+    public float floatingGapThresholdMeters = 0.5f;
+    public float maxSnapdownMeters = 8f;
+    public bool useGameplayGroundCoverAsReference = true;
+    public bool preserveXZRotationScale = true;
+    public string strategy = "runtime_visual_building_snapdown_to_gameplay_ground_cover_not_gis_grade";
+
+    public static NewMapFloatingBuildingSnapdownConfig Default()
+    {
+        return new NewMapFloatingBuildingSnapdownConfig();
+    }
+
+    public static NewMapFloatingBuildingSnapdownConfig Load()
+    {
+        NewMapFloatingBuildingSnapdownConfig config = Default();
+        string path = Path.Combine(Application.dataPath, "Data/P10/newmap_floating_building_snapdown_config.json");
+        if (File.Exists(path))
+        {
+            try
+            {
+                config = JsonUtility.FromJson<NewMapFloatingBuildingSnapdownConfig>(File.ReadAllText(path)) ?? config;
+            }
+            catch (System.Exception exception)
+            {
+                Debug.LogWarning($"NewMap floating-building snapdown config could not be loaded; using defaults. {exception.Message}");
+            }
+        }
+
+        config.floatingGapThresholdMeters = Mathf.Clamp(config.floatingGapThresholdMeters, 0.1f, 5f);
+        config.maxSnapdownMeters = Mathf.Clamp(config.maxSnapdownMeters, config.floatingGapThresholdMeters, 20f);
+        config.useGameplayGroundCoverAsReference = true;
+        config.preserveXZRotationScale = true;
+        return config;
     }
 }
 

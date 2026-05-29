@@ -61,6 +61,18 @@ public class NewMapRuntimePlayModeTests
             Object.DestroyImmediate(spawnOverlapFixture);
         }
 
+        GameObject snapdownFixture = GameObject.Find("bldg_snapdown_fixture_root");
+        if (snapdownFixture != null)
+        {
+            Object.DestroyImmediate(snapdownFixture);
+        }
+
+        GameObject nonBuildingSnapdownFixture = GameObject.Find("road_snapdown_nonbuilding_fixture");
+        if (nonBuildingSnapdownFixture != null)
+        {
+            Object.DestroyImmediate(nonBuildingSnapdownFixture);
+        }
+
         string[] runtimeRootNames =
         {
             "RuntimeSystemsRoot",
@@ -361,11 +373,15 @@ public class NewMapRuntimePlayModeTests
         controller.StartTourismMode();
         yield return null;
 
-        Assert.AreEqual(160, crowd.RequestedNpcCount, "NPC requested count should be 20x the previous base count of 8 before cap.");
-        Assert.LessOrEqual(crowd.SpawnedNpcCount, 300);
+        Assert.AreEqual(800, crowd.RequestedNpcCount, "NPC requested count should be 100x the baseline count of 8 before cap.");
+        Assert.LessOrEqual(crowd.SpawnedNpcCount, 800);
         Assert.AreEqual(crowd.CappedNpcCount, crowd.SpawnedNpcCount);
-        Assert.GreaterOrEqual(crowd.UsedSectorCount, 12);
-        Assert.GreaterOrEqual(crowd.UsedRingCount, 4);
+        Assert.AreEqual(800, crowd.CappedNpcCount);
+        Assert.GreaterOrEqual(crowd.UsedSectorCount, 24);
+        Assert.GreaterOrEqual(crowd.UsedRingCount, 5);
+        Assert.IsTrue(crowd.AvoidBuildingsEnabled);
+        Assert.IsTrue(crowd.UsePoolingEnabled);
+        Assert.IsTrue(crowd.FarNpcStaticProxyModeEnabled);
 
         Vector3[] positions = crowd.GetNpcPositionsForDiagnostics();
         Assert.AreEqual(crowd.SpawnedNpcCount, positions.Length);
@@ -396,6 +412,31 @@ public class NewMapRuntimePlayModeTests
         float delay = crowd.GetDelayForTarget(crowdTarget);
         Assert.GreaterOrEqual(delay, 0f);
         Assert.LessOrEqual(delay, 8f);
+    }
+
+    [UnityTest]
+    public IEnumerator RuntimeSnapdownLowersFloatingBuildingRootsWithoutMovingRoadLikeObjects()
+    {
+        GameObject floatingBuilding = GameObject.CreatePrimitive(PrimitiveType.Cube);
+        floatingBuilding.name = "bldg_snapdown_fixture_root";
+        floatingBuilding.transform.position = new Vector3(45f, 3f, 45f);
+        floatingBuilding.transform.localScale = new Vector3(8f, 2f, 8f);
+
+        GameObject nonBuilding = GameObject.CreatePrimitive(PrimitiveType.Cube);
+        nonBuilding.name = "road_snapdown_nonbuilding_fixture";
+        nonBuilding.transform.position = new Vector3(70f, 3f, 45f);
+        nonBuilding.transform.localScale = new Vector3(8f, 2f, 8f);
+
+        NewMapRuntimeBootstrap bootstrap = NewMapRuntimeBootstrap.CreateForCurrentScene();
+        yield return null;
+
+        Assert.NotNull(bootstrap);
+        Assert.IsTrue(bootstrap.LastBuildingSnapdownEnabled);
+        Assert.GreaterOrEqual(bootstrap.LastFloatingBuildingCandidateCount, 1);
+        Assert.GreaterOrEqual(bootstrap.LastBuildingSnapdownMovedCount, 1);
+        Assert.GreaterOrEqual(bootstrap.LastBuildingSnapdownAverageOffset, 1.9f);
+        Assert.LessOrEqual(Mathf.Abs(floatingBuilding.GetComponent<Renderer>().bounds.min.y - bootstrap.LastGameplayGroundCoverY), 0.05f);
+        Assert.AreEqual(3f, nonBuilding.transform.position.y, 0.01f, "Road/ground-like non-building objects must not be snapdown candidates.");
     }
 
     [UnityTest]
@@ -477,6 +518,7 @@ public class NewMapRuntimePlayModeTests
 
         Assert.Greater(activeTargetChecks, 0);
         Assert.Greater(greenFrameChecks, 0, "Stage 2 should show green frames aligned to target/local support height.");
+        Assert.AreEqual(0, bootstrap.LastActiveTargetHeightOffsetViolations, "Active official/candidate target anchors must remain aligned to the gameplay ground cover.");
         Assert.AreEqual(0, bootstrap.LastPlayableAirWallVisibleRendererCount);
         Assert.AreEqual(4, bootstrap.LastPlayableAirWallColliderCount);
     }

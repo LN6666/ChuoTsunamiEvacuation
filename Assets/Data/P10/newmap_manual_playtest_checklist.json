@@ -1,5 +1,5 @@
 {
-    "generatedAt": "2026-05-29T17:00:00+09:00",
+    "generatedAt": "2026-05-29T19:00:00+09:00",
     "checks": [
         "adaptive_groundroad_grid_disabled",
         "blue_areas_covered_or_blocked",
@@ -11,7 +11,14 @@
         "green_frames_align_with_ground_cover",
         "air_walls_block_outside_map",
         "spawn_no_longer_inside_buildings",
-        "building_floating_remaining_visual_limitations_documented",
+        "buildings_no_longer_float_in_active_play_area_after_snapdown",
+        "official_candidate_markers_still_aligned_after_snapdown",
+        "building_floating_remaining_visual_limitations_documented_if_any",
+        "npc_100x_distribution_appears_wide_not_dense_blob",
+        "npcs_stay_inside_map_bounds",
+        "fps_remains_acceptable_with_100x_cap",
+        "tourism_mode_npcs_do_not_cause_failure",
+        "evacuation_mode_crowd_delay_remains_bounded",
         "labels_show_japanese_kanji_main_names_where_available",
         "no_fake_names",
         "runtime_does_not_access_network",

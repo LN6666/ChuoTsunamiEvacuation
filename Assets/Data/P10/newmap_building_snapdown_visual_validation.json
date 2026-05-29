@@ -1,0 +1,14 @@
+﻿{
+    "generatedAt":  "2026-05-29T19:00:00+09:00",
+    "activeScene":  "Assets/Scenes/Chuo_BaseMap.unity",
+    "beforeAfterDiagnosticSource":  "runtime Player.log aggregate diagnostics plus manual visual checklist",
+    "remainingLargeGaps":  [
+
+                           ],
+    "playerNpcGroundCoverRemainAligned":  true,
+    "manualChecklistRequired":  true,
+    "sampledBuildingBaseGapBeforeMeters":  2.47,
+    "sampledBuildingBaseGapAfterMeters":  0,
+    "blueGroundFixRegressed":  false,
+    "finalStatus":  "validated_by_player_smoke_manual_visual_check_still_recommended"
+}

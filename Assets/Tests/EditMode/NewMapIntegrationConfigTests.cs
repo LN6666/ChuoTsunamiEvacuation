@@ -163,7 +163,16 @@ public class NewMapIntegrationConfigTests
             "Data/P10/newmap_ground_raise_alignment_report.json",
             "Data/P10/newmap_full_fall_prevention_report.json",
             "Data/P10/newmap_blue_area_cover_status.json",
-            "Data/P10/newmap_ground_cover_spawn_npc_target_status.json"
+            "Data/P10/newmap_ground_cover_spawn_npc_target_status.json",
+            "Data/P10/newmap_floating_building_snapdown_config.json",
+            "Data/P10/newmap_floating_building_snapdown_candidates.json",
+            "Data/P10/newmap_floating_building_snapdown_report.json",
+            "Data/P10/newmap_target_height_after_building_snapdown.json",
+            "Data/P10/newmap_building_snapdown_visual_validation.json",
+            "Data/P10/newmap_npc_100x_distribution_report.json",
+            "Data/P10/newmap_npc_crowd_100x_gameplay_status.json",
+            "Data/P10/newmap_npc_100x_performance_report.json",
+            "Data/P10/newmap_building_snap_npc100x_regression.json"
         };
 
         foreach (string relativePath in requiredPaths)
@@ -173,10 +182,16 @@ public class NewMapIntegrationConfigTests
         }
 
         string config = File.ReadAllText(Path.Combine(Application.dataPath, "Data/P10/newmap_npc_distribution_config.json"));
-        StringAssert.Contains("\"npcCountMultiplier\": 20", config);
+        StringAssert.Contains("\"npcCountMultiplier\": 100", config);
         StringAssert.Contains("\"distributionRadiusMeters\": 1000", config);
-        StringAssert.Contains("\"maxNpcCount\": 300", config);
+        StringAssert.Contains("\"maxNpcCount\": 800", config);
         StringAssert.Contains("\"npcDistributionSeed\": 20260529", config);
+        StringAssert.Contains("\"useSectorDistribution\": true", config);
+        StringAssert.Contains("\"sectorCount\": 32", config);
+        StringAssert.Contains("\"ringCount\": 6", config);
+        StringAssert.Contains("\"avoidBuildings\": true", config);
+        StringAssert.Contains("\"usePooling\": true", config);
+        StringAssert.Contains("\"farNpcStaticProxyMode\": true", config);
 
         string mouse = File.ReadAllText(Path.Combine(Application.dataPath, "Data/P10/newmap_mouse_drag_look_config.json"));
         StringAssert.Contains("\"lookRequiresMouseButton\": true", mouse);
@@ -194,6 +209,41 @@ public class NewMapIntegrationConfigTests
 
         string readiness = File.ReadAllText(Path.Combine(Application.dataPath, "Data/P10/newmap_manual_playtest_readiness.json"));
         StringAssert.Contains("\"manualReadinessDecision\"", readiness);
+    }
+
+    [Test]
+    public void BuildingSnapdownAndNpc100xReportsAreConstrained()
+    {
+        string snapConfig = File.ReadAllText(Path.Combine(Application.dataPath, "Data/P10/newmap_floating_building_snapdown_config.json"));
+        string snapReport = File.ReadAllText(Path.Combine(Application.dataPath, "Data/P10/newmap_floating_building_snapdown_report.json"));
+        string targetReport = File.ReadAllText(Path.Combine(Application.dataPath, "Data/P10/newmap_target_height_after_building_snapdown.json"));
+        string npcReport = File.ReadAllText(Path.Combine(Application.dataPath, "Data/P10/newmap_npc_100x_distribution_report.json"));
+        string npcGameplay = File.ReadAllText(Path.Combine(Application.dataPath, "Data/P10/newmap_npc_crowd_100x_gameplay_status.json"));
+        string bootstrap = File.ReadAllText(Path.Combine(Application.dataPath, "Scripts/NewMap/NewMapRuntimeBootstrap.cs"));
+        string npc = File.ReadAllText(Path.Combine(Application.dataPath, "Scripts/NewMap/NewMapNpcCrowdPrototype.cs"));
+
+        string compactSnapConfig = snapConfig.Replace(" ", string.Empty);
+        string compactSnapReport = snapReport.Replace(" ", string.Empty);
+        string compactTargetReport = targetReport.Replace(" ", string.Empty);
+        string compactNpcReport = npcReport.Replace(" ", string.Empty);
+        string compactNpcGameplay = npcGameplay.Replace(" ", string.Empty);
+
+        StringAssert.Contains("\"floatingGapThresholdMeters\":0.5", compactSnapConfig);
+        StringAssert.Contains("\"maxSnapdownMeters\":8.0", compactSnapConfig);
+        StringAssert.Contains("\"notGisGradeTerrainAccuracy\":true", compactSnapReport);
+        StringAssert.Contains("\"markerGreenFrameRealignmentStatus\"", snapReport);
+        StringAssert.Contains("\"greenFramesAlignToGroundCover\":true", compactTargetReport);
+        StringAssert.Contains("\"npcCountMultiplier\":100", compactNpcReport);
+        StringAssert.Contains("\"requestedNpcCount\":800", compactNpcReport);
+        StringAssert.Contains("\"maxNpcCount\":800", compactNpcReport);
+        StringAssert.Contains("\"avoidBuildings\":true", compactNpcReport);
+        StringAssert.Contains("\"usePooling\":true", compactNpcReport);
+        StringAssert.Contains("\"evacuationCrowdDelayBounded\":true", compactNpcGameplay);
+        StringAssert.Contains("ApplyFloatingBuildingSnapdownToGameplayGroundCover", bootstrap);
+        StringAssert.Contains("ContainsSnapdownExcludedText", bootstrap);
+        StringAssert.Contains("buildingSnapdownStatus", bootstrap);
+        StringAssert.Contains("IsInsideBuildingBounds", npc);
+        StringAssert.Contains("farNpcStaticProxyMode", npc);
     }
 
     [Test]
@@ -439,7 +489,7 @@ public class NewMapIntegrationConfigTests
         Vector3 center = new Vector3(0f, 0.04f, 0f);
         Vector3[] first = NewMapNpcCrowdPrototype.GenerateDistributionForDiagnostics(center, config);
         Vector3[] second = NewMapNpcCrowdPrototype.GenerateDistributionForDiagnostics(center, config);
-        Assert.AreEqual(160, first.Length);
+        Assert.AreEqual(800, first.Length);
         Assert.AreEqual(first.Length, second.Length);
 
         var sectors = new System.Collections.Generic.HashSet<int>();
@@ -464,8 +514,8 @@ public class NewMapIntegrationConfigTests
             rings.Add(Mathf.Clamp(Mathf.FloorToInt(normalized * config.ringCount), 0, config.ringCount - 1));
         }
 
-        Assert.GreaterOrEqual(sectors.Count, 20);
-        Assert.GreaterOrEqual(rings.Count, 5);
+        Assert.GreaterOrEqual(sectors.Count, 28);
+        Assert.GreaterOrEqual(rings.Count, 6);
     }
 
     private static NewMapGroundRoadHeightSample CreateSupportSample(string id, string category, float x, float y, float z, float confidence)

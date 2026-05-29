@@ -10,7 +10,14 @@
 - Green frames align with the ground cover.
 - Air walls still block leaving the map.
 - Spawn is not inside buildings.
-- Remaining building floating is documented honestly and not presented as fixed.
+- Buildings no longer float in the active play area after snapdown.
+- Official/candidate markers remain aligned after building snapdown.
+- Any remaining building floating is documented honestly and not presented as GIS-grade fixed.
+- 100x NPC distribution appears wide across sectors/rings, not as a dense blob.
+- NPCs stay inside map bounds and avoid building interiors.
+- FPS remains acceptable with the 100x request and 800 cap.
+- Tourism Mode NPCs do not cause failure.
+- Evacuation Mode crowd delay remains bounded.
 - Labels show Japanese/Kanji main names where available.
 - No fake names or ID-only labels appear in normal mode.
 - Runtime does not access the network.

@@ -1,0 +1,13 @@
+{
+  "generatedAt": "2026-05-29T19:00:00+09:00",
+  "tourismMode": "ambient_npc_proxy_no_crowd_failure",
+  "tourismCrowdFailureDisabled": true,
+  "evacuationMode": "bounded_crowd_delay_no_direct_npc_death",
+  "evacuationCrowdDelayBounded": true,
+  "maxCrowdDelaySeconds": 8.0,
+  "npcDirectPlayerKill": false,
+  "heavyPerNpcPathfinding": false,
+  "aggregateCrowdMetrics": true,
+  "resultPanelCrowdDelayExplanationPreserved": true,
+  "finalStatus": "pending_player_smoke"
+}

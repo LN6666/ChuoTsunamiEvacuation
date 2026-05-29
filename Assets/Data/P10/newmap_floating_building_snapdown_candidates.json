@@ -1,0 +1,15 @@
+﻿{
+    "generatedAt":  "2026-05-29T19:00:00+09:00",
+    "activeScene":  "Assets/Scenes/Chuo_BaseMap.unity",
+    "referenceSurface":  "accepted gameplay ground cover",
+    "referenceY":  0.0,
+    "floatingGapThresholdMeters":  0.5,
+    "candidateDetection":  "runtime scans enabled building-like renderers, groups them by safe bldg/building root, and excludes roads, ground cover, water, support, air walls, markers, UI, player, and NPCs",
+    "perBuildingRuntimeDetail":  "aggregate runtime counts are emitted in Player.log; object-level scene details are intentionally not written by the player build",
+    "knownSafetyPolicy":  "only building-like roots are eligible; X/Z, rotation, and scale are preserved; extreme offsets above maxSnapdownMeters are skipped",
+    "expectedAction":  "snap floating building roots downward to the current gameplay ground cover at runtime",
+    "runtimeBuildingGroupsScanned":  9,
+    "runtimeFloatingCandidatesFound":  2,
+    "runtimeBuildingsMoved":  2,
+    "finalStatus":  "validated_by_player_smoke"
+}
