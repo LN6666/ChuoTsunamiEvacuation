@@ -1,5 +1,5 @@
 ﻿{
-    "generatedAt":  "2026-05-31T04:38:37",
+    "generatedAt":  "2026-05-31T04:46:35",
     "workspace":  "D:\\UnityProjects\\ChuoTsunamiEvacuation",
     "fullscreenFixStatus":  "implemented",
     "toggleKeys":  [
@@ -108,12 +108,12 @@
                       "finalStatus":  "passed"
                   },
     "git":  {
-                "commit":  "0e5497229b90536d99cb81d8203ae32d6b985ceb",
-                "pushStatus":  "not_run_before_commit"
+                "commit":  "71e014871db2b5857842f957696d9913916ad480",
+                "pushStatus":  "pushed_to_origin_phase5_qualification_routing_plateau"
             },
     "githubRelease":  {
-                          "updateStatus":  "blocked_invalid_gh_auth",
-                          "note":  "gh release list failed with 401 Unauthorized; local GitHub CLI token is invalid, so release asset replacement or patch release creation requires re-authentication."
+                          "updateStatus":  "replaced_existing_asset_on_p11_final_v1_0",
+                          "note":  "Replaced ChuoTsunamiEvacuation_v1.0.zip on p11-final-v1.0; verified asset size 2054785651 bytes and sha256 0b85193f7942abec2229fa30670efd43a3ec8cdf92aa71bfb8a4adb75e9651e1."
                       },
     "finalStatus":  "passed",
     "nextUserAction":  "Copy the updated release folder or ChuoTsunamiEvacuation_v1.0.zip to the other Windows computer."
