@@ -9,6 +9,7 @@ Initial audit:
 - `Assets/Scenes/Chuo_GroundRoad_Import_Source.unity` is a large generated scene-like file and is not staged for the final source commit.
 - Unity Test Framework generated `Assets/InitTestScene*.unity` files are ignored and not staged.
 - Release folder and ZIP are outside the repo and are not staged.
+- P11 source commit pushed: `36a69558c1163777a4883bb646ce2201059ffc4b`
 
 Commit include policy:
 

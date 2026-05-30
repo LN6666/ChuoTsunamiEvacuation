@@ -1,9 +1,15 @@
 {
-  "generatedAt": "2026-05-31T03:20:00+09:00",
+  "generatedAt": "2026-05-31T03:40:23+09:00",
   "tag": "p11-final-v1.0",
+  "releaseUrl": "https://github.com/LN6666/ChuoTsunamiEvacuation/releases/tag/p11-final-v1.0",
+  "targetCommitHash": "36a69558c1163777a4883bb646ce2201059ffc4b",
   "releaseZipPath": "D:/UnityProjects/ChuoTsunamiEvacuation-Releases/ChuoTsunamiEvacuation_v1.0.zip",
+  "releaseAssetUrl": "https://github.com/LN6666/ChuoTsunamiEvacuation/releases/download/p11-final-v1.0/ChuoTsunamiEvacuation_v1.0.zip",
+  "releaseAssetSizeBytes": 2054762974,
+  "releaseAssetSha256": "9df1292334d84cefbe1c11ad42eaf82a72db4a650ba8c0782181e541ba76ab07",
   "ghAvailable": true,
   "ghAuthenticated": true,
-  "uploadAttempted": false,
-  "finalStatus": "ready_for_release_upload_after_source_push"
+  "uploadAttempted": true,
+  "uploadStatus": "uploaded",
+  "finalStatus": "github_release_created_and_zip_uploaded"
 }
