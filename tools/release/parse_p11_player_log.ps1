@@ -43,7 +43,9 @@ $exceptions = @($lines | Where-Object { $_ -match "Exception" -and $_ -notmatch 
 $missing = @($lines | Where-Object { $_ -match "(?i)missing.*(asset|config|file)|could not be loaded" })
 $web = @($lines | Where-Object {
     ($_ -match "UnityWebRequest|HttpClient|WebRequest|System\.Net|http://|https://") -and
-    ($_ -notmatch "runtimeWebRequestsObserved|runtimeNetworkRequestsAllowed")
+    ($_ -notmatch "runtimeWebRequestsObserved|runtimeNetworkRequestsAllowed") -and
+    ($_ -notmatch '"type":"MemoryLeaks"') -and
+    ($_ -notmatch '"WebRequest":\d+')
 })
 
 $scenarioNames = @(

@@ -1,8 +1,8 @@
 ﻿{
     "version":  "1.0",
-    "buildDate":  "2026-05-31T03:18:17",
+    "buildDate":  "2026-05-31T04:30:58",
     "gitBranch":  "phase5-qualification-routing-plateau",
-    "gitCommitHash":  "36a69558c1163777a4883bb646ce2201059ffc4b",
+    "gitCommitHash":  "0e5497229b90536d99cb81d8203ae32d6b985ceb",
     "unityVersion":  "6000.4.6f1",
     "executableName":  "ChuoTsunamiEvacuation.exe",
     "includedDocs":  [
@@ -22,7 +22,7 @@
                          "PACKAGE_MANIFEST.json"
                      ],
     "buildFolder":  "D:\\UnityProjects\\ChuoTsunamiEvacuation-Releases\\ChuoTsunamiEvacuation_v1.0",
-    "buildFolderSizeBytes":  6639909053,
+    "buildFolderSizeBytes":  6640133774,
     "playerLogPath":  "%USERPROFILE%\\AppData\\LocalLow\\DefaultCompany\\ChuoTsunamiEvacuation\\Player.log",
     "knownLimitationsFile":  "KNOWN_LIMITATIONS.md",
     "installMethod":  "Copy the entire ChuoTsunamiEvacuation_v1.0 folder and keep the EXE beside ChuoTsunamiEvacuation_Data.",

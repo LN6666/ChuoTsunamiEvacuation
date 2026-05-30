@@ -18,6 +18,8 @@ Included:
 - 180-second tsunami warning duration.
 - 2270-meter invisible circular playable boundary.
 - Mouse left/right drag camera control.
+- Borderless fullscreen startup with `F11` and `Alt+Enter` fullscreen/windowed toggles.
+- Resizable windowed-mode fallback with saved local display-mode preference.
 - Player, NPC, spawn, ground, collision, labels, and target-boundary tuning from P2-P10.
 - Second-PC install/test guide and report template.
 

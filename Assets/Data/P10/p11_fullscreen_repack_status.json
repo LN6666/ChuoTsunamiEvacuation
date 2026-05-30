@@ -1,0 +1,120 @@
+﻿{
+    "generatedAt":  "2026-05-31T04:38:37",
+    "workspace":  "D:\\UnityProjects\\ChuoTsunamiEvacuation",
+    "fullscreenFixStatus":  "implemented",
+    "toggleKeys":  [
+                       "F11",
+                       "Alt+Enter"
+                   ],
+    "playerSettingsChanged":  true,
+    "playerSettings":  {
+                           "fullscreenModeFullScreenWindow":  true,
+                           "resizableWindowEnabled":  true,
+                           "nativeFullscreenSwitchDisabledForRuntimeHandler":  true
+                       },
+    "releaseFolder":  "D:\\UnityProjects\\ChuoTsunamiEvacuation-Releases\\ChuoTsunamiEvacuation_v1.0",
+    "exePath":  "D:\\UnityProjects\\ChuoTsunamiEvacuation-Releases\\ChuoTsunamiEvacuation_v1.0\\ChuoTsunamiEvacuation.exe",
+    "zipPath":  "D:\\UnityProjects\\ChuoTsunamiEvacuation-Releases\\ChuoTsunamiEvacuation_v1.0.zip",
+    "releaseFolderExists":  true,
+    "exeExists":  true,
+    "zipExists":  true,
+    "zipSizeBytes":  2054785651,
+    "requiredReleaseItems":  {
+                                 "ChuoTsunamiEvacuation.exe":  true,
+                                 "ChuoTsunamiEvacuation_Data":  true,
+                                 "UnityPlayer.dll":  true,
+                                 "MonoBleedingEdge":  true,
+                                 "README_RUN.md":  true,
+                                 "INSTALL_AND_RUN.md":  true,
+                                 "CONTROLS.md":  true,
+                                 "GAME_RULES_EN.md":  true,
+                                 "GAME_RULES_JA.md":  true,
+                                 "KNOWN_LIMITATIONS.md":  true,
+                                 "ATTRIBUTION.md":  true,
+                                 "RELEASE_NOTES.md":  true,
+                                 "SECOND_PC_INSTALL_TEST_GUIDE.md":  true,
+                                 "SECOND_PC_TEST_REPORT_TEMPLATE.md":  true
+                             },
+    "allRequiredReleaseItemsPresent":  true,
+    "source":  {
+                   "fullscreenControllerExists":  true,
+                   "f11Implemented":  true,
+                   "altEnterImplemented":  true,
+                   "preferenceSaved":  true
+               },
+    "docs":  {
+                 "controlsMentionsF11":  true,
+                 "controlsMentionsAltEnter":  true,
+                 "installMentionsRecovery":  true,
+                 "readmeMentionsRecovery":  true,
+                 "secondPcMentionsRecovery":  true
+             },
+    "build":  {
+                  "generatedAt":  "2026-05-31T04:30:58",
+                  "buildResult":  "passed",
+                  "unityExitCode":  0,
+                  "unityVersion":  "6000.4.6f1",
+                  "buildPath":  "D:\\UnityProjects\\ChuoTsunamiEvacuation-Releases\\ChuoTsunamiEvacuation_v1.0",
+                  "exePath":  "D:\\UnityProjects\\ChuoTsunamiEvacuation-Releases\\ChuoTsunamiEvacuation_v1.0\\ChuoTsunamiEvacuation.exe",
+                  "dataFolder":  "D:\\UnityProjects\\ChuoTsunamiEvacuation-Releases\\ChuoTsunamiEvacuation_v1.0\\ChuoTsunamiEvacuation_Data",
+                  "includedScenes":  [
+                                         "Assets/Scenes/Chuo_BaseMap.unity"
+                                     ],
+                  "buildSizeBytes":  6640135262,
+                  "warnings":  [
+
+                               ],
+                  "errors":  [
+
+                             ],
+                  "folderComplete":  true,
+                  "releaseDocsCopied":  true
+              },
+    "playerLog":  {
+                      "result":  "passed_clean",
+                      "logPath":  "D:\\UnityProjects\\ChuoTsunamiEvacuation\\Logs\\p11_final_player.log",
+                      "errorCount":  0,
+                      "warningCount":  0,
+                      "exceptionCount":  0
+                  },
+    "tests":  {
+                  "editMode":  {
+                                   "result":  "passed",
+                                   "path":  "D:\\UnityProjects\\ChuoTsunamiEvacuation\\test-results\\editmode-results.xml",
+                                   "total":  131,
+                                   "passed":  131,
+                                   "failed":  0,
+                                   "skipped":  0,
+                                   "inconclusive":  0
+                               },
+                  "playMode":  {
+                                   "result":  "passed",
+                                   "path":  "D:\\UnityProjects\\ChuoTsunamiEvacuation\\test-results\\playmode-results.xml",
+                                   "total":  43,
+                                   "passed":  43,
+                                   "failed":  0,
+                                   "skipped":  0,
+                                   "inconclusive":  0
+                               }
+              },
+    "zipStatus":  {
+                      "generatedAt":  "2026-05-31T04:37:28",
+                      "releaseFolder":  "D:\\UnityProjects\\ChuoTsunamiEvacuation-Releases\\ChuoTsunamiEvacuation_v1.0",
+                      "zipPath":  "D:\\UnityProjects\\ChuoTsunamiEvacuation-Releases\\ChuoTsunamiEvacuation_v1.0.zip",
+                      "zipExists":  true,
+                      "zipSizeBytes":  2054785651,
+                      "releaseFolderSizeBytes":  6640135262,
+                      "topLevelFolder":  "ChuoTsunamiEvacuation_v1.0",
+                      "finalStatus":  "passed"
+                  },
+    "git":  {
+                "commit":  "0e5497229b90536d99cb81d8203ae32d6b985ceb",
+                "pushStatus":  "not_run_before_commit"
+            },
+    "githubRelease":  {
+                          "updateStatus":  "blocked_invalid_gh_auth",
+                          "note":  "gh release list failed with 401 Unauthorized; local GitHub CLI token is invalid, so release asset replacement or patch release creation requires re-authentication."
+                      },
+    "finalStatus":  "passed",
+    "nextUserAction":  "Copy the updated release folder or ChuoTsunamiEvacuation_v1.0.zip to the other Windows computer."
+}

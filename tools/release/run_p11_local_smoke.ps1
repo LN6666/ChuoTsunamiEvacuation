@@ -19,7 +19,14 @@ if (Test-Path -LiteralPath $LogPath -PathType Leaf) {
 }
 
 Write-Host "Launching P11 local smoke for $SmokeDurationSeconds seconds: $ExePath"
-$process = Start-Process -FilePath $ExePath -ArgumentList @("-newmapSelfAuditSmoke", "-logFile", $LogPath) -PassThru -WindowStyle Hidden
+$playerArgs = @(
+    "-newmapSelfAuditSmoke",
+    "-screen-fullscreen", "0",
+    "-screen-width", "1280",
+    "-screen-height", "720",
+    "-logFile", $LogPath
+)
+$process = Start-Process -FilePath $ExePath -ArgumentList $playerArgs -PassThru -WindowStyle Hidden
 $samples = @()
 $started = Get-Date
 Start-Sleep -Seconds 8

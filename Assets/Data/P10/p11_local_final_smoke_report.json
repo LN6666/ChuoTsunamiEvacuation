@@ -1,5 +1,5 @@
 ﻿{
-    "generatedAt":  "2026-05-31T03:08:24",
+    "generatedAt":  "2026-05-31T04:34:32",
     "logPath":  "D:\\UnityProjects\\ChuoTsunamiEvacuation\\Logs\\p11_final_player.log",
     "playerLogResult":  "passed_clean",
     "errorCount":  0,
@@ -26,12 +26,12 @@
                       "spawn_road_playable_ground_validation":  {
                                                                     "present":  true,
                                                                     "passed":  true,
-                                                                    "line":  "NewMap gameplay self-audit smoke: scenario=spawn_road_playable_ground_validation result=pass detail=source=random_playable_support attempts=1 insideRejected=0 noGroundRejected=0 finalOverlapChecks=1 finalOverlapRejected=0 nearestBuildingDistance=16.43 fallbackUsed=False"
+                                                                    "line":  "NewMap gameplay self-audit smoke: scenario=spawn_road_playable_ground_validation result=pass detail=source=random_playable_support attempts=1 insideRejected=0 noGroundRejected=0 finalOverlapChecks=1 finalOverlapRejected=0 nearestBuildingDistance=19.82 fallbackUsed=False"
                                                                 },
                       "spawn_repeated_100_avoids_buildings":  {
                                                                   "present":  true,
                                                                   "passed":  true,
-                                                                  "line":  "NewMap gameplay self-audit smoke: scenario=spawn_repeated_100_avoids_buildings result=pass detail=samples=100 accepted=100 insideBuilding=0 finalOverlap=0 outsideBoundary=0 nearestMin=4.08"
+                                                                  "line":  "NewMap gameplay self-audit smoke: scenario=spawn_repeated_100_avoids_buildings result=pass detail=samples=100 accepted=100 insideBuilding=0 finalOverlap=0 outsideBoundary=0 nearestMin=4.23"
                                                               },
                       "mode_speed_stamina_rules":  {
                                                        "present":  true,
@@ -83,11 +83,11 @@
     "selfAuditFailureCount":  0,
     "performance":  {
                         "measured":  true,
-                        "warmupMaxFrameMs":  18275.74,
+                        "warmupMaxFrameMs":  7886.21,
                         "elapsedSeconds":  180,
-                        "averageFps":  425.13,
-                        "maxFrameMs":  1036.11,
-                        "stutterFramesOver66ms":  2,
+                        "averageFps":  575.3,
+                        "maxFrameMs":  5.27,
+                        "stutterFramesOver66ms":  0,
                         "activeNpcCount":  1600,
                         "stoppedWithoutReasonCount":  0
                     },
@@ -102,6 +102,6 @@
     "releaseFolder":  "D:\\UnityProjects\\ChuoTsunamiEvacuation-Releases\\ChuoTsunamiEvacuation_v1.0",
     "smokeDurationSecondsRequested":  200,
     "memorySampleCount":  192,
-    "maxPrivateMemoryBytes":  21879226368,
-    "maxWorkingSetBytes":  7459504128
+    "maxPrivateMemoryBytes":  21861834752,
+    "maxWorkingSetBytes":  7445745664
 }

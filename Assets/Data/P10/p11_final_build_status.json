@@ -1,5 +1,5 @@
 ﻿{
-    "generatedAt":  "2026-05-31T03:04:53",
+    "generatedAt":  "2026-05-31T04:30:58",
     "buildResult":  "passed",
     "unityExitCode":  0,
     "unityVersion":  "6000.4.6f1",
@@ -9,7 +9,7 @@
     "includedScenes":  [
                            "Assets/Scenes/Chuo_BaseMap.unity"
                        ],
-    "buildSizeBytes":  6639908912,
+    "buildSizeBytes":  6640135262,
     "warnings":  [
 
                  ],

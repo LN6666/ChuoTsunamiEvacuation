@@ -24,6 +24,11 @@ public class NewMapRuntimePlayModeTests
             Object.DestroyImmediate(bootstrap.gameObject);
         }
 
+        foreach (NewMapFullscreenModeController fullscreenController in Object.FindObjectsOfType<NewMapFullscreenModeController>())
+        {
+            Object.DestroyImmediate(fullscreenController.gameObject);
+        }
+
         foreach (NewMapPlayerController player in Object.FindObjectsOfType<NewMapPlayerController>())
         {
             Object.DestroyImmediate(player.gameObject);

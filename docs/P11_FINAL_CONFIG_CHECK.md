@@ -1,6 +1,6 @@
 ﻿# P11 Final Config Check
 
-Generated: 2026-05-31T02:58:36
+Generated: 2026-05-31T04:21:52
 
 - Active scene: Assets/Scenes/Chuo_BaseMap.unity
 - Evacuation max stamina: 3500

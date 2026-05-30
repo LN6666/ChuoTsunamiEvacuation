@@ -26,6 +26,9 @@
 - Sprint/stamina:
 - Left mouse drag:
 - Right mouse drag:
+- `F11` fullscreen/windowed toggle:
+- `Alt+Enter` fullscreen/windowed toggle:
+- Fullscreen recovery shortcut tested if needed:
 - Official shelter interaction:
 - Non-official candidate warning:
 - Route prototype guidance wording:
