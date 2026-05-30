@@ -15,10 +15,12 @@ public sealed class NewMapNameLabelController : MonoBehaviour
     public int ActiveLabelCount { get; private set; }
     public int OfficialShelterLabelCount { get; private set; }
     public int NonOfficialCandidateLabelCount { get; private set; }
+    public int EnrichedNonOfficialCandidateLabelCount { get; private set; }
     public int TokyoStationLabelCount { get; private set; }
     public int BuildingNameLabelCount { get; private set; }
     public int RoadNameLabelCount { get; private set; }
     public int IdOnlyLabelCount { get; private set; }
+    public int IdOnlyHiddenCount { get; private set; }
     public int NameCacheRecordCount { get; private set; }
     public int ReliableCacheLabelCount { get; private set; }
     public int AddressOnlyHiddenCount { get; private set; }
@@ -27,6 +29,7 @@ public sealed class NewMapNameLabelController : MonoBehaviour
     public int CulledByDistanceCount { get; private set; }
     public int CulledByCapCount { get; private set; }
     public bool RuntimeNetworkRequestsAllowed => false;
+    public int RuntimeWebRequestsObserved => 0;
     public bool SceneWideMetadataScanPerformed { get; private set; }
     public bool IdOnlyLabelsVisibleInNormalMode { get; private set; }
     public bool SourceMetadataRoadOrBuildingNamesFound { get; private set; }
@@ -47,12 +50,15 @@ public sealed class NewMapNameLabelController : MonoBehaviour
         Debug.Log(
             $"NewMap name labels built. availableLabels={controller.AvailableLabelCount} activeLabels={controller.ActiveLabelCount} " +
             $"officialShelterLabels={controller.OfficialShelterLabelCount} nonOfficialCandidateLabels={controller.NonOfficialCandidateLabelCount} " +
+            $"enrichedNonOfficialCandidateLabels={controller.EnrichedNonOfficialCandidateLabelCount} " +
             $"roadNameLabels={controller.RoadNameLabelCount} buildingNameLabels={controller.BuildingNameLabelCount} " +
             $"tokyoStationLabels={controller.TokyoStationLabelCount} idOnlyLabels={controller.IdOnlyLabelCount} " +
+            $"idOnlyHidden={controller.IdOnlyHiddenCount} " +
             $"nameCacheLoaded={controller.NameCacheLoaded} nameCacheRecords={controller.NameCacheRecordCount} " +
             $"reliableCacheLabels={controller.ReliableCacheLabelCount} addressOnlyHidden={controller.AddressOnlyHiddenCount} " +
             $"lowConfidenceHidden={controller.LowConfidenceHiddenCount} " +
-            $"runtimeNetworkRequestsAllowed={controller.RuntimeNetworkRequestsAllowed} sourceNameStatus={controller.SourceNameAvailabilityStatus}");
+            $"runtimeNetworkRequestsAllowed={controller.RuntimeNetworkRequestsAllowed} runtimeWebRequestsObserved={controller.RuntimeWebRequestsObserved} " +
+            $"sourceNameStatus={controller.SourceNameAvailabilityStatus}");
         return controller;
     }
 
@@ -90,10 +96,12 @@ public sealed class NewMapNameLabelController : MonoBehaviour
         entries.Clear();
         OfficialShelterLabelCount = 0;
         NonOfficialCandidateLabelCount = 0;
+        EnrichedNonOfficialCandidateLabelCount = 0;
         TokyoStationLabelCount = 0;
         BuildingNameLabelCount = 0;
         RoadNameLabelCount = 0;
         IdOnlyLabelCount = 0;
+        IdOnlyHiddenCount = 0;
         NameCacheRecordCount = cache != null && cache.labels != null ? cache.labels.Length : 0;
         NameCacheLoaded = NameCacheRecordCount > 0;
         ReliableCacheLabelCount = 0;
@@ -148,7 +156,7 @@ public sealed class NewMapNameLabelController : MonoBehaviour
                 continue;
             }
 
-            string displayName = ResolveRuntimeTargetDisplayName(target, cache);
+            string displayName = ResolveRuntimeTargetDisplayName(target, cache, out bool fromReliableCache, out bool enrichedNonOfficialName);
             if (string.IsNullOrWhiteSpace(displayName))
             {
                 continue;
@@ -175,18 +183,28 @@ public sealed class NewMapNameLabelController : MonoBehaviour
                 entries.Add(NewMapNameLabelEntry.Create(
                     target.Id,
                     "non_official_candidate_label",
-                    displayName + "\nNon-official Candidate",
+                    "Non-official Candidate: " + displayName + "\nNot an official shelter",
                     target.Anchor.position + Vector3.up * 4.0f,
                     80,
                     config.importantLabelMaxDistanceMeters,
                     NewMapNameLabelPalette.NonOfficialCandidate));
                 NonOfficialCandidateLabelCount++;
+                if (fromReliableCache && enrichedNonOfficialName)
+                {
+                    EnrichedNonOfficialCandidateLabelCount++;
+                }
             }
         }
     }
 
-    private static string ResolveRuntimeTargetDisplayName(NewMapRuntimeTarget target, NewMapNameCache cache)
+    private string ResolveRuntimeTargetDisplayName(
+        NewMapRuntimeTarget target,
+        NewMapNameCache cache,
+        out bool fromReliableCache,
+        out bool enrichedNonOfficialName)
     {
+        fromReliableCache = false;
+        enrichedNonOfficialName = false;
         if (target == null)
         {
             return string.Empty;
@@ -194,12 +212,47 @@ public sealed class NewMapNameLabelController : MonoBehaviour
 
         NewMapCachedNameLabel cached = cache != null ? cache.FindById(target.Id) : null;
         string cachedName = cached != null ? NormalizeMainName(cached.DisplayNameForRuntime) : string.Empty;
-        if (!string.IsNullOrWhiteSpace(cachedName) && cached.confidence >= 0.6f && !cached.disabled && !cached.idOnly)
+        if (cached != null)
         {
-            return cachedName;
+            if (cached.disabled || cached.hiddenInNormalMode || cached.confidence < config.minConfidence)
+            {
+                LowConfidenceHiddenCount++;
+            }
+            else if (cached.idOnly || IsIdLikeName(cached.DisplayNameForRuntime))
+            {
+                IdOnlyHiddenCount++;
+            }
+            else if (IsAddressLikeName(cached.DisplayNameForRuntime))
+            {
+                AddressOnlyHiddenCount++;
+            }
+            else if (!string.IsNullOrWhiteSpace(cachedName))
+            {
+                fromReliableCache = true;
+                enrichedNonOfficialName = IsEnrichedNonOfficialCandidateCache(cached);
+                return cachedName;
+            }
         }
 
-        return NormalizeMainName(target.DisplayName);
+        string targetName = NormalizeMainName(target.DisplayName);
+        if (!string.IsNullOrWhiteSpace(targetName) &&
+            !IsIdLikeName(target.DisplayName) &&
+            !IsAddressLikeName(target.DisplayName) &&
+            !LooksLikeMojibake(target.DisplayName))
+        {
+            return targetName;
+        }
+
+        if (IsIdLikeName(target.DisplayName))
+        {
+            IdOnlyHiddenCount++;
+        }
+        else if (IsAddressLikeName(target.DisplayName))
+        {
+            AddressOnlyHiddenCount++;
+        }
+
+        return string.Empty;
     }
 
     private void AddCachedLabels(NewMapNameCache cache)
@@ -228,7 +281,7 @@ public sealed class NewMapNameLabelController : MonoBehaviour
 
             if (cached.idOnly || string.Equals(cached.classification, "debug_id_only", System.StringComparison.OrdinalIgnoreCase))
             {
-                IdOnlyLabelCount++;
+                IdOnlyHiddenCount++;
                 if (!config.showIdOnlyLabelsInDebug)
                 {
                     continue;
@@ -356,6 +409,8 @@ public sealed class NewMapNameLabelController : MonoBehaviour
         string lower = value.Trim().ToLowerInvariant();
         return lower.StartsWith("bldg_", System.StringComparison.Ordinal) ||
             lower.StartsWith("gml_", System.StringComparison.Ordinal) ||
+            lower.StartsWith("13102-bldg-", System.StringComparison.Ordinal) ||
+            lower.StartsWith("p8_plateau_highrise_candidate_", System.StringComparison.Ordinal) ||
             lower.StartsWith("sample_plateau", System.StringComparison.Ordinal) ||
             lower.Contains("_unknown_") ||
             lower == "unnamed" ||
@@ -431,6 +486,24 @@ public sealed class NewMapNameLabelController : MonoBehaviour
             source.Contains("online_overpass_preprocessing") ||
             string.Equals(cached.classification, "source_metadata_name", System.StringComparison.OrdinalIgnoreCase) ||
             string.Equals(cached.classification, "project_dataset_name", System.StringComparison.OrdinalIgnoreCase);
+    }
+
+    private static bool IsEnrichedNonOfficialCandidateCache(NewMapCachedNameLabel cached)
+    {
+        if (cached == null || !string.Equals(cached.objectType, "candidate", System.StringComparison.OrdinalIgnoreCase))
+        {
+            return false;
+        }
+
+        string source = (cached.source ?? string.Empty).ToLowerInvariant();
+        string provider = (cached.provider ?? string.Empty).ToLowerInvariant();
+        string classification = (cached.classification ?? string.Empty).ToLowerInvariant();
+        return source.Contains("local_osm_cache") ||
+            source.Contains("online_osm") ||
+            source.Contains("online_gsi") ||
+            source.Contains("source_metadata") ||
+            provider.Contains("openstreetmap") ||
+            classification.Contains("coordinate_enriched");
     }
 
     private void CreateLabelObjects()

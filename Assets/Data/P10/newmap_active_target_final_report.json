@@ -1,6 +1,13 @@
 {
-  "generatedAt": "2026-05-27T19:21:33+09:00",
+  "generatedAt": "2026-05-30T21:41:16+09:00",
   "activeScene": "Assets/Scenes/Chuo_BaseMap.unity",
+  "playableBoundaryShape": "circle",
+  "playableBoundaryCenterSource": "original_map_center",
+  "playableBoundaryRadiusMeters": 2270.0,
+  "activeTargetPlayableBoundaryPolicy": "runtime disables target anchors outside the 2.27km circle before UI, entry triggers, green frames, and guidance are configured",
+  "activeTargetsOutside2_27kmDisabledAtRuntime": true,
+  "runtimeNonOfficialCandidateCountInside2_27km": 72,
+  "runtimeNonOfficialCandidateCountDisabledOutside2_27km": 6,
   "totalTargetCount": 285,
   "activeTargetCount": 97,
   "disabledTargetCount": 188,
@@ -18,7 +25,7 @@
   "targets": [
     {
       "id": "chuo_official_emergency_001",
-      "name": "\u57ce\u6771\u5c0f\u5b66\u6821",
+      "name": "城東小学校",
       "sourcePhase": "P3/P4/P5 official",
       "isOfficialShelter": true,
       "activeInGame": true,
@@ -29,7 +36,7 @@
     },
     {
       "id": "chuo_official_emergency_002",
-      "name": "\u4eac\u6a4b\u30d7\u30e9\u30b6",
+      "name": "京橋プラザ",
       "sourcePhase": "P3/P4/P5 official",
       "isOfficialShelter": true,
       "activeInGame": true,
@@ -40,7 +47,7 @@
     },
     {
       "id": "chuo_official_emergency_003",
-      "name": "\u6cf0\u660e\u5c0f\u5b66\u6821",
+      "name": "泰明小学校",
       "sourcePhase": "P3/P4/P5 official",
       "isOfficialShelter": true,
       "activeInGame": true,
@@ -51,7 +58,7 @@
     },
     {
       "id": "chuo_official_emergency_004",
-      "name": "\u9280\u5ea7\u4e2d\u5b66\u6821",
+      "name": "銀座中学校",
       "sourcePhase": "P3/P4/P5 official",
       "isOfficialShelter": true,
       "activeInGame": true,
@@ -62,7 +69,7 @@
     },
     {
       "id": "chuo_official_emergency_005",
-      "name": "\u4e2d\u592e\u5c0f\u5b66\u6821",
+      "name": "中央小学校",
       "sourcePhase": "P3/P4/P5 official",
       "isOfficialShelter": true,
       "activeInGame": true,
@@ -73,7 +80,7 @@
     },
     {
       "id": "chuo_official_emergency_006",
-      "name": "\u660e\u77f3\u5c0f\u5b66\u6821",
+      "name": "明石小学校",
       "sourcePhase": "P3/P4/P5 official",
       "isOfficialShelter": true,
       "activeInGame": true,
@@ -84,7 +91,7 @@
     },
     {
       "id": "chuo_official_emergency_007",
-      "name": "\u4eac\u6a4b\u7bc9\u5730\u5c0f\u5b66\u6821",
+      "name": "京橋築地小学校",
       "sourcePhase": "P3/P4/P5 official",
       "isOfficialShelter": true,
       "activeInGame": true,
@@ -95,7 +102,7 @@
     },
     {
       "id": "chuo_official_emergency_008",
-      "name": "\u4eac\u83ef\u30b9\u30af\u30a8\u30a2",
+      "name": "京華スクエア",
       "sourcePhase": "P3/P4/P5 official",
       "isOfficialShelter": true,
       "activeInGame": true,
@@ -106,7 +113,7 @@
     },
     {
       "id": "chuo_official_emergency_009",
-      "name": "\u660e\u6b63\u5c0f\u5b66\u6821",
+      "name": "明正小学校",
       "sourcePhase": "P3/P4/P5 official",
       "isOfficialShelter": true,
       "activeInGame": true,
@@ -117,7 +124,7 @@
     },
     {
       "id": "chuo_official_emergency_010",
-      "name": "\u5e38\u76e4\u5c0f\u5b66\u6821",
+      "name": "常盤小学校",
       "sourcePhase": "P3/P4/P5 official",
       "isOfficialShelter": true,
       "activeInGame": true,
@@ -128,7 +135,7 @@
     },
     {
       "id": "chuo_official_emergency_011",
-      "name": "\u5341\u601d\u30b9\u30af\u30a8\u30a2",
+      "name": "十思スクエア",
       "sourcePhase": "P3/P4/P5 official",
       "isOfficialShelter": true,
       "activeInGame": true,
@@ -139,7 +146,7 @@
     },
     {
       "id": "chuo_official_emergency_014",
-      "name": "\u4e45\u677e\u5c0f\u5b66\u6821",
+      "name": "久松小学校",
       "sourcePhase": "P3/P4/P5 official",
       "isOfficialShelter": true,
       "activeInGame": true,
@@ -150,7 +157,7 @@
     },
     {
       "id": "chuo_official_emergency_016",
-      "name": "\u962a\u672c\u5c0f\u5b66\u6821",
+      "name": "阪本小学校",
       "sourcePhase": "P3/P4/P5 official",
       "isOfficialShelter": true,
       "activeInGame": true,
@@ -161,7 +168,7 @@
     },
     {
       "id": "chuo_official_emergency_024",
-      "name": "\u4e2d\u592e\u533a\u5f79\u6240",
+      "name": "中央区役所",
       "sourcePhase": "P3/P4/P5 official",
       "isOfficialShelter": true,
       "activeInGame": true,
@@ -172,7 +179,7 @@
     },
     {
       "id": "chuo_official_emergency_025",
-      "name": "\u65e5\u672c\u6a4b\u533a\u6c11\u30bb\u30f3\u30bf\u30fc",
+      "name": "日本橋区民センター",
       "sourcePhase": "P3/P4/P5 official",
       "isOfficialShelter": true,
       "activeInGame": true,
@@ -183,7 +190,7 @@
     },
     {
       "id": "p8_plateau_highrise_candidate_001",
-      "name": "\u8056\u8def\u52a0\u30ac\u30fc\u30c7\u30f3\u30bf\u30ef\u30fc",
+      "name": "聖路加ガーデンタワー",
       "sourcePhase": "P8/P9 humanitarian candidate recovery",
       "isOfficialShelter": false,
       "activeInGame": true,
@@ -196,7 +203,7 @@
     },
     {
       "id": "p8_plateau_highrise_candidate_002",
-      "name": "\u65e5\u672c\u6a4b\u4e09\u4e95\u30bf\u30ef\u30fc",
+      "name": "日本橋三井タワー",
       "sourcePhase": "P8/P9 humanitarian candidate recovery",
       "isOfficialShelter": false,
       "activeInGame": true,
@@ -209,7 +216,7 @@
     },
     {
       "id": "p8_plateau_highrise_candidate_003",
-      "name": "\u6771\u4eac\u65e5\u672c\u6a4b\u30bf\u30ef\u30fc",
+      "name": "東京日本橋タワー",
       "sourcePhase": "P8/P9 humanitarian candidate recovery",
       "isOfficialShelter": false,
       "activeInGame": true,
@@ -222,7 +229,7 @@
     },
     {
       "id": "p8_plateau_highrise_candidate_004",
-      "name": "\u65e5\u672c\u6a4b\u9ad8\u5cf6\u5c4b\u4e09\u4e95\u30d3\u30eb\u30c7\u30a3\u30f3\u30b0",
+      "name": "日本橋高島屋三井ビルディング",
       "sourcePhase": "P8/P9 humanitarian candidate recovery",
       "isOfficialShelter": false,
       "activeInGame": true,
@@ -235,7 +242,7 @@
     },
     {
       "id": "p8_plateau_highrise_candidate_005",
-      "name": "\u96fb\u6e90\u958b\u767a\u682a\u5f0f\u4f1a\u793e(\u672c\u5e97)",
+      "name": "電源開発株式会社(本店)",
       "sourcePhase": "P8/P9 humanitarian candidate recovery",
       "isOfficialShelter": false,
       "activeInGame": true,
@@ -248,7 +255,7 @@
     },
     {
       "id": "p8_plateau_highrise_candidate_006",
-      "name": "\u30a2\u30fc\u30c6\u30a3\u30be\u30f3\u7f8e\u8853\u9928",
+      "name": "アーティゾン美術館",
       "sourcePhase": "P8/P9 humanitarian candidate recovery",
       "isOfficialShelter": false,
       "activeInGame": true,
@@ -261,7 +268,7 @@
     },
     {
       "id": "p8_plateau_highrise_candidate_007",
-      "name": "\u65e9\u7a32\u7530\u5927\u5b66\u65e5\u672c\u6a4b\u30ad\u30e3\u30f3\u30d1\u30b9",
+      "name": "早稲田大学日本橋キャンパス",
       "sourcePhase": "P8/P9 humanitarian candidate recovery",
       "isOfficialShelter": false,
       "activeInGame": true,
@@ -274,7 +281,7 @@
     },
     {
       "id": "p8_plateau_highrise_candidate_009",
-      "name": "\u7279\u5225\u990a\u8b77\u8001\u4eba\u30db\u30fc\u30e0\u300c\u3064\u304d\u3057\u307e\u300d",
+      "name": "特別養護老人ホーム「つきしま」",
       "sourcePhase": "P8/P9 humanitarian candidate recovery",
       "isOfficialShelter": false,
       "activeInGame": true,
@@ -287,7 +294,7 @@
     },
     {
       "id": "p8_plateau_highrise_candidate_011",
-      "name": "\u7279\u5225\u990a\u8b77\u8001\u4eba\u30db\u30fc\u30e0\u300c\u30de\u30a4\u30db\u30fc\u30e0\u65b0\u5ddd\u300d",
+      "name": "特別養護老人ホーム「マイホーム新川」",
       "sourcePhase": "P8/P9 humanitarian candidate recovery",
       "isOfficialShelter": false,
       "activeInGame": true,
@@ -300,7 +307,7 @@
     },
     {
       "id": "p8_plateau_highrise_candidate_013",
-      "name": "\u4e2d\u592e\u7bc9\u5730\u516d\u90f5\u4fbf\u5c40",
+      "name": "中央築地六郵便局",
       "sourcePhase": "P8/P9 humanitarian candidate recovery",
       "isOfficialShelter": false,
       "activeInGame": true,
@@ -313,7 +320,7 @@
     },
     {
       "id": "p8_plateau_highrise_candidate_015",
-      "name": "\u65e5\u672c\u9280\u884c(\u672c\u5e97)",
+      "name": "日本銀行(本店)",
       "sourcePhase": "P8/P9 humanitarian candidate recovery",
       "isOfficialShelter": false,
       "activeInGame": true,
@@ -326,7 +333,7 @@
     },
     {
       "id": "p8_plateau_highrise_candidate_016",
-      "name": "\u7bc9\u5730\u8b66\u5bdf\u7f72\u9280\u5ea7\u516b\u4e01\u76ee\u4ea4\u756a",
+      "name": "築地警察署銀座八丁目交番",
       "sourcePhase": "P8/P9 humanitarian candidate recovery",
       "isOfficialShelter": false,
       "activeInGame": true,
@@ -339,7 +346,7 @@
     },
     {
       "id": "p8_plateau_highrise_candidate_018",
-      "name": "\u30e4\u30de\u30c8\u904b\u8f38\uff08\u30e4\u30de\u30c8\u9280\u5ea7\u30d3\u30eb\uff09",
+      "name": "ヤマト運輸（ヤマト銀座ビル）",
       "sourcePhase": "P8/P9 humanitarian candidate recovery",
       "isOfficialShelter": false,
       "activeInGame": true,
@@ -352,7 +359,7 @@
     },
     {
       "id": "p8_plateau_highrise_candidate_019",
-      "name": "\u8056\u8def\u52a0\u56fd\u969b\u75c5\u9662",
+      "name": "聖路加国際病院",
       "sourcePhase": "P8/P9 humanitarian candidate recovery",
       "isOfficialShelter": false,
       "activeInGame": true,
@@ -365,7 +372,7 @@
     },
     {
       "id": "p8_plateau_highrise_candidate_020",
-      "name": "\u65e5\u672c\u6a4b\u5927\u4f1d\u99ac\u753a\u90f5\u4fbf\u5c40",
+      "name": "日本橋大伝馬町郵便局",
       "sourcePhase": "P8/P9 humanitarian candidate recovery",
       "isOfficialShelter": false,
       "activeInGame": true,
@@ -378,7 +385,7 @@
     },
     {
       "id": "p8_plateau_highrise_candidate_021",
-      "name": "\u533a\u7acb\u65e5\u672c\u6a4b\u5c0f\u5b66\u6821",
+      "name": "区立日本橋小学校",
       "sourcePhase": "P8/P9 humanitarian candidate recovery",
       "isOfficialShelter": false,
       "activeInGame": true,
@@ -391,7 +398,7 @@
     },
     {
       "id": "p8_plateau_highrise_candidate_022",
-      "name": "\u6771\u4eac\u56fd\u7a0e\u5c40",
+      "name": "東京国税局",
       "sourcePhase": "P8/P9 humanitarian candidate recovery",
       "isOfficialShelter": false,
       "activeInGame": true,
@@ -404,7 +411,7 @@
     },
     {
       "id": "p8_plateau_highrise_candidate_023",
-      "name": "\u4e2d\u592e\u8b66\u5bdf\u7f72",
+      "name": "中央警察署",
       "sourcePhase": "P8/P9 humanitarian candidate recovery",
       "isOfficialShelter": false,
       "activeInGame": true,
@@ -417,7 +424,7 @@
     },
     {
       "id": "p8_plateau_highrise_candidate_024",
-      "name": "\u8056\u8def\u52a0\u56fd\u969b\u5927\u5b66",
+      "name": "聖路加国際大学",
       "sourcePhase": "P8/P9 humanitarian candidate recovery",
       "isOfficialShelter": false,
       "activeInGame": true,
@@ -430,7 +437,7 @@
     },
     {
       "id": "p8_plateau_highrise_candidate_027",
-      "name": "13102-bldg-10689",
+      "name": "やまや",
       "sourcePhase": "P8/P9 humanitarian candidate recovery",
       "isOfficialShelter": false,
       "activeInGame": true,
@@ -439,7 +446,9 @@
       "anchorClassification": "active_exact_gml_anchor",
       "greenFrameBehavior": "created lazily for active target and visible only in Evacuation Stage 2; not official approval",
       "routeBehavior": "estimated prototype guidance only; no official route claim",
-      "resultPanelBehavior": "warning repeated when selected"
+      "resultPanelBehavior": "warning repeated when selected",
+      "nameSource": "online_osm",
+      "nameProvider": "OpenStreetMap Overpass"
     },
     {
       "id": "p8_plateau_highrise_candidate_028",
@@ -456,7 +465,7 @@
     },
     {
       "id": "p8_plateau_highrise_candidate_029",
-      "name": "13102-bldg-2255",
+      "name": "歌舞伎座ギャラリー",
       "sourcePhase": "P8/P9 humanitarian candidate recovery",
       "isOfficialShelter": false,
       "activeInGame": true,
@@ -465,11 +474,13 @@
       "anchorClassification": "active_exact_gml_anchor",
       "greenFrameBehavior": "created lazily for active target and visible only in Evacuation Stage 2; not official approval",
       "routeBehavior": "estimated prototype guidance only; no official route claim",
-      "resultPanelBehavior": "warning repeated when selected"
+      "resultPanelBehavior": "warning repeated when selected",
+      "nameSource": "local_osm_cache",
+      "nameProvider": "OpenStreetMap Nominatim"
     },
     {
       "id": "p8_plateau_highrise_candidate_030",
-      "name": "13102-bldg-12573",
+      "name": "茶ノ木神社",
       "sourcePhase": "P8/P9 humanitarian candidate recovery",
       "isOfficialShelter": false,
       "activeInGame": true,
@@ -478,11 +489,13 @@
       "anchorClassification": "active_exact_gml_anchor",
       "greenFrameBehavior": "created lazily for active target and visible only in Evacuation Stage 2; not official approval",
       "routeBehavior": "estimated prototype guidance only; no official route claim",
-      "resultPanelBehavior": "warning repeated when selected"
+      "resultPanelBehavior": "warning repeated when selected",
+      "nameSource": "online_osm",
+      "nameProvider": "OpenStreetMap Overpass"
     },
     {
       "id": "p8_plateau_highrise_candidate_031",
-      "name": "13102-bldg-6714",
+      "name": "日本橋室町三井タワー [COREDO室町テラス]",
       "sourcePhase": "P8/P9 humanitarian candidate recovery",
       "isOfficialShelter": false,
       "activeInGame": true,
@@ -491,11 +504,13 @@
       "anchorClassification": "active_exact_gml_anchor",
       "greenFrameBehavior": "created lazily for active target and visible only in Evacuation Stage 2; not official approval",
       "routeBehavior": "estimated prototype guidance only; no official route claim",
-      "resultPanelBehavior": "warning repeated when selected"
+      "resultPanelBehavior": "warning repeated when selected",
+      "nameSource": "online_osm",
+      "nameProvider": "OpenStreetMap Overpass"
     },
     {
       "id": "p8_plateau_highrise_candidate_032",
-      "name": "13102-bldg-3863",
+      "name": "ポケモンセンター",
       "sourcePhase": "P8/P9 humanitarian candidate recovery",
       "isOfficialShelter": false,
       "activeInGame": true,
@@ -504,11 +519,13 @@
       "anchorClassification": "active_exact_gml_anchor",
       "greenFrameBehavior": "created lazily for active target and visible only in Evacuation Stage 2; not official approval",
       "routeBehavior": "estimated prototype guidance only; no official route claim",
-      "resultPanelBehavior": "warning repeated when selected"
+      "resultPanelBehavior": "warning repeated when selected",
+      "nameSource": "local_osm_cache",
+      "nameProvider": "OpenStreetMap Nominatim"
     },
     {
       "id": "p8_plateau_highrise_candidate_033",
-      "name": "13102-bldg-3899",
+      "name": "武田グローバル本社",
       "sourcePhase": "P8/P9 humanitarian candidate recovery",
       "isOfficialShelter": false,
       "activeInGame": true,
@@ -517,11 +534,13 @@
       "anchorClassification": "active_exact_gml_anchor",
       "greenFrameBehavior": "created lazily for active target and visible only in Evacuation Stage 2; not official approval",
       "routeBehavior": "estimated prototype guidance only; no official route claim",
-      "resultPanelBehavior": "warning repeated when selected"
+      "resultPanelBehavior": "warning repeated when selected",
+      "nameSource": "online_osm",
+      "nameProvider": "OpenStreetMap Overpass"
     },
     {
       "id": "p8_plateau_highrise_candidate_034",
-      "name": "13102-bldg-2335",
+      "name": "東京スクエアガーデン",
       "sourcePhase": "P8/P9 humanitarian candidate recovery",
       "isOfficialShelter": false,
       "activeInGame": true,
@@ -530,7 +549,9 @@
       "anchorClassification": "active_exact_gml_anchor",
       "greenFrameBehavior": "created lazily for active target and visible only in Evacuation Stage 2; not official approval",
       "routeBehavior": "estimated prototype guidance only; no official route claim",
-      "resultPanelBehavior": "warning repeated when selected"
+      "resultPanelBehavior": "warning repeated when selected",
+      "nameSource": "online_osm",
+      "nameProvider": "OpenStreetMap Overpass"
     },
     {
       "id": "p8_plateau_highrise_candidate_035",
@@ -547,7 +568,7 @@
     },
     {
       "id": "p8_plateau_highrise_candidate_036",
-      "name": "13102-bldg-10502",
+      "name": "ヴィノスやまざき",
       "sourcePhase": "P8/P9 humanitarian candidate recovery",
       "isOfficialShelter": false,
       "activeInGame": true,
@@ -556,7 +577,9 @@
       "anchorClassification": "active_exact_gml_anchor",
       "greenFrameBehavior": "created lazily for active target and visible only in Evacuation Stage 2; not official approval",
       "routeBehavior": "estimated prototype guidance only; no official route claim",
-      "resultPanelBehavior": "warning repeated when selected"
+      "resultPanelBehavior": "warning repeated when selected",
+      "nameSource": "local_osm_cache",
+      "nameProvider": "OpenStreetMap Nominatim"
     },
     {
       "id": "p8_plateau_highrise_candidate_037",
@@ -573,7 +596,7 @@
     },
     {
       "id": "p8_plateau_highrise_candidate_039",
-      "name": "13102-bldg-7305",
+      "name": "八重洲一丁目北地区第一種市街地再開発事業",
       "sourcePhase": "P8/P9 humanitarian candidate recovery",
       "isOfficialShelter": false,
       "activeInGame": true,
@@ -582,11 +605,13 @@
       "anchorClassification": "active_exact_gml_anchor",
       "greenFrameBehavior": "created lazily for active target and visible only in Evacuation Stage 2; not official approval",
       "routeBehavior": "estimated prototype guidance only; no official route claim",
-      "resultPanelBehavior": "warning repeated when selected"
+      "resultPanelBehavior": "warning repeated when selected",
+      "nameSource": "online_osm",
+      "nameProvider": "OpenStreetMap Overpass"
     },
     {
       "id": "p8_plateau_highrise_candidate_040",
-      "name": "13102-bldg-5817",
+      "name": "京橋トラストタワー",
       "sourcePhase": "P8/P9 humanitarian candidate recovery",
       "isOfficialShelter": false,
       "activeInGame": true,
@@ -595,11 +620,13 @@
       "anchorClassification": "active_exact_gml_anchor",
       "greenFrameBehavior": "created lazily for active target and visible only in Evacuation Stage 2; not official approval",
       "routeBehavior": "estimated prototype guidance only; no official route claim",
-      "resultPanelBehavior": "warning repeated when selected"
+      "resultPanelBehavior": "warning repeated when selected",
+      "nameSource": "online_osm",
+      "nameProvider": "OpenStreetMap Overpass"
     },
     {
       "id": "p8_plateau_highrise_candidate_041",
-      "name": "13102-bldg-3894",
+      "name": "銀座松竹スクエア",
       "sourcePhase": "P8/P9 humanitarian candidate recovery",
       "isOfficialShelter": false,
       "activeInGame": true,
@@ -608,11 +635,13 @@
       "anchorClassification": "active_exact_gml_anchor",
       "greenFrameBehavior": "created lazily for active target and visible only in Evacuation Stage 2; not official approval",
       "routeBehavior": "estimated prototype guidance only; no official route claim",
-      "resultPanelBehavior": "warning repeated when selected"
+      "resultPanelBehavior": "warning repeated when selected",
+      "nameSource": "online_osm",
+      "nameProvider": "OpenStreetMap Overpass"
     },
     {
       "id": "p8_plateau_highrise_candidate_042",
-      "name": "13102-bldg-10130",
+      "name": "雪月花 カフェ京橋店",
       "sourcePhase": "P8/P9 humanitarian candidate recovery",
       "isOfficialShelter": false,
       "activeInGame": true,
@@ -621,11 +650,13 @@
       "anchorClassification": "active_exact_gml_anchor",
       "greenFrameBehavior": "created lazily for active target and visible only in Evacuation Stage 2; not official approval",
       "routeBehavior": "estimated prototype guidance only; no official route claim",
-      "resultPanelBehavior": "warning repeated when selected"
+      "resultPanelBehavior": "warning repeated when selected",
+      "nameSource": "online_osm",
+      "nameProvider": "OpenStreetMap Nominatim"
     },
     {
       "id": "p8_plateau_highrise_candidate_043",
-      "name": "13102-bldg-4457",
+      "name": "SBI新生銀行",
       "sourcePhase": "P8/P9 humanitarian candidate recovery",
       "isOfficialShelter": false,
       "activeInGame": true,
@@ -634,11 +665,13 @@
       "anchorClassification": "active_exact_gml_anchor",
       "greenFrameBehavior": "created lazily for active target and visible only in Evacuation Stage 2; not official approval",
       "routeBehavior": "estimated prototype guidance only; no official route claim",
-      "resultPanelBehavior": "warning repeated when selected"
+      "resultPanelBehavior": "warning repeated when selected",
+      "nameSource": "online_osm",
+      "nameProvider": "OpenStreetMap Overpass"
     },
     {
       "id": "p8_plateau_highrise_candidate_044",
-      "name": "13102-bldg-8892",
+      "name": "COREDO室町1 (室町東三井ビルディング)",
       "sourcePhase": "P8/P9 humanitarian candidate recovery",
       "isOfficialShelter": false,
       "activeInGame": true,
@@ -647,11 +680,13 @@
       "anchorClassification": "active_exact_gml_anchor",
       "greenFrameBehavior": "created lazily for active target and visible only in Evacuation Stage 2; not official approval",
       "routeBehavior": "estimated prototype guidance only; no official route claim",
-      "resultPanelBehavior": "warning repeated when selected"
+      "resultPanelBehavior": "warning repeated when selected",
+      "nameSource": "online_osm",
+      "nameProvider": "OpenStreetMap Overpass"
     },
     {
       "id": "p8_plateau_highrise_candidate_045",
-      "name": "13102-bldg-11187",
+      "name": "明正通り",
       "sourcePhase": "P8/P9 humanitarian candidate recovery",
       "isOfficialShelter": false,
       "activeInGame": true,
@@ -660,7 +695,9 @@
       "anchorClassification": "active_exact_gml_anchor",
       "greenFrameBehavior": "created lazily for active target and visible only in Evacuation Stage 2; not official approval",
       "routeBehavior": "estimated prototype guidance only; no official route claim",
-      "resultPanelBehavior": "warning repeated when selected"
+      "resultPanelBehavior": "warning repeated when selected",
+      "nameSource": "online_osm",
+      "nameProvider": "OpenStreetMap Nominatim"
     },
     {
       "id": "p8_plateau_highrise_candidate_055",
@@ -716,7 +753,7 @@
     },
     {
       "id": "p8_plateau_highrise_candidate_060",
-      "name": "13102-bldg-2237",
+      "name": "信金中央金庫",
       "sourcePhase": "P8/P9 humanitarian candidate recovery",
       "isOfficialShelter": false,
       "activeInGame": true,
@@ -725,11 +762,13 @@
       "anchorClassification": "active_exact_gml_anchor",
       "greenFrameBehavior": "created lazily for active target and visible only in Evacuation Stage 2; not official approval",
       "routeBehavior": "estimated prototype guidance only; no official route claim",
-      "resultPanelBehavior": "warning repeated when selected"
+      "resultPanelBehavior": "warning repeated when selected",
+      "nameSource": "local_osm_cache",
+      "nameProvider": "OpenStreetMap Nominatim"
     },
     {
       "id": "p8_plateau_highrise_candidate_063",
-      "name": "13102-bldg-5143",
+      "name": "デリド湊店",
       "sourcePhase": "P8/P9 humanitarian candidate recovery",
       "isOfficialShelter": false,
       "activeInGame": true,
@@ -738,7 +777,9 @@
       "anchorClassification": "active_exact_gml_anchor",
       "greenFrameBehavior": "created lazily for active target and visible only in Evacuation Stage 2; not official approval",
       "routeBehavior": "estimated prototype guidance only; no official route claim",
-      "resultPanelBehavior": "warning repeated when selected"
+      "resultPanelBehavior": "warning repeated when selected",
+      "nameSource": "local_osm_cache",
+      "nameProvider": "OpenStreetMap Nominatim"
     },
     {
       "id": "p8_plateau_highrise_candidate_064",
@@ -820,7 +861,7 @@
     },
     {
       "id": "p8_plateau_highrise_candidate_074",
-      "name": "13102-bldg-6110",
+      "name": "日本橋ダイヤビルディング",
       "sourcePhase": "P8/P9 humanitarian candidate recovery",
       "isOfficialShelter": false,
       "activeInGame": true,
@@ -829,7 +870,9 @@
       "anchorClassification": "active_exact_gml_anchor",
       "greenFrameBehavior": "created lazily for active target and visible only in Evacuation Stage 2; not official approval",
       "routeBehavior": "estimated prototype guidance only; no official route claim",
-      "resultPanelBehavior": "warning repeated when selected"
+      "resultPanelBehavior": "warning repeated when selected",
+      "nameSource": "local_osm_cache",
+      "nameProvider": "OpenStreetMap Nominatim"
     },
     {
       "id": "p8_plateau_highrise_candidate_075",
@@ -898,7 +941,7 @@
     },
     {
       "id": "p5f_sample_humanitarian_weak_005",
-      "name": "Sample Mid-Rise Commercial Building",
+      "name": "入船三丁目",
       "sourcePhase": "P8/P9 humanitarian candidate recovery",
       "isOfficialShelter": false,
       "activeInGame": true,
@@ -907,7 +950,9 @@
       "anchorClassification": "active_nearest_building_anchor",
       "greenFrameBehavior": "created lazily for active target and visible only in Evacuation Stage 2; not official approval",
       "routeBehavior": "estimated prototype guidance only; no official route claim",
-      "resultPanelBehavior": "warning repeated when selected"
+      "resultPanelBehavior": "warning repeated when selected",
+      "nameSource": "online_osm",
+      "nameProvider": "OpenStreetMap Overpass"
     },
     {
       "id": "p5f_sample_not_recommended_007",
@@ -950,7 +995,7 @@
     },
     {
       "id": "p8_plateau_highrise_candidate_083",
-      "name": "13102-bldg-9544",
+      "name": "マルエツプチ",
       "sourcePhase": "P8/P9 humanitarian candidate recovery",
       "isOfficialShelter": false,
       "activeInGame": true,
@@ -959,11 +1004,13 @@
       "anchorClassification": "active_exact_gml_anchor",
       "greenFrameBehavior": "created lazily for active target and visible only in Evacuation Stage 2; not official approval",
       "routeBehavior": "estimated prototype guidance only; no official route claim",
-      "resultPanelBehavior": "warning repeated when selected"
+      "resultPanelBehavior": "warning repeated when selected",
+      "nameSource": "local_osm_cache",
+      "nameProvider": "OpenStreetMap Nominatim"
     },
     {
       "id": "p8_plateau_highrise_candidate_086",
-      "name": "13102-bldg-5857",
+      "name": "Coredo室町3 (室町ちばぎん三井ビルディング)",
       "sourcePhase": "P8/P9 humanitarian candidate recovery",
       "isOfficialShelter": false,
       "activeInGame": true,
@@ -972,7 +1019,9 @@
       "anchorClassification": "active_exact_gml_anchor",
       "greenFrameBehavior": "created lazily for active target and visible only in Evacuation Stage 2; not official approval",
       "routeBehavior": "estimated prototype guidance only; no official route claim",
-      "resultPanelBehavior": "warning repeated when selected"
+      "resultPanelBehavior": "warning repeated when selected",
+      "nameSource": "online_osm",
+      "nameProvider": "OpenStreetMap Overpass"
     },
     {
       "id": "p8_plateau_highrise_candidate_087",
@@ -1002,7 +1051,7 @@
     },
     {
       "id": "p8_plateau_highrise_candidate_090",
-      "name": "13102-bldg-1894",
+      "name": "伊藤園",
       "sourcePhase": "P8/P9 humanitarian candidate recovery",
       "isOfficialShelter": false,
       "activeInGame": true,
@@ -1011,11 +1060,13 @@
       "anchorClassification": "active_exact_gml_anchor",
       "greenFrameBehavior": "created lazily for active target and visible only in Evacuation Stage 2; not official approval",
       "routeBehavior": "estimated prototype guidance only; no official route claim",
-      "resultPanelBehavior": "warning repeated when selected"
+      "resultPanelBehavior": "warning repeated when selected",
+      "nameSource": "online_osm",
+      "nameProvider": "OpenStreetMap Overpass"
     },
     {
       "id": "p8_plateau_highrise_candidate_091",
-      "name": "13102-bldg-8361",
+      "name": "眞帆ビル",
       "sourcePhase": "P8/P9 humanitarian candidate recovery",
       "isOfficialShelter": false,
       "activeInGame": true,
@@ -1024,7 +1075,9 @@
       "anchorClassification": "active_exact_gml_anchor",
       "greenFrameBehavior": "created lazily for active target and visible only in Evacuation Stage 2; not official approval",
       "routeBehavior": "estimated prototype guidance only; no official route claim",
-      "resultPanelBehavior": "warning repeated when selected"
+      "resultPanelBehavior": "warning repeated when selected",
+      "nameSource": "online_osm",
+      "nameProvider": "OpenStreetMap Overpass"
     },
     {
       "id": "p8_plateau_highrise_candidate_092",
@@ -1054,7 +1107,7 @@
     },
     {
       "id": "p8_plateau_highrise_candidate_094",
-      "name": "13102-bldg-4936",
+      "name": "オンワードパークビルディング",
       "sourcePhase": "P8/P9 humanitarian candidate recovery",
       "isOfficialShelter": false,
       "activeInGame": true,
@@ -1063,11 +1116,13 @@
       "anchorClassification": "active_exact_gml_anchor",
       "greenFrameBehavior": "created lazily for active target and visible only in Evacuation Stage 2; not official approval",
       "routeBehavior": "estimated prototype guidance only; no official route claim",
-      "resultPanelBehavior": "warning repeated when selected"
+      "resultPanelBehavior": "warning repeated when selected",
+      "nameSource": "local_osm_cache",
+      "nameProvider": "OpenStreetMap Nominatim"
     },
     {
       "id": "p8_plateau_highrise_candidate_095",
-      "name": "13102-bldg-10170",
+      "name": "東京証券取引所",
       "sourcePhase": "P8/P9 humanitarian candidate recovery",
       "isOfficialShelter": false,
       "activeInGame": true,
@@ -1076,11 +1131,13 @@
       "anchorClassification": "active_exact_gml_anchor",
       "greenFrameBehavior": "created lazily for active target and visible only in Evacuation Stage 2; not official approval",
       "routeBehavior": "estimated prototype guidance only; no official route claim",
-      "resultPanelBehavior": "warning repeated when selected"
+      "resultPanelBehavior": "warning repeated when selected",
+      "nameSource": "online_osm",
+      "nameProvider": "OpenStreetMap Nominatim"
     },
     {
       "id": "p8_plateau_highrise_candidate_096",
-      "name": "13102-bldg-6474",
+      "name": "王子ホール",
       "sourcePhase": "P8/P9 humanitarian candidate recovery",
       "isOfficialShelter": false,
       "activeInGame": true,
@@ -1089,7 +1146,9 @@
       "anchorClassification": "active_exact_gml_anchor",
       "greenFrameBehavior": "created lazily for active target and visible only in Evacuation Stage 2; not official approval",
       "routeBehavior": "estimated prototype guidance only; no official route claim",
-      "resultPanelBehavior": "warning repeated when selected"
+      "resultPanelBehavior": "warning repeated when selected",
+      "nameSource": "local_osm_cache",
+      "nameProvider": "OpenStreetMap Nominatim"
     },
     {
       "id": "p8_plateau_highrise_candidate_097",
@@ -1106,7 +1165,7 @@
     },
     {
       "id": "p8_plateau_highrise_candidate_098",
-      "name": "13102-bldg-970",
+      "name": "小原鐵五郎寿像",
       "sourcePhase": "P8/P9 humanitarian candidate recovery",
       "isOfficialShelter": false,
       "activeInGame": true,
@@ -1115,7 +1174,9 @@
       "anchorClassification": "active_exact_gml_anchor",
       "greenFrameBehavior": "created lazily for active target and visible only in Evacuation Stage 2; not official approval",
       "routeBehavior": "estimated prototype guidance only; no official route claim",
-      "resultPanelBehavior": "warning repeated when selected"
+      "resultPanelBehavior": "warning repeated when selected",
+      "nameSource": "online_osm",
+      "nameProvider": "OpenStreetMap Nominatim"
     },
     {
       "id": "p8_plateau_highrise_candidate_099",
@@ -1132,7 +1193,7 @@
     },
     {
       "id": "p8_plateau_highrise_candidate_100",
-      "name": "13102-bldg-4953",
+      "name": "第一三共くすりミュージアム",
       "sourcePhase": "P8/P9 humanitarian candidate recovery",
       "isOfficialShelter": false,
       "activeInGame": true,
@@ -1141,11 +1202,13 @@
       "anchorClassification": "active_exact_gml_anchor",
       "greenFrameBehavior": "created lazily for active target and visible only in Evacuation Stage 2; not official approval",
       "routeBehavior": "estimated prototype guidance only; no official route claim",
-      "resultPanelBehavior": "warning repeated when selected"
+      "resultPanelBehavior": "warning repeated when selected",
+      "nameSource": "local_osm_cache",
+      "nameProvider": "OpenStreetMap Nominatim"
     },
     {
       "id": "p8_plateau_highrise_candidate_101",
-      "name": "13102-bldg-1560",
+      "name": "時事通信本社",
       "sourcePhase": "P8/P9 humanitarian candidate recovery",
       "isOfficialShelter": false,
       "activeInGame": true,
@@ -1154,11 +1217,13 @@
       "anchorClassification": "active_exact_gml_anchor",
       "greenFrameBehavior": "created lazily for active target and visible only in Evacuation Stage 2; not official approval",
       "routeBehavior": "estimated prototype guidance only; no official route claim",
-      "resultPanelBehavior": "warning repeated when selected"
+      "resultPanelBehavior": "warning repeated when selected",
+      "nameSource": "local_osm_cache",
+      "nameProvider": "OpenStreetMap Nominatim"
     },
     {
       "id": "p8_plateau_highrise_candidate_103",
-      "name": "13102-bldg-8752",
+      "name": "アロフト東京銀座",
       "sourcePhase": "P8/P9 humanitarian candidate recovery",
       "isOfficialShelter": false,
       "activeInGame": true,
@@ -1167,11 +1232,13 @@
       "anchorClassification": "active_exact_gml_anchor",
       "greenFrameBehavior": "created lazily for active target and visible only in Evacuation Stage 2; not official approval",
       "routeBehavior": "estimated prototype guidance only; no official route claim",
-      "resultPanelBehavior": "warning repeated when selected"
+      "resultPanelBehavior": "warning repeated when selected",
+      "nameSource": "local_osm_cache",
+      "nameProvider": "OpenStreetMap Nominatim"
     },
     {
       "id": "p8_plateau_highrise_candidate_104",
-      "name": "13102-bldg-6154",
+      "name": "ファミリーマート",
       "sourcePhase": "P8/P9 humanitarian candidate recovery",
       "isOfficialShelter": false,
       "activeInGame": true,
@@ -1180,7 +1247,9 @@
       "anchorClassification": "active_exact_gml_anchor",
       "greenFrameBehavior": "created lazily for active target and visible only in Evacuation Stage 2; not official approval",
       "routeBehavior": "estimated prototype guidance only; no official route claim",
-      "resultPanelBehavior": "warning repeated when selected"
+      "resultPanelBehavior": "warning repeated when selected",
+      "nameSource": "local_osm_cache",
+      "nameProvider": "OpenStreetMap Nominatim"
     },
     {
       "id": "p8_plateau_highrise_candidate_105",
@@ -1239,5 +1308,7 @@
       "greenFrameBehavior": "created for active target and visible only in Evacuation Stage 2",
       "routeBehavior": "local estimated prototype route guide; not official"
     }
-  ]
+  ],
+  "nonOfficialCandidateNameEnrichmentApplied": true,
+  "nonOfficialCandidateNamesUpdated": 31
 }

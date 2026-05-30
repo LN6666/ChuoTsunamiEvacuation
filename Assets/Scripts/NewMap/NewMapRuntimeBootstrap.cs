@@ -126,6 +126,9 @@ public sealed class NewMapRuntimeBootstrap : MonoBehaviour
     public int LastBuildingPrecisionTargetClearanceBoundsSplit { get; private set; }
     public int LastBuildingPrecisionTargetClearanceBoundsRemoved { get; private set; }
     public int LastBuildingPrecisionTargetClearanceZones { get; private set; }
+    public int LastActiveTargetsInsidePlayableBoundaryCount { get; private set; }
+    public int LastActiveTargetsOutsidePlayableBoundaryDisabledCount { get; private set; }
+    public int LastRouteGuidesSuppressedOutsidePlayableBoundaryCount { get; private set; }
     public bool LastBuildingFinalRefinementEnabled { get; private set; }
     public int LastBuildingFinalRefinementProxiesScanned { get; private set; }
     public int LastBuildingFinalRefinementOverflowFound { get; private set; }
@@ -204,6 +207,15 @@ public sealed class NewMapRuntimeBootstrap : MonoBehaviour
     public float LastGroundMicroRaiseNewY { get; private set; }
     public bool LastGroundMicroRaiseAppliedToSupportColliders { get; private set; }
     public string LastGroundMicroRaiseStatus { get; private set; } = "not_evaluated";
+    public bool LastGroundRaise30Enabled { get; private set; }
+    public string LastGroundRaise30BaselineMode { get; private set; } = "not_evaluated";
+    public float LastGroundRaise30OldGroundY { get; private set; }
+    public float LastGroundRaise30OldRaiseOffset { get; private set; }
+    public float LastGroundRaise30NewGroundY { get; private set; }
+    public float LastGroundRaise30NewRaiseOffset { get; private set; }
+    public float LastGroundRaise30ActualRaiseMeters { get; private set; }
+    public float LastGroundRaise30ActualRaisePercent { get; private set; }
+    public string LastGroundRaise30Status { get; private set; } = "not_evaluated";
     public bool LastBuildingSnapdownEnabled { get; private set; }
     public int LastBuildingSnapdownScannedCount { get; private set; }
     public int LastFloatingBuildingCandidateCount { get; private set; }
@@ -228,6 +240,7 @@ public sealed class NewMapRuntimeBootstrap : MonoBehaviour
     private NewMapFloatingBuildingSnapdownConfig buildingSnapdownConfig;
     private NewMapGroundCoverRaiseConfig groundRaiseConfig;
     private NewMapFinalGroundMicroRaiseConfig groundMicroRaiseConfig;
+    private NewMapGroundRaise30Config groundRaise30Config;
     private NewMapAirwallHardCleanupConfig airwallCleanupConfig;
     private NewMapBuildingCollisionPrecisionConfig buildingPrecisionConfig;
     private NewMapBuildingCollisionFinalRefinementConfig buildingFinalRefinementConfig;
@@ -316,6 +329,7 @@ public sealed class NewMapRuntimeBootstrap : MonoBehaviour
         buildingSnapdownConfig = NewMapFloatingBuildingSnapdownConfig.Load();
         groundRaiseConfig = NewMapGroundCoverRaiseConfig.Load();
         groundMicroRaiseConfig = NewMapFinalGroundMicroRaiseConfig.Load();
+        groundRaise30Config = NewMapGroundRaise30Config.Load();
         airwallCleanupConfig = NewMapAirwallHardCleanupConfig.Load();
         buildingPrecisionConfig = NewMapBuildingCollisionPrecisionConfig.Load();
         buildingFinalRefinementConfig = NewMapBuildingCollisionFinalRefinementConfig.Load();
@@ -379,6 +393,7 @@ public sealed class NewMapRuntimeBootstrap : MonoBehaviour
             targets.AddRange(CreateLocalRuntimeTargets(roots, spawn));
         }
 
+        targets = FilterTargetsByPlayableBoundary(targets);
         CarveBuildingPrecisionTargetClearances(targets);
         RunBuildingCollisionPrecisionCorridorDiagnostics(targets, spawn);
         Physics.SyncTransforms();
@@ -407,9 +422,12 @@ public sealed class NewMapRuntimeBootstrap : MonoBehaviour
             LastPlayableBounds,
             LastRuntimeGroundSurfaceY,
             tsunamiHotfixConfig);
+        Vector3 crowdCenter = LastCircularBoundaryEnabled && LastCircularBoundary.IsValid
+            ? new Vector3(LastCircularBoundary.Center.x, LastRuntimeGroundSurfaceY + GroundSkinOffset, LastCircularBoundary.Center.y)
+            : spawn;
         NewMapNpcCrowdPrototype crowd = NewMapNpcCrowdPrototype.Create(
             roots["CrowdRoot"],
-            spawn,
+            crowdCenter,
             LastPlayableBounds,
             buildingAvoidanceBounds,
             LastCircularBoundary,
@@ -477,6 +495,9 @@ public sealed class NewMapRuntimeBootstrap : MonoBehaviour
             $"circularBoundaryCenterZ={LastCircularBoundary.Center.y:F2} circularBoundaryRadius={LastCircularBoundary.RadiusMeters:F1} " +
             $"circularBoundaryPlayerClamp={LastCircularBoundaryPlayerClampEnabled} circularBoundaryNpcClamp={LastCircularBoundaryNpcClampEnabled} " +
             $"circularBoundaryDiagnosticColliders={LastCircularBoundaryDiagnosticColliderCount} " +
+            $"activeTargetsInsidePlayableBoundary={LastActiveTargetsInsidePlayableBoundaryCount} " +
+            $"activeTargetsOutsidePlayableBoundaryDisabled={LastActiveTargetsOutsidePlayableBoundaryDisabledCount} " +
+            $"routeGuidesSuppressedOutsidePlayableBoundary={LastRouteGuidesSuppressedOutsidePlayableBoundaryCount} " +
             $"airWallColliders={LastPlayableAirWallColliderCount} airWallVisibleRenderers={LastPlayableAirWallVisibleRendererCount} " +
             $"airwallHardCollidersScanned={LastAirwallHardTotalCollidersScanned} unexpectedAirwallBlockers={LastUnexpectedAirwallBlockersFound} " +
             $"airwallBlockersRemoved={LastUnexpectedAirwallBlockersRemoved} airwallBlockersResized={LastUnexpectedAirwallBlockersResized} " +
@@ -542,6 +563,11 @@ public sealed class NewMapRuntimeBootstrap : MonoBehaviour
             $"groundMicroRaiseAdditional={LastGroundMicroRaiseAdditionalMeters:F2} groundMicroRaiseNewY={LastGroundMicroRaiseNewY:F2} " +
             $"groundMicroRaiseSupportColliders={LastGroundMicroRaiseAppliedToSupportColliders} " +
             $"groundMicroRaiseStatus={SafeLog(LastGroundMicroRaiseStatus)} " +
+            $"groundRaise30Enabled={LastGroundRaise30Enabled} groundRaise30BaselineMode={SafeLog(LastGroundRaise30BaselineMode)} " +
+            $"groundRaise30OldGroundY={LastGroundRaise30OldGroundY:F2} groundRaise30OldOffset={LastGroundRaise30OldRaiseOffset:F2} " +
+            $"groundRaise30NewGroundY={LastGroundRaise30NewGroundY:F2} groundRaise30NewOffset={LastGroundRaise30NewRaiseOffset:F2} " +
+            $"groundRaise30ActualRaiseMeters={LastGroundRaise30ActualRaiseMeters:F2} groundRaise30ActualRaisePercent={LastGroundRaise30ActualRaisePercent:F2} " +
+            $"groundRaise30Status={SafeLog(LastGroundRaise30Status)} " +
             $"buildingSnapdownEnabled={LastBuildingSnapdownEnabled} buildingSnapdownScanned={LastBuildingSnapdownScannedCount} " +
             $"floatingBuildingCandidates={LastFloatingBuildingCandidateCount} buildingsSnappedDown={LastBuildingSnapdownMovedCount} " +
             $"buildingSnapdownSkipped={LastBuildingSnapdownSkippedCount} buildingSnapdownRemainingFloating={LastBuildingSnapdownRemainingFloatingCount} " +
@@ -635,6 +661,8 @@ public sealed class NewMapRuntimeBootstrap : MonoBehaviour
         int nonOfficialCount = 0;
         int rankableGuidanceCount = 0;
         int routeGuideCount = 0;
+        int activeTargetsOutsideBoundary = 0;
+        int routeGuidesOutsideBoundary = 0;
         foreach (NewMapRuntimeTarget target in controller.RuntimeTargets)
         {
             if (target == null || !target.ActiveInGame)
@@ -672,9 +700,25 @@ public sealed class NewMapRuntimeBootstrap : MonoBehaviour
                     routeProxy = target;
                 }
             }
+
+            bool targetInsideBoundary = target.Anchor != null && IsInsideActivePlayableBoundary(target.Anchor.position, 0f);
+            if (!targetInsideBoundary)
+            {
+                activeTargetsOutsideBoundary++;
+                if (target.RouteGuide != null || target.RouteGuideFactory != null)
+                {
+                    routeGuidesOutsideBoundary++;
+                }
+            }
         }
 
-        LogGameplaySmoke("runtime_target_counts", officialCount >= 15 && nonOfficialCount >= 82, $"official={officialCount} nonOfficial={nonOfficialCount} routeGuides={routeGuideCount}");
+        LogGameplaySmoke(
+            "runtime_target_counts",
+            rankableGuidanceCount > 0 &&
+            nonOfficialCount > 0 &&
+            activeTargetsOutsideBoundary == 0 &&
+            routeGuidesOutsideBoundary == 0,
+            $"official={officialCount} nonOfficial={nonOfficialCount} rankable={rankableGuidanceCount} routeGuides={routeGuideCount} activeOutsideBoundary={activeTargetsOutsideBoundary} routeGuidesOutsideBoundary={routeGuidesOutsideBoundary} disabledOutsideBoundary={LastActiveTargetsOutsidePlayableBoundaryDisabledCount}");
         LogGameplaySmoke("start_menu_visible", ui != null && ui.IsStartMenuVisible, "Start Menu visible after bootstrap reset");
         NewMapNameLabelController labelController = FindObjectOfType<NewMapNameLabelController>();
         LogGameplaySmoke(
@@ -689,6 +733,9 @@ public sealed class NewMapRuntimeBootstrap : MonoBehaviour
 
         controller.StartTourismMode();
         yield return null;
+        float tourismWalkSpeed = player != null ? player.WalkSpeedMetersPerSecond : 0f;
+        float tourismSprintSpeed = player != null ? player.SprintSpeedMetersPerSecond : 0f;
+        bool tourismStaminaEnabled = player != null && player.StaminaEnabled;
         LogGameplaySmoke(
             "tourism_free_roam_no_failure",
             controller.Mode == NewMapGameMode.Tourism && controller.Stage == NewMapTsunamiStage.Inactive && hazard != null && !hazard.RiskChecksActive && player != null && !player.StaminaEnabled && crowd != null && crowd.CurrentCongestionDelaySeconds <= 0.001f,
@@ -752,6 +799,23 @@ public sealed class NewMapRuntimeBootstrap : MonoBehaviour
 
         controller.StartEvacuationMode();
         yield return null;
+        float evacuationWalkSpeed = player != null ? player.WalkSpeedMetersPerSecond : 0f;
+        float evacuationSprintSpeed = player != null ? player.SprintSpeedMetersPerSecond : 0f;
+        float evacuationMaxStamina = player != null ? player.MaxStamina : 0f;
+        float evacuationCurrentStamina = player != null ? player.Stamina : 0f;
+        float evacuationSprintMultiplier = player != null ? player.SprintSpeedMultiplierAdditional : 0f;
+        LogGameplaySmoke(
+            "mode_speed_stamina_rules",
+            player != null &&
+            Mathf.Abs(tourismWalkSpeed - NewMapRuntimeConstants.TourismWalkSpeed) <= 0.001f &&
+            Mathf.Abs(tourismSprintSpeed - NewMapRuntimeConstants.TourismSprintSpeed) <= 0.001f &&
+            !tourismStaminaEnabled &&
+            player.StaminaEnabled &&
+            Mathf.Abs(evacuationWalkSpeed - NewMapRuntimeConstants.EvacuationWalkSpeed) <= 0.001f &&
+            Mathf.Abs(evacuationSprintSpeed - 4.59f) <= 0.001f &&
+            Mathf.Abs(evacuationMaxStamina - 3500f) <= 0.001f &&
+            Mathf.Abs(evacuationSprintMultiplier - 0.918f) <= 0.0001f,
+            $"tourismWalk={tourismWalkSpeed:0.000} tourismSprint={tourismSprintSpeed:0.000} tourismStaminaEnabled={tourismStaminaEnabled} evacuationWalk={evacuationWalkSpeed:0.000} evacuationSprint={evacuationSprintSpeed:0.000} evacuationMaxStamina={evacuationMaxStamina:0.0} evacuationStamina={evacuationCurrentStamina:0.0} evacuationSprintMultiplier={evacuationSprintMultiplier:0.0000}");
         bool initialPreWarningStage =
             controller.Stage == NewMapTsunamiStage.PreWarningWait ||
             (controller.Stage == NewMapTsunamiStage.Warning && controller.PreWarningRandomDurationSeconds <= 0.5f);
@@ -1745,13 +1809,85 @@ public sealed class NewMapRuntimeBootstrap : MonoBehaviour
 
         float raisedYBeforeMicro = Mathf.Clamp(oldCoverY + cappedOffset, -20f, 30f);
         float microAdditional = ResolveGroundMicroRaiseAdditional(raisedYBeforeMicro);
-        LastGroundCoverRaiseOffset = cappedOffset + microAdditional;
-        LastGroundCoverRaiseNewY = Mathf.Clamp(raisedYBeforeMicro + microAdditional, -20f, 30f);
+        float raisedYAfterMicro = Mathf.Clamp(raisedYBeforeMicro + microAdditional, -20f, 30f);
+        float raiseOffsetAfterMicro = Mathf.Max(0f, cappedOffset + microAdditional);
+        float raisedYAfter30 = ResolveGroundRaise30Y(oldCoverY, raisedYAfterMicro, raiseOffsetAfterMicro);
+        LastGroundCoverRaiseOffset = Mathf.Max(0f, raisedYAfter30 - oldCoverY);
+        LastGroundCoverRaiseNewY = raisedYAfter30;
         LastSampledBuildingBaseY = LastGroundCoverRaiseMedianBuildingBaseY;
         LastVisualGroundReferenceY = LastGroundCoverRaiseNewY;
         LastVisualGroundSampleValid = true;
         CalculateRemainingBuildingGapAfterRaise(samples, LastGroundCoverRaiseNewY);
         return LastGroundCoverRaiseNewY;
+    }
+
+    private float ResolveGroundRaise30Y(float baseGroundY, float currentRaisedY, float currentRaiseOffset)
+    {
+        NewMapGroundRaise30Config config = groundRaise30Config ?? NewMapGroundRaise30Config.Default();
+        LastGroundRaise30Enabled = config.enabled;
+        LastGroundRaise30OldGroundY = currentRaisedY;
+        LastGroundRaise30OldRaiseOffset = currentRaiseOffset;
+        LastGroundRaise30NewGroundY = currentRaisedY;
+        LastGroundRaise30NewRaiseOffset = currentRaiseOffset;
+        LastGroundRaise30ActualRaiseMeters = 0f;
+        LastGroundRaise30ActualRaisePercent = 0f;
+
+        if (!config.enabled)
+        {
+            LastGroundRaise30BaselineMode = "disabled";
+            LastGroundRaise30Status = "disabled_by_config";
+            return currentRaisedY;
+        }
+
+        float raisePercent = config.RaisePercent;
+        float targetY = currentRaisedY;
+        float targetOffset = currentRaiseOffset;
+        float baselineMagnitude;
+        if (config.UseExistingRaiseOffsetBaseline(baseGroundY, currentRaiseOffset))
+        {
+            LastGroundRaise30BaselineMode = "existing_raise_offset";
+            baselineMagnitude = Mathf.Max(0.001f, currentRaiseOffset);
+            targetOffset = Mathf.Clamp(
+                currentRaiseOffset * (1f + raisePercent),
+                0f,
+                Mathf.Max(currentRaiseOffset, config.MaxTotalRaiseOffsetMeters));
+            targetY = Mathf.Clamp(baseGroundY + targetOffset, -20f, 30f);
+            LastGroundRaise30Status = "applied_30_percent_to_existing_raise_offset";
+        }
+        else if (Mathf.Abs(currentRaisedY) >= config.AbsoluteGroundYThresholdMeters)
+        {
+            LastGroundRaise30BaselineMode = "absolute_ground_y";
+            baselineMagnitude = Mathf.Max(0.001f, Mathf.Abs(currentRaisedY));
+            targetY = Mathf.Clamp(currentRaisedY * (1f + raisePercent), -20f, 30f);
+            targetOffset = Mathf.Max(0f, targetY - baseGroundY);
+            LastGroundRaise30Status = "applied_30_percent_to_absolute_ground_y";
+        }
+        else
+        {
+            LastGroundRaise30BaselineMode = "fallback_delta";
+            float delta = Mathf.Clamp(
+                config.fallbackDeltaMeters,
+                config.minFallbackDeltaMeters,
+                config.maxFallbackDeltaMeters);
+            baselineMagnitude = Mathf.Max(0.001f, delta / Mathf.Max(0.001f, raisePercent));
+            targetY = Mathf.Clamp(currentRaisedY + delta, -20f, 30f);
+            targetOffset = Mathf.Max(0f, targetY - baseGroundY);
+            LastGroundRaise30Status = "applied_fallback_delta_for_near_zero_ground";
+        }
+
+        LastGroundRaise30NewGroundY = targetY;
+        LastGroundRaise30NewRaiseOffset = targetOffset;
+        LastGroundRaise30ActualRaiseMeters = targetY - currentRaisedY;
+        LastGroundRaise30ActualRaisePercent = baselineMagnitude > 0.001f
+            ? LastGroundRaise30ActualRaiseMeters / baselineMagnitude
+            : 0f;
+
+        if (Mathf.Abs(LastGroundRaise30ActualRaiseMeters) <= 0.001f)
+        {
+            LastGroundRaise30Status += "_unchanged";
+        }
+
+        return targetY;
     }
 
     private float ResolveGroundMicroRaiseAdditional(float previousGroundY)
@@ -3970,6 +4106,20 @@ public sealed class NewMapRuntimeBootstrap : MonoBehaviour
         }
 
         ClearChildren(root);
+        NewMapPlayableBounds coverBounds = bounds;
+        if (LastCircularBoundaryEnabled && LastCircularBoundary.IsValid)
+        {
+            float radius = LastCircularBoundary.RadiusMeters;
+            coverBounds = new NewMapPlayableBounds(
+                LastCircularBoundary.Center.x - radius,
+                LastCircularBoundary.Center.x + radius,
+                LastCircularBoundary.Center.y - radius,
+                LastCircularBoundary.Center.y + radius,
+                bounds.MarginMeters,
+                bounds.BoundaryHeightMeters,
+                bounds.BoundaryThicknessMeters);
+        }
+
         Material material = ResolveGameplayGroundCoverMaterial(config, out string materialSource);
         Color materialColor = ReadMaterialColor(material, config.ToColor());
         LastGameplayGroundCoverMaterialName = material != null ? material.name : "missing_material";
@@ -3979,14 +4129,14 @@ public sealed class NewMapRuntimeBootstrap : MonoBehaviour
 
         float tileSize = Mathf.Clamp(config.tileSizeMeters, 80f, 900f);
         int maxTiles = Mathf.Clamp(config.maxTileCount, 1, 2000);
-        int columns = Mathf.Max(1, Mathf.CeilToInt(bounds.Width / tileSize));
-        int rows = Mathf.Max(1, Mathf.CeilToInt(bounds.Depth / tileSize));
+        int columns = Mathf.Max(1, Mathf.CeilToInt(coverBounds.Width / tileSize));
+        int rows = Mathf.Max(1, Mathf.CeilToInt(coverBounds.Depth / tileSize));
         if (columns * rows > maxTiles)
         {
-            float adjusted = Mathf.Sqrt(Mathf.Max(1f, bounds.Width * bounds.Depth) / maxTiles) * 1.05f;
+            float adjusted = Mathf.Sqrt(Mathf.Max(1f, coverBounds.Width * coverBounds.Depth) / maxTiles) * 1.05f;
             tileSize = Mathf.Clamp(adjusted, tileSize, 1200f);
-            columns = Mathf.Max(1, Mathf.CeilToInt(bounds.Width / tileSize));
-            rows = Mathf.Max(1, Mathf.CeilToInt(bounds.Depth / tileSize));
+            columns = Mathf.Max(1, Mathf.CeilToInt(coverBounds.Width / tileSize));
+            rows = Mathf.Max(1, Mathf.CeilToInt(coverBounds.Depth / tileSize));
         }
 
         float thickness = Mathf.Clamp(config.thicknessMeters, 0.05f, 2f);
@@ -3994,12 +4144,12 @@ public sealed class NewMapRuntimeBootstrap : MonoBehaviour
         int tileIndex = 1;
         for (int row = 0; row < rows; row++)
         {
-            float minZ = Mathf.Lerp(bounds.MinZ, bounds.MaxZ, row / (float)rows);
-            float maxZ = Mathf.Lerp(bounds.MinZ, bounds.MaxZ, (row + 1) / (float)rows);
+            float minZ = Mathf.Lerp(coverBounds.MinZ, coverBounds.MaxZ, row / (float)rows);
+            float maxZ = Mathf.Lerp(coverBounds.MinZ, coverBounds.MaxZ, (row + 1) / (float)rows);
             for (int column = 0; column < columns; column++)
             {
-                float minX = Mathf.Lerp(bounds.MinX, bounds.MaxX, column / (float)columns);
-                float maxX = Mathf.Lerp(bounds.MinX, bounds.MaxX, (column + 1) / (float)columns);
+                float minX = Mathf.Lerp(coverBounds.MinX, coverBounds.MaxX, column / (float)columns);
+                float maxX = Mathf.Lerp(coverBounds.MinX, coverBounds.MaxX, (column + 1) / (float)columns);
                 Vector3 center = new Vector3((minX + maxX) * 0.5f, coverY - thickness * 0.5f, (minZ + maxZ) * 0.5f);
                 Vector3 scale = new Vector3(Mathf.Max(0.1f, maxX - minX + overlap), thickness, Mathf.Max(0.1f, maxZ - minZ + overlap));
                 GameObject tile = GameObject.CreatePrimitive(PrimitiveType.Cube);
@@ -4048,7 +4198,7 @@ public sealed class NewMapRuntimeBootstrap : MonoBehaviour
             !LastGameplayGroundCoverMaterialMagentaLike;
         LastGameplayGroundCoverYMin = coverY;
         LastGameplayGroundCoverYMax = coverY;
-        LastGameplayGroundCoverTotalArea = bounds.Width * bounds.Depth;
+        LastGameplayGroundCoverTotalArea = coverBounds.Width * coverBounds.Depth;
         LastRuntimeCollisionSupportProxyActive = LastRuntimeCollisionSupportProxyActive || LastGameplayGroundCoverColliderCount > 0;
         LastRuntimeCollisionSupportColliderActive = LastRuntimeCollisionSupportColliderActive || LastGameplayGroundCoverColliderCount > 0;
         LastRuntimeCollisionSupportRendererVisible = false;
@@ -4219,6 +4369,84 @@ public sealed class NewMapRuntimeBootstrap : MonoBehaviour
             {
                 LastActiveTargetHeightOffsetViolations++;
             }
+        }
+    }
+
+    private List<NewMapRuntimeTarget> FilterTargetsByPlayableBoundary(List<NewMapRuntimeTarget> targets)
+    {
+        LastActiveTargetsInsidePlayableBoundaryCount = 0;
+        LastActiveTargetsOutsidePlayableBoundaryDisabledCount = 0;
+        LastRouteGuidesSuppressedOutsidePlayableBoundaryCount = 0;
+
+        if (targets == null || targets.Count == 0)
+        {
+            return new List<NewMapRuntimeTarget>();
+        }
+
+        var playableTargets = new List<NewMapRuntimeTarget>(targets.Count);
+        for (int i = 0; i < targets.Count; i++)
+        {
+            NewMapRuntimeTarget target = targets[i];
+            if (target == null)
+            {
+                continue;
+            }
+
+            if (target.Anchor == null || !IsInsideActivePlayableBoundary(target.Anchor.position, 0f))
+            {
+                if (target.RouteGuide != null || target.RouteGuideFactory != null)
+                {
+                    LastRouteGuidesSuppressedOutsidePlayableBoundaryCount++;
+                }
+
+                DisableTargetOutsidePlayableBoundary(target);
+                LastActiveTargetsOutsidePlayableBoundaryDisabledCount++;
+                continue;
+            }
+
+            LastActiveTargetsInsidePlayableBoundaryCount++;
+            playableTargets.Add(target);
+        }
+
+        return playableTargets;
+    }
+
+    private bool IsInsideActivePlayableBoundary(Vector3 position, float insetMeters)
+    {
+        if (LastCircularBoundaryEnabled && LastCircularBoundary.IsValid)
+        {
+            return LastCircularBoundary.ContainsXZ(position, insetMeters);
+        }
+
+        return !LastPlayableBoundsValid || LastPlayableBounds.ContainsXZ(position, insetMeters);
+    }
+
+    private static void DisableTargetOutsidePlayableBoundary(NewMapRuntimeTarget target)
+    {
+        if (target == null)
+        {
+            return;
+        }
+
+        target.DisabledReason = "disabled_out_of_playable_bounds_2_27km";
+        target.GreenFrameFactory = null;
+        target.RouteGuideFactory = null;
+        target.EntryTrigger = null;
+
+        SetInactive(target.Marker);
+        SetInactive(target.GreenFrame);
+        SetInactive(target.RouteGuide);
+        if (target.Anchor != null)
+        {
+            target.Anchor.gameObject.SetActive(false);
+        }
+    }
+
+    private static void SetInactive(GameObject gameObject)
+    {
+        if (gameObject != null)
+        {
+            gameObject.SetActive(false);
         }
     }
 
@@ -5189,6 +5417,86 @@ public sealed class NewMapFinalGroundMicroRaiseConfig
 }
 
 [System.Serializable]
+public sealed class NewMapGroundRaise30Config
+{
+    public bool enabled = true;
+    public float raisePercent = 0.30f;
+    public string baselineMode = "existing_raise_offset";
+    public float nearZeroGroundYThresholdMeters = 1.0f;
+    public float absoluteGroundYThresholdMeters = 1.0f;
+    public bool useExistingRaiseOffsetWhenNearZero = true;
+    public float minFallbackDeltaMeters = 0.3f;
+    public float maxFallbackDeltaMeters = 2.0f;
+    public float fallbackDeltaMeters = 0.9f;
+    public float maxTotalRaiseOffsetMeters = 10.0f;
+    public bool resnapPlayer = true;
+    public bool resnapNpc = true;
+    public bool resnapTargets = true;
+    public bool resnapGreenFrames = true;
+    public bool resnapRouteMarkers = true;
+    public bool resnapAirWallVerticalRange = true;
+
+    public float RaisePercent => Mathf.Clamp(raisePercent, 0.01f, 1.0f);
+    public float NearZeroGroundYThresholdMeters => Mathf.Clamp(nearZeroGroundYThresholdMeters, 0f, 5f);
+    public float AbsoluteGroundYThresholdMeters => Mathf.Clamp(absoluteGroundYThresholdMeters, 0f, 5f);
+    public float MaxTotalRaiseOffsetMeters => Mathf.Clamp(maxTotalRaiseOffsetMeters, 0.1f, 30f);
+
+    public bool UseExistingRaiseOffsetBaseline(float baseGroundY, float currentRaiseOffset)
+    {
+        if (string.Equals(baselineMode, "existing_raise_offset", System.StringComparison.OrdinalIgnoreCase))
+        {
+            return currentRaiseOffset > 0.001f;
+        }
+
+        return useExistingRaiseOffsetWhenNearZero &&
+            Mathf.Abs(baseGroundY) < NearZeroGroundYThresholdMeters &&
+            currentRaiseOffset > 0.001f;
+    }
+
+    public static NewMapGroundRaise30Config Default()
+    {
+        return new NewMapGroundRaise30Config();
+    }
+
+    public static NewMapGroundRaise30Config Load()
+    {
+        NewMapGroundRaise30Config config = Default();
+        string path = Path.Combine(Application.dataPath, "Data/P10/newmap_ground_raise_30_config.json");
+        if (File.Exists(path))
+        {
+            try
+            {
+                config = JsonUtility.FromJson<NewMapGroundRaise30Config>(File.ReadAllText(path)) ?? config;
+            }
+            catch (System.Exception exception)
+            {
+                Debug.LogWarning($"NewMap ground raise 30 percent config could not be loaded; using defaults. {exception.Message}");
+            }
+        }
+
+        if (string.IsNullOrWhiteSpace(config.baselineMode))
+        {
+            config.baselineMode = "existing_raise_offset";
+        }
+
+        config.raisePercent = config.RaisePercent;
+        config.nearZeroGroundYThresholdMeters = config.NearZeroGroundYThresholdMeters;
+        config.absoluteGroundYThresholdMeters = config.AbsoluteGroundYThresholdMeters;
+        config.minFallbackDeltaMeters = Mathf.Clamp(config.minFallbackDeltaMeters, 0f, 5f);
+        config.maxFallbackDeltaMeters = Mathf.Clamp(config.maxFallbackDeltaMeters, config.minFallbackDeltaMeters, 5f);
+        config.fallbackDeltaMeters = Mathf.Clamp(config.fallbackDeltaMeters, config.minFallbackDeltaMeters, config.maxFallbackDeltaMeters);
+        config.maxTotalRaiseOffsetMeters = config.MaxTotalRaiseOffsetMeters;
+        config.resnapPlayer = true;
+        config.resnapNpc = true;
+        config.resnapTargets = true;
+        config.resnapGreenFrames = true;
+        config.resnapRouteMarkers = true;
+        config.resnapAirWallVerticalRange = true;
+        return config;
+    }
+}
+
+[System.Serializable]
 public sealed class NewMapAirwallHardCleanupConfig
 {
     public bool enabled = true;
@@ -5716,7 +6024,7 @@ public sealed class NewMapCircularBoundaryConfig
     public string centerSource = "original_map_center";
     public float centerX;
     public float centerZ;
-    public float radiusMeters = 3500f;
+    public float radiusMeters = 2270f;
     public float boundaryHeightMeters = 300f;
     public string boundaryMode = "runtime_circular_clamp";
     public bool visibleInNormalMode;

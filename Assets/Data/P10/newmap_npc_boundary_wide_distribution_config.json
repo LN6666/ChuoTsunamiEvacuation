@@ -1,0 +1,15 @@
+{
+  "enabled": true,
+  "centerSource": "same_as_circular_boundary",
+  "distributionRadiusMeters": 2270,
+  "matchCircularBoundary": true,
+  "useSectorDistribution": true,
+  "sectorCount": 48,
+  "ringCount": 8,
+  "minDistanceFromPlayerMeters": 20,
+  "minDistanceBetweenNpcMeters": 3,
+  "avoidBuildings": true,
+  "snapToRaisedGround": true,
+  "useDeterministicSeed": true,
+  "npcDistributionSeed": 20260530
+}

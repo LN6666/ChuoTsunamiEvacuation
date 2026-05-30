@@ -1,0 +1,23 @@
+﻿{
+    "activeScene":  "Assets/Scenes/Chuo_BaseMap.unity",
+    "sampleAreas":  [
+                        "player_spawn_area",
+                        "active_official_shelters",
+                        "active_non_official_candidates",
+                        "dense_visible_building_clusters",
+                        "previous_floating_risk_areas"
+                    ],
+    "improvedCount":  10787,
+    "embeddedRiskCount":  0,
+    "averageGapBefore":  0.32,
+    "maxGapBefore":  2.82,
+    "importedBuildingsMoved":  false,
+    "generatedAt":  "2026-05-31T01:45:49",
+    "sampledBuildings":  10787,
+    "stillFloatingCount":  59,
+    "averageGapAfter":  0.06,
+    "maxGapAfter":  1.83,
+    "fullFixClaimed":  false,
+    "remainingFloatingAcceptableVisualLimitation":  "manual_visual_check_required_after_runtime_gap_reduction",
+    "runtimeValidationStatus":  "validated_by_player_log_measurements_manual_visual_check_required"
+}

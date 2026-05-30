@@ -1,0 +1,15 @@
+﻿{
+    "activeScene":  "Assets/Scenes/Chuo_BaseMap.unity",
+    "npcCountDoubled":  true,
+    "npcDistributionRadiusMeters":  2270,
+    "playerNpcSoftBlockingPreserved":  true,
+    "npcBuildingClipNearCameraRegression":  false,
+    "tourismModeNpcFailureDisabled":  true,
+    "evacuationCrowdDelayBounded":  true,
+    "generatedAt":  "2026-05-31T01:45:49",
+    "npcContinueMovingOrValidState":  "passed",
+    "rapidGlobalRefresh":  false,
+    "allStopAfterPlayerContact":  false,
+    "npcsStayGrounded":  true,
+    "runtimeValidationStatus":  "validated_by_player_log"
+}

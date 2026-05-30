@@ -54,7 +54,7 @@
       "colliderType": "none",
       "isTrigger": false,
       "layer": "Default",
-      "bounds": "center plus 3500m radius runtime clamp",
+      "bounds": "center plus 2270m radius runtime clamp",
       "category": "map_boundary",
       "blocksPlayerBefore": false,
       "shouldBlockPlayerAfter": true,

@@ -1,9 +1,11 @@
-# NewMap Circular Boundary 3.5km
+# NewMap Circular Boundary Superseded
 
 Config: `Assets/Data/P10/newmap_circular_boundary_config.json`
 
+The earlier larger circular boundary has been superseded by the active 2.27km runtime clamp.
+
 - Center source: `original_map_center`
-- Radius: `3500` meters
+- Active radius: `2270` meters
 - Boundary method: `runtime_circular_clamp`
 - Player clamp: enabled
 - NPC clamp: enabled
@@ -12,11 +14,9 @@ Config: `Assets/Data/P10/newmap_circular_boundary_config.json`
 
 The runtime clamp projects player and NPC positions back inside the circle instead of creating segmented wall colliders. This removes the old random rectangular air-wall behavior while still preventing exits from the playable map.
 
-The invisible support surface is expanded to cover the circular boundary so fall prevention remains intact at the edge.
-
-Player smoke result:
+Player smoke expectations:
 - Runtime center: `-2.14, 474.58`
-- Radius: `3500m`
+- Active radius: `2270m`
 - Player clamp: passed
 - NPC clamp: passed
 - Diagnostic colliders: 0

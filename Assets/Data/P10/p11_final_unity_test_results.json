@@ -1,0 +1,18 @@
+{
+  "generatedAt": "2026-05-31T03:01:00+09:00",
+  "editMode": {
+    "result": "passed",
+    "total": 127,
+    "passed": 127,
+    "failed": 0,
+    "resultsPath": "test-results/editmode-results.xml"
+  },
+  "playMode": {
+    "result": "passed",
+    "total": 43,
+    "passed": 43,
+    "failed": 0,
+    "resultsPath": "test-results/playmode-results.xml"
+  },
+  "finalStatus": "passed"
+}

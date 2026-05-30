@@ -155,7 +155,7 @@ foreach ($key in $scenarioResults.Keys) {
 
 $collisionPassed =
     $boundary.enabled -eq $true -and
-    [math]::Abs([double]$boundary.radiusMeters - 3500.0) -le 0.01 -and
+    [math]::Abs([double]$boundary.radiusMeters - 2270.0) -le 0.01 -and
     $boundary.playerClamp -eq $true -and
     $boundary.npcClamp -eq $true -and
     $collision.airWallColliders -eq 0 -and

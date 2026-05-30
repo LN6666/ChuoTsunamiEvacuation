@@ -161,8 +161,8 @@ public class NewMapRuntimePlayModeTests
         Assert.IsTrue(bootstrap.LastFallOutPreventionEnabled);
         Assert.AreEqual(0, bootstrap.LastVisibleLargeBlueGroundRendererCount);
         Assert.IsTrue(bootstrap.LastPlayableBoundsValid, "Playable bounds should be resolved for Chuo_BaseMap.");
-        Assert.IsTrue(bootstrap.LastCircularBoundaryEnabled, "The NewMap edge should be the 3.5km circular clamp.");
-        Assert.AreEqual(3500f, bootstrap.LastCircularBoundary.RadiusMeters, 0.001f);
+        Assert.IsTrue(bootstrap.LastCircularBoundaryEnabled, "The NewMap edge should be the 2.27km circular clamp.");
+        Assert.AreEqual(2270f, bootstrap.LastCircularBoundary.RadiusMeters, 0.001f);
         Assert.IsTrue(bootstrap.LastCircularBoundaryPlayerClampEnabled);
         Assert.IsTrue(bootstrap.LastCircularBoundaryNpcClampEnabled);
         Assert.AreEqual(0, bootstrap.LastPlayableAirWallColliderCount, "Old rectangular air-wall colliders must not be created.");
@@ -252,7 +252,7 @@ public class NewMapRuntimePlayModeTests
     [UnityTest]
     public IEnumerator RuntimeMouseDragLookRequiresButtonAndRestoresAfterPause()
     {
-        NewMapRuntimeBootstrap.CreateForCurrentScene();
+        NewMapRuntimeBootstrap bootstrap = NewMapRuntimeBootstrap.CreateForCurrentScene();
         NewMapPlayerController player = Object.FindObjectOfType<NewMapPlayerController>();
         NewMapGameController controller = Object.FindObjectOfType<NewMapGameController>();
         Assert.NotNull(player);
@@ -475,27 +475,32 @@ public class NewMapRuntimePlayModeTests
         controller.StartTourismMode();
         yield return null;
 
-        Assert.AreEqual(800, crowd.RequestedNpcCount, "NPC requested count should be 100x the baseline count of 8 before cap.");
-        Assert.LessOrEqual(crowd.SpawnedNpcCount, 800);
+        Assert.AreEqual(1600, crowd.RequestedNpcCount, "NPC requested count should be doubled from the previous 800 baseline.");
+        Assert.LessOrEqual(crowd.SpawnedNpcCount, 1600);
         Assert.AreEqual(crowd.CappedNpcCount, crowd.SpawnedNpcCount);
-        Assert.AreEqual(800, crowd.CappedNpcCount);
-        Assert.GreaterOrEqual(crowd.UsedSectorCount, 24);
-        Assert.GreaterOrEqual(crowd.UsedRingCount, 5);
+        Assert.AreEqual(1600, crowd.CappedNpcCount);
+        Assert.GreaterOrEqual(crowd.UsedSectorCount, 40);
+        Assert.GreaterOrEqual(crowd.UsedRingCount, 7);
+        Assert.GreaterOrEqual(crowd.DistributionCoveragePercent, 70f);
+        Assert.AreEqual(0, crowd.NpcOutsideBoundaryCount);
+        Assert.AreEqual(crowd.SpawnedNpcCount, crowd.NpcInsideBoundaryCount);
         Assert.IsTrue(crowd.AvoidBuildingsEnabled);
         Assert.IsTrue(crowd.UsePoolingEnabled);
-        Assert.IsFalse(crowd.FarNpcStaticProxyModeEnabled, "Continuous movement validation disables static far proxies so NPCs do not silently freeze.");
+        Assert.IsTrue(crowd.FarNpcStaticProxyModeEnabled, "Doubled boundary-wide NPC count must use far static proxies for performance safety.");
 
         Vector3[] positions = crowd.GetNpcPositionsForDiagnostics();
         Assert.AreEqual(crowd.SpawnedNpcCount, positions.Length);
         foreach (Vector3 position in positions)
         {
-            Vector3 delta = position - player.transform.position;
-            delta.y = 0f;
-            Assert.LessOrEqual(delta.magnitude, 1000.5f);
-            Assert.GreaterOrEqual(delta.magnitude, crowd.MinDistanceFromPlayerMeters - 0.5f);
+            Vector3 centerDelta = position - new Vector3(bootstrap.LastCircularBoundary.Center.x, position.y, bootstrap.LastCircularBoundary.Center.y);
+            centerDelta.y = 0f;
+            Vector3 playerDelta = position - player.transform.position;
+            playerDelta.y = 0f;
+            Assert.LessOrEqual(centerDelta.magnitude, 2270.5f);
+            Assert.GreaterOrEqual(playerDelta.magnitude, crowd.MinDistanceFromPlayerMeters - 0.5f);
             Assert.GreaterOrEqual(position.y, bootstrap.LastRuntimeGroundSurfaceY - 0.75f);
             Assert.LessOrEqual(position.y, bootstrap.LastRuntimeGroundSurfaceY + 1.5f);
-            Assert.IsTrue(bootstrap.LastCircularBoundary.ContainsXZ(position, 0f), "NPC positions must stay inside the 3.5km circular boundary.");
+            Assert.IsTrue(bootstrap.LastCircularBoundary.ContainsXZ(position, 0f), "NPC positions must stay inside the 2.27km circular boundary.");
         }
 
         Vector3[] deterministicA = NewMapNpcCrowdPrototype.GenerateDistributionForDiagnostics(player.transform.position, NewMapNpcDistributionConfig.Default());
@@ -540,18 +545,24 @@ public class NewMapRuntimePlayModeTests
 
         Vector3[] positions = crowd.GetNpcPositionsForDiagnostics();
         Assert.Greater(positions.Length, 0);
-        Vector3 npcPosition = positions[0];
+        Vector3 npcPosition = SelectNpcPositionForPlayerCollision(positions, Object.FindObjectOfType<NewMapRuntimeBootstrap>(), player);
         player.transform.position = new Vector3(npcPosition.x - 1.2f, npcPosition.y, npcPosition.z);
         int previousBlockedCount = player.PlayerNpcCollisionBlockedCount;
 
         player.MoveForDiagnostics(Vector3.right, 0.35f, sprint: false);
+        Vector3[] positionsAfterMove = crowd.GetNpcPositionsForDiagnostics();
         yield return null;
 
         Assert.IsTrue(player.PlayerNpcCollisionEnabled);
         Assert.IsTrue(crowd.PlayerNpcSoftBlockingEnabled);
         Assert.Greater(crowd.NpcBodyColliderCount, 0);
         Assert.Greater(player.PlayerNpcCollisionBlockedCount, previousBlockedCount, "Player movement into an NPC body should be corrected by soft blocking.");
-        Assert.Less(player.transform.position.x, npcPosition.x - 0.45f, "The player should remain outside the near NPC body radius instead of passing through.");
+        Vector2 correctedPlayerPosition = new Vector2(player.transform.position.x, player.transform.position.z);
+        float correctedDistance = positionsAfterMove
+            .Select(position => Vector2.Distance(correctedPlayerPosition, new Vector2(position.x, position.z)))
+            .DefaultIfEmpty(float.PositiveInfinity)
+            .Min();
+        Assert.GreaterOrEqual(correctedDistance, crowd.NearNpcCollisionRadiusMeters + 0.24f, "The player should remain outside the near NPC body radius instead of passing through.");
     }
 
     [UnityTest]
@@ -603,7 +614,7 @@ public class NewMapRuntimePlayModeTests
 
         Vector3[] positions = crowd.GetNpcPositionsForDiagnostics();
         Assert.Greater(positions.Length, 0);
-        Vector3 npcPosition = positions[0];
+        Vector3 npcPosition = SelectNpcPositionForPlayerCollision(positions, Object.FindObjectOfType<NewMapRuntimeBootstrap>(), player);
         int previousContactEvents = crowd.PlayerContactEventCount;
         player.transform.position = new Vector3(npcPosition.x - 1.2f, npcPosition.y, npcPosition.z);
         player.MoveForDiagnostics(Vector3.right, 0.35f, sprint: false);
@@ -645,7 +656,12 @@ public class NewMapRuntimePlayModeTests
         Assert.IsTrue(bootstrap.LastGroundMicroRaiseEnabled);
         Assert.AreEqual(0.3f, bootstrap.LastGroundMicroRaiseAdditionalMeters, 0.01f);
         Assert.AreEqual(bootstrap.LastGroundMicroRaisePreviousY + 0.3f, bootstrap.LastGroundMicroRaiseNewY, 0.02f);
-        Assert.AreEqual(bootstrap.LastGroundMicroRaiseNewY, bootstrap.LastGameplayGroundCoverY, 0.02f);
+        Assert.IsTrue(bootstrap.LastGroundRaise30Enabled);
+        Assert.AreEqual("existing_raise_offset", bootstrap.LastGroundRaise30BaselineMode);
+        Assert.AreEqual(bootstrap.LastGroundMicroRaiseNewY, bootstrap.LastGroundRaise30OldGroundY, 0.02f);
+        Assert.AreEqual(0.30f, bootstrap.LastGroundRaise30ActualRaisePercent, 0.02f);
+        Assert.Greater(bootstrap.LastGroundRaise30ActualRaiseMeters, 0.5f);
+        Assert.AreEqual(bootstrap.LastGroundRaise30NewGroundY, bootstrap.LastGameplayGroundCoverY, 0.02f);
         Assert.IsTrue(bootstrap.LastGroundMicroRaiseAppliedToSupportColliders);
         Assert.IsFalse(bootstrap.LastBuildingSnapdownEnabled, "Ground raise pass keeps imported buildings fixed and disables runtime snapdown.");
         Assert.AreEqual(0, bootstrap.LastBuildingSnapdownMovedCount);
@@ -672,7 +688,10 @@ public class NewMapRuntimePlayModeTests
         Assert.GreaterOrEqual(labels.ReliableCacheLabelCount, 90);
         Assert.GreaterOrEqual(labels.BuildingNameLabelCount, 30, "Expanded reliable cache-backed building names should be shown.");
         Assert.GreaterOrEqual(labels.RoadNameLabelCount, 80, "Expanded reliable cache-backed road names should be shown.");
+        Assert.GreaterOrEqual(labels.NonOfficialCandidateLabelCount, 30, "Playable non-official candidates should have local/cache-backed display names where matched.");
+        Assert.GreaterOrEqual(labels.EnrichedNonOfficialCandidateLabelCount, 20, "Coordinate-enriched non-official candidate names should load from cache.");
         Assert.AreEqual(0, labels.IdOnlyLabelCount, "ID-only labels must stay hidden in normal mode.");
+        Assert.AreEqual(0, labels.RuntimeWebRequestsObserved, "Runtime labels must not perform web requests.");
         Assert.AreEqual(0, labels.LowConfidenceHiddenCount, "Low-confidence names should be omitted before runtime display.");
         StringAssert.Contains("source_or_cached_names_available", labels.SourceNameAvailabilityStatus);
         Assert.Greater(labels.NonOfficialCandidateLabelCount, 0, "Existing non-official candidate dataset names should be label sources.");
@@ -725,6 +744,7 @@ public class NewMapRuntimePlayModeTests
         foreach (NewMapRuntimeTarget target in controller.RuntimeTargets.Where(target => target != null && target.ActiveInGame))
         {
             Assert.NotNull(target.Anchor);
+            Assert.IsTrue(bootstrap.LastCircularBoundary.ContainsXZ(target.Anchor.position, 0f), "Active targets must remain inside the 2.27km playable boundary.");
             Assert.GreaterOrEqual(target.Anchor.position.y, bootstrap.LastRuntimeGroundSurfaceY - 0.75f);
             Assert.LessOrEqual(target.Anchor.position.y, bootstrap.LastRuntimeGroundSurfaceY + 1.5f);
             activeTargetChecks++;
@@ -765,18 +785,25 @@ public class NewMapRuntimePlayModeTests
         controller.StartEvacuationMode();
         yield return null;
         Assert.AreEqual(1.0f, player.WalkSpeedMetersPerSecond, 0.001f);
-        Assert.AreEqual(5.7375f, player.SprintSpeedMetersPerSecond, 0.001f);
+        Assert.AreEqual(4.59f, player.SprintSpeedMetersPerSecond, 0.001f);
         Assert.IsTrue(player.StaminaEnabled);
         Assert.AreEqual(100f, player.BaselineMaxStamina, 0.001f);
-        Assert.AreEqual(130f, player.StaminaMultiplier, 0.001f);
-        Assert.AreEqual(1.1475f, player.SprintSpeedMultiplierAdditional, 0.001f);
-        Assert.AreEqual(13000f, player.MaxStamina, 0.001f);
-        Assert.AreEqual(13000f, player.Stamina, 0.001f);
+        Assert.AreEqual(35f, player.StaminaMultiplier, 0.001f);
+        Assert.AreEqual(0.918f, player.SprintSpeedMultiplierAdditional, 0.001f);
+        Assert.AreEqual(3500f, player.MaxStamina, 0.001f);
+        Assert.AreEqual(3500f, player.Stamina, 0.001f);
+
+        float staminaBeforeSprint = player.Stamina;
+        player.MoveForDiagnostics(Vector3.forward, 0.5f, sprint: true);
+        Assert.Less(player.Stamina, staminaBeforeSprint, "Evacuation sprint should still drain stamina after final P10 tuning.");
+        float staminaAfterDrain = player.Stamina;
+        player.MoveForDiagnostics(Vector3.zero, 0.5f, sprint: false);
+        Assert.Greater(player.Stamina, staminaAfterDrain, "Evacuation idle/non-sprint should still recover stamina after final P10 tuning.");
 
         controller.SetWeather(NewMapWeatherPreset.NightRain);
         yield return null;
         Assert.AreEqual(0.65f, player.WalkSpeedMetersPerSecond, 0.001f);
-        Assert.AreEqual(3.729375f, player.SprintSpeedMetersPerSecond, 0.001f);
+        Assert.AreEqual(2.9835f, player.SprintSpeedMetersPerSecond, 0.001f);
     }
 
     [UnityTest]
@@ -989,7 +1016,7 @@ public class NewMapRuntimePlayModeTests
     }
 
     [UnityTest]
-    public IEnumerator RuntimeCircularBoundaryClampsPlayerAndNpcsInsideThreePointFiveKm()
+    public IEnumerator RuntimeCircularBoundaryClampsPlayerAndNpcsInsideTwoPointTwoSevenKm()
     {
         NewMapRuntimeBootstrap bootstrap = NewMapRuntimeBootstrap.CreateForCurrentScene();
         NewMapPlayerController player = Object.FindObjectOfType<NewMapPlayerController>();
@@ -999,7 +1026,7 @@ public class NewMapRuntimePlayModeTests
         Assert.NotNull(crowd);
 
         Assert.IsTrue(bootstrap.LastCircularBoundaryEnabled);
-        Assert.AreEqual(3500f, bootstrap.LastCircularBoundary.RadiusMeters, 0.001f);
+        Assert.AreEqual(2270f, bootstrap.LastCircularBoundary.RadiusMeters, 0.001f);
         Assert.IsTrue(player.CircularBoundaryClampEnabled);
         Assert.IsTrue(crowd.CircularBoundaryClampEnabled);
 
@@ -1102,19 +1129,21 @@ public class NewMapRuntimePlayModeTests
     [UnityTest]
     public IEnumerator RuntimeRecoveredNonOfficialCandidatesRemainWarningOnly()
     {
-        NewMapRuntimeBootstrap.CreateForCurrentScene();
+        NewMapRuntimeBootstrap bootstrap = NewMapRuntimeBootstrap.CreateForCurrentScene();
         NewMapGameController controller = Object.FindObjectOfType<NewMapGameController>();
         NewMapRuntimeUI ui = Object.FindObjectOfType<NewMapRuntimeUI>();
         Assert.NotNull(controller);
         Assert.NotNull(ui);
 
-        NewMapRuntimeTarget recovered = controller.RuntimeTargets.FirstOrDefault(target => target.Id == "p8_plateau_highrise_candidate_001");
+        NewMapRuntimeTarget recovered = controller.RuntimeTargets.FirstOrDefault(target => target.Id == "p8_plateau_highrise_candidate_002");
         Assert.NotNull(recovered, "Recovered P8/P9 non-official candidate should be loaded from the runtime candidate cache.");
         Assert.IsFalse(recovered.IsOfficialShelter);
         Assert.IsTrue(recovered.NonOfficialWarningRequired);
         Assert.IsFalse(recovered.SafeApprovedByDefault);
         StringAssert.Contains("humanitarian_candidate", recovered.Category);
-        Assert.GreaterOrEqual(controller.RuntimeTargets.Count(target => !target.IsOfficialShelter), 82);
+        Assert.IsTrue(bootstrap.LastCircularBoundary.ContainsXZ(recovered.Anchor.position, 0f));
+        Assert.GreaterOrEqual(bootstrap.LastActiveTargetsOutsidePlayableBoundaryDisabledCount, 1, "Out-of-bound active target records must be disabled by the 2.27km playable filter.");
+        Assert.GreaterOrEqual(controller.RuntimeTargets.Count(target => !target.IsOfficialShelter), 42);
 
         controller.StartEvacuationMode();
         controller.ForceStageForDiagnostics(NewMapTsunamiStage.FrontApproaching);
@@ -1158,13 +1187,13 @@ public class NewMapRuntimePlayModeTests
         Assert.NotNull(Object.FindObjectsOfType<Transform>(true).FirstOrDefault(transform => transform.name == "ForceQuitButton"));
 
         NewMapRuntimeTarget officialTarget = controller.RuntimeTargets.FirstOrDefault(target => target.Id == "chuo_official_emergency_001");
-        NewMapRuntimeTarget nonOfficialTarget = controller.RuntimeTargets.FirstOrDefault(target => target.Id == "p8_plateau_highrise_candidate_001");
+        NewMapRuntimeTarget nonOfficialTarget = controller.RuntimeTargets.FirstOrDefault(target => target.Id == "p8_plateau_highrise_candidate_002");
         NewMapRuntimeTarget routeTarget = controller.RuntimeTargets.FirstOrDefault(target => target.Id == "newmap_proxy_safe_floor");
         Assert.NotNull(officialTarget);
         Assert.NotNull(nonOfficialTarget);
         Assert.NotNull(routeTarget);
         Assert.AreEqual(1, controller.RuntimeTargets.Count(target => target.IsOfficialShelter));
-        Assert.GreaterOrEqual(controller.RuntimeTargets.Count(target => !target.IsOfficialShelter), 82);
+        Assert.GreaterOrEqual(controller.RuntimeTargets.Count(target => !target.IsOfficialShelter), 42);
 
         controller.StartTourismMode();
         yield return null;
@@ -1455,5 +1484,49 @@ public class NewMapRuntimePlayModeTests
         Assert.AreEqual(expected.g, actual.g, 0.01f);
         Assert.AreEqual(expected.b, actual.b, 0.01f);
         Assert.AreEqual(expected.a, actual.a, 0.01f);
+    }
+
+    private static Vector3 SelectNpcPositionForPlayerCollision(IEnumerable<Vector3> positions, NewMapRuntimeBootstrap bootstrap, NewMapPlayerController player)
+    {
+        foreach (Vector3 position in positions)
+        {
+            Vector3 startPosition = new Vector3(position.x - 1.2f, player != null ? player.transform.position.y : position.y, position.z);
+            Vector3 intendedPosition = new Vector3(position.x + 0.2f, startPosition.y, position.z);
+            Vector3 expectedCorrectedPosition = new Vector3(position.x - 0.71f, startPosition.y, position.z);
+            if (player != null &&
+                (player.IsInsideBuildingForDiagnostics(position, 0.05f) ||
+                player.IsInsideBuildingForDiagnostics(startPosition, 0.05f) ||
+                player.IsInsideBuildingForDiagnostics(intendedPosition, 0.05f) ||
+                player.IsInsideBuildingForDiagnostics(expectedCorrectedPosition, 0.05f)))
+            {
+                continue;
+            }
+
+            if (bootstrap != null)
+            {
+                if (bootstrap.LastPlayableBoundsValid &&
+                    (!bootstrap.LastPlayableBounds.ContainsXZ(position, 5f) ||
+                    !bootstrap.LastPlayableBounds.ContainsXZ(startPosition, 5f) ||
+                    !bootstrap.LastPlayableBounds.ContainsXZ(intendedPosition, 5f) ||
+                    !bootstrap.LastPlayableBounds.ContainsXZ(expectedCorrectedPosition, 5f)))
+                {
+                    continue;
+                }
+
+                if (bootstrap.LastCircularBoundaryEnabled &&
+                    bootstrap.LastCircularBoundary.IsValid &&
+                    (!bootstrap.LastCircularBoundary.ContainsXZ(position, 5f) ||
+                    !bootstrap.LastCircularBoundary.ContainsXZ(startPosition, 5f) ||
+                    !bootstrap.LastCircularBoundary.ContainsXZ(intendedPosition, 5f) ||
+                    !bootstrap.LastCircularBoundary.ContainsXZ(expectedCorrectedPosition, 5f)))
+                {
+                    continue;
+                }
+            }
+
+            return position;
+        }
+
+        return positions.First();
     }
 }

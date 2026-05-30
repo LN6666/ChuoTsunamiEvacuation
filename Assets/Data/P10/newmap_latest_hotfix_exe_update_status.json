@@ -1,0 +1,98 @@
+{
+  "generatedAt": "2026-05-30T05:18:06+09:00",
+  "workspace": "D:\\UnityProjects\\ChuoTsunamiEvacuation",
+  "branch": "phase5-qualification-routing-plateau",
+  "buildCommitHash": "fa572d1c7e443e935e36430aac35cd991a220b3f",
+  "buildCommitShortHash": "fa572d1c",
+  "buildCommitMessage": "P10 shelter lines and prewarning tuning",
+  "branchPushedBeforeLocalReportUpdate": true,
+  "activeScene": "Assets/Scenes/Chuo_BaseMap.unity",
+  "buildPath": "D:\\UnityProjects\\ChuoTsunamiEvacuation-Builds\\NewMapLatestHotfixPre\\ChuoTsunamiEvacuation_NewMapLatestHotfixPre.exe",
+  "buildResult": "passed",
+  "buildLogPath": "Logs\\newmap_latest_hotfix_pre_build.log",
+  "exeSizeBytes": 667648,
+  "editMode": {
+    "result": "passed",
+    "total": 123,
+    "passed": 123,
+    "failed": 0,
+    "resultsPath": "test-results\\editmode-results.xml"
+  },
+  "playMode": {
+    "result": "passed",
+    "total": 41,
+    "passed": 41,
+    "failed": 0,
+    "resultsPath": "test-results\\playmode-results.xml"
+  },
+  "preflight": {
+    "latestExeUpdate": "passed",
+    "latestExeUpdateChecks": 36,
+    "p10TsunamiHotfix": "passed",
+    "runtimeNoWebRequests": "passed",
+    "noFalseOfficialRouteClaims": "passed",
+    "unexpectedAirwallCleanup": "passed"
+  },
+  "playerLog": {
+    "path": "Logs\\newmap_latest_hotfix_pre_player.log",
+    "selfAuditSmoke": "passed",
+    "errorCount": 0,
+    "warningCount": 0,
+    "exceptionCount": 0,
+    "missingAssetConfigCount": 0,
+    "runtimeWebRequestLineCount": 0
+  },
+  "tsunamiModeConfig": {
+    "configPath": "Assets/Data/P10/newmap_tsunami_mode_hotfix_config.json",
+    "preWarningRandomRangeSeconds": "0-180",
+    "preWarningRandomMaxSeconds": 180.0,
+    "observedPreWarningRandomDurationSeconds": 124.1,
+    "warningDurationSeconds": 300.0,
+    "observedWarningStartTimeSeconds": 124.1,
+    "observedActiveTsunamiStartTimeSeconds": 424.1,
+    "tsunamiStartSide": "south",
+    "hazardInactiveBeforeActive": true,
+    "hazardActiveAfterWarning": true
+  },
+  "staminaConfig": {
+    "configPath": "Assets/Data/P10/newmap_player_stamina_config.json",
+    "baselineMaxStamina": 100.0,
+    "staminaMultiplier": 200.0,
+    "finalMaxStamina": 20000.0,
+    "sprintSpeedMultiplierAdditional": 1.35,
+    "finalEvacuationSprintSpeed": 6.75
+  },
+  "shelterDirectLineGuidance": {
+    "included": true,
+    "configEnabled": true,
+    "maxDisplayedShelterLines": 0,
+    "lineUpdateIntervalSeconds": 0.2,
+    "rankingAutoRefreshIntervalSeconds": 0.5,
+    "runtimeLineCount": 95,
+    "rankableTargets": 95,
+    "officialTargets": 15,
+    "nonOfficialTargets": 82,
+    "lineColliderCount": 0,
+    "blockingColliderCheck": "passed",
+    "nearestLineTurnsRed": "verified_by_playmode",
+    "officialNonOfficialMixedRanking": "verified_by_playmode",
+    "officialRouteClaim": "none"
+  },
+  "runtimeSmoke": {
+    "exeStarted": true,
+    "startMenuVisible": true,
+    "chuoBaseMapLoaded": true,
+    "tourismModeSelectable": true,
+    "evacuationModeSelectable": true,
+    "playerCameraUiVisible": true,
+    "directLineGuidanceAppears": true,
+    "directLineGuidanceVisualOnly": true
+  },
+  "knownLimitations": [
+    "Temporary user-test build only; not a final release/archive.",
+    "Straight-line shelter guidance is gameplay guidance only, not official evacuation route guidance.",
+    "No road-network routing or runtime web requests are used.",
+    "Full 300-second warning is configured; automated smoke advances diagnostics instead of waiting five real minutes.",
+    "Unrelated local Unity-generated scene/settings/init-scene changes remain uncommitted."
+  ]
+}

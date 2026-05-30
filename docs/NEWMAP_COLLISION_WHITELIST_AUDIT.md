@@ -8,7 +8,7 @@ Allowed blockers:
 - `ground_support`: gameplay ground cover and invisible support surface.
 - `building_obstacle`: conservative building obstacle bounds.
 - `npc_body`: NPC capsule triggers used by player soft-blocking.
-- `map_boundary`: 3.5km circular runtime clamp.
+- `map_boundary`: 2.27km circular runtime clamp.
 
 Nonblocking categories:
 - `interaction_trigger`, `shelter_marker_visual`, `green_frame_visual`, `route_line_visual`, `label_visual`, `hazard_visual`, `debug_test`, `old_air_wall`, `invalid_zone_blocker`, `unknown`.

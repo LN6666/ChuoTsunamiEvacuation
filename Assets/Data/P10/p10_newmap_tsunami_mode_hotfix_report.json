@@ -28,7 +28,7 @@
     "boundaryAirWallCount": 0,
     "boundaryAirWallNames": [],
     "boundaryMethod": "runtime_circular_clamp",
-    "circularBoundaryRadiusMeters": 3500.0,
+    "circularBoundaryRadiusMeters": 2270.0,
     "buildingEntryPhysicalBlockers": 0,
     "unknownPlayableBlockersRemaining": 0
   },

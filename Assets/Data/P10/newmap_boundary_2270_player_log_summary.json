@@ -1,0 +1,98 @@
+﻿{
+    "generatedAt":  "2026-05-30T23:54:22",
+    "logPath":  "D:\\UnityProjects\\ChuoTsunamiEvacuation\\Logs\\newmap_boundary_2270_player.log",
+    "errorCount":  0,
+    "warningCount":  0,
+    "exceptionCount":  0,
+    "missingAssetOrConfigCount":  0,
+    "runtimeWebRequestCount":  0,
+    "boundaryDiagnostics":  {
+                                "enabled":  true,
+                                "centerX":  -2.14,
+                                "centerZ":  474.58,
+                                "radiusMeters":  2270,
+                                "playerClamp":  true,
+                                "npcClamp":  true,
+                                "diagnosticColliders":  0
+                            },
+    "spawnDiagnostics":  {
+                             "validationPassed":  true,
+                             "mode":  "road_or_playable_ground_only",
+                             "attempts":  1,
+                             "accepted":  1,
+                             "rejectedOutOfBounds":  0,
+                             "fallbackUsed":  false,
+                             "fallbackSafeSpawnId":  "none"
+                         },
+    "activeTargetRouteDiagnostics":  {
+                                         "activeTargetsInsidePlayableBoundary":  91,
+                                         "activeTargetsOutsidePlayableBoundaryDisabled":  6,
+                                         "routeGuidesSuppressedOutsidePlayableBoundary":  0
+                                     },
+    "airWallDiagnostics":  {
+                               "airWallColliders":  0,
+                               "airWallVisibleRenderers":  0,
+                               "boundaryAirWallsPreserved":  0,
+                               "routeVisualBlockers":  0,
+                               "greenFrameVisualBlockers":  0,
+                               "labelVisualBlockers":  0,
+                               "hazardVisualBlockers":  0,
+                               "sampledValidPathsPassable":  true
+                           },
+    "scenarioResults":  {
+                            "collision_whitelist_visuals_nonblocking":  {
+                                                                            "present":  true,
+                                                                            "passed":  true,
+                                                                            "line":  "NewMap gameplay self-audit smoke: scenario=collision_whitelist_visuals_nonblocking result=pass detail=circularBoundary=True oldAirWalls=0 unknown=0 route=0 green=0 label=0 hazard=0"
+                                                                        },
+                            "circular_boundary_player_clamp":  {
+                                                                   "present":  true,
+                                                                   "passed":  true,
+                                                                   "line":  "NewMap gameplay self-audit smoke: scenario=circular_boundary_player_clamp result=pass detail=radius=2270.0 playerClamp=True clampedInside=True"
+                                                               },
+                            "circular_boundary_npc_clamp":  {
+                                                                "present":  true,
+                                                                "passed":  true,
+                                                                "line":  "NewMap gameplay self-audit smoke: scenario=circular_boundary_npc_clamp result=pass detail=npcClamp=True radius=2270.0"
+                                                            },
+                            "evacuation_stage1_warning":  {
+                                                              "present":  true,
+                                                              "passed":  true,
+                                                              "line":  "NewMap gameplay self-audit smoke: scenario=evacuation_stage1_warning result=pass detail=Warning starts after PRE_WARNING_WAIT with hazard checks inactive and stamina enabled"
+                                                          },
+                            "tsunami_warning_180s_before_active":  {
+                                                                       "present":  true,
+                                                                       "passed":  true,
+                                                                       "line":  "NewMap gameplay self-audit smoke: scenario=tsunami_warning_180s_before_active result=pass detail=warningSeconds=180.0 inactiveBeforeEnd=True activeAfterEnd=True"
+                                                                   },
+                            "building_touch_e_entry":  {
+                                                           "present":  true,
+                                                           "passed":  true,
+                                                           "line":  "NewMap gameplay self-audit smoke: scenario=building_touch_e_entry result=pass detail=target=chuo_official_emergency_001 touchDetected=True finalReason=safe_floor_reached"
+                                                       },
+                            "tsunami_front_failure":  {
+                                                          "present":  true,
+                                                          "passed":  true,
+                                                          "line":  "NewMap gameplay self-audit smoke: scenario=tsunami_front_failure result=pass detail=reason=tsunami_front_contact"
+                                                      }
+                        },
+    "selfAuditCompleted":  true,
+    "selfAuditFailureCount":  0,
+    "playerBoundaryStatus":  "passed_2270m_clamp",
+    "npcBoundaryStatus":  "passed_2270m_clamp",
+    "spawnBoundaryStatus":  "passed_uses_2270m_playable_boundary",
+    "activeTargetRouteBoundaryStatus":  "passed_uses_2270m_playable_boundary",
+    "firstErrors":  [
+
+                    ],
+    "firstWarnings":  [
+
+                      ],
+    "firstExceptions":  [
+
+                        ],
+    "firstMissing":  [
+
+                     ],
+    "finalStatus":  "completed_on_new_chuo_basemap"
+}

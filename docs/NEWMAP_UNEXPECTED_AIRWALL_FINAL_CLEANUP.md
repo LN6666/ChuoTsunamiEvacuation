@@ -13,6 +13,6 @@ Preserved:
 - Ground/support colliders.
 - Building obstacle collision.
 - NPC soft-blocking.
-- 3.5km circular map boundary clamp.
+- 2.27km circular map boundary clamp.
 
 Remaining limitation: the full local PLATEAU scene is too large for a static source-controlled per-instance collider dump, so runtime Player.log counts are the authoritative full scan.

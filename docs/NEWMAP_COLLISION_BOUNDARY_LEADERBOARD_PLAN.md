@@ -6,7 +6,7 @@ This plan is confirmed by the user request for the NewMap collision whitelist, 3
 
 - Player movement should be blocked only by ground/playable support, building obstacle bounds/proxies, NPC body soft-blocking, and the map boundary.
 - All route lines, green frames, labels, markers, debug helpers, hazard visuals, old rectangular air walls, and unknown helper colliders must be nonblocking in normal gameplay.
-- Replace rectangular boundary air walls with an invisible runtime circular boundary clamp centered on the original map center with radius `3500m`.
+- Replace rectangular boundary air walls with an invisible runtime circular boundary clamp centered on the original map center with radius `2270m`.
 - Keep ground cover/support colliders active so the player cannot fall through.
 - Preserve building collision, NPC soft-blocking, official/non-official semantics, tsunami/stamina/shelter guidance, mouse drag, spawn validation, and P2-P10 smoke coverage.
 - Change `R` from show/refresh-only to a safe show/hide toggle for the mixed shelter ranking UI.

@@ -9,7 +9,7 @@ The player should be blocked only by:
 - ground/support surface
 - tight building footprint proxies
 - NPC body/soft-blocking
-- 3.5km circular map boundary
+- 2.27km circular map boundary
 
 Everything else is nonblocking or trigger-only:
 

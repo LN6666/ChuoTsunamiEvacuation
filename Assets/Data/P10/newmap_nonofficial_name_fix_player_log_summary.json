@@ -1,0 +1,47 @@
+﻿{
+    "generatedAt":  "2026-05-30T22:07:12",
+    "logPath":  "C:\\Users\\liangjn\\AppData\\LocalLow\\DefaultCompany\\ChuoTsunamiEvacuation\\Player.log",
+    "errorCount":  0,
+    "warningCount":  0,
+    "nameLabelDiagnostics":  {
+                                 "availableLabels":  351,
+                                 "activeLabels":  0,
+                                 "officialShelterLabels":  12,
+                                 "nonOfficialCandidateLabels":  41,
+                                 "enrichedNonOfficialCandidateLabels":  31,
+                                 "roadNameLabels":  180,
+                                 "buildingNameLabels":  117,
+                                 "tokyoStationLabels":  1,
+                                 "idOnlyLabels":  0,
+                                 "idOnlyHidden":  1,
+                                 "nameCacheLoaded":  true,
+                                 "nameCacheRecords":  363,
+                                 "reliableCacheLabels":  298,
+                                 "addressOnlyHidden":  0,
+                                 "lowConfidenceHidden":  0,
+                                 "runtimeNetworkRequestsAllowed":  false,
+                                 "runtimeWebRequestsObserved":  0,
+                                 "sourceNameStatus":  "source_or_cached_names_available"
+                             },
+    "selfAuditCompleted":  true,
+    "selfAuditFailureCount":  0,
+    "cachePath":  "Assets/Data/P10/newmap_name_cache.json",
+    "cacheRecordCount":  363,
+    "queryCandidates":  32,
+    "onlineQueriesAttempted":  24,
+    "onlineQueriesSucceeded":  19,
+    "onlineMatchesAccepted":  18,
+    "namesNewlyAdded":  31,
+    "remainingUnnamedCount":  1,
+    "runtimeNoWebPassed":  true,
+    "labelRuntimePassed":  true,
+    "nonOfficialWarningPreserved":  true,
+    "isOfficialShelterPreservedFalse":  true,
+    "firstErrors":  [
+
+                    ],
+    "firstWarnings":  [
+
+                      ],
+    "finalStatus":  "completed_on_new_chuo_basemap"
+}

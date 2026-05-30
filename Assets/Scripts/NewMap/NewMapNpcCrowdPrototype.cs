@@ -50,6 +50,13 @@ public sealed class NewMapNpcCrowdPrototype : MonoBehaviour
     public int UsedSectorCount { get; private set; }
     public int UsedRingCount { get; private set; }
     public int RejectedInsideBuildingCount { get; private set; }
+    public int RejectedTooCloseToPlayerCount { get; private set; }
+    public int NpcInsideBoundaryCount { get; private set; }
+    public int NpcOutsideBoundaryCount { get; private set; }
+    public float AverageDistanceFromDistributionCenter { get; private set; }
+    public float MaxDistanceFromDistributionCenter { get; private set; }
+    public float DistributionCoveragePercent { get; private set; }
+    public string DistributionCenterSource => CircularBoundaryClampEnabled ? "same_as_circular_boundary" : "configured_center";
     public float DistributionRadiusMeters => distributionConfig != null ? distributionConfig.distributionRadiusMeters : 0f;
     public float MinDistanceFromPlayerMeters => distributionConfig != null ? distributionConfig.minDistanceFromPlayerMeters : 0f;
     public float MinDistanceBetweenNpcMeters => distributionConfig != null ? distributionConfig.minDistanceBetweenNpcMeters : 0f;
@@ -121,7 +128,7 @@ public sealed class NewMapNpcCrowdPrototype : MonoBehaviour
         crowd.playableBounds = bounds.IsValid ? bounds : NewMapPlayableBounds.DefaultDocumented();
         crowd.circularBoundary = boundary;
         crowd.circularBoundaryClampEnabled = enableCircularBoundaryClamp && boundary.IsValid && boundary.AffectsNpc;
-        crowd.npcCap = Mathf.Clamp(crowd.distributionConfig.maxNpcCount, 0, 1000);
+        crowd.npcCap = Mathf.Clamp(crowd.distributionConfig.maxNpcCount, 0, 2000);
         if (buildingBounds != null)
         {
             foreach (Bounds buildingBound in buildingBounds)
@@ -312,6 +319,7 @@ public sealed class NewMapNpcCrowdPrototype : MonoBehaviour
         }
 
         center = centerPosition;
+        Vector3 playerReferencePosition = referenceTransform != null ? referenceTransform.position : requestedCenter;
         RequestedNpcCount = BaseNpcCount * Mathf.Max(1, distributionConfig.npcCountMultiplier);
         CappedNpcCount = Mathf.Min(RequestedNpcCount, Mathf.Max(0, distributionConfig.maxNpcCount));
         CapReason = RequestedNpcCount > CappedNpcCount
@@ -350,6 +358,13 @@ public sealed class NewMapNpcCrowdPrototype : MonoBehaviour
                 continue;
             }
 
+            if (IsTooCloseToPlayer(snapped, playerReferencePosition, distributionConfig.minDistanceFromPlayerMeters))
+            {
+                InvalidPlacementRetryCount++;
+                RejectedTooCloseToPlayerCount++;
+                continue;
+            }
+
             if (distributionConfig.avoidBuildings && IsInsideBuildingBounds(snapped, distributionConfig.minDistanceFromBuildingMeters))
             {
                 InvalidPlacementRetryCount++;
@@ -363,11 +378,20 @@ public sealed class NewMapNpcCrowdPrototype : MonoBehaviour
 
         if (acceptedPositions.Count < CappedNpcCount)
         {
-            FillFallbackGrid(center, acceptedPositions, CappedNpcCount, playableBounds, distributionConfig, buildingAvoidanceBounds);
+            FillFallbackGrid(
+                center,
+                acceptedPositions,
+                CappedNpcCount,
+                playableBounds,
+                circularBoundary,
+                CircularBoundaryClampEnabled,
+                distributionConfig,
+                buildingAvoidanceBounds);
         }
 
         UsedSectorCount = CountUsedSectors(center, acceptedPositions, distributionConfig);
         UsedRingCount = usedRings.Count > 0 ? usedRings.Count : CountUsedRings(center, acceptedPositions, distributionConfig);
+        CalculateDistributionDiagnostics(acceptedPositions);
         for (int i = 0; i < acceptedPositions.Count; i++)
         {
             acceptedPositions[i] = ClampToMovementBoundary(acceptedPositions[i], 2f);
@@ -397,8 +421,12 @@ public sealed class NewMapNpcCrowdPrototype : MonoBehaviour
         Debug.Log(
             $"NewMap NPC distribution built. requestedNpcCount={RequestedNpcCount} spawnedNpcCount={SpawnedNpcCount} " +
             $"cappedNpcCount={CappedNpcCount} capReason={CapReason} radiusMeters={distributionConfig.distributionRadiusMeters} " +
-            $"usedSectors={UsedSectorCount} usedRings={UsedRingCount} invalidPlacementRetries={InvalidPlacementRetryCount} " +
-            $"rejectedInsideBuildings={RejectedInsideBuildingCount} avoidBuildings={distributionConfig.avoidBuildings} " +
+            $"centerSource={DistributionCenterSource} centerX={center.x:F2} centerZ={center.z:F2} " +
+            $"usedSectors={UsedSectorCount} usedRings={UsedRingCount} coveragePercent={DistributionCoveragePercent:F2} " +
+            $"insideBoundary={NpcInsideBoundaryCount} outsideBoundary={NpcOutsideBoundaryCount} " +
+            $"averageDistanceFromCenter={AverageDistanceFromDistributionCenter:F2} maxDistanceFromCenter={MaxDistanceFromDistributionCenter:F2} " +
+            $"invalidPlacementRetries={InvalidPlacementRetryCount} rejectedInsideBuildings={RejectedInsideBuildingCount} " +
+            $"rejectedTooCloseToPlayer={RejectedTooCloseToPlayerCount} avoidBuildings={distributionConfig.avoidBuildings} " +
             $"usePooling={distributionConfig.usePooling} farNpcStaticProxyMode={FarNpcStaticProxyModeEnabled} " +
             $"continuousMovementEnabled={movementConfig.continuousMovementEnabled} stuckRecoveryEnabled={movementConfig.stuckRecoveryEnabled} " +
             $"buildingAvoidanceEnabled={movementConfig.buildingAvoidanceEnabled} playerNpcCollisionEnabled={PlayerNpcSoftBlockingEnabled} " +
@@ -540,6 +568,8 @@ public sealed class NewMapNpcCrowdPrototype : MonoBehaviour
         List<Vector3> accepted,
         int desiredCount,
         NewMapPlayableBounds playableBounds,
+        NewMapCircularBoundary circularBoundary,
+        bool circularBoundaryClampEnabled,
         NewMapNpcDistributionConfig config,
         List<Bounds> buildingBounds)
     {
@@ -552,7 +582,9 @@ public sealed class NewMapNpcCrowdPrototype : MonoBehaviour
             {
                 float angle = i * Mathf.PI * 2f / count;
                 Vector3 candidate = centerPosition + new Vector3(Mathf.Cos(angle), 0f, Mathf.Sin(angle)) * ring * spacing;
-                bool insideBounds = playableBounds.IsValid ? playableBounds.ContainsXZ(candidate, 2f) : IsInsideDocumentedMapBounds(candidate);
+                bool insideBounds = circularBoundaryClampEnabled && circularBoundary.IsValid
+                    ? circularBoundary.ContainsXZ(candidate, 2f)
+                    : playableBounds.IsValid ? playableBounds.ContainsXZ(candidate, 2f) : IsInsideDocumentedMapBounds(candidate);
                 bool insideBuilding = config != null &&
                     config.avoidBuildings &&
                     IsInsideBuildingBounds(candidate, buildingBounds, config.minDistanceFromBuildingMeters);
@@ -992,6 +1024,60 @@ public sealed class NewMapNpcCrowdPrototype : MonoBehaviour
         return false;
     }
 
+    private static bool IsTooCloseToPlayer(Vector3 candidate, Vector3 playerPosition, float minDistance)
+    {
+        if (minDistance <= 0f)
+        {
+            return false;
+        }
+
+        Vector3 delta = candidate - playerPosition;
+        delta.y = 0f;
+        return delta.sqrMagnitude < minDistance * minDistance;
+    }
+
+    private void CalculateDistributionDiagnostics(List<Vector3> acceptedPositions)
+    {
+        NpcInsideBoundaryCount = 0;
+        NpcOutsideBoundaryCount = 0;
+        AverageDistanceFromDistributionCenter = 0f;
+        MaxDistanceFromDistributionCenter = 0f;
+        DistributionCoveragePercent = 0f;
+
+        if (acceptedPositions == null || acceptedPositions.Count == 0 || distributionConfig == null)
+        {
+            return;
+        }
+
+        float distanceTotal = 0f;
+        var usedCells = new HashSet<int>();
+        for (int i = 0; i < acceptedPositions.Count; i++)
+        {
+            Vector3 position = acceptedPositions[i];
+            if (IsInsideRuntimePlayableBounds(position))
+            {
+                NpcInsideBoundaryCount++;
+            }
+            else
+            {
+                NpcOutsideBoundaryCount++;
+            }
+
+            Vector3 delta = position - center;
+            delta.y = 0f;
+            float distance = delta.magnitude;
+            distanceTotal += distance;
+            MaxDistanceFromDistributionCenter = Mathf.Max(MaxDistanceFromDistributionCenter, distance);
+            int sector = GetSectorIndex(center, position, distributionConfig);
+            int ring = GetRingIndex(center, position, distributionConfig);
+            usedCells.Add(ring * Mathf.Max(1, distributionConfig.sectorCount) + sector);
+        }
+
+        AverageDistanceFromDistributionCenter = distanceTotal / acceptedPositions.Count;
+        int totalCells = Mathf.Max(1, distributionConfig.sectorCount * distributionConfig.ringCount);
+        DistributionCoveragePercent = usedCells.Count * 100f / totalCells;
+    }
+
     private static void TryResolveNearestOutsideBound(
         Vector3 position,
         Bounds bounds,
@@ -1403,16 +1489,16 @@ public sealed class NewMapPlayerNpcCollisionConfig
 public sealed class NewMapNpcDistributionConfig
 {
     public bool enabled = true;
-    public int npcCountMultiplier = 100;
-    public float distributionRadiusMeters = 1000f;
-    public float minDistanceFromPlayerMeters = 15f;
+    public int npcCountMultiplier = 200;
+    public float distributionRadiusMeters = 2270f;
+    public float minDistanceFromPlayerMeters = 20f;
     public float minDistanceBetweenNpcMeters = 3f;
-    public int maxNpcCount = 800;
-    public int npcDistributionSeed = 20260529;
+    public int maxNpcCount = 1600;
+    public int npcDistributionSeed = 20260530;
     public bool useSectorDistribution = true;
-    public int sectorCount = 32;
-    public int ringCount = 6;
-    public int maxNpcPerSector = 40;
+    public int sectorCount = 48;
+    public int ringCount = 8;
+    public int maxNpcPerSector = 64;
     public bool snapToGround = true;
     public bool snapToGroundCover = true;
     public bool useGroundProxyFallback = true;
@@ -1445,11 +1531,11 @@ public sealed class NewMapNpcDistributionConfig
             }
         }
 
-        config.npcCountMultiplier = Mathf.Clamp(config.npcCountMultiplier, 1, 100);
-        config.distributionRadiusMeters = Mathf.Clamp(config.distributionRadiusMeters, 50f, 1500f);
+        config.npcCountMultiplier = Mathf.Clamp(config.npcCountMultiplier, 1, 200);
+        config.distributionRadiusMeters = Mathf.Clamp(config.distributionRadiusMeters, 50f, 2270f);
         config.minDistanceFromPlayerMeters = Mathf.Clamp(config.minDistanceFromPlayerMeters, 0f, config.distributionRadiusMeters - 1f);
         config.minDistanceBetweenNpcMeters = Mathf.Clamp(config.minDistanceBetweenNpcMeters, 0f, 50f);
-        config.maxNpcCount = Mathf.Clamp(config.maxNpcCount, 0, 1000);
+        config.maxNpcCount = Mathf.Clamp(config.maxNpcCount, 0, 2000);
         config.sectorCount = Mathf.Clamp(config.sectorCount, 1, 128);
         config.ringCount = Mathf.Clamp(config.ringCount, 1, 32);
         config.maxNpcPerSector = Mathf.Clamp(config.maxNpcPerSector, 1, 1000);

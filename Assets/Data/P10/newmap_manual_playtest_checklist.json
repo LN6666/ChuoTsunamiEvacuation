@@ -1,17 +1,30 @@
 {
-  "generatedAt": "2026-05-30T00:00:00+09:00",
+  "generatedAt": "2026-05-31T01:40:58+09:00",
   "activeScene": "Assets/Scenes/Chuo_BaseMap.unity",
   "manualChecks": [
     "player blocked by buildings",
     "player blocked or soft-blocked by NPCs",
-    "player blocked by 3.5km circular boundary",
+    "player blocked by 2.27km circular boundary",
     "player not blocked by random invisible air walls",
-    "route lines, green frames, labels, markers, and hazard visuals do not block movement",
+    "route lines, green frames, labels, markers, and hazard visuals do not block movement or point to disabled out-of-bounds targets",
     "R shows leaderboard/ranking",
     "R hides leaderboard/ranking",
     "official/non-official warnings appear in ranking panel",
-    "no official route claim"
+    "no official route claim",
+    "normal gameplay shows no visible circular boundary wall",
+    "debug circular boundary visualization is off by default",
+    "ground is visibly raised 30 percent from previous effective baseline",
+    "remaining building floating is reduced and remaining outliers are documented",
+    "player, NPCs, targets, green frames, E zones, and route markers remain grounded",
+    "NPC count is visibly doubled from 800 to 1600 unless a cap reason is documented",
+    "NPCs are broadly distributed across the full 2.27km circular boundary",
+    "NPCs do not globally refresh, all stop, or spawn outside the boundary",
+    "no blue ground or fall-through regression appears",
+    "FPS and stutter are acceptable with doubled NPC count or limitation is documented",
+    "final P10 tuning: Evacuation max stamina is exactly 3500",
+    "final P10 tuning: Evacuation sprint speed is 4.59 m/s after 20 percent reduction",
+    "final P10 tuning: Tourism Mode still has no stamina restriction and keeps 10.0 m/s sprint"
   ],
-  "readinessDecision": "ready_with_documented_boundary_limitations",
-  "validationSummary": "Preflight passed; EditMode 123/123; PlayMode 42/42; temporary player build passed; Player.log parse passed with 0 errors, 0 warnings, 0 exceptions; DeepSeek unavailable due APIConnectionError after normal and escalated retries."
+  "readinessDecision": "ready_with_documented_visual_or_npc_limitations",
+  "validationSummary": "Ground30/NPC2x preflight, EditMode 127/127, PlayMode 43/43, temp player build, Player.log parse, and DeepSeek review passed. Active performance sample avgFps=1767.61 maxFrameMs=1021.96 stutterFramesOver66ms=2; diagnostic warmup spike is documented separately. DeepSeek verdict=PASS no A-level blockers."
 }

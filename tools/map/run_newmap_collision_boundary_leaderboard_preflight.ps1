@@ -54,7 +54,7 @@ Invoke-ToolCheck "R leaderboard validation" "tools\map\check_newmap_r_leaderboar
 
 if (Test-Path -LiteralPath $manual -PathType Leaf) {
     $readiness = Get-Content -Encoding UTF8 -LiteralPath $manual -Raw | ConvertFrom-Json
-    $allowed = @("ready_for_manual_playtest", "ready_with_documented_boundary_limitations", "needs_quick_fix_before_manual_test", "blocked")
+    $allowed = @("ready_for_manual_playtest", "ready_with_documented_boundary_limitations", "ready_with_documented_visual_limitations", "needs_quick_fix_before_manual_test", "blocked")
     Add-Check "Manual readiness decision exists" ($allowed -contains [string]$readiness.manualReadinessDecision) ([string]$readiness.manualReadinessDecision)
 }
 else {

@@ -1,0 +1,28 @@
+﻿{
+    "generatedAt":  "2026-05-31T02:58:36",
+    "workspace":  "D:\\UnityProjects\\ChuoTsunamiEvacuation",
+    "activeScene":  "Assets/Scenes/Chuo_BaseMap.unity",
+    "checks":  {
+                   "activeSceneExists":  true,
+                   "activeScene":  "Assets/Scenes/Chuo_BaseMap.unity",
+                   "maxStamina":  3500,
+                   "maxStaminaIs3500":  true,
+                   "sprintSpeedMetersPerSecond":  4.59,
+                   "sprintReductionPercent":  20,
+                   "sprintReductionIs20Percent":  true,
+                   "tourismNoStaminaSourcePreserved":  true,
+                   "tsunamiWarningDurationSeconds":  180,
+                   "tsunamiWarningIs180Seconds":  true,
+                   "circularBoundaryRadiusMeters":  2270,
+                   "circularBoundaryLatestRadius":  true,
+                   "circularBoundaryInvisibleNormal":  true,
+                   "runtimeNetworkRequestsAllowed":  false,
+                   "nonOfficialIsOfficialShelter":  false,
+                   "nonOfficialWarningRequired":  true,
+                   "nonOfficialSafeApprovedByDefault":  false,
+                   "officialRouteClaimCount":  0,
+                   "nonOfficialTargetLabeledOfficialCount":  0,
+                   "finalBuildSceneMethodTargetsChuoBaseMap":  true
+               },
+    "finalStatus":  "passed"
+}

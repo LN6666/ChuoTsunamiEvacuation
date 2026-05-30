@@ -22,7 +22,7 @@ Overlapping tight proxies are split around active shelter/candidate interaction 
 
 - Buildings still block player movement through footprint proxies.
 - NPC building avoidance still uses the same tightened bounds.
-- Ground/support, NPC body or soft-blocking, and the 3.5km circular boundary remain valid blockers.
+- Ground/support, NPC body or soft-blocking, and the 2.27km circular boundary remain valid blockers.
 - Route lines, green frames, labels, markers, and hazard visuals remain nonblocking.
 
 ## Validation

@@ -30,6 +30,12 @@ BASE_URL = os.environ.get("DEEPSEEK_API_BASE_URL", "https://api.deepseek.com")
 MAX_RETRIES = int(os.environ.get("DEEPSEEK_REVIEW_MAX_RETRIES", "2"))
 
 
+def configure_stdio() -> None:
+    for stream in (sys.stdout, sys.stderr):
+        if hasattr(stream, "reconfigure"):
+            stream.reconfigure(encoding="utf-8", errors="replace")
+
+
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(
         description="Run a DeepSeek review over the current staged or unstaged git diff."
@@ -289,6 +295,7 @@ def save_review_report(review_text: str) -> Path:
 
 
 def main() -> int:
+    configure_stdio()
     args = parse_args()
     setup_logging()
 

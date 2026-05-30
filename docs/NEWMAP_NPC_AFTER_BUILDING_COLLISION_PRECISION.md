@@ -9,7 +9,7 @@ NPCs still receive building avoidance bounds, but those bounds are now the same 
 Checks:
 
 - NPC building avoidance remains enabled.
-- NPCs remain inside the 3.5km circular boundary.
+- NPCs remain inside the 2.27km circular boundary.
 - NPC body/soft-blocking remains enabled.
 - NPC lifecycle does not regress into global refresh or all-stop behavior.
 

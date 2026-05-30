@@ -1,0 +1,13 @@
+﻿{
+    "generatedAt":  "2026-05-31T03:08:24",
+    "sourceLog":  "D:\\UnityProjects\\ChuoTsunamiEvacuation\\Logs\\p11_final_player.log",
+    "durationSeconds":  180,
+    "averageFps":  425.13,
+    "maxFrameMs":  1036.11,
+    "stutterFramesOver66ms":  2,
+    "activeNpcCount":  1600,
+    "stoppedWithoutReasonCount":  0,
+    "playerLogErrors":  0,
+    "playerLogWarnings":  0,
+    "finalStatus":  "passed_with_documented_startup_stutter_limitations"
+}

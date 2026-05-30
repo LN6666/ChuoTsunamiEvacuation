@@ -10,7 +10,7 @@ Allowed movement blockers remain:
 - ground/support
 - tight building footprint proxies
 - NPC body/soft-blocking
-- 3.5km circular boundary
+- 2.27km circular boundary
 
 Everything else remains visual or trigger-only.
 

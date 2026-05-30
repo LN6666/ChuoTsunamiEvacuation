@@ -1,0 +1,13 @@
+{
+  "npcCountMultiplierFromCurrent": 2.0,
+  "previousRequestedCount": 800,
+  "requestedNpcCount": 1600,
+  "previousMaxCap": 800,
+  "maxNpcCount": 1600,
+  "usePooling": true,
+  "farNpcStaticProxyEnabled": true,
+  "farNpcUpdateThrottle": true,
+  "nearNpcCollisionDistanceMeters": 60,
+  "nearNpcFullUpdateOnly": true,
+  "farNpcLowFrequencyUpdate": true
+}

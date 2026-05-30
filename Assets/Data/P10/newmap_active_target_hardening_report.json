@@ -1,6 +1,13 @@
 {
   "generatedAt": "2026-05-27T19:21:33+09:00",
   "activeScene": "Assets/Scenes/Chuo_BaseMap.unity",
+  "playableBoundaryShape": "circle",
+  "playableBoundaryCenterSource": "original_map_center",
+  "playableBoundaryRadiusMeters": 2270.0,
+  "activeTargetPlayableBoundaryPolicy": "runtime disables target anchors outside the 2.27km circle before UI, entry triggers, green frames, and guidance are configured",
+  "activeTargetsOutside2_27kmDisabledAtRuntime": true,
+  "runtimeNonOfficialCandidateCountInside2_27km": 72,
+  "runtimeNonOfficialCandidateCountDisabledOutside2_27km": 6,
   "totalTargetCount": 285,
   "activeTargetCount": 97,
   "disabledTargetCount": 188,

@@ -1,0 +1,40 @@
+﻿{
+    "activeScene":  "Assets/Scenes/Chuo_BaseMap.unity",
+    "previousRequestedCount":  800,
+    "previousSpawnedCount":  800,
+    "previousMaxCap":  800,
+    "newRequestedCount":  1600,
+    "newMaxCap":  1600,
+    "poolingEnabled":  true,
+    "farNpcThrottlingEnabled":  true,
+    "generatedAt":  "2026-05-31T01:45:49",
+    "newSpawnedCount":  1600,
+    "capped":  false,
+    "capReason":  "not_capped",
+    "performanceImpact":  {
+                              "measured":  true,
+                              "warmupSeconds":  14.29,
+                              "warmupFrameCount":  1,
+                              "warmupMaxFrameMs":  14286.81,
+                              "warmupStutterFramesOver66ms":  1,
+                              "elapsedSeconds":  180,
+                              "averageFps":  1767.61,
+                              "maxFrameMs":  1021.96,
+                              "stutterFramesOver66ms":  2,
+                              "movingNpcCount":  11,
+                              "arrivedNpcCount":  0,
+                              "queuedNpcCount":  0,
+                              "stuckNpcCount":  0,
+                              "staticProxyNpcCount":  1589,
+                              "stoppedWithoutReasonCount":  0,
+                              "averageNpcSpeed":  0.843
+                          },
+    "npcStateCountsAfterSmoke":  {
+                                     "moving":  11,
+                                     "arrived":  0,
+                                     "queued":  0,
+                                     "stuck":  0,
+                                     "staticFarProxy":  1589
+                                 },
+    "runtimeValidationStatus":  "validated_by_player_log"
+}

@@ -1,0 +1,154 @@
+﻿{
+    "generatedAt":  "2026-05-31T01:45:49",
+    "logPath":  "D:\\UnityProjects\\ChuoTsunamiEvacuation\\Logs\\newmap_ground30_npc2x_player.log",
+    "errorCount":  0,
+    "warningCount":  0,
+    "exceptionCount":  0,
+    "missingAssetOrConfigCount":  0,
+    "runtimeWebRequestCount":  0,
+    "groundRaise30":  {
+                          "baselineMode":  "existing_raise_offset",
+                          "oldGroundY":  3.3,
+                          "oldRaiseOffset":  3.3,
+                          "newGroundY":  4.29,
+                          "newRaiseOffset":  4.29,
+                          "actualRaiseMeters":  0.99,
+                          "actualRaisePercent":  0.3,
+                          "status":  "applied_30_percent_to_existing_raise_offset",
+                          "gameplayGroundCoverY":  4.29,
+                          "supportSurfaceY":  4.29,
+                          "playerSpawnY":  4.33,
+                          "remainingAverageGap":  0.06,
+                          "remainingMaxGap":  1.83,
+                          "remainingFloatingOutlierCount":  59,
+                          "sampledBuildingBaseCount":  10787,
+                          "blueGroundVisibleCount":  0,
+                          "groundCoverTiles":  225,
+                          "groundCoverColliders":  225,
+                          "groundCoverVisibleRenderers":  225,
+                          "activeTargetHeightOffsetViolations":  0
+                      },
+    "boundary":  {
+                     "enabled":  true,
+                     "centerX":  -2.14,
+                     "centerZ":  474.58,
+                     "radiusMeters":  2270,
+                     "playerClamp":  true,
+                     "npcClamp":  true
+                 },
+    "spawn":  {
+                  "validationPassed":  true,
+                  "mode":  "road_or_playable_ground_only",
+                  "attempts":  4,
+                  "accepted":  1,
+                  "rejectedOutOfBounds":  0,
+                  "rejectedInsideBuilding":  3,
+                  "rejectedFinalOverlap":  0
+              },
+    "npcDistribution":  {
+                            "requestedNpcCount":  1600,
+                            "spawnedNpcCount":  1600,
+                            "cappedNpcCount":  1600,
+                            "radiusMeters":  2270,
+                            "centerSource":  "same_as_circular_boundary",
+                            "centerX":  -2.14,
+                            "centerZ":  474.58,
+                            "usedSectors":  48,
+                            "usedRings":  8,
+                            "coveragePercent":  98.18,
+                            "insideBoundary":  1600,
+                            "outsideBoundary":  0,
+                            "averageDistanceFromCenter":  1215.02,
+                            "maxDistanceFromCenter":  2267.44,
+                            "invalidPlacementRetries":  542,
+                            "rejectedInsideBuildings":  537,
+                            "rejectedTooCloseToPlayer":  0,
+                            "usePooling":  true,
+                            "farNpcStaticProxyMode":  true
+                        },
+    "performance":  {
+                        "measured":  true,
+                        "warmupSeconds":  14.29,
+                        "warmupFrameCount":  1,
+                        "warmupMaxFrameMs":  14286.81,
+                        "warmupStutterFramesOver66ms":  1,
+                        "elapsedSeconds":  180,
+                        "averageFps":  1767.61,
+                        "maxFrameMs":  1021.96,
+                        "stutterFramesOver66ms":  2,
+                        "movingNpcCount":  11,
+                        "arrivedNpcCount":  0,
+                        "queuedNpcCount":  0,
+                        "stuckNpcCount":  0,
+                        "staticProxyNpcCount":  1589,
+                        "stoppedWithoutReasonCount":  0,
+                        "averageNpcSpeed":  0.843
+                    },
+    "scenarioResults":  {
+                            "runtime_target_counts":  {
+                                                          "present":  true,
+                                                          "passed":  true,
+                                                          "line":  "NewMap gameplay self-audit smoke: scenario=runtime_target_counts result=pass detail=official=15 nonOfficial=76 rankable=89 routeGuides=4 activeOutsideBoundary=0 routeGuidesOutsideBoundary=0 disabledOutsideBoundary=6"
+                                                      },
+                            "spawn_road_playable_ground_validation":  {
+                                                                          "present":  true,
+                                                                          "passed":  true,
+                                                                          "line":  "NewMap gameplay self-audit smoke: scenario=spawn_road_playable_ground_validation result=pass detail=source=random_playable_support attempts=4 insideRejected=3 noGroundRejected=0 finalOverlapChecks=1 finalOverlapRejected=0 nearestBuildingDistance=137.92 fallbackUsed=False"
+                                                                      },
+                            "circular_boundary_player_clamp":  {
+                                                                   "present":  true,
+                                                                   "passed":  true,
+                                                                   "line":  "NewMap gameplay self-audit smoke: scenario=circular_boundary_player_clamp result=pass detail=radius=2270.0 playerClamp=True clampedInside=True"
+                                                               },
+                            "circular_boundary_npc_clamp":  {
+                                                                "present":  true,
+                                                                "passed":  true,
+                                                                "line":  "NewMap gameplay self-audit smoke: scenario=circular_boundary_npc_clamp result=pass detail=npcClamp=True radius=2270.0"
+                                                            },
+                            "tsunami_warning_180s_before_active":  {
+                                                                       "present":  true,
+                                                                       "passed":  true,
+                                                                       "line":  "NewMap gameplay self-audit smoke: scenario=tsunami_warning_180s_before_active result=pass detail=warningSeconds=180.0 inactiveBeforeEnd=True activeAfterEnd=True"
+                                                                   },
+                            "mouse_left_right_drag_look":  {
+                                                               "present":  true,
+                                                               "passed":  true,
+                                                               "line":  "NewMap gameplay self-audit smoke: scenario=mouse_left_right_drag_look result=pass detail=allowedButtons=LeftMouse,RightMouse"
+                                                           },
+                            "night_lighting_dark_sky_readable_buildings":  {
+                                                                               "present":  true,
+                                                                               "passed":  true,
+                                                                               "line":  "NewMap gameplay self-audit smoke: scenario=night_lighting_dark_sky_readable_buildings result=pass detail=nightSky=0.042 readability=0.517 dayRestored=True"
+                                                                           },
+                            "building_touch_e_entry":  {
+                                                           "present":  true,
+                                                           "passed":  true,
+                                                           "line":  "NewMap gameplay self-audit smoke: scenario=building_touch_e_entry result=pass detail=target=chuo_official_emergency_001 touchDetected=True finalReason=safe_floor_reached"
+                                                       },
+                            "tsunami_front_failure":  {
+                                                          "present":  true,
+                                                          "passed":  true,
+                                                          "line":  "NewMap gameplay self-audit smoke: scenario=tsunami_front_failure result=pass detail=reason=tsunami_front_contact"
+                                                      }
+                        },
+    "selfAuditCompleted":  true,
+    "selfAuditFailureCount":  0,
+    "groundRaiseStatus":  "passed_30_percent_raise",
+    "npcDistributionStatus":  "passed_1600_npcs_2270m_distribution",
+    "boundaryStatus":  "passed_2270m_boundary_sync",
+    "spawnSafetyStatus":  "passed",
+    "performanceStatus":  "passed_active_180s_sample_with_documented_stutters",
+    "firstErrors":  [
+
+                    ],
+    "firstWarnings":  [
+
+                      ],
+    "firstExceptions":  [
+
+                        ],
+    "firstMissing":  [
+
+                     ],
+    "finalStatus":  "completed_on_new_chuo_basemap"
+}

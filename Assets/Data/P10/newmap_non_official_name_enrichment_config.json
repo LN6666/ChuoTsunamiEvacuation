@@ -1,0 +1,21 @@
+{
+  "enabled": true,
+  "targetType": "active_non_official_candidates",
+  "runtimeNetworkRequestsAllowed": false,
+  "allowOnlineLookup": true,
+  "onlyQueryMissingNames": true,
+  "preferJapaneseNames": true,
+  "mainNameOnly": true,
+  "hideAddressLikeNames": true,
+  "hideIdOnlyInNormalMode": true,
+  "rateLimitSeconds": 1.1,
+  "maxQueriesPerRun": 120,
+  "cacheResults": true,
+  "userAgent": "ChuoTsunamiEvacuation-PBL10-NonOfficialNameEnrichment/1.0",
+  "overpassEndpoint": "https://overpass-api.de/api/interpreter",
+  "nominatimEndpoint": "https://nominatim.openstreetmap.org/reverse",
+  "overpassSearchRadiusMeters": 45,
+  "nominatimZoom": 18,
+  "onlineTimeoutSeconds": 25,
+  "minConfidenceForRuntime": 0.6
+}

@@ -1,10 +1,10 @@
 {
-  "generatedAt": "2026-05-30T00:39:45+09:00",
+  "generatedAt": "2026-05-30T21:41:16+09:00",
   "activeScene": "Assets/Scenes/Chuo_BaseMap.unity",
   "preprocessingOnly": true,
   "runtimeNetworkRequestsAllowed": false,
-  "sourceStatus": "source_project_and_local_osm_names_available_online_enriched",
-  "onlineEnrichmentStatus": "completed",
+  "sourceStatus": "source_project_and_local_osm_names_available",
+  "onlineEnrichmentStatus": "non_official_candidate_coordinate_enrichment_run",
   "providerSummary": {
     "projectOfficialShelters": 15,
     "projectNonOfficialCandidates": 19,
@@ -4032,7 +4032,9 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": false,
-      "timestamp": "2026-05-30T00:39:45+09:00"
+      "timestamp": "2026-05-30T00:39:45+09:00",
+      "nonOfficialWarningRequired": true,
+      "isOfficialShelter": false
     },
     {
       "id": "p8_plateau_highrise_candidate_002",
@@ -4066,7 +4068,9 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": false,
-      "timestamp": "2026-05-30T00:39:45+09:00"
+      "timestamp": "2026-05-30T00:39:45+09:00",
+      "nonOfficialWarningRequired": true,
+      "isOfficialShelter": false
     },
     {
       "id": "p8_plateau_highrise_candidate_003",
@@ -4100,7 +4104,9 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": false,
-      "timestamp": "2026-05-30T00:39:45+09:00"
+      "timestamp": "2026-05-30T00:39:45+09:00",
+      "nonOfficialWarningRequired": true,
+      "isOfficialShelter": false
     },
     {
       "id": "p8_plateau_highrise_candidate_004",
@@ -4134,7 +4140,9 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": false,
-      "timestamp": "2026-05-30T00:39:45+09:00"
+      "timestamp": "2026-05-30T00:39:45+09:00",
+      "nonOfficialWarningRequired": true,
+      "isOfficialShelter": false
     },
     {
       "id": "p8_plateau_highrise_candidate_005",
@@ -4168,7 +4176,9 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": false,
-      "timestamp": "2026-05-30T00:39:45+09:00"
+      "timestamp": "2026-05-30T00:39:45+09:00",
+      "nonOfficialWarningRequired": true,
+      "isOfficialShelter": false
     },
     {
       "id": "p8_plateau_highrise_candidate_006",
@@ -4202,7 +4212,9 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": false,
-      "timestamp": "2026-05-30T00:39:45+09:00"
+      "timestamp": "2026-05-30T00:39:45+09:00",
+      "nonOfficialWarningRequired": true,
+      "isOfficialShelter": false
     },
     {
       "id": "p8_plateau_highrise_candidate_007",
@@ -4236,7 +4248,9 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": false,
-      "timestamp": "2026-05-30T00:39:45+09:00"
+      "timestamp": "2026-05-30T00:39:45+09:00",
+      "nonOfficialWarningRequired": true,
+      "isOfficialShelter": false
     },
     {
       "id": "p8_plateau_highrise_candidate_009",
@@ -4270,7 +4284,9 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": false,
-      "timestamp": "2026-05-30T00:39:45+09:00"
+      "timestamp": "2026-05-30T00:39:45+09:00",
+      "nonOfficialWarningRequired": true,
+      "isOfficialShelter": false
     },
     {
       "id": "p8_plateau_highrise_candidate_011",
@@ -4304,7 +4320,9 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": false,
-      "timestamp": "2026-05-30T00:39:45+09:00"
+      "timestamp": "2026-05-30T00:39:45+09:00",
+      "nonOfficialWarningRequired": true,
+      "isOfficialShelter": false
     },
     {
       "id": "p8_plateau_highrise_candidate_013",
@@ -4338,7 +4356,9 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": false,
-      "timestamp": "2026-05-30T00:39:45+09:00"
+      "timestamp": "2026-05-30T00:39:45+09:00",
+      "nonOfficialWarningRequired": true,
+      "isOfficialShelter": false
     },
     {
       "id": "p8_plateau_highrise_candidate_015",
@@ -4372,7 +4392,9 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": false,
-      "timestamp": "2026-05-30T00:39:45+09:00"
+      "timestamp": "2026-05-30T00:39:45+09:00",
+      "nonOfficialWarningRequired": true,
+      "isOfficialShelter": false
     },
     {
       "id": "p8_plateau_highrise_candidate_016",
@@ -4406,7 +4428,9 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": false,
-      "timestamp": "2026-05-30T00:39:45+09:00"
+      "timestamp": "2026-05-30T00:39:45+09:00",
+      "nonOfficialWarningRequired": true,
+      "isOfficialShelter": false
     },
     {
       "id": "p8_plateau_highrise_candidate_018",
@@ -4440,7 +4464,9 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": false,
-      "timestamp": "2026-05-30T00:39:45+09:00"
+      "timestamp": "2026-05-30T00:39:45+09:00",
+      "nonOfficialWarningRequired": true,
+      "isOfficialShelter": false
     },
     {
       "id": "p8_plateau_highrise_candidate_019",
@@ -4474,7 +4500,9 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": false,
-      "timestamp": "2026-05-30T00:39:45+09:00"
+      "timestamp": "2026-05-30T00:39:45+09:00",
+      "nonOfficialWarningRequired": true,
+      "isOfficialShelter": false
     },
     {
       "id": "p8_plateau_highrise_candidate_020",
@@ -4508,7 +4536,9 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": false,
-      "timestamp": "2026-05-30T00:39:45+09:00"
+      "timestamp": "2026-05-30T00:39:45+09:00",
+      "nonOfficialWarningRequired": true,
+      "isOfficialShelter": false
     },
     {
       "id": "p8_plateau_highrise_candidate_021",
@@ -4542,7 +4572,9 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": false,
-      "timestamp": "2026-05-30T00:39:45+09:00"
+      "timestamp": "2026-05-30T00:39:45+09:00",
+      "nonOfficialWarningRequired": true,
+      "isOfficialShelter": false
     },
     {
       "id": "p8_plateau_highrise_candidate_022",
@@ -4576,7 +4608,9 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": false,
-      "timestamp": "2026-05-30T00:39:45+09:00"
+      "timestamp": "2026-05-30T00:39:45+09:00",
+      "nonOfficialWarningRequired": true,
+      "isOfficialShelter": false
     },
     {
       "id": "p8_plateau_highrise_candidate_023",
@@ -4610,7 +4644,9 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": false,
-      "timestamp": "2026-05-30T00:39:45+09:00"
+      "timestamp": "2026-05-30T00:39:45+09:00",
+      "nonOfficialWarningRequired": true,
+      "isOfficialShelter": false
     },
     {
       "id": "p8_plateau_highrise_candidate_024",
@@ -4644,7 +4680,9 @@
       "hiddenInNormalMode": false,
       "hiddenReason": "",
       "attributionRequired": false,
-      "timestamp": "2026-05-30T00:39:45+09:00"
+      "timestamp": "2026-05-30T00:39:45+09:00",
+      "nonOfficialWarningRequired": true,
+      "isOfficialShelter": false
     },
     {
       "id": "landmark_tokyo_station",
@@ -11309,6 +11347,1122 @@
       "hiddenReason": "",
       "attributionRequired": true,
       "timestamp": "2026-05-30T00:39:45+09:00"
+    },
+    {
+      "id": "p5f_sample_humanitarian_weak_005",
+      "objectType": "candidate",
+      "name": "入船三丁目",
+      "finalDisplayName": "入船三丁目",
+      "finalDisplayNameLanguage": "ja",
+      "language": "ja",
+      "source": "online_osm",
+      "provider": "OpenStreetMap Overpass",
+      "sourceField": "name:ja/name/official_name",
+      "classification": "coordinate_enriched_online_overpass",
+      "rawType": "named_feature",
+      "confidence": 0.86,
+      "lat": 35.6704,
+      "lon": 139.7764,
+      "position": {
+        "x": 554.88,
+        "y": 2.18,
+        "z": -740.292
+      },
+      "unityPosition": {
+        "x": 554.88,
+        "y": 2.18,
+        "z": -740.292
+      },
+      "rawName": "入船三丁目",
+      "normalizedName": "入船三丁目",
+      "idOnly": false,
+      "disabled": false,
+      "hiddenInNormalMode": false,
+      "hiddenReason": "",
+      "attributionRequired": true,
+      "nonOfficialWarningRequired": true,
+      "isOfficialShelter": false,
+      "timestamp": "2026-05-30T21:41:16+09:00"
+    },
+    {
+      "id": "p8_plateau_highrise_candidate_027",
+      "objectType": "candidate",
+      "name": "やまや",
+      "finalDisplayName": "やまや",
+      "finalDisplayNameLanguage": "ja",
+      "language": "ja",
+      "source": "online_osm",
+      "provider": "OpenStreetMap Overpass",
+      "sourceField": "name:ja/name/official_name",
+      "classification": "coordinate_enriched_online_overpass",
+      "rawType": "amenity:restaurant",
+      "confidence": 0.86,
+      "lat": 35.67735082,
+      "lon": 139.76971937,
+      "position": {
+        "x": -59.36,
+        "y": 0.08,
+        "z": 25.913
+      },
+      "unityPosition": {
+        "x": -59.36,
+        "y": 0.08,
+        "z": 25.913
+      },
+      "rawName": "やまや",
+      "normalizedName": "やまや",
+      "idOnly": false,
+      "disabled": false,
+      "hiddenInNormalMode": false,
+      "hiddenReason": "",
+      "attributionRequired": true,
+      "nonOfficialWarningRequired": true,
+      "isOfficialShelter": false,
+      "timestamp": "2026-05-30T21:41:16+09:00"
+    },
+    {
+      "id": "p8_plateau_highrise_candidate_029",
+      "objectType": "candidate",
+      "name": "歌舞伎座ギャラリー",
+      "finalDisplayName": "歌舞伎座ギャラリー",
+      "finalDisplayNameLanguage": "ja",
+      "language": "ja",
+      "source": "local_osm_cache",
+      "provider": "OpenStreetMap Nominatim",
+      "sourceField": "namedetails.name/name:ja_or_address.building",
+      "classification": "coordinate_enriched_from_existing_local_cache",
+      "rawType": "tourism:museum",
+      "confidence": 0.8,
+      "lat": 35.6696309,
+      "lon": 139.76797682,
+      "position": {
+        "x": -202.78,
+        "y": 0.08,
+        "z": -825.027
+      },
+      "unityPosition": {
+        "x": -202.78,
+        "y": 0.08,
+        "z": -825.027
+      },
+      "rawName": "歌舞伎座ギャラリー",
+      "normalizedName": "歌舞伎座ギャラリー",
+      "idOnly": false,
+      "disabled": false,
+      "hiddenInNormalMode": false,
+      "hiddenReason": "",
+      "attributionRequired": true,
+      "nonOfficialWarningRequired": true,
+      "isOfficialShelter": false,
+      "timestamp": "2026-05-30T21:41:16+09:00"
+    },
+    {
+      "id": "p8_plateau_highrise_candidate_030",
+      "objectType": "candidate",
+      "name": "茶ノ木神社",
+      "finalDisplayName": "茶ノ木神社",
+      "finalDisplayNameLanguage": "ja",
+      "language": "ja",
+      "source": "online_osm",
+      "provider": "OpenStreetMap Overpass",
+      "sourceField": "name:ja/name/official_name",
+      "classification": "coordinate_enriched_online_overpass",
+      "rawType": "building:yes",
+      "confidence": 0.72,
+      "lat": 35.6836762,
+      "lon": 139.78323672,
+      "position": {
+        "x": 1168.343,
+        "y": 0.08,
+        "z": 725.078
+      },
+      "unityPosition": {
+        "x": 1168.343,
+        "y": 0.08,
+        "z": 725.078
+      },
+      "rawName": "茶ノ木神社",
+      "normalizedName": "茶ノ木神社",
+      "idOnly": false,
+      "disabled": false,
+      "hiddenInNormalMode": false,
+      "hiddenReason": "",
+      "attributionRequired": true,
+      "nonOfficialWarningRequired": true,
+      "isOfficialShelter": false,
+      "timestamp": "2026-05-30T21:41:16+09:00"
+    },
+    {
+      "id": "p8_plateau_highrise_candidate_031",
+      "objectType": "candidate",
+      "name": "日本橋室町三井タワー [COREDO室町テラス]",
+      "finalDisplayName": "日本橋室町三井タワー [COREDO室町テラス]",
+      "finalDisplayNameLanguage": "ja",
+      "language": "ja",
+      "source": "online_osm",
+      "provider": "OpenStreetMap Overpass",
+      "sourceField": "name:ja/name/official_name",
+      "classification": "coordinate_enriched_online_overpass",
+      "rawType": "building:retail",
+      "confidence": 0.86,
+      "lat": 35.68789842,
+      "lon": 139.77242145,
+      "position": {
+        "x": 201.729,
+        "y": 0.08,
+        "z": 1201.123
+      },
+      "unityPosition": {
+        "x": 201.729,
+        "y": 0.08,
+        "z": 1201.123
+      },
+      "rawName": "日本橋室町三井タワー [COREDO室町テラス]",
+      "normalizedName": "日本橋室町三井タワー [COREDO室町テラス]",
+      "idOnly": false,
+      "disabled": false,
+      "hiddenInNormalMode": false,
+      "hiddenReason": "",
+      "attributionRequired": true,
+      "nonOfficialWarningRequired": true,
+      "isOfficialShelter": false,
+      "timestamp": "2026-05-30T21:41:16+09:00"
+    },
+    {
+      "id": "p8_plateau_highrise_candidate_032",
+      "objectType": "candidate",
+      "name": "ポケモンセンター",
+      "finalDisplayName": "ポケモンセンター",
+      "finalDisplayNameLanguage": "ja",
+      "language": "ja",
+      "source": "local_osm_cache",
+      "provider": "OpenStreetMap Nominatim",
+      "sourceField": "namedetails.name/name:ja_or_address.building",
+      "classification": "coordinate_enriched_from_existing_local_cache",
+      "rawType": "shop:anime",
+      "confidence": 0.8,
+      "lat": 35.68047919,
+      "lon": 139.77441959,
+      "position": {
+        "x": 372.51,
+        "y": 0.08,
+        "z": 368.798
+      },
+      "unityPosition": {
+        "x": 372.51,
+        "y": 0.08,
+        "z": 368.798
+      },
+      "rawName": "ポケモンセンター",
+      "normalizedName": "ポケモンセンター",
+      "idOnly": false,
+      "disabled": false,
+      "hiddenInNormalMode": false,
+      "hiddenReason": "",
+      "attributionRequired": true,
+      "nonOfficialWarningRequired": true,
+      "isOfficialShelter": false,
+      "timestamp": "2026-05-30T21:41:16+09:00"
+    },
+    {
+      "id": "p8_plateau_highrise_candidate_033",
+      "objectType": "candidate",
+      "name": "武田グローバル本社",
+      "finalDisplayName": "武田グローバル本社",
+      "finalDisplayNameLanguage": "ja",
+      "language": "ja",
+      "source": "online_osm",
+      "provider": "OpenStreetMap Overpass",
+      "sourceField": "name:ja/name/official_name",
+      "classification": "coordinate_enriched_online_overpass",
+      "rawType": "building:yes",
+      "confidence": 0.86,
+      "lat": 35.68756826,
+      "lon": 139.77461746,
+      "position": {
+        "x": 383.434,
+        "y": 0.08,
+        "z": 1171.321
+      },
+      "unityPosition": {
+        "x": 383.434,
+        "y": 0.08,
+        "z": 1171.321
+      },
+      "rawName": "武田グローバル本社",
+      "normalizedName": "武田グローバル本社",
+      "idOnly": false,
+      "disabled": false,
+      "hiddenInNormalMode": false,
+      "hiddenReason": "",
+      "attributionRequired": true,
+      "nonOfficialWarningRequired": true,
+      "isOfficialShelter": false,
+      "timestamp": "2026-05-30T21:41:16+09:00"
+    },
+    {
+      "id": "p8_plateau_highrise_candidate_034",
+      "objectType": "candidate",
+      "name": "東京スクエアガーデン",
+      "finalDisplayName": "東京スクエアガーデン",
+      "finalDisplayNameLanguage": "ja",
+      "language": "ja",
+      "source": "online_osm",
+      "provider": "OpenStreetMap Overpass",
+      "sourceField": "name:ja/name/official_name",
+      "classification": "coordinate_enriched_online_overpass",
+      "rawType": "building:commercial",
+      "confidence": 0.86,
+      "lat": 35.67594771,
+      "lon": 139.76898659,
+      "position": {
+        "x": -139.7,
+        "y": 0.08,
+        "z": -117.632
+      },
+      "unityPosition": {
+        "x": -139.7,
+        "y": 0.08,
+        "z": -117.632
+      },
+      "rawName": "東京スクエアガーデン",
+      "normalizedName": "東京スクエアガーデン",
+      "idOnly": false,
+      "disabled": false,
+      "hiddenInNormalMode": false,
+      "hiddenReason": "",
+      "attributionRequired": true,
+      "nonOfficialWarningRequired": true,
+      "isOfficialShelter": false,
+      "timestamp": "2026-05-30T21:41:16+09:00"
+    },
+    {
+      "id": "p8_plateau_highrise_candidate_036",
+      "objectType": "candidate",
+      "name": "ヴィノスやまざき",
+      "finalDisplayName": "ヴィノスやまざき",
+      "finalDisplayNameLanguage": "ja",
+      "language": "ja",
+      "source": "local_osm_cache",
+      "provider": "OpenStreetMap Nominatim",
+      "sourceField": "namedetails.name/name:ja_or_address.building",
+      "classification": "coordinate_enriched_from_existing_local_cache",
+      "rawType": "shop:alcohol",
+      "confidence": 0.8,
+      "lat": 35.68677303,
+      "lon": 139.77481805,
+      "position": {
+        "x": 411.26,
+        "y": 0.08,
+        "z": 1087.709
+      },
+      "unityPosition": {
+        "x": 411.26,
+        "y": 0.08,
+        "z": 1087.709
+      },
+      "rawName": "ヴィノスやまざき",
+      "normalizedName": "ヴィノスやまざき",
+      "idOnly": false,
+      "disabled": false,
+      "hiddenInNormalMode": false,
+      "hiddenReason": "",
+      "attributionRequired": true,
+      "nonOfficialWarningRequired": true,
+      "isOfficialShelter": false,
+      "timestamp": "2026-05-30T21:41:16+09:00"
+    },
+    {
+      "id": "p8_plateau_highrise_candidate_039",
+      "objectType": "candidate",
+      "name": "八重洲一丁目北地区第一種市街地再開発事業",
+      "finalDisplayName": "八重洲一丁目北地区第一種市街地再開発事業",
+      "finalDisplayNameLanguage": "ja",
+      "language": "ja",
+      "source": "online_osm",
+      "provider": "OpenStreetMap Overpass",
+      "sourceField": "name:ja/name/official_name",
+      "classification": "coordinate_enriched_online_overpass",
+      "rawType": "named_feature",
+      "confidence": 0.86,
+      "lat": 35.68365315,
+      "lon": 139.7718788,
+      "position": {
+        "x": 131.62,
+        "y": 0.08,
+        "z": 740.663
+      },
+      "unityPosition": {
+        "x": 131.62,
+        "y": 0.08,
+        "z": 740.663
+      },
+      "rawName": "八重洲一丁目北地区第一種市街地再開発事業",
+      "normalizedName": "八重洲一丁目北地区第一種市街地再開発事業",
+      "idOnly": false,
+      "disabled": false,
+      "hiddenInNormalMode": false,
+      "hiddenReason": "",
+      "attributionRequired": true,
+      "nonOfficialWarningRequired": true,
+      "isOfficialShelter": false,
+      "timestamp": "2026-05-30T21:41:16+09:00"
+    },
+    {
+      "id": "p8_plateau_highrise_candidate_040",
+      "objectType": "candidate",
+      "name": "京橋トラストタワー",
+      "finalDisplayName": "京橋トラストタワー",
+      "finalDisplayNameLanguage": "ja",
+      "language": "ja",
+      "source": "online_osm",
+      "provider": "OpenStreetMap Overpass",
+      "sourceField": "name:ja/name/official_name",
+      "classification": "coordinate_enriched_online_overpass",
+      "rawType": "building:yes",
+      "confidence": 0.86,
+      "lat": 35.67784705,
+      "lon": 139.77002836,
+      "position": {
+        "x": -20.257,
+        "y": 0.08,
+        "z": 78.471
+      },
+      "unityPosition": {
+        "x": -20.257,
+        "y": 0.08,
+        "z": 78.471
+      },
+      "rawName": "京橋トラストタワー",
+      "normalizedName": "京橋トラストタワー",
+      "idOnly": false,
+      "disabled": false,
+      "hiddenInNormalMode": false,
+      "hiddenReason": "",
+      "attributionRequired": true,
+      "nonOfficialWarningRequired": true,
+      "isOfficialShelter": false,
+      "timestamp": "2026-05-30T21:41:16+09:00"
+    },
+    {
+      "id": "p8_plateau_highrise_candidate_041",
+      "objectType": "candidate",
+      "name": "銀座松竹スクエア",
+      "finalDisplayName": "銀座松竹スクエア",
+      "finalDisplayNameLanguage": "ja",
+      "language": "ja",
+      "source": "online_osm",
+      "provider": "OpenStreetMap Overpass",
+      "sourceField": "name:ja/name/official_name",
+      "classification": "coordinate_enriched_online_overpass",
+      "rawType": "building:commercial",
+      "confidence": 0.86,
+      "lat": 35.6683441,
+      "lon": 139.76954689,
+      "position": {
+        "x": -78.335,
+        "y": 0.08,
+        "z": -979.007
+      },
+      "unityPosition": {
+        "x": -78.335,
+        "y": 0.08,
+        "z": -979.007
+      },
+      "rawName": "銀座松竹スクエア",
+      "normalizedName": "銀座松竹スクエア",
+      "idOnly": false,
+      "disabled": false,
+      "hiddenInNormalMode": false,
+      "hiddenReason": "",
+      "attributionRequired": true,
+      "nonOfficialWarningRequired": true,
+      "isOfficialShelter": false,
+      "timestamp": "2026-05-30T21:41:16+09:00"
+    },
+    {
+      "id": "p8_plateau_highrise_candidate_042",
+      "objectType": "candidate",
+      "name": "雪月花 カフェ京橋店",
+      "finalDisplayName": "雪月花 カフェ京橋店",
+      "finalDisplayNameLanguage": "ja",
+      "language": "ja",
+      "source": "online_osm",
+      "provider": "OpenStreetMap Nominatim",
+      "sourceField": "name:ja/name/display_name_first_component",
+      "classification": "coordinate_enriched_online_nominatim",
+      "rawType": "amenity:cafe",
+      "confidence": 0.78,
+      "lat": 35.67641435,
+      "lon": 139.77296379,
+      "position": {
+        "x": 245.985,
+        "y": 0.08,
+        "z": -70.237
+      },
+      "unityPosition": {
+        "x": 245.985,
+        "y": 0.08,
+        "z": -70.237
+      },
+      "rawName": "雪月花 カフェ京橋店",
+      "normalizedName": "雪月花 カフェ京橋店",
+      "idOnly": false,
+      "disabled": false,
+      "hiddenInNormalMode": false,
+      "hiddenReason": "",
+      "attributionRequired": true,
+      "nonOfficialWarningRequired": true,
+      "isOfficialShelter": false,
+      "timestamp": "2026-05-30T21:41:16+09:00"
+    },
+    {
+      "id": "p8_plateau_highrise_candidate_043",
+      "objectType": "candidate",
+      "name": "SBI新生銀行",
+      "finalDisplayName": "SBI新生銀行",
+      "finalDisplayNameLanguage": "ja",
+      "language": "ja",
+      "source": "online_osm",
+      "provider": "OpenStreetMap Overpass",
+      "sourceField": "name:ja/name/official_name",
+      "classification": "coordinate_enriched_online_overpass",
+      "rawType": "amenity:bank",
+      "confidence": 0.86,
+      "lat": 35.68741906,
+      "lon": 139.77379663,
+      "position": {
+        "x": 327.287,
+        "y": 0.08,
+        "z": 1141.501
+      },
+      "unityPosition": {
+        "x": 327.287,
+        "y": 0.08,
+        "z": 1141.501
+      },
+      "rawName": "SBI新生銀行",
+      "normalizedName": "SBI新生銀行",
+      "idOnly": false,
+      "disabled": false,
+      "hiddenInNormalMode": false,
+      "hiddenReason": "",
+      "attributionRequired": true,
+      "nonOfficialWarningRequired": true,
+      "isOfficialShelter": false,
+      "timestamp": "2026-05-30T21:41:16+09:00"
+    },
+    {
+      "id": "p8_plateau_highrise_candidate_044",
+      "objectType": "candidate",
+      "name": "COREDO室町1 (室町東三井ビルディング)",
+      "finalDisplayName": "COREDO室町1 (室町東三井ビルディング)",
+      "finalDisplayNameLanguage": "ja",
+      "language": "ja",
+      "source": "online_osm",
+      "provider": "OpenStreetMap Overpass",
+      "sourceField": "name:ja/name/official_name",
+      "classification": "coordinate_enriched_online_overpass",
+      "rawType": "building:retail",
+      "confidence": 0.86,
+      "lat": 35.68669659,
+      "lon": 139.77418322,
+      "position": {
+        "x": 353.245,
+        "y": 0.08,
+        "z": 1065.868
+      },
+      "unityPosition": {
+        "x": 353.245,
+        "y": 0.08,
+        "z": 1065.868
+      },
+      "rawName": "COREDO室町1 (室町東三井ビルディング)",
+      "normalizedName": "COREDO室町1 (室町東三井ビルディング)",
+      "idOnly": false,
+      "disabled": false,
+      "hiddenInNormalMode": false,
+      "hiddenReason": "",
+      "attributionRequired": true,
+      "nonOfficialWarningRequired": true,
+      "isOfficialShelter": false,
+      "timestamp": "2026-05-30T21:41:16+09:00"
+    },
+    {
+      "id": "p8_plateau_highrise_candidate_045",
+      "objectType": "candidate",
+      "name": "明正通り",
+      "finalDisplayName": "明正通り",
+      "finalDisplayNameLanguage": "ja",
+      "language": "ja",
+      "source": "online_osm",
+      "provider": "OpenStreetMap Nominatim",
+      "sourceField": "name:ja/name/display_name_first_component",
+      "classification": "coordinate_enriched_online_nominatim",
+      "rawType": "highway:tertiary",
+      "confidence": 0.78,
+      "lat": 35.6742822,
+      "lon": 139.78432281,
+      "position": {
+        "x": 1268.47,
+        "y": 0.08,
+        "z": -314.367
+      },
+      "unityPosition": {
+        "x": 1268.47,
+        "y": 0.08,
+        "z": -314.367
+      },
+      "rawName": "明正通り",
+      "normalizedName": "明正通り",
+      "idOnly": false,
+      "disabled": false,
+      "hiddenInNormalMode": false,
+      "hiddenReason": "",
+      "attributionRequired": true,
+      "nonOfficialWarningRequired": true,
+      "isOfficialShelter": false,
+      "timestamp": "2026-05-30T21:41:16+09:00"
+    },
+    {
+      "id": "p8_plateau_highrise_candidate_060",
+      "objectType": "candidate",
+      "name": "信金中央金庫",
+      "finalDisplayName": "信金中央金庫",
+      "finalDisplayNameLanguage": "ja",
+      "language": "ja",
+      "source": "local_osm_cache",
+      "provider": "OpenStreetMap Nominatim",
+      "sourceField": "namedetails.name/name:ja_or_address.building",
+      "classification": "coordinate_enriched_from_existing_local_cache",
+      "rawType": "office:bank",
+      "confidence": 0.8,
+      "lat": 35.68289942,
+      "lon": 139.77181559,
+      "position": {
+        "x": 139.26,
+        "y": 0.08,
+        "z": 639.433
+      },
+      "unityPosition": {
+        "x": 139.26,
+        "y": 0.08,
+        "z": 639.433
+      },
+      "rawName": "信金中央金庫",
+      "normalizedName": "信金中央金庫",
+      "idOnly": false,
+      "disabled": false,
+      "hiddenInNormalMode": false,
+      "hiddenReason": "",
+      "attributionRequired": true,
+      "nonOfficialWarningRequired": true,
+      "isOfficialShelter": false,
+      "timestamp": "2026-05-30T21:41:16+09:00"
+    },
+    {
+      "id": "p8_plateau_highrise_candidate_063",
+      "objectType": "candidate",
+      "name": "デリド湊店",
+      "finalDisplayName": "デリド湊店",
+      "finalDisplayNameLanguage": "ja",
+      "language": "ja",
+      "source": "local_osm_cache",
+      "provider": "OpenStreetMap Nominatim",
+      "sourceField": "namedetails.name/name:ja_or_address.building",
+      "classification": "coordinate_enriched_from_existing_local_cache",
+      "rawType": "shop:supermarket",
+      "confidence": 0.8,
+      "lat": 35.67120825,
+      "lon": 139.78070967,
+      "position": {
+        "x": 938.065,
+        "y": 0.08,
+        "z": -649.572
+      },
+      "unityPosition": {
+        "x": 938.065,
+        "y": 0.08,
+        "z": -649.572
+      },
+      "rawName": "デリド湊店",
+      "normalizedName": "デリド湊店",
+      "idOnly": false,
+      "disabled": false,
+      "hiddenInNormalMode": false,
+      "hiddenReason": "",
+      "attributionRequired": true,
+      "nonOfficialWarningRequired": true,
+      "isOfficialShelter": false,
+      "timestamp": "2026-05-30T21:41:16+09:00"
+    },
+    {
+      "id": "p8_plateau_highrise_candidate_074",
+      "objectType": "candidate",
+      "name": "日本橋ダイヤビルディング",
+      "finalDisplayName": "日本橋ダイヤビルディング",
+      "finalDisplayNameLanguage": "ja",
+      "language": "ja",
+      "source": "local_osm_cache",
+      "provider": "OpenStreetMap Nominatim",
+      "sourceField": "namedetails.name/name:ja_or_address.building",
+      "classification": "coordinate_enriched_from_existing_local_cache",
+      "rawType": "building:commercial",
+      "confidence": 0.8,
+      "lat": 35.6838522,
+      "lon": 139.77790587,
+      "position": {
+        "x": 678.72,
+        "y": 0.08,
+        "z": 753.063
+      },
+      "unityPosition": {
+        "x": 678.72,
+        "y": 0.08,
+        "z": 753.063
+      },
+      "rawName": "日本橋ダイヤビルディング",
+      "normalizedName": "日本橋ダイヤビルディング",
+      "idOnly": false,
+      "disabled": false,
+      "hiddenInNormalMode": false,
+      "hiddenReason": "",
+      "attributionRequired": true,
+      "nonOfficialWarningRequired": true,
+      "isOfficialShelter": false,
+      "timestamp": "2026-05-30T21:41:16+09:00"
+    },
+    {
+      "id": "p8_plateau_highrise_candidate_083",
+      "objectType": "candidate",
+      "name": "マルエツプチ",
+      "finalDisplayName": "マルエツプチ",
+      "finalDisplayNameLanguage": "ja",
+      "language": "ja",
+      "source": "local_osm_cache",
+      "provider": "OpenStreetMap Nominatim",
+      "sourceField": "namedetails.name/name:ja_or_address.building",
+      "classification": "coordinate_enriched_from_existing_local_cache",
+      "rawType": "shop:supermarket",
+      "confidence": 0.8,
+      "lat": 35.68730969,
+      "lon": 139.77604959,
+      "position": {
+        "x": 526.465,
+        "y": 0.08,
+        "z": 1134.543
+      },
+      "unityPosition": {
+        "x": 526.465,
+        "y": 0.08,
+        "z": 1134.543
+      },
+      "rawName": "マルエツプチ",
+      "normalizedName": "マルエツプチ",
+      "idOnly": false,
+      "disabled": false,
+      "hiddenInNormalMode": false,
+      "hiddenReason": "",
+      "attributionRequired": true,
+      "nonOfficialWarningRequired": true,
+      "isOfficialShelter": false,
+      "timestamp": "2026-05-30T21:41:16+09:00"
+    },
+    {
+      "id": "p8_plateau_highrise_candidate_086",
+      "objectType": "candidate",
+      "name": "Coredo室町3 (室町ちばぎん三井ビルディング)",
+      "finalDisplayName": "Coredo室町3 (室町ちばぎん三井ビルディング)",
+      "finalDisplayNameLanguage": "ja",
+      "language": "ja",
+      "source": "online_osm",
+      "provider": "OpenStreetMap Overpass",
+      "sourceField": "name:ja/name/official_name",
+      "classification": "coordinate_enriched_online_overpass",
+      "rawType": "building:retail",
+      "confidence": 0.86,
+      "lat": 35.68621988,
+      "lon": 139.77434989,
+      "position": {
+        "x": 375.15,
+        "y": 0.08,
+        "z": 1004.508
+      },
+      "unityPosition": {
+        "x": 375.15,
+        "y": 0.08,
+        "z": 1004.508
+      },
+      "rawName": "Coredo室町3 (室町ちばぎん三井ビルディング)",
+      "normalizedName": "Coredo室町3 (室町ちばぎん三井ビルディング)",
+      "idOnly": false,
+      "disabled": false,
+      "hiddenInNormalMode": false,
+      "hiddenReason": "",
+      "attributionRequired": true,
+      "nonOfficialWarningRequired": true,
+      "isOfficialShelter": false,
+      "timestamp": "2026-05-30T21:41:16+09:00"
+    },
+    {
+      "id": "p8_plateau_highrise_candidate_090",
+      "objectType": "candidate",
+      "name": "伊藤園",
+      "finalDisplayName": "伊藤園",
+      "finalDisplayNameLanguage": "ja",
+      "language": "ja",
+      "source": "online_osm",
+      "provider": "OpenStreetMap Overpass",
+      "sourceField": "name:ja/name/official_name",
+      "classification": "coordinate_enriched_online_overpass",
+      "rawType": "amenity:vending_machine",
+      "confidence": 0.72,
+      "lat": 35.68131858,
+      "lon": 139.77828475,
+      "position": {
+        "x": 722.29,
+        "y": 0.08,
+        "z": 469.431
+      },
+      "unityPosition": {
+        "x": 722.29,
+        "y": 0.08,
+        "z": 469.431
+      },
+      "rawName": "伊藤園",
+      "normalizedName": "伊藤園",
+      "idOnly": false,
+      "disabled": false,
+      "hiddenInNormalMode": false,
+      "hiddenReason": "",
+      "attributionRequired": true,
+      "nonOfficialWarningRequired": true,
+      "isOfficialShelter": false,
+      "timestamp": "2026-05-30T21:41:16+09:00"
+    },
+    {
+      "id": "p8_plateau_highrise_candidate_091",
+      "objectType": "candidate",
+      "name": "眞帆ビル",
+      "finalDisplayName": "眞帆ビル",
+      "finalDisplayNameLanguage": "ja",
+      "language": "ja",
+      "source": "online_osm",
+      "provider": "OpenStreetMap Overpass",
+      "sourceField": "name:ja/name/official_name",
+      "classification": "coordinate_enriched_online_overpass",
+      "rawType": "building:yes",
+      "confidence": 0.86,
+      "lat": 35.67090786,
+      "lon": 139.76882936,
+      "position": {
+        "x": -172.555,
+        "y": 0.08,
+        "z": -759.755
+      },
+      "unityPosition": {
+        "x": -172.555,
+        "y": 0.08,
+        "z": -759.755
+      },
+      "rawName": "眞帆ビル",
+      "normalizedName": "眞帆ビル",
+      "idOnly": false,
+      "disabled": false,
+      "hiddenInNormalMode": false,
+      "hiddenReason": "",
+      "attributionRequired": true,
+      "nonOfficialWarningRequired": true,
+      "isOfficialShelter": false,
+      "timestamp": "2026-05-30T21:41:16+09:00"
+    },
+    {
+      "id": "p8_plateau_highrise_candidate_094",
+      "objectType": "candidate",
+      "name": "オンワードパークビルディング",
+      "finalDisplayName": "オンワードパークビルディング",
+      "finalDisplayNameLanguage": "ja",
+      "language": "ja",
+      "source": "local_osm_cache",
+      "provider": "OpenStreetMap Nominatim",
+      "sourceField": "namedetails.name/name:ja_or_address.building",
+      "classification": "coordinate_enriched_from_existing_local_cache",
+      "rawType": "building:commercial",
+      "confidence": 0.8,
+      "lat": 35.67949898,
+      "lon": 139.77385859,
+      "position": {
+        "x": 322.295,
+        "y": 0.08,
+        "z": 263.248
+      },
+      "unityPosition": {
+        "x": 322.295,
+        "y": 0.08,
+        "z": 263.248
+      },
+      "rawName": "オンワードパークビルディング",
+      "normalizedName": "オンワードパークビルディング",
+      "idOnly": false,
+      "disabled": false,
+      "hiddenInNormalMode": false,
+      "hiddenReason": "",
+      "attributionRequired": true,
+      "nonOfficialWarningRequired": true,
+      "isOfficialShelter": false,
+      "timestamp": "2026-05-30T21:41:16+09:00"
+    },
+    {
+      "id": "p8_plateau_highrise_candidate_095",
+      "objectType": "candidate",
+      "name": "東京証券取引所",
+      "finalDisplayName": "東京証券取引所",
+      "finalDisplayNameLanguage": "ja",
+      "language": "ja",
+      "source": "online_osm",
+      "provider": "OpenStreetMap Nominatim",
+      "sourceField": "name:ja/name/display_name_first_component",
+      "classification": "coordinate_enriched_online_nominatim",
+      "rawType": "amenity:stock_exchange",
+      "confidence": 0.78,
+      "lat": 35.68264804,
+      "lon": 139.77902042,
+      "position": {
+        "x": 767.235,
+        "y": 0.08,
+        "z": 617.789
+      },
+      "unityPosition": {
+        "x": 767.235,
+        "y": 0.08,
+        "z": 617.789
+      },
+      "rawName": "東京証券取引所",
+      "normalizedName": "東京証券取引所",
+      "idOnly": false,
+      "disabled": false,
+      "hiddenInNormalMode": false,
+      "hiddenReason": "",
+      "attributionRequired": true,
+      "nonOfficialWarningRequired": true,
+      "isOfficialShelter": false,
+      "timestamp": "2026-05-30T21:41:16+09:00"
+    },
+    {
+      "id": "p8_plateau_highrise_candidate_096",
+      "objectType": "candidate",
+      "name": "王子ホール",
+      "finalDisplayName": "王子ホール",
+      "finalDisplayNameLanguage": "ja",
+      "language": "ja",
+      "source": "local_osm_cache",
+      "provider": "OpenStreetMap Nominatim",
+      "sourceField": "namedetails.name/name:ja_or_address.building",
+      "classification": "coordinate_enriched_from_existing_local_cache",
+      "rawType": "amenity:theatre",
+      "confidence": 0.8,
+      "lat": 35.6711719,
+      "lon": 139.76640532,
+      "position": {
+        "x": -346.415,
+        "y": 0.08,
+        "z": -644.762
+      },
+      "unityPosition": {
+        "x": -346.415,
+        "y": 0.08,
+        "z": -644.762
+      },
+      "rawName": "王子ホール",
+      "normalizedName": "王子ホール",
+      "idOnly": false,
+      "disabled": false,
+      "hiddenInNormalMode": false,
+      "hiddenReason": "",
+      "attributionRequired": true,
+      "nonOfficialWarningRequired": true,
+      "isOfficialShelter": false,
+      "timestamp": "2026-05-30T21:41:16+09:00"
+    },
+    {
+      "id": "p8_plateau_highrise_candidate_098",
+      "objectType": "candidate",
+      "name": "小原鐵五郎寿像",
+      "finalDisplayName": "小原鐵五郎寿像",
+      "finalDisplayNameLanguage": "ja",
+      "language": "ja",
+      "source": "online_osm",
+      "provider": "OpenStreetMap Nominatim",
+      "sourceField": "name:ja/name/display_name_first_component",
+      "classification": "coordinate_enriched_online_nominatim",
+      "rawType": "historic:memorial",
+      "confidence": 0.78,
+      "lat": 35.67528935,
+      "lon": 139.77117181,
+      "position": {
+        "x": 81.575,
+        "y": 0.08,
+        "z": -203.947
+      },
+      "unityPosition": {
+        "x": 81.575,
+        "y": 0.08,
+        "z": -203.947
+      },
+      "rawName": "小原鐵五郎寿像",
+      "normalizedName": "小原鐵五郎寿像",
+      "idOnly": false,
+      "disabled": false,
+      "hiddenInNormalMode": false,
+      "hiddenReason": "",
+      "attributionRequired": true,
+      "nonOfficialWarningRequired": true,
+      "isOfficialShelter": false,
+      "timestamp": "2026-05-30T21:41:16+09:00"
+    },
+    {
+      "id": "p8_plateau_highrise_candidate_100",
+      "objectType": "candidate",
+      "name": "第一三共くすりミュージアム",
+      "finalDisplayName": "第一三共くすりミュージアム",
+      "finalDisplayNameLanguage": "ja",
+      "language": "ja",
+      "source": "local_osm_cache",
+      "provider": "OpenStreetMap Nominatim",
+      "sourceField": "namedetails.name/name:ja_or_address.building",
+      "classification": "coordinate_enriched_from_existing_local_cache",
+      "rawType": "tourism:museum",
+      "confidence": 0.8,
+      "lat": 35.68853775,
+      "lon": 139.77558078,
+      "position": {
+        "x": 481.571,
+        "y": 0.08,
+        "z": 1266.73
+      },
+      "unityPosition": {
+        "x": 481.571,
+        "y": 0.08,
+        "z": 1266.73
+      },
+      "rawName": "第一三共くすりミュージアム",
+      "normalizedName": "第一三共くすりミュージアム",
+      "idOnly": false,
+      "disabled": false,
+      "hiddenInNormalMode": false,
+      "hiddenReason": "",
+      "attributionRequired": true,
+      "nonOfficialWarningRequired": true,
+      "isOfficialShelter": false,
+      "timestamp": "2026-05-30T21:41:16+09:00"
+    },
+    {
+      "id": "p8_plateau_highrise_candidate_101",
+      "objectType": "candidate",
+      "name": "時事通信本社",
+      "finalDisplayName": "時事通信本社",
+      "finalDisplayNameLanguage": "ja",
+      "language": "ja",
+      "source": "local_osm_cache",
+      "provider": "OpenStreetMap Nominatim",
+      "sourceField": "namedetails.name/name:ja_or_address.building",
+      "classification": "coordinate_enriched_from_existing_local_cache",
+      "rawType": "office:company",
+      "confidence": 0.8,
+      "lat": 35.66814735,
+      "lon": 139.76742462,
+      "position": {
+        "x": -270.065,
+        "y": -0.15,
+        "z": -998.462
+      },
+      "unityPosition": {
+        "x": -270.065,
+        "y": -0.15,
+        "z": -998.462
+      },
+      "rawName": "時事通信本社",
+      "normalizedName": "時事通信本社",
+      "idOnly": false,
+      "disabled": false,
+      "hiddenInNormalMode": false,
+      "hiddenReason": "",
+      "attributionRequired": true,
+      "nonOfficialWarningRequired": true,
+      "isOfficialShelter": false,
+      "timestamp": "2026-05-30T21:41:16+09:00"
+    },
+    {
+      "id": "p8_plateau_highrise_candidate_103",
+      "objectType": "candidate",
+      "name": "アロフト東京銀座",
+      "finalDisplayName": "アロフト東京銀座",
+      "finalDisplayNameLanguage": "ja",
+      "language": "ja",
+      "source": "local_osm_cache",
+      "provider": "OpenStreetMap Nominatim",
+      "sourceField": "namedetails.name/name:ja_or_address.building",
+      "classification": "coordinate_enriched_from_existing_local_cache",
+      "rawType": "tourism:hotel",
+      "confidence": 0.8,
+      "lat": 35.66886939,
+      "lon": 139.76574201,
+      "position": {
+        "x": -421.208,
+        "y": 0.08,
+        "z": -909.725
+      },
+      "unityPosition": {
+        "x": -421.208,
+        "y": 0.08,
+        "z": -909.725
+      },
+      "rawName": "アロフト東京銀座",
+      "normalizedName": "アロフト東京銀座",
+      "idOnly": false,
+      "disabled": false,
+      "hiddenInNormalMode": false,
+      "hiddenReason": "",
+      "attributionRequired": true,
+      "nonOfficialWarningRequired": true,
+      "isOfficialShelter": false,
+      "timestamp": "2026-05-30T21:41:16+09:00"
+    },
+    {
+      "id": "p8_plateau_highrise_candidate_104",
+      "objectType": "candidate",
+      "name": "ファミリーマート",
+      "finalDisplayName": "ファミリーマート",
+      "finalDisplayNameLanguage": "ja",
+      "language": "ja",
+      "source": "local_osm_cache",
+      "provider": "OpenStreetMap Nominatim",
+      "sourceField": "namedetails.name/name:ja_or_address.building",
+      "classification": "coordinate_enriched_from_existing_local_cache",
+      "rawType": "shop:convenience",
+      "confidence": 0.8,
+      "lat": 35.67544968,
+      "lon": 139.77083959,
+      "position": {
+        "x": 48.665,
+        "y": 0.08,
+        "z": -175.547
+      },
+      "unityPosition": {
+        "x": 48.665,
+        "y": 0.08,
+        "z": -175.547
+      },
+      "rawName": "ファミリーマート",
+      "normalizedName": "ファミリーマート",
+      "idOnly": false,
+      "disabled": false,
+      "hiddenInNormalMode": false,
+      "hiddenReason": "",
+      "attributionRequired": true,
+      "nonOfficialWarningRequired": true,
+      "isOfficialShelter": false,
+      "timestamp": "2026-05-30T21:41:16+09:00"
     }
   ]
 }

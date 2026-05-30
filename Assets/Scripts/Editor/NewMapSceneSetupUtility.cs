@@ -117,6 +117,11 @@ public static class NewMapSceneSetupUtility
         BuildNewMapPlayer("D:/UnityProjects/ChuoTsunamiEvacuation-Builds/NewMapNameEnrichmentPre", "ChuoTsunamiEvacuation_NewMapNameEnrichmentPre.exe");
     }
 
+    public static void BuildNewMapNonOfficialNameFixPlayerCommandLine()
+    {
+        BuildNewMapPlayer("D:/UnityProjects/ChuoTsunamiEvacuation-Builds/NewMapNonOfficialNameFixPre", "ChuoTsunamiEvacuation_NewMapNonOfficialNameFixPre.exe");
+    }
+
     public static void BuildNewMapAirwallNpcLabelPlayerCommandLine()
     {
         BuildNewMapPlayer("D:/UnityProjects/ChuoTsunamiEvacuation-Builds/NewMapAirwallNpcLabelFixPre", "ChuoTsunamiEvacuation_NewMapAirwallNpcLabelFixPre.exe");
@@ -142,6 +147,16 @@ public static class NewMapSceneSetupUtility
         BuildNewMapPlayer("D:/UnityProjects/ChuoTsunamiEvacuation-Builds/NewMapCollisionBoundaryLeaderboardPre", "ChuoTsunamiEvacuation_NewMapCollisionBoundaryLeaderboardPre.exe");
     }
 
+    public static void BuildNewMapBoundary2270PlayerCommandLine()
+    {
+        BuildNewMapPlayer("D:/UnityProjects/ChuoTsunamiEvacuation-Builds/NewMapBoundary2270Pre", "ChuoTsunamiEvacuation_NewMapBoundary2270Pre.exe");
+    }
+
+    public static void BuildNewMapGround30Npc2xPlayerCommandLine()
+    {
+        BuildNewMapPlayer("D:/UnityProjects/ChuoTsunamiEvacuation-Builds/NewMapGround30Npc2xPre", "ChuoTsunamiEvacuation_NewMapGround30Npc2xPre.exe");
+    }
+
     public static void BuildNewMapBuildingCollisionPrecisionPlayerCommandLine()
     {
         BuildNewMapPlayer("D:/UnityProjects/ChuoTsunamiEvacuation-Builds/NewMapBuildingCollisionPrecisionPre", "ChuoTsunamiEvacuation_NewMapBuildingCollisionPrecisionPre.exe");
@@ -150,6 +165,16 @@ public static class NewMapSceneSetupUtility
     public static void BuildNewMapFinalTuningPlayerCommandLine()
     {
         BuildNewMapPlayer("D:/UnityProjects/ChuoTsunamiEvacuation-Builds/NewMapFinalTuningPre", "ChuoTsunamiEvacuation_NewMapFinalTuningPre.exe");
+    }
+
+    public static void BuildNewMapFinalP10TuningPlayerCommandLine()
+    {
+        BuildNewMapPlayer("D:/UnityProjects/ChuoTsunamiEvacuation-Builds/NewMapFinalP10TuningPre", "ChuoTsunamiEvacuation_NewMapFinalP10TuningPre.exe");
+    }
+
+    public static void BuildP11FinalPlayerCommandLine()
+    {
+        BuildNewMapPlayer("D:/UnityProjects/ChuoTsunamiEvacuation-Releases/ChuoTsunamiEvacuation_v1.0", "ChuoTsunamiEvacuation.exe");
     }
 
     private static void BuildNewMapPlayer(string buildDirectory, string executableName)

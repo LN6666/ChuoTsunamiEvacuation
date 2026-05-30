@@ -2,24 +2,24 @@
   "generatedAt": "2026-05-29T00:00:00+09:00",
   "activeScene": "Assets/Scenes/Chuo_BaseMap.unity",
   "baseConfiguredCountBeforeMultiplier": 8,
-  "npcCountMultiplier": 100,
-  "requestedCount": 800,
-  "maxNpcCount": 800,
-  "cappedCount": 800,
+  "npcCountMultiplier": 200,
+  "requestedCount": 1600,
+  "maxNpcCount": 1600,
+  "cappedCount": 1600,
   "capReason": "not_capped",
-  "spawnCenter": "player_spawn_position",
-  "distributionRadiusMeters": 1000,
-  "minDistanceFromPlayerMeters": 15,
+  "spawnCenter": "same_as_circular_boundary_center",
+  "distributionRadiusMeters": 2270,
+  "minDistanceFromPlayerMeters": 20,
   "minDistanceBetweenNpcMeters": 3,
   "sectorDistribution": {
     "enabled": true,
-    "sectorCount": 32,
-    "ringCount": 6,
-    "maxNpcPerSector": 40,
-    "minimumExpectedUsedSectors": 24,
-    "minimumExpectedUsedRings": 5
+    "sectorCount": 48,
+    "ringCount": 8,
+    "maxNpcPerSector": 64,
+    "minimumExpectedUsedSectors": 40,
+    "minimumExpectedUsedRings": 7
   },
-  "deterministicSeed": 20260529,
+  "deterministicSeed": 20260530,
   "validPlacement": {
     "snapToGround": true,
     "snapToGroundCover": true,
@@ -41,12 +41,12 @@
     "averageFps": 0.0,
     "maxFrameMs": 0.0,
     "stutterFramesOver66ms": 0,
-    "requestedNpcCount": 800,
+    "requestedNpcCount": 1600,
     "spawnedNpcCount": 0,
-    "cappedNpcCount": 800,
+    "cappedNpcCount": 1600,
     "activeNpcCount": 0
   },
   "tourismMode": "ambient_pedestrians_no_failure",
   "evacuationMode": "bounded_crowd_delay_no_direct_npc_death",
-  "finalStatus": "pending_100x_player_smoke"
+  "finalStatus": "pending_30_ground_2x_player_smoke"
 }

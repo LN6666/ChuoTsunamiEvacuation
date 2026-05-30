@@ -35,6 +35,20 @@ __pycache__/
 **/__pycache__/
 *.py[cod]
 
+# Final/player build artifacts must stay out of normal source commits
+*.exe
+*_Data/
+ChuoTsunamiEvacuation-Releases/
+Releases/
+
+# Unity Test Framework can leave temporary init scenes behind after GUI runs
+Assets/InitTestScene*.unity
+Assets/InitTestScene*.unity.meta
+Assets/AddressableAssetsData/ProfileDataSourceSettings.asset
+Assets/AddressableAssetsData/ProfileDataSourceSettings.asset.meta
+Assets/AddressableAssetsData/link.xml
+Assets/AddressableAssetsData/link.xml.meta
+
 Assets/Scenes/Chuo_BaseMap_before_auto_setup.unity
 Assets/Scenes/Chuo_BaseMap_before_auto_setup.unity.meta
 

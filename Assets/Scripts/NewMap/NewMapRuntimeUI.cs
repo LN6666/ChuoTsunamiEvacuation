@@ -544,6 +544,7 @@ public sealed class NewMapRuntimeUI : MonoBehaviour
         return
             "New Chuo_BaseMap baseline\n" +
             "Tourism Mode: exploration only. Tsunami warning, light curtain, hazard failure, crowd failure, collapse/debris failure, and stamina drain are disabled.\n" +
+            "Evacuation stamina max is 3500. Evacuation sprint is 4.59 m/s, a 20% reduction from the previous P10 build. Tourism sprint remains 10.00 m/s with no stamina restriction.\n" +
             "Evacuation Mode: PRE_WARNING_WAIT starts first, then Stage 1 Warning shows the countdown while the light curtain stays hidden and risk contact is ignored. Stage 2 FrontApproaching shows the light curtain and hazard checks become active.\n" +
             "Straight shelter lines are gameplay guidance only. Press R to show/hide the mixed distance ranking.\n" +
             "Green frames mark prototype guidance targets only. A green frame does not mean official safety approval.\n" +
@@ -554,6 +555,16 @@ public sealed class NewMapRuntimeUI : MonoBehaviour
 
     private static string GetRulesJa()
     {
+        return
+            "現在の基準マップは Chuo_BaseMap です。\n" +
+            "観光モードは探索用です。津波警報、ライトカーテン、危険判定、群衆失敗、倒壊・がれき失敗、スタミナ消費は無効です。観光スプリントは 10.00 m/s のままです。\n" +
+            "避難モードの最大スタミナは 3500 です。避難スプリントは前回 P10 ビルドから 20% 低下し、4.59 m/s です。\n" +
+            "避難モードは PRE_WARNING_WAIT、Stage 1 Warning、Stage 2 FrontApproaching の順に進みます。Stage 2 でライトカーテンと危険判定が有効になります。\n" +
+            "緑フレームは試作ガイダンス対象を示すだけで、公式な安全承認ではありません。\n" +
+            "非公式候補には警告が必要で、公式避難所ではありません。\n" +
+            "ルートは推定の試作ガイダンスであり、公式避難ルートではありません。\n" +
+            "新マップで確認できないターゲットは無効化され、ゲーム中に表示されません。";
+
         return
             "新しい Chuo_BaseMap 基準\n" +
             "観光モード: 探索のみ。津波警報、ライトカーテン、危険判定、群衆失敗、倒壊・瓦礫失敗、スタミナ消費は無効です。\n" +

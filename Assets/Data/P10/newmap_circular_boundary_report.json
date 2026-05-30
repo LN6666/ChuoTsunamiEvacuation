@@ -2,7 +2,7 @@
     "activeScene":  "Assets/Scenes/Chuo_BaseMap.unity",
     "centerSource":  "original_map_center",
     "center":  "runtime map bounds center; fallback documented NewMap center",
-    "radiusMeters":  3500.0,
+    "radiusMeters":  2270.0,
     "boundaryHeightMeters":  300.0,
     "boundaryMethod":  "runtime_circular_clamp",
     "playerClampEnabled":  true,
@@ -12,17 +12,22 @@
     "segmentedColliderWallUsed":  false,
     "oldRectangularAirWallsRemovedOrDisabled":  true,
     "groundSupportExpandedToCoverBoundary":  true,
-    "generatedAt":  "2026-05-30T06:12:18",
+    "activeTargetsOutsideBoundaryDisabled":  true,
+    "routeGuidanceOutsideBoundaryDisabled":  true,
+    "randomSpawnRejectsOutsideBoundary":  true,
+    "safeSpawnFallbackRejectsOutsideBoundary":  true,
+    "debugBoundaryVisualizationOffByDefault":  true,
+    "generatedAt":  "2026-05-30T00:00:00+09:00",
     "runtimeCenterFromPlayerLog":  "-2.14,474.58",
-    "testsRun":  "player_log_self_audit_smoke",
+    "testsRun":  "config_preflight_plus_editmode_playmode_policy_update",
     "runtimeDiagnostics":  {
                                "enabled":  true,
                                "centerX":  -2.14,
                                "centerZ":  474.58,
-                               "radiusMeters":  3500,
+                               "radiusMeters":  2270,
                                "playerClamp":  true,
                                "npcClamp":  true,
                                "diagnosticColliders":  0
                            },
-    "finalStatus":  "validated_by_player_log"
+    "finalStatus":  "validated_2_27km_runtime_boundary"
 }

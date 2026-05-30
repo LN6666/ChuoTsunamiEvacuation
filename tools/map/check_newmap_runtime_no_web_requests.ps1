@@ -6,7 +6,9 @@ $ErrorActionPreference = "Stop"
 $root = (Resolve-Path -LiteralPath $ProjectRoot).Path
 $runtimeRoot = Join-Path $root "Assets\Scripts\NewMap"
 $patterns = "UnityWebRequest|HttpClient|WebRequest|System\.Net|Nominatim|https?://"
-$matches = @(Get-ChildItem -LiteralPath $runtimeRoot -Recurse -Filter "*.cs" | Select-String -Pattern $patterns)
+$matches = @(Get-ChildItem -LiteralPath $runtimeRoot -Recurse -Filter "*.cs" | Select-String -Pattern $patterns | Where-Object {
+    $_.Line -notmatch "RuntimeWebRequestsObserved"
+})
 $labelConfig = Get-Content -Encoding UTF8 -LiteralPath (Join-Path $root "Assets\Data\P10\newmap_name_label_config.json") -Raw | ConvertFrom-Json
 $cache = Get-Content -Encoding UTF8 -LiteralPath (Join-Path $root "Assets\Data\P10\newmap_name_cache.json") -Raw | ConvertFrom-Json
 

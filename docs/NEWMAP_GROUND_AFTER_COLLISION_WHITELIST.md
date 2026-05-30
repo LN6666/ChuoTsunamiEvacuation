@@ -5,7 +5,7 @@ Ground/support collision is preserved.
 Runtime behavior:
 - Visible road-like gameplay ground cover remains active and collidable.
 - The invisible support surface remains non-rendered but collidable.
-- The support surface is expanded to cover the 3.5km circular boundary.
+- The support surface is expanded to cover the 2.27km circular boundary.
 - Fall recovery remains enabled.
 - Spawn grounding remains tied to the gameplay support surface.
 

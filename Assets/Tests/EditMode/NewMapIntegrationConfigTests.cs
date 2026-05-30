@@ -33,10 +33,10 @@ public class NewMapIntegrationConfigTests
 
         NewMapPlayerStaminaConfig stamina = NewMapPlayerStaminaConfig.Load();
         Assert.AreEqual(100f, stamina.baselineMaxStamina, 0.001f);
-        Assert.AreEqual(130f, stamina.staminaMultiplier, 0.001f);
-        Assert.AreEqual(13000f, stamina.MaxStamina, 0.001f);
-        Assert.AreEqual(1.1475f, stamina.SprintSpeedMultiplierAdditional, 0.001f);
-        Assert.AreEqual(5.7375f, stamina.FinalEvacuationSprintSpeed, 0.001f);
+        Assert.AreEqual(35f, stamina.staminaMultiplier, 0.001f);
+        Assert.AreEqual(3500f, stamina.MaxStamina, 0.001f);
+        Assert.AreEqual(0.918f, stamina.SprintSpeedMultiplierAdditional, 0.001f);
+        Assert.AreEqual(4.59f, stamina.FinalEvacuationSprintSpeed, 0.001f);
 
         NewMapTsunamiModeHotfixConfig tsunami = NewMapTsunamiModeHotfixConfig.Load();
         Assert.AreEqual("south", tsunami.NormalizedTsunamiStartSide);
@@ -60,7 +60,7 @@ public class NewMapIntegrationConfigTests
         NewMapCircularBoundaryConfig boundary = NewMapCircularBoundaryConfig.Load();
         Assert.IsTrue(boundary.enabled);
         Assert.AreEqual("original_map_center", boundary.centerSource);
-        Assert.AreEqual(3500f, boundary.RadiusMeters, 0.001f);
+        Assert.AreEqual(2270f, boundary.RadiusMeters, 0.001f);
         Assert.AreEqual("runtime_circular_clamp", boundary.boundaryMode);
         Assert.IsTrue(boundary.affectsPlayer);
         Assert.IsTrue(boundary.affectsNpc);
@@ -269,7 +269,17 @@ public class NewMapIntegrationConfigTests
             "Data/P10/newmap_npc_collision_regression_after_player_collision.json",
             "Data/P10/newmap_airwall_npc_label_regression.json",
             "Data/P10/newmap_player_stamina_config.json",
-            "Data/P10/newmap_tsunami_mode_hotfix_config.json"
+            "Data/P10/newmap_tsunami_mode_hotfix_config.json",
+            "Data/P10/newmap_ground_raise_30_config.json",
+            "Data/P10/newmap_ground_raise_30_report.json",
+            "Data/P10/newmap_ground_raise_30_resnap_report.json",
+            "Data/P10/newmap_building_floating_after_30_raise.json",
+            "Data/P10/newmap_npc_boundary_wide_distribution_config.json",
+            "Data/P10/newmap_npc_boundary_wide_distribution_report.json",
+            "Data/P10/newmap_npc_double_count_config.json",
+            "Data/P10/newmap_npc_double_count_report.json",
+            "Data/P10/newmap_npc_double_distribution_regression.json",
+            "Data/P10/newmap_boundary_npc_sync_report.json"
         };
 
         foreach (string relativePath in requiredPaths)
@@ -279,13 +289,13 @@ public class NewMapIntegrationConfigTests
         }
 
         string config = File.ReadAllText(Path.Combine(Application.dataPath, "Data/P10/newmap_npc_distribution_config.json"));
-        StringAssert.Contains("\"npcCountMultiplier\": 100", config);
-        StringAssert.Contains("\"distributionRadiusMeters\": 1000", config);
-        StringAssert.Contains("\"maxNpcCount\": 800", config);
-        StringAssert.Contains("\"npcDistributionSeed\": 20260529", config);
+        StringAssert.Contains("\"npcCountMultiplier\": 200", config);
+        StringAssert.Contains("\"distributionRadiusMeters\": 2270", config);
+        StringAssert.Contains("\"maxNpcCount\": 1600", config);
+        StringAssert.Contains("\"npcDistributionSeed\": 20260530", config);
         StringAssert.Contains("\"useSectorDistribution\": true", config);
-        StringAssert.Contains("\"sectorCount\": 32", config);
-        StringAssert.Contains("\"ringCount\": 6", config);
+        StringAssert.Contains("\"sectorCount\": 48", config);
+        StringAssert.Contains("\"ringCount\": 8", config);
         StringAssert.Contains("\"avoidBuildings\": true", config);
         StringAssert.Contains("\"usePooling\": true", config);
         StringAssert.Contains("\"farNpcStaticProxyMode\": true", config);
@@ -294,7 +304,7 @@ public class NewMapIntegrationConfigTests
         StringAssert.Contains("\"continuousMovementEnabled\": true", movement);
         StringAssert.Contains("\"stuckRecoveryEnabled\": true", movement);
         StringAssert.Contains("\"buildingAvoidanceEnabled\": true", movement);
-        StringAssert.Contains("\"farNpcStaticProxyMode\": false", movement);
+        StringAssert.Contains("\"farNpcStaticProxyMode\": true", movement);
 
         string playerNpcCollision = File.ReadAllText(Path.Combine(Application.dataPath, "Data/P10/newmap_player_npc_collision_config.json"));
         StringAssert.Contains("\"enabled\": true", playerNpcCollision);
@@ -357,15 +367,17 @@ public class NewMapIntegrationConfigTests
         StringAssert.Contains("\"playerBuildingCollisionEnabled\":true", compactPlayerCollision);
         StringAssert.Contains("\"continuousMovementEnabled\":true", compactNpcMovement);
         StringAssert.Contains("\"stoppedWithoutReasonCount\":0", compactNpcMovement);
-        StringAssert.Contains("\"npcCountMultiplier\":100", compactNpcReport);
-        StringAssert.Contains("\"requestedNpcCount\":800", compactNpcReport);
-        StringAssert.Contains("\"maxNpcCount\":800", compactNpcReport);
+        StringAssert.Contains("\"npcCountMultiplier\":200", compactNpcReport);
+        StringAssert.Contains("\"requestedNpcCount\":1600", compactNpcReport);
+        StringAssert.Contains("\"maxNpcCount\":1600", compactNpcReport);
         StringAssert.Contains("\"avoidBuildings\":true", compactNpcReport);
         StringAssert.Contains("\"usePooling\":true", compactNpcReport);
         StringAssert.Contains("\"evacuationCrowdDelayBounded\":true", compactNpcGameplay);
         StringAssert.Contains("ApplyFloatingBuildingSnapdownToGameplayGroundCover", bootstrap);
         StringAssert.Contains("DisableBuildingVerticalMovesForGroundCoverRaise", bootstrap);
         StringAssert.Contains("ResolveRaisedGroundCoverY", bootstrap);
+        StringAssert.Contains("ResolveGroundRaise30Y", bootstrap);
+        StringAssert.Contains("NewMapGroundRaise30Config", bootstrap);
         StringAssert.Contains("ContainsSnapdownExcludedText", bootstrap);
         StringAssert.Contains("groundRaiseStatus", bootstrap);
         StringAssert.Contains("IsInsideBuildingBounds", npc);
@@ -373,6 +385,52 @@ public class NewMapIntegrationConfigTests
         StringAssert.Contains("StoppedWithoutReasonCount", npc);
         StringAssert.Contains("ResolvePlayerPositionAgainstNpcs", npc);
         StringAssert.Contains("CapsuleCollider", npc);
+    }
+
+    [Test]
+    public void GroundRaise30AndNpc2xBoundaryWideConfigsAreMeasurable()
+    {
+        NewMapGroundRaise30Config raise30 = NewMapGroundRaise30Config.Load();
+        NewMapNpcDistributionConfig npc = NewMapNpcDistributionConfig.Load();
+        string raiseReport = File.ReadAllText(Path.Combine(Application.dataPath, "Data/P10/newmap_ground_raise_30_report.json"));
+        string resnapReport = File.ReadAllText(Path.Combine(Application.dataPath, "Data/P10/newmap_ground_raise_30_resnap_report.json"));
+        string floatingReport = File.ReadAllText(Path.Combine(Application.dataPath, "Data/P10/newmap_building_floating_after_30_raise.json"));
+        string boundaryWideConfig = File.ReadAllText(Path.Combine(Application.dataPath, "Data/P10/newmap_npc_boundary_wide_distribution_config.json"));
+        string doubleConfig = File.ReadAllText(Path.Combine(Application.dataPath, "Data/P10/newmap_npc_double_count_config.json"));
+        string syncReport = File.ReadAllText(Path.Combine(Application.dataPath, "Data/P10/newmap_boundary_npc_sync_report.json"));
+        string compactRaise = raiseReport.Replace(" ", string.Empty);
+        string compactResnap = resnapReport.Replace(" ", string.Empty);
+        string compactFloating = floatingReport.Replace(" ", string.Empty);
+        string compactBoundaryWide = boundaryWideConfig.Replace(" ", string.Empty);
+        string compactDouble = doubleConfig.Replace(" ", string.Empty);
+        string compactSync = syncReport.Replace(" ", string.Empty);
+
+        Assert.IsTrue(raise30.enabled);
+        Assert.AreEqual(0.30f, raise30.raisePercent, 0.001f);
+        Assert.AreEqual("existing_raise_offset", raise30.baselineMode);
+        StringAssert.Contains("\"oldGroundY\":3.3", compactRaise);
+        StringAssert.Contains("\"newGroundY\":4.29", compactRaise);
+        StringAssert.Contains("\"oldRaiseOffset\":3.3", compactRaise);
+        StringAssert.Contains("\"newRaiseOffset\":4.29", compactRaise);
+        StringAssert.Contains("\"actualRaisePercent\":0.3", compactRaise);
+        StringAssert.Contains("\"playerSpawnNewY\":4.33", compactResnap);
+        StringAssert.Contains("\"groundCoverColliderVisualAligned\":true", compactResnap);
+        StringAssert.Contains("\"fullFixClaimed\":false", compactFloating);
+
+        Assert.AreEqual(200, npc.npcCountMultiplier);
+        Assert.AreEqual(1600, npc.maxNpcCount);
+        Assert.AreEqual(2270f, npc.distributionRadiusMeters, 0.001f);
+        Assert.AreEqual(48, npc.sectorCount);
+        Assert.AreEqual(8, npc.ringCount);
+        StringAssert.Contains("\"centerSource\":\"same_as_circular_boundary\"", compactBoundaryWide);
+        StringAssert.Contains("\"distributionRadiusMeters\":2270", compactBoundaryWide);
+        StringAssert.Contains("\"npcCountMultiplierFromCurrent\":2.0", compactDouble);
+        StringAssert.Contains("\"requestedNpcCount\":1600", compactDouble);
+        StringAssert.Contains("\"maxNpcCount\":1600", compactDouble);
+        StringAssert.Contains("\"circularBoundaryRadiusMeters\":2270", compactSync);
+        StringAssert.Contains("\"npcDistributionRadiusMeters\":2270", compactSync);
+        StringAssert.Contains("\"stale1500BoundaryValueActive\":false", compactSync);
+        StringAssert.Contains("\"stale3500BoundaryValueActive\":false", compactSync);
     }
 
     [Test]
@@ -403,7 +461,7 @@ public class NewMapIntegrationConfigTests
         StringAssert.Contains("\"oldRectangularAirWallsAllowed\":false", compactWhitelist);
         StringAssert.Contains("\"routeLineVisualBlocksPlayer\":false", compactWhitelist);
         StringAssert.Contains("\"boundaryMethod\":\"runtime_circular_clamp\"", compactCircularBoundary);
-        StringAssert.Contains("\"radiusMeters\":3500.0", compactCircularBoundary);
+        StringAssert.Contains("\"radiusMeters\":2270.0", compactCircularBoundary);
         StringAssert.Contains("\"debugTestCollidersInactiveInNormalMode\":true", compactCleanup);
         StringAssert.Contains("\"buildingObstacleBoundsShrunk\":", compactAudit);
         StringAssert.Contains("\"enabled\":true", compactCollisionConfig);
@@ -574,7 +632,7 @@ public class NewMapIntegrationConfigTests
 
         NewMapCircularBoundaryConfig circle = NewMapCircularBoundaryConfig.Default();
         Assert.IsTrue(circle.enabled);
-        Assert.AreEqual(3500f, circle.RadiusMeters, 0.001f);
+        Assert.AreEqual(2270f, circle.RadiusMeters, 0.001f);
         Assert.IsTrue(circle.affectsPlayer);
         Assert.IsTrue(circle.affectsNpc);
         Assert.IsFalse(circle.visibleInNormalMode);
@@ -804,6 +862,67 @@ public class NewMapIntegrationConfigTests
     }
 
     [Test]
+    public void NonOfficialCandidateNameFixAuditsEnrichesAndPreservesWarnings()
+    {
+        string auditPath = Path.Combine(Application.dataPath, "Data/P10/newmap_non_official_candidate_name_audit.json");
+        string queryPath = Path.Combine(Application.dataPath, "Data/P10/newmap_non_official_candidate_name_query_list.json");
+        string configPath = Path.Combine(Application.dataPath, "Data/P10/newmap_non_official_name_enrichment_config.json");
+        string reportPath = Path.Combine(Application.dataPath, "Data/P10/newmap_non_official_name_enrichment_report.json");
+        string normalizationPath = Path.Combine(Application.dataPath, "Data/P10/newmap_non_official_name_normalization_report.json");
+        string writebackPath = Path.Combine(Application.dataPath, "Data/P10/newmap_non_official_name_cache_writeback_report.json");
+        string runtimeReportPath = Path.Combine(Application.dataPath, "Data/P10/newmap_name_label_runtime_report.json");
+        string cachePath = Path.Combine(Application.dataPath, "Data/P10/newmap_name_cache.json");
+        string labelSourcePath = Path.Combine(Application.dataPath, "Scripts/NewMap/NewMapNameLabelController.cs");
+
+        Assert.IsTrue(File.Exists(auditPath), "Non-official candidate name audit must exist.");
+        Assert.IsTrue(File.Exists(queryPath), "Non-official candidate name query list must exist.");
+        Assert.IsTrue(File.Exists(configPath), "Non-official candidate enrichment config must exist.");
+        Assert.IsTrue(File.Exists(reportPath), "Non-official candidate enrichment report must exist.");
+        Assert.IsTrue(File.Exists(normalizationPath), "Non-official candidate normalization report must exist.");
+        Assert.IsTrue(File.Exists(writebackPath), "Non-official candidate writeback report must exist.");
+
+        string audit = File.ReadAllText(auditPath);
+        string query = File.ReadAllText(queryPath);
+        string config = File.ReadAllText(configPath);
+        string report = File.ReadAllText(reportPath);
+        string normalization = File.ReadAllText(normalizationPath);
+        string writeback = File.ReadAllText(writebackPath);
+        string runtimeReport = File.ReadAllText(runtimeReportPath);
+        string cache = File.ReadAllText(cachePath);
+        string labelSource = File.ReadAllText(labelSourcePath);
+        string compactRuntimeReport = runtimeReport.Replace(" ", string.Empty);
+
+        StringAssert.Contains("\"activePlayableNonOfficialCandidates\": 42", audit);
+        StringAssert.Contains("\"activePlayableNeedsEnrichmentCount\": 32", audit);
+        StringAssert.Contains("\"coordinateAvailableCount\": 78", audit);
+        StringAssert.Contains("\"queryCandidateCount\": 32", query);
+        StringAssert.Contains("\"runtimeNetworkRequestsAllowed\": false", config);
+        StringAssert.Contains("\"rateLimitSeconds\": 1.1", config);
+        StringAssert.Contains("\"onlineQueriesAttempted\": 24", report);
+        StringAssert.Contains("\"onlineQueriesSucceeded\": 19", report);
+        StringAssert.Contains("\"onlineMatchesAccepted\": 18", report);
+        StringAssert.Contains("\"localSourceNamesUsed\": 13", report);
+        StringAssert.Contains("\"namesNewlyAdded\": 31", report);
+        StringAssert.Contains("\"remainingUnnamedCount\": 1", report);
+        StringAssert.Contains("\"fabricatedNamesAllowed\": false", normalization);
+        StringAssert.Contains("\"visibleIdOnlyLabelCount\": 0", normalization);
+        StringAssert.Contains("\"runtimeResourceDisplayNamesUpdated\": 31", writeback);
+        StringAssert.Contains("\"nonOfficialWarningRequired\": true", writeback);
+        StringAssert.Contains("\"isOfficialShelter\": false", writeback);
+        StringAssert.Contains("\"runtimeWebRequestsObserved\":0", compactRuntimeReport);
+        StringAssert.Contains("\"enrichedNonOfficialLabelsShown\":31", compactRuntimeReport);
+        StringAssert.Contains("\"p8_plateau_highrise_candidate_027\"", cache);
+        StringAssert.Contains("\u3084\u307e\u3084", cache);
+        StringAssert.Contains("\"nonOfficialWarningRequired\": true", cache);
+        StringAssert.Contains("\"isOfficialShelter\": false", cache);
+        StringAssert.Contains("Non-official Candidate:", labelSource);
+        StringAssert.Contains("Not an official shelter", labelSource);
+        Assert.IsFalse(labelSource.Contains("UnityWebRequest"));
+        Assert.IsFalse(labelSource.Contains("HttpClient"));
+        Assert.IsFalse(labelSource.Contains("System.Net"));
+    }
+
+    [Test]
     public void Round2MouseGroundLightingConfigDefaultsMatchManualFeedback()
     {
         NewMapMouseDragLookConfig mouse = NewMapMouseDragLookConfig.Default();
@@ -835,7 +954,7 @@ public class NewMapIntegrationConfigTests
         Vector3 center = new Vector3(0f, 0.04f, 0f);
         Vector3[] first = NewMapNpcCrowdPrototype.GenerateDistributionForDiagnostics(center, config);
         Vector3[] second = NewMapNpcCrowdPrototype.GenerateDistributionForDiagnostics(center, config);
-        Assert.AreEqual(800, first.Length);
+        Assert.AreEqual(1600, first.Length);
         Assert.AreEqual(first.Length, second.Length);
 
         var sectors = new System.Collections.Generic.HashSet<int>();
@@ -860,8 +979,8 @@ public class NewMapIntegrationConfigTests
             rings.Add(Mathf.Clamp(Mathf.FloorToInt(normalized * config.ringCount), 0, config.ringCount - 1));
         }
 
-        Assert.GreaterOrEqual(sectors.Count, 28);
-        Assert.GreaterOrEqual(rings.Count, 6);
+        Assert.GreaterOrEqual(sectors.Count, 44);
+        Assert.GreaterOrEqual(rings.Count, 8);
     }
 
     private static NewMapGroundRoadHeightSample CreateSupportSample(string id, string category, float x, float y, float z, float confidence)

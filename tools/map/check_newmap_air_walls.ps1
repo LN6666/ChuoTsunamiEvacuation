@@ -24,8 +24,11 @@ $tests = Get-Content -Encoding UTF8 -LiteralPath $playModeTestsPath -Raw
 $ok =
     [bool]$config.enabled -and
     -not [bool]$config.visibleInNormalMode -and
+    -not [bool]$config.debugVisible -and
     [double]$config.boundaryHeightMeters -gt 10.0 -and
-    [double]$config.radiusMeters -eq 3500.0 -and
+    ($config.PSObject.Properties.Name -contains "radiusMeters") -and
+    [double]$config.radiusMeters -eq 2270.0 -and
+    [double]$report.circularBoundaryRadiusMeters -eq 2270.0 -and
     -not [bool]$report.airWallsStillExist -and
     [bool]$report.airWallsInvisible -and
     [bool]$report.blockMapBoundary -and
@@ -45,5 +48,5 @@ if (-not $ok) {
     exit 1
 }
 
-Write-Host "[PASS] Old air walls are replaced by the invisible 3.5km circular boundary clamp and covered by tests."
+Write-Host "[PASS] Old air walls are replaced by the invisible 2.27km circular boundary clamp and covered by tests."
 exit 0

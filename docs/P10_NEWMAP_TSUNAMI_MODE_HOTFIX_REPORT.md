@@ -9,7 +9,7 @@ This hotfix keeps the existing P10/New Chuo_BaseMap systems and addresses playab
 - Failure/result flow: tsunami-front, debris/collapse, blocked-entry, and no-safe-floor failures now leave the player locked and show the result panel with a visible `Retry / Restart` option.
 - Restart/reset: retry returns to the start menu, clears failure/building-entry state, hides hazard visuals, resets UI state, and selects a fresh valid random spawn.
 - Spawn: normal sessions use randomized valid playable-ground spawn candidates before the old map-center fallback. Deterministic seed override remains available for tests.
-- Air walls: old rectangular `P10_BoundaryAirWall_*` blockers are no longer created for normal movement. Map containment now uses the invisible 3.5km circular runtime clamp; unknown playable-area blockers are converted to triggers or disabled instead of remaining invisible walls.
+- Air walls: old rectangular `P10_BoundaryAirWall_*` blockers are no longer created for normal movement. Map containment now uses the invisible 2.27km circular runtime clamp; unknown playable-area blockers are converted to triggers or disabled instead of remaining invisible walls.
 - Stamina: evacuation stamina baseline remains `100`; multiplier changed from `100` to `200`, so final max stamina changed from `10000` to `20000`.
 - Sprint: evacuation sprint speed uses `sprintSpeedMultiplierAdditional: 1.35`, changing clear-weather evacuation sprint from `5.0m/s` to `6.75m/s`. Walking speed remains `1.0m/s`.
 - Tsunami origin: the configured coastal side is `south`, with the front moving inland along `Vector3.forward`.
@@ -46,7 +46,7 @@ This hotfix keeps the existing P10/New Chuo_BaseMap systems and addresses playab
 - Curtain height: `1000m`.
 - Curtain minimum length: `1500m`; runtime length is at least playable-map diagonal times `1.5`.
 - Runtime curtain length from player smoke: `8208.7m`.
-- Boundary: 3.5km circular runtime clamp from the original map center. Old rectangular boundary air walls: `0` active.
+- Boundary: 2.27km circular runtime clamp from the original map center. Old rectangular boundary air walls: `0` active.
 - Building entry triggers in player smoke: `97`; physical building-entry blockers: `0`.
 - Shelter direct-line normal Chuo_BaseMap target count: `93` rankable targets when the 15 verified official anchors are present (`15 official + 78 non-official`). Diagnostic PlayMode without full map anchors generated `80`; with one official-anchor fixture generated `81`.
 - Direct-line config path: `Assets/Data/P10/newmap_tsunami_mode_hotfix_config.json`.

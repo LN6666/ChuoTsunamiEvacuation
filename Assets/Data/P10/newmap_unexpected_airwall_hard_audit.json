@@ -23,7 +23,7 @@
                                ],
     "boundaryAirWallsExpected":  0,
     "circularBoundaryExpected":  true,
-    "circularBoundaryRadiusMeters":  3500.0,
+    "circularBoundaryRadiusMeters":  2270.0,
     "runtimeLogTokens":  [
                              "airwallHardCollidersScanned",
                              "unexpectedAirwallBlockers",
