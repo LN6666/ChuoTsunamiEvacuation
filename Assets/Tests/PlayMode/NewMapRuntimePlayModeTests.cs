@@ -212,11 +212,15 @@ public class NewMapRuntimePlayModeTests
         Assert.GreaterOrEqual(bootstrap.LastBuildingPrecisionInflatedBoundsFound, 1);
         Assert.GreaterOrEqual(bootstrap.LastBuildingPrecisionInflatedBoundsSkipped, 1);
         Assert.Greater(bootstrap.LastBuildingPrecisionTightProxyCount, 0);
-        Assert.LessOrEqual(bootstrap.LastBuildingPrecisionMaxWidth, 80.01f);
-        Assert.LessOrEqual(bootstrap.LastBuildingPrecisionMaxDepth, 80.01f);
+        Assert.LessOrEqual(bootstrap.LastBuildingPrecisionMaxWidth, 60.01f);
+        Assert.LessOrEqual(bootstrap.LastBuildingPrecisionMaxDepth, 60.01f);
         Assert.AreEqual(5f, bootstrap.LastBuildingPrecisionColliderHeight, 0.01f);
+        Assert.IsTrue(bootstrap.LastBuildingFinalRefinementEnabled);
+        Assert.Greater(bootstrap.LastBuildingFinalRefinementProxiesScanned, 0);
+        Assert.Greater(bootstrap.LastBuildingFinalRefinementProxiesShrunk, 0);
         Assert.AreEqual(0, bootstrap.LastBuildingPrecisionUnexpectedCorridorBlockers);
         Assert.AreEqual(0, bootstrap.LastBuildingPrecisionActiveTargetApproachBlocked);
+        Assert.AreEqual(0, bootstrap.LastSpawnRejectedFinalOverlapCount);
         Assert.IsTrue(player.BuildingCollisionEnabled);
         Assert.AreEqual(bootstrap.LastBuildingBoundsCacheCount, player.BuildingCollisionBoundsCount);
         Assert.AreEqual(bootstrap.LastBuildingBoundsCacheCount, crowd.BuildingAvoidanceBoundsCount);
@@ -369,7 +373,9 @@ public class NewMapRuntimePlayModeTests
         Assert.GreaterOrEqual(bootstrap.LastBuildingBoundsCacheCount, 1);
         Assert.IsFalse(bootstrap.LastAdaptiveSupportGridActive, "Spawn validation must not use the failed adaptive relief grid in rollback mode.");
         Assert.IsTrue(bootstrap.LastSafeGroundEnabled);
-        Assert.GreaterOrEqual(bootstrap.LastNearestBuildingDistance, NewMapSpawnConfig.Default().minDistanceFromBuildingMeters - 0.01f);
+        Assert.GreaterOrEqual(bootstrap.LastNearestBuildingDistance, NewMapSpawnConfig.Load().minDistanceFromBuildingMeters - 0.01f);
+        Assert.Greater(bootstrap.LastSpawnFinalOverlapCheckCount, 0);
+        Assert.AreEqual(0, bootstrap.LastSpawnRejectedFinalOverlapCount);
         Assert.LessOrEqual(Mathf.Abs(player.transform.position.y - bootstrap.LastRuntimeGroundSurfaceY), 0.5f);
         Bounds buildingBounds = building.GetComponent<Renderer>().bounds;
         Assert.IsFalse(
@@ -636,6 +642,11 @@ public class NewMapRuntimePlayModeTests
         Assert.IsTrue(bootstrap.LastGroundCoverRaiseEnabled);
         Assert.Greater(bootstrap.LastGroundCoverRaiseOffset, 0.1f);
         Assert.Greater(bootstrap.LastGameplayGroundCoverY, bootstrap.LastGroundCoverRaiseOldY);
+        Assert.IsTrue(bootstrap.LastGroundMicroRaiseEnabled);
+        Assert.AreEqual(0.3f, bootstrap.LastGroundMicroRaiseAdditionalMeters, 0.01f);
+        Assert.AreEqual(bootstrap.LastGroundMicroRaisePreviousY + 0.3f, bootstrap.LastGroundMicroRaiseNewY, 0.02f);
+        Assert.AreEqual(bootstrap.LastGroundMicroRaiseNewY, bootstrap.LastGameplayGroundCoverY, 0.02f);
+        Assert.IsTrue(bootstrap.LastGroundMicroRaiseAppliedToSupportColliders);
         Assert.IsFalse(bootstrap.LastBuildingSnapdownEnabled, "Ground raise pass keeps imported buildings fixed and disables runtime snapdown.");
         Assert.AreEqual(0, bootstrap.LastBuildingSnapdownMovedCount);
         Assert.AreEqual(3f, floatingBuilding.transform.position.y, 0.01f, "Buildings must remain fixed as visual reference in this pass.");
@@ -754,18 +765,18 @@ public class NewMapRuntimePlayModeTests
         controller.StartEvacuationMode();
         yield return null;
         Assert.AreEqual(1.0f, player.WalkSpeedMetersPerSecond, 0.001f);
-        Assert.AreEqual(6.75f, player.SprintSpeedMetersPerSecond, 0.001f);
+        Assert.AreEqual(5.7375f, player.SprintSpeedMetersPerSecond, 0.001f);
         Assert.IsTrue(player.StaminaEnabled);
         Assert.AreEqual(100f, player.BaselineMaxStamina, 0.001f);
-        Assert.AreEqual(200f, player.StaminaMultiplier, 0.001f);
-        Assert.AreEqual(1.35f, player.SprintSpeedMultiplierAdditional, 0.001f);
-        Assert.AreEqual(20000f, player.MaxStamina, 0.001f);
-        Assert.AreEqual(20000f, player.Stamina, 0.001f);
+        Assert.AreEqual(130f, player.StaminaMultiplier, 0.001f);
+        Assert.AreEqual(1.1475f, player.SprintSpeedMultiplierAdditional, 0.001f);
+        Assert.AreEqual(13000f, player.MaxStamina, 0.001f);
+        Assert.AreEqual(13000f, player.Stamina, 0.001f);
 
         controller.SetWeather(NewMapWeatherPreset.NightRain);
         yield return null;
         Assert.AreEqual(0.65f, player.WalkSpeedMetersPerSecond, 0.001f);
-        Assert.AreEqual(4.3875f, player.SprintSpeedMetersPerSecond, 0.001f);
+        Assert.AreEqual(3.729375f, player.SprintSpeedMetersPerSecond, 0.001f);
     }
 
     [UnityTest]
@@ -791,7 +802,9 @@ public class NewMapRuntimePlayModeTests
         Assert.AreNotEqual(initialSeed, bootstrap.LastSpawnRandomSeedUsed, "Normal play sessions should vary the spawn seed.");
         Assert.Greater(Vector3.Distance(initialSpawn, player.transform.position), 0.1f, "Retry/mode start should choose a fresh randomized spawn.");
         Assert.IsTrue(bootstrap.LastPlayableBounds.ContainsXZ(player.transform.position, 0f));
-        Assert.GreaterOrEqual(bootstrap.LastNearestBuildingDistance, NewMapSpawnConfig.Default().minDistanceFromBuildingMeters - 0.01f);
+        Assert.GreaterOrEqual(bootstrap.LastNearestBuildingDistance, NewMapSpawnConfig.Load().minDistanceFromBuildingMeters - 0.01f);
+        Assert.Greater(bootstrap.LastSpawnFinalOverlapCheckCount, 0);
+        Assert.AreEqual(0, bootstrap.LastSpawnRejectedFinalOverlapCount);
 
         NewMapSpawnConfig deterministic = NewMapSpawnConfig.Default();
         deterministic.deterministicSeedEnabled = true;
@@ -822,7 +835,7 @@ public class NewMapRuntimePlayModeTests
         Assert.AreEqual(180f, controller.PreWarningRandomMaxSeconds, 0.001f);
         Assert.GreaterOrEqual(controller.PreWarningRandomDurationSeconds, 0f);
         Assert.LessOrEqual(controller.PreWarningRandomDurationSeconds, 180f);
-        Assert.AreEqual(300f, controller.WarningPhaseSeconds, 0.001f);
+        Assert.AreEqual(180f, controller.WarningPhaseSeconds, 0.001f);
         if (controller.Stage == NewMapTsunamiStage.PreWarningWait)
         {
             Assert.AreEqual(-1f, controller.WarningStartedAtSeconds, 0.001f);

@@ -33,22 +33,22 @@ public class NewMapIntegrationConfigTests
 
         NewMapPlayerStaminaConfig stamina = NewMapPlayerStaminaConfig.Load();
         Assert.AreEqual(100f, stamina.baselineMaxStamina, 0.001f);
-        Assert.AreEqual(200f, stamina.staminaMultiplier, 0.001f);
-        Assert.AreEqual(20000f, stamina.MaxStamina, 0.001f);
-        Assert.AreEqual(1.35f, stamina.SprintSpeedMultiplierAdditional, 0.001f);
-        Assert.AreEqual(6.75f, stamina.FinalEvacuationSprintSpeed, 0.001f);
+        Assert.AreEqual(130f, stamina.staminaMultiplier, 0.001f);
+        Assert.AreEqual(13000f, stamina.MaxStamina, 0.001f);
+        Assert.AreEqual(1.1475f, stamina.SprintSpeedMultiplierAdditional, 0.001f);
+        Assert.AreEqual(5.7375f, stamina.FinalEvacuationSprintSpeed, 0.001f);
 
         NewMapTsunamiModeHotfixConfig tsunami = NewMapTsunamiModeHotfixConfig.Load();
         Assert.AreEqual("south", tsunami.NormalizedTsunamiStartSide);
-        Assert.AreEqual(300f, tsunami.WarningPhaseSeconds, 0.001f);
-        Assert.AreEqual(300f, tsunami.tsunamiWarningDurationSeconds, 0.001f);
+        Assert.AreEqual(180f, tsunami.WarningPhaseSeconds, 0.001f);
+        Assert.AreEqual(180f, tsunami.tsunamiWarningDurationSeconds, 0.001f);
         Assert.AreEqual(180f, tsunami.PreWarningRandomMaxSeconds, 0.001f);
         Assert.IsFalse(tsunami.deterministicPreWarningSeedEnabled);
         Assert.IsTrue(tsunami.DirectLineConfig.enableShelterDirectLines);
         Assert.AreEqual(0, tsunami.DirectLineConfig.maxDisplayedShelterLines);
         Assert.AreEqual(0.2f, tsunami.DirectLineConfig.LineUpdateIntervalSeconds, 0.001f);
         Assert.AreEqual(0.5f, tsunami.DirectLineConfig.RankingAutoRefreshIntervalSeconds, 0.001f);
-        Assert.AreEqual(300f, NewMapTsunamiModeHotfixConfig.Default().WarningPhaseSeconds, 0.001f);
+        Assert.AreEqual(180f, NewMapTsunamiModeHotfixConfig.Default().WarningPhaseSeconds, 0.001f);
         Assert.AreEqual(180f, NewMapTsunamiModeHotfixConfig.Default().PreWarningRandomMaxSeconds, 0.001f);
         Assert.AreEqual(3f, NewMapTsunamiModeHotfixConfig.CreateForDiagnostics(3f).WarningPhaseSeconds, 0.001f);
         Assert.AreEqual(0f, NewMapTsunamiModeHotfixConfig.CreateForDiagnostics(3f).ResolvePreWarningWaitSeconds(), 0.001f);
@@ -75,6 +75,16 @@ public class NewMapIntegrationConfigTests
 
         NewMapSpawnConfig spawn = NewMapSpawnConfig.Load();
         Assert.IsTrue(spawn.randomSpawnEnabled);
+        Assert.AreEqual(500, spawn.maxSpawnAttempts);
+        Assert.AreEqual(4.0f, spawn.minDistanceFromBuildingMeters, 0.001f);
+        Assert.AreEqual(0.35f, spawn.PlayerCapsuleRadiusMeters, 0.001f);
+        Assert.AreEqual(1.8f, spawn.PlayerCapsuleHeightMeters, 0.001f);
+        Assert.IsTrue(spawn.finalOverlapCheck);
+        Assert.IsTrue(spawn.fallbackSafeSpawnEnabled);
+        Assert.IsTrue(spawn.useBuildingProxyCache);
+        Assert.IsTrue(spawn.useRendererBoundsCache);
+        Assert.IsTrue(spawn.useGroundCoverHit);
+        Assert.AreEqual(3.0f, spawn.RejectInsideAirWallMarginMeters, 0.001f);
         Assert.IsTrue(spawn.tryRandomBeforeMapCenter);
         Assert.IsTrue(spawn.randomizeFallbackSafeSpawnOrder);
         Assert.IsFalse(spawn.deterministicSeedEnabled, "Normal player sessions must not use the fixed diagnostic seed.");
@@ -303,7 +313,9 @@ public class NewMapIntegrationConfigTests
         StringAssert.Contains("\"spawnMode\": \"road_or_playable_ground_only\"", spawn);
         StringAssert.Contains("\"useBuildingBoundsRejection\": true", spawn);
         StringAssert.Contains("\"fallbackSafeSpawnId\": \"newmap_safe_spawn_01\"", spawn);
-        StringAssert.Contains("\"minDistanceFromAirWallMeters\": 2.0", spawn);
+        StringAssert.Contains("\"minDistanceFromAirWallMeters\": 3.0", spawn);
+        StringAssert.Contains("\"finalOverlapCheck\": true", spawn);
+        StringAssert.Contains("\"useRendererBoundsCache\": true", spawn);
 
         string readiness = File.ReadAllText(Path.Combine(Application.dataPath, "Data/P10/newmap_manual_playtest_readiness.json"));
         StringAssert.Contains("\"manualReadinessDecision\"", readiness);
@@ -457,6 +469,51 @@ public class NewMapIntegrationConfigTests
         StringAssert.Contains("GetBuildingCollisionBoundsForDiagnostics", player);
         StringAssert.Contains("IsInsideBuildingForDiagnostics", player);
         StringAssert.Contains("BuildingAvoidanceBoundsCount", npc);
+    }
+
+    [Test]
+    public void FinalTuningConfigsReportsAndSourceAreConfigured()
+    {
+        string microRaisePath = Path.Combine(Application.dataPath, "Data/P10/newmap_final_ground_micro_raise_config.json");
+        string microRaiseReportPath = Path.Combine(Application.dataPath, "Data/P10/newmap_final_ground_micro_raise_report.json");
+        string collisionFinalPath = Path.Combine(Application.dataPath, "Data/P10/newmap_building_collision_final_refinement.json");
+        string spawnFinalPath = Path.Combine(Application.dataPath, "Data/P10/newmap_spawn_final_safety_config.json");
+        string spawnFinalReportPath = Path.Combine(Application.dataPath, "Data/P10/newmap_spawn_final_safety_report.json");
+        Assert.IsTrue(File.Exists(microRaisePath), "Final micro-raise config must exist.");
+        Assert.IsTrue(File.Exists(microRaiseReportPath), "Final micro-raise report must exist.");
+        Assert.IsTrue(File.Exists(collisionFinalPath), "Final building-collision refinement config must exist.");
+        Assert.IsTrue(File.Exists(spawnFinalPath), "Final spawn safety config must exist.");
+        Assert.IsTrue(File.Exists(spawnFinalReportPath), "Final spawn safety report must exist.");
+
+        NewMapFinalGroundMicroRaiseConfig microRaise = NewMapFinalGroundMicroRaiseConfig.Load();
+        Assert.IsTrue(microRaise.enabled);
+        Assert.AreEqual(0.3f, microRaise.additionalGroundRaiseMeters, 0.001f);
+        Assert.AreEqual(1.0f, microRaise.maxAdditionalRaiseMeters, 0.001f);
+        Assert.IsTrue(microRaise.applyToGroundCover);
+        Assert.IsTrue(microRaise.applyToSupportColliders);
+        Assert.IsTrue(microRaise.resnapPlayer);
+        Assert.IsTrue(microRaise.resnapNpc);
+        Assert.IsTrue(microRaise.resnapTargets);
+        Assert.IsTrue(microRaise.resnapGreenFrames);
+
+        NewMapBuildingCollisionFinalRefinementConfig collisionFinal = NewMapBuildingCollisionFinalRefinementConfig.Load();
+        Assert.IsTrue(collisionFinal.enabled);
+        Assert.AreEqual(0.85f, collisionFinal.DefaultShrinkFactorXZ, 0.001f);
+        Assert.AreEqual(0.75f, collisionFinal.NearRoadShrinkFactorXZ, 0.001f);
+        Assert.AreEqual(4.0f, collisionFinal.NearTargetClearanceMeters, 0.001f);
+        Assert.AreEqual(6.0f, collisionFinal.NearSpawnClearanceMeters, 0.001f);
+        Assert.AreEqual(60.0f, collisionFinal.MaxProxySizeMeters, 0.001f);
+        Assert.IsTrue(collisionFinal.splitOversizedProxies);
+        Assert.IsTrue(collisionFinal.disableProxyIfStillBlocksApproach);
+
+        string bootstrap = File.ReadAllText(Path.Combine(Application.dataPath, "Scripts/NewMap/NewMapRuntimeBootstrap.cs"));
+        StringAssert.Contains("NewMapFinalGroundMicroRaiseConfig", bootstrap);
+        StringAssert.Contains("ResolveGroundMicroRaiseAdditional", bootstrap);
+        StringAssert.Contains("NewMapBuildingCollisionFinalRefinementConfig", bootstrap);
+        StringAssert.Contains("AddBuildingObstacleBoundsWithFinalRefinement", bootstrap);
+        StringAssert.Contains("CarveBuildingPrecisionSpawnClearance", bootstrap);
+        StringAssert.Contains("HasSpawnFinalOverlap", bootstrap);
+        StringAssert.Contains("buildingRendererBounds", bootstrap);
     }
 
     [Test]

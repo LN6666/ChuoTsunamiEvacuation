@@ -1,44 +1,29 @@
 # NewMap Manual Playtest Readiness
 
-- Decision: ready_with_documented_boundary_limitations
-- Concave MeshCollider trigger errors: 0 in Player.log
-- Runtime concave MeshCollider offenders neutralized: 5835
-- NPC global refresh count: 0
-- NPC all-stop count: 0
-- NPC stopped-without-reason count: 0
-- Player-NPC contact smoke: passed
-- Name cache records: 332
-- Preprocessing online queries: 167 attempted / 167 succeeded
-- Overpass queries: 1 attempted / 1 succeeded
-- Cached building/road labels: 117 / 180
-- Runtime building/road labels: 117 / 180
-- Full-address or ID-only normal labels: 0 / 0
-- Runtime web requests allowed: False
-- Current runtime/NPC/label player smoke: passed
-- P10 tsunami-mode hotfix smoke: passed
-- Random spawn source: random_playable_support
-- Collision whitelist: only ground/support, buildings, NPC soft bodies, and circular boundary block movement
-- Building collision precision: 10,686 tight runtime footprint proxies created, 101 inflated cluster/root bounds skipped, 46 active target clearance zones carved, 516 sampled corridors passed
-- Circular boundary: 3500m radius from original map center, runtime clamp, invisible in normal mode
-- Old rectangular boundary air walls: disabled/replaced by circular clamp
-- Route lines / green frames / labels / markers / hazard visuals: nonblocking
-- R leaderboard: press R to show, press R again to hide during gameplay
-- Stamina max: 20000
-- Evacuation sprint speed: 6.75 m/s
-- Direct shelter lines in player smoke: 95, colliders: 0
-- Circular boundary runtime center/radius: -2.14, 474.58 / 3500m
-- R leaderboard player smoke: passed
-- Tsunami start side/direction: south / Vector3.forward
-- Warning phase duration: 300 seconds
-- Tsunami warning 300s smoke: passed
-- Building touch E-entry smoke: passed on an official shelter trigger
-- Light curtain height/length: 1000m / 8208.7m in player smoke
-- Building entry triggers: 97 trigger-only volumes, 0 physical blockers
-- Boundary: runtime 3.5km circular clamp, no inner rectangular air walls
-- Player.log: 0 errors / 0 warnings / 0 exceptions
-- Tsunami-mode temp player: D:\UnityProjects\ChuoTsunamiEvacuation-Builds\P10NewMapTsunamiModeHotfixPre\ChuoTsunamiEvacuation_P10NewMapTsunamiModeHotfixPre.exe
-- Temp player: D:\UnityProjects\ChuoTsunamiEvacuation-Builds\NewMapCollisionBoundaryLeaderboardPre\ChuoTsunamiEvacuation_NewMapCollisionBoundaryLeaderboardPre.exe
-- Building precision temp player target: D:\UnityProjects\ChuoTsunamiEvacuation-Builds\NewMapBuildingCollisionPrecisionPre\ChuoTsunamiEvacuation_NewMapBuildingCollisionPrecisionPre.exe
-- Building precision Player.log: 0 errors / 0 warnings / 0 exceptions; unexpected corridor blockers 0; active target approach blocked 0
+- Decision: ready_with_documented_visual_limitations
+- Reason: final tuning preflight, EditMode, PlayMode, temporary player build, player smoke, and Player.log validation passed. Remaining limitations are visual/manual map-tuning limitations, not automated blockers.
 
-This does not claim GIS-grade terrain, road, route, or PLATEAU building elevation accuracy.
+Final tuning applied:
+- Ground cover/support has an additional `0.3m` micro-raise on top of the previous `3.0m` raise, for expected gameplay ground Y `3.3`.
+- Building collision final refinement is enabled with `0.85` default shrink, `0.75` oversized/approach shrink, `60m` max proxy pieces, target clearance, and spawn clearance.
+- Spawn safety now uses `500` attempts, `4m` building clearance, proxy + renderer bounds rejection, required support-ground hit, and final player-capsule overlap checks.
+- Evacuation stamina max is reduced from `20000` to `13000`.
+- Evacuation sprint speed is reduced from `6.75m/s` to `5.7375m/s`.
+- Tsunami warning duration is reduced from `300s` to `180s`.
+
+Preserved accepted behavior:
+- Tourism mode has no tsunami failure and no stamina restriction.
+- Evacuation mode keeps staged tsunami flow, shelter guidance, stamina, NPCs, labels, and result/restart flow.
+- Blue ground/fall prevention, NPC grounding, NPC lifecycle, mouse left/right drag look, day/night lighting, official/non-official warnings, route guidance, and P2-P10 gameplay flow remain regression targets.
+
+Validated automated status:
+- Final preflight passed.
+- EditMode passed: 125/125.
+- PlayMode passed: 43/43.
+- Temporary player build and 120 second smoke launch passed.
+- Player.log has 0 errors, 0 warnings, and 0 exceptions.
+- Repeated spawn safety sample passed: 100/100 accepted, 0 inside-building, 0 final-overlap failures, 0 outside-boundary.
+- Active official and non-official approach smoke checks remain passable.
+- DeepSeek review verdict: `PASS_WITH_NOTES`, no A-level blockers.
+
+This does not claim GIS-grade terrain, road, route, building-footprint, or official route validation.

@@ -258,7 +258,7 @@ public sealed class NewMapHazardController : MonoBehaviour
 public sealed class NewMapTsunamiModeHotfixConfig
 {
     public float tsunamiWarningDurationSeconds = -1f;
-    public float warningPhaseSeconds = 300f;
+    public float warningPhaseSeconds = 180f;
     public float activeFrontDurationSeconds = 120f;
     public string tsunamiStartSide = "south";
     public float curtainHeightMeters = 1000f;

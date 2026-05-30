@@ -1,0 +1,14 @@
+{
+  "enabled": true,
+  "maxSpawnAttempts": 500,
+  "minDistanceFromBuildingMeters": 4.0,
+  "playerCapsuleRadiusMeters": 0.35,
+  "playerCapsuleHeightMeters": 1.8,
+  "finalOverlapCheck": true,
+  "fallbackSafeSpawnEnabled": true,
+  "fallbackSafeSpawnId": "newmap_safe_spawn_01",
+  "useBuildingProxyCache": true,
+  "useRendererBoundsCache": true,
+  "useGroundCoverHit": true,
+  "rejectInsideAirWallMarginMeters": 3.0
+}

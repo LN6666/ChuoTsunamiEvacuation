@@ -1,6 +1,6 @@
 {
-  "tsunamiWarningDurationSeconds": 300.0,
-  "warningPhaseSeconds": 300.0,
+  "tsunamiWarningDurationSeconds": 180.0,
+  "warningPhaseSeconds": 180.0,
   "activeFrontDurationSeconds": 120.0,
   "tsunamiStartSide": "south",
   "curtainHeightMeters": 1000.0,

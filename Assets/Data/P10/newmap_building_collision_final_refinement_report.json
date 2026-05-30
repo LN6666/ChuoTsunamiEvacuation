@@ -1,0 +1,20 @@
+﻿{
+    "generatedAt":  "2026-05-30T08:00:00+09:00",
+    "activeScene":  "Assets/Scenes/Chuo_BaseMap.unity",
+    "configPath":  "Assets/Data/P10/newmap_building_collision_final_refinement.json",
+    "enabled":  true,
+    "proxiesScanned":  10686,
+    "overflowProxiesFound":  0,
+    "proxiesShrunk":  10686,
+    "proxiesSplit":  0,
+    "proxiesDisabled":  0,
+    "approachCorridorsTested":  516,
+    "activeTargetApproachesBlockedCount":  0,
+    "sampledRoadOpenSpaceBlockerCount":  0,
+    "remainingSuspectedOverflowBlockers":  0,
+    "buildingBlockingPreserved":  true,
+    "oldInflatedCollidersReenabled":  false,
+    "routeGreenFrameLabelNonBlocking":  true,
+    "notGisGradeFootprintAccuracyClaim":  true,
+    "runtimeStatus":  "validated_by_player_log"
+}

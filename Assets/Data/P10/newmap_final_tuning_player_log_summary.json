@@ -1,0 +1,134 @@
+﻿{
+    "generatedAt":  "2026-05-30T20:03:51",
+    "logPath":  "D:\\UnityProjects\\ChuoTsunamiEvacuation\\Logs\\newmap_final_tuning_player.log",
+    "errorCount":  0,
+    "warningCount":  0,
+    "exceptionCount":  0,
+    "missingAssetOrConfigCount":  0,
+    "runtimeWebRequestCount":  0,
+    "groundDiagnostics":  {
+                              "oldY":  3,
+                              "additional":  0.3,
+                              "newY":  3.3,
+                              "enabled":  true,
+                              "supportColliders":  true,
+                              "remainingAvgGap":  0.32,
+                              "remainingMaxGap":  2.82
+                          },
+    "spawnDiagnostics":  {
+                             "validationPassed":  true,
+                             "attempts":  1,
+                             "accepted":  1,
+                             "rejectedInsideBuilding":  0,
+                             "rejectedNoGround":  0,
+                             "rejectedOutsideBoundary":  0,
+                             "rejectedTooCloseToBuilding":  0,
+                             "finalOverlapChecks":  1,
+                             "rejectedFinalOverlap":  0,
+                             "rejectedUnderBuildingOverhang":  0,
+                             "fallbackUsed":  false,
+                             "fallbackSafeSpawnId":  "none",
+                             "nearestBuildingDistance":  9.14,
+                             "groundY":  3.3,
+                             "repeatedSamples":  100,
+                             "repeatedAccepted":  100,
+                             "repeatedInsideBuilding":  0,
+                             "repeatedFinalOverlap":  0,
+                             "repeatedOutsideBoundary":  0,
+                             "repeatedNearestMin":  4.05
+                         },
+    "collisionDiagnostics":  {
+                                 "enabled":  true,
+                                 "proxiesScanned":  10686,
+                                 "overflowFound":  0,
+                                 "proxiesShrunk":  10686,
+                                 "proxiesSplit":  0,
+                                 "splitPieces":  0,
+                                 "proxiesDisabled":  0,
+                                 "maxWidth":  59.61,
+                                 "maxDepth":  59.17,
+                                 "sampledCorridors":  516,
+                                 "unexpectedCorridorBlockers":  0,
+                                 "activeTargetApproachBlocked":  0
+                             },
+    "staminaDiagnostics":  {
+                               "oldFinalStamina":  20000,
+                               "newFinalStamina":  13000,
+                               "reductionPercent":  35
+                           },
+    "sprintDiagnostics":  {
+                              "oldSprintSpeedMetersPerSecond":  6.75,
+                              "newSprintSpeedMetersPerSecond":  5.7375,
+                              "reductionPercent":  15
+                          },
+    "tsunamiDiagnostics":  {
+                               "oldWarningDurationSeconds":  300,
+                               "newWarningDurationSeconds":  180
+                           },
+    "scenarioResults":  {
+                            "spawn_road_playable_ground_validation":  {
+                                                                          "present":  true,
+                                                                          "passed":  true,
+                                                                          "line":  "NewMap gameplay self-audit smoke: scenario=spawn_road_playable_ground_validation result=pass detail=source=random_playable_support attempts=1 insideRejected=0 noGroundRejected=0 finalOverlapChecks=1 finalOverlapRejected=0 nearestBuildingDistance=9.14 fallbackUsed=False"
+                                                                      },
+                            "spawn_repeated_100_avoids_buildings":  {
+                                                                        "present":  true,
+                                                                        "passed":  true,
+                                                                        "line":  "NewMap gameplay self-audit smoke: scenario=spawn_repeated_100_avoids_buildings result=pass detail=samples=100 accepted=100 insideBuilding=0 finalOverlap=0 outsideBoundary=0 nearestMin=4.05"
+                                                                    },
+                            "building_collision_precision_tight_proxies":  {
+                                                                               "present":  true,
+                                                                               "passed":  true,
+                                                                               "line":  "NewMap gameplay self-audit smoke: scenario=building_collision_precision_tight_proxies result=pass detail=candidates=10788 inflated=101 skipped=102 tight=10686 finalShrunk=10686 finalSplit=0 maxWidth=59.61 maxDepth=59.17 clearanceZones=49 clearanceSplits=214 playerBounds=10805"
+                                                                           },
+                            "building_collision_precision_corridors":  {
+                                                                           "present":  true,
+                                                                           "passed":  true,
+                                                                           "line":  "NewMap gameplay self-audit smoke: scenario=building_collision_precision_corridors result=pass detail=sampled=516 unexpected=0 activeTargetBlocked=0"
+                                                                       },
+                            "collision_whitelist_visuals_nonblocking":  {
+                                                                            "present":  true,
+                                                                            "passed":  true,
+                                                                            "line":  "NewMap gameplay self-audit smoke: scenario=collision_whitelist_visuals_nonblocking result=pass detail=circularBoundary=True oldAirWalls=0 unknown=0 route=0 green=0 label=0 hazard=0"
+                                                                        },
+                            "evacuation_pre_warning_wait":  {
+                                                                "present":  true,
+                                                                "passed":  true,
+                                                                "line":  "NewMap gameplay self-audit smoke: scenario=evacuation_pre_warning_wait result=pass detail=Evacuation starts in PRE_WARNING_WAIT duration=54.2s hazardInactive=True"
+                                                            },
+                            "tsunami_warning_180s_before_active":  {
+                                                                       "present":  true,
+                                                                       "passed":  true,
+                                                                       "line":  "NewMap gameplay self-audit smoke: scenario=tsunami_warning_180s_before_active result=pass detail=warningSeconds=180.0 inactiveBeforeEnd=True activeAfterEnd=True"
+                                                                   },
+                            "tourism_free_roam_no_failure":  {
+                                                                 "present":  true,
+                                                                 "passed":  true,
+                                                                 "line":  "NewMap gameplay self-audit smoke: scenario=tourism_free_roam_no_failure result=pass detail=Tourism mode disables tsunami, hazard checks, crowd failure, and stamina"
+                                                             },
+                            "mouse_left_right_drag_look":  {
+                                                               "present":  true,
+                                                               "passed":  true,
+                                                               "line":  "NewMap gameplay self-audit smoke: scenario=mouse_left_right_drag_look result=pass detail=allowedButtons=LeftMouse,RightMouse"
+                                                           },
+                            "night_lighting_dark_sky_readable_buildings":  {
+                                                                               "present":  true,
+                                                                               "passed":  true,
+                                                                               "line":  "NewMap gameplay self-audit smoke: scenario=night_lighting_dark_sky_readable_buildings result=pass detail=nightSky=0.042 readability=0.517 dayRestored=True"
+                                                                           },
+                            "building_touch_e_entry":  {
+                                                           "present":  true,
+                                                           "passed":  true,
+                                                           "line":  "NewMap gameplay self-audit smoke: scenario=building_touch_e_entry result=pass detail=target=chuo_official_emergency_001 touchDetected=True finalReason=safe_floor_reached"
+                                                       }
+                        },
+    "selfAuditCompleted":  true,
+    "selfAuditFailureCount":  0,
+    "firstErrors":  [
+
+                    ],
+    "firstWarnings":  [
+
+                      ],
+    "finalStatus":  "passed"
+}

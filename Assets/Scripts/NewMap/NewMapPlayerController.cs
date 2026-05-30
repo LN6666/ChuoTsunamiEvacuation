@@ -955,8 +955,8 @@ public sealed class NewMapPlayerController : MonoBehaviour
 public sealed class NewMapPlayerStaminaConfig
 {
     public float baselineMaxStamina = 100f;
-    public float staminaMultiplier = 200f;
-    public float sprintSpeedMultiplierAdditional = 1.35f;
+    public float staminaMultiplier = 130f;
+    public float sprintSpeedMultiplierAdditional = 1.1475f;
 
     public float MaxStamina => Mathf.Max(1f, baselineMaxStamina) * Mathf.Max(1f, staminaMultiplier);
     public float SprintSpeedMultiplierAdditional => Mathf.Clamp(sprintSpeedMultiplierAdditional, 0.1f, 10f);

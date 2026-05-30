@@ -147,6 +147,11 @@ public static class NewMapSceneSetupUtility
         BuildNewMapPlayer("D:/UnityProjects/ChuoTsunamiEvacuation-Builds/NewMapBuildingCollisionPrecisionPre", "ChuoTsunamiEvacuation_NewMapBuildingCollisionPrecisionPre.exe");
     }
 
+    public static void BuildNewMapFinalTuningPlayerCommandLine()
+    {
+        BuildNewMapPlayer("D:/UnityProjects/ChuoTsunamiEvacuation-Builds/NewMapFinalTuningPre", "ChuoTsunamiEvacuation_NewMapFinalTuningPre.exe");
+    }
+
     private static void BuildNewMapPlayer(string buildDirectory, string executableName)
     {
         Directory.CreateDirectory(buildDirectory);
