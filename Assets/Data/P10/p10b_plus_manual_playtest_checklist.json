@@ -1,0 +1,18 @@
+{
+  "schemaVersion": "p10b_plus.manual_playtest_checklist.v1",
+  "finalWindowsExeBuildDeferredToP10C": true,
+  "checklist": [
+    "select Japanese and English from the start menu",
+    "open rules from the start menu and verify scroll/wrap behavior",
+    "start gameplay and open pause menu with Escape",
+    "switch language from pause/options and verify text refresh",
+    "verify force quit explanation says the current run is not saved",
+    "verify rainy_day movement feels slower than clear_day",
+    "verify night modes darken the screen without hiding critical UI",
+    "hold Shift to sprint and verify stamina appears and drains",
+    "deplete stamina and confirm sprint lockout before recovery",
+    "verify non-official humanitarian warnings remain visible",
+    "verify P5 routes remain described as estimated prototype guidance",
+    "record any UI overflow, clipping, or unreadable Japanese text"
+  ]
+}

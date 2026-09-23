@@ -1,0 +1,37 @@
+{
+  "schemaVersion": "p10b_plus.weather_config.v1",
+  "modes": [
+    {
+      "modeId": "clear_day",
+      "movementSpeedMultiplier": 1.0,
+      "nightOverlayEnabled": false,
+      "nightOverlayAlpha": 0.0,
+      "rainVisualPlaceholderOnly": false,
+      "notes": "Default clear daytime scenario."
+    },
+    {
+      "modeId": "rainy_day",
+      "movementSpeedMultiplier": 0.75,
+      "nightOverlayEnabled": false,
+      "nightOverlayAlpha": 0.0,
+      "rainVisualPlaceholderOnly": true,
+      "notes": "Rain reduces movement speed by 25 percent. Heavy rain particles are not added in P10-B+."
+    },
+    {
+      "modeId": "night_clear",
+      "movementSpeedMultiplier": 0.85,
+      "nightOverlayEnabled": true,
+      "nightOverlayAlpha": 0.35,
+      "rainVisualPlaceholderOnly": false,
+      "notes": "Night reduces movement speed by 15 percent and enables screen darkening."
+    },
+    {
+      "modeId": "night_rain",
+      "movementSpeedMultiplier": 0.65,
+      "nightOverlayEnabled": true,
+      "nightOverlayAlpha": 0.45,
+      "rainVisualPlaceholderOnly": true,
+      "notes": "Night rain reduces movement speed by 35 percent and enables screen darkening. Rain is a gameplay modifier with placeholder visual policy."
+    }
+  ]
+}

@@ -1,0 +1,17 @@
+{
+  "schemaVersion": "p10b_plus.ui_config.v1",
+  "defaultLanguage": "en",
+  "startMenuEnabled": true,
+  "pauseMenuEnabled": true,
+  "rulesPanelScrollable": true,
+  "wrapDynamicText": true,
+  "resultPanelOverflowRiskReduced": true,
+  "backgroundOpacity": 0.35,
+  "backgroundAssetMode": "placeholder_until_licensed_asset_confirmed",
+  "backgroundImagePath": "",
+  "backgroundSourceUrl": "",
+  "backgroundLicense": "",
+  "backgroundAuthorOrProvider": "",
+  "unlicensedInternetImageCommitted": false,
+  "notes": "No internet image is committed in P10-B+. Replace the placeholder only with a documented licensed or project-generated image."
+}

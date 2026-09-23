@@ -1,0 +1,33 @@
+{
+  "schemaVersion": "p10b.quality_presets.v1",
+  "projectSettingsChangeRequired": false,
+  "presets": [
+    {
+      "presetId": "Low",
+      "npcCap": 40,
+      "markerCap": 90,
+      "greenFrameCap": 90,
+      "debugLabelsEnabled": false,
+      "lightCurtainEnabled": false,
+      "notes": "Use for low-end smoke and quick manual playtest fallback."
+    },
+    {
+      "presetId": "Medium",
+      "npcCap": 80,
+      "markerCap": 140,
+      "greenFrameCap": 140,
+      "debugLabelsEnabled": false,
+      "lightCurtainEnabled": true,
+      "notes": "Default P10-B profiling target."
+    },
+    {
+      "presetId": "High",
+      "npcCap": 120,
+      "markerCap": 160,
+      "greenFrameCap": 140,
+      "debugLabelsEnabled": false,
+      "lightCurtainEnabled": true,
+      "notes": "High-detail stress target. Still bounded; no thousands of NPCs."
+    }
+  ]
+}

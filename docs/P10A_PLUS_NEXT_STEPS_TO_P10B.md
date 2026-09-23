@@ -2,10 +2,11 @@
 
 P10-B should start from the P10-A+ hardening branch after validation passes.
 
-P10-B focus:
+P10-B focus after the stage correction:
 
-- Windows x64 build
-- high-detail scene smoke/stress
+- high-detail scene runtime smoke readiness
+- manual playtest preparation
+- tsunami-start green ground frame markers for evacuation-related buildings
 - CPU usage
 - memory usage
 - FPS
@@ -18,6 +19,8 @@ P10-B focus:
 - light curtain impact
 - UI/ResultPanel impact
 - before/after optimization metrics
+
+Windows x64 build is deferred to P10-C so the user can manually playtest after P10-B and request quick fixes before release packaging.
 
 Use P10-A+ reports during P10-B:
 

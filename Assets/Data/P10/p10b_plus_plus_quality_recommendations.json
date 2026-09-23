@@ -1,0 +1,41 @@
+{
+  "schemaVersion": "p10b_plus_plus.quality_recommendations.v1",
+  "projectSettingsChangeRequired": false,
+  "antiAliasingModeClaimed": false,
+  "antiAliasingAuditPolicy": "Do not claim TAA, FXAA, or MSAA is active unless the final P10-C player confirms it visually and through runtime/project settings. P10-B++ only records current readable settings and recommends presets.",
+  "presets": [
+    {
+      "presetId": "Low",
+      "antiAliasingRecommendation": "minimal_or_off_until_fps_is_stable",
+      "npcCap": 40,
+      "markerCap": 90,
+      "greenFrameCap": 90,
+      "debugLabelsEnabled": false,
+      "lightCurtainEnabled": false,
+      "nightOverlayAllowed": true,
+      "notes": "Fallback for low-end smoke, stutter diagnosis, or memory-pressure checks. Debug labels remain off."
+    },
+    {
+      "presetId": "Medium",
+      "antiAliasingRecommendation": "moderate_if_available_after_p10c_fps_check",
+      "npcCap": 80,
+      "markerCap": 140,
+      "greenFrameCap": 140,
+      "debugLabelsEnabled": false,
+      "lightCurtainEnabled": true,
+      "nightOverlayAllowed": true,
+      "notes": "Default final profiling target. Verify AA visually in the P10-C built player before presenting it as enabled."
+    },
+    {
+      "presetId": "High",
+      "antiAliasingRecommendation": "higher_quality_only_if_p10c_memory_and_1_percent_low_are_safe",
+      "npcCap": 120,
+      "markerCap": 160,
+      "greenFrameCap": 140,
+      "debugLabelsEnabled": false,
+      "lightCurtainEnabled": true,
+      "nightOverlayAllowed": true,
+      "notes": "Use for high-detail visual QA after baseline profiling passes. Do not raise ProjectSettings in P10-B++."
+    }
+  ]
+}

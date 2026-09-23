@@ -1,8 +1,8 @@
 # P10 Stage Plan
 
-P10 is final QA, Windows EXE release preparation, release packaging, and project closeout.
+P10 is final QA, manual playtest readiness, Windows EXE release packaging, and project closeout.
 
-P10 has exactly four stages. Do not create additional P10 stages unless explicitly approved.
+P10 has exactly four official stages. P10-A+, P10-B+, and P10-B++ are polish/hardening sprints under the existing P10 flow, not additional official stages. Do not create P10-E, P10-F, or P10-G unless explicitly approved.
 
 ## P10-A
 
@@ -20,23 +20,57 @@ P10-A does not build the final Windows EXE, package release artifacts, archive h
 
 ## P10-B
 
-Windows EXE Build + Performance Profiling + Stress Test + Optimization Pass.
+High-Detail Runtime Smoke + Performance Profiling + Stress Test + Optimization + Manual Playtest Preparation.
 
 Scope:
 
-- build Windows x64 player
-- smoke and stress test the high-detail scene
+- prepare high-detail runtime smoke and manual playtest checklist
+- add tsunami-start green ground frame markers for official and non-official evacuation-related building targets
 - collect FPS, 1 percent low/stutter, CPU, memory, GC allocation when available, loading time, runtime warnings/errors, NPC count, marker count, light curtain impact, and UI/ResultPanel impact
 - run Low, Medium, and High quality preset checks
 - apply low-risk optimizations only when before/after metrics support them
-- export final benchmark results
+- keep Windows EXE build deferred to P10-C
 
-## P10-C
+## P10-B+
 
-Release Package + Documentation + Archive.
+UI / Localization / Weather / Stamina / Manual Playtest Polish.
 
 Scope:
 
+- add lightweight English/Japanese localization
+- add runtime-ready start, pause, options, and rules UI
+- export English and Japanese game rules
+- prepare safe background image policy without committing unlicensed images
+- add weather/night movement modifiers
+- add deterministic stamina/sprint rules and HUD support
+- keep avatar presentation separate from mobility profile
+- keep optional gender speed modifier disabled by default and documented as a scenario assumption
+- keep Windows EXE build deferred to P10-C
+
+P10-B+ is not an official additional stage and does not create P10-E/F/G.
+
+### P10-B++ Hardening Sprint
+
+Final Optimization Attempt Before P10-C.
+
+Scope:
+
+- audit streaming/chunk loading status honestly
+- audit anti-aliasing and quality status without changing ProjectSettings or URP assets
+- inspect CPU, memory, GC, stutter, and disk paging risks
+- apply only low-risk runtime optimization hardening
+- strengthen metrics, profiler checklist, and P10-C readiness
+- keep Windows EXE build, release packaging, and archive work deferred to P10-C
+
+P10-B++ is not an official additional stage and does not create P10-E/F/G.
+
+## P10-C
+
+Windows EXE Build + Release Package + Documentation + Archive.
+
+Scope:
+
+- build Windows x64 player after user manual playtest and quick P10-B fixes
 - assemble release package
 - prepare player-facing and review-facing documentation
 - archive or back up local high-detail scene and import metadata

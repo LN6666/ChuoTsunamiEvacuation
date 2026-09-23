@@ -1132,3 +1132,36 @@ Reason:
 | P7D-B04 | Medium | Deferred to P8/P9 | P2-P6 runtime smoke | Source compatibility is accepted for handoff; populated-scene runtime smoke is pending. | Smoke player, camera, shelter, result panel, P5 loaders, P6 guidance, and P6 NPC staging on `P7_HighDetail_Chuo`. |
 | P7D-B05 | Medium | Deferred to release/archive | Asset archive | The imported scene is 22.55 GB and local-only unless archived outside normal Git. | Archive required assets and final EXE to cloud drive before VM deletion. |
 
+---
+
+### P10-B Manual Playtest Follow-Ups
+
+| ID | Priority | Status | Target | Issue | Required Follow-Up |
+|---|---|---|---|---|---|
+| P10B-B01 | Medium | Deferred to user manual playtest | `P7_HighDetail_Chuo` runtime smoke | Full high-detail runtime playtest is intentionally manual because the protected scene must not be mutated or saved by automation. | Open the scene after P10-B, verify green frames, light curtain, ResultPanel, and performance feel, then request quick fixes before P10-C. |
+| P10B-B02 | Medium | Deferred to P10-C profiling/build | Windows x64 build | Final Windows EXE build moved from P10-B to P10-C. | Build and profile after user manual playtest and any approved quick fixes. |
+| P10B-B03 | Medium | Deferred to manual smoke | ResultPanel warning layout | Long non-official warning text is tested by formatter/metadata but still needs visual inspection on the target display. | Record layout issues and text clipping during P10-B manual playtest. |
+| P10B-B04 | Medium | Deferred to profiling | Green frame visual cost | Runtime frames are pooled and capped, but high-detail scene visual cost still needs measured evidence. | Compare FPS/stutter with frames and light curtain enabled/disabled. |
+
+---
+
+### P10-B+ Manual Playtest Follow-Ups
+
+| ID | Priority | Status | Target | Issue | Required Follow-Up |
+|---|---|---|---|---|---|
+| P10BPLUS-B01 | Medium | Deferred to manual playtest | Start/pause/rules UI | Runtime UI is scene-safe and tested, but needs visual inspection on the final target resolution. | Check English/Japanese text, button fit, scroll behavior, and pause overlay readability. |
+| P10BPLUS-B02 | Medium | Deferred to manual playtest | Weather/night overlay | Night overlay and movement modifiers are tested as rules, but final high-detail visibility must be checked manually. | Verify night modes do not hide green frames, ResultPanel, or player controls. |
+| P10BPLUS-B03 | Medium | Deferred to manual playtest | Stamina balance | Stamina rules are deterministic, but balance/feel needs user playtest. | Check sprint depletion, lockout, and recovery pacing before P10-C. |
+| P10BPLUS-B04 | Medium | Deferred to P10-C docs | Background image | No unlicensed image is committed. A licensed or project-generated background may still be selected later. | If replacing the placeholder, document source URL, license, author/provider, and permission. |
+
+---
+
+### P10-B++ Optimization Follow-Ups
+
+| ID | Priority | Status | Target | Issue | Required Follow-Up |
+|---|---|---|---|---|---|
+| P10BPP-B01 | Medium | Deferred to P10-C profiling | High-detail loading | Production chunk streaming is not implemented; high-detail scene loading and memory peak remain unknown until built-player profiling. | Measure load time, memory peak, working set, and disk activity in P10-C. |
+| P10BPP-B02 | Medium | Deferred to P10-C visual QA | Anti-aliasing | P10-B++ found mixed readable settings and does not claim a final AA mode. | Verify final AA mode visually and with runtime/project settings in the P10-C player. |
+| P10BPP-B03 | Medium | Deferred to P10-C profiling | Frame spikes | Green-frame warmup and bounded metrics reduce risk, but high-detail stutter must be measured. | Record frame spike count at tsunami start, green frames, light curtain, ResultPanel, and night/rain mode. |
+| P10BPP-B04 | Medium | Deferred to P10-C profiling | Disk paging | P10-B++ adds a checklist only; no OS pagefile changes are made. | Use Task Manager, Resource Monitor, or PowerShell to record memory pressure and disk paging symptoms. |
+
