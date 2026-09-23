@@ -31,11 +31,11 @@ public static class P10CPreTestBuildBuilder
             status = "build_started",
             buildAttempted = true,
             buildSucceeded = false,
-            buildType = "temporary_windows_x64_development_profiling_test_build",
+            buildType = "temporary_windows_x64_development_playable_test_build",
             buildOutputPath = outputPath,
             buildScenes = scenes,
             buildStartedAtLocal = DateTime.Now.ToString("s"),
-            summary = "Temporary P10-C-Pre Windows x64 profiling/test build started. This is not the final release build."
+            summary = "Temporary P10-C-Pre Windows x64 playable test build started. This is not the final release build."
         };
 
         try

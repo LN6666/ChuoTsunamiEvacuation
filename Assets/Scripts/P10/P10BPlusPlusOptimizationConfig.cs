@@ -116,6 +116,6 @@ public static class P10BPlusPlusDataLoader
 
     private static string P10DataPath(string fileName)
     {
-        return Path.Combine(Application.dataPath, "Data", "P10", fileName);
+        return RuntimeDataPathResolver.GetDataPath("P10", fileName);
     }
 }

@@ -21,3 +21,4 @@ P10-C-- is not official P10-C and not the final release. No final release packag
 - Automated scenario activation is incomplete for tsunami start, light curtain, crowd, ResultPanel, and night/rain unless manually triggered during capture.
 - PowerShell disk paging counters may be unavailable on localized Windows installations.
 - This is not the final P10-C release build/package/archive.
+- Subsequent P10-C-Pre playable startup hotfix work must confirm the temporary EXE no longer defaults to a blank/exporter-only path and must document whether the P9 `P7_HighDetail_Chuo` target is the actual high-detail scene or a placeholder/status shell.

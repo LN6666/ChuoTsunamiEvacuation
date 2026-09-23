@@ -1,0 +1,22 @@
+{
+  "schemaVersion": "p10c_pre.playable_startup_config.v1",
+  "playableStartupMode": true,
+  "startMenuVisibleOnLaunch": true,
+  "languageSelectorVisible": true,
+  "rulesUiAccessible": true,
+  "startGameLoadsHighDetailScene": true,
+  "generateRuntimeGameplayBootstrap": true,
+  "createFallbackGroundWhenNoSceneCollider": true,
+  "showDiagnosticsOnFailure": true,
+  "runActualP7SceneIntegrationDiagnostics": true,
+  "enableProfilingExporterByDefault": false,
+  "enableProfilingAutoQuit": false,
+  "profilingDurationSeconds": 600.0,
+  "targetHighDetailScenePath": "Assets/Scenes/P7HighDetail/P7_HighDetail_Chuo.unity",
+  "targetHighDetailSceneName": "P7_HighDetail_Chuo",
+  "p7SourceScenePath": "D:\\UnityProjects\\ChuoTsunamiEvacuation-P7\\Assets\\Scenes\\P7HighDetail\\P7_HighDetail_Chuo.unity",
+  "p7SourceSceneMetaPath": "D:\\UnityProjects\\ChuoTsunamiEvacuation-P7\\Assets\\Scenes\\P7HighDetail\\P7_HighDetail_Chuo.unity.meta",
+  "p9TargetScenePath": "Assets/Scenes/P7HighDetail/P7_HighDetail_Chuo.unity",
+  "minimumRenderableSceneRendererCount": 1,
+  "minimumActualHighDetailSceneBytes": 1073741824
+}

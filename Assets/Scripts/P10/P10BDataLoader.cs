@@ -59,6 +59,6 @@ public static class P10BDataLoader
 
     private static string P9BDataPath(string fileName)
     {
-        return System.IO.Path.Combine(UnityEngine.Application.dataPath, "Data", "P10", fileName);
+        return RuntimeDataPathResolver.GetDataPath("P10", fileName);
     }
 }

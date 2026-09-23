@@ -103,7 +103,7 @@ function Restore-UnityGeneratedBuildChurn {
     }
 }
 
-Write-Host "P10-C-Pre temporary Windows x64 profiling/test build: starting"
+Write-Host "P10-C-Pre temporary Windows x64 playable test build: starting"
 Write-Host "Project: $repoRoot"
 Write-Host "Output: $exePath"
 Write-Host "Scene list: $SceneList"

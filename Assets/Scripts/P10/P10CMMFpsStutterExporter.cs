@@ -180,7 +180,9 @@ public class P10CMMFrameSampler
 
 public class P10CMMFpsStutterExporter : MonoBehaviour
 {
+    public const string EnableArg = "-p10cMmEnableFpsExporter";
     private const string DisableArg = "-p10cMmDisableFpsExporter";
+    public const string AutoQuitArg = "-p10cMmAutoQuit";
     private const string OutputPathArg = "-p10cMmFpsSummaryPath";
     private const string CaptureSecondsArg = "-p10cMmCaptureSeconds";
     private const string ScenarioArg = "-p10cMmScenario";
@@ -200,6 +202,7 @@ public class P10CMMFpsStutterExporter : MonoBehaviour
     [SerializeField] private float requestedCaptureDurationSeconds = 600f;
     [SerializeField] private float stutterThresholdMs = 50f;
     [SerializeField] private int sampleCapacity = DefaultSampleCapacity;
+    [SerializeField] private bool autoQuitWhenDurationReached;
 
     private P10CMMFrameSampler sampler;
     private float captureStartRealtime;
@@ -224,7 +227,8 @@ public class P10CMMFpsStutterExporter : MonoBehaviour
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
     private static void InstallInPlayer()
     {
-        if (installed || HasArgument(DisableArg))
+        string[] args = Environment.GetCommandLineArgs();
+        if (installed || !ShouldInstallForCommandLine(args))
         {
             return;
         }
@@ -233,7 +237,7 @@ public class P10CMMFpsStutterExporter : MonoBehaviour
         var exporterObject = new GameObject("P10CMM_FpsStutterExporter");
         DontDestroyOnLoad(exporterObject);
         P10CMMFpsStutterExporter exporter = exporterObject.AddComponent<P10CMMFpsStutterExporter>();
-        exporter.ConfigureFromCommandLine(Environment.GetCommandLineArgs());
+        exporter.ConfigureFromCommandLine(args);
         exporter.BeginCapture();
     }
 #endif
@@ -250,6 +254,11 @@ public class P10CMMFpsStutterExporter : MonoBehaviour
         if (requestedCaptureDurationSeconds > 0f && elapsed >= requestedCaptureDurationSeconds)
         {
             WriteSummary("duration_reached");
+            if (autoQuitWhenDurationReached)
+            {
+                Debug.Log("P10-C-- FPS/stutter exporter auto-quit requested by explicit command-line profiling mode.");
+                Application.Quit(0);
+            }
         }
     }
 
@@ -290,6 +299,10 @@ public class P10CMMFpsStutterExporter : MonoBehaviour
             ParseFloat(GetArgumentValue(args, CaptureSecondsArg, "600"), 600f),
             ParseInt(GetArgumentValue(args, SampleCapacityArg, DefaultSampleCapacity.ToString()), DefaultSampleCapacity),
             ParseFloat(GetArgumentValue(args, StutterThresholdArg, "50"), 50f));
+        autoQuitWhenDurationReached = ShouldAutoQuitForCommandLine(args);
+        Debug.Log(
+            "P10-C-- FPS/stutter exporter configured. explicitExporterMode=true, autoQuit=" +
+            autoQuitWhenDurationReached + ", captureSeconds=" + requestedCaptureDurationSeconds + ".");
     }
 
     public void BeginCapture()
@@ -511,6 +524,16 @@ public class P10CMMFpsStutterExporter : MonoBehaviour
         return Path.Combine(Application.persistentDataPath, "p10c_mm_fps_stutter_summary.json");
     }
 
+    public static bool ShouldInstallForCommandLine(string[] args)
+    {
+        return HasArgument(args, EnableArg) && !HasArgument(args, DisableArg);
+    }
+
+    public static bool ShouldAutoQuitForCommandLine(string[] args)
+    {
+        return HasArgument(args, AutoQuitArg);
+    }
+
     private static string GetArgumentValue(string[] args, string name, string fallback)
     {
         if (args == null)
@@ -531,7 +554,16 @@ public class P10CMMFpsStutterExporter : MonoBehaviour
 
     private static bool HasArgument(string name)
     {
-        string[] args = Environment.GetCommandLineArgs();
+        return HasArgument(Environment.GetCommandLineArgs(), name);
+    }
+
+    private static bool HasArgument(string[] args, string name)
+    {
+        if (args == null)
+        {
+            return false;
+        }
+
         for (int i = 0; i < args.Length; i++)
         {
             if (string.Equals(args[i], name, StringComparison.OrdinalIgnoreCase))

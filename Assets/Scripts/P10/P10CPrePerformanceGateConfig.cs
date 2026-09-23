@@ -117,6 +117,7 @@ public static class P10CPreDataLoader
     public const string BuiltPlayerProfileSummaryFileName = "p10c_pre_built_player_profile_summary.json";
     public const string OptimizationDecisionFileName = "p10c_pre_optimization_decision.json";
     public const string ManualPlaytestChecklistFileName = "p10c_pre_manual_playtest_checklist.json";
+    public const string PlayableStartupConfigFileName = "p10c_pre_playable_startup_config.json";
 
     public static P9BLoadResult<P10CPrePerformanceGateConfig> LoadPerformanceGateConfig()
     {
@@ -153,8 +154,15 @@ public static class P10CPreDataLoader
             "P10-C-Pre manual playtest checklist");
     }
 
+    public static P9BLoadResult<P10CPrePlayableStartupConfig> LoadPlayableStartupConfig()
+    {
+        return P9BDataLoader.LoadFromPath<P10CPrePlayableStartupConfig>(
+            P10DataPath(PlayableStartupConfigFileName),
+            "P10-C-Pre playable startup config");
+    }
+
     private static string P10DataPath(string fileName)
     {
-        return Path.Combine(Application.dataPath, "Data", "P10", fileName);
+        return RuntimeDataPathResolver.GetDataPath("P10", fileName);
     }
 }

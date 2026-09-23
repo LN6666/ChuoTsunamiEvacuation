@@ -166,7 +166,7 @@ public static class P8HazardLayerLoader
 
     private static string GetAssetsP8DataPath(string fileName)
     {
-        return Application.dataPath + "/Data/P8/" + fileName;
+        return RuntimeDataPathResolver.GetDataPath("P8", fileName);
     }
 }
 
