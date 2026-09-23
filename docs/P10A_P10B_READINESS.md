@@ -71,3 +71,9 @@ Optimization rule:
 Machine-readable checklist:
 
 - `Assets/Data/P10/p10a_p10b_readiness_checklist.json`
+
+P10-A+ readiness update:
+
+- P10-A+ adds full candidate anchor hardening, nearest-match proxy, entrance proxy, route proxy validation, semantic binding audit, and high-detail smoke status reports.
+- P10-B should use those reports as benchmark and smoke-test inputs.
+- P10-B still owns Windows EXE build, high-detail runtime stress, CPU/memory/FPS/stutter/loading/log monitoring, and before/after optimization measurements.

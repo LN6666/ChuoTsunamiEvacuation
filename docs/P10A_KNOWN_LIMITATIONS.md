@@ -35,3 +35,8 @@ Future work:
 - calibrated crowd model
 - scientific mortality model
 - full PLATEAU semantic coverage
+
+P10-A+ update:
+
+- P10-A+ improves candidate, entrance, route, and semantic evidence with reports.
+- Remaining exact-object, official-route, true entrance geometry, high-detail runtime, and release/archive limitations are preserved honestly.

@@ -45,6 +45,13 @@ Current gate:
 - Humanitarian/high-rise candidate source data currently found is the controlled P5-F/P5-GH sample; it must remain non-official and requires user review before P8-D.
 - P9 should focus on final real gameplay landing, not repairing missing P8 hazard/front/infrastructure foundation work.
 
+P10-A+ hardening sprint:
+
+- P10-A+ is not a new official stage.
+- P10-A+ attempts final evidence hardening before P10-B by generating candidate anchoring, nearest-match/proxy, entrance proxy, route proxy validation, PLATEAU semantic binding audit, and high-detail smoke readiness reports.
+- P10-A+ must not create P10-E/F/G, add new gameplay systems, reimplement P7/P8/P9, build the Windows EXE, or create release/archive artifacts.
+- Validate with `powershell -ExecutionPolicy Bypass -File tools/p10/run_p10a_plus_preflight.ps1`, Unity GUI EditMode/PlayMode, and DeepSeek using `deepseek_review_prompt_p10a_plus.md`.
+
 ## Phase 7: High-Detail Chuo Asset Loading, LOD, Streaming, and Windows EXE Optimization
 
 Status: P7-D manual high-detail import validation is complete as a user-approved practical baseline. The actual `P7_HighDetail_Chuo` scene contains renderable PLATEAU objects and is the practical local baseline for P8/P9/P10, while average LOD3 is not achieved, category coverage is incomplete, P2-P6 runtime smoke remains a follow-up, and Windows EXE profiling is prepared but not complete. P7 has exactly five stages: P7-0, P7-A, P7-B, P7-C, and P7-D. Do not create P7-E, P7-F, or P7-G.

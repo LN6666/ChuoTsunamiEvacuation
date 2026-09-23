@@ -1,0 +1,23 @@
+﻿{
+    "schemaVersion":  "p10a_plus.high_detail_smoke_status.v1",
+    "stage":  "P10-A+ hardening sprint under P10-A",
+    "scenePath":  "Assets/Scenes/P7HighDetail/P7_HighDetail_Chuo.unity",
+    "sceneExists":  true,
+    "sceneTouched":  false,
+    "sceneMutationPerformed":  false,
+    "p9RuntimeSceneSafe":  true,
+    "markerGenerationWithoutSceneMutation":  true,
+    "manualSmokeChecklistStrengthened":  true,
+    "p10bRuntimeValidationRequired":  true,
+    "p10cArchiveRequired":  true,
+    "checklist":  [
+                      "open high-detail scene without saving",
+                      "verify P9 runtime root/bootstrap can be added or enabled without scene commit",
+                      "verify candidate markers and official/non-official warnings",
+                      "verify spawn/crowd markers",
+                      "verify light curtain visibility and marker readability",
+                      "verify entrance/safe-floor proxy flow",
+                      "verify ResultPanel warning/reason code text",
+                      "collect FPS, memory, Player.log warnings/errors"
+                  ]
+}

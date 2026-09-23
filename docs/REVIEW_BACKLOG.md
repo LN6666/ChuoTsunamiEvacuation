@@ -61,6 +61,32 @@ Pending DeepSeek review after P8-B/C consolidation preflight, existing P8 prefli
 
 ---
 
+## P10-A+ Final Gap Hardening
+
+Source report:
+
+Pending DeepSeek review using `deepseek_review_prompt_p10a_plus.md`.
+
+Context:
+
+P10-A+ is not a new official stage. It is a final hardening sprint under P10-A before P10-B. It adds report-backed candidate anchoring, nearest-match/proxy evidence, entrance proxy evidence, route proxy validation, semantic binding classification, high-detail smoke readiness, and updated P10-B readiness without changing gameplay systems.
+
+Overall verdict:
+
+Pending review.
+
+### P10-A+ Risks And Follow-Ups
+
+| ID | Priority | Status | Target | Issue | Required Review |
+|---|---|---|---|---|---|
+| P10APLUS-R01 | Medium | Open | P10-B | P10-A+ reports improve proxy evidence but do not run high-detail runtime smoke. | Confirm P10-B treats runtime smoke as required. |
+| P10APLUS-R02 | Medium | Open | P10-B | Candidate-to-building nearest-match uses fallback building proxy and centroid evidence, not exact Unity scene object identity. | Confirm no exact PLATEAU identity claim appears. |
+| P10APLUS-R03 | Medium | Open | P10-B | Route coordinate validation is stronger but route-to-road validation remains limited. | Confirm routes remain estimated prototype guidance and not official routes. |
+| P10APLUS-R04 | Medium | Open | P10-C | High-detail archive is still deferred. | Confirm no archive or release package artifact is committed. |
+| P10APLUS-R05 | Low | Open | P10-B | Route bounds reports currently validate against the P9-D proxy bounds. | Confirm those bounds are suitable during P10-B high-detail smoke/profiling. |
+
+---
+
 ## P7-C Streaming / Chunk Loading + Visual Quality + Performance
 
 Source report:

@@ -35,3 +35,9 @@ Gap closure summary:
 Machine-readable matrix:
 
 - `Assets/Data/P10/p10a_gap_closure_matrix.json`
+
+P10-A+ hardening:
+
+- `P10A_PLUS_HARDENING_MATRIX.md` adds the final hardening classification before P10-B.
+- Candidate anchoring, candidate-to-building nearest-match, entrance proxy placement, route coordinate validation, and semantic binding evidence are now backed by P10-A+ reports.
+- Items still not proven remain explicitly carried as limitations rather than promoted to exact PLATEAU identity or official route validation.

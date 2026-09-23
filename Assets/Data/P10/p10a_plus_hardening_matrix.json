@@ -1,0 +1,66 @@
+﻿{
+    "schemaVersion":  "p10a_plus.hardening_matrix.v1",
+    "stage":  "P10-A+ hardening sprint under P10-A",
+    "officialP10StageCountRemainsFour":  true,
+    "noP10EfgCreated":  true,
+    "noNewLargeGameplaySystem":  true,
+    "noP7P8P9Reimplementation":  true,
+    "noP10CArchiveOrReleaseWork":  true,
+    "items":  [
+                  {
+                      "id":  "110_humanitarian_candidate_marker_anchoring",
+                      "classification":  "closed_by_p10a_plus",
+                      "evidence":  "full 110-record candidate anchor hardening report generated"
+                  },
+                  {
+                      "id":  "candidate_to_building_binding",
+                      "classification":  "improved_to_nearest_match_validated_proxy",
+                      "evidence":  "fallback building proxy ids and centroid-derived coordinates reported; exact scene object identity not proven"
+                  },
+                  {
+                      "id":  "entrance_proxy_placement",
+                      "classification":  "improved_to_coordinate_validated_proxy",
+                      "evidence":  "coordinate-derived entrance proxy report generated; true entrance geometry not proven"
+                  },
+                  {
+                      "id":  "route_candidate_coordinate_geometry",
+                      "classification":  "improved_to_coordinate_validated_proxy",
+                      "evidence":  "OSM route LineString point counts and bounds checks generated"
+                  },
+                  {
+                      "id":  "p5_route_road_geometry_validation",
+                      "classification":  "still_known_limitation",
+                      "evidence":  "road semantic metadata exists but scene road object and official route validation remain unproven"
+                  },
+                  {
+                      "id":  "plateau_semantic_object_binding",
+                      "classification":  "still_known_limitation",
+                      "evidence":  "semantic binding audit classifies metadata/proxy/data-only evidence; full scene object binding not proven"
+                  },
+                  {
+                      "id":  "hazard_front_light_curtain_visual_qa",
+                      "classification":  "visual_qa_ready_for_p10b",
+                      "evidence":  "visual QA checklist strengthened; runtime measurement remains P10-B"
+                  },
+                  {
+                      "id":  "result_panel_long_warning_text",
+                      "classification":  "visual_qa_ready_for_p10b",
+                      "evidence":  "formatter coverage retained and visual checklist strengthened"
+                  },
+                  {
+                      "id":  "p2_p9_high_detail_scene_smoke",
+                      "classification":  "p10b_runtime_validation_required",
+                      "evidence":  "scene exists and protected; manual runtime smoke checklist strengthened"
+                  },
+                  {
+                      "id":  "windows_exe_profiling_readiness",
+                      "classification":  "p10b_runtime_validation_required",
+                      "evidence":  "P10-B metrics and stress checklist remain ready"
+                  },
+                  {
+                      "id":  "high_detail_scene_archive",
+                      "classification":  "p10c_archive_required",
+                      "evidence":  "archive remains P10-C and was not performed in P10-A+"
+                  }
+              ]
+}
