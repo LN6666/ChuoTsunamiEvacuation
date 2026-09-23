@@ -14,6 +14,36 @@ This file only records actionable review items that should guide Codex fixes.
 
 ---
 
+## P8-B/C Consolidation Gate
+
+Source report:
+
+Pending DeepSeek review using `deepseek_review_prompt_p8bc_consolidation.md`.
+
+Context:
+
+P8-B/C consolidation updates the P8 stage count to A-E, closes the P8-B official tsunami hazard-layer gate, closes P8-C P2-P6 and infrastructure proxy concerns, and audits existing humanitarian/high-rise candidate source data before P8-D.
+
+Overall verdict:
+
+Pending review.
+
+### P8-B/C Risks And Follow-Ups
+
+| ID | Priority | Status | Target | Issue | Required Review |
+|---|---|---|---|---|---|
+| P8BC-R01 | High | In Progress | P8 stage plan/preflights | P8 must have exactly P8-A through P8-E and must still forbid P8-0/F/G. | Confirm docs, tools, and tests agree on A-E only. |
+| P8BC-R02 | High | In Progress | P8-B hazard layer | Official Tokyo tsunami spatial layer v1 must reference Tokyo Metropolitan Government tsunami damage-estimation CSVs, not generic flood proxy data. | Confirm scenario/sample/depth/height/arrival summaries and derived-boundary limitation. |
+| P8BC-R03 | High | In Progress | P8-C infrastructure | P8-C must stay proxy/data-only and must not implement P8-D collapse or P9 gameplay. | Confirm changed code and tests preserve gameplay-neutral flags. |
+| P8BC-R04 | High | In Progress | Humanitarian candidates | Non-official high-rise candidates must not be claimed as official shelters. | Confirm name list uses actual project files only and contains explicit disclaimer. |
+| P8BC-R05 | Medium | Deferred to P8-D/P8-E/P9 | Candidate lifecycle | Persistent visibility, damage status, and life-first selectable target decisions need staged ownership. | Confirm D/E/P9 allocation docs are clear and no implementation was added now. |
+
+Decision:
+
+Pending DeepSeek review after P8-B/C consolidation preflight, existing P8 preflights, Unity tests, and protected-path checks pass.
+
+---
+
 ## P7-C Streaming / Chunk Loading + Visual Quality + Performance
 
 Source report:

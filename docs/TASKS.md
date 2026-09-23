@@ -10,6 +10,25 @@ Current branch focus:
 
 P7-0 begins the PBL7 high-detail city foundation. P7-0 is docs/tools/prompts only: reference review, LOD strategy, asset inventory protocol, benchmark protocol, automation guard scripts, two-Codex workflow planning, and DeepSeek review preparation. P7-0 must not modify Unity scenes, ProjectSettings, Packages, PLATEAU imports, gameplay scripts, or Assets/Data. Phase 5 and Phase 6 remain the stable behavior baseline: default `sourceMode = test`, `real_qualified` opt-in, humanitarian candidate flags default false, OSM routes estimated only, route rendering fail-closed until WGS84 to Unity/PLATEAU transform validation exists, navigation display-only, and NPCs non-blocking.
 
+## Phase 8: Tsunami Hazard, Risk Front, and Infrastructure Foundation
+
+Status: P8-B/C consolidation gate is in progress on `p8-tsunami-hazard-risk-front-foundation`. P8 now has exactly five stages: P8-A, P8-B, P8-C, P8-D, and P8-E. Do not create P8-0, P8-F, or P8-G.
+
+Stage allocation:
+
+- P8-A: baseline handoff, P2-P6 compatibility gate, and hazard data foundation.
+- P8-B: official/evidence tsunami hazard layer v1 plus dynamic risk-front / cinematic light curtain.
+- P8-C: P2-P6 new-map smoke/proxy adaptation and hazard/risk-front-driven infrastructure hazard states.
+- P8-D: future infrastructure damage, blockage, and lightweight collapse proxy only.
+- P8-E: final P8 closeout, humanitarian candidate persistent visibility/handoff, and pre-P9 verification.
+
+Current gate:
+
+- P8-B Problem 1 is consolidated using Tokyo Metropolitan Government tsunami damage-estimation spatial CSVs clipped to Chuo, not generic flood proxy data.
+- P8-C Problem 2 and Problem 3 are consolidated at smoke/proxy level.
+- Humanitarian/high-rise candidate source data currently found is the controlled P5-F/P5-GH sample; it must remain non-official and requires user review before P8-D.
+- P9 should focus on final real gameplay landing, not repairing missing P8 hazard/front/infrastructure foundation work.
+
 ## Phase 7: High-Detail Chuo Asset Loading, LOD, Streaming, and Windows EXE Optimization
 
 Status: P7-D manual high-detail import validation is complete as a user-approved practical baseline. The actual `P7_HighDetail_Chuo` scene contains renderable PLATEAU objects and is the practical local baseline for P8/P9/P10, while average LOD3 is not achieved, category coverage is incomplete, P2-P6 runtime smoke remains a follow-up, and Windows EXE profiling is prepared but not complete. P7 has exactly five stages: P7-0, P7-A, P7-B, P7-C, and P7-D. Do not create P7-E, P7-F, or P7-G.

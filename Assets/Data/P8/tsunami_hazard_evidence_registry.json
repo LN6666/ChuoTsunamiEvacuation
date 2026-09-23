@@ -1,0 +1,206 @@
+{
+  "registryVersion": "p8b.1.2",
+  "updatedDate": "2026-05-24",
+  "studyArea": "Tokyo Chuo City",
+  "evidenceCategories": [
+    "official_tsunami_metropolitan",
+    "official_tsunami_report_reference",
+    "official_flood_proxy",
+    "academic_model_candidate",
+    "manual_extraction_required",
+    "evidence_planned",
+    "official_admin_boundary"
+  ],
+  "currentGateDecision": "PASS",
+  "gateReason": "Official Tokyo Open Data tsunami 10m mesh CSV resources were directly accessible without token or login and were clipped to the official MLIT N03 Chuo City polygon to produce an extracted Chuo spatial hazard layer v1 for Taisho Kanto earthquake and Nankai Trough megathrust earthquake case 1.",
+  "officialTokyoTsunamiDatasetCheck": {
+    "usesTokyoMetropolitanGovernmentDamageEstimationTsunamiDatasets": true,
+    "usesChuoFloodHazardMapAsTsunamiData": false,
+    "broaderReportContext": "東京都「首都直下地震等による東京の被害想定」 / Tokyo Metropolitan Government damage-estimation source family/report context",
+    "extractedTsunamiSpatialScenarios": [
+      "大正関東地震",
+      "南海トラフ巨大地震 case 1"
+    ],
+    "notExtractedTsunamiScenarios": [
+      {
+        "scenarioName": "都心南部直下地震",
+        "status": "not_available_not_a_tsunami_scenario_in_current_extracted_layers",
+        "notes": "No current P8-B Tokyo tsunami CSV/layer extraction exists for this scenario. Do not describe P8-B as extracting 都心南部直下地震-specific tsunami inundation-depth, arrival-time, or tsunami-height data."
+      }
+    ],
+    "chuoExtractionArea": "Tokyo ward-area / 区部 mesh clipped to 中央区 using MLIT N03 administrative boundary",
+    "inundationDepthSource": "Tokyo official tsunami maximum inundation-depth CSVs",
+    "arrivalTimeSource": "Tokyo official tsunami arrival-time CSVs",
+    "maxTsunamiHeightStoredSeparately": true,
+    "inundationBoundaryStatus": "derived_grid_extent_bbox_from_official_extracted_points_not_official_contour"
+  },
+  "sources": [
+    {
+      "evidenceSourceId": "tokyo_damage_estimation_map_tsunami",
+      "sourceMode": "official_tsunami_metropolitan",
+      "sourceCategory": "official_tsunami_metropolitan",
+      "title": "Tokyo Open Data ward-area tsunami distribution CSVs, including maximum tsunami height, maximum inundation depth, and arrival-time layers",
+      "url": "https://catalog.data.metro.tokyo.lg.jp/dataset/t000003d2000000392",
+      "reviewedStatus": "reviewed_for_values",
+      "primaryCandidate": true,
+      "nonTsunamiProxy": false,
+      "fallbackOnly": false,
+      "extractionStatus": "extracted",
+      "accessMethod": "direct_https_csv_download_no_token",
+      "requiresTokenOrLogin": false,
+      "expectedFileType": "CSV, CP932/Shift-JIS text",
+      "knownLayers": [
+        "maximum tsunami height",
+        "maximum inundation depth",
+        "arrival time"
+      ],
+      "scenarioNames": [
+        "Taisho Kanto earthquake",
+        "Nankai Trough megathrust earthquake case 1",
+        "Nankai Trough megathrust earthquake case 5 (not present in current generated Chuo layer)",
+        "Nankai Trough megathrust earthquake case 8 (not present in current generated Chuo layer)",
+        "Central Tokyo southern inland earthquake / 都心南部直下地震 (not available / not a tsunami scenario in current extracted layers)"
+      ],
+      "scenarioExtractionSummary": [
+        {
+          "scenarioName": "Taisho Kanto earthquake / 大正関東地震",
+          "extractedForChuo": true,
+          "chuoSampleCount": 1123,
+          "maxInundationDepthMeters": 2.0436,
+          "maxTsunamiHeightMeters": 2.1287,
+          "arrivalTimeExists": true,
+          "boundaryStatus": "derived grid extent bbox, not official inundation contour"
+        },
+        {
+          "scenarioName": "Nankai Trough megathrust earthquake case 1 / 南海トラフ巨大地震 case 1",
+          "extractedForChuo": true,
+          "chuoSampleCount": 1256,
+          "maxInundationDepthMeters": 2.2629,
+          "maxTsunamiHeightMeters": 2.4223,
+          "arrivalTimeExists": true,
+          "boundaryStatus": "derived grid extent bbox, not official inundation contour"
+        },
+        {
+          "scenarioName": "Nankai Trough megathrust earthquake case 5 / 南海トラフ巨大地震 case 5",
+          "extractedForChuo": false,
+          "chuoSampleCount": 0,
+          "maxInundationDepthMeters": null,
+          "maxTsunamiHeightMeters": null,
+          "arrivalTimeExists": false,
+          "boundaryStatus": "not present in current generated Chuo layer"
+        },
+        {
+          "scenarioName": "Nankai Trough megathrust earthquake case 8 / 南海トラフ巨大地震 case 8",
+          "extractedForChuo": false,
+          "chuoSampleCount": 0,
+          "maxInundationDepthMeters": null,
+          "maxTsunamiHeightMeters": null,
+          "arrivalTimeExists": false,
+          "boundaryStatus": "not present in current generated Chuo layer"
+        }
+      ],
+      "municipalitySelection": "Chuo City is selected by clipping mesh points to the official MLIT N03 Chuo polygon.",
+      "notes": "Primary P8-B evidence source. Used to extract Chuo spatial maximum inundation depth, maximum tsunami height, and arrival-time sample points from Tokyo official tsunami CSVs for Taisho Kanto earthquake and Nankai Trough case 1. Maximum tsunami height remains separate from the inundation-depth grid. Case 5 and case 8 are listed as checked/not present in the current generated Chuo layer, not as extracted scenarios. 都心南部直下地震 is not available / not a tsunami scenario in current extracted layers and is not claimed as extracted tsunami data."
+    },
+    {
+      "evidenceSourceId": "mlit_n03_chuo_admin_boundary",
+      "sourceMode": "official_tsunami_metropolitan",
+      "sourceCategory": "official_admin_boundary",
+      "title": "National Land Numerical Information N03 administrative boundary, Tokyo, 2024",
+      "url": "https://nlftp.mlit.go.jp/ksj/gml/data/N03/N03-2024/N03-20240101_13_GML.zip",
+      "reviewedStatus": "reviewed_for_values",
+      "primaryCandidate": false,
+      "nonTsunamiProxy": false,
+      "fallbackOnly": false,
+      "extractionStatus": "extracted",
+      "accessMethod": "direct_https_zip_download_no_token",
+      "requiresTokenOrLogin": false,
+      "expectedFileType": "ZIP containing GeoJSON/Shapefile/GML",
+      "notes": "Official administrative boundary used to clip Tokyo tsunami mesh points to Chuo City. It is not a tsunami source by itself."
+    },
+    {
+      "evidenceSourceId": "tokyo_damage_estimation_report_tsunami",
+      "sourceMode": "official_tsunami_metropolitan",
+      "sourceCategory": "official_tsunami_report_reference",
+      "title": "Tokyo Metropolitan Government damage-estimation report tsunami sections / 東京都「首都直下地震等による東京の被害想定」 source-family context",
+      "url": "https://www.bousai.metro.tokyo.lg.jp/taisaku/torikumi/1000902/1021571.html",
+      "reviewedStatus": "reviewed_for_planning",
+      "primaryCandidate": true,
+      "nonTsunamiProxy": false,
+      "fallbackOnly": false,
+      "extractionStatus": "reference_only",
+      "accessMethod": "official_web_page_reference",
+      "requiresTokenOrLogin": false,
+      "expectedFileType": "HTML/PDF report references",
+      "maxTsunamiHeightMetersReferences": [
+        {
+          "scenarioName": "Nankai Trough megathrust earthquake, Chuo-ku",
+          "valueMeters": 2.42,
+          "valueStatus": "reported_reference_not_spatial_grid"
+        },
+        {
+          "scenarioName": "Taisho Kanto earthquake, Chuo-ku",
+          "valueMeters": 2.12,
+          "valueStatus": "reported_reference_not_spatial_grid"
+        }
+      ],
+      "notes": "Official metropolitan report source-family context. Values guide P8-B provenance and scenario labels, but maximum tsunami height is not a substitute for an extracted inundation-depth surface. P8-B extraction is limited to 大正関東地震 and 南海トラフ巨大地震 case 1; no 都心南部直下地震-specific tsunami layer is extracted or claimed."
+    },
+    {
+      "evidenceSourceId": "chuo_city_tsunami_liquefaction_page",
+      "sourceMode": "evidence_planned",
+      "sourceCategory": "official_tsunami_report_reference",
+      "title": "Chuo City page on tsunami and liquefaction",
+      "url": "https://www.city.chuo.lg.jp/a0034/bousaianzen/bousai/saigaitaiou/saigaijoho/tunamiekijouka.html",
+      "reviewedStatus": "reviewed_for_planning",
+      "primaryCandidate": true,
+      "nonTsunamiProxy": false,
+      "fallbackOnly": false,
+      "extractionStatus": "reference_only",
+      "accessMethod": "official_web_page_reference",
+      "requiresTokenOrLogin": false,
+      "expectedFileType": "HTML",
+      "notes": "Chuo City references the Tokyo Metropolitan Government damage estimation report for tsunami numerical simulation results. It is a provenance bridge, not a standalone Chuo tsunami hazard map dataset. The current extracted tsunami layers remain 大正関東地震 and 南海トラフ巨大地震 case 1 only."
+    },
+    {
+      "evidenceSourceId": "supplementary_pdf_tokyo_bay_tsunami_height_chuo",
+      "sourceMode": "evidence_planned",
+      "sourceCategory": "manual_extraction_required",
+      "title": "Supplementary public PDF reference for Tokyo Bay tsunami height by municipality",
+      "url": "https://www.ktr.mlit.go.jp/ktr_content/content/000083997.pdf",
+      "reviewedStatus": "attached_unreviewed",
+      "primaryCandidate": false,
+      "nonTsunamiProxy": false,
+      "fallbackOnly": false,
+      "extractionStatus": "manual_extraction_required",
+      "accessMethod": "direct_pdf_reference_no_token",
+      "requiresTokenOrLogin": false,
+      "expectedFileType": "PDF",
+      "maxTsunamiHeightMetersReferences": [
+        {
+          "scenarioName": "Nankai Trough megathrust earthquake, Chuo-ku",
+          "valueMeters": 2.46,
+          "valueStatus": "supplementary_reference_not_spatial_grid"
+        }
+      ],
+      "notes": "Supplementary reference for the older 2.46m Chuo maximum tsunami-height value. Treat as a height reference only until source lineage and scenario assumptions are reviewed."
+    },
+    {
+      "evidenceSourceId": "flood_proxy_chuo_hazard_map",
+      "sourceMode": "evidence_planned",
+      "sourceCategory": "official_flood_proxy",
+      "title": "Chuo flood hazard map materials, non-tsunami proxy fallback only",
+      "url": "https://www.city.chuo.lg.jp/bousaianzen/bousai/kouzuihazardmap/index.html",
+      "reviewedStatus": "not_attached",
+      "primaryCandidate": false,
+      "nonTsunamiProxy": true,
+      "fallbackOnly": true,
+      "extractionStatus": "not_used_for_tsunami_front",
+      "accessMethod": "official_web_page_reference",
+      "requiresTokenOrLogin": false,
+      "expectedFileType": "HTML/PDF",
+      "notes": "Flood material is not the tsunami evidence source for P8-B. Keep only as a non-tsunami proxy fallback if Tokyo tsunami evidence cannot be extracted for a later prototype."
+    }
+  ],
+  "notes": "P8-B prioritizes Tokyo Metropolitan Government tsunami damage estimation evidence for Chuo. 東京都「首都直下地震等による東京の被害想定」 is the broader source-family/report context; the actual extracted tsunami spatial layers are 大正関東地震 and 南海トラフ巨大地震 case 1. 都心南部直下地震 is not available / not a tsunami scenario in current extracted layers. Chuo's lack of a standalone tsunami hazard map is not treated as absence of tsunami evidence. Chuo flood hazard map material is not used as tsunami data."
+}

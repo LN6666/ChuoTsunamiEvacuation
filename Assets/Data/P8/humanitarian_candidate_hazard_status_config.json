@@ -1,0 +1,26 @@
+{
+  "configId": "p8_humanitarian_candidate_hazard_status_config_v1",
+  "sourceCandidateAuditFile": "Assets/Data/P8/humanitarian_highrise_candidate_audit_v1.json",
+  "statusSource": "P8-D proxy damage/blockage evaluator",
+  "isOfficialShelterDataset": false,
+  "requireNonOfficialWarningForHumanitarianCandidates": true,
+  "manualReviewRequiredDefault": true,
+  "hazardStatusEligible": true,
+  "p8cProxyEligible": true,
+  "p8dDamageStatusEligible": true,
+  "p8ePersistentVisibilityReviewNeeded": true,
+  "p9LifeFirstSelectableReviewNeeded": true,
+  "selectableGameplayEnabledInP8D": false,
+  "affectsGameplaySuccessFailure": false,
+  "supportedStatusTokens": [
+    "safe",
+    "watch",
+    "warning",
+    "low_floor_inundation_warning",
+    "entrance_blocked_proxy",
+    "building_damaged_proxy",
+    "collapsed_proxy_visual",
+    "manual_review_required"
+  ],
+  "notes": "Humanitarian high-rise candidates remain non-official. P8-D may assign proxy hazard/damage status only; P9 will decide future life-first selectable behavior."
+}
