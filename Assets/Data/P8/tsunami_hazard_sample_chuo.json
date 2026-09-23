@@ -1,0 +1,145 @@
+{
+  "scenarioId": "p8b_chuo_hazard_layer_v1_manual_sample",
+  "sourceMode": "manual_sample",
+  "hazardLayerVersion": "p8b.1.0",
+  "timeOriginSeconds": 0,
+  "scienceLayerFields": [
+    "arrivalTimeSeconds",
+    "inundationDepthMeters",
+    "waterLevelMeters",
+    "tsunamiHeightMeters",
+    "inundationBoundary",
+    "hazardIntensity",
+    "confidence",
+    "evidenceSourceId",
+    "geometryType",
+    "sourceMode",
+    "boundaryIsEvidenceBasedOrPrototype"
+  ],
+  "visualLayerFields": [
+    "visualHeightMeters",
+    "visualHeightIsCinematicOnly"
+  ],
+  "features": [
+    {
+      "featureId": "p8b_sumida_riverfront_front_v1_manual_sample",
+      "sourceMode": "manual_sample",
+      "geometryType": "polyline",
+      "arrivalTimeSeconds": 1200,
+      "inundationDepthMeters": 0.8,
+      "waterLevelMeters": 1.6,
+      "tsunamiHeightMeters": 1.0,
+      "inundationBoundary": [
+        { "x": 139.7650, "y": 35.6660 },
+        { "x": 139.7720, "y": 35.6640 },
+        { "x": 139.7790, "y": 35.6615 },
+        { "x": 139.7850, "y": 35.6585 }
+      ],
+      "hazardIntensity": 0.45,
+      "confidence": 0.2,
+      "evidenceSourceId": "p8b_manual_hazard_layer_v1_placeholder",
+      "notes": "Manual-sample P8-B front v1 record used to test arrival-time and boundary-driven visualization. Not an official hazard value.",
+      "visualHeightMeters": 100.0,
+      "visualHeightIsCinematicOnly": true,
+      "boundaryIsEvidenceBasedOrPrototype": "prototype",
+      "affectedInfrastructureTypes": {
+        "roads": true,
+        "buildings": true,
+        "bridges": true,
+        "underground": false,
+        "entrances": true,
+        "waterfront": true,
+        "open_space": true
+      },
+      "buildingDamageState": "none",
+      "collapseProxyState": "data_only",
+      "collapseProbability": 0.0,
+      "collapseRandomSeed": 8101,
+      "hazardDrivenCollapse": false
+    },
+    {
+      "featureId": "p8b_harumi_waterfront_front_v1_manual_sample",
+      "sourceMode": "manual_sample",
+      "geometryType": "polygon",
+      "arrivalTimeSeconds": 1800,
+      "inundationDepthMeters": 1.2,
+      "waterLevelMeters": 2.1,
+      "tsunamiHeightMeters": 1.5,
+      "inundationBoundary": [
+        { "x": 139.7700, "y": 35.6460 },
+        { "x": 139.7760, "y": 35.6460 },
+        { "x": 139.7760, "y": 35.6510 },
+        { "x": 139.7700, "y": 35.6510 }
+      ],
+      "hazardIntensity": 0.65,
+      "confidence": 0.2,
+      "evidenceSourceId": "p8b_manual_hazard_layer_v1_placeholder",
+      "notes": "Manual-sample P8-B front v1 waterfront record. Replace with reviewed official or academic evidence before making hazard-value claims.",
+      "visualHeightMeters": 120.0,
+      "visualHeightIsCinematicOnly": true,
+      "boundaryIsEvidenceBasedOrPrototype": "prototype",
+      "affectedInfrastructureTypes": {
+        "roads": true,
+        "buildings": true,
+        "bridges": true,
+        "underground": false,
+        "entrances": true,
+        "waterfront": true,
+        "open_space": true
+      },
+      "buildingDamageState": "none",
+      "collapseProxyState": "data_only",
+      "collapseProbability": 0.0,
+      "collapseRandomSeed": 8102,
+      "hazardDrivenCollapse": false
+    },
+    {
+      "featureId": "p8b_tsukishima_inland_front_v1_manual_sample",
+      "sourceMode": "manual_sample",
+      "geometryType": "synthetic",
+      "arrivalTimeSeconds": 2400,
+      "inundationDepthMeters": 0.4,
+      "waterLevelMeters": 1.1,
+      "tsunamiHeightMeters": 0.7,
+      "inundationBoundary": [
+        { "x": 139.7820, "y": 35.6600 },
+        { "x": 139.7870, "y": 35.6600 },
+        { "x": 139.7870, "y": 35.6650 },
+        { "x": 139.7820, "y": 35.6650 }
+      ],
+      "hazardIntensity": 0.35,
+      "confidence": 0.2,
+      "evidenceSourceId": "p8b_manual_hazard_layer_v1_placeholder",
+      "notes": "Manual-sample inland placeholder for P8-B front v1. Replace with reviewed evidence before claims.",
+      "visualHeightMeters": 80.0,
+      "visualHeightIsCinematicOnly": true,
+      "boundaryIsEvidenceBasedOrPrototype": "prototype",
+      "affectedInfrastructureTypes": {
+        "roads": true,
+        "buildings": true,
+        "bridges": false,
+        "underground": true,
+        "entrances": true,
+        "waterfront": false,
+        "open_space": true
+      },
+      "buildingDamageState": "none",
+      "collapseProxyState": "disabled",
+      "collapseProbability": 0.0,
+      "collapseRandomSeed": 8103,
+      "hazardDrivenCollapse": false
+    }
+  ],
+  "evidenceSources": [
+    {
+      "evidenceSourceId": "p8b_manual_hazard_layer_v1_placeholder",
+      "sourceMode": "manual_sample",
+      "sourceCategory": "manual_sample",
+      "title": "P8-B hazard-layer v1 manual sample placeholder",
+      "url": "",
+      "reviewedStatus": "reviewed_for_planning",
+      "notes": "Development-only manual sample for validating arrival/depth/boundary-driven risk-front behavior. No official or academic hazard claim."
+    }
+  ],
+  "notes": "P8-B hazard-layer v1 manual sample. Values are intentionally non-authoritative and must be replaced or upgraded only after official/academic source review."
+}

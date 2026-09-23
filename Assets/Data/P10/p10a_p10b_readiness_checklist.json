@@ -1,0 +1,89 @@
+﻿{
+    "schemaVersion":  "p10a.p10b_readiness_checklist.v1",
+    "stage":  "P10-A",
+    "p10bStageName":  "Windows EXE Build + Performance Profiling + Stress Test + Optimization Pass",
+    "p10bBuildStarted":  false,
+    "p10cReleasePackagingStarted":  false,
+    "p10cArchiveCompleted":  false,
+    "noLargeBuildArtifactsCommitted":  true,
+    "windowsTarget":  "Windows x64",
+    "qualityPresets":  [
+                           "Low",
+                           "Medium",
+                           "High"
+                       ],
+    "benchmarkScenarios":  [
+                               "startup_to_first_playable",
+                               "normal_success",
+                               "congestion_delay_success",
+                               "entrance_blocked_failure",
+                               "safe_floor_failure",
+                               "crowd_delay_hazard_failure",
+                               "collapse_debris_fatality",
+                               "collapse_disabled_success",
+                               "high_detail_scene_marker_generation",
+                               "light_curtain_visual_sweep"
+                           ],
+    "stressTestScenarios":  [
+                                "high_marker_count_116_anchor_targets",
+                                "capped_npc_runtime_spawn",
+                                "dense_candidate_marker_visibility",
+                                "result_panel_warning_text",
+                                "risk_front_light_curtain_visible",
+                                "repeat_runs_for_log_growth"
+                            ],
+    "metricsToCollect":  [
+                             "FPS",
+                             "1_percent_low_or_stutter",
+                             "CPU_usage",
+                             "memory_usage",
+                             "GC_allocations_if_available",
+                             "loading_time",
+                             "Player_log_errors_warnings",
+                             "NPC_count",
+                             "marker_count",
+                             "light_curtain_impact",
+                             "UI_ResultPanel_impact"
+                         ],
+    "optimizationCandidateChecklist":  [
+                                           "marker_density_cap",
+                                           "NPC_cap",
+                                           "debug_visual_toggles",
+                                           "log_throttling",
+                                           "object_pooling_opportunities",
+                                           "Update_loop_hot_spots",
+                                           "UI_text_layout_risks",
+                                           "light_curtain_visual_cost"
+                                       ],
+    "profilingOutputFormat":  [
+                                  "scenario_id",
+                                  "quality_preset",
+                                  "build_hash",
+                                  "average_fps",
+                                  "one_percent_low_fps",
+                                  "cpu_usage_notes",
+                                  "memory_mb",
+                                  "gc_alloc_notes",
+                                  "loading_time_seconds",
+                                  "warning_count",
+                                  "error_count",
+                                  "before_after_optimization_notes"
+                              ],
+    "beforeAfterMetricsRequiredForOptimization":  true,
+    "p10bReady":  true,
+    "p10aPlusHardeningApplied":  true,
+    "p10aPlusAdditionalStressFocus":  [
+                                          "candidate_nearest_match_report_review",
+                                          "entrance_proxy_visual_distance_check",
+                                          "route_bounds_warning_review",
+                                          "semantic_binding_limitation_review"
+                                      ],
+    "p10aPlusEvidenceReports":  [
+                                    "p10a_plus_candidate_anchor_hardening_report.json",
+                                    "p10a_plus_candidate_to_building_nearest_match_report.json",
+                                    "p10a_plus_entrance_proxy_hardening_report.json",
+                                    "p10a_plus_route_proxy_validation_report.json",
+                                    "p10a_plus_plateau_semantic_binding_audit.json",
+                                    "p10a_plus_high_detail_smoke_status.json"
+                                ]
+}

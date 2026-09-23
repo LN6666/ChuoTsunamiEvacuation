@@ -1,0 +1,32 @@
+{
+  "schemaVersion": "p10b.manual_playtest_checklist.v1",
+  "finalWindowsExeBuildDeferredToP10C": true,
+  "highDetailSceneMustNotBeSavedDuringSmoke": true,
+  "userManualPlaytestPrepared": true,
+  "checklist": [
+    "open Assets/Scenes/P7HighDetail/P7_HighDetail_Chuo.unity without committing scene changes",
+    "start tsunami or hazard warning scenario",
+    "verify green rectangular ground frames appear only after tsunami start",
+    "verify frames appear for official shelter targets and non-official humanitarian candidates",
+    "verify non-official candidates still show warning text and are not displayed as official shelters",
+    "verify player spawn bias in coastal or low-elevation scenario",
+    "verify candidate markers and entrance/safe-floor proxy interaction",
+    "verify crowd/congestion delay and ResultPanel reason code",
+    "verify collapse/debris deterministic proxy result when enabled",
+    "verify light curtain visibility and that visualHeightMeters is cinematic only",
+    "verify no major UI obstruction or unreadable long warning text",
+    "record FPS, 1 percent low/stutter feel, memory, loading time, Player.log warnings/errors, NPC count, marker count, and green frame count"
+  ],
+  "issueLogFields": [
+    "scenario_id",
+    "quality_preset",
+    "fps_or_stutter_observation",
+    "memory_observation",
+    "player_log_warning_error_count",
+    "green_frame_visibility_issue",
+    "non_official_warning_issue",
+    "result_panel_text_issue",
+    "light_curtain_visibility_or_performance_issue",
+    "recommended_quick_fix_before_p10c"
+  ]
+}

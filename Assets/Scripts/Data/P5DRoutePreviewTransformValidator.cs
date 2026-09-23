@@ -1,5 +1,11 @@
 using UnityEngine;
 
+/// <summary>
+/// Validates whether route preview geometry is allowed to render. Actual EPSG:4326 to
+/// Unity/PLATEAU coordinate conversion is future work; until a verified transform exists,
+/// route geometry rendering is intentionally blocked/fail-closed while distance/time
+/// feedback remains informational.
+/// </summary>
 public static class P5DRoutePreviewTransformValidator
 {
     public const string UnityDebugCoordinateSystem = "UNITY_DEBUG";
@@ -7,6 +13,12 @@ public static class P5DRoutePreviewTransformValidator
     private const float MinPlausibleSpanMeters = 0.25f;
     private const float DefaultMaxPlausibleSpanMeters = 5000f;
     private const float DefaultMaxEndpointDistanceMeters = 20f;
+    private const float BroadChuoMinimumLongitude = 139.55f;
+    private const float BroadChuoMaximumLongitude = 139.95f;
+    private const float BroadChuoMinimumLatitude = 35.45f;
+    private const float BroadChuoMaximumLatitude = 35.85f;
+    private const float MetersPerLatitudeDegree = 110540f;
+    private const float MetersPerLongitudeDegreeAtEquator = 111320f;
 
     public class ValidationResult
     {
@@ -48,6 +60,27 @@ public static class P5DRoutePreviewTransformValidator
         }
 
         string coordinateSystem = route.geometry.coordinateReferenceSystem;
+        if (string.Equals(coordinateSystem, P5CStaticDataLoader.Wgs84CoordinateSystem, System.StringComparison.OrdinalIgnoreCase))
+        {
+            if (!TryValidateWgs84LonLatGeometry(
+                route.geometry.coordinates,
+                maxPlausibleSpanMeters,
+                out float wgs84HorizontalSpanMeters,
+                out string wgs84Reason))
+            {
+                result.horizontalSpanMeters = wgs84HorizontalSpanMeters;
+                result.reason = wgs84Reason;
+                return result;
+            }
+
+            result.horizontalSpanMeters = wgs84HorizontalSpanMeters;
+            result.reason =
+                $"route geometry is {P5CStaticDataLoader.Wgs84CoordinateSystem} " +
+                $"{P5CStaticDataLoader.RouteGeometryCoordinateOrder}; " +
+                "no verified WGS84-to-Unity/PLATEAU transform exists in the project";
+            return result;
+        }
+
         if (!string.Equals(coordinateSystem, UnityDebugCoordinateSystem, System.StringComparison.OrdinalIgnoreCase))
         {
             result.reason =
@@ -103,6 +136,61 @@ public static class P5DRoutePreviewTransformValidator
         return result;
     }
 
+    private static bool TryValidateWgs84LonLatGeometry(
+        Vector2[] coordinates,
+        float maxPlausibleSpanMeters,
+        out float horizontalSpanMeters,
+        out string reason)
+    {
+        horizontalSpanMeters = 0f;
+        reason = string.Empty;
+
+        if (coordinates == null || coordinates.Length < 2)
+        {
+            reason = "route geometry is missing or has fewer than two WGS84 points";
+            return false;
+        }
+
+        if (!AllFinite(coordinates))
+        {
+            reason = "route geometry contains invalid WGS84 coordinates";
+            return false;
+        }
+
+        if (LooksLikeLatLonOrder(coordinates))
+        {
+            reason = "route geometry appears to use latitude/longitude order; expected longitude/latitude";
+            return false;
+        }
+
+        if (!AllCoordinatesAreValidWgs84LonLat(coordinates))
+        {
+            reason = "route geometry contains WGS84 coordinates outside longitude/latitude bounds";
+            return false;
+        }
+
+        if (!AllCoordinatesAreInBroadChuoBounds(coordinates))
+        {
+            reason = "route geometry is outside the broad Chuo WGS84 validation bounds";
+            return false;
+        }
+
+        horizontalSpanMeters = CalculateWgs84HorizontalSpanMeters(coordinates);
+        if (horizontalSpanMeters < MinPlausibleSpanMeters)
+        {
+            reason = "route geometry collapsed to a point";
+            return false;
+        }
+
+        if (horizontalSpanMeters > Mathf.Max(MinPlausibleSpanMeters, maxPlausibleSpanMeters))
+        {
+            reason = "route geometry span is too large for the current Unity preview validation limit";
+            return false;
+        }
+
+        return true;
+    }
+
     private static Vector3[] ConvertUnityDebugCoordinates(Vector2[] coordinates)
     {
         if (coordinates == null)
@@ -134,6 +222,65 @@ public static class P5DRoutePreviewTransformValidator
         return true;
     }
 
+    private static bool AllFinite(Vector2[] coordinates)
+    {
+        foreach (Vector2 coordinate in coordinates)
+        {
+            if (float.IsNaN(coordinate.x) || float.IsInfinity(coordinate.x) ||
+                float.IsNaN(coordinate.y) || float.IsInfinity(coordinate.y))
+            {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    private static bool LooksLikeLatLonOrder(Vector2[] coordinates)
+    {
+        foreach (Vector2 coordinate in coordinates)
+        {
+            if (coordinate.x >= -90f && coordinate.x <= 90f &&
+                (coordinate.y < -90f || coordinate.y > 90f) &&
+                coordinate.y >= -180f && coordinate.y <= 180f)
+            {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    private static bool AllCoordinatesAreValidWgs84LonLat(Vector2[] coordinates)
+    {
+        foreach (Vector2 coordinate in coordinates)
+        {
+            if (coordinate.x < -180f || coordinate.x > 180f ||
+                coordinate.y < -90f || coordinate.y > 90f)
+            {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    private static bool AllCoordinatesAreInBroadChuoBounds(Vector2[] coordinates)
+    {
+        foreach (Vector2 coordinate in coordinates)
+        {
+            if (coordinate.x < BroadChuoMinimumLongitude ||
+                coordinate.x > BroadChuoMaximumLongitude ||
+                coordinate.y < BroadChuoMinimumLatitude ||
+                coordinate.y > BroadChuoMaximumLatitude)
+            {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
     private static float CalculateHorizontalSpan(Vector3[] positions)
     {
         if (positions == null || positions.Length == 0)
@@ -155,6 +302,28 @@ public static class P5DRoutePreviewTransformValidator
         }
 
         return Mathf.Sqrt(Mathf.Pow(maxX - minX, 2f) + Mathf.Pow(maxZ - minZ, 2f));
+    }
+
+    private static float CalculateWgs84HorizontalSpanMeters(Vector2[] coordinates)
+    {
+        float minLon = coordinates[0].x;
+        float maxLon = coordinates[0].x;
+        float minLat = coordinates[0].y;
+        float maxLat = coordinates[0].y;
+
+        foreach (Vector2 coordinate in coordinates)
+        {
+            minLon = Mathf.Min(minLon, coordinate.x);
+            maxLon = Mathf.Max(maxLon, coordinate.x);
+            minLat = Mathf.Min(minLat, coordinate.y);
+            maxLat = Mathf.Max(maxLat, coordinate.y);
+        }
+
+        float averageLatitudeRadians = ((minLat + maxLat) * 0.5f) * Mathf.Deg2Rad;
+        float longitudeMeters =
+            (maxLon - minLon) * MetersPerLongitudeDegreeAtEquator * Mathf.Cos(averageLatitudeRadians);
+        float latitudeMeters = (maxLat - minLat) * MetersPerLatitudeDegree;
+        return Mathf.Sqrt(longitudeMeters * longitudeMeters + latitudeMeters * latitudeMeters);
     }
 
     private static float HorizontalDistance(Vector3 first, Vector3 second)

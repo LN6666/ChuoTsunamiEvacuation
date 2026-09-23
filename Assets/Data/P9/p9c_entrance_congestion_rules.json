@@ -1,0 +1,55 @@
+{
+  "schemaVersion": "p9c.entrance_congestion_rules.v1",
+  "deterministicSeed": 9702,
+  "crowdedQueueThreshold": 6,
+  "blockedQueueThreshold": 18,
+  "queueDelaySecondsPerPerson": 4.0,
+  "crowdDensityDelaySeconds": 30.0,
+  "routeCongestionDelaySeconds": 24.0,
+  "maxDelayCapSeconds": 120.0,
+  "failWhenBlocked": true,
+  "failWhenHazardAffected": true,
+  "failWhenDelayExceedsSafetyWindow": true,
+  "entrances": [
+    {
+      "entranceProxyId": "p9b_proxy_humanitarian_candidate_001",
+      "entranceStatus": "open",
+      "queueLength": 2,
+      "crowdDensity01": 0.2,
+      "routeCongestionScore01": 0.1,
+      "baseInteractionDelaySeconds": 3.0,
+      "hazardAffected": false,
+      "notes": "Open entrance fixture."
+    },
+    {
+      "entranceProxyId": "p9c_crowded_queue_fixture",
+      "entranceStatus": "crowded",
+      "queueLength": 12,
+      "crowdDensity01": 0.75,
+      "routeCongestionScore01": 0.5,
+      "baseInteractionDelaySeconds": 5.0,
+      "hazardAffected": false,
+      "notes": "Crowded deterministic delay fixture."
+    },
+    {
+      "entranceProxyId": "p9b_proxy_entrance_blocked_visual_only",
+      "entranceStatus": "blocked",
+      "queueLength": 0,
+      "crowdDensity01": 0.0,
+      "routeCongestionScore01": 0.0,
+      "baseInteractionDelaySeconds": 0.0,
+      "hazardAffected": false,
+      "notes": "Blocked entrance failure fixture when enabled."
+    },
+    {
+      "entranceProxyId": "p9c_hazard_affected_entrance_fixture",
+      "entranceStatus": "hazard_affected",
+      "queueLength": 4,
+      "crowdDensity01": 0.35,
+      "routeCongestionScore01": 0.2,
+      "baseInteractionDelaySeconds": 4.0,
+      "hazardAffected": true,
+      "notes": "Hazard affected entrance fixture."
+    }
+  ]
+}

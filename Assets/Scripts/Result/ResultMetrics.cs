@@ -30,6 +30,9 @@ public class ResultMetrics
     public string advice;
     public string p5cDecisionFeedback;
     public string p5dDecisionFeedback;
+    public string p5gHumanitarianCandidateFeedback;
+    public string p9cOutcomeFeedback;
+    public string p9cFinalReasonCode;
 
     public string GetShelterLabel()
     {
@@ -108,6 +111,25 @@ public class ResultMetrics
         {
             builder.AppendLine("P5-D real qualified feedback");
             builder.AppendLine(p5dDecisionFeedback.Trim());
+            builder.AppendLine();
+        }
+
+        if (!string.IsNullOrWhiteSpace(p5gHumanitarianCandidateFeedback))
+        {
+            builder.AppendLine("P5-GH humanitarian candidate feedback");
+            builder.AppendLine(p5gHumanitarianCandidateFeedback.Trim());
+            builder.AppendLine();
+        }
+
+        if (!string.IsNullOrWhiteSpace(p9cOutcomeFeedback))
+        {
+            builder.AppendLine("P9-C evacuation proxy feedback");
+            builder.AppendLine(p9cOutcomeFeedback.Trim());
+            if (!string.IsNullOrWhiteSpace(p9cFinalReasonCode))
+            {
+                builder.AppendLine($"P9-C final reason code: {p9cFinalReasonCode}");
+            }
+
             builder.AppendLine();
         }
 

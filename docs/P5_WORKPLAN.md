@@ -304,12 +304,147 @@ Scope boundaries preserved:
 - no `Chuo_BaseMap.unity`, PLATEAU imported asset, `ProjectSettings`, or `Packages` change
 - no runtime reads from `data_pipeline/processed`, `data_pipeline/raw`, `data_pipeline/downloads`, `data_pipeline/cache`, `tmp`, or `.venv`
 
+## P5-E Verified Route Geometry Rendering QA
+
+P5-E strengthens the existing P5-D route-preview safety gate and real_qualified QA.
+
+Implemented:
+
+- inspected the actual route sample schema in `Assets/Data/real_chuo_osm_routes_sample.json`
+- confirmed route geometry is GeoJSON-like `LineString` data in WGS84 `EPSG:4326`
+- confirmed route coordinate order is `[longitude, latitude]`
+- refined Unity route parsing so missing, malformed, unsupported, or invalid WGS84 geometry fails closed
+- added WGS84 sanity validation for finite coordinates, broad Chuo bounds, lon/lat order, collapse, and implausible span
+- confirmed no verified WGS84-to-Unity/PLATEAU world-coordinate transform exists in the Unity runtime code
+- kept route preview line rendering disabled for current real WGS84 data
+- preserved route distance/time feedback, estimated prototype route labeling, and OSM/ODbL attribution
+- kept selected route preview limited to a small opt-in debug subset, not all 135 route records
+
+Current transform result:
+
+- route geometry format: valid WGS84 lon/lat `LineString`
+- Unity/PLATEAU transform: not verified / not configured
+- route line rendering: safely disabled for current real data
+- gameplay effect: none
+
+P5-E validation uses GUI/headful automated Unity tests:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File tools/run_unity_tests.ps1 -Mode EditMode -LaunchMode Gui
+powershell -ExecutionPolicy Bypass -File tools/run_unity_tests.ps1 -Mode PlayMode -LaunchMode Gui
+```
+
+Latest P5-E GUI/headful automated validation:
+
+- EditMode: 107 passed, 0 failed
+- PlayMode: 13 passed, 0 failed
+
+## P5-F High-Rise Humanitarian Candidate Screening
+
+P5-F defines a data-only rulebook, schema, fixture, and source plan for future screening of high-rise humanitarian vertical evacuation candidates.
+
+Implemented in the current P5-F worktree:
+
+- created `docs/P5F_HIGHRISE_HUMANITARIAN_CANDIDATES.md`
+- created `data_pipeline/qualification/highrise_humanitarian_candidate_rulebook.json`
+- created `data_pipeline/qualification/highrise_humanitarian_candidate_schema.json`
+- created `data_pipeline/qualification/highrise_humanitarian_candidate_sources_plan.json`
+- created `data_pipeline/qualification/highrise_humanitarian_candidates_sample.json`
+- added focused pytest coverage in `data_pipeline/tests/test_highrise_humanitarian_candidates.py`
+- created `deepseek_review_prompt_p5f.md`
+
+P5-F preserves this policy:
+
+- official/designated evacuation facilities and humanitarian emergency candidate high-rises are separate layers
+- non-official high-rises must not be labeled as official shelters
+- unknown public access is not a hard exclusion in the life-first humanitarian emergency scenario
+- unknown public access, unknown management agreement, and unknown seismic evidence remain visible review risks
+- humanitarian candidate statuses require warnings and manual review
+
+P5-F status taxonomy:
+
+- `official_confirmed`
+- `official_confirmed_with_review`
+- `humanitarian_strong_candidate`
+- `humanitarian_candidate_with_review`
+- `humanitarian_weak_candidate`
+- `unknown`
+- `not_recommended`
+
+P5-F does not perform real Chuo high-rise extraction, large downloads, scraping, Unity gameplay changes, scene changes, `Assets/Data` changes, `ProjectSettings` changes, `Packages` changes, or `sourceMode` changes.
+
+Chronology for P5-G:
+
+- P5-D completed the opt-in `real_qualified` gameplay source first.
+- P5-E then validated route geometry parsing and fail-closed WGS84 route-preview behavior.
+- P5-F then added the data-only high-rise humanitarian candidate screening foundation.
+- P5-G will integrate the P5-E and P5-F outcomes without treating humanitarian candidates as official shelters and without enabling route rendering until a verified Unity/PLATEAU transform exists.
+
+## P5-GH Humanitarian Candidate Unity Integration
+
+P5-GH integrates the P5-F controlled high-rise humanitarian candidate sample into Unity with two explicit opt-in levels.
+
+Implemented:
+
+- copied `Assets/Data/p5g_highrise_humanitarian_candidates_sample.json`
+- added `enableHumanitarianCandidates = false` and `enableLifeFirstCandidateSelection = false`
+- added an Assets/Data-only humanitarian candidate loader
+- added display-only candidate markers with no gameplay components
+- added life-first selectable candidate proxies behind both flags
+- limited selectable statuses to `humanitarian_strong_candidate` and `humanitarian_candidate_with_review`
+- kept `humanitarian_weak_candidate`, `unknown`, and `not_recommended` display-only
+- added non-official/manual-review/access/management/seismic/life-first labels in metadata and ResultPanel feedback
+- added `docs/P5G_HUMANITARIAN_CANDIDATE_UNITY_INTEGRATION.md`
+- added `deepseek_review_prompt_p5g.md`
+
+P5-GH preserves:
+
+- `sourceMode = test` as the committed default
+- `real_qualified` as opt-in only
+- `candidateLayer = humanitarian_candidate` for humanitarian records
+- `isOfficialShelter = false` for life-first selectable candidates
+- controlled-sample warnings: P5-F sample data is not full real Chuo high-rise screening
+- route/qualification/hazard/candidate status as feedback only, not success/failure rules
+
+Latest P5-GH GUI/headful automated validation:
+
+- EditMode: 115 passed, 0 failed
+- PlayMode: 17 passed, 0 failed
+
+## P5 Final Closeout Review
+
+P5 final closeout confirms Phase 5 is complete as a prototype/research integration stage and ready for final DeepSeek review.
+
+Closeout artifacts:
+
+- `docs/P5_FINAL_CLOSEOUT_REVIEW.md`
+- `deepseek_review_prompt_p5_final.md`
+
+Closeout safety boundaries:
+
+- `sourceMode = test` remains the committed default
+- `real_qualified` remains opt-in
+- humanitarian candidates are opt-in and non-official
+- life-first selectable humanitarian candidates require both default-off flags
+- route rendering remains fail-closed until a verified Unity/PLATEAU transform exists
+- no official navigation, official route guidance, or official non-designated shelter claim is made
+- P5-F high-rise candidate data remains controlled/sample foundation data, not full real Chuo high-rise screening
+- GUI/headful automated testing is the validated automation path in this cloud Administrator environment
+
+Latest P5 final closeout GUI/headful automated validation:
+
+- EditMode: 120 passed, 0 failed
+- PlayMode: 18 passed, 0 failed
+
 ## Testing And Review Strategy
 
 - P5-A: documentation review, evidence-source review, taxonomy review, and DeepSeek architecture review.
 - P5-B: schema validation, fixture tests, CRS and geometry sanity checks, routing graph tests, and QGIS manual spatial QA.
 - P5-C: focused EditMode tests for loaders/mappers, PlayMode smoke tests for generated runtime objects, and Unity Editor manual validation.
 - P5-D: GUI/headful automated EditMode and PlayMode tests, plus DeepSeek review for gameplay source-mode safety, Unity lifecycle behavior, route-preview fallback, and scope boundaries.
+- P5-E: GUI/headful EditMode and PlayMode tests for stricter route geometry parsing, WGS84 transform validation fail-closed behavior, selected route-preview limits, and real_qualified feedback/selection safety.
+- P5-F: data-pipeline JSON syntax checks, JSON Schema validation when `jsonschema` is available, pytest semantic checks for official/humanitarian separation, and DeepSeek review of life-first candidate boundaries.
+- P5-GH: GUI/headful EditMode and PlayMode tests for candidate loader path guards, official/humanitarian separation, display-only markers, explicit life-first selection, and unchanged success/failure rules.
 
 ## DeepSeek Review Checkpoints
 
@@ -317,7 +452,10 @@ Scope boundaries preserved:
 - After P5-A2: review qualification rulebook risks and schema readiness.
 - After P5-B: review CRS handling, matching assumptions, routing assumptions, and reproducibility.
 - After P5-C: review Unity lifecycle, scene-safety, loader behavior, and UI/feedback correctness.
-- Before Phase 5 closure: final review for blockers, scope creep, and documentation completeness.
+- After P5-E: review route geometry parsing, WGS84 validation, route-preview fail-closed behavior, and real_qualified feedback safety.
+- After P5-F: review humanitarian candidate taxonomy, non-official warning policy, schema completeness, and source-collection boundaries.
+- After P5-GH: review Unity lifecycle, display-only/selectable mode boundaries, non-official labeling, path safety, and result feedback clarity.
+- Before Phase 5 closure / P5-G integration: final review for blockers, scope creep, and documentation completeness.
 
 ## Known Risks
 
@@ -328,6 +466,8 @@ Scope boundaries preserved:
 - OSM-derived routing may be incomplete, outdated, or unsuitable for official evacuation guidance.
 - Windows geospatial dependency setup can be fragile.
 - Unity route visualization can become misleading if confidence and warnings are not visible.
+- Humanitarian emergency candidate screening can be misread as permission or official shelter designation unless warnings remain prominent.
+- Public access, management agreement, and seismic evidence may be difficult to verify for private high-rises.
 
 ## No Scope Creep Boundaries
 
@@ -338,3 +478,5 @@ Scope boundaries preserved:
 - No PLATEAU building matching implementation in P5-A0.
 - No evacuation building qualification logic implementation in P5-A0.
 - No Unity gameplay, scene, `Assets/Data`, `ProjectSettings`, or `Packages` changes in P5-A0.
+- No Unity gameplay, scene, `Assets/Data`, `ProjectSettings`, `Packages`, large download, raw GIS commit, or `sourceMode` change in P5-F.
+- No `Chuo_BaseMap.unity`, PLATEAU, `ProjectSettings`, `Packages`, raw/cache/download/tmp/.venv, live routing, web request, flood simulation, NPC/crowd simulation, or default source-mode change in P5-GH.

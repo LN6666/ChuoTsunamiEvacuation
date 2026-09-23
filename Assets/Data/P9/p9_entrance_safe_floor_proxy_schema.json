@@ -1,0 +1,111 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "chuo-tsunami-evacuation-p9-entrance-safe-floor-proxy-schema",
+  "title": "P9 Entrance Safe-Floor Proxy Schema",
+  "type": "object",
+  "required": [
+    "schemaVersion",
+    "sourceMode",
+    "proxies"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "type": "string"
+    },
+    "sourceMode": {
+      "enum": [
+        "test",
+        "rule_based",
+        "manual_sample",
+        "p8_handoff"
+      ]
+    },
+    "notes": {
+      "type": "string"
+    },
+    "proxies": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "proxyId",
+          "relatedShelterId",
+          "relatedCandidateId",
+          "entrancePosition",
+          "safeFloorLabel",
+          "verticalEvacuationStatus",
+          "isOfficialShelter",
+          "humanitarianCandidateFlag",
+          "nonOfficialWarningRequired",
+          "interactionMode",
+          "notes"
+        ],
+        "properties": {
+          "proxyId": {
+            "type": "string",
+            "minLength": 1
+          },
+          "relatedShelterId": {
+            "type": "string"
+          },
+          "relatedCandidateId": {
+            "type": "string"
+          },
+          "entrancePosition": {
+            "type": "object",
+            "required": [
+              "x",
+              "y",
+              "z"
+            ],
+            "properties": {
+              "x": {
+                "type": "number"
+              },
+              "y": {
+                "type": "number"
+              },
+              "z": {
+                "type": "number"
+              }
+            },
+            "additionalProperties": false
+          },
+          "safeFloorLabel": {
+            "type": "string"
+          },
+          "verticalEvacuationStatus": {
+            "enum": [
+              "available",
+              "warning",
+              "restricted",
+              "blocked_proxy",
+              "unknown"
+            ]
+          },
+          "isOfficialShelter": {
+            "type": "boolean"
+          },
+          "humanitarianCandidateFlag": {
+            "type": "boolean"
+          },
+          "nonOfficialWarningRequired": {
+            "type": "boolean"
+          },
+          "interactionMode": {
+            "enum": [
+              "external_proxy",
+              "entrance_marker",
+              "safe_floor_status"
+            ]
+          },
+          "notes": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "additionalProperties": false
+}

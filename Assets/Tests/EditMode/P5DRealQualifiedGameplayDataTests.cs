@@ -408,7 +408,46 @@ public class P5DRealQualifiedGameplayDataTests
                 new Vector3(8f, 0f, -14f));
 
         Assert.IsFalse(validation.canRender);
+        Assert.Greater(validation.horizontalSpanMeters, 0f);
         Assert.That(validation.reason, Does.Contain("no verified WGS84-to-Unity/PLATEAU transform exists"));
+    }
+
+    [Test]
+    public void RouteTransformValidationRejectsInvalidWgs84OrderAndBounds()
+    {
+        P5CStaticDataLoader.RouteSampleRecord swapped = BuildWgs84Route(
+            "swapped_wgs84",
+            new[]
+            {
+                new Vector2(35.67157f, 139.76523f),
+                new Vector2(35.67205f, 139.76575f)
+            });
+
+        P5DRoutePreviewTransformValidator.ValidationResult swappedValidation =
+            P5DRoutePreviewTransformValidator.ValidateForSelectedRoutePreview(
+                swapped,
+                Vector3.zero,
+                new Vector3(8f, 0f, -14f));
+
+        Assert.IsFalse(swappedValidation.canRender);
+        Assert.That(swappedValidation.reason, Does.Contain("latitude/longitude order"));
+
+        P5CStaticDataLoader.RouteSampleRecord farAway = BuildWgs84Route(
+            "far_wgs84",
+            new[]
+            {
+                new Vector2(130f, 35f),
+                new Vector2(130.01f, 35.01f)
+            });
+
+        P5DRoutePreviewTransformValidator.ValidationResult farAwayValidation =
+            P5DRoutePreviewTransformValidator.ValidateForSelectedRoutePreview(
+                farAway,
+                Vector3.zero,
+                new Vector3(8f, 0f, -14f));
+
+        Assert.IsFalse(farAwayValidation.canRender);
+        Assert.That(farAwayValidation.reason, Does.Contain("outside the broad Chuo WGS84 validation bounds"));
     }
 
     [Test]
@@ -574,6 +613,25 @@ public class P5DRealQualifiedGameplayDataTests
                 type = "LineString",
                 coordinates = coordinates,
                 coordinateReferenceSystem = P5DRoutePreviewTransformValidator.UnityDebugCoordinateSystem
+            }
+        };
+    }
+
+    private static P5CStaticDataLoader.RouteSampleRecord BuildWgs84Route(string routeId, Vector2[] coordinates)
+    {
+        return new P5CStaticDataLoader.RouteSampleRecord
+        {
+            routeId = routeId,
+            routeAvailability = "available",
+            routeDistanceMeters = 123.4f,
+            estimatedTravelTimeSeconds = 56.7f,
+            routeType = "estimated_pedestrian_route",
+            isOfficialEvacuationRoute = false,
+            geometry = new P5CStaticDataLoader.RouteGeometryRecord
+            {
+                type = "LineString",
+                coordinates = coordinates,
+                coordinateReferenceSystem = P5CStaticDataLoader.Wgs84CoordinateSystem
             }
         };
     }

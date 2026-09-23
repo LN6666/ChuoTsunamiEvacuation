@@ -1,0 +1,16 @@
+{
+  "schemaVersion": "p9b.runtime_crowd_scenario.sample.v1",
+  "scenarioId": "p9b_new_map_runtime_prototype",
+  "deterministicSeed": 9511,
+  "maxSpawnedAgents": 16,
+  "maxActiveCrowdAgents": 16,
+  "requestedSpawnCount": 20,
+  "spawnCategory": "civilian_runtime_proxy",
+  "defaultAgentSpeedMetersPerSecond": 1.2,
+  "agentSpacingMeters": 0.75,
+  "targetSelectionMode": "deterministic_round_robin_proxy_target",
+  "simulateMovementInUpdate": false,
+  "queueWarningLength": 8,
+  "metricsOnlyNoFailureEffect": true,
+  "notes": "P9-B lightweight crowd runtime prototype. It can spawn capped proxy agents and produce deterministic metrics, but it cannot mutate player success/failure."
+}

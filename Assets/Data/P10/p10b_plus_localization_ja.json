@@ -1,0 +1,26 @@
+{
+  "schemaVersion": "p10b_plus.localization.v1",
+  "language": "ja",
+  "entries": [
+    { "key": "game.title", "value": "中央区 津波避難" },
+    { "key": "menu.start", "value": "ゲーム開始" },
+    { "key": "menu.rules", "value": "ルール / 操作説明" },
+    { "key": "menu.options", "value": "オプション" },
+    { "key": "menu.language", "value": "言語: 日本語 / English" },
+    { "key": "menu.quit", "value": "終了" },
+    { "key": "pause.title", "value": "一時停止" },
+    { "key": "pause.resume", "value": "再開" },
+    { "key": "pause.return_to_title", "value": "タイトルへ戻る" },
+    { "key": "pause.force_quit", "value": "強制終了" },
+    { "key": "quit.force.explanation", "value": "強制終了は現在のプレイ記録を保存せず、ただちに終了します。" },
+    { "key": "rules.title", "value": "ゲームルール" },
+    { "key": "rules.close", "value": "閉じる" },
+    { "key": "rules.body", "value": "津波リスク前線が到達する前に、避難に関係する建物へ到達してください。公式避難所と、非公式の人道的な高層建物候補は区別して表示されます。津波開始後、避難関連の建物範囲を見つけやすくするため、緑色の地面フレームが表示されます。非公式候補は公式避難所ではなく、安全または承認済みとはみなしません。ルートは推定プロトタイプ案内であり、公式避難経路ではありません。混雑、入口閉塞、安全階プロキシ、天候、スタミナ、倒壊・落下物の曝露イベントプロキシが結果に影響する場合があります。" },
+    { "key": "stamina.label", "value": "スタミナ" },
+    { "key": "weather.clear_day", "value": "晴れ・昼" },
+    { "key": "weather.rainy_day", "value": "雨・昼" },
+    { "key": "weather.night_clear", "value": "晴れ・夜" },
+    { "key": "weather.night_rain", "value": "雨・夜" },
+    { "key": "warning.non_official", "value": "非公式の人道的な垂直避難候補です。公式避難所ではありません。公式避難所へのアクセスが危険または不可能な場合のみ使用してください。" }
+  ]
+}

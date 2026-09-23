@@ -1,0 +1,30 @@
+{
+  "schemaVersion": "p9d.p10_handoff_status.v1",
+  "p9Complete": true,
+  "p9EfgCreated": false,
+  "p10ReleasePackagingStarted": false,
+  "windowsExeProfilingRequiredInP10": true,
+  "highDetailSceneArchiveRequiredInP10": true,
+  "officialInundationContourRefinementDeferredToP10": true,
+  "fullPlateauObjectSemanticCoverageDeferred": true,
+  "officialRouteValidationDeferred": true,
+  "completedItems": [
+    "P9-A scaffold and no-effect proxy foundation",
+    "P9-B new-map runtime marker, weighted spawn, crowd, entrance, humanitarian marker, route proxy, and collapse/debris marker prototype",
+    "P9-C deterministic outcome proxy gameplay with reason codes",
+    "P9-D coordinate-based anchoring and final integration validation"
+  ],
+  "p10KnownLimitations": [
+    "Windows EXE profiling and release packaging",
+    "high-detail P7_HighDetail_Chuo local scene archive and backup",
+    "official raw inundation contour refinement",
+    "full PLATEAU Unity scene-object semantic coverage",
+    "full route road-geometry validation"
+  ],
+  "futureResearchItems": [
+    "GIS-grade route validation",
+    "official evacuation route validation",
+    "calibrated crowd simulation",
+    "scientific mortality model"
+  ]
+}

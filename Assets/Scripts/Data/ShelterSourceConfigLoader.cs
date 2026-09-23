@@ -19,6 +19,8 @@ public static class ShelterSourceConfigLoader
         public bool fallbackToTestOnError = true;
         public bool enableRealSampleLoading;
         public bool enableP5COverlay;
+        public bool enableHumanitarianCandidates;
+        public bool enableLifeFirstCandidateSelection;
         public string notes = "P4/P5 source selection. Default gameplay source remains test.";
 
         public void Sanitize()
@@ -97,6 +99,8 @@ public static class ShelterSourceConfigLoader
             fallbackToTestOnError = true,
             enableRealSampleLoading = false,
             enableP5COverlay = false,
+            enableHumanitarianCandidates = false,
+            enableLifeFirstCandidateSelection = false,
             notes = "P4/P5 source selection. Default gameplay source remains test."
         };
     }

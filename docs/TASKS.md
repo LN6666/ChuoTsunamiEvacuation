@@ -8,11 +8,351 @@ The first playable prototype has been Unity-tested, DeepSeek V4 Pro max-thinking
 
 Current branch focus:
 
-Phase 5 qualification, routing, PLATEAU matching, and Unity map-decision integration is active on `phase5-qualification-routing-plateau`.
+P7-0 begins the PBL7 high-detail city foundation. P7-0 is docs/tools/prompts only: reference review, LOD strategy, asset inventory protocol, benchmark protocol, automation guard scripts, two-Codex workflow planning, and DeepSeek review preparation. P7-0 must not modify Unity scenes, ProjectSettings, Packages, PLATEAU imports, gameplay scripts, or Assets/Data. Phase 5 and Phase 6 remain the stable behavior baseline: default `sourceMode = test`, `real_qualified` opt-in, humanitarian candidate flags default false, OSM routes estimated only, route rendering fail-closed until WGS84 to Unity/PLATEAU transform validation exists, navigation display-only, and NPCs non-blocking.
+
+## Phase 10: Final QA, Windows EXE Release, And Project Closeout
+
+Status: P10 has started from the P9-D handoff. P10 has exactly four official stages: P10-A, P10-B, P10-C, and P10-D. P10-A+, P10-B+, and P10-B++ are hardening/polish sprints, not new official stages. Do not create P10-E, P10-F, or P10-G unless explicitly approved.
+
+Planned tasks:
+
+- P10-A: Remaining Gap Closure + High-Detail Scene QA. Create gap closure matrix, high-detail scene QA readiness, coordinate anchoring final QA, humanitarian candidate final QA, route/geometry QA, hazard front/light curtain QA, ResultPanel QA, full gameplay smoke QA, and P10-B build/profiling/stress/optimization readiness. Do not build the final Windows EXE or create release/archive artifacts.
+- P10-B: High-Detail Runtime Smoke + Performance Profiling + Stress Test + Optimization + Manual Playtest Preparation. Do not build the final Windows EXE. Add runtime tsunami-start green ground frame markers for official and non-official evacuation-related building targets, run scene-safe smoke/stress tests, collect or prepare FPS/stutter, CPU/frame-time proxy, memory, GC, loading time, Player.log warnings/errors, NPC count, marker count, green frame count, light curtain impact, and UI/ResultPanel impact. Apply low-risk optimization only with before/after metrics where possible.
+- P10-B+: UI / Localization / Weather / Stamina / Manual Playtest Polish. Add lightweight English/Japanese localization, runtime-ready start/pause/rules UI, safe background asset policy, weather/night movement modifiers, deterministic stamina/sprint rules, and avatar/mobility policy. Do not build the final Windows EXE or create release/archive artifacts.
+- P10-B++: Final Optimization Attempt Before P10-C. Audit segmented/chunk loading and anti-aliasing honestly, harden CPU/memory/stutter metrics, add disk paging checklist, apply only low-risk runtime optimization fixes, and keep final Windows EXE build deferred to P10-C. P10-B++ is not a new official stage.
+- P10-C: Windows EXE Build + Release Package + Documentation + Archive. Build Windows x64 after user manual playtest and quick fixes, assemble release package, and archive/back up the local high-detail scene and import metadata outside normal Git unless explicitly approved.
+- P10-D: Final DeepSeek Review + Release Candidate Closeout. Verify final limitations, protected paths, release package, and no extra stage creation.
+
+P10-A validation:
+
+- Run `powershell -ExecutionPolicy Bypass -File tools/p10/run_p10a_preflight.ps1`.
+- Run Unity GUI EditMode and PlayMode tests.
+- Run DeepSeek with `deepseek_review_prompt_p10a.md`.
+## Phase 8: Tsunami Hazard, Risk Front, and Infrastructure Foundation
+
+Status: P8-B/C consolidation gate is in progress on `p8-tsunami-hazard-risk-front-foundation`. P8 now has exactly five stages: P8-A, P8-B, P8-C, P8-D, and P8-E. Do not create P8-0, P8-F, or P8-G.
+
+Stage allocation:
+
+- P8-A: baseline handoff, P2-P6 compatibility gate, and hazard data foundation.
+- P8-B: official/evidence tsunami hazard layer v1 plus dynamic risk-front / cinematic light curtain.
+- P8-C: P2-P6 new-map smoke/proxy adaptation and hazard/risk-front-driven infrastructure hazard states.
+- P8-D: future infrastructure damage, blockage, and lightweight collapse proxy only.
+- P8-E: final P8 closeout, humanitarian candidate persistent visibility/handoff, and pre-P9 verification.
+
+Current gate:
+
+- P8-B Problem 1 is consolidated using Tokyo Metropolitan Government tsunami damage-estimation spatial CSVs clipped to Chuo, not generic flood proxy data.
+- P8-C Problem 2 and Problem 3 are consolidated at smoke/proxy level.
+- Humanitarian/high-rise candidate source data currently found is the controlled P5-F/P5-GH sample; it must remain non-official and requires user review before P8-D.
+- P9 should focus on final real gameplay landing, not repairing missing P8 hazard/front/infrastructure foundation work.
+
+P10-A+ hardening sprint:
+
+- P10-A+ is not a new official stage.
+- P10-A+ attempts final evidence hardening before P10-B by generating candidate anchoring, nearest-match/proxy, entrance proxy, route proxy validation, PLATEAU semantic binding audit, and high-detail smoke readiness reports.
+- P10-A+ must not create P10-E/F/G, add new gameplay systems, reimplement P7/P8/P9, build the Windows EXE, or create release/archive artifacts.
+- Validate with `powershell -ExecutionPolicy Bypass -File tools/p10/run_p10a_plus_preflight.ps1`, Unity GUI EditMode/PlayMode, and DeepSeek using `deepseek_review_prompt_p10a_plus.md`.
+
+P10-B validation:
+
+- Run `powershell -ExecutionPolicy Bypass -File tools/p10/run_p10b_preflight.ps1`.
+- Run Unity GUI EditMode and PlayMode tests.
+- Run DeepSeek with `deepseek_review_prompt_p10b.md`.
+- Do not create final Windows EXE build outputs in P10-B.
+
+P10-B+ validation:
+
+- Run `powershell -ExecutionPolicy Bypass -File tools/p10/run_p10b_plus_preflight.ps1`.
+- Run Unity GUI EditMode and PlayMode tests.
+- Run DeepSeek with `deepseek_review_prompt_p10b_plus.md`.
+- Do not create final Windows EXE build outputs or unlicensed image assets in P10-B+.
+
+P10-B++ validation:
+
+- Run `powershell -ExecutionPolicy Bypass -File tools/p10/run_p10b_plus_plus_preflight.ps1`.
+- Run Unity GUI EditMode and PlayMode tests.
+- Run DeepSeek with `deepseek_review_prompt_p10b_plus_plus.md`.
+- Do not create final Windows EXE build outputs, release package/archive outputs, P10-E/F/G artifacts, new packages, or risky ProjectSettings/PLATEAU/high-detail scene changes in P10-B++.
+
+## Phase 7: High-Detail Chuo Asset Loading, LOD, Streaming, and Windows EXE Optimization
+
+Status: P7-D manual high-detail import validation is complete as a user-approved practical baseline. The actual `P7_HighDetail_Chuo` scene contains renderable PLATEAU objects and is the practical local baseline for P8/P9/P10, while average LOD3 is not achieved, category coverage is incomplete, P2-P6 runtime smoke remains a follow-up, and Windows EXE profiling is prepared but not complete. P7 has exactly five stages: P7-0, P7-A, P7-B, P7-C, and P7-D. Do not create P7-E, P7-F, or P7-G.
+
+Planned tasks:
+
+- P7-0: Scope Freeze + Reference Review + Automation Foundation. Create docs/tools/prompts only; run `tools/p7/run_p7_preflight.ps1`; prepare DeepSeek review. In progress.
+- P7-A: Chuo Asset Inventory + LOD / Area Selection. Command-line scanner and report scripts inventory local asset/source folders without importing assets; reports record file counts, extensions, likely PLATEAU categories, candidate LOD path/name indicators, large files, and benchmark candidate categories. Implemented in current P7-A work; pending review.
+- P7-B: Small-Area High-Detail Benchmark + Underground / Bridge / Road Feasibility. Wave 1 is docs/tools/prompts only: command-line feasibility, candidate-area selection, benchmark harness design, rollback/test planning, and review prep. Wave 2-A is approved only for an isolated benchmark scene skeleton and metrics harness under `P7Benchmark` paths; it does not import real assets. Wave 2-B is approved only for read-only LOD3 candidate metadata dry-run inspection. Wave 2-C is approved only for full `53393690` candidate import under `Assets/P7Benchmark/Imported/53393690/`; it does not approve full PLATEAU import, production scene integration, `Assets/PLATEAU` changes, or `Chuo_BaseMap.unity` changes.
+- P7-C: Streaming / Chunk Loading + Visual Quality + Performance Optimization. Implement only approved P7Benchmark sandbox chunk/loading/visual/performance work after benchmark evidence and a confirmed Markdown plan. Implemented and validated.
+- P7-D: Windows EXE Profiling + P7 Final Closeout. Manual PLATEAU import was validated and user-approved as the practical local baseline: renderable buildings/roads/bridges/one underground object exist, actual LOD is LOD0-LOD2, average LOD3 is false, several target categories are missing, and EXE profiling remains prepared/not run pending a Windows build profiling pass.
+
+### P7-A Automation / Performance Prep (Codex B)
+
+Status: Implemented.
+
+Tasks:
+
+- Add command-line benchmark record skeleton creation under `docs/p7_benchmark_records/`.
+- Add Markdown benchmark record required-field validation.
+- Add benchmark preflight orchestration on top of the base P7 preflight.
+- Document benchmark automation, performance log schema, and Windows x64 EXE profiling readiness.
+- Preserve docs/tools/prompts-only scope and avoid Unity tests unless Unity files change.
+
+Automation requirement:
+
+- Run `powershell -ExecutionPolicy Bypass -File tools/p7/run_p7_preflight.ps1` before P7-0 review/commit.
+- P7-A/P7-B/P7-C/P7-D must run automated Unity tests whenever Unity code/assets/scenes are changed.
+- P7-0 intentionally does not run Unity tests because it is docs/tools/prompts only.
+
+DeepSeek review requirement:
+
+- Use `deepseek_review_prompt_p70.md` for P7-0.
+- DeepSeek must confirm P7-0 is docs/tools/prompts only, protected paths are untouched, no dependencies or gameplay changes were added, automation scripts exist and run, P7/P8/P9/P10 boundaries are clear, and P7 has only five stages.
+
+### P7-B Small-Area Feasibility (Codex A)
+
+Status: Implemented for review.
+
+Tasks:
+
+- Create conservative P7-B feasibility reports for small-area selection, LOD3 candidate interpretation, underground/bridge/road feasibility, and benchmark-area decision.
+- Add read-only candidate selection helper under `tools/p7/`.
+- Add P7-B orchestration script that runs candidate selection and P7 preflight.
+- Keep final Unity benchmark area selection pending until human review and a confirmed Markdown import/benchmark plan.
+
+Scope notes:
+
+- P7-B Codex A does not import assets, modify Unity scenes, modify gameplay scripts, modify `Assets/Data`, modify `ProjectSettings`, modify `Packages`, or modify imported PLATEAU assets.
+- Preferred planning candidate is `53393690` for LOD3 path/name feasibility.
+- Fallback candidates are `53393672` and `53394611`.
+- LOD3 and LOD4 findings remain path/name/file-metadata inference only, not geometry-quality verified.
+- LOD4 path/name hits are `0`; LOD4 is not assumed available from the current inventory.
+- Unity tests are intentionally not run for this Codex A feasibility package because no Unity code, assets, scenes, or gameplay-facing configuration are changed.
+
+DeepSeek review requirement:
+
+- Use `deepseek_review_prompt_p7b_area.md` for P7-B Codex A.
+- DeepSeek must confirm protected paths are untouched, helper scripts are read-only, P7-B stays pre-import feasibility only, LOD claims are marked unverified, and the benchmark-area decision is conservative.
+
+### P7-B Benchmark Harness Prep (Codex B)
+
+Status: Implemented in Wave 1 as docs/prompts only.
+
+Tasks:
+
+- Create the P7-B small-area benchmark harness design.
+- Create the future Unity change proposal with explicit approval gate.
+- Create the Wave 2 test plan and rollback plan.
+- Add P7-B benchmark risks to the review backlog.
+- Add a P7-B decision log entry confirming Wave 1 does not mutate Unity.
+- Update benchmark protocol and automation notes for the gated P7-B harness workflow.
+- Create the DeepSeek review prompt for P7-B harness prep.
+
+Scope:
+
+- P7-B Wave 1 must not modify Unity scenes, scripts, assets, `Assets/Data`, PLATEAU imports, `ProjectSettings`, or `Packages`.
+- P7-B Wave 2 must receive explicit approval before creating benchmark scenes, scripts, imported assets, or generated Unity artifacts.
+- `Chuo_BaseMap.unity` remains protected.
+- The isolated benchmark scene is only a future proposal, not a Wave 1 Unity change.
+- Rollback plan, test plan, benchmark harness design, and Unity change proposal are preserved for review before any Wave 2 approval.
+
+Validation:
+
+- Run `powershell -ExecutionPolicy Bypass -File tools/p7/run_p7_preflight.ps1`.
+- Unity tests are intentionally not run for Wave 1 because no Unity code, asset, scene, or gameplay-facing data changes are made.
+
+### P7-B Wave 2-A Benchmark Scene Skeleton
+
+Status: Implemented pending validation.
+
+Tasks:
+
+- Add isolated benchmark marker and metrics recorder under `Assets/Scripts/P7Benchmark/`.
+- Add editor scene builder under `Assets/Editor/P7Benchmark/`.
+- Create isolated skeleton scene at `Assets/Scenes/P7Benchmark/P7_Benchmark_Skeleton.unity`.
+- Add focused EditMode and PlayMode tests under `Assets/Tests/*/P7Benchmark/`.
+- Add Wave 2-A scene creation and preflight scripts under `tools/p7/`.
+- Document the scene skeleton, metrics harness, validation results, known limitations, and DeepSeek review prompt.
+
+Scope:
+
+- Wave 2-A does not import real PLATEAU assets.
+- Wave 2-A does not modify `Chuo_BaseMap.unity`, existing Unity scenes, existing gameplay scripts, `Assets/Data`, `Assets/PLATEAU`, `ProjectSettings`, or `Packages`.
+- Metrics are prototype benchmark metrics, not a Unity Profiler replacement.
+- LOD3 candidate import is deferred to Wave 2-B or a later explicitly approved task.
+- LOD4 is not assumed available.
+- Windows EXE profiling remains later P7 work, not completed here.
+
+Validation:
+
+- Run `powershell -ExecutionPolicy Bypass -File tools/p7/run_p7b_wave2a_preflight.ps1`.
+- Run `powershell -ExecutionPolicy Bypass -File tools/run_unity_tests.ps1 -Mode EditMode -LaunchMode Gui`.
+- Run `powershell -ExecutionPolicy Bypass -File tools/run_unity_tests.ps1 -Mode PlayMode -LaunchMode Gui`.
+
+### P7-B Wave 2-B LOD3 Candidate Dry Run
+
+Status: Implemented with local preflight recorded.
+
+Tasks:
+
+- Add read-only command-line inspection for preferred planning candidate `53393690`.
+- Inspect fallback planning candidates `53393672` and `53394611`.
+- Summarize file/path metadata, file sizes, extensions, likely LOD path/name indicators, category hints, and conservative import-footprint estimates.
+- Add Wave 2-B preflight that runs inspection, P7 scope guard, allowlist checks, and protected-path checks.
+- Document dry-run findings, import decision, visual feasibility gate, validation results, known limitations, and DeepSeek review prompt.
+
+Scope:
+
+- Wave 2-B does not import real PLATEAU assets.
+- Wave 2-B does not copy candidate assets into Unity.
+- Wave 2-B does not modify Unity scenes, existing gameplay scripts, `Assets/Data`, `Assets/PLATEAU`, `ProjectSettings`, or `Packages`.
+- `Chuo_BaseMap.unity` remains untouched.
+- Candidate `53393690` is a planning candidate only.
+- Fallback candidates are `53393672` and `53394611`.
+- LOD3 is not visually or geometry-quality verified.
+- LOD4 path/name hits remain `0`; LOD4 is not assumed available.
+- P8 hazard work and P9 crowd/interior-shelter work are excluded.
+- Any real LOD3 import requires a separate explicit human approval gate.
+
+Validation:
+
+- Run `powershell -ExecutionPolicy Bypass -File tools/p7/run_p7b_wave2b_preflight.ps1`.
+- Unity tests are intentionally skipped if no Unity files are changed.
+- Use `deepseek_review_prompt_p7b_wave2b.md` for DeepSeek review.
+
+### P7-B Wave 2-C 53393690 Sandbox Import
+
+Status: Implemented pending validation.
+
+Tasks:
+
+- Import the full approved candidate `53393690` package into `Assets/P7Benchmark/Imported/53393690/`.
+- Preserve source directory structure under the P7Benchmark sandbox target.
+- Add strict Wave 2-C scope guard and preflight checks.
+- Keep `53393672` and `53394611` as documentation-only fallback references.
+- Document import log, visual feasibility, test results, known limitations, performance notes, and DeepSeek review prompt.
+
+Scope:
+
+- Wave 2-C imports only candidate `53393690`.
+- Wave 2-C does not import full Chuo.
+- Wave 2-C does not modify `Chuo_BaseMap.unity`, production scenes, existing gameplay scripts, `Assets/Data`, `Assets/PLATEAU`, `ProjectSettings`, or `Packages`.
+- Wave 2-C uses a narrow Git LFS rule for `Assets/P7Benchmark/Imported/53393690/**` because the approved candidate contains individual files above standard GitHub blob limits.
+- LOD3 visual and geometry quality remain unverified.
+- LOD4 remains unavailable based on current path/name evidence.
+- P8/P9 systems are excluded.
+- Any production integration requires later explicit approval.
+
+Validation:
+
+- Run `powershell -ExecutionPolicy Bypass -File tools/p7/run_p7b_wave2c_preflight.ps1`.
+- Run `powershell -ExecutionPolicy Bypass -File tools/run_unity_tests.ps1 -Mode EditMode -LaunchMode Gui`.
+- Run `powershell -ExecutionPolicy Bypass -File tools/run_unity_tests.ps1 -Mode PlayMode -LaunchMode Gui`.
+- Use `deepseek_review_prompt_p7b_wave2c.md` for DeepSeek review.
+
+### P7-C Streaming / Chunk Loading + Visual Quality + Performance Optimization
+
+Status: Implemented and validated.
+
+Tasks:
+
+- Add strict P7-C mode to the P7 scope guard.
+- Inspect `Assets/P7Benchmark/Imported/53393690/` for file counts, bytes, extensions, logical groups, and renderable asset evidence.
+- Add a metadata-driven P7Benchmark chunk registry for candidate `53393690`.
+- Add a P7Benchmark chunk controller that can enable or disable logical placeholder chunk roots.
+- Extend the P7Benchmark metrics recorder with active chunk count, chunk binding count, imported file/byte summary, and chunk state summary.
+- Update only `Assets/Scenes/P7Benchmark/P7_Benchmark_Skeleton.unity` with P7-C metadata and placeholder chunk groups.
+- Document visual-quality, draw-call, batching, texture/material memory, mesh memory, LOD, culling, collision, and P7-D Windows EXE profiling handoff risks.
+- Add focused EditMode and PlayMode tests under `Assets/Tests/*/P7Benchmark/`.
+
+Scope:
+
+- P7-C is benchmark sandbox optimization only.
+- Candidate `53393690` remains confined to `Assets/P7Benchmark/Imported/53393690/`.
+- Raw CityGML remains unconverted if no renderable Unity mesh/model/prefab assets are detected.
+- P7-C does not modify `Chuo_BaseMap.unity`, production scenes, existing gameplay scripts, `Assets/Data`, `Assets/PLATEAU`, `ProjectSettings`, or `Packages`.
+- P7-C does not add dependencies.
+- P7-C must not implement P8 hazard, inundation, flood, light curtain, or risk-front systems.
+- P7-C must not implement P9 crowd, real spawn, indoor evacuation, congestion, indoor shelter gameplay, or failure systems.
+- Metrics are approximate benchmark telemetry, not a Unity Profiler replacement.
+- P7-D remains Windows EXE profiling and final P7 closeout.
+
+Validation:
+
+- Run `powershell -ExecutionPolicy Bypass -File tools/p7/run_p7c_preflight.ps1`.
+- Run `powershell -ExecutionPolicy Bypass -File tools/run_unity_tests.ps1 -Mode EditMode -LaunchMode Gui`.
+- Run `powershell -ExecutionPolicy Bypass -File tools/run_unity_tests.ps1 -Mode PlayMode -LaunchMode Gui`.
+- Use `deepseek_review_prompt_p7c.md` for DeepSeek review.
+
+## Phase 6: Navigation Guidance and NPC Evacuation Prototype
+
+Status: P6-E final closeout is complete after GUI automated validation and final DeepSeek review. No dependency import, package change, ProjectSettings change, scene change, PLATEAU change, data-pipeline raw/download/cache/tmp/.venv change, source-mode default change, gameplay success/failure logic change, P6-F work, or P7 work is allowed in P6-E.
+
+Planned tasks:
+
+- P6-0: open-source navigation/crowd/evacuation reference review and technical selection. Done in documentation only.
+- P6-A: lightweight player navigation guidance prototype under `Assets/Scripts/Navigation/` after a confirmed Markdown plan.
+- P6-B: small NPC evacuation prototype under `Assets/Scripts/NPC/` and/or `Assets/Scripts/Simulation/` after a confirmed Markdown plan.
+- P6-C: integrate P6-A and P6-B only after both are reviewed and tested independently.
+- P6-D: final playable behavior validation using generated/runtime test harnesses only; no P7 work. Done.
+- P6-E: final P6 review and closeout. Done. Do not create P6-F or later stages.
+
+P6-E final closeout outputs:
+
+- reran GUI/headful automated EditMode validation: 142 total / 142 passed / 0 failed / 0 skipped / 0 inconclusive
+- reran GUI/headful automated PlayMode validation: 27 total / 27 passed / 0 failed / 0 skipped / 0 inconclusive
+- confirmed `Assets/Data/shelter_source_config.json` still has `sourceMode = test`
+- confirmed `enableHumanitarianCandidates = false` and `enableLifeFirstCandidateSelection = false`
+- created `docs/P6_FINAL_CLOSEOUT.md`
+- created `deepseek_review_prompt_p6e.md`
+- updated `docs/TASKS.md`
+- updated `docs/REVIEW_BACKLOG.md`
+- completed final DeepSeek review: PASS, no A-level blockers; local report `review_reports/deepseek_review_20260522_010241.md`
+- confirmed final P7 boundary: Full Chuo Asset Loading + Underground/Bridge + LOD Upgrade + Game Optimization
+- did not create P6-F and did not start P7
+- did not add gameplay features, Navigation/NPC mechanics, live routing, web requests, flood simulation, crowd simulation, scene wiring, or asset loading
+
+P6-D implemented outputs:
+
+- added generated behavior validation scripts under `Assets/Scripts/Simulation/`
+- added EditMode validation/source-boundary tests for P6-D
+- added PlayMode generated scenario coexistence tests for player navigation plus NPC movement
+- created `docs/P6D_PLAYABLE_BEHAVIOR_VALIDATION.md`
+- created `deepseek_review_prompt_p6d.md`
+- validated EditMode GUI tests: 142 total / 142 passed / 0 failed
+- validated PlayMode GUI tests: 27 total / 27 passed / 0 failed
+
+P6-D scope notes:
+
+- validates target awareness, NPC coexistence, NPC arrival, guidance distance trend, required warnings, non-blocking NPCs, and result-manager absence
+- keeps navigation display-only and NPCs ambient/non-blocking
+- keeps `Chuo_BaseMap.unity` wiring deferred
+- does not start P7 full Chuo asset loading, underground/bridge assets, LOD upgrade, or optimization
+
+P6-0 completed outputs:
+
+- created `docs/P6_OPEN_SOURCE_REFERENCE_REVIEW.md`
+- created `docs/P6_TECHNICAL_SELECTION.md`
+- created `deepseek_review_prompt_p60.md`
+- reviewed Unity NavMeshComponents, Unity AI Navigation, Recast Navigation, A* Pathfinding Project, JR-Morgan Crowd Evacuation Simulation, keijiro unity-crowd-simulation, Unity ECS samples, Unity ML-Agents, JuPedSim, and SebLague Pathfinding
+- selected `reference_only` first for navigation/crowd dependencies and no package import without separate approval
+- selected custom lightweight P6-A navigation UI first
+- selected custom lightweight P6-B NPC movement and target selection first
+- deferred NavMesh/AI Navigation package workflow adoption, A* import, Recast integration, DOTS/ECS, ML-Agents, social-force models, congestion physics, and real route line rendering
+
+Scope boundaries:
+
+- P6-A/P6-B must not modify `Packages`, `ProjectSettings`, Unity scenes, PLATEAU imports, `Chuo_BaseMap.unity`, raw PLATEAU data, or protected data-pipeline paths during prototype stage.
+- P6-A/P6-B must not introduce live routing or runtime web requests.
+- P6-A/P6-B must not change `sourceMode` defaults or gameplay success/failure rules.
+- P6-A must always display `estimated prototype route / not official navigation` when showing route guidance or route feedback.
+- P6-B NPCs must not affect player success/failure.
+- Navigation/crowd references are engineering references only, not official evacuation guidance sources.
 
 ## Phase 5: Qualification, Routing, PLATEAU Matching, and Unity Integration
 
-Status: P5-D real qualified gameplay and verified route-preview fallback are implemented and GUI/headful automated validation passed in the current worktree; DeepSeek review is next before Phase 5 closure.
+Status: P5-D completed the opt-in `real_qualified` gameplay source first, P5-E completed route geometry validation and fail-closed route-preview QA next, P5-F completed the data-only high-rise humanitarian candidate foundation, P5-GH integrates the controlled candidate sample into Unity behind explicit default-off flags, and P5 final closeout is ready for final DeepSeek review.
 
 Planned tasks:
 
@@ -31,7 +371,10 @@ Planned tasks:
 - P5-B: PLATEAU qualification/matching and GIS routing pipeline.
 - P5-C: Unity integration for qualified buildings, routes, confidence, warnings, and decision feedback.
 - P5-D: opt-in real_qualified gameplay source, runtime playable real shelter proxies, ResultPanel feedback, and verified route-preview fallback. Implemented in current worktree.
-- P5 final review: validation summary, DeepSeek review, scope boundary confirmation, and merge decision.
+- P5-E: verified route geometry parsing, WGS84 transform validation gate, selected/limited route-preview safety, and real_qualified gameplay QA. Implemented in current worktree.
+- P5-F: high-rise humanitarian vertical evacuation candidate rulebook, schema, source plan, controlled fixture, validation tests, and DeepSeek prompt. Implemented in current worktree.
+- P5-GH: integrate P5-E route validation and P5-F humanitarian candidate foundation with display-only markers and explicit life-first selectable candidates without changing official shelter semantics or enabling unverified route rendering. Implemented in current worktree.
+- P5 final review: Codex closeout validation summary, scope boundary confirmation, and final DeepSeek prompt complete. Final DeepSeek review and merge decision pending.
 
 Scope boundaries:
 
@@ -110,6 +453,58 @@ P5-D implemented outputs:
 - appended P5-D real qualified feedback with qualification status, confidence, manual review flag, warnings, route distance/time, estimated prototype route label, and OSM/ODbL attribution
 - parsed route geometry but rejected current WGS84 route lines because no verified Unity/PLATEAU transform exists
 - preserved route/qualification/hazard information as feedback only; no gameplay success/failure rule depends on it
+
+P5-E implemented outputs:
+
+- inspected `Assets/Data/real_chuo_osm_routes_sample.json` route schema and documented it in `docs/P5E_ROUTE_RENDERING_QA.md`
+- confirmed route records use `routeId`, `originId`, `shelterId`, `plateauBuildingId`, `routeDistanceMeters`, `estimatedTravelTimeSeconds`, and GeoJSON-like `geometry.coordinates`
+- confirmed route geometry is `EPSG:4326` WGS84 `LineString` with `[longitude, latitude]` pairs
+- refined parser behavior so missing, malformed, unsupported, or invalid WGS84 geometry fails safely without crashing route metadata loading
+- strengthened route preview validation for WGS84 lon/lat order, broad Chuo bounds, collapse, and implausible span
+- confirmed no verified WGS84-to-Unity/PLATEAU transform exists in current Unity runtime code
+- kept selected estimated route line rendering safely disabled for current real data while preserving route distance/time feedback
+- kept `sourceMode = test` as the committed default and `real_qualified` opt-in only
+- GUI/headful automated validation passed: EditMode 107 passed / 0 failed; PlayMode 13 passed / 0 failed
+- created `deepseek_review_prompt_p5e.md`
+
+P5-F implemented outputs:
+
+- documented life-first humanitarian emergency high-rise candidate screening in `docs/P5F_HIGHRISE_HUMANITARIAN_CANDIDATES.md`
+- separated official/designated evacuation facilities from humanitarian emergency candidate high-rises
+- defined statuses `official_confirmed`, `official_confirmed_with_review`, `humanitarian_strong_candidate`, `humanitarian_candidate_with_review`, `humanitarian_weak_candidate`, `unknown`, and `not_recommended`
+- created JSON Schema, rulebook, source plan, and seven-record controlled sample fixture under `data_pipeline/qualification/`
+- added pytest coverage for schema validation, official/humanitarian separation, non-official warning policy, manual review triggers, and unknown public access behavior
+- created `deepseek_review_prompt_p5f.md`
+- performed JSON syntax validation with system Python; focused pytest requires `pytest` and schema validation requires `jsonschema`, which are not installed in the system Python environment
+- made no Unity gameplay, scene, `Assets/Data`, PLATEAU import, `ProjectSettings`, `Packages`, large download, raw/cache/tmp/.venv, or `sourceMode` changes
+
+P5-GH implemented outputs:
+
+- copied P5-F controlled sample data to `Assets/Data/p5g_highrise_humanitarian_candidates_sample.json`
+- added `enableHumanitarianCandidates = false` and `enableLifeFirstCandidateSelection = false`
+- added Unity-side humanitarian candidate loader with Assets/Data-only path restrictions
+- preserved `candidateLayer = humanitarian_candidate` and skipped official-layer records
+- added display-only candidate markers with no `BuildingShelter`, no `ShelterEntranceTrigger`, and no colliders
+- added life-first selectable candidate proxies behind both flags for `humanitarian_strong_candidate` and `humanitarian_candidate_with_review`
+- kept `humanitarian_weak_candidate`, `unknown`, and `not_recommended` display-only
+- kept life-first candidates non-official with `isOfficialShelter = false`
+- added ResultPanel feedback for humanitarian emergency candidate, not officially designated, manual review, access/management/seismic uncertainty, life-first assumption, and controlled-sample limitation
+- kept route/qualification/hazard/candidate status feedback-only for success/failure
+- GUI/headful validation passed: EditMode 115 passed / 0 failed; PlayMode 17 passed / 0 failed
+- created `docs/P5G_HUMANITARIAN_CANDIDATE_UNITY_INTEGRATION.md`
+- created `deepseek_review_prompt_p5g.md`
+
+P5 final closeout outputs:
+
+- confirmed current branch and clean baseline before closeout docs
+- confirmed P5-E and P5-F merge/content presence on the P5-GH branch
+- confirmed key P5-D/P5-E/P5-F/P5-GH files exist
+- confirmed safety boundaries: default `test`, opt-in `real_qualified`, default-off humanitarian flags, Assets/Data-only runtime reads, no live routing/web requests, no official navigation claims, and no success/failure rules based directly on route/qualification/hazard/candidate status
+- confirmed route rendering remains fail-closed until verified Unity/PLATEAU transform validation exists
+- confirmed P5-F/P5-GH candidate data is controlled/sample foundation data, not full real Chuo high-rise screening
+- reran GUI/headful automated validation: EditMode 120 passed / 0 failed; PlayMode 18 passed / 0 failed
+- created `docs/P5_FINAL_CLOSEOUT_REVIEW.md`
+- created `deepseek_review_prompt_p5_final.md`
 
 P5-B review prep completed outputs:
 
@@ -630,3 +1025,31 @@ Completed:
 
 Next:
 - P5-C Unity read-only integration of qualified buildings, route lines, confidence, warnings, and decision feedback
+
+## Phase P7-C - High-Detail Chuo Scene Readiness Continuation
+
+Status: In progress in local continuation commit.
+
+Current P7-C continuation tasks:
+
+- Preserve local P7-C benchmark chunk/loading foundation commit `627e131`.
+- Create `Assets/Scenes/P7HighDetail/P7_HighDetail_Chuo.unity` as the high-detail Chuo scene shell and P7-D profiling target.
+- Keep `Chuo_BaseMap.unity`, production scenes, existing gameplay scripts, `Assets/Data`, `Assets/PLATEAU`, `ProjectSettings`, and `Packages` untouched.
+- Document PLATEAU SDK target import settings and manual checklist.
+- Document target versus actual LOD coverage without claiming average LOD3 until renderable evidence exists.
+- Validate bridge, road, underground, P2-P6 compatibility, and P7-D profiling readiness through docs and read-only tools.
+- Confirm P7 remains five stages: P7-0, P7-A, P7-B, P7-C, P7-D.
+- Defer final Windows EXE profiling and baseline confirmation to P7-D.
+
+## Phase P7-D - Final High-Detail Import / Profiling Closeout
+
+Status: Complete as practical high-detail baseline closeout.
+
+P7-D inspected the manual PLATEAU SDK import result and confirmed that the current `P7_HighDetail_Chuo` scene is the user-approved practical local baseline for P8/P9/P10. The original average LOD3 target is not achieved by evidence, several category layers are missing or partial, and Windows EXE profiling remains a follow-up before release packaging.
+
+Current decision:
+
+- `Assets/Scenes/P7HighDetail/P7_HighDetail_Chuo.unity` is the accepted practical baseline for P8/P9/P10.
+- `Assets/Scenes/Chuo_BaseMap.unity` remains the legacy fallback policy and must remain untouched if restored locally.
+- Lower-than-original-target LOD/category coverage is a documented limitation, not a blocker.
+- Start P8 from `P7_HighDetail_Chuo` and use data-layer/proxy/rule-based approaches where detailed layers are missing.

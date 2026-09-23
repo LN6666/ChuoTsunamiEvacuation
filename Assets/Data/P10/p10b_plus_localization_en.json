@@ -1,0 +1,26 @@
+{
+  "schemaVersion": "p10b_plus.localization.v1",
+  "language": "en",
+  "entries": [
+    { "key": "game.title", "value": "Chuo Tsunami Evacuation" },
+    { "key": "menu.start", "value": "Start Game" },
+    { "key": "menu.rules", "value": "Rules / How to Play" },
+    { "key": "menu.options", "value": "Options" },
+    { "key": "menu.language", "value": "Language: English / Japanese" },
+    { "key": "menu.quit", "value": "Quit" },
+    { "key": "pause.title", "value": "Paused" },
+    { "key": "pause.resume", "value": "Resume" },
+    { "key": "pause.return_to_title", "value": "Return to Title" },
+    { "key": "pause.force_quit", "value": "Force Quit" },
+    { "key": "quit.force.explanation", "value": "Force quit immediately exits without saving the current run." },
+    { "key": "rules.title", "value": "Game Rules" },
+    { "key": "rules.close", "value": "Close" },
+    { "key": "rules.body", "value": "Reach an evacuation-related building before the tsunami risk front reaches you. Official shelters are marked separately from non-official humanitarian high-rise candidates. Green ground frames appear after the tsunami starts to help identify evacuation-related building areas. Non-official candidates are not official shelters and are not safe or approved by default. Routes are estimated prototype guidance, not official evacuation routes. Crowd congestion, entrance blockage, safe-floor proxy status, weather, stamina, and collapse/debris exposure-event proxies can affect the result." },
+    { "key": "stamina.label", "value": "Stamina" },
+    { "key": "weather.clear_day", "value": "Clear day" },
+    { "key": "weather.rainy_day", "value": "Rainy day" },
+    { "key": "weather.night_clear", "value": "Night clear" },
+    { "key": "weather.night_rain", "value": "Night rain" },
+    { "key": "warning.non_official", "value": "Non-official humanitarian vertical evacuation candidate. Not an official evacuation shelter. Use only when official shelter access is unsafe or unavailable." }
+  ]
+}

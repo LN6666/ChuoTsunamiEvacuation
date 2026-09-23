@@ -1,0 +1,58 @@
+{
+  "schemaVersion": "p9a.entrance_safe_floor_proxy.sample.v1",
+  "sourceMode": "test",
+  "notes": "P9-A proxy sample only. No indoor scene, no final failure gameplay, and no official-status promotion.",
+  "proxies": [
+    {
+      "proxyId": "p9_proxy_official_shelter_sample",
+      "relatedShelterId": "sample_official_shelter_001",
+      "relatedCandidateId": "",
+      "entrancePosition": {
+        "x": 18.0,
+        "y": 0.0,
+        "z": 10.0
+      },
+      "safeFloorLabel": "3F+ proxy",
+      "verticalEvacuationStatus": "available",
+      "isOfficialShelter": true,
+      "humanitarianCandidateFlag": false,
+      "nonOfficialWarningRequired": false,
+      "interactionMode": "external_proxy",
+      "notes": "Official shelter entrance proxy sample. Does not load a real indoor scene."
+    },
+    {
+      "proxyId": "p9_proxy_humanitarian_highrise_sample",
+      "relatedShelterId": "",
+      "relatedCandidateId": "sample_highrise_candidate_001",
+      "entrancePosition": {
+        "x": -8.0,
+        "y": 0.0,
+        "z": 14.0
+      },
+      "safeFloorLabel": "Upper-floor proxy only",
+      "verticalEvacuationStatus": "warning",
+      "isOfficialShelter": false,
+      "humanitarianCandidateFlag": true,
+      "nonOfficialWarningRequired": true,
+      "interactionMode": "safe_floor_status",
+      "notes": "Humanitarian high-rise candidate sample. It is explicitly non-official and requires a warning."
+    },
+    {
+      "proxyId": "p9_proxy_unknown_status_sample",
+      "relatedShelterId": "",
+      "relatedCandidateId": "sample_candidate_unknown_001",
+      "entrancePosition": {
+        "x": 6.0,
+        "y": 0.0,
+        "z": -14.0
+      },
+      "safeFloorLabel": "Unknown safe-floor proxy",
+      "verticalEvacuationStatus": "unknown",
+      "isOfficialShelter": false,
+      "humanitarianCandidateFlag": false,
+      "nonOfficialWarningRequired": true,
+      "interactionMode": "entrance_marker",
+      "notes": "Non-official candidate with unknown safe-floor status. No gameplay effect in P9-A."
+    }
+  ]
+}

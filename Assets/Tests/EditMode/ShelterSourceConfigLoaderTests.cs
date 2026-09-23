@@ -16,6 +16,8 @@ public class ShelterSourceConfigLoaderTests
         Assert.NotNull(config);
         Assert.AreEqual(ShelterSourceConfigLoader.TestSourceMode, config.sourceMode);
         Assert.IsFalse(config.enableRealSampleLoading);
+        Assert.IsFalse(config.enableHumanitarianCandidates);
+        Assert.IsFalse(config.enableLifeFirstCandidateSelection);
     }
 
     [Test]
@@ -26,6 +28,8 @@ public class ShelterSourceConfigLoaderTests
         Assert.NotNull(config);
         Assert.AreEqual(ShelterSourceConfigLoader.TestSourceMode, config.sourceMode);
         Assert.IsFalse(config.enableRealSampleLoading);
+        Assert.IsFalse(config.enableHumanitarianCandidates);
+        Assert.IsFalse(config.enableLifeFirstCandidateSelection);
     }
 
     [Test]
@@ -39,6 +43,8 @@ public class ShelterSourceConfigLoaderTests
         Assert.NotNull(config);
         Assert.AreEqual(ShelterSourceConfigLoader.TestSourceMode, config.sourceMode);
         Assert.IsFalse(config.enableRealSampleLoading);
+        Assert.IsFalse(config.enableHumanitarianCandidates);
+        Assert.IsFalse(config.enableLifeFirstCandidateSelection);
     }
 
     [Test]

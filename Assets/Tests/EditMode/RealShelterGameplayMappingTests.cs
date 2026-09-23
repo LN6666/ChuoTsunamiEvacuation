@@ -42,7 +42,7 @@ public class RealShelterGameplayMappingTests
         ShelterSourceConfigLoader.ShelterSourceConfig config =
             ShelterSourceConfigLoader.LoadFromPath(configPath);
 
-        StringAssert.Contains("\"sourceMode\": \"test\"", json);
+        Assert.That(json, Does.Match("\"sourceMode\"\\s*:\\s*\"test\""));
         Assert.AreEqual(ShelterSourceConfigLoader.TestSourceMode, config.sourceMode);
         Assert.AreEqual("real_chuo_shelters_sample.json", config.realSamplePath);
     }

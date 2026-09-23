@@ -1,0 +1,27 @@
+{
+  "datasetId": "p8e_route_candidate_geometry_handoff_v1",
+  "stage": "P8-E hardening",
+  "routeSourceFiles": [
+    "Assets/Data/real_chuo_osm_routes_sample.json",
+    "Assets/Data/real_chuo_integrated_route_qualification.json",
+    "data_pipeline/processed/routes/real_chuo_osm_routes_sample.geojson",
+    "data_pipeline/processed/qgis_qa/real_chuo_route_lines.geojson"
+  ],
+  "candidateSourceFiles": [
+    "Assets/Data/P8/humanitarian_highrise_candidate_audit_v1.json",
+    "Assets/Data/P8/humanitarian_candidate_persistent_marker_v1.json"
+  ],
+  "routeCoordinateTransformGeometryValidated": false,
+  "wgs84PlateauTransformLimitationRemains": true,
+  "routesAreOfficial": false,
+  "routesAreEstimatedPrototypeGuidance": true,
+  "routesAlignedToNewMapRoads": false,
+  "routeRoadGeometryValidated": false,
+  "candidatesGeometryBoundToSceneObjects": false,
+  "candidatesProxyOrDataBound": true,
+  "candidateCoordinateEvidenceAvailable": true,
+  "candidateSceneAnchorStatus": "coordinate_marker_ready_or_data_only_pending; no final scene object anchoring in P8-E hardening",
+  "p9MayUseRoutesFor": "Estimated prototype guidance, debugging, and candidate handoff only.",
+  "p9MustNotClaim": "Official evacuation route, road-geometry-validated route, guaranteed passability, official candidate safety approval, or official shelter status for humanitarian candidates.",
+  "notes": "Route data remains WGS84/EPSG prototype guidance and is not official evacuation routing. Humanitarian candidate geometry is candidate/audit/coordinate evidence, not official safety approval."
+}

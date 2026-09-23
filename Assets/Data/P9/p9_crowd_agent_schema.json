@@ -1,0 +1,90 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "chuo-tsunami-evacuation-p9-crowd-agent-schema",
+  "title": "P9 Crowd Agent Profile Schema",
+  "type": "object",
+  "required": [
+    "schemaVersion",
+    "sourceMode",
+    "agentProfiles"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "type": "string"
+    },
+    "sourceMode": {
+      "enum": [
+        "test",
+        "rule_based",
+        "manual_sample",
+        "p8_handoff"
+      ]
+    },
+    "notes": {
+      "type": "string"
+    },
+    "agentProfiles": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "agentProfileId",
+          "agentType",
+          "speedMetersPerSecond",
+          "targetPreference",
+          "evacuationBehaviorMode",
+          "crowdRadius",
+          "panicLevelProxy",
+          "sourceMode"
+        ],
+        "properties": {
+          "agentProfileId": {
+            "type": "string",
+            "minLength": 1
+          },
+          "agentType": {
+            "enum": [
+              "resident",
+              "office_worker",
+              "visitor",
+              "elderly_proxy",
+              "test_agent"
+            ]
+          },
+          "speedMetersPerSecond": {
+            "type": "number",
+            "minimum": 0
+          },
+          "targetPreference": {
+            "type": "string"
+          },
+          "evacuationBehaviorMode": {
+            "type": "string"
+          },
+          "crowdRadius": {
+            "type": "number",
+            "minimum": 0
+          },
+          "panicLevelProxy": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1
+          },
+          "sourceMode": {
+            "enum": [
+              "test",
+              "rule_based",
+              "manual_sample",
+              "p8_handoff"
+            ]
+          },
+          "notes": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "additionalProperties": false
+}

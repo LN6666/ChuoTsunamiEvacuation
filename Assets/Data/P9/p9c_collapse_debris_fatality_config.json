@@ -1,0 +1,13 @@
+{
+  "schemaVersion": "p9c.collapse_debris_fatality_config.v1",
+  "enableCollapseDebrisFatalityProxy": true,
+  "collapseDebrisExposureFatalityProbability": 0.35,
+  "maxCollapseDebrisFatalEventsPerRun": 1,
+  "deterministicSeed": 9735,
+  "riskZoneCategory": "collapse_debris_proxy",
+  "exposureDistanceMeters": 6.0,
+  "requireDamagedBuildingState": false,
+  "frameLevelRandomDeath": false,
+  "scenarioConfigurable": true,
+  "resultPanelDisclosure": "Gameplay-level collapse/debris proxy, not real structural simulation."
+}

@@ -18,6 +18,14 @@ The approved cloud-desktop fallback is GUI/headful automation. Unity opens witho
 `-batchmode`, but the tests are still started by `-executeMethod`; no Test Runner
 clicking is required.
 
+Phase 5 final closeout uses this GUI/headful path as the validated automation path
+for the current cloud Administrator environment.
+
+Latest Phase 5 closeout results:
+
+- EditMode XML: `test-results/editmode-results.xml`, 120 passed, 0 failed
+- PlayMode XML: `test-results/playmode-results.xml`, 18 passed, 0 failed
+
 From the project root:
 
 ```powershell
@@ -120,6 +128,27 @@ Covers:
 - missing or unknown source config falls back to test mode.
 - the P4 hook does not change current test_shelter loading behavior.
 
+### Assets/Tests/EditMode/P5CStaticDataLoaderTests.cs
+
+Covers:
+
+- copied P5-C/P5-B static JSON files under `Assets/Data` can be loaded.
+- route records preserve estimated route labels and OSM/ODbL attribution.
+- route geometry uses WGS84 `EPSG:4326` GeoJSON-like `LineString` data.
+- missing, malformed, unsupported, or invalid route geometry fails safely.
+- `data_pipeline` paths are rejected for Unity runtime loading.
+
+### Assets/Tests/EditMode/P5DRealQualifiedGameplayDataTests.cs
+
+Covers:
+
+- committed/default source mode remains `test`.
+- `real_qualified` can be enabled through source-mode config.
+- only official confirmed statuses are selectable by default.
+- candidate, unknown, and not-qualified statuses stay non-playable/debug-only.
+- metadata and feedback preserve qualification, confidence, warnings, route distance/time, estimated prototype route note, and OSM/ODbL attribution.
+- current WGS84 route geometry is rejected for rendering until a verified Unity/PLATEAU transform exists.
+
 ### Assets/Tests/EditMode/ScenarioPresetLoaderTests.cs
 
 Covers:
@@ -138,6 +167,16 @@ Covers:
 - Manual start method moves the manager to Playing state.
 - Missing tsunami config fallback helper returns safe values in Play Mode.
 - ResultMetrics export records can be created in Play Mode without starting the PLATEAU scene.
+
+### Assets/Tests/PlayMode/P5DRealQualifiedGameplayPlayModeTests.cs
+
+Covers:
+
+- default test shelter entry/result flow still works.
+- opt-in `real_qualified` runtime proxies generate without scene saves.
+- generated real_qualified targets expose metadata, triggers, and result feedback.
+- route line rendering remains zero for current unverified WGS84 transform.
+- route, qualification, and hazard metadata do not affect gameplay rules.
 
 ## Manual Tests Still Required
 

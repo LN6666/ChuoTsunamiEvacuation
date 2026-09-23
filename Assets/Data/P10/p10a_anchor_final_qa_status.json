@@ -1,0 +1,26 @@
+{
+  "schemaVersion": "p10a.anchor_final_qa_status.v1",
+  "stage": "P10-A",
+  "totalAnchorTargets": 116,
+  "humanitarianCandidateTotal": 110,
+  "namedHumanitarianCandidateCount": 28,
+  "idOnlyHumanitarianCandidateCount": 82,
+  "allHumanitarianCandidatesRemainNonOfficial": true,
+  "allHumanitarianCandidatesRequireWarning": true,
+  "safeApprovedByDefault": false,
+  "routeOfficialClaimed": false,
+  "gisGradeProofClaimed": false,
+  "exactPlateauObjectIdentityClaimed": false,
+  "coordinatePolicy": "coordinate_based_proxy_nearest_match",
+  "qaChecks": [
+    "invalid_coordinate_rejection",
+    "distance_threshold_behavior",
+    "confidence_scoring",
+    "fallback_statuses",
+    "non_official_warning_preservation",
+    "candidate_remains_non_official",
+    "nearest_match_proxy_wording"
+  ],
+  "routeWording": "estimated prototype guidance; not official evacuation route; not fully road-geometry validated",
+  "candidateWording": "Non-official humanitarian vertical evacuation candidate; life-first candidate; not an official evacuation shelter"
+}

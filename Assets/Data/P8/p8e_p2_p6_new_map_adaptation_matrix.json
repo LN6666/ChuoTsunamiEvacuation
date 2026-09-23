@@ -1,0 +1,113 @@
+{
+  "datasetId": "p8e_p2_p6_new_map_adaptation_matrix_v1",
+  "stage": "P8-E hardening",
+  "allowedStatuses": [
+    "passed",
+    "proxy_ready",
+    "blocked",
+    "p9_final_gameplay_required"
+  ],
+  "successFailureRulesChangedInP8": false,
+  "implementsP9Gameplay": false,
+  "summary": "P8 verifies P2-P6 compatibility at passed/proxy-ready level and leaves final real gameplay landing to P9.",
+  "items": [
+    {
+      "system": "P2",
+      "item": "player movement",
+      "status": "passed",
+      "evidence": "P8-A/P8-E compatibility tests load the high-detail baseline reference without Chuo_BaseMap and do not modify movement scripts.",
+      "p9Boundary": "P9 may tune movement for final gameplay, but P8 does not rework success/failure rules."
+    },
+    {
+      "system": "P2",
+      "item": "camera",
+      "status": "passed",
+      "evidence": "P8-A compatibility report keeps camera flow independent of Chuo_BaseMap and no P8 script couples to final camera gameplay.",
+      "p9Boundary": "P9 may adjust camera framing for final evacuation gameplay."
+    },
+    {
+      "system": "P2",
+      "item": "shelter interaction",
+      "status": "proxy_ready",
+      "evidence": "P8-C/P8-E keeps shelter interaction at proxy level and separates official shelter records from humanitarian candidates.",
+      "p9Boundary": "P9 implements final entrance/safe-floor/evacuation-complete proxy behavior."
+    },
+    {
+      "system": "P2",
+      "item": "ResultPanel success-failure flow",
+      "status": "passed",
+      "evidence": "P8 scripts expose gameplay-neutral flags and tests assert no success/failure coupling.",
+      "p9Boundary": "P9 may define final failure/congestion rules, but P8 does not change existing P2 result rules."
+    },
+    {
+      "system": "P3",
+      "item": "Unity-ready data assumptions",
+      "status": "passed",
+      "evidence": "P8 data artifacts live under Assets/Data/P8 with JsonUtility-compatible schemas and validation preflights.",
+      "p9Boundary": "P9 may consume these artifacts directly and should not redo P8 hazard extraction."
+    },
+    {
+      "system": "P4",
+      "item": "real shelter loading and marker representation",
+      "status": "proxy_ready",
+      "evidence": "P8-C/P8-E handoff keeps marker/status support data-only and does not claim final scene object placement.",
+      "p9Boundary": "P9 must verify final marker placement and official shelter labels."
+    },
+    {
+      "system": "P5",
+      "item": "qualified shelters",
+      "status": "proxy_ready",
+      "evidence": "P8 preserves official/non-official separation and keeps humanitarian candidates out of official shelter status.",
+      "p9Boundary": "P9 decides final selectable target behavior while preserving labels."
+    },
+    {
+      "system": "P5",
+      "item": "routes",
+      "status": "proxy_ready",
+      "evidence": "Existing route files are OSM/EPSG prototype routes and explicitly not official evacuation routes.",
+      "p9Boundary": "P9 may use routes as estimated guidance only after final gameplay validation."
+    },
+    {
+      "system": "P5",
+      "item": "humanitarian high-rise candidates",
+      "status": "proxy_ready",
+      "evidence": "P8 audit has 110 accepted non-official candidates with warning and manual-review fields.",
+      "p9Boundary": "P9 decides whether any become life-first selectable vertical evacuation targets."
+    },
+    {
+      "system": "P5",
+      "item": "real_qualified mode",
+      "status": "proxy_ready",
+      "evidence": "P8 keeps qualification metadata separate from gameplay success/failure and does not claim route approval.",
+      "p9Boundary": "P9 must verify final real gameplay mode against route/marker limits."
+    },
+    {
+      "system": "P5",
+      "item": "official route claim safety",
+      "status": "passed",
+      "evidence": "P8-E route handoff forbids official-route claims when geometry is not road-validated.",
+      "p9Boundary": "P9 must keep any OSM route as estimated prototype guidance unless official route evidence is added later."
+    },
+    {
+      "system": "P6",
+      "item": "navigation guidance",
+      "status": "proxy_ready",
+      "evidence": "P8-C infrastructure and risk-front status can feed navigation-target proxies without final behavior changes.",
+      "p9Boundary": "P9 implements final guidance UX and gameplay consequences."
+    },
+    {
+      "system": "P6",
+      "item": "NPC prototype",
+      "status": "proxy_ready",
+      "evidence": "P8 does not implement P9 crowd/spawn/congestion and keeps NPC assumptions prototype-only.",
+      "p9Boundary": "P9 owns crowd/spawn/congestion/failure gameplay."
+    },
+    {
+      "system": "P6",
+      "item": "behavior validation",
+      "status": "p9_final_gameplay_required",
+      "evidence": "P8 supplies hazard/front/infrastructure foundations but no final crowd or evacuation-failure behavior.",
+      "p9Boundary": "P9 must validate final behavior against real gameplay goals."
+    }
+  ]
+}
