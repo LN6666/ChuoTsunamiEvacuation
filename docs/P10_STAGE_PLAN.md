@@ -64,6 +64,35 @@ Scope:
 
 P10-B++ is not an official additional stage and does not create P10-E/F/G.
 
+### P10-C-Pre Performance Gate
+
+Pre-release performance gate before official P10-C.
+
+Scope:
+
+- create or prepare a temporary Windows x64 profiling/test build
+- profile or prepare profiling for ordinary-PC playability evidence
+- harden Low/Medium/High runtime quality profiles without ProjectSettings, Packages, render-pipeline, PLATEAU, or scene mutation
+- assess CPU, memory, GC, stutter, loading, disk paging, Player.log, chunk/streaming, and AA risks
+- decide whether P10-C release build/package work is ready, ready with limitations, needs quick fixes, or blocked
+- keep final release build, release package, documentation package, and archive work deferred to P10-C
+
+P10-C-Pre is not an official additional stage and does not create P10-E/F/G.
+
+### P10-C-- Extended Performance Gate
+
+Second pre-release performance gate before official P10-C.
+
+Scope:
+
+- run 3-minute, 5-minute, and 10-minute temporary built-player process sampling
+- close the P10-C-Pre FPS/frame-time/1 percent low/stutter evidence gap with a built-player runtime exporter
+- attempt high-detail scene full-load validation without mutating `Assets/Scenes/P7HighDetail/P7_HighDetail_Chuo.unity`
+- summarize Player.log, memory trend, CPU proxy, disk paging/pagefile counters when available, and scenario coverage
+- keep final release build, release package, documentation package, and archive work deferred to P10-C
+
+P10-C-- is not official P10-C, not the final release, and not an official additional stage. No final release package is created here. No P10-E, P10-F, or P10-G is created. P10-C remains the official Windows EXE build and release package stage.
+
 ## P10-C
 
 Windows EXE Build + Release Package + Documentation + Archive.

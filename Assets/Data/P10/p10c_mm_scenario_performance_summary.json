@@ -1,0 +1,82 @@
+﻿{
+    "schemaVersion":  "p10c_mm.scenario_performance_summary.v1",
+    "status":  "summarized",
+    "p10cMinusMinusIsExtendedPerformanceGate":  true,
+    "officialP10CReleaseDeferred":  true,
+    "finalReleasePackageCreated":  false,
+    "finalArchiveCreated":  false,
+    "noP10EFG":  true,
+    "scenarios":  [
+                      {
+                          "scenarioId":  "baseline_idle",
+                          "status":  "measured",
+                          "evidence":  "3/5/10 minute process sampling and FPS exporter use baseline idle unless manual interaction changes runtime state.",
+                          "averageFps":  363.81256103515625,
+                          "onePercentLowFps":  166.76396179199219,
+                          "limitations":  [
+
+                                          ]
+                      },
+                      {
+                          "scenarioId":  "tsunami_start",
+                          "status":  "prepared_not_automated",
+                          "evidence":  "Exporter records green-frame state and frame spikes, but this script does not synthesize the T key or gameplay event.",
+                          "averageFps":  0,
+                          "onePercentLowFps":  0,
+                          "limitations":  [
+                                              "Manual or future input automation required to measure activation spike."
+                                          ]
+                      },
+                      {
+                          "scenarioId":  "green_frames_markers",
+                          "status":  "not_observed",
+                          "evidence":  "Runtime exporter inspects P10BGreenGroundFrameRuntime and candidate marker components.",
+                          "averageFps":  0,
+                          "onePercentLowFps":  0,
+                          "limitations":  [
+                                              "Debug labels remain off by default."
+                                          ]
+                      },
+                      {
+                          "scenarioId":  "light_curtain",
+                          "status":  "not_observed",
+                          "evidence":  "Runtime exporter inspects P8RiskFrontController and active LightCurtain/RiskFront objects.",
+                          "averageFps":  0,
+                          "onePercentLowFps":  0,
+                          "limitations":  [
+                                              "Manual enablement may be needed if the scene starts with the curtain hidden."
+                                          ]
+                      },
+                      {
+                          "scenarioId":  "crowd_congestion",
+                          "status":  "not_observed",
+                          "evidence":  "Runtime exporter counts P9CrowdRuntimeAgent components.",
+                          "averageFps":  0,
+                          "onePercentLowFps":  0,
+                          "limitations":  [
+                                              "No unbounded NPC count was spawned by this gate."
+                                          ]
+                      },
+                      {
+                          "scenarioId":  "result_panel_ui",
+                          "status":  "observed",
+                          "evidence":  "Runtime exporter detects active ResultPanel scene objects.",
+                          "averageFps":  0,
+                          "onePercentLowFps":  0,
+                          "limitations":  [
+                                              "Long warning text remains visual/manual unless a run reaches ResultPanel."
+                                          ]
+                      },
+                      {
+                          "scenarioId":  "night_rain",
+                          "status":  "prepared_not_automated",
+                          "evidence":  "Weather/night label is passed to exporter; runtime night overlay is detected if active.",
+                          "averageFps":  0,
+                          "onePercentLowFps":  0,
+                          "limitations":  [
+                                              "Weather mode is not forcibly changed by this process sampler."
+                                          ]
+                      }
+                  ],
+    "summary":  "Scenario coverage captured baseline idle and prepared instrumentation/evidence fields for tsunami start, green frames, light curtain, crowd, ResultPanel/UI, and night/rain. Untriggered scenarios are explicitly marked."
+}

@@ -1,0 +1,31 @@
+﻿{
+    "schemaVersion":  "p10c_mm.high_detail_full_load_status.v1",
+    "status":  "full_load_attempted_process_survived",
+    "p10cMinusMinusIsExtendedPerformanceGate":  true,
+    "officialP10CReleaseDeferred":  true,
+    "finalReleasePackageCreated":  false,
+    "finalArchiveCreated":  false,
+    "noP10EFG":  true,
+    "scenePath":  "Assets/Scenes/P7HighDetail/P7_HighDetail_Chuo.unity",
+    "sceneExists":  true,
+    "highDetailSceneMutated":  false,
+    "sceneReferenceValidated":  true,
+    "automatedPlayerLoadAttempted":  true,
+    "automatedPlayerLoadSucceeded":  true,
+    "loadingTimeSeconds":  0.01,
+    "memoryBeforeLoadMb":  0,
+    "memoryAfterLoadPrivateMb":  972.48,
+    "memoryAfterLoadWorkingSetMb":  619.36,
+    "playerLogWarningCount":  0,
+    "playerLogErrorCount":  0,
+    "p9P10RuntimeBootstrapCompatibility":  "process_survived_high_detail_player_start",
+    "greenFrameRuntimeCompatibility":  "not_observed_in_automated_capture",
+    "candidateMarkerRuntimeCompatibility":  "not_observed_in_automated_capture",
+    "lightCurtainRiskFrontCompatibility":  "not_observed_in_automated_capture",
+    "limitations":  [
+                        "The protected scene was not mutated.",
+                        "Automated validation uses temporary player launch/process survival and exporter evidence; detailed visual inspection remains manual.",
+                        "Scenario activation for tsunami start/light curtain/crowd/UI was not forced by this script."
+                    ],
+    "summary":  "High-detail scene full-load validation status=full_load_attempted_process_survived, sceneExists=True, playerLoadSucceeded=True, Player.log warnings/errors=0/0."
+}

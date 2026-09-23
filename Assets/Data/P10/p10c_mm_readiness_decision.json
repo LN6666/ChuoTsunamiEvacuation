@@ -1,0 +1,27 @@
+﻿{
+    "schemaVersion":  "p10c_mm.readiness_decision.v1",
+    "status":  "decided",
+    "p10cMinusMinusIsExtendedPerformanceGate":  true,
+    "officialP10CReleaseDeferred":  true,
+    "finalReleasePackageCreated":  false,
+    "finalArchiveCreated":  false,
+    "noP10EFG":  true,
+    "readinessDecision":  "ready_with_limitations",
+    "reason":  "Baseline built-player FPS, 1 percent low, Player.log, and 10-minute memory trend passed, but automated scenario activation for green frames, light curtain, crowd, or night/rain remains incomplete.",
+    "temporaryBuildUsed":  "D:\\UnityProjects\\ChuoTsunamiEvacuation-Builds\\P10CPre\\ChuoTsunamiEvacuation_P10CPre.exe",
+    "processSamplingCompleted":  true,
+    "fpsStutterEvidenceCaptured":  true,
+    "highDetailFullLoadAttempted":  true,
+    "highDetailSceneMutated":  false,
+    "protectedPathsExpectedClean":  true,
+    "quickFixesApplied":  [
+                              "No runtime quick fix was applied by the sampling script; this gate adds measurement/export tooling only."
+                          ],
+    "remainingLimitations":  [
+                                 "Automated scenario activation is incomplete for tsunami start, light curtain, crowd, ResultPanel, and night/rain unless manually triggered during capture.",
+                                 "PowerShell disk paging counters may be unavailable on localized Windows installations.",
+                                 "This is not the final P10-C release build/package/archive."
+                             ],
+    "nextRecommendedStep":  "Run manual scenario activation against the temporary player if untriggered scenario rows remain not_observed; otherwise proceed to official P10-C build/package.",
+    "summary":  "P10-C-- readiness decision=ready_with_limitations. Baseline built-player FPS, 1 percent low, Player.log, and 10-minute memory trend passed, but automated scenario activation for green frames, light curtain, crowd, or night/rain remains incomplete."
+}

@@ -1,0 +1,28 @@
+{
+  "schemaVersion": "p10c_pre.optimization_decision.v1",
+  "readinessDecision": "needs_quick_fix",
+  "readyForP10CReleaseBuild": false,
+  "officialP10CReleaseDeferred": true,
+  "finalReleasePackageCreated": false,
+  "finalArchiveCreated": false,
+  "trueChunkStreamingImplemented": false,
+  "addressablesOrAssetBundlesAdded": false,
+  "projectSettingsChanged": false,
+  "packagesChanged": false,
+  "plateauAssetsChanged": false,
+  "highDetailSceneChanged": false,
+  "antiAliasingConfirmedInBuiltPlayer": false,
+  "streamingDecision": "No true production chunk streaming is implemented. P10-C-Pre proceeds only with high-detail scene plus conservative quality caps unless measured data blocks release.",
+  "antiAliasingDecision": "AA is not confirmed in the built player. QualitySettings antiAliasing and camera/render-pipeline behavior must be visually checked during P10-C.",
+  "limitations": [
+    "Temporary process-level profiling measured max working set about 608 MB and max private memory about 1003 MB over 30 seconds, but FPS/frame-time evidence is still missing.",
+    "No Addressables, AssetBundles, additive city chunks, or production scene streaming are implemented.",
+    "Low profile is the ordinary-PC target; Medium/High are conditional on measured FPS, stutter, memory, and Player.log results."
+  ],
+  "nextSteps": [
+    "Add or enable built-player FPS/frame-time capture before official P10-C packaging.",
+    "Run Low at 1080p with manual FPS/stutter observation before Medium or High.",
+    "Keep official P10-C release packaging blocked until FPS/stutter evidence is collected or the limitation is explicitly accepted."
+  ],
+  "summary": "P10-C-Pre temporary build and process-level profile succeeded with no Player.log warnings/errors after copying Assets/Data into the player data folder. Readiness is needs_quick_fix because FPS, 1 percent low, frame-time, and gameplay activation stutter evidence are not yet captured from the built player."
+}

@@ -1,4 +1,4 @@
-﻿# Review Backlog
+# Review Backlog
 
 ## Purpose
 
@@ -11,6 +11,32 @@ review_reports/
 Raw review reports should not be committed to GitHub.
 
 This file only records actionable review items that should guide Codex fixes.
+
+---
+
+## P10-C-Pre Performance Gate
+
+Source report:
+
+DeepSeek review saved locally as `review_reports/deepseek_review_20260525_151744.md`.
+
+Context:
+
+P10-C-Pre is a pre-release performance gate before official P10-C. It may create a temporary Windows x64 profiling/test build, but it does not create the final release build, final release package, archive, P10-E, P10-F, or P10-G.
+
+Overall verdict:
+
+PASS - no A-level blockers.
+
+### P10-C-Pre Risks And Follow-Ups
+
+| ID | Priority | Status | Target | Issue | Required Review |
+|---|---|---|---|---|---|
+| P10CPRE-R01 | High | Confirmed follow-up | Built-player performance | Temporary process profile succeeded, but FPS, 1 percent low, frame-time, and activation stutter evidence are still missing. | Capture built-player FPS/frame-time evidence before official P10-C packaging. |
+| P10CPRE-R02 | High | Confirmed follow-up | High-detail load/memory | No true production chunk streaming is implemented, so scene-resident high-detail geometry may cause long load, memory pressure, or paging. | Keep release packaging blocked if Low/Medium shows freezes, unbounded growth, or paging-heavy stalls. |
+| P10CPRE-R03 | Medium | Confirmed follow-up | Quality profiles | Low/Medium/High caps reduce risk but do not replace real FPS/stutter evidence. | Confirm Low is the ordinary-PC target and High is conditional. |
+| P10CPRE-R04 | Medium | Confirmed follow-up | AA/visual quality | AA is not confirmed in the built player. | Confirm P10-C visual AA verification remains required. |
+| P10CPRE-R05 | High | Closed by preflight | Protected paths | P10-C-Pre must not mutate ProjectSettings, Packages, PLATEAU, Chuo_BaseMap, or P7 high-detail scene. | Preflight and git status confirmed protected paths clean after temporary build/test cleanup. |
 
 ---
 
@@ -1165,3 +1191,11 @@ Reason:
 | P10BPP-B03 | Medium | Deferred to P10-C profiling | Frame spikes | Green-frame warmup and bounded metrics reduce risk, but high-detail stutter must be measured. | Record frame spike count at tsunami start, green frames, light curtain, ResultPanel, and night/rain mode. |
 | P10BPP-B04 | Medium | Deferred to P10-C profiling | Disk paging | P10-B++ adds a checklist only; no OS pagefile changes are made. | Use Task Manager, Resource Monitor, or PowerShell to record memory pressure and disk paging symptoms. |
 
+---
+
+### P10-C-- Extended Performance Gate Follow-Ups
+
+| ID | Priority | Status | Target | Issue | Required Follow-Up |
+|---|---|---|---|---|---|
+| P10CMM-B01 | Medium | Deferred to manual scenario pass if still not observed | Scenario activation | Automated sampling can measure baseline idle and exporter state, but tsunami start/light curtain/crowd/ResultPanel/night-rain may still need manual activation in the temporary player. | If scenario rows remain `not_observed`, run a manual temporary-player pass before official P10-C packaging. |
+| P10CMM-B02 | Medium | Deferred to P10-C if counters unavailable | Disk paging counters | PowerShell performance counters can be unavailable or localized on some Windows images. | Use Resource Monitor/Task Manager manual steps recorded in the paging summary. |
