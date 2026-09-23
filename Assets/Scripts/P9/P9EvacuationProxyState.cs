@@ -6,6 +6,7 @@ public static class P9RuntimePolicy
     public const bool AffectsGameplaySuccessFailure = false;
     public const bool CanCausePlayerFailureInP9A = false;
     public const bool CanCausePlayerFailureInP9B = false;
+    public const bool CanCausePlayerFailureInP9C = true;
     public const bool ImplementsFinalFailureGameplay = false;
     public const bool ImplementsIndoorSceneGameplay = false;
     public const bool RequiresChuoBaseMap = false;
@@ -14,6 +15,12 @@ public static class P9RuntimePolicy
     public const bool ClaimsOfficialRoutes = false;
     public const bool ClaimsOfficialHumanitarianCandidateShelters = false;
     public const bool P9BRuntimePrototypeOnly = true;
+    public const bool P9CDeterministicRuleBasedProxy = true;
+    public const bool P9COutcomeMutationProxyEnabled = true;
+    public const bool P9CImportsExternalCrowdPackage = false;
+    public const bool P9CImplementsFullSocialSimulation = false;
+    public const bool P9CImplementsCalibratedSocialForceModel = false;
+    public const bool P9CImplementsOrcaRvoNavigation = false;
 }
 
 public enum P9VerticalEvacuationStatus

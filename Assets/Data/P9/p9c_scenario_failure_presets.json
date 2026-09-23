@@ -1,0 +1,45 @@
+{
+  "schemaVersion": "p9c.scenario_failure_presets.v1",
+  "presets": [
+    {
+      "presetId": "p9c_default_proxy_gameplay",
+      "displayName": "P9-C default proxy gameplay",
+      "enableEntranceBlockedFailure": true,
+      "enableCrowdDelayFailure": true,
+      "enableCollapseDebrisFatalityProxy": true,
+      "enableHazardTimingFailure": true,
+      "hazardArrivalTimeSeconds": 420.0,
+      "notes": "Default deterministic P9-C proxy gameplay."
+    },
+    {
+      "presetId": "p9c_blocked_entrance_failure",
+      "displayName": "Blocked entrance failure",
+      "enableEntranceBlockedFailure": true,
+      "enableCrowdDelayFailure": false,
+      "enableCollapseDebrisFatalityProxy": false,
+      "enableHazardTimingFailure": true,
+      "hazardArrivalTimeSeconds": 420.0,
+      "notes": "Fixture preset for blocked entrance outcome."
+    },
+    {
+      "presetId": "p9c_crowd_delay_failure",
+      "displayName": "Crowd delay failure",
+      "enableEntranceBlockedFailure": true,
+      "enableCrowdDelayFailure": true,
+      "enableCollapseDebrisFatalityProxy": false,
+      "enableHazardTimingFailure": true,
+      "hazardArrivalTimeSeconds": 180.0,
+      "notes": "Fixture preset where bounded crowd delay can exceed hazard arrival safety window."
+    },
+    {
+      "presetId": "p9c_collapse_disabled",
+      "displayName": "Collapse proxy disabled",
+      "enableEntranceBlockedFailure": true,
+      "enableCrowdDelayFailure": true,
+      "enableCollapseDebrisFatalityProxy": false,
+      "enableHazardTimingFailure": true,
+      "hazardArrivalTimeSeconds": 420.0,
+      "notes": "Disabled collapse/debris fatality fixture."
+    }
+  ]
+}

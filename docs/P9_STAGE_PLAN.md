@@ -34,6 +34,10 @@ Scope:
 
 - Implement final congestion, entrance-blocked, safe-floor, and evacuation-failure proxy gameplay after P8-D/E handoff inputs are available.
 - Decide how P9 proxy state affects player outcomes only in this stage.
+- Use deterministic rule-based gameplay proxies for life-first target selection, queue delay, congestion delay, safe-floor completion, hazard timing, and collapse/debris exposure-event outcomes.
+- Keep non-official humanitarian high-rise candidates non-official and warning-required.
+- Keep P5 route/candidate guidance estimated and non-official.
+- Do not add real building interior scenes or heavy social simulation engines.
 
 ## P9-D
 
