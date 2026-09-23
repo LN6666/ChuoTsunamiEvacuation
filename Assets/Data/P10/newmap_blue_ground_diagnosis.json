@@ -1,0 +1,19 @@
+{
+  "generatedAt": "2026-05-29T00:00:00+09:00",
+  "activeScene": "Assets/Scenes/Chuo_BaseMap.unity",
+  "diagnosis": "Large blue ground is treated as a visible debug/support-surface regression unless proven to be imported map material.",
+  "suspectedObjects": [
+    {
+      "objectName": "NewMap_RuntimeGroundSupport_DocumentedProxy",
+      "materialName": "none",
+      "shaderName": "none",
+      "rendererEnabled": false,
+      "colliderExists": true,
+      "layerOrTag": "default",
+      "bounds": "6000m x 0.5m x 6000m support collider at runtime",
+      "allowedToRenderInNormalMode": false
+    }
+  ],
+  "runtimeGuard": "GameplaySupportRoot and support/debug ground candidates have renderers disabled in normal mode.",
+  "finalStatus": "support_renderer_hidden_pending_player_smoke"
+}

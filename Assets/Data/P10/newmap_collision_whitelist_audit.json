@@ -1,0 +1,160 @@
+{
+  "generatedAt": "2026-05-30T00:00:00+09:00",
+  "activeScene": "Assets/Scenes/Chuo_BaseMap.unity",
+  "purpose": "Classify scene and runtime collider families for the NewMap collision whitelist.",
+  "fullRuntimeAuditSource": "NewMapRuntimeBootstrap.AuditAndCleanupUnexpectedAirwallColliders scans all runtime colliders and logs counts in Player.log.",
+  "colliderRecordsScope": "category policy plus representative paths; runtime smoke validates all loaded colliders.",
+  "categories": [
+    {
+      "gameObjectPath": "GameplayGroundCoverRoot/*",
+      "colliderType": "BoxCollider",
+      "isTrigger": false,
+      "layer": "Default",
+      "bounds": "runtime generated visible ground tiles",
+      "category": "ground_support",
+      "blocksPlayerBefore": true,
+      "shouldBlockPlayerAfter": true,
+      "actionTaken": "preserved"
+    },
+    {
+      "gameObjectPath": "GameplaySupportRoot/NewMap_RuntimeCollisionSupportProxy",
+      "colliderType": "BoxCollider",
+      "isTrigger": false,
+      "layer": "Default",
+      "bounds": "runtime generated support surface covering the circular boundary",
+      "category": "ground_support",
+      "blocksPlayerBefore": true,
+      "shouldBlockPlayerAfter": true,
+      "actionTaken": "preserved_invisible_support"
+    },
+    {
+      "gameObjectPath": "MapRoot/**/bldg* and building obstacle proxies",
+      "colliderType": "runtime Bounds based collision",
+      "isTrigger": false,
+      "layer": "Default",
+      "bounds": "sampled building renderer bounds",
+      "category": "building_obstacle",
+      "blocksPlayerBefore": true,
+      "shouldBlockPlayerAfter": true,
+      "actionTaken": "preserved"
+    },
+    {
+      "gameObjectPath": "CrowdRoot/NewMap_NPC_CrowdPrototype/*",
+      "colliderType": "CapsuleCollider",
+      "isTrigger": true,
+      "layer": "Default",
+      "bounds": "near NPC body radius",
+      "category": "npc_body",
+      "blocksPlayerBefore": true,
+      "shouldBlockPlayerAfter": true,
+      "actionTaken": "preserved_soft_blocking"
+    },
+    {
+      "gameObjectPath": "PlayableBoundsRoot/P10_CircularBoundary_RuntimeClamp_Diagnostic",
+      "colliderType": "none",
+      "isTrigger": false,
+      "layer": "Default",
+      "bounds": "center plus 2270m radius runtime clamp",
+      "category": "map_boundary",
+      "blocksPlayerBefore": false,
+      "shouldBlockPlayerAfter": true,
+      "actionTaken": "implemented_as_runtime_circular_clamp"
+    },
+    {
+      "gameObjectPath": "CandidateMarkerRoot/*/EntryTrigger and ShelterMarkerRoot/*/EntryTrigger",
+      "colliderType": "BoxCollider",
+      "isTrigger": true,
+      "layer": "Default",
+      "bounds": "building touch/entry volume",
+      "category": "interaction_trigger",
+      "blocksPlayerBefore": false,
+      "shouldBlockPlayerAfter": false,
+      "actionTaken": "preserved_trigger_only"
+    },
+    {
+      "gameObjectPath": "NavigationRoot/NewMap_ShelterDirectLineController/*",
+      "colliderType": "none",
+      "isTrigger": false,
+      "layer": "Default",
+      "bounds": "player to shelter straight visual line",
+      "category": "route_line_visual",
+      "blocksPlayerBefore": false,
+      "shouldBlockPlayerAfter": false,
+      "actionTaken": "no_collider_created"
+    },
+    {
+      "gameObjectPath": "GreenFrameRoot/*",
+      "colliderType": "none or disabled",
+      "isTrigger": false,
+      "layer": "Default",
+      "bounds": "target frame visual",
+      "category": "green_frame_visual",
+      "blocksPlayerBefore": false,
+      "shouldBlockPlayerAfter": false,
+      "actionTaken": "blocking_colliders_disabled_if_found"
+    },
+    {
+      "gameObjectPath": "UIAnchorRoot/* and NewMap_*Label*",
+      "colliderType": "none",
+      "isTrigger": false,
+      "layer": "UI",
+      "bounds": "screen/world text",
+      "category": "label_visual",
+      "blocksPlayerBefore": false,
+      "shouldBlockPlayerAfter": false,
+      "actionTaken": "no_blocking_allowed"
+    },
+    {
+      "gameObjectPath": "HazardVisualRoot/*LightCurtain*",
+      "colliderType": "none or trigger only",
+      "isTrigger": true,
+      "layer": "Default",
+      "bounds": "tsunami hazard visual",
+      "category": "hazard_visual",
+      "blocksPlayerBefore": false,
+      "shouldBlockPlayerAfter": false,
+      "actionTaken": "visual_failure_logic_only"
+    },
+    {
+      "gameObjectPath": "DebugDiagnosticsRoot/*",
+      "colliderType": "any",
+      "isTrigger": true,
+      "layer": "Default",
+      "bounds": "diagnostic only",
+      "category": "debug_test",
+      "blocksPlayerBefore": true,
+      "shouldBlockPlayerAfter": false,
+      "actionTaken": "disabled_in_normal_runtime_if_blocking"
+    },
+    {
+      "gameObjectPath": "PlayableBoundsRoot/P10_BoundaryAirWall_*",
+      "colliderType": "BoxCollider",
+      "isTrigger": false,
+      "layer": "Default",
+      "bounds": "old rectangular boundary walls",
+      "category": "old_air_wall",
+      "blocksPlayerBefore": true,
+      "shouldBlockPlayerAfter": false,
+      "actionTaken": "removed_replaced_by_circular_clamp"
+    },
+    {
+      "gameObjectPath": "*unknown blocking collider inside circular playable area*",
+      "colliderType": "any",
+      "isTrigger": false,
+      "layer": "any",
+      "bounds": "runtime detected",
+      "category": "unknown",
+      "blocksPlayerBefore": true,
+      "shouldBlockPlayerAfter": false,
+      "actionTaken": "converted_to_trigger_or_disabled"
+    }
+  ],
+  "hardFailRules": [
+    "unknown blocking collider remains inside normal playable area",
+    "route line, green frame, label, marker, or hazard visual blocks player movement",
+    "old rectangular air walls remain active inside the map",
+    "ground support is disabled",
+    "building, NPC, or circular boundary blocking is absent"
+  ],
+  "finalStatus": "implemented_pending_runtime_validation"
+}

@@ -1,0 +1,1007 @@
+{
+  "generatedAt": "2026-05-27T18:21:16+09:00",
+  "activeScene": "Assets/Scenes/Chuo_BaseMap.unity",
+  "officialShelterStatus": "official_shelters_recovered",
+  "finalStatus": "completed_on_new_chuo_basemap",
+  "mapBoundsFromSceneMeshAabbs": {
+    "meshAabbCount": 65062,
+    "min": {
+      "x": -1363.544983,
+      "y": -8.516,
+      "z": -1902.083333
+    },
+    "max": {
+      "x": 1359.255515,
+      "y": 241.546006,
+      "z": 2851.238
+    },
+    "center": {
+      "x": -2.144734,
+      "y": 116.515003,
+      "z": 474.577334
+    },
+    "size": {
+      "x": 2722.800498,
+      "y": 250.062006,
+      "z": 4753.321333
+    }
+  },
+  "officialSourceRecords": 31,
+  "activeOfficialShelterCount": 15,
+  "disabledOfficialShelterCount": 16,
+  "verifiedAnchorCount": 15,
+  "activeOfficialCountEqualsVerifiedAnchors": true,
+  "activationRule": "active only with exact PLATEAU GML mesh evidence, contains match, high confidence, and manualReviewNeeded=false",
+  "disabledOfficialTargetsInactive": true,
+  "records": [
+    {
+      "id": "chuo_official_emergency_001",
+      "name": "城東小学校",
+      "lat": 35.679059,
+      "lon": 139.769114,
+      "coordinateReferenceSystem": "EPSG:4326",
+      "plateauBuildingId": "13102-bldg-3742",
+      "plateauGmlId": "bldg_25d370de-2c35-457b-b756-3444a3d02eb3",
+      "matchMethod": "contains",
+      "matchConfidence": "high",
+      "manualReviewNeeded": false,
+      "sceneExactGmlObjectFound": true,
+      "sceneMeshEvidence": {
+        "meshCount": 7,
+        "boundsCenter": {
+          "x": -110.022964,
+          "y": 120.773003,
+          "z": 220.06664
+        },
+        "boundsSize": {
+          "x": 128.616,
+          "y": 241.546006,
+          "z": 139.14402
+        }
+      },
+      "unityMarkerPosition": {
+        "x": -110.023,
+        "y": 0.08,
+        "z": 220.067
+      },
+      "markerInsideChuoBaseMapBounds": true,
+      "interactionTargetExists": true,
+      "officialUiMarkerCorrect": true,
+      "usesNonOfficialWarning": false,
+      "confidence": "verified_gml_anchor_high",
+      "anchorStatus": "verified_exact_plateau_gml_mesh_anchor",
+      "activeInGame": true,
+      "disabledReason": ""
+    },
+    {
+      "id": "chuo_official_emergency_002",
+      "name": "京橋プラザ",
+      "lat": 35.673121,
+      "lon": 139.771593,
+      "coordinateReferenceSystem": "EPSG:4326",
+      "plateauBuildingId": "13102-bldg-8069",
+      "plateauGmlId": "bldg_b79d201f-b27b-4e20-b342-fb09087fb41d",
+      "matchMethod": "contains",
+      "matchConfidence": "high",
+      "manualReviewNeeded": false,
+      "sceneExactGmlObjectFound": true,
+      "sceneMeshEvidence": {
+        "meshCount": 5,
+        "boundsCenter": {
+          "x": 127.61005,
+          "y": 40.253501,
+          "z": -424.76736
+        },
+        "boundsSize": {
+          "x": 56.850006,
+          "y": 80.507003,
+          "z": 58.159974
+        }
+      },
+      "unityMarkerPosition": {
+        "x": 127.61,
+        "y": 0.08,
+        "z": -424.767
+      },
+      "markerInsideChuoBaseMapBounds": true,
+      "interactionTargetExists": true,
+      "officialUiMarkerCorrect": true,
+      "usesNonOfficialWarning": false,
+      "confidence": "verified_gml_anchor_high",
+      "anchorStatus": "verified_exact_plateau_gml_mesh_anchor",
+      "activeInGame": true,
+      "disabledReason": ""
+    },
+    {
+      "id": "chuo_official_emergency_003",
+      "name": "泰明小学校",
+      "lat": 35.672383,
+      "lon": 139.761495,
+      "coordinateReferenceSystem": "EPSG:4326",
+      "plateauBuildingId": "13102-bldg-5702",
+      "plateauGmlId": "bldg_932d32e9-22aa-492c-980d-c1bf7cc0f79b",
+      "matchMethod": "contains",
+      "matchConfidence": "high",
+      "manualReviewNeeded": false,
+      "sceneExactGmlObjectFound": true,
+      "sceneMeshEvidence": {
+        "meshCount": 6,
+        "boundsCenter": {
+          "x": -797.19995,
+          "y": 11.282,
+          "z": -526.8174
+        },
+        "boundsSize": {
+          "x": 104.410034,
+          "y": 22.564,
+          "z": 53.620026
+        }
+      },
+      "unityMarkerPosition": {
+        "x": -797.2,
+        "y": 0.08,
+        "z": -526.817
+      },
+      "markerInsideChuoBaseMapBounds": true,
+      "interactionTargetExists": true,
+      "officialUiMarkerCorrect": true,
+      "usesNonOfficialWarning": false,
+      "confidence": "verified_gml_anchor_high",
+      "anchorStatus": "verified_exact_plateau_gml_mesh_anchor",
+      "activeInGame": true,
+      "disabledReason": ""
+    },
+    {
+      "id": "chuo_official_emergency_004",
+      "name": "銀座中学校",
+      "lat": 35.665512,
+      "lon": 139.764854,
+      "coordinateReferenceSystem": "EPSG:4326",
+      "plateauBuildingId": "13102-bldg-3140",
+      "plateauGmlId": "bldg_0a55bdd2-72f8-4464-b4df-1da32ec57f02",
+      "matchMethod": "contains",
+      "matchConfidence": "high",
+      "manualReviewNeeded": false,
+      "sceneExactGmlObjectFound": true,
+      "sceneMeshEvidence": {
+        "meshCount": 6,
+        "boundsCenter": {
+          "x": -485.76447,
+          "y": 14.635001,
+          "z": -1273.42828
+        },
+        "boundsSize": {
+          "x": 66.312988,
+          "y": 29.270001,
+          "z": 67.03202
+        }
+      },
+      "unityMarkerPosition": {
+        "x": -485.764,
+        "y": 0.08,
+        "z": -1273.428
+      },
+      "markerInsideChuoBaseMapBounds": true,
+      "interactionTargetExists": true,
+      "officialUiMarkerCorrect": true,
+      "usesNonOfficialWarning": false,
+      "confidence": "verified_gml_anchor_high",
+      "anchorStatus": "verified_exact_plateau_gml_mesh_anchor",
+      "activeInGame": true,
+      "disabledReason": ""
+    },
+    {
+      "id": "chuo_official_emergency_005",
+      "name": "中央小学校",
+      "lat": 35.672171,
+      "lon": 139.77876,
+      "coordinateReferenceSystem": "EPSG:4326",
+      "plateauBuildingId": "13102-bldg-3228",
+      "plateauGmlId": "bldg_7c79b5e1-dddc-4c1b-acbf-694a96b559b7",
+      "matchMethod": "contains",
+      "matchConfidence": "high",
+      "manualReviewNeeded": false,
+      "sceneExactGmlObjectFound": true,
+      "sceneMeshEvidence": {
+        "meshCount": 8,
+        "boundsCenter": {
+          "x": 764.47003,
+          "y": 16.26,
+          "z": -545.8424
+        },
+        "boundsSize": {
+          "x": 78.72998,
+          "y": 32.520001,
+          "z": 54.190064
+        }
+      },
+      "unityMarkerPosition": {
+        "x": 764.47,
+        "y": 0.08,
+        "z": -545.842
+      },
+      "markerInsideChuoBaseMapBounds": true,
+      "interactionTargetExists": true,
+      "officialUiMarkerCorrect": true,
+      "usesNonOfficialWarning": false,
+      "confidence": "verified_gml_anchor_high",
+      "anchorStatus": "verified_exact_plateau_gml_mesh_anchor",
+      "activeInGame": true,
+      "disabledReason": ""
+    },
+    {
+      "id": "chuo_official_emergency_006",
+      "name": "明石小学校",
+      "lat": 35.668734,
+      "lon": 139.776472,
+      "coordinateReferenceSystem": "EPSG:4326",
+      "plateauBuildingId": "13102-bldg-3751",
+      "plateauGmlId": "bldg_ccdc4e97-2b53-462a-b188-7b75c84d30b5",
+      "matchMethod": "contains",
+      "matchConfidence": "high",
+      "manualReviewNeeded": false,
+      "sceneExactGmlObjectFound": true,
+      "sceneMeshEvidence": {
+        "meshCount": 8,
+        "boundsCenter": {
+          "x": 555.05505,
+          "y": 16.683,
+          "z": -926.17737
+        },
+        "boundsSize": {
+          "x": 68.97998,
+          "y": 33.366001,
+          "z": 61.619996
+        }
+      },
+      "unityMarkerPosition": {
+        "x": 555.055,
+        "y": 0.08,
+        "z": -926.177
+      },
+      "markerInsideChuoBaseMapBounds": true,
+      "interactionTargetExists": true,
+      "officialUiMarkerCorrect": true,
+      "usesNonOfficialWarning": false,
+      "confidence": "verified_gml_anchor_high",
+      "anchorStatus": "verified_exact_plateau_gml_mesh_anchor",
+      "activeInGame": true,
+      "disabledReason": ""
+    },
+    {
+      "id": "chuo_official_emergency_007",
+      "name": "京橋築地小学校",
+      "lat": 35.667975,
+      "lon": 139.771173,
+      "coordinateReferenceSystem": "EPSG:4326",
+      "plateauBuildingId": "13102-bldg-2853",
+      "plateauGmlId": "bldg_74bfe18f-c482-4385-b52f-02aaaf3dcc34",
+      "matchMethod": "contains",
+      "matchConfidence": "high",
+      "manualReviewNeeded": false,
+      "sceneExactGmlObjectFound": true,
+      "sceneMeshEvidence": {
+        "meshCount": 7,
+        "boundsCenter": {
+          "x": 80.195045,
+          "y": 13.7295,
+          "z": -1012.52734
+        },
+        "boundsSize": {
+          "x": 115.3,
+          "y": 27.459,
+          "z": 78.400146
+        }
+      },
+      "unityMarkerPosition": {
+        "x": 80.195,
+        "y": 0.08,
+        "z": -1012.527
+      },
+      "markerInsideChuoBaseMapBounds": true,
+      "interactionTargetExists": true,
+      "officialUiMarkerCorrect": true,
+      "usesNonOfficialWarning": false,
+      "confidence": "verified_gml_anchor_high",
+      "anchorStatus": "verified_exact_plateau_gml_mesh_anchor",
+      "activeInGame": true,
+      "disabledReason": ""
+    },
+    {
+      "id": "chuo_official_emergency_008",
+      "name": "京華スクエア",
+      "lat": 35.674999,
+      "lon": 139.775575,
+      "coordinateReferenceSystem": "EPSG:4326",
+      "plateauBuildingId": "13102-bldg-8277",
+      "plateauGmlId": "bldg_228dc70f-56a0-453b-bcd6-3eec08bb3504",
+      "matchMethod": "contains",
+      "matchConfidence": "high",
+      "manualReviewNeeded": false,
+      "sceneExactGmlObjectFound": true,
+      "sceneMeshEvidence": {
+        "meshCount": 6,
+        "boundsCenter": {
+          "x": 475.84003,
+          "y": 10.4835,
+          "z": -231.14886
+        },
+        "boundsSize": {
+          "x": 79.389984,
+          "y": 20.966999,
+          "z": 57.302994
+        }
+      },
+      "unityMarkerPosition": {
+        "x": 475.84,
+        "y": 0.08,
+        "z": -231.149
+      },
+      "markerInsideChuoBaseMapBounds": true,
+      "interactionTargetExists": true,
+      "officialUiMarkerCorrect": true,
+      "usesNonOfficialWarning": false,
+      "confidence": "verified_gml_anchor_high",
+      "anchorStatus": "verified_exact_plateau_gml_mesh_anchor",
+      "activeInGame": true,
+      "disabledReason": ""
+    },
+    {
+      "id": "chuo_official_emergency_009",
+      "name": "明正小学校",
+      "lat": 35.676011,
+      "lon": 139.781852,
+      "coordinateReferenceSystem": "EPSG:4326",
+      "plateauBuildingId": "13102-bldg-11364",
+      "plateauGmlId": "bldg_79e83e58-9d57-4934-b422-191a0d1a0727",
+      "matchMethod": "contains",
+      "matchConfidence": "high",
+      "manualReviewNeeded": false,
+      "sceneExactGmlObjectFound": true,
+      "sceneMeshEvidence": {
+        "meshCount": 5,
+        "boundsCenter": {
+          "x": 1043.31,
+          "y": 16.4595,
+          "z": -118.99736
+        },
+        "boundsSize": {
+          "x": 93.909974,
+          "y": 32.919,
+          "z": 56.260002
+        }
+      },
+      "unityMarkerPosition": {
+        "x": 1043.31,
+        "y": 0.08,
+        "z": -118.997
+      },
+      "markerInsideChuoBaseMapBounds": true,
+      "interactionTargetExists": true,
+      "officialUiMarkerCorrect": true,
+      "usesNonOfficialWarning": false,
+      "confidence": "verified_gml_anchor_high",
+      "anchorStatus": "verified_exact_plateau_gml_mesh_anchor",
+      "activeInGame": true,
+      "disabledReason": ""
+    },
+    {
+      "id": "chuo_official_emergency_010",
+      "name": "常盤小学校",
+      "lat": 35.688038,
+      "lon": 139.770509,
+      "coordinateReferenceSystem": "EPSG:4326",
+      "plateauBuildingId": "13102-bldg-2872",
+      "plateauGmlId": "bldg_be0b4c30-e006-40a6-8952-be27fbbc620e",
+      "matchMethod": "contains",
+      "matchConfidence": "high",
+      "manualReviewNeeded": false,
+      "sceneExactGmlObjectFound": true,
+      "sceneMeshEvidence": {
+        "meshCount": 6,
+        "boundsCenter": {
+          "x": 19.020042,
+          "y": 8.2225,
+          "z": 1215.5536
+        },
+        "boundsSize": {
+          "x": 28.01,
+          "y": 16.445,
+          "z": 22.73999
+        }
+      },
+      "unityMarkerPosition": {
+        "x": 19.02,
+        "y": 0.08,
+        "z": 1215.554
+      },
+      "markerInsideChuoBaseMapBounds": true,
+      "interactionTargetExists": true,
+      "officialUiMarkerCorrect": true,
+      "usesNonOfficialWarning": false,
+      "confidence": "verified_gml_anchor_high",
+      "anchorStatus": "verified_exact_plateau_gml_mesh_anchor",
+      "activeInGame": true,
+      "disabledReason": ""
+    },
+    {
+      "id": "chuo_official_emergency_011",
+      "name": "十思スクエア",
+      "lat": 35.690907,
+      "lon": 139.776991,
+      "coordinateReferenceSystem": "EPSG:4326",
+      "plateauBuildingId": "13102-bldg-15570",
+      "plateauGmlId": "bldg_692282aa-7aed-474a-8182-51b2b958c65a",
+      "matchMethod": "contains",
+      "matchConfidence": "high",
+      "manualReviewNeeded": false,
+      "sceneExactGmlObjectFound": true,
+      "sceneMeshEvidence": {
+        "meshCount": 4,
+        "boundsCenter": {
+          "x": 617.7001,
+          "y": 9.7535,
+          "z": 1537.542675
+        },
+        "boundsSize": {
+          "x": 46.129944,
+          "y": 19.507,
+          "z": 72.700124
+        }
+      },
+      "unityMarkerPosition": {
+        "x": 617.7,
+        "y": 0.08,
+        "z": 1537.543
+      },
+      "markerInsideChuoBaseMapBounds": true,
+      "interactionTargetExists": true,
+      "officialUiMarkerCorrect": true,
+      "usesNonOfficialWarning": false,
+      "confidence": "verified_gml_anchor_high",
+      "anchorStatus": "verified_exact_plateau_gml_mesh_anchor",
+      "activeInGame": true,
+      "disabledReason": ""
+    },
+    {
+      "id": "chuo_official_emergency_012",
+      "name": "日本橋小学校",
+      "lat": 35.684273,
+      "lon": 139.78123,
+      "coordinateReferenceSystem": "EPSG:4326",
+      "plateauBuildingId": "13102-bldg-12810",
+      "plateauGmlId": "bldg_32def57b-ec59-414c-9748-f455b4a65a51",
+      "matchMethod": "nearest",
+      "matchConfidence": "medium",
+      "manualReviewNeeded": true,
+      "sceneExactGmlObjectFound": true,
+      "sceneMeshEvidence": {
+        "meshCount": 4,
+        "boundsCenter": {
+          "x": 962.41504,
+          "y": 16.5035,
+          "z": 783.1926
+        },
+        "boundsSize": {
+          "x": 31.059998,
+          "y": 33.007,
+          "z": 25.76001
+        }
+      },
+      "unityMarkerPosition": {
+        "x": 962.415,
+        "y": 0.08,
+        "z": 783.193
+      },
+      "markerInsideChuoBaseMapBounds": true,
+      "interactionTargetExists": false,
+      "officialUiMarkerCorrect": false,
+      "usesNonOfficialWarning": null,
+      "confidence": "not_verified_for_active_gameplay",
+      "anchorStatus": "scene_gml_found_but_manual_review_not_active",
+      "activeInGame": false,
+      "disabledReason": "disabled_missing_from_new_map: exact GML mesh exists, but source match requires manual review or is not a high-confidence contains match."
+    },
+    {
+      "id": "chuo_official_emergency_013",
+      "name": "有馬小学校",
+      "lat": 35.683219,
+      "lon": 139.787989,
+      "coordinateReferenceSystem": "EPSG:4326",
+      "plateauBuildingId": "13102-bldg-12391",
+      "plateauGmlId": "bldg_4a32eca7-6527-4776-94a2-9f9fc0ed5930",
+      "matchMethod": "contains",
+      "matchConfidence": "high",
+      "manualReviewNeeded": false,
+      "sceneExactGmlObjectFound": false,
+      "sceneMeshEvidence": null,
+      "unityMarkerPosition": null,
+      "markerInsideChuoBaseMapBounds": false,
+      "interactionTargetExists": false,
+      "officialUiMarkerCorrect": false,
+      "usesNonOfficialWarning": null,
+      "confidence": "not_verified_for_active_gameplay",
+      "anchorStatus": "disabled_no_exact_scene_gml_mesh",
+      "activeInGame": false,
+      "disabledReason": "disabled_missing_from_new_map: matched PLATEAU GML ID was not found in Chuo_BaseMap mesh AABBs."
+    },
+    {
+      "id": "chuo_official_emergency_014",
+      "name": "久松小学校",
+      "lat": 35.689056,
+      "lon": 139.784355,
+      "coordinateReferenceSystem": "EPSG:4326",
+      "plateauBuildingId": "13102-bldg-14859",
+      "plateauGmlId": "bldg_0cc7b33b-161f-4893-9753-3494f4d1ef69",
+      "matchMethod": "contains",
+      "matchConfidence": "high",
+      "manualReviewNeeded": false,
+      "sceneExactGmlObjectFound": true,
+      "sceneMeshEvidence": {
+        "meshCount": 4,
+        "boundsCenter": {
+          "x": 1276.72,
+          "y": 16.3305,
+          "z": 1302.6127
+        },
+        "boundsSize": {
+          "x": 69.28992,
+          "y": 32.661,
+          "z": 96.23999
+        }
+      },
+      "unityMarkerPosition": {
+        "x": 1276.72,
+        "y": 0.08,
+        "z": 1302.613
+      },
+      "markerInsideChuoBaseMapBounds": true,
+      "interactionTargetExists": true,
+      "officialUiMarkerCorrect": true,
+      "usesNonOfficialWarning": false,
+      "confidence": "verified_gml_anchor_high",
+      "anchorStatus": "verified_exact_plateau_gml_mesh_anchor",
+      "activeInGame": true,
+      "disabledReason": ""
+    },
+    {
+      "id": "chuo_official_emergency_015",
+      "name": "日本橋中学校",
+      "lat": 35.691933,
+      "lon": 139.786993,
+      "coordinateReferenceSystem": "EPSG:4326",
+      "plateauBuildingId": "13102-bldg-15963",
+      "plateauGmlId": "bldg_34c149ac-2d23-4c9a-bdf3-c32684ba631b",
+      "matchMethod": "contains",
+      "matchConfidence": "high",
+      "manualReviewNeeded": false,
+      "sceneExactGmlObjectFound": false,
+      "sceneMeshEvidence": null,
+      "unityMarkerPosition": null,
+      "markerInsideChuoBaseMapBounds": false,
+      "interactionTargetExists": false,
+      "officialUiMarkerCorrect": false,
+      "usesNonOfficialWarning": null,
+      "confidence": "not_verified_for_active_gameplay",
+      "anchorStatus": "disabled_no_exact_scene_gml_mesh",
+      "activeInGame": false,
+      "disabledReason": "disabled_missing_from_new_map: matched PLATEAU GML ID was not found in Chuo_BaseMap mesh AABBs."
+    },
+    {
+      "id": "chuo_official_emergency_016",
+      "name": "阪本小学校",
+      "lat": 35.679538,
+      "lon": 139.776687,
+      "coordinateReferenceSystem": "EPSG:4326",
+      "plateauBuildingId": "13102-bldg-10474",
+      "plateauGmlId": "bldg_70594176-a51a-4425-b8b2-b75edbdef7a1",
+      "matchMethod": "contains",
+      "matchConfidence": "high",
+      "manualReviewNeeded": false,
+      "sceneExactGmlObjectFound": true,
+      "sceneMeshEvidence": {
+        "meshCount": 7,
+        "boundsCenter": {
+          "x": 578.00354,
+          "y": 19.455,
+          "z": 270.088632
+        },
+        "boundsSize": {
+          "x": 78.958984,
+          "y": 38.91,
+          "z": 58.757969
+        }
+      },
+      "unityMarkerPosition": {
+        "x": 578.004,
+        "y": 0.08,
+        "z": 270.089
+      },
+      "markerInsideChuoBaseMapBounds": true,
+      "interactionTargetExists": true,
+      "officialUiMarkerCorrect": true,
+      "usesNonOfficialWarning": false,
+      "confidence": "verified_gml_anchor_high",
+      "anchorStatus": "verified_exact_plateau_gml_mesh_anchor",
+      "activeInGame": true,
+      "disabledReason": ""
+    },
+    {
+      "id": "chuo_official_emergency_017",
+      "name": "佃島小学校",
+      "lat": 35.668599,
+      "lon": 139.784518,
+      "coordinateReferenceSystem": "EPSG:4326",
+      "plateauBuildingId": "13102-bldg-8511",
+      "plateauGmlId": "bldg_3ca362a4-293c-4ac2-bfbb-018a20677e1a",
+      "matchMethod": "contains",
+      "matchConfidence": "high",
+      "manualReviewNeeded": false,
+      "sceneExactGmlObjectFound": false,
+      "sceneMeshEvidence": null,
+      "unityMarkerPosition": null,
+      "markerInsideChuoBaseMapBounds": false,
+      "interactionTargetExists": false,
+      "officialUiMarkerCorrect": false,
+      "usesNonOfficialWarning": null,
+      "confidence": "not_verified_for_active_gameplay",
+      "anchorStatus": "disabled_no_exact_scene_gml_mesh",
+      "activeInGame": false,
+      "disabledReason": "disabled_missing_from_new_map: matched PLATEAU GML ID was not found in Chuo_BaseMap mesh AABBs."
+    },
+    {
+      "id": "chuo_official_emergency_018",
+      "name": "佃中学校",
+      "lat": 35.667941,
+      "lon": 139.785025,
+      "coordinateReferenceSystem": "EPSG:4326",
+      "plateauBuildingId": "13102-bldg-8511",
+      "plateauGmlId": "bldg_3ca362a4-293c-4ac2-bfbb-018a20677e1a",
+      "matchMethod": "contains",
+      "matchConfidence": "high",
+      "manualReviewNeeded": false,
+      "sceneExactGmlObjectFound": false,
+      "sceneMeshEvidence": null,
+      "unityMarkerPosition": null,
+      "markerInsideChuoBaseMapBounds": false,
+      "interactionTargetExists": false,
+      "officialUiMarkerCorrect": false,
+      "usesNonOfficialWarning": null,
+      "confidence": "not_verified_for_active_gameplay",
+      "anchorStatus": "disabled_no_exact_scene_gml_mesh",
+      "activeInGame": false,
+      "disabledReason": "disabled_missing_from_new_map: matched PLATEAU GML ID was not found in Chuo_BaseMap mesh AABBs."
+    },
+    {
+      "id": "chuo_official_emergency_019",
+      "name": "月島第一小学校",
+      "lat": 35.660674,
+      "lon": 139.780093,
+      "coordinateReferenceSystem": "EPSG:4326",
+      "plateauBuildingId": "13102-bldg-5099",
+      "plateauGmlId": "bldg_1b30504b-e662-41fb-8da6-219dcef2b1a4",
+      "matchMethod": "contains",
+      "matchConfidence": "high",
+      "manualReviewNeeded": false,
+      "sceneExactGmlObjectFound": false,
+      "sceneMeshEvidence": null,
+      "unityMarkerPosition": null,
+      "markerInsideChuoBaseMapBounds": false,
+      "interactionTargetExists": false,
+      "officialUiMarkerCorrect": false,
+      "usesNonOfficialWarning": null,
+      "confidence": "not_verified_for_active_gameplay",
+      "anchorStatus": "disabled_no_exact_scene_gml_mesh",
+      "activeInGame": false,
+      "disabledReason": "disabled_missing_from_new_map: matched PLATEAU GML ID was not found in Chuo_BaseMap mesh AABBs."
+    },
+    {
+      "id": "chuo_official_emergency_020",
+      "name": "月島第二小学校",
+      "lat": 35.66017,
+      "lon": 139.775931,
+      "coordinateReferenceSystem": "EPSG:4326",
+      "plateauBuildingId": "13102-bldg-9813",
+      "plateauGmlId": "bldg_997fde71-9138-4d1a-ba84-6ff57047e6a7",
+      "matchMethod": "contains",
+      "matchConfidence": "high",
+      "manualReviewNeeded": false,
+      "sceneExactGmlObjectFound": false,
+      "sceneMeshEvidence": null,
+      "unityMarkerPosition": null,
+      "markerInsideChuoBaseMapBounds": false,
+      "interactionTargetExists": false,
+      "officialUiMarkerCorrect": false,
+      "usesNonOfficialWarning": null,
+      "confidence": "not_verified_for_active_gameplay",
+      "anchorStatus": "disabled_no_exact_scene_gml_mesh",
+      "activeInGame": false,
+      "disabledReason": "disabled_missing_from_new_map: matched PLATEAU GML ID was not found in Chuo_BaseMap mesh AABBs."
+    },
+    {
+      "id": "chuo_official_emergency_021",
+      "name": "月島第三小学校",
+      "lat": 35.658848,
+      "lon": 139.785703,
+      "coordinateReferenceSystem": "EPSG:4326",
+      "plateauBuildingId": "13102-bldg-7675",
+      "plateauGmlId": "bldg_28476e16-ba7c-4fe3-bf1d-90cf577fe301",
+      "matchMethod": "nearest",
+      "matchConfidence": "high",
+      "manualReviewNeeded": true,
+      "sceneExactGmlObjectFound": false,
+      "sceneMeshEvidence": null,
+      "unityMarkerPosition": null,
+      "markerInsideChuoBaseMapBounds": false,
+      "interactionTargetExists": false,
+      "officialUiMarkerCorrect": false,
+      "usesNonOfficialWarning": null,
+      "confidence": "not_verified_for_active_gameplay",
+      "anchorStatus": "disabled_no_exact_scene_gml_mesh",
+      "activeInGame": false,
+      "disabledReason": "disabled_missing_from_new_map: matched PLATEAU GML ID was not found in Chuo_BaseMap mesh AABBs."
+    },
+    {
+      "id": "chuo_official_emergency_022",
+      "name": "晴海中学校",
+      "lat": 35.659743,
+      "lon": 139.784908,
+      "coordinateReferenceSystem": "EPSG:4326",
+      "plateauBuildingId": "13102-bldg-1478",
+      "plateauGmlId": "bldg_f843c6a2-8d52-4dcc-bc01-bc7d0ede2733",
+      "matchMethod": "contains",
+      "matchConfidence": "high",
+      "manualReviewNeeded": false,
+      "sceneExactGmlObjectFound": false,
+      "sceneMeshEvidence": null,
+      "unityMarkerPosition": null,
+      "markerInsideChuoBaseMapBounds": false,
+      "interactionTargetExists": false,
+      "officialUiMarkerCorrect": false,
+      "usesNonOfficialWarning": null,
+      "confidence": "not_verified_for_active_gameplay",
+      "anchorStatus": "disabled_no_exact_scene_gml_mesh",
+      "activeInGame": false,
+      "disabledReason": "disabled_missing_from_new_map: matched PLATEAU GML ID was not found in Chuo_BaseMap mesh AABBs."
+    },
+    {
+      "id": "chuo_official_emergency_023",
+      "name": "豊海小学校",
+      "lat": 35.654366,
+      "lon": 139.773051,
+      "coordinateReferenceSystem": "EPSG:4326",
+      "plateauBuildingId": "13102-bldg-2954",
+      "plateauGmlId": "bldg_01c61dfd-c5c9-454f-afbc-662aa6709160",
+      "matchMethod": "nearest",
+      "matchConfidence": "medium",
+      "manualReviewNeeded": true,
+      "sceneExactGmlObjectFound": false,
+      "sceneMeshEvidence": null,
+      "unityMarkerPosition": null,
+      "markerInsideChuoBaseMapBounds": false,
+      "interactionTargetExists": false,
+      "officialUiMarkerCorrect": false,
+      "usesNonOfficialWarning": null,
+      "confidence": "not_verified_for_active_gameplay",
+      "anchorStatus": "disabled_no_exact_scene_gml_mesh",
+      "activeInGame": false,
+      "disabledReason": "disabled_missing_from_new_map: matched PLATEAU GML ID was not found in Chuo_BaseMap mesh AABBs."
+    },
+    {
+      "id": "chuo_official_emergency_024",
+      "name": "中央区役所",
+      "lat": 35.670599,
+      "lon": 139.77201,
+      "coordinateReferenceSystem": "EPSG:4326",
+      "plateauBuildingId": "13102-bldg-10473",
+      "plateauGmlId": "bldg_35741517-9a06-4d9b-81ed-d11ec2576b30",
+      "matchMethod": "contains",
+      "matchConfidence": "high",
+      "manualReviewNeeded": false,
+      "sceneExactGmlObjectFound": true,
+      "sceneMeshEvidence": {
+        "meshCount": 7,
+        "boundsCenter": {
+          "x": 157.03554,
+          "y": 29.072001,
+          "z": -719.987304
+        },
+        "boundsSize": {
+          "x": 79.061,
+          "y": 58.144002,
+          "z": 43.960092
+        }
+      },
+      "unityMarkerPosition": {
+        "x": 157.036,
+        "y": 0.08,
+        "z": -719.987
+      },
+      "markerInsideChuoBaseMapBounds": true,
+      "interactionTargetExists": true,
+      "officialUiMarkerCorrect": true,
+      "usesNonOfficialWarning": false,
+      "confidence": "verified_gml_anchor_high",
+      "anchorStatus": "verified_exact_plateau_gml_mesh_anchor",
+      "activeInGame": true,
+      "disabledReason": ""
+    },
+    {
+      "id": "chuo_official_emergency_025",
+      "name": "日本橋区民センター",
+      "lat": 35.682479,
+      "lon": 139.784287,
+      "coordinateReferenceSystem": "EPSG:4326",
+      "plateauBuildingId": "13102-bldg-12306",
+      "plateauGmlId": "bldg_8df3166b-df28-4208-9fbd-883cf98547a8",
+      "matchMethod": "contains",
+      "matchConfidence": "high",
+      "manualReviewNeeded": false,
+      "sceneExactGmlObjectFound": true,
+      "sceneMeshEvidence": {
+        "meshCount": 5,
+        "boundsCenter": {
+          "x": 1266.035,
+          "y": 17.935499,
+          "z": 597.5476
+        },
+        "boundsSize": {
+          "x": 57.159912,
+          "y": 35.870998,
+          "z": 52.289978
+        }
+      },
+      "unityMarkerPosition": {
+        "x": 1266.035,
+        "y": 0.08,
+        "z": 597.548
+      },
+      "markerInsideChuoBaseMapBounds": true,
+      "interactionTargetExists": true,
+      "officialUiMarkerCorrect": true,
+      "usesNonOfficialWarning": false,
+      "confidence": "verified_gml_anchor_high",
+      "anchorStatus": "verified_exact_plateau_gml_mesh_anchor",
+      "activeInGame": true,
+      "disabledReason": ""
+    },
+    {
+      "id": "chuo_official_emergency_026",
+      "name": "月島区民センター",
+      "lat": 35.661921,
+      "lon": 139.78192,
+      "coordinateReferenceSystem": "EPSG:4326",
+      "plateauBuildingId": "13102-bldg-3852",
+      "plateauGmlId": "bldg_fee39d2c-fd06-4f35-b0a1-a093a3e16fd5",
+      "matchMethod": "contains",
+      "matchConfidence": "high",
+      "manualReviewNeeded": false,
+      "sceneExactGmlObjectFound": false,
+      "sceneMeshEvidence": null,
+      "unityMarkerPosition": null,
+      "markerInsideChuoBaseMapBounds": false,
+      "interactionTargetExists": false,
+      "officialUiMarkerCorrect": false,
+      "usesNonOfficialWarning": null,
+      "confidence": "not_verified_for_active_gameplay",
+      "anchorStatus": "disabled_no_exact_scene_gml_mesh",
+      "activeInGame": false,
+      "disabledReason": "disabled_missing_from_new_map: matched PLATEAU GML ID was not found in Chuo_BaseMap mesh AABBs."
+    },
+    {
+      "id": "chuo_official_emergency_027",
+      "name": "(旧)ほっとプラザはるみ",
+      "lat": 35.652023,
+      "lon": 139.774843,
+      "coordinateReferenceSystem": "EPSG:4326",
+      "plateauBuildingId": "13102-bldg-525",
+      "plateauGmlId": "bldg_c64d9bf2-61ed-48d8-8315-8efadf440863",
+      "matchMethod": "contains",
+      "matchConfidence": "high",
+      "manualReviewNeeded": false,
+      "sceneExactGmlObjectFound": false,
+      "sceneMeshEvidence": null,
+      "unityMarkerPosition": null,
+      "markerInsideChuoBaseMapBounds": false,
+      "interactionTargetExists": false,
+      "officialUiMarkerCorrect": false,
+      "usesNonOfficialWarning": null,
+      "confidence": "not_verified_for_active_gameplay",
+      "anchorStatus": "disabled_no_exact_scene_gml_mesh",
+      "activeInGame": false,
+      "disabledReason": "disabled_missing_from_new_map: matched PLATEAU GML ID was not found in Chuo_BaseMap mesh AABBs."
+    },
+    {
+      "id": "chuo_official_emergency_028",
+      "name": "あかつき公園一帯",
+      "lat": 35.665155,
+      "lon": 139.770788,
+      "coordinateReferenceSystem": "EPSG:4326",
+      "plateauBuildingId": null,
+      "plateauGmlId": null,
+      "matchMethod": "unmatched",
+      "matchConfidence": "low",
+      "manualReviewNeeded": true,
+      "sceneExactGmlObjectFound": false,
+      "sceneMeshEvidence": null,
+      "unityMarkerPosition": null,
+      "markerInsideChuoBaseMapBounds": false,
+      "interactionTargetExists": false,
+      "officialUiMarkerCorrect": false,
+      "usesNonOfficialWarning": null,
+      "confidence": "not_verified_for_active_gameplay",
+      "anchorStatus": "disabled_no_plateau_gml_anchor",
+      "activeInGame": false,
+      "disabledReason": "disabled_missing_from_new_map: official record has no unambiguous PLATEAU GML anchor."
+    },
+    {
+      "id": "chuo_official_emergency_029",
+      "name": "新川ツインビル地区",
+      "lat": 35.677069,
+      "lon": 139.782438,
+      "coordinateReferenceSystem": "EPSG:4326",
+      "plateauBuildingId": null,
+      "plateauGmlId": null,
+      "matchMethod": "unmatched",
+      "matchConfidence": "low",
+      "manualReviewNeeded": true,
+      "sceneExactGmlObjectFound": false,
+      "sceneMeshEvidence": null,
+      "unityMarkerPosition": null,
+      "markerInsideChuoBaseMapBounds": false,
+      "interactionTargetExists": false,
+      "officialUiMarkerCorrect": false,
+      "usesNonOfficialWarning": null,
+      "confidence": "not_verified_for_active_gameplay",
+      "anchorStatus": "disabled_no_plateau_gml_anchor",
+      "activeInGame": false,
+      "disabledReason": "disabled_missing_from_new_map: official record has no unambiguous PLATEAU GML anchor."
+    },
+    {
+      "id": "chuo_official_emergency_030",
+      "name": "佃リバーシティ地区",
+      "lat": 35.666185,
+      "lon": 139.784641,
+      "coordinateReferenceSystem": "EPSG:4326",
+      "plateauBuildingId": null,
+      "plateauGmlId": null,
+      "matchMethod": "unmatched",
+      "matchConfidence": "low",
+      "manualReviewNeeded": true,
+      "sceneExactGmlObjectFound": false,
+      "sceneMeshEvidence": null,
+      "unityMarkerPosition": null,
+      "markerInsideChuoBaseMapBounds": false,
+      "interactionTargetExists": false,
+      "officialUiMarkerCorrect": false,
+      "usesNonOfficialWarning": null,
+      "confidence": "not_verified_for_active_gameplay",
+      "anchorStatus": "disabled_no_plateau_gml_anchor",
+      "activeInGame": false,
+      "disabledReason": "disabled_missing_from_new_map: official record has no unambiguous PLATEAU GML anchor."
+    },
+    {
+      "id": "chuo_official_emergency_031",
+      "name": "晴海地区",
+      "lat": 35.653904,
+      "lon": 139.780439,
+      "coordinateReferenceSystem": "EPSG:4326",
+      "plateauBuildingId": null,
+      "plateauGmlId": null,
+      "matchMethod": "unmatched",
+      "matchConfidence": "low",
+      "manualReviewNeeded": true,
+      "sceneExactGmlObjectFound": false,
+      "sceneMeshEvidence": null,
+      "unityMarkerPosition": null,
+      "markerInsideChuoBaseMapBounds": false,
+      "interactionTargetExists": false,
+      "officialUiMarkerCorrect": false,
+      "usesNonOfficialWarning": null,
+      "confidence": "not_verified_for_active_gameplay",
+      "anchorStatus": "disabled_no_plateau_gml_anchor",
+      "activeInGame": false,
+      "disabledReason": "disabled_missing_from_new_map: official record has no unambiguous PLATEAU GML anchor."
+    }
+  ]
+}

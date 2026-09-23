@@ -1,0 +1,74 @@
+{
+  "generatedAt": "2026-05-27T19:21:33+09:00",
+  "activeScene": "Assets/Scenes/Chuo_BaseMap.unity",
+  "phase": "P5",
+  "finalStatus": "completed_with_documented_runtime_proxy",
+  "coordinateTransformStatus": "transform_validated_from_official_anchors",
+  "routeGeometryStatus": "validated_on_new_chuo_basemap_for_estimated_prototype_guidance",
+  "oldRouteRecords": 135,
+  "oldRouteGeometryValidatedCount": 60,
+  "oldRouteRuntimeSpawnCount": 0,
+  "oldRouteDisabledRuntimeCount": 135,
+  "activeLocalRouteProxyCount": 4,
+  "officialRouteClaimCount": 0,
+  "prototypeGuidanceWording": "estimated prototype guidance; not an official evacuation route; not GIS-grade validation",
+  "remainingLimitation": "Validated old route geometry is report-only and recovered candidate route linkage is proximity/proxy evidence only; no official route overlay is claimed.",
+  "activeRecoveredNonOfficialCandidateCount": 78,
+  "recoveredCandidateRouteProxyCheck": {
+    "activeCandidateCount": 78,
+    "validatedPrototypeRouteCount": 60,
+    "nearestPrototypeRouteThresholdMeters": 120.0,
+    "candidatesWithin120MetersOfValidatedPrototypeRoute": 50,
+    "examples": [
+      {
+        "candidateId": "p8_plateau_highrise_candidate_001",
+        "candidateName": "\u8056\u8def\u52a0\u30ac\u30fc\u30c7\u30f3\u30bf\u30ef\u30fc",
+        "nearestValidatedPrototypeRouteMeters": 62.524,
+        "prototypeConnectionEligible": true
+      },
+      {
+        "candidateId": "p8_plateau_highrise_candidate_002",
+        "candidateName": "\u65e5\u672c\u6a4b\u4e09\u4e95\u30bf\u30ef\u30fc",
+        "nearestValidatedPrototypeRouteMeters": 206.025,
+        "prototypeConnectionEligible": false
+      },
+      {
+        "candidateId": "p8_plateau_highrise_candidate_003",
+        "candidateName": "\u6771\u4eac\u65e5\u672c\u6a4b\u30bf\u30ef\u30fc",
+        "nearestValidatedPrototypeRouteMeters": 59.21,
+        "prototypeConnectionEligible": true
+      },
+      {
+        "candidateId": "p8_plateau_highrise_candidate_004",
+        "candidateName": "\u65e5\u672c\u6a4b\u9ad8\u5cf6\u5c4b\u4e09\u4e95\u30d3\u30eb\u30c7\u30a3\u30f3\u30b0",
+        "nearestValidatedPrototypeRouteMeters": 60.203,
+        "prototypeConnectionEligible": true
+      },
+      {
+        "candidateId": "p8_plateau_highrise_candidate_005",
+        "candidateName": "\u96fb\u6e90\u958b\u767a\u682a\u5f0f\u4f1a\u793e(\u672c\u5e97)",
+        "nearestValidatedPrototypeRouteMeters": 44.275,
+        "prototypeConnectionEligible": true
+      },
+      {
+        "candidateId": "p8_plateau_highrise_candidate_006",
+        "candidateName": "\u30a2\u30fc\u30c6\u30a3\u30be\u30f3\u7f8e\u8853\u9928",
+        "nearestValidatedPrototypeRouteMeters": 63.137,
+        "prototypeConnectionEligible": true
+      },
+      {
+        "candidateId": "p8_plateau_highrise_candidate_007",
+        "candidateName": "\u65e9\u7a32\u7530\u5927\u5b66\u65e5\u672c\u6a4b\u30ad\u30e3\u30f3\u30d1\u30b9",
+        "nearestValidatedPrototypeRouteMeters": 26.438,
+        "prototypeConnectionEligible": true
+      },
+      {
+        "candidateId": "p8_plateau_highrise_candidate_009",
+        "candidateName": "\u7279\u5225\u990a\u8b77\u8001\u4eba\u30db\u30fc\u30e0\u300c\u3064\u304d\u3057\u307e\u300d",
+        "nearestValidatedPrototypeRouteMeters": 601.6,
+        "prototypeConnectionEligible": false
+      }
+    ],
+    "note": "Proximity to an estimated prototype route is evidence only. It is not an official route and is not spawned as an official route overlay."
+  }
+}

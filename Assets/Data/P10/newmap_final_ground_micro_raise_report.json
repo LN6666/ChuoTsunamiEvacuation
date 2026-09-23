@@ -1,0 +1,30 @@
+﻿{
+    "generatedAt":  "2026-05-30T08:00:00+09:00",
+    "activeScene":  "Assets/Scenes/Chuo_BaseMap.unity",
+    "configPath":  "Assets/Data/P10/newmap_final_ground_micro_raise_config.json",
+    "enabled":  true,
+    "buildingsMoved":  false,
+    "importedPlateauGeometryMoved":  false,
+    "previousGroundY":  3,
+    "additionalRaiseMeters":  0.3,
+    "maxAdditionalRaiseMeters":  1.0,
+    "newGroundY":  3.3,
+    "playerSpawnOldY":  3.04,
+    "playerSpawnNewY":  3.34,
+    "npcOldY":  3.04,
+    "npcNewY":  3.34,
+    "activeTargetOldY":  3.04,
+    "activeTargetNewY":  3.34,
+    "greenFrameOldY":  3.1,
+    "greenFrameNewY":  3.4,
+    "remainingBuildingGapEstimateMeters":  {
+                                               "previousAverage":  0.45,
+                                               "estimatedNewAverage":  0.32,
+                                               "previousMax":  3.12,
+                                               "estimatedNewMax":  2.82
+                                           },
+    "overRaiseRiskCount":  0,
+    "sampledBuildingFloatImprovement":  "player_log_estimated_average_gap_reduced_by_0.30m_from_previous_runtime_sample",
+    "runtimeStatus":  "validated_by_player_log",
+    "notGisGradeTerrainValidationClaim":  true
+}

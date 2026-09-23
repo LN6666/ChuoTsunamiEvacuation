@@ -1,0 +1,32 @@
+﻿{
+    "generatedAt":  "2026-05-26T17:22:10+09:00",
+    "tourismMode":  {
+                        "labelEn":  "Tourism Mode",
+                        "labelJa":  "観光モード",
+                        "tsunami":  false,
+                        "warning":  false,
+                        "lightCurtain":  false,
+                        "hazardFailure":  false,
+                        "crowdFailure":  false,
+                        "collapseDebrisFailure":  false,
+                        "staminaEnabled":  false,
+                        "walkSpeedMetersPerSecond":  2,
+                        "sprintSpeedMetersPerSecond":  10
+                    },
+    "evacuationMode":  {
+                           "labelEn":  "Evacuation Mode",
+                           "labelJa":  "避難モード",
+                           "twoStageTsunami":  true,
+                           "stage1":  "Warning",
+                           "stage2":  "FrontApproaching",
+                           "staminaEnabled":  true,
+                           "walkSpeedMetersPerSecond":  1,
+                           "sprintSpeedMetersPerSecond":  5,
+                           "weatherModifiers":  {
+                                                    "clear_day":  1,
+                                                    "rainy_day":  0.75,
+                                                    "night_clear":  0.85,
+                                                    "night_rain":  0.65
+                                                }
+                       }
+}

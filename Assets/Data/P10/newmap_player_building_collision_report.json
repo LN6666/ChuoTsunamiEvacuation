@@ -1,0 +1,17 @@
+﻿{
+    "generatedAt":  "2026-05-29T20:20:00+09:00",
+    "activeScene":  "Assets/Scenes/Chuo_BaseMap.unity",
+    "playerBuildingCollisionEnabled":  true,
+    "collisionMethod":  "lightweight_renderer_bounds_obstacle_correction",
+    "fullBuildingMeshCollidersRequired":  false,
+    "playerLayerInteractsWithBuildingProxy":  true,
+    "groundCoverAllowsBuildingEntry":  false,
+    "spawnRejectsInsideBuilding":  true,
+    "playerCannotGetTrappedInsideBuildingCollider":  "bounds_correction_uses_nearest_outside_position",
+    "buildingObstacleProxyBoundsCount":  12742,
+    "playerCollisionBlockedCount":  0,
+    "playerCollisionRecoveryCount":  0,
+    "interactionZonesRemainReachable":  true,
+    "playerCannotEnterSampledBuildingBounds":  true,
+    "runtimeValidationStatus":  "validated_by_player_smoke"
+}

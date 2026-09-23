@@ -1,0 +1,20 @@
+{
+  "generatedAt": "2026-05-27T00:00:00+09:00",
+  "activeScene": "Assets/Scenes/Chuo_BaseMap.unity",
+  "finalStatus": "completed_with_documented_runtime_proxy",
+  "playerLogRequirement": "No errors or exceptions; intentional failure outcomes log as info.",
+  "scenarios": [
+    { "scenario": "tourism_free_roam_no_failure", "status": "completed_with_documented_runtime_proxy", "reasonCode": "Tourism inspection", "resultPanelText": "No evacuation success/failure is applied.", "activeTargetUsed": "newmap_proxy_safe_floor" },
+    { "scenario": "evacuation_success", "status": "completed_with_documented_runtime_proxy", "reasonCode": "safe_floor_reached", "resultPanelText": "Reached the runtime safe-floor proxy before the Stage 2 risk front arrived.", "activeTargetUsed": "newmap_proxy_safe_floor" },
+    { "scenario": "warning_before_front", "status": "completed_with_documented_runtime_proxy", "reasonCode": "stage_warning", "resultPanelText": "Stage 1 Warning active; guidance hidden.", "activeTargetUsed": "newmap_proxy_safe_floor" },
+    { "scenario": "green_frame_after_front", "status": "completed_with_documented_runtime_proxy", "reasonCode": "stage_front_approaching", "resultPanelText": "Stage 2 active; guidance visible.", "activeTargetUsed": "newmap_proxy_safe_floor" },
+    { "scenario": "entrance_interaction_success", "status": "completed_with_documented_runtime_proxy", "reasonCode": "Entering shelter proxy", "resultPanelText": "Safe-floor proxy started.", "activeTargetUsed": "newmap_proxy_safe_floor" },
+    { "scenario": "crowd_delay_scenario", "status": "completed_with_documented_runtime_proxy", "reasonCode": "Entering shelter proxy", "resultPanelText": "Crowd delay shown and greater than 0.0s.", "activeTargetUsed": "newmap_proxy_crowd_delay" },
+    { "scenario": "entrance_blocked_failure", "status": "completed_with_documented_runtime_proxy", "reasonCode": "entrance_blocked", "resultPanelText": "Entrance is blocked in this runtime test condition.", "activeTargetUsed": "newmap_proxy_blocked_entrance" },
+    { "scenario": "safe_floor_failure", "status": "completed_with_documented_runtime_proxy", "reasonCode": "safe_floor_unavailable", "resultPanelText": "No usable vertical evacuation path.", "activeTargetUsed": "newmap_proxy_no_safe_floor" },
+    { "scenario": "collapse_debris_exposure_event", "status": "completed_with_documented_runtime_proxy", "reasonCode": "collapse_debris_exposure", "resultPanelText": "Player remained in the marked debris hazard area during Stage 2.", "activeTargetUsed": "newmap_proxy_safe_floor" },
+    { "scenario": "collapse_disabled_success", "status": "completed_with_documented_runtime_proxy", "reasonCode": "Tourism inspection", "resultPanelText": "Tourism Mode keeps collapse/debris failure disabled.", "activeTargetUsed": "newmap_proxy_safe_floor" },
+    { "scenario": "disabled_targets_not_spawned", "status": "completed_with_documented_runtime_proxy", "reasonCode": "disabled_targets_absent", "resultPanelText": "Disabled records are absent from runtime target flow.", "activeTargetUsed": "newmap_proxy_safe_floor as control target; disabled records absent" }
+  ],
+  "testEvidence": "RuntimeP9HardeningScenariosProduceRequiredOutcomes"
+}

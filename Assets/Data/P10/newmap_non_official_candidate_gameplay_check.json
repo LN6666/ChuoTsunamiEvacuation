@@ -1,0 +1,16 @@
+{
+  "generatedAt": "2026-05-27T20:14:37+09:00",
+  "activeScene": "Assets/Scenes/Chuo_BaseMap.unity",
+  "finalStatus": "completed_with_documented_runtime_proxy",
+  "activeNonOfficialTrainingTargetCount": 82,
+  "activeRecoveredNonOfficialHumanitarianCandidateCount": 78,
+  "activeLocalTrainingTargetCount": 4,
+  "allActiveNonOfficialHaveWarningRequired": true,
+  "allActiveNonOfficialAreOfficial": false,
+  "safeApprovedByDefault": false,
+  "nonOfficialFlowScenario": "success_non_official_candidate_with_warning",
+  "nonOfficialFlowPlayerSmokePassed": true,
+  "disabledOutOfMapCandidateCount": 32,
+  "disabledCandidatesShown": false,
+  "renderingPolicy": "Markers are active; green frames for recovered candidates are lazy-created only in Evacuation Stage 2."
+}

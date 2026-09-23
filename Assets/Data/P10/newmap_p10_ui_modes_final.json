@@ -1,0 +1,33 @@
+﻿{
+    "generatedAt":  "2026-05-26T21:46:23+09:00",
+    "activeScene":  "Assets/Scenes/Chuo_BaseMap.unity",
+    "finalStatus":  "completed_with_documented_runtime_proxy",
+    "startMenu":  true,
+    "languageSwitchEnglishJapanese":  true,
+    "scrollableRulesUi":  true,
+    "pauseMenu":  "Resume now unpauses the controller; Quit to Menu and Force Quit remain available.",
+    "tourismModeSelectable":  true,
+    "evacuationModeSelectable":  true,
+    "tourismSpeed":  {
+                         "walk":  2,
+                         "sprint":  10,
+                         "stamina":  "disabled",
+                         "failure":  "disabled"
+                     },
+    "evacuationSpeed":  {
+                            "walk":  1,
+                            "sprint":  5,
+                            "stamina":  "enabled",
+                            "failure":  "enabled"
+                        },
+    "weatherNightModifiers":  {
+                                  "clear_day":  1,
+                                  "rainy_day":  0.75,
+                                  "night_clear":  0.85,
+                                  "night_rain":  0.65
+                              },
+    "nightOverlay":  "No opaque night overlay is applied; marker/UI visibility is preserved.",
+    "greenFrames":  "visible for 4 active non-official training targets only during Evacuation Stage 2",
+    "nonOfficialWarningsPreserved":  true,
+    "resultPanelReadable":  true
+}

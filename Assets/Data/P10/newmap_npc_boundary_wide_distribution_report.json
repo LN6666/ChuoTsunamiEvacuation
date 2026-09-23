@@ -1,0 +1,25 @@
+﻿{
+    "activeScene":  "Assets/Scenes/Chuo_BaseMap.unity",
+    "boundaryCenterSource":  "same_as_circular_boundary",
+    "boundaryRadiusMeters":  2270,
+    "npcDistributionRadiusMeters":  2270,
+    "sectorCount":  48,
+    "ringCount":  8,
+    "npcsPerRingSectorPolicy":  "deterministic_sector_ring_fill_with_random_jitter",
+    "snapToRaisedGround":  true,
+    "avoidBuildings":  true,
+    "generatedAt":  "2026-05-31T01:45:49",
+    "boundaryCenter":  {
+                           "x":  -2.14,
+                           "z":  474.58
+                       },
+    "npcsInsideBoundary":  1600,
+    "npcsOutsideBoundary":  0,
+    "rejectedBuildingOverlapSpawns":  537,
+    "rejectedInvalidZoneSpawns":  542,
+    "averageDistanceFromMapCenter":  1215.02,
+    "maxDistanceFromMapCenter":  2267.44,
+    "distributionCoveragePercent":  98.18,
+    "clumpingScore":  "broad_coverage_98.18_percent",
+    "runtimeValidationStatus":  "validated_by_player_log"
+}

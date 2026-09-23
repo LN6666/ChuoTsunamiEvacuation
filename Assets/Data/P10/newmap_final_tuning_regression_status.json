@@ -1,0 +1,23 @@
+﻿{
+    "generatedAt":  "2026-05-30T08:00:00+09:00",
+    "activeScene":  "Assets/Scenes/Chuo_BaseMap.unity",
+    "blueGroundFallThroughFixed":  true,
+    "playerGrounded":  true,
+    "npcGrounded":  true,
+    "npcQuantityDistributionPreserved":  true,
+    "npcLifecycleStable":  true,
+    "npcCollisionSoftBlockingPreserved":  true,
+    "airWallsBoundaryPreservedViaCircularClamp":  true,
+    "routeGreenFrameLabelNonBlocking":  true,
+    "officialNonOfficialWarningsPreserved":  true,
+    "namesCacheLabelsPreserved":  true,
+    "mouseLeftRightDragLookPreserved":  true,
+    "dayNightLightingPreserved":  true,
+    "p2ToP10SmokeStatus":  "passed",
+    "playerLogClean":  true,
+    "noFinalReleaseArchiveCreated":  true,
+    "noP10EFGCreated":  true,
+    "deepSeekReview":  "PASS_WITH_NOTES_no_A_level_blockers",
+    "manualReadinessDecision":  "ready_with_documented_visual_limitations",
+    "finalStatus":  "ready_with_documented_visual_limitations"
+}

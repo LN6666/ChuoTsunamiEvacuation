@@ -1,0 +1,15 @@
+﻿{
+    "generatedAt":  "2026-05-29T20:20:00+09:00",
+    "activeScene":  "Assets/Scenes/Chuo_BaseMap.unity",
+    "importedBuildingsMoved":  false,
+    "failedAdaptiveGridReenabled":  false,
+    "remainingLimitations":  "Ground cover raise is gameplay visual alignment against accepted cover height, not GIS-grade PLATEAU terrain correction. Runtime sampling/build smoke updates counts.",
+    "recommendationIfManyStillFloat":  "Use local patch or manual exclusion for outlier clusters; do not re-enable the failed adaptive grid.",
+    "buildingsChecked":  10787,
+    "buildingsStillFloatingOverThreshold":  "remaining_outliers_present",
+    "buildingsNowAligned":  "aggregate_gap_reduced_by_ground_raise",
+    "buildingsPossiblyEmbeddedDueGroundRaise":  0,
+    "remainingAverageGapMeters":  0.45,
+    "remainingMaxGapMeters":  3.12,
+    "runtimeValidationStatus":  "validated_by_player_smoke_manual_visual_check_required"
+}

@@ -1,0 +1,17 @@
+﻿{
+    "generatedAt":  "2026-05-27T18:35:46",
+    "activeScene":  "Assets/Scenes/Chuo_BaseMap.unity",
+    "buildPath":  "D:\\UnityProjects\\ChuoTsunamiEvacuation-Builds\\NewMapNoMemoryFocusPre\\ChuoTsunamiEvacuation_NewMapNoMemoryFocusPre.exe",
+    "buildExists":  true,
+    "unityExitCode":  0,
+    "logPath":  "D:\\UnityProjects\\ChuoTsunamiEvacuation\\Logs\\newmap_no_memory_focus_build.log",
+    "finalStatus":  "completed_on_new_chuo_basemap",
+    "note":  "Temporary no-memory-focus hardening build only. This is not a final release package.",
+    "launchSmoke":  "passed",
+    "performanceSampling":  "completed",
+    "maxPrivateMemoryBytes":  21983334400,
+    "maxWorkingSetBytes":  7542792192,
+    "playerLogSummary":  "completed",
+    "playerLogErrors":  0,
+    "playerLogWarnings":  0
+}

@@ -1,0 +1,60 @@
+{
+  "generatedAt": "2026-05-30T21:41:16+09:00",
+  "activeScene": "Assets/Scenes/Chuo_BaseMap.unity",
+  "status": "completed",
+  "runtimeNetworkRequestsAllowed": false,
+  "queryCandidates": 32,
+  "onlineQueriesAttempted": 24,
+  "onlineQueriesSucceeded": 19,
+  "onlineQueriesFailed": 5,
+  "onlineMatchesAccepted": 18,
+  "namesNewlyAdded": 31,
+  "namesRejected": 1,
+  "localSourceNamesUsed": 13,
+  "providerUsed": [
+    "project_dataset/local_osm_cache",
+    "OpenStreetMap Overpass/Nominatim"
+  ],
+  "rateLimitSeconds": 1.1,
+  "attributionRequired": true,
+  "networkFailureDetails": [
+    {
+      "candidateId": "p8_plateau_highrise_candidate_042",
+      "provider": "overpass",
+      "error": "HTTPError",
+      "message": "HTTP Error 429: Too Many Requests"
+    },
+    {
+      "candidateId": "p8_plateau_highrise_candidate_045",
+      "provider": "overpass",
+      "error": "HTTPError",
+      "message": "HTTP Error 504: Gateway Timeout"
+    },
+    {
+      "candidateId": "p8_plateau_highrise_candidate_076",
+      "provider": "overpass",
+      "error": "HTTPError",
+      "message": "HTTP Error 504: Gateway Timeout"
+    },
+    {
+      "candidateId": "p8_plateau_highrise_candidate_095",
+      "provider": "overpass",
+      "error": "HTTPError",
+      "message": "HTTP Error 429: Too Many Requests"
+    },
+    {
+      "candidateId": "p8_plateau_highrise_candidate_098",
+      "provider": "overpass",
+      "error": "HTTPError",
+      "message": "HTTP Error 429: Too Many Requests"
+    }
+  ],
+  "onlineQueriesAttemptedExplanation": "",
+  "remainingUnnamedCount": 1,
+  "normalization": {
+    "japaneseKanjiMainNameOnly": true,
+    "fabricatedNamesAllowed": false,
+    "fullAddressesHidden": true,
+    "idOnlyHiddenInNormalMode": true
+  }
+}

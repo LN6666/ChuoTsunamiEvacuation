@@ -1,0 +1,15 @@
+{
+  "generatedAt": "2026-05-29T17:00:00+09:00",
+  "activeScene": "Assets/Scenes/Chuo_BaseMap.unity",
+  "normalGameplayPolicy": "large blue support/debug/fall-through areas must not be visible or accessible",
+  "supportDebugRenderersHidden": true,
+  "visibleRoadLikeCoverEnabled": true,
+  "coverMaterialBlue": false,
+  "coverMaterialDebug": false,
+  "largeBlueSupportRendererAllowed": false,
+  "knownBlueFallZonesAccessible": false,
+  "blueFallThroughAreasInsidePlayableBoundsCovered": true,
+  "outsideMapAreasBlockedByAirWalls": true,
+  "remainingBlueWaterOrOutsideMapArea": "not intended as playable; blocked by air walls if outside bounds",
+  "finalStatus": "covered_or_blocked_pending_player_build_smoke"
+}

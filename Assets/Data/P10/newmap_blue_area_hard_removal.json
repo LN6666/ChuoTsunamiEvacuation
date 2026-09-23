@@ -1,0 +1,11 @@
+﻿{
+    "generatedAt":  "2026-05-29T16:28:16",
+    "hardRemovalEnabled":  true,
+    "normalModeVisibleBlueSupportCount":  0,
+    "largeVisibleBluePlaneCount":  0,
+    "supportGridRendererActive":  false,
+    "knownBlueDebugObjectActive":  false,
+    "supportRendererEnabledInNormalMode":  false,
+    "runtimeCodeDisablesLargeBlueGroundLikeRenderers":  true,
+    "finalStatus":  "validated_by_player_smoke"
+}

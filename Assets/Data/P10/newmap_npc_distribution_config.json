@@ -1,0 +1,23 @@
+{
+  "enabled": true,
+  "npcCountMultiplier": 200,
+  "distributionRadiusMeters": 2270,
+  "minDistanceFromPlayerMeters": 20,
+  "minDistanceBetweenNpcMeters": 3,
+  "maxNpcCount": 1600,
+  "npcDistributionSeed": 20260530,
+  "useSectorDistribution": true,
+  "sectorCount": 48,
+  "ringCount": 8,
+  "maxNpcPerSector": 64,
+  "snapToGround": true,
+  "snapToGroundCover": true,
+  "useGroundProxyFallback": true,
+  "avoidBuildings": true,
+  "usePooling": true,
+  "farNpcUpdateThrottle": true,
+  "farNpcStaticProxyMode": true,
+  "tourismCrowdFailureDisabled": true,
+  "evacuationCrowdDelayBounded": true,
+  "minDistanceFromBuildingMeters": 2
+}

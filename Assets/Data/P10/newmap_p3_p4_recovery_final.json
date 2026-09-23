@@ -1,0 +1,10 @@
+{
+  "generatedAt": "2026-05-27T19:21:33+09:00",
+  "activeScene": "Assets/Scenes/Chuo_BaseMap.unity",
+  "phase": "P3/P4",
+  "finalStatus": "completed_on_new_chuo_basemap",
+  "officialShelterStatus": "official_shelters_recovered",
+  "activeOfficialShelterCount": 15,
+  "officialAnchorEvidence": "Exact PLATEAU GML anchors remain verified in newmap_official_shelter_anchor_final_check.json.",
+  "nonOfficialSeparation": "Recovered humanitarian candidates remain non-official and do not alter official shelter counts or labels."
+}

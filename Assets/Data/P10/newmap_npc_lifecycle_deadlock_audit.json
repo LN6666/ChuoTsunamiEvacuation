@@ -1,0 +1,36 @@
+﻿{
+    "activeScene":  "Assets/Scenes/Chuo_BaseMap.unity",
+    "npcCountSpawnedExpected":  800,
+    "globalPauseStopFlags":  {
+                                 "allowGlobalRefresh":  false,
+                                 "globalRespawnIntervalSeconds":  0.0,
+                                 "collisionWithPlayerDoesNotGlobalPause":  true
+                             },
+    "collisionTriggeredStateChanges":  "local sidestep/repath only",
+    "likelyCausesFound":  [
+                              "far NPC update throttling used the original spawn center instead of the current player transform",
+                              "player-NPC overlap could leave nearby NPCs at a zero-distance target without a local sidestep",
+                              "stuck recovery could record stoppedWithoutReason instead of forcing an explainable recovery/repath state"
+                          ],
+    "fixesApplied":  [
+                         "NPC crowd receives the live player transform as update reference",
+                         "player-NPC contact increments local contact diagnostics and creates local sidestep/repath behavior",
+                         "stuck NPCs try multiple valid ground/building-avoiding recovery offsets before entering Repathing",
+                         "all-stop prevention kicks a bounded subset back into Repathing if tourism NPCs all become non-moving"
+                     ],
+    "stateCounts10s":  "pending_player_smoke",
+    "stateCounts30s":  "pending_player_smoke",
+    "stateCounts60s":  "pending_player_smoke",
+    "stateCounts180s":  "pending_player_smoke",
+    "generatedAt":  "2026-05-30T01:19:57",
+    "npcCountRequested":  800,
+    "npcCountSpawned":  800,
+    "globalRespawnCount":  0,
+    "individualRespawnCount":  0,
+    "poolRecycleCount":  0,
+    "destroyCount":  0,
+    "instantiateCountAfterStartup":  0,
+    "allStopEventDetected":  false,
+    "stoppedWithoutReasonCount":  0,
+    "finalStatus":  "validated_by_player_log"
+}

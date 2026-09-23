@@ -1,0 +1,17 @@
+{
+    "generatedAt": "2026-05-29T13:03:18+09:00",
+    "airWallsStillExist": false,
+    "airWallsInvisible": true,
+    "blockMapBoundary": true,
+    "boundaryMethod": "runtime_circular_clamp",
+    "circularBoundaryRadiusMeters": 2270.0,
+    "playerCannotLeavePlayableAreaExpected": true,
+    "npcsStayInsideExpected": true,
+    "spawnCannotOccurOutside": true,
+    "activeTargetsOutsideBoundsDisabled": true,
+    "routeGuidanceOutsideBoundsDisabled": true,
+    "debugBoundaryVisualizationOffByDefault": true,
+    "expectedColliderCount": 0,
+    "expectedVisibleRendererCount": 0,
+    "status": "replaced_by_circular_boundary_runtime_clamp"
+}

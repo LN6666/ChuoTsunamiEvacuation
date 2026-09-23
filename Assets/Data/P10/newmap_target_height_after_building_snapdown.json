@@ -1,0 +1,14 @@
+﻿{
+    "generatedAt":  "2026-05-29T19:00:00+09:00",
+    "activeScene":  "Assets/Scenes/Chuo_BaseMap.unity",
+    "targetHeightReference":  "gameplay_ground_cover",
+    "officialShelterMarkersRemainRuntimeCreatedAfterSnapdown":  true,
+    "nonOfficialCandidateMarkersRemainRuntimeCreatedAfterSnapdown":  true,
+    "greenFramesAlignToGroundCover":  true,
+    "interactionZonesAlignToGroundCover":  true,
+    "resultPanelTargetDataMovedSeparately":  false,
+    "routeProxyTargetPositionsUseRuntimeTargetAnchors":  true,
+    "maxActiveTargetHeightOffsetMeters":  0,
+    "activeTargetHeightOffsetViolations":  0,
+    "finalStatus":  "validated_by_player_smoke"
+}

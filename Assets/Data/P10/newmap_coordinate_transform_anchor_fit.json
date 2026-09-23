@@ -1,0 +1,250 @@
+{
+  "generatedAt": "2026-05-27T18:21:16+09:00",
+  "activeScene": "Assets/Scenes/Chuo_BaseMap.unity",
+  "coordinateTransformStatus": "transform_validated_from_official_anchors",
+  "finalStatus": "completed_with_documented_runtime_proxy",
+  "validationScope": "Prototype WGS84-to-Unity placement for NewMap route geometry. This is not a GIS-grade or official route validation.",
+  "officialPointSourceCrs": "EPSG:4326",
+  "routeGeometrySourceCrs": "EPSG:4326",
+  "controlPointSource": "15 active official shelters with exact PLATEAU GML mesh anchors in Chuo_BaseMap",
+  "mapBoundsFromSceneMeshAabbs": {
+    "meshAabbCount": 65062,
+    "min": {
+      "x": -1363.544983,
+      "y": -8.516,
+      "z": -1902.083333
+    },
+    "max": {
+      "x": 1359.255515,
+      "y": 241.546006,
+      "z": 2851.238
+    },
+    "center": {
+      "x": -2.144734,
+      "y": 116.515003,
+      "z": 474.577334
+    },
+    "size": {
+      "x": 2722.800498,
+      "y": 250.062006,
+      "z": 4753.321333
+    }
+  },
+  "wgs84ToUnityTransformAvailable": true,
+  "routePointsValidatedInUnity": true,
+  "fit": {
+    "status": "transform_validated_from_official_anchors",
+    "origin": {
+      "lat": 35.676705467,
+      "lon": 139.7743818
+    },
+    "affine2d": {
+      "unityX": {
+        "eastCoefficient": 0.9988677447438262,
+        "northCoefficient": 0.0018613727090164454,
+        "offset": 371.2005333317931
+      },
+      "unityZ": {
+        "eastCoefficient": -0.004203873922967874,
+        "northCoefficient": 0.9939607932572929,
+        "offset": -42.41846666660787
+      }
+    },
+    "thresholds": {
+      "minimumControlPoints": 8,
+      "meanResidualMetersMax": 10.0,
+      "rmsResidualMetersMax": 10.0,
+      "maxResidualMetersMax": 25.0,
+      "routeEndpointResidualMetersMax": 80.0,
+      "routeMaxSegmentMetersMax": 300.0
+    },
+    "controlPointCount": 15,
+    "meanResidualMeters": 6.881,
+    "medianResidualMeters": 5.365,
+    "rmsResidualMeters": 8.494,
+    "maxResidualMeters": 17.857,
+    "residuals": [
+      {
+        "id": "chuo_official_emergency_014",
+        "residualMeters": 17.857,
+        "predictedUnityXZ": {
+          "x": 1274.586,
+          "z": 1320.342
+        },
+        "actualUnityXZ": {
+          "x": 1276.72,
+          "z": 1302.613
+        }
+      },
+      {
+        "id": "chuo_official_emergency_002",
+        "residualMeters": 16.006,
+        "predictedUnityXZ": {
+          "x": 118.56,
+          "z": -437.97
+        },
+        "actualUnityXZ": {
+          "x": 127.61,
+          "z": -424.767
+        }
+      },
+      {
+        "id": "chuo_official_emergency_011",
+        "residualMeters": 12.416,
+        "predictedUnityXZ": {
+          "x": 609.819,
+          "z": 1527.95
+        },
+        "actualUnityXZ": {
+          "x": 617.7,
+          "z": 1537.543
+        }
+      },
+      {
+        "id": "chuo_official_emergency_003",
+        "residualMeters": 11.573,
+        "predictedUnityXZ": {
+          "x": -793.692,
+          "z": -515.788
+        },
+        "actualUnityXZ": {
+          "x": -797.2,
+          "z": -526.817
+        }
+      },
+      {
+        "id": "chuo_official_emergency_004",
+        "residualMeters": 7.112,
+        "predictedUnityXZ": {
+          "x": -491.715,
+          "z": -1277.322
+        },
+        "actualUnityXZ": {
+          "x": -485.764,
+          "z": -1273.428
+        }
+      },
+      {
+        "id": "chuo_official_emergency_001",
+        "residualMeters": 5.899,
+        "predictedUnityXZ": {
+          "x": -104.124,
+          "z": 219.996
+        },
+        "actualUnityXZ": {
+          "x": -110.023,
+          "z": 220.067
+        }
+      },
+      {
+        "id": "chuo_official_emergency_010",
+        "residualMeters": 5.382,
+        "predictedUnityXZ": {
+          "x": 23.739,
+          "z": 1212.967
+        },
+        "actualUnityXZ": {
+          "x": 19.02,
+          "z": 1215.554
+        }
+      },
+      {
+        "id": "chuo_official_emergency_007",
+        "residualMeters": 5.365,
+        "predictedUnityXZ": {
+          "x": 79.557,
+          "z": -1007.2
+        },
+        "actualUnityXZ": {
+          "x": 80.195,
+          "z": -1012.527
+        }
+      },
+      {
+        "id": "chuo_official_emergency_025",
+        "residualMeters": 5.017,
+        "predictedUnityXZ": {
+          "x": 1267.081,
+          "z": 592.641
+        },
+        "actualUnityXZ": {
+          "x": 1266.035,
+          "z": 597.548
+        }
+      },
+      {
+        "id": "chuo_official_emergency_009",
+        "residualMeters": 3.978,
+        "predictedUnityXZ": {
+          "x": 1045.801,
+          "z": -122.099
+        },
+        "actualUnityXZ": {
+          "x": 1043.31,
+          "z": -118.997
+        }
+      },
+      {
+        "id": "chuo_official_emergency_006",
+        "residualMeters": 3.423,
+        "predictedUnityXZ": {
+          "x": 558.346,
+          "z": -925.234
+        },
+        "actualUnityXZ": {
+          "x": 555.055,
+          "z": -926.177
+        }
+      },
+      {
+        "id": "chuo_official_emergency_024",
+        "residualMeters": 3.107,
+        "predictedUnityXZ": {
+          "x": 155.703,
+          "z": -717.18
+        },
+        "actualUnityXZ": {
+          "x": 157.036,
+          "z": -719.987
+        }
+      },
+      {
+        "id": "chuo_official_emergency_008",
+        "residualMeters": 2.834,
+        "predictedUnityXZ": {
+          "x": 478.622,
+          "z": -231.688
+        },
+        "actualUnityXZ": {
+          "x": 475.84,
+          "z": -231.149
+        }
+      },
+      {
+        "id": "chuo_official_emergency_016",
+        "residualMeters": 2.0,
+        "predictedUnityXZ": {
+          "x": 580.004,
+          "z": 270.117
+        },
+        "actualUnityXZ": {
+          "x": 578.004,
+          "z": 270.089
+        }
+      },
+      {
+        "id": "chuo_official_emergency_005",
+        "residualMeters": 1.251,
+        "predictedUnityXZ": {
+          "x": 765.721,
+          "z": -545.809
+        },
+        "actualUnityXZ": {
+          "x": 764.47,
+          "z": -545.842
+        }
+      }
+    ]
+  },
+  "decision": "Accept for estimated prototype route placement only."
+}

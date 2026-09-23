@@ -1,0 +1,13 @@
+{
+  "enabled": true,
+  "keepBoundaryAirWalls": false,
+  "keepInvalidZoneBlockers": false,
+  "convertInteractionBlockersToTriggers": true,
+  "convertUnknownPlayableBlockersToTriggers": true,
+  "disableDebugTestColliders": true,
+  "playerBuildingCollisionMarginMeters": 0.05,
+  "buildingObstacleMaxFootprintMeters": 180.0,
+  "buildingObstacleInsetMeters": 0.25,
+  "minDistanceFromBoundaryForPlayableCorridorMeters": 6.0,
+  "strategy": "collision_whitelist_disable_old_airwalls_use_circular_boundary_clamp"
+}

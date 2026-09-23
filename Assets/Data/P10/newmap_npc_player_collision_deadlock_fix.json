@@ -1,0 +1,18 @@
+﻿{
+    "activeScene":  "Assets/Scenes/Chuo_BaseMap.unity",
+    "playerNpcCollisionPreserved":  true,
+    "collisionAffectsOnlyLocalPair":  true,
+    "collisionWithPlayerDoesNotGlobalPause":  true,
+    "localNpcResponse":  "sidestep_or_repath",
+    "globalNpcMovementContinues":  true,
+    "stoppedWithoutReasonTarget":  0,
+    "allStopEventTarget":  0,
+    "tourismModeBehavior":  "ambient wandering continues after contact",
+    "evacuationModeBehavior":  "target seeking/queueing remains bounded",
+    "generatedAt":  "2026-05-30T01:19:57",
+    "playerContactEvents":  1,
+    "allStopEventCount":  0,
+    "stoppedWithoutReasonCount":  0,
+    "playerContactSmokeStatus":  "passed",
+    "finalStatus":  "validated_no_collision_deadlock"
+}

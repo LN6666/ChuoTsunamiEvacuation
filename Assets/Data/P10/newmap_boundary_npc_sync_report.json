@@ -1,0 +1,15 @@
+﻿{
+    "activeScene":  "Assets/Scenes/Chuo_BaseMap.unity",
+    "playerBoundaryClampUses2270":  true,
+    "npcBoundaryClampUses2270":  true,
+    "spawnValidationUses2270":  true,
+    "activeTargetBoundsUses2270":  true,
+    "stale1500BoundaryValueActive":  false,
+    "stale3500BoundaryValueActive":  false,
+    "generatedAt":  "2026-05-31T01:45:49",
+    "circularBoundaryRadiusMeters":  2270,
+    "npcDistributionRadiusMeters":  2270,
+    "centerSourceMatched":  true,
+    "npcSpawnOutsideBoundary":  false,
+    "runtimeValidationStatus":  "validated_by_player_log"
+}

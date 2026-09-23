@@ -1,0 +1,2667 @@
+{
+  "generatedAt": "2026-05-30T00:39:45+09:00",
+  "activeScene": "Assets/Scenes/Chuo_BaseMap.unity",
+  "runtimeNetworkRequestsAllowed": false,
+  "onlyQueryMissingNames": true,
+  "queryCount": 166,
+  "enabledForOnlineLookupCount": 166,
+  "maxQueriesPerRun": 500,
+  "items": [
+    {
+      "id": "building_p5f_sample_humanitarian_review_004",
+      "objectType": "building",
+      "unityPosition": {
+        "x": 920.675,
+        "y": 0.08,
+        "z": -1727.187
+      },
+      "lat": 35.6615,
+      "lon": 139.7805,
+      "currentName": "Sample High-Rise Apartment Building",
+      "reasonForQuery": "active_candidate_building_name_missing_or_id_only",
+      "priority": 3,
+      "sourceDataPath": "Assets/Data/P8/humanitarian_highrise_candidate_audit_v1.json",
+      "enabledForOnlineLookup": true
+    },
+    {
+      "id": "building_p5f_sample_humanitarian_weak_005",
+      "objectType": "building",
+      "unityPosition": {
+        "x": 554.88,
+        "y": 2.18,
+        "z": -740.292
+      },
+      "lat": 35.6704,
+      "lon": 139.7764,
+      "currentName": "Sample Mid-Rise Commercial Building",
+      "reasonForQuery": "active_candidate_building_name_missing_or_id_only",
+      "priority": 3,
+      "sourceDataPath": "Assets/Data/P8/humanitarian_highrise_candidate_audit_v1.json",
+      "enabledForOnlineLookup": true
+    },
+    {
+      "id": "building_p5f_sample_not_recommended_007",
+      "objectType": "building",
+      "unityPosition": {
+        "x": -135.752,
+        "y": 0.08,
+        "z": -1523.574
+      },
+      "lat": 35.6633,
+      "lon": 139.7688,
+      "currentName": "Sample Low-Rise Building With Seismic Concern",
+      "reasonForQuery": "active_candidate_building_name_missing_or_id_only",
+      "priority": 3,
+      "sourceDataPath": "Assets/Data/P8/humanitarian_highrise_candidate_audit_v1.json",
+      "enabledForOnlineLookup": true
+    },
+    {
+      "id": "building_p5f_sample_unknown_006",
+      "objectType": "building",
+      "unityPosition": {
+        "x": 984.63,
+        "y": 0.08,
+        "z": -1038.063
+      },
+      "lat": 35.6677,
+      "lon": 139.7822,
+      "currentName": "",
+      "reasonForQuery": "active_candidate_building_name_missing_or_id_only",
+      "priority": 3,
+      "sourceDataPath": "Assets/Data/P8/humanitarian_highrise_candidate_audit_v1.json",
+      "enabledForOnlineLookup": true
+    },
+    {
+      "id": "building_p8_plateau_highrise_candidate_027",
+      "objectType": "building",
+      "unityPosition": {
+        "x": -59.36,
+        "y": 0.08,
+        "z": 25.913
+      },
+      "lat": 35.67735082,
+      "lon": 139.76971937,
+      "currentName": "",
+      "reasonForQuery": "active_candidate_building_name_missing_or_id_only",
+      "priority": 3,
+      "sourceDataPath": "Assets/Data/P8/humanitarian_highrise_candidate_audit_v1.json",
+      "enabledForOnlineLookup": true
+    },
+    {
+      "id": "building_p8_plateau_highrise_candidate_028",
+      "objectType": "building",
+      "unityPosition": {
+        "x": 457.826,
+        "y": 0.08,
+        "z": -1835.762
+      },
+      "lat": 35.66050113,
+      "lon": 139.77537802,
+      "currentName": "",
+      "reasonForQuery": "active_candidate_building_name_missing_or_id_only",
+      "priority": 3,
+      "sourceDataPath": "Assets/Data/P8/humanitarian_highrise_candidate_audit_v1.json",
+      "enabledForOnlineLookup": true
+    },
+    {
+      "id": "building_p8_plateau_highrise_candidate_029",
+      "objectType": "building",
+      "unityPosition": {
+        "x": -202.78,
+        "y": 0.08,
+        "z": -825.027
+      },
+      "lat": 35.6696309,
+      "lon": 139.76797682,
+      "currentName": "",
+      "reasonForQuery": "active_candidate_building_name_missing_or_id_only",
+      "priority": 3,
+      "sourceDataPath": "Assets/Data/P8/humanitarian_highrise_candidate_audit_v1.json",
+      "enabledForOnlineLookup": true
+    },
+    {
+      "id": "building_p8_plateau_highrise_candidate_030",
+      "objectType": "building",
+      "unityPosition": {
+        "x": 1168.343,
+        "y": 0.08,
+        "z": 725.078
+      },
+      "lat": 35.6836762,
+      "lon": 139.78323672,
+      "currentName": "",
+      "reasonForQuery": "active_candidate_building_name_missing_or_id_only",
+      "priority": 3,
+      "sourceDataPath": "Assets/Data/P8/humanitarian_highrise_candidate_audit_v1.json",
+      "enabledForOnlineLookup": true
+    },
+    {
+      "id": "building_p8_plateau_highrise_candidate_031",
+      "objectType": "building",
+      "unityPosition": {
+        "x": 201.729,
+        "y": 0.08,
+        "z": 1201.123
+      },
+      "lat": 35.68789842,
+      "lon": 139.77242145,
+      "currentName": "",
+      "reasonForQuery": "active_candidate_building_name_missing_or_id_only",
+      "priority": 3,
+      "sourceDataPath": "Assets/Data/P8/humanitarian_highrise_candidate_audit_v1.json",
+      "enabledForOnlineLookup": true
+    },
+    {
+      "id": "building_p8_plateau_highrise_candidate_032",
+      "objectType": "building",
+      "unityPosition": {
+        "x": 372.51,
+        "y": 0.08,
+        "z": 368.798
+      },
+      "lat": 35.68047919,
+      "lon": 139.77441959,
+      "currentName": "",
+      "reasonForQuery": "active_candidate_building_name_missing_or_id_only",
+      "priority": 3,
+      "sourceDataPath": "Assets/Data/P8/humanitarian_highrise_candidate_audit_v1.json",
+      "enabledForOnlineLookup": true
+    },
+    {
+      "id": "building_p8_plateau_highrise_candidate_033",
+      "objectType": "building",
+      "unityPosition": {
+        "x": 383.434,
+        "y": 0.08,
+        "z": 1171.321
+      },
+      "lat": 35.68756826,
+      "lon": 139.77461746,
+      "currentName": "",
+      "reasonForQuery": "active_candidate_building_name_missing_or_id_only",
+      "priority": 3,
+      "sourceDataPath": "Assets/Data/P8/humanitarian_highrise_candidate_audit_v1.json",
+      "enabledForOnlineLookup": true
+    },
+    {
+      "id": "building_p8_plateau_highrise_candidate_034",
+      "objectType": "building",
+      "unityPosition": {
+        "x": -139.7,
+        "y": 0.08,
+        "z": -117.632
+      },
+      "lat": 35.67594771,
+      "lon": 139.76898659,
+      "currentName": "",
+      "reasonForQuery": "active_candidate_building_name_missing_or_id_only",
+      "priority": 3,
+      "sourceDataPath": "Assets/Data/P8/humanitarian_highrise_candidate_audit_v1.json",
+      "enabledForOnlineLookup": true
+    },
+    {
+      "id": "building_p8_plateau_highrise_candidate_035",
+      "objectType": "building",
+      "unityPosition": {
+        "x": -641.313,
+        "y": 0.08,
+        "z": -1106.936
+      },
+      "lat": 35.66714149,
+      "lon": 139.7632994,
+      "currentName": "",
+      "reasonForQuery": "active_candidate_building_name_missing_or_id_only",
+      "priority": 3,
+      "sourceDataPath": "Assets/Data/P8/humanitarian_highrise_candidate_audit_v1.json",
+      "enabledForOnlineLookup": true
+    },
+    {
+      "id": "building_p8_plateau_highrise_candidate_036",
+      "objectType": "building",
+      "unityPosition": {
+        "x": 411.26,
+        "y": 0.08,
+        "z": 1087.709
+      },
+      "lat": 35.68677303,
+      "lon": 139.77481805,
+      "currentName": "",
+      "reasonForQuery": "active_candidate_building_name_missing_or_id_only",
+      "priority": 3,
+      "sourceDataPath": "Assets/Data/P8/humanitarian_highrise_candidate_audit_v1.json",
+      "enabledForOnlineLookup": true
+    },
+    {
+      "id": "building_p8_plateau_highrise_candidate_037",
+      "objectType": "building",
+      "unityPosition": {
+        "x": -571.435,
+        "y": 0.08,
+        "z": -1426.767
+      },
+      "lat": 35.66421354,
+      "lon": 139.76398278,
+      "currentName": "",
+      "reasonForQuery": "active_candidate_building_name_missing_or_id_only",
+      "priority": 3,
+      "sourceDataPath": "Assets/Data/P8/humanitarian_highrise_candidate_audit_v1.json",
+      "enabledForOnlineLookup": true
+    },
+    {
+      "id": "building_p8_plateau_highrise_candidate_039",
+      "objectType": "building",
+      "unityPosition": {
+        "x": 131.62,
+        "y": 0.08,
+        "z": 740.663
+      },
+      "lat": 35.68365315,
+      "lon": 139.7718788,
+      "currentName": "",
+      "reasonForQuery": "active_candidate_building_name_missing_or_id_only",
+      "priority": 3,
+      "sourceDataPath": "Assets/Data/P8/humanitarian_highrise_candidate_audit_v1.json",
+      "enabledForOnlineLookup": true
+    },
+    {
+      "id": "building_p8_plateau_highrise_candidate_040",
+      "objectType": "building",
+      "unityPosition": {
+        "x": -20.257,
+        "y": 0.08,
+        "z": 78.471
+      },
+      "lat": 35.67784705,
+      "lon": 139.77002836,
+      "currentName": "",
+      "reasonForQuery": "active_candidate_building_name_missing_or_id_only",
+      "priority": 3,
+      "sourceDataPath": "Assets/Data/P8/humanitarian_highrise_candidate_audit_v1.json",
+      "enabledForOnlineLookup": true
+    },
+    {
+      "id": "building_p8_plateau_highrise_candidate_041",
+      "objectType": "building",
+      "unityPosition": {
+        "x": -78.335,
+        "y": 0.08,
+        "z": -979.007
+      },
+      "lat": 35.6683441,
+      "lon": 139.76954689,
+      "currentName": "",
+      "reasonForQuery": "active_candidate_building_name_missing_or_id_only",
+      "priority": 3,
+      "sourceDataPath": "Assets/Data/P8/humanitarian_highrise_candidate_audit_v1.json",
+      "enabledForOnlineLookup": true
+    },
+    {
+      "id": "building_p8_plateau_highrise_candidate_042",
+      "objectType": "building",
+      "unityPosition": {
+        "x": 245.985,
+        "y": 0.08,
+        "z": -70.237
+      },
+      "lat": 35.67641435,
+      "lon": 139.77296379,
+      "currentName": "",
+      "reasonForQuery": "active_candidate_building_name_missing_or_id_only",
+      "priority": 3,
+      "sourceDataPath": "Assets/Data/P8/humanitarian_highrise_candidate_audit_v1.json",
+      "enabledForOnlineLookup": true
+    },
+    {
+      "id": "building_p8_plateau_highrise_candidate_043",
+      "objectType": "building",
+      "unityPosition": {
+        "x": 327.287,
+        "y": 0.08,
+        "z": 1141.501
+      },
+      "lat": 35.68741906,
+      "lon": 139.77379663,
+      "currentName": "",
+      "reasonForQuery": "active_candidate_building_name_missing_or_id_only",
+      "priority": 3,
+      "sourceDataPath": "Assets/Data/P8/humanitarian_highrise_candidate_audit_v1.json",
+      "enabledForOnlineLookup": true
+    },
+    {
+      "id": "building_p8_plateau_highrise_candidate_044",
+      "objectType": "building",
+      "unityPosition": {
+        "x": 353.245,
+        "y": 0.08,
+        "z": 1065.868
+      },
+      "lat": 35.68669659,
+      "lon": 139.77418322,
+      "currentName": "",
+      "reasonForQuery": "active_candidate_building_name_missing_or_id_only",
+      "priority": 3,
+      "sourceDataPath": "Assets/Data/P8/humanitarian_highrise_candidate_audit_v1.json",
+      "enabledForOnlineLookup": true
+    },
+    {
+      "id": "building_p8_plateau_highrise_candidate_045",
+      "objectType": "building",
+      "unityPosition": {
+        "x": 1268.47,
+        "y": 0.08,
+        "z": -314.367
+      },
+      "lat": 35.6742822,
+      "lon": 139.78432281,
+      "currentName": "",
+      "reasonForQuery": "active_candidate_building_name_missing_or_id_only",
+      "priority": 3,
+      "sourceDataPath": "Assets/Data/P8/humanitarian_highrise_candidate_audit_v1.json",
+      "enabledForOnlineLookup": true
+    },
+    {
+      "id": "building_p8_plateau_highrise_candidate_055",
+      "objectType": "building",
+      "unityPosition": {
+        "x": 598.744,
+        "y": 0.08,
+        "z": -1807.303
+      },
+      "lat": 35.66076369,
+      "lon": 139.77693754,
+      "currentName": "",
+      "reasonForQuery": "active_candidate_building_name_missing_or_id_only",
+      "priority": 3,
+      "sourceDataPath": "Assets/Data/P8/humanitarian_highrise_candidate_audit_v1.json",
+      "enabledForOnlineLookup": true
+    },
+    {
+      "id": "building_p8_plateau_highrise_candidate_056",
+      "objectType": "building",
+      "unityPosition": {
+        "x": 1275.664,
+        "y": 0.08,
+        "z": -797.23
+      },
+      "lat": 35.66991814,
+      "lon": 139.78441083,
+      "currentName": "",
+      "reasonForQuery": "active_candidate_building_name_missing_or_id_only",
+      "priority": 3,
+      "sourceDataPath": "Assets/Data/P8/humanitarian_highrise_candidate_audit_v1.json",
+      "enabledForOnlineLookup": true
+    },
+    {
+      "id": "building_p8_plateau_highrise_candidate_058",
+      "objectType": "building",
+      "unityPosition": {
+        "x": 1271.766,
+        "y": 0.08,
+        "z": -1484.674
+      },
+      "lat": 35.6637051,
+      "lon": 139.78438193,
+      "currentName": "",
+      "reasonForQuery": "active_candidate_building_name_missing_or_id_only",
+      "priority": 3,
+      "sourceDataPath": "Assets/Data/P8/humanitarian_highrise_candidate_audit_v1.json",
+      "enabledForOnlineLookup": true
+    },
+    {
+      "id": "building_p8_plateau_highrise_candidate_059",
+      "objectType": "building",
+      "unityPosition": {
+        "x": 1186.884,
+        "y": 0.08,
+        "z": -839.407
+      },
+      "lat": 35.66953358,
+      "lon": 139.78342882,
+      "currentName": "",
+      "reasonForQuery": "active_candidate_building_name_missing_or_id_only",
+      "priority": 3,
+      "sourceDataPath": "Assets/Data/P8/humanitarian_highrise_candidate_audit_v1.json",
+      "enabledForOnlineLookup": true
+    },
+    {
+      "id": "building_p8_plateau_highrise_candidate_060",
+      "objectType": "building",
+      "unityPosition": {
+        "x": 139.26,
+        "y": 0.08,
+        "z": 639.433
+      },
+      "lat": 35.68289942,
+      "lon": 139.77181559,
+      "currentName": "",
+      "reasonForQuery": "active_candidate_building_name_missing_or_id_only",
+      "priority": 3,
+      "sourceDataPath": "Assets/Data/P8/humanitarian_highrise_candidate_audit_v1.json",
+      "enabledForOnlineLookup": true
+    },
+    {
+      "id": "building_p8_plateau_highrise_candidate_063",
+      "objectType": "building",
+      "unityPosition": {
+        "x": 938.065,
+        "y": 0.08,
+        "z": -649.572
+      },
+      "lat": 35.67120825,
+      "lon": 139.78070967,
+      "currentName": "",
+      "reasonForQuery": "active_candidate_building_name_missing_or_id_only",
+      "priority": 3,
+      "sourceDataPath": "Assets/Data/P8/humanitarian_highrise_candidate_audit_v1.json",
+      "enabledForOnlineLookup": true
+    },
+    {
+      "id": "building_p8_plateau_highrise_candidate_064",
+      "objectType": "building",
+      "unityPosition": {
+        "x": 385.545,
+        "y": 0.08,
+        "z": -1478.612
+      },
+      "lat": 35.66374006,
+      "lon": 139.77456076,
+      "currentName": "",
+      "reasonForQuery": "active_candidate_building_name_missing_or_id_only",
+      "priority": 3,
+      "sourceDataPath": "Assets/Data/P8/humanitarian_highrise_candidate_audit_v1.json",
+      "enabledForOnlineLookup": true
+    },
+    {
+      "id": "building_p8_plateau_highrise_candidate_065",
+      "objectType": "building",
+      "unityPosition": {
+        "x": 1282.5,
+        "y": 0.08,
+        "z": -383.322
+      },
+      "lat": 35.67366591,
+      "lon": 139.7845003,
+      "currentName": "",
+      "reasonForQuery": "active_candidate_building_name_missing_or_id_only",
+      "priority": 3,
+      "sourceDataPath": "Assets/Data/P8/humanitarian_highrise_candidate_audit_v1.json",
+      "enabledForOnlineLookup": true
+    },
+    {
+      "id": "building_p8_plateau_highrise_candidate_066",
+      "objectType": "building",
+      "unityPosition": {
+        "x": 473.16,
+        "y": 0.08,
+        "z": -1388.557
+      },
+      "lat": 35.66434035,
+      "lon": 139.77566528,
+      "currentName": "",
+      "reasonForQuery": "active_candidate_building_name_missing_or_id_only",
+      "priority": 3,
+      "sourceDataPath": "Assets/Data/P8/humanitarian_highrise_candidate_audit_v1.json",
+      "enabledForOnlineLookup": true
+    },
+    {
+      "id": "building_p8_plateau_highrise_candidate_067",
+      "objectType": "building",
+      "unityPosition": {
+        "x": 1058.825,
+        "y": 0.08,
+        "z": -1480.536
+      },
+      "lat": 35.6637344,
+      "lon": 139.78202436,
+      "currentName": "",
+      "reasonForQuery": "active_candidate_building_name_missing_or_id_only",
+      "priority": 3,
+      "sourceDataPath": "Assets/Data/P8/humanitarian_highrise_candidate_audit_v1.json",
+      "enabledForOnlineLookup": true
+    },
+    {
+      "id": "building_p8_plateau_highrise_candidate_069",
+      "objectType": "building",
+      "unityPosition": {
+        "x": 801.944,
+        "y": 0.08,
+        "z": -1729.997
+      },
+      "lat": 35.66147009,
+      "lon": 139.77918558,
+      "currentName": "",
+      "reasonForQuery": "active_candidate_building_name_missing_or_id_only",
+      "priority": 3,
+      "sourceDataPath": "Assets/Data/P8/humanitarian_highrise_candidate_audit_v1.json",
+      "enabledForOnlineLookup": true
+    },
+    {
+      "id": "building_p8_plateau_highrise_candidate_072",
+      "objectType": "building",
+      "unityPosition": {
+        "x": 1277.884,
+        "y": 0.08,
+        "z": -1215.938
+      },
+      "lat": 35.66613408,
+      "lon": 139.78444409,
+      "currentName": "",
+      "reasonForQuery": "active_candidate_building_name_missing_or_id_only",
+      "priority": 3,
+      "sourceDataPath": "Assets/Data/P8/humanitarian_highrise_candidate_audit_v1.json",
+      "enabledForOnlineLookup": true
+    },
+    {
+      "id": "building_p8_plateau_highrise_candidate_074",
+      "objectType": "building",
+      "unityPosition": {
+        "x": 678.72,
+        "y": 0.08,
+        "z": 753.063
+      },
+      "lat": 35.6838522,
+      "lon": 139.77790587,
+      "currentName": "",
+      "reasonForQuery": "active_candidate_building_name_missing_or_id_only",
+      "priority": 3,
+      "sourceDataPath": "Assets/Data/P8/humanitarian_highrise_candidate_audit_v1.json",
+      "enabledForOnlineLookup": true
+    },
+    {
+      "id": "building_p8_plateau_highrise_candidate_075",
+      "objectType": "building",
+      "unityPosition": {
+        "x": -371.507,
+        "y": 0.08,
+        "z": -1443.917
+      },
+      "lat": 35.66421476,
+      "lon": 139.76649704,
+      "currentName": "",
+      "reasonForQuery": "active_candidate_building_name_missing_or_id_only",
+      "priority": 3,
+      "sourceDataPath": "Assets/Data/P8/humanitarian_highrise_candidate_audit_v1.json",
+      "enabledForOnlineLookup": true
+    },
+    {
+      "id": "building_p8_plateau_highrise_candidate_076",
+      "objectType": "building",
+      "unityPosition": {
+        "x": 476.072,
+        "y": 0.08,
+        "z": 567.291
+      },
+      "lat": 35.68217827,
+      "lon": 139.77547485,
+      "currentName": "",
+      "reasonForQuery": "active_candidate_building_name_missing_or_id_only",
+      "priority": 3,
+      "sourceDataPath": "Assets/Data/P8/humanitarian_highrise_candidate_audit_v1.json",
+      "enabledForOnlineLookup": true
+    },
+    {
+      "id": "building_p8_plateau_highrise_candidate_077",
+      "objectType": "building",
+      "unityPosition": {
+        "x": 1159.527,
+        "y": 0.08,
+        "z": -1402.283
+      },
+      "lat": 35.66444546,
+      "lon": 139.78313762,
+      "currentName": "",
+      "reasonForQuery": "active_candidate_building_name_missing_or_id_only",
+      "priority": 3,
+      "sourceDataPath": "Assets/Data/P8/humanitarian_highrise_candidate_audit_v1.json",
+      "enabledForOnlineLookup": true
+    },
+    {
+      "id": "building_p8_plateau_highrise_candidate_078",
+      "objectType": "building",
+      "unityPosition": {
+        "x": -199.048,
+        "y": 0.08,
+        "z": -1284.266
+      },
+      "lat": 35.66548188,
+      "lon": 139.76815987,
+      "currentName": "",
+      "reasonForQuery": "active_candidate_building_name_missing_or_id_only",
+      "priority": 3,
+      "sourceDataPath": "Assets/Data/P8/humanitarian_highrise_candidate_audit_v1.json",
+      "enabledForOnlineLookup": true
+    },
+    {
+      "id": "building_p8_plateau_highrise_candidate_081",
+      "objectType": "building",
+      "unityPosition": {
+        "x": -150.965,
+        "y": 0.08,
+        "z": -1044.492
+      },
+      "lat": 35.66781358,
+      "lon": 139.7685108,
+      "currentName": "",
+      "reasonForQuery": "active_candidate_building_name_missing_or_id_only",
+      "priority": 3,
+      "sourceDataPath": "Assets/Data/P8/humanitarian_highrise_candidate_audit_v1.json",
+      "enabledForOnlineLookup": true
+    },
+    {
+      "id": "building_p8_plateau_highrise_candidate_083",
+      "objectType": "building",
+      "unityPosition": {
+        "x": 526.465,
+        "y": 0.08,
+        "z": 1134.543
+      },
+      "lat": 35.68730969,
+      "lon": 139.77604959,
+      "currentName": "",
+      "reasonForQuery": "active_candidate_building_name_missing_or_id_only",
+      "priority": 3,
+      "sourceDataPath": "Assets/Data/P8/humanitarian_highrise_candidate_audit_v1.json",
+      "enabledForOnlineLookup": true
+    },
+    {
+      "id": "building_p8_plateau_highrise_candidate_086",
+      "objectType": "building",
+      "unityPosition": {
+        "x": 375.15,
+        "y": 0.08,
+        "z": 1004.508
+      },
+      "lat": 35.68621988,
+      "lon": 139.77434989,
+      "currentName": "",
+      "reasonForQuery": "active_candidate_building_name_missing_or_id_only",
+      "priority": 3,
+      "sourceDataPath": "Assets/Data/P8/humanitarian_highrise_candidate_audit_v1.json",
+      "enabledForOnlineLookup": true
+    },
+    {
+      "id": "building_p8_plateau_highrise_candidate_087",
+      "objectType": "building",
+      "unityPosition": {
+        "x": -303.301,
+        "y": 0.08,
+        "z": -1129.239
+      },
+      "lat": 35.6668538,
+      "lon": 139.76705883,
+      "currentName": "",
+      "reasonForQuery": "active_candidate_building_name_missing_or_id_only",
+      "priority": 3,
+      "sourceDataPath": "Assets/Data/P8/humanitarian_highrise_candidate_audit_v1.json",
+      "enabledForOnlineLookup": true
+    },
+    {
+      "id": "building_p8_plateau_highrise_candidate_088",
+      "objectType": "building",
+      "unityPosition": {
+        "x": 835.885,
+        "y": 0.08,
+        "z": -944.622
+      },
+      "lat": 35.66853434,
+      "lon": 139.77956566,
+      "currentName": "",
+      "reasonForQuery": "active_candidate_building_name_missing_or_id_only",
+      "priority": 3,
+      "sourceDataPath": "Assets/Data/P8/humanitarian_highrise_candidate_audit_v1.json",
+      "enabledForOnlineLookup": true
+    },
+    {
+      "id": "building_p8_plateau_highrise_candidate_090",
+      "objectType": "building",
+      "unityPosition": {
+        "x": 722.29,
+        "y": 0.08,
+        "z": 469.431
+      },
+      "lat": 35.68131858,
+      "lon": 139.77828475,
+      "currentName": "",
+      "reasonForQuery": "active_candidate_building_name_missing_or_id_only",
+      "priority": 3,
+      "sourceDataPath": "Assets/Data/P8/humanitarian_highrise_candidate_audit_v1.json",
+      "enabledForOnlineLookup": true
+    },
+    {
+      "id": "building_p8_plateau_highrise_candidate_091",
+      "objectType": "building",
+      "unityPosition": {
+        "x": -172.555,
+        "y": 0.08,
+        "z": -759.755
+      },
+      "lat": 35.67090786,
+      "lon": 139.76882936,
+      "currentName": "",
+      "reasonForQuery": "active_candidate_building_name_missing_or_id_only",
+      "priority": 3,
+      "sourceDataPath": "Assets/Data/P8/humanitarian_highrise_candidate_audit_v1.json",
+      "enabledForOnlineLookup": true
+    },
+    {
+      "id": "building_p8_plateau_highrise_candidate_092",
+      "objectType": "building",
+      "unityPosition": {
+        "x": 448.717,
+        "y": 0.08,
+        "z": -1808.432
+      },
+      "lat": 35.66074778,
+      "lon": 139.7752766,
+      "currentName": "",
+      "reasonForQuery": "active_candidate_building_name_missing_or_id_only",
+      "priority": 3,
+      "sourceDataPath": "Assets/Data/P8/humanitarian_highrise_candidate_audit_v1.json",
+      "enabledForOnlineLookup": true
+    },
+    {
+      "id": "building_p8_plateau_highrise_candidate_093",
+      "objectType": "building",
+      "unityPosition": {
+        "x": -422.53,
+        "y": 0.08,
+        "z": -1637.672
+      },
+      "lat": 35.66226392,
+      "lon": 139.7656677,
+      "currentName": "",
+      "reasonForQuery": "active_candidate_building_name_missing_or_id_only",
+      "priority": 3,
+      "sourceDataPath": "Assets/Data/P8/humanitarian_highrise_candidate_audit_v1.json",
+      "enabledForOnlineLookup": true
+    },
+    {
+      "id": "building_p8_plateau_highrise_candidate_094",
+      "objectType": "building",
+      "unityPosition": {
+        "x": 322.295,
+        "y": 0.08,
+        "z": 263.248
+      },
+      "lat": 35.67949898,
+      "lon": 139.77385859,
+      "currentName": "",
+      "reasonForQuery": "active_candidate_building_name_missing_or_id_only",
+      "priority": 3,
+      "sourceDataPath": "Assets/Data/P8/humanitarian_highrise_candidate_audit_v1.json",
+      "enabledForOnlineLookup": true
+    },
+    {
+      "id": "building_p8_plateau_highrise_candidate_095",
+      "objectType": "building",
+      "unityPosition": {
+        "x": 767.235,
+        "y": 0.08,
+        "z": 617.789
+      },
+      "lat": 35.68264804,
+      "lon": 139.77902042,
+      "currentName": "",
+      "reasonForQuery": "active_candidate_building_name_missing_or_id_only",
+      "priority": 3,
+      "sourceDataPath": "Assets/Data/P8/humanitarian_highrise_candidate_audit_v1.json",
+      "enabledForOnlineLookup": true
+    },
+    {
+      "id": "building_p8_plateau_highrise_candidate_096",
+      "objectType": "building",
+      "unityPosition": {
+        "x": -346.415,
+        "y": 0.08,
+        "z": -644.762
+      },
+      "lat": 35.6711719,
+      "lon": 139.76640532,
+      "currentName": "",
+      "reasonForQuery": "active_candidate_building_name_missing_or_id_only",
+      "priority": 3,
+      "sourceDataPath": "Assets/Data/P8/humanitarian_highrise_candidate_audit_v1.json",
+      "enabledForOnlineLookup": true
+    },
+    {
+      "id": "building_p8_plateau_highrise_candidate_097",
+      "objectType": "building",
+      "unityPosition": {
+        "x": 1346.634,
+        "y": 0.08,
+        "z": -267.143
+      },
+      "lat": 35.67471158,
+      "lon": 139.78518556,
+      "currentName": "",
+      "reasonForQuery": "active_candidate_building_name_missing_or_id_only",
+      "priority": 3,
+      "sourceDataPath": "Assets/Data/P8/humanitarian_highrise_candidate_audit_v1.json",
+      "enabledForOnlineLookup": true
+    },
+    {
+      "id": "building_p8_plateau_highrise_candidate_098",
+      "objectType": "building",
+      "unityPosition": {
+        "x": 81.575,
+        "y": 0.08,
+        "z": -203.947
+      },
+      "lat": 35.67528935,
+      "lon": 139.77117181,
+      "currentName": "",
+      "reasonForQuery": "active_candidate_building_name_missing_or_id_only",
+      "priority": 3,
+      "sourceDataPath": "Assets/Data/P8/humanitarian_highrise_candidate_audit_v1.json",
+      "enabledForOnlineLookup": true
+    },
+    {
+      "id": "building_p8_plateau_highrise_candidate_099",
+      "objectType": "building",
+      "unityPosition": {
+        "x": -420.202,
+        "y": 0.08,
+        "z": -1433.253
+      },
+      "lat": 35.66410964,
+      "lon": 139.76574027,
+      "currentName": "",
+      "reasonForQuery": "active_candidate_building_name_missing_or_id_only",
+      "priority": 3,
+      "sourceDataPath": "Assets/Data/P8/humanitarian_highrise_candidate_audit_v1.json",
+      "enabledForOnlineLookup": true
+    },
+    {
+      "id": "building_p8_plateau_highrise_candidate_100",
+      "objectType": "building",
+      "unityPosition": {
+        "x": 481.571,
+        "y": 0.08,
+        "z": 1266.73
+      },
+      "lat": 35.68853775,
+      "lon": 139.77558078,
+      "currentName": "",
+      "reasonForQuery": "active_candidate_building_name_missing_or_id_only",
+      "priority": 3,
+      "sourceDataPath": "Assets/Data/P8/humanitarian_highrise_candidate_audit_v1.json",
+      "enabledForOnlineLookup": true
+    },
+    {
+      "id": "building_p8_plateau_highrise_candidate_101",
+      "objectType": "building",
+      "unityPosition": {
+        "x": -270.065,
+        "y": -0.15,
+        "z": -998.462
+      },
+      "lat": 35.66814735,
+      "lon": 139.76742462,
+      "currentName": "",
+      "reasonForQuery": "active_candidate_building_name_missing_or_id_only",
+      "priority": 3,
+      "sourceDataPath": "Assets/Data/P8/humanitarian_highrise_candidate_audit_v1.json",
+      "enabledForOnlineLookup": true
+    },
+    {
+      "id": "building_p8_plateau_highrise_candidate_103",
+      "objectType": "building",
+      "unityPosition": {
+        "x": -421.208,
+        "y": 0.08,
+        "z": -909.725
+      },
+      "lat": 35.66886939,
+      "lon": 139.76574201,
+      "currentName": "",
+      "reasonForQuery": "active_candidate_building_name_missing_or_id_only",
+      "priority": 3,
+      "sourceDataPath": "Assets/Data/P8/humanitarian_highrise_candidate_audit_v1.json",
+      "enabledForOnlineLookup": true
+    },
+    {
+      "id": "building_p8_plateau_highrise_candidate_104",
+      "objectType": "building",
+      "unityPosition": {
+        "x": 48.665,
+        "y": 0.08,
+        "z": -175.547
+      },
+      "lat": 35.67544968,
+      "lon": 139.77083959,
+      "currentName": "",
+      "reasonForQuery": "active_candidate_building_name_missing_or_id_only",
+      "priority": 3,
+      "sourceDataPath": "Assets/Data/P8/humanitarian_highrise_candidate_audit_v1.json",
+      "enabledForOnlineLookup": true
+    },
+    {
+      "id": "building_p8_plateau_highrise_candidate_105",
+      "objectType": "building",
+      "unityPosition": {
+        "x": -342.211,
+        "y": 0.08,
+        "z": -1061.813
+      },
+      "lat": 35.66741213,
+      "lon": 139.76635091,
+      "currentName": "",
+      "reasonForQuery": "active_candidate_building_name_missing_or_id_only",
+      "priority": 3,
+      "sourceDataPath": "Assets/Data/P8/humanitarian_highrise_candidate_audit_v1.json",
+      "enabledForOnlineLookup": true
+    },
+    {
+      "id": "building_p5f_sample_humanitarian_strong_003",
+      "objectType": "building",
+      "unityPosition": {
+        "x": 405.402,
+        "y": 2.4,
+        "z": -1973.132
+      },
+      "lat": 35.6592,
+      "lon": 139.7748,
+      "currentName": "",
+      "reasonForQuery": "expanded_visible_or_route_near_p8_building_name_missing",
+      "priority": 4,
+      "sourceDataPath": "Assets/Data/P8/humanitarian_highrise_candidate_audit_v1.json",
+      "enabledForOnlineLookup": true
+    },
+    {
+      "id": "building_p8_plateau_highrise_candidate_025",
+      "objectType": "building",
+      "unityPosition": {
+        "x": 1002.398,
+        "y": 2.4,
+        "z": -2214.208
+      },
+      "lat": 35.65703682,
+      "lon": 139.78140684,
+      "currentName": "",
+      "reasonForQuery": "expanded_visible_or_route_near_p8_building_name_missing",
+      "priority": 4,
+      "sourceDataPath": "Assets/Data/P8/humanitarian_highrise_candidate_audit_v1.json",
+      "enabledForOnlineLookup": true
+    },
+    {
+      "id": "building_p8_plateau_highrise_candidate_026",
+      "objectType": "building",
+      "unityPosition": {
+        "x": 717.008,
+        "y": 2.4,
+        "z": -2403.508
+      },
+      "lat": 35.65530945,
+      "lon": 139.77825479,
+      "currentName": "",
+      "reasonForQuery": "expanded_visible_or_route_near_p8_building_name_missing",
+      "priority": 4,
+      "sourceDataPath": "Assets/Data/P8/humanitarian_highrise_candidate_audit_v1.json",
+      "enabledForOnlineLookup": true
+    },
+    {
+      "id": "building_p8_plateau_highrise_candidate_038",
+      "objectType": "building",
+      "unityPosition": {
+        "x": 1526.671,
+        "y": 2.4,
+        "z": 168.123
+      },
+      "lat": 35.67865865,
+      "lon": 139.78715516,
+      "currentName": "",
+      "reasonForQuery": "expanded_visible_or_route_near_p8_building_name_missing",
+      "priority": 4,
+      "sourceDataPath": "Assets/Data/P8/humanitarian_highrise_candidate_audit_v1.json",
+      "enabledForOnlineLookup": true
+    },
+    {
+      "id": "building_p8_plateau_highrise_candidate_046",
+      "objectType": "building",
+      "unityPosition": {
+        "x": 594.543,
+        "y": 2.4,
+        "z": -1938.123
+      },
+      "lat": 35.65952466,
+      "lon": 139.77689088,
+      "currentName": "",
+      "reasonForQuery": "expanded_visible_or_route_near_p8_building_name_missing",
+      "priority": 4,
+      "sourceDataPath": "Assets/Data/P8/humanitarian_highrise_candidate_audit_v1.json",
+      "enabledForOnlineLookup": true
+    },
+    {
+      "id": "building_p8_plateau_highrise_candidate_047",
+      "objectType": "building",
+      "unityPosition": {
+        "x": 524.965,
+        "y": 2.4,
+        "z": -2304.806
+      },
+      "lat": 35.6561971,
+      "lon": 139.77612905,
+      "currentName": "",
+      "reasonForQuery": "expanded_visible_or_route_near_p8_building_name_missing",
+      "priority": 4,
+      "sourceDataPath": "Assets/Data/P8/humanitarian_highrise_candidate_audit_v1.json",
+      "enabledForOnlineLookup": true
+    },
+    {
+      "id": "building_p8_plateau_highrise_candidate_048",
+      "objectType": "building",
+      "unityPosition": {
+        "x": 388.449,
+        "y": 2.4,
+        "z": -2445.407
+      },
+      "lat": 35.65491699,
+      "lon": 139.7746223,
+      "currentName": "",
+      "reasonForQuery": "expanded_visible_or_route_near_p8_building_name_missing",
+      "priority": 4,
+      "sourceDataPath": "Assets/Data/P8/humanitarian_highrise_candidate_audit_v1.json",
+      "enabledForOnlineLookup": true
+    },
+    {
+      "id": "building_p8_plateau_highrise_candidate_049",
+      "objectType": "building",
+      "unityPosition": {
+        "x": 301.645,
+        "y": 2.4,
+        "z": -2364.573
+      },
+      "lat": 35.65564664,
+      "lon": 139.77366071,
+      "currentName": "",
+      "reasonForQuery": "expanded_visible_or_route_near_p8_building_name_missing",
+      "priority": 4,
+      "sourceDataPath": "Assets/Data/P8/humanitarian_highrise_candidate_audit_v1.json",
+      "enabledForOnlineLookup": true
+    },
+    {
+      "id": "building_p8_plateau_highrise_candidate_050",
+      "objectType": "building",
+      "unityPosition": {
+        "x": 188.196,
+        "y": 2.4,
+        "z": -2255.591
+      },
+      "lat": 35.65663051,
+      "lon": 139.77240389,
+      "currentName": "",
+      "reasonForQuery": "expanded_visible_or_route_near_p8_building_name_missing",
+      "priority": 4,
+      "sourceDataPath": "Assets/Data/P8/humanitarian_highrise_candidate_audit_v1.json",
+      "enabledForOnlineLookup": true
+    },
+    {
+      "id": "building_p8_plateau_highrise_candidate_051",
+      "objectType": "building",
+      "unityPosition": {
+        "x": 1531.825,
+        "y": 2.4,
+        "z": -2261.254
+      },
+      "lat": 35.65663043,
+      "lon": 139.78726246,
+      "currentName": "",
+      "reasonForQuery": "expanded_visible_or_route_near_p8_building_name_missing",
+      "priority": 4,
+      "sourceDataPath": "Assets/Data/P8/humanitarian_highrise_candidate_audit_v1.json",
+      "enabledForOnlineLookup": true
+    },
+    {
+      "id": "building_p8_plateau_highrise_candidate_052",
+      "objectType": "building",
+      "unityPosition": {
+        "x": 1327.466,
+        "y": 2.4,
+        "z": -2419.924
+      },
+      "lat": 35.65518389,
+      "lon": 139.78500585,
+      "currentName": "",
+      "reasonForQuery": "expanded_visible_or_route_near_p8_building_name_missing",
+      "priority": 4,
+      "sourceDataPath": "Assets/Data/P8/humanitarian_highrise_candidate_audit_v1.json",
+      "enabledForOnlineLookup": true
+    },
+    {
+      "id": "building_p8_plateau_highrise_candidate_053",
+      "objectType": "building",
+      "unityPosition": {
+        "x": 625.968,
+        "y": 2.4,
+        "z": -2220.232
+      },
+      "lat": 35.65696783,
+      "lon": 139.77724423,
+      "currentName": "",
+      "reasonForQuery": "expanded_visible_or_route_near_p8_building_name_missing",
+      "priority": 4,
+      "sourceDataPath": "Assets/Data/P8/humanitarian_highrise_candidate_audit_v1.json",
+      "enabledForOnlineLookup": true
+    },
+    {
+      "id": "building_p8_plateau_highrise_candidate_054",
+      "objectType": "building",
+      "unityPosition": {
+        "x": 1420.964,
+        "y": 2.4,
+        "z": -2340.416
+      },
+      "lat": 35.6559084,
+      "lon": 139.78603815,
+      "currentName": "",
+      "reasonForQuery": "expanded_visible_or_route_near_p8_building_name_missing",
+      "priority": 4,
+      "sourceDataPath": "Assets/Data/P8/humanitarian_highrise_candidate_audit_v1.json",
+      "enabledForOnlineLookup": true
+    },
+    {
+      "id": "building_p8_plateau_highrise_candidate_057",
+      "objectType": "building",
+      "unityPosition": {
+        "x": 1445.89,
+        "y": 2.4,
+        "z": -830.414
+      },
+      "lat": 35.66960132,
+      "lon": 139.78628252,
+      "currentName": "",
+      "reasonForQuery": "expanded_visible_or_route_near_p8_building_name_missing",
+      "priority": 4,
+      "sourceDataPath": "Assets/Data/P8/humanitarian_highrise_candidate_audit_v1.json",
+      "enabledForOnlineLookup": true
+    },
+    {
+      "id": "building_p8_plateau_highrise_candidate_061",
+      "objectType": "building",
+      "unityPosition": {
+        "x": 1655.265,
+        "y": 2.4,
+        "z": 356.377
+      },
+      "lat": 35.68037055,
+      "lon": 139.78857331,
+      "currentName": "",
+      "reasonForQuery": "expanded_visible_or_route_near_p8_building_name_missing",
+      "priority": 4,
+      "sourceDataPath": "Assets/Data/P8/humanitarian_highrise_candidate_audit_v1.json",
+      "enabledForOnlineLookup": true
+    },
+    {
+      "id": "building_p8_plateau_highrise_candidate_062",
+      "objectType": "building",
+      "unityPosition": {
+        "x": 1409.659,
+        "y": 2.4,
+        "z": 1.055
+      },
+      "lat": 35.67713929,
+      "lon": 139.78586464,
+      "currentName": "",
+      "reasonForQuery": "expanded_visible_or_route_near_p8_building_name_missing",
+      "priority": 4,
+      "sourceDataPath": "Assets/Data/P8/humanitarian_highrise_candidate_audit_v1.json",
+      "enabledForOnlineLookup": true
+    },
+    {
+      "id": "building_p8_plateau_highrise_candidate_068",
+      "objectType": "building",
+      "unityPosition": {
+        "x": 1449.196,
+        "y": 2.4,
+        "z": -927.435
+      },
+      "lat": 35.6687217,
+      "lon": 139.78632109,
+      "currentName": "",
+      "reasonForQuery": "expanded_visible_or_route_near_p8_building_name_missing",
+      "priority": 4,
+      "sourceDataPath": "Assets/Data/P8/humanitarian_highrise_candidate_audit_v1.json",
+      "enabledForOnlineLookup": true
+    },
+    {
+      "id": "building_p8_plateau_highrise_candidate_070",
+      "objectType": "building",
+      "unityPosition": {
+        "x": 1483.288,
+        "y": 2.4,
+        "z": -1004.171
+      },
+      "lat": 35.6680272,
+      "lon": 139.78669968,
+      "currentName": "",
+      "reasonForQuery": "expanded_visible_or_route_near_p8_building_name_missing",
+      "priority": 4,
+      "sourceDataPath": "Assets/Data/P8/humanitarian_highrise_candidate_audit_v1.json",
+      "enabledForOnlineLookup": true
+    },
+    {
+      "id": "building_p8_plateau_highrise_candidate_071",
+      "objectType": "building",
+      "unityPosition": {
+        "x": 1691.233,
+        "y": 2.4,
+        "z": 890.166
+      },
+      "lat": 35.68521207,
+      "lon": 139.78896001,
+      "currentName": "",
+      "reasonForQuery": "expanded_visible_or_route_near_p8_building_name_missing",
+      "priority": 4,
+      "sourceDataPath": "Assets/Data/P8/humanitarian_highrise_candidate_audit_v1.json",
+      "enabledForOnlineLookup": true
+    },
+    {
+      "id": "building_p8_plateau_highrise_candidate_073",
+      "objectType": "building",
+      "unityPosition": {
+        "x": 1148.915,
+        "y": 2.4,
+        "z": -2222.499
+      },
+      "lat": 35.65696723,
+      "lon": 139.78302727,
+      "currentName": "",
+      "reasonForQuery": "expanded_visible_or_route_near_p8_building_name_missing",
+      "priority": 4,
+      "sourceDataPath": "Assets/Data/P8/humanitarian_highrise_candidate_audit_v1.json",
+      "enabledForOnlineLookup": true
+    },
+    {
+      "id": "building_p8_plateau_highrise_candidate_079",
+      "objectType": "building",
+      "unityPosition": {
+        "x": 1466.508,
+        "y": 2.4,
+        "z": 564.018
+      },
+      "lat": 35.68224614,
+      "lon": 139.78648165,
+      "currentName": "",
+      "reasonForQuery": "expanded_visible_or_route_near_p8_building_name_missing",
+      "priority": 4,
+      "sourceDataPath": "Assets/Data/P8/humanitarian_highrise_candidate_audit_v1.json",
+      "enabledForOnlineLookup": true
+    },
+    {
+      "id": "building_p8_plateau_highrise_candidate_080",
+      "objectType": "building",
+      "unityPosition": {
+        "x": 1199.984,
+        "y": 2.4,
+        "z": -2022.096
+      },
+      "lat": 35.65878634,
+      "lon": 139.78358786,
+      "currentName": "",
+      "reasonForQuery": "expanded_visible_or_route_near_p8_building_name_missing",
+      "priority": 4,
+      "sourceDataPath": "Assets/Data/P8/humanitarian_highrise_candidate_audit_v1.json",
+      "enabledForOnlineLookup": true
+    },
+    {
+      "id": "building_p8_plateau_highrise_candidate_082",
+      "objectType": "building",
+      "unityPosition": {
+        "x": 1522.996,
+        "y": 2.4,
+        "z": 1171.01
+      },
+      "lat": 35.6877522,
+      "lon": 139.78709375,
+      "currentName": "",
+      "reasonForQuery": "expanded_visible_or_route_near_p8_building_name_missing",
+      "priority": 4,
+      "sourceDataPath": "Assets/Data/P8/humanitarian_highrise_candidate_audit_v1.json",
+      "enabledForOnlineLookup": true
+    },
+    {
+      "id": "building_p8_plateau_highrise_candidate_084",
+      "objectType": "building",
+      "unityPosition": {
+        "x": 1235.745,
+        "y": 2.4,
+        "z": -2318.865
+      },
+      "lat": 35.65609675,
+      "lon": 139.78398947,
+      "currentName": "",
+      "reasonForQuery": "expanded_visible_or_route_near_p8_building_name_missing",
+      "priority": 4,
+      "sourceDataPath": "Assets/Data/P8/humanitarian_highrise_candidate_audit_v1.json",
+      "enabledForOnlineLookup": true
+    },
+    {
+      "id": "building_p8_plateau_highrise_candidate_085",
+      "objectType": "building",
+      "unityPosition": {
+        "x": 1456.375,
+        "y": 2.4,
+        "z": 375.179
+      },
+      "lat": 35.68053345,
+      "lon": 139.7863735,
+      "currentName": "",
+      "reasonForQuery": "expanded_visible_or_route_near_p8_building_name_missing",
+      "priority": 4,
+      "sourceDataPath": "Assets/Data/P8/humanitarian_highrise_candidate_audit_v1.json",
+      "enabledForOnlineLookup": true
+    },
+    {
+      "id": "building_p8_plateau_highrise_candidate_089",
+      "objectType": "building",
+      "unityPosition": {
+        "x": 339.073,
+        "y": 2.4,
+        "z": -2021.406
+      },
+      "lat": 35.65875974,
+      "lon": 139.7740675,
+      "currentName": "",
+      "reasonForQuery": "expanded_visible_or_route_near_p8_building_name_missing",
+      "priority": 4,
+      "sourceDataPath": "Assets/Data/P8/humanitarian_highrise_candidate_audit_v1.json",
+      "enabledForOnlineLookup": true
+    },
+    {
+      "id": "building_p8_plateau_highrise_candidate_102",
+      "objectType": "building",
+      "unityPosition": {
+        "x": 669.088,
+        "y": 2.4,
+        "z": -1900.072
+      },
+      "lat": 35.65987253,
+      "lon": 139.77771445,
+      "currentName": "",
+      "reasonForQuery": "expanded_visible_or_route_near_p8_building_name_missing",
+      "priority": 4,
+      "sourceDataPath": "Assets/Data/P8/humanitarian_highrise_candidate_audit_v1.json",
+      "enabledForOnlineLookup": true
+    },
+    {
+      "id": "route_road_osm_route_01_001_0",
+      "objectType": "road",
+      "unityPosition": {
+        "x": -456.967,
+        "y": 2.4,
+        "z": -605.281
+      },
+      "lat": 35.6715701,
+      "lon": 139.7652352,
+      "currentName": "",
+      "reasonForQuery": "route_or_road_point_missing_cached_specific_road_name",
+      "priority": 4,
+      "sourceDataPath": "data_pipeline/processed/routes/real_chuo_osm_routes_sample.json",
+      "enabledForOnlineLookup": true
+    },
+    {
+      "id": "route_road_osm_route_01_001_43",
+      "objectType": "road",
+      "unityPosition": {
+        "x": -394.625,
+        "y": 2.4,
+        "z": -204.121
+      },
+      "lat": 35.67521,
+      "lon": 139.7659163,
+      "currentName": "",
+      "reasonForQuery": "route_or_road_point_missing_cached_specific_road_name",
+      "priority": 4,
+      "sourceDataPath": "data_pipeline/processed/routes/real_chuo_osm_routes_sample.json",
+      "enabledForOnlineLookup": true
+    },
+    {
+      "id": "route_road_osm_route_01_001_85",
+      "objectType": "road",
+      "unityPosition": {
+        "x": -111.757,
+        "y": 2.4,
+        "z": 244.128
+      },
+      "lat": 35.6792853,
+      "lon": 139.7690351,
+      "currentName": "",
+      "reasonForQuery": "route_or_road_point_missing_cached_specific_road_name",
+      "priority": 4,
+      "sourceDataPath": "data_pipeline/processed/routes/real_chuo_osm_routes_sample.json",
+      "enabledForOnlineLookup": true
+    },
+    {
+      "id": "route_road_osm_route_01_002_23",
+      "objectType": "road",
+      "unityPosition": {
+        "x": -67.275,
+        "y": 2.4,
+        "z": -301.291
+      },
+      "lat": 35.6743414,
+      "lon": 139.7695383,
+      "currentName": "",
+      "reasonForQuery": "route_or_road_point_missing_cached_specific_road_name",
+      "priority": 4,
+      "sourceDataPath": "data_pipeline/processed/routes/real_chuo_osm_routes_sample.json",
+      "enabledForOnlineLookup": true
+    },
+    {
+      "id": "route_road_osm_route_01_002_46",
+      "objectType": "road",
+      "unityPosition": {
+        "x": 153.308,
+        "y": 2.4,
+        "z": -431.307
+      },
+      "lat": 35.6731709,
+      "lon": 139.7719803,
+      "currentName": "",
+      "reasonForQuery": "route_or_road_point_missing_cached_specific_road_name",
+      "priority": 4,
+      "sourceDataPath": "data_pipeline/processed/routes/real_chuo_osm_routes_sample.json",
+      "enabledForOnlineLookup": true
+    },
+    {
+      "id": "route_road_osm_route_01_003_14",
+      "objectType": "road",
+      "unityPosition": {
+        "x": -601.073,
+        "y": 2.4,
+        "z": -522.414
+      },
+      "lat": 35.672316,
+      "lon": 139.7636399,
+      "currentName": "",
+      "reasonForQuery": "route_or_road_point_missing_cached_specific_road_name",
+      "priority": 4,
+      "sourceDataPath": "data_pipeline/processed/routes/real_chuo_osm_routes_sample.json",
+      "enabledForOnlineLookup": true
+    },
+    {
+      "id": "route_road_osm_route_01_003_28",
+      "objectType": "road",
+      "unityPosition": {
+        "x": -808.417,
+        "y": 2.4,
+        "z": -561.122
+      },
+      "lat": 35.6719571,
+      "lon": 139.7613478,
+      "currentName": "",
+      "reasonForQuery": "route_or_road_point_missing_cached_specific_road_name",
+      "priority": 4,
+      "sourceDataPath": "data_pipeline/processed/routes/real_chuo_osm_routes_sample.json",
+      "enabledForOnlineLookup": true
+    },
+    {
+      "id": "route_road_osm_route_01_004_41",
+      "objectType": "road",
+      "unityPosition": {
+        "x": -320.169,
+        "y": 2.4,
+        "z": -823.7
+      },
+      "lat": 35.6695948,
+      "lon": 139.7667525,
+      "currentName": "",
+      "reasonForQuery": "route_or_road_point_missing_cached_specific_road_name",
+      "priority": 4,
+      "sourceDataPath": "data_pipeline/processed/routes/real_chuo_osm_routes_sample.json",
+      "enabledForOnlineLookup": true
+    },
+    {
+      "id": "route_road_osm_route_01_004_82",
+      "objectType": "road",
+      "unityPosition": {
+        "x": -500.545,
+        "y": 2.4,
+        "z": -1247.545
+      },
+      "lat": 35.6657447,
+      "lon": 139.7647666,
+      "currentName": "",
+      "reasonForQuery": "route_or_road_point_missing_cached_specific_road_name",
+      "priority": 4,
+      "sourceDataPath": "data_pipeline/processed/routes/real_chuo_osm_routes_sample.json",
+      "enabledForOnlineLookup": true
+    },
+    {
+      "id": "route_road_osm_route_01_005_36",
+      "objectType": "road",
+      "unityPosition": {
+        "x": 80.008,
+        "y": 2.4,
+        "z": -367.662
+      },
+      "lat": 35.6737452,
+      "lon": 139.7711684,
+      "currentName": "",
+      "reasonForQuery": "route_or_road_point_missing_cached_specific_road_name",
+      "priority": 4,
+      "sourceDataPath": "data_pipeline/processed/routes/real_chuo_osm_routes_sample.json",
+      "enabledForOnlineLookup": true
+    },
+    {
+      "id": "route_road_osm_route_01_005_71",
+      "objectType": "road",
+      "unityPosition": {
+        "x": 779.701,
+        "y": 2.4,
+        "z": -521.354
+      },
+      "lat": 35.6723783,
+      "lon": 139.7789091,
+      "currentName": "",
+      "reasonForQuery": "route_or_road_point_missing_cached_specific_road_name",
+      "priority": 4,
+      "sourceDataPath": "data_pipeline/processed/routes/real_chuo_osm_routes_sample.json",
+      "enabledForOnlineLookup": true
+    },
+    {
+      "id": "route_road_osm_route_01_006_32",
+      "objectType": "road",
+      "unityPosition": {
+        "x": 18.66,
+        "y": 2.4,
+        "z": -634.302
+      },
+      "lat": 35.6713251,
+      "lon": 139.7704955,
+      "currentName": "",
+      "reasonForQuery": "route_or_road_point_missing_cached_specific_road_name",
+      "priority": 4,
+      "sourceDataPath": "data_pipeline/processed/routes/real_chuo_osm_routes_sample.json",
+      "enabledForOnlineLookup": true
+    },
+    {
+      "id": "route_road_osm_route_01_006_64",
+      "objectType": "road",
+      "unityPosition": {
+        "x": 592.928,
+        "y": 2.4,
+        "z": -937.728
+      },
+      "lat": 35.6685957,
+      "lon": 139.7768523,
+      "currentName": "",
+      "reasonForQuery": "route_or_road_point_missing_cached_specific_road_name",
+      "priority": 4,
+      "sourceDataPath": "data_pipeline/processed/routes/real_chuo_osm_routes_sample.json",
+      "enabledForOnlineLookup": true
+    },
+    {
+      "id": "route_road_osm_route_01_007_18",
+      "objectType": "road",
+      "unityPosition": {
+        "x": -147.4,
+        "y": 2.4,
+        "z": -767.697
+      },
+      "lat": 35.6701092,
+      "lon": 139.7686619,
+      "currentName": "",
+      "reasonForQuery": "route_or_road_point_missing_cached_specific_road_name",
+      "priority": 4,
+      "sourceDataPath": "data_pipeline/processed/routes/real_chuo_osm_routes_sample.json",
+      "enabledForOnlineLookup": true
+    },
+    {
+      "id": "route_road_osm_route_01_007_35",
+      "objectType": "road",
+      "unityPosition": {
+        "x": 66.946,
+        "y": 2.4,
+        "z": -963.857
+      },
+      "lat": 35.6683387,
+      "lon": 139.7710363,
+      "currentName": "",
+      "reasonForQuery": "route_or_road_point_missing_cached_specific_road_name",
+      "priority": 4,
+      "sourceDataPath": "data_pipeline/processed/routes/real_chuo_osm_routes_sample.json",
+      "enabledForOnlineLookup": true
+    },
+    {
+      "id": "route_road_osm_route_01_008_35",
+      "objectType": "road",
+      "unityPosition": {
+        "x": -116.309,
+        "y": 2.4,
+        "z": -206.825
+      },
+      "lat": 35.6751961,
+      "lon": 139.7689941,
+      "currentName": "",
+      "reasonForQuery": "route_or_road_point_missing_cached_specific_road_name",
+      "priority": 4,
+      "sourceDataPath": "data_pipeline/processed/routes/real_chuo_osm_routes_sample.json",
+      "enabledForOnlineLookup": true
+    },
+    {
+      "id": "route_road_osm_route_01_008_70",
+      "objectType": "road",
+      "unityPosition": {
+        "x": 496.221,
+        "y": 2.4,
+        "z": -262.748
+      },
+      "lat": 35.6747124,
+      "lon": 139.7757689,
+      "currentName": "",
+      "reasonForQuery": "route_or_road_point_missing_cached_specific_road_name",
+      "priority": 4,
+      "sourceDataPath": "data_pipeline/processed/routes/real_chuo_osm_routes_sample.json",
+      "enabledForOnlineLookup": true
+    },
+    {
+      "id": "route_road_osm_route_01_009_117",
+      "objectType": "road",
+      "unityPosition": {
+        "x": 1071.311,
+        "y": 2.4,
+        "z": -103.128
+      },
+      "lat": 35.6761817,
+      "lon": 139.7821252,
+      "currentName": "",
+      "reasonForQuery": "route_or_road_point_missing_cached_specific_road_name",
+      "priority": 4,
+      "sourceDataPath": "data_pipeline/processed/routes/real_chuo_osm_routes_sample.json",
+      "enabledForOnlineLookup": true
+    },
+    {
+      "id": "route_road_osm_route_01_009_59",
+      "objectType": "road",
+      "unityPosition": {
+        "x": 210.642,
+        "y": 2.4,
+        "z": -232.21
+      },
+      "lat": 35.6749784,
+      "lon": 139.7726102,
+      "currentName": "",
+      "reasonForQuery": "route_or_road_point_missing_cached_specific_road_name",
+      "priority": 4,
+      "sourceDataPath": "data_pipeline/processed/routes/real_chuo_osm_routes_sample.json",
+      "enabledForOnlineLookup": true
+    },
+    {
+      "id": "route_road_osm_route_01_010_134",
+      "objectType": "road",
+      "unityPosition": {
+        "x": 20.363,
+        "y": 2.4,
+        "z": 1182.914
+      },
+      "lat": 35.6878028,
+      "lon": 139.7704767,
+      "currentName": "",
+      "reasonForQuery": "route_or_road_point_missing_cached_specific_road_name",
+      "priority": 4,
+      "sourceDataPath": "data_pipeline/processed/routes/real_chuo_osm_routes_sample.json",
+      "enabledForOnlineLookup": true
+    },
+    {
+      "id": "route_road_osm_route_01_010_67",
+      "objectType": "road",
+      "unityPosition": {
+        "x": -259.072,
+        "y": 2.4,
+        "z": 28.007
+      },
+      "lat": 35.67732,
+      "lon": 139.7674105,
+      "currentName": "",
+      "reasonForQuery": "route_or_road_point_missing_cached_specific_road_name",
+      "priority": 4,
+      "sourceDataPath": "data_pipeline/processed/routes/real_chuo_osm_routes_sample.json",
+      "enabledForOnlineLookup": true
+    },
+    {
+      "id": "route_road_osm_route_01_011_165",
+      "objectType": "road",
+      "unityPosition": {
+        "x": 601.636,
+        "y": 2.4,
+        "z": 1510.735
+      },
+      "lat": 35.6907975,
+      "lon": 139.7768979,
+      "currentName": "",
+      "reasonForQuery": "route_or_road_point_missing_cached_specific_road_name",
+      "priority": 4,
+      "sourceDataPath": "data_pipeline/processed/routes/real_chuo_osm_routes_sample.json",
+      "enabledForOnlineLookup": true
+    },
+    {
+      "id": "route_road_osm_route_01_011_83",
+      "objectType": "road",
+      "unityPosition": {
+        "x": 177.596,
+        "y": 2.4,
+        "z": 364.873
+      },
+      "lat": 35.6803912,
+      "lon": 139.7722324,
+      "currentName": "",
+      "reasonForQuery": "route_or_road_point_missing_cached_specific_road_name",
+      "priority": 4,
+      "sourceDataPath": "data_pipeline/processed/routes/real_chuo_osm_routes_sample.json",
+      "enabledForOnlineLookup": true
+    },
+    {
+      "id": "route_road_osm_route_01_012_150",
+      "objectType": "road",
+      "unityPosition": {
+        "x": 975.141,
+        "y": 2.4,
+        "z": 799.983
+      },
+      "lat": 35.684367,
+      "lon": 139.781043,
+      "currentName": "",
+      "reasonForQuery": "route_or_road_point_missing_cached_specific_road_name",
+      "priority": 4,
+      "sourceDataPath": "data_pipeline/processed/routes/real_chuo_osm_routes_sample.json",
+      "enabledForOnlineLookup": true
+    },
+    {
+      "id": "route_road_osm_route_01_012_75",
+      "objectType": "road",
+      "unityPosition": {
+        "x": 114.589,
+        "y": 2.4,
+        "z": 260.677
+      },
+      "lat": 35.679444,
+      "lon": 139.7715378,
+      "currentName": "",
+      "reasonForQuery": "route_or_road_point_missing_cached_specific_road_name",
+      "priority": 4,
+      "sourceDataPath": "data_pipeline/processed/routes/real_chuo_osm_routes_sample.json",
+      "enabledForOnlineLookup": true
+    },
+    {
+      "id": "route_road_osm_route_01_013_139",
+      "objectType": "road",
+      "unityPosition": {
+        "x": 1630.847,
+        "y": 2.4,
+        "z": 659.765
+      },
+      "lat": 35.6831206,
+      "lon": 139.788297,
+      "currentName": "",
+      "reasonForQuery": "route_or_road_point_missing_cached_specific_road_name",
+      "priority": 4,
+      "sourceDataPath": "data_pipeline/processed/routes/real_chuo_osm_routes_sample.json",
+      "enabledForOnlineLookup": true
+    },
+    {
+      "id": "route_road_osm_route_01_014_157",
+      "objectType": "road",
+      "unityPosition": {
+        "x": 1275.356,
+        "y": 2.4,
+        "z": 1331.941
+      },
+      "lat": 35.689202,
+      "lon": 139.7843519,
+      "currentName": "",
+      "reasonForQuery": "route_or_road_point_missing_cached_specific_road_name",
+      "priority": 4,
+      "sourceDataPath": "data_pipeline/processed/routes/real_chuo_osm_routes_sample.json",
+      "enabledForOnlineLookup": true
+    },
+    {
+      "id": "route_road_osm_route_01_014_79",
+      "objectType": "road",
+      "unityPosition": {
+        "x": 129.911,
+        "y": 2.4,
+        "z": 271.906
+      },
+      "lat": 35.6795464,
+      "lon": 139.771707,
+      "currentName": "",
+      "reasonForQuery": "route_or_road_point_missing_cached_specific_road_name",
+      "priority": 4,
+      "sourceDataPath": "data_pipeline/processed/routes/real_chuo_osm_routes_sample.json",
+      "enabledForOnlineLookup": true
+    },
+    {
+      "id": "route_road_osm_route_01_015_182",
+      "objectType": "road",
+      "unityPosition": {
+        "x": 1516.943,
+        "y": 2.4,
+        "z": 1615.733
+      },
+      "lat": 35.6917845,
+      "lon": 139.7870176,
+      "currentName": "",
+      "reasonForQuery": "route_or_road_point_missing_cached_specific_road_name",
+      "priority": 4,
+      "sourceDataPath": "data_pipeline/processed/routes/real_chuo_osm_routes_sample.json",
+      "enabledForOnlineLookup": true
+    },
+    {
+      "id": "route_road_osm_route_01_015_91",
+      "objectType": "road",
+      "unityPosition": {
+        "x": 206.425,
+        "y": 2.4,
+        "z": 422.893
+      },
+      "lat": 35.6809184,
+      "lon": 139.77255,
+      "currentName": "",
+      "reasonForQuery": "route_or_road_point_missing_cached_specific_road_name",
+      "priority": 4,
+      "sourceDataPath": "data_pipeline/processed/routes/real_chuo_osm_routes_sample.json",
+      "enabledForOnlineLookup": true
+    },
+    {
+      "id": "route_road_osm_route_01_016_43",
+      "objectType": "road",
+      "unityPosition": {
+        "x": 31.161,
+        "y": 2.4,
+        "z": -245.737
+      },
+      "lat": 35.6748489,
+      "lon": 139.7706257,
+      "currentName": "",
+      "reasonForQuery": "route_or_road_point_missing_cached_specific_road_name",
+      "priority": 4,
+      "sourceDataPath": "data_pipeline/processed/routes/real_chuo_osm_routes_sample.json",
+      "enabledForOnlineLookup": true
+    },
+    {
+      "id": "route_road_osm_route_01_016_86",
+      "objectType": "road",
+      "unityPosition": {
+        "x": 564.763,
+        "y": 2.4,
+        "z": 223.426
+      },
+      "lat": 35.6791234,
+      "lon": 139.7765168,
+      "currentName": "",
+      "reasonForQuery": "route_or_road_point_missing_cached_specific_road_name",
+      "priority": 4,
+      "sourceDataPath": "data_pipeline/processed/routes/real_chuo_osm_routes_sample.json",
+      "enabledForOnlineLookup": true
+    },
+    {
+      "id": "route_road_osm_route_01_017_109",
+      "objectType": "road",
+      "unityPosition": {
+        "x": 1278.991,
+        "y": 2.4,
+        "z": -913.739
+      },
+      "lat": 35.6688394,
+      "lon": 139.7844386,
+      "currentName": "",
+      "reasonForQuery": "route_or_road_point_missing_cached_specific_road_name",
+      "priority": 4,
+      "sourceDataPath": "data_pipeline/processed/routes/real_chuo_osm_routes_sample.json",
+      "enabledForOnlineLookup": true
+    },
+    {
+      "id": "route_road_osm_route_01_017_55",
+      "objectType": "road",
+      "unityPosition": {
+        "x": 399.003,
+        "y": 2.4,
+        "z": -745.04
+      },
+      "lat": 35.6703355,
+      "lon": 139.7747038,
+      "currentName": "",
+      "reasonForQuery": "route_or_road_point_missing_cached_specific_road_name",
+      "priority": 4,
+      "sourceDataPath": "data_pipeline/processed/routes/real_chuo_osm_routes_sample.json",
+      "enabledForOnlineLookup": true
+    },
+    {
+      "id": "route_road_osm_route_01_018_49",
+      "objectType": "road",
+      "unityPosition": {
+        "x": 257.105,
+        "y": 2.4,
+        "z": -671.159
+      },
+      "lat": 35.671,
+      "lon": 139.7731331,
+      "currentName": "",
+      "reasonForQuery": "route_or_road_point_missing_cached_specific_road_name",
+      "priority": 4,
+      "sourceDataPath": "data_pipeline/processed/routes/real_chuo_osm_routes_sample.json",
+      "enabledForOnlineLookup": true
+    },
+    {
+      "id": "route_road_osm_route_01_018_98",
+      "objectType": "road",
+      "unityPosition": {
+        "x": 1304.655,
+        "y": 2.4,
+        "z": -1067.638
+      },
+      "lat": 35.6674449,
+      "lon": 139.7847256,
+      "currentName": "",
+      "reasonForQuery": "route_or_road_point_missing_cached_specific_road_name",
+      "priority": 4,
+      "sourceDataPath": "data_pipeline/processed/routes/real_chuo_osm_routes_sample.json",
+      "enabledForOnlineLookup": true
+    },
+    {
+      "id": "route_road_osm_route_01_019_149",
+      "objectType": "road",
+      "unityPosition": {
+        "x": 871.935,
+        "y": 2.4,
+        "z": -1778.382
+      },
+      "lat": 35.6609837,
+      "lon": 139.7799551,
+      "currentName": "",
+      "reasonForQuery": "route_or_road_point_missing_cached_specific_road_name",
+      "priority": 4,
+      "sourceDataPath": "data_pipeline/processed/routes/real_chuo_osm_routes_sample.json",
+      "enabledForOnlineLookup": true
+    },
+    {
+      "id": "route_road_osm_route_01_019_75",
+      "objectType": "road",
+      "unityPosition": {
+        "x": -51.091,
+        "y": 2.4,
+        "z": -1051.411
+      },
+      "lat": 35.6675403,
+      "lon": 139.7697328,
+      "currentName": "",
+      "reasonForQuery": "route_or_road_point_missing_cached_specific_road_name",
+      "priority": 4,
+      "sourceDataPath": "data_pipeline/processed/routes/real_chuo_osm_routes_sample.json",
+      "enabledForOnlineLookup": true
+    },
+    {
+      "id": "route_road_osm_route_01_020_105",
+      "objectType": "road",
+      "unityPosition": {
+        "x": 511.816,
+        "y": 2.4,
+        "z": -1916.375
+      },
+      "lat": 35.6597187,
+      "lon": 139.7759756,
+      "currentName": "",
+      "reasonForQuery": "route_or_road_point_missing_cached_specific_road_name",
+      "priority": 4,
+      "sourceDataPath": "data_pipeline/processed/routes/real_chuo_osm_routes_sample.json",
+      "enabledForOnlineLookup": true
+    },
+    {
+      "id": "route_road_osm_route_01_020_53",
+      "objectType": "road",
+      "unityPosition": {
+        "x": -211.884,
+        "y": 2.4,
+        "z": -888.065
+      },
+      "lat": 35.6690153,
+      "lon": 139.7679513,
+      "currentName": "",
+      "reasonForQuery": "route_or_road_point_missing_cached_specific_road_name",
+      "priority": 4,
+      "sourceDataPath": "data_pipeline/processed/routes/real_chuo_osm_routes_sample.json",
+      "enabledForOnlineLookup": true
+    },
+    {
+      "id": "route_road_osm_route_01_021_173",
+      "objectType": "road",
+      "unityPosition": {
+        "x": 1395.362,
+        "y": 2.4,
+        "z": -1976.471
+      },
+      "lat": 35.6592075,
+      "lon": 139.7857475,
+      "currentName": "",
+      "reasonForQuery": "route_or_road_point_missing_cached_specific_road_name",
+      "priority": 4,
+      "sourceDataPath": "data_pipeline/processed/routes/real_chuo_osm_routes_sample.json",
+      "enabledForOnlineLookup": true
+    },
+    {
+      "id": "route_road_osm_route_01_021_87",
+      "objectType": "road",
+      "unityPosition": {
+        "x": 35.794,
+        "y": 2.4,
+        "z": -1132.625
+      },
+      "lat": 35.6668072,
+      "lon": 139.7706953,
+      "currentName": "",
+      "reasonForQuery": "route_or_road_point_missing_cached_specific_road_name",
+      "priority": 4,
+      "sourceDataPath": "data_pipeline/processed/routes/real_chuo_osm_routes_sample.json",
+      "enabledForOnlineLookup": true
+    },
+    {
+      "id": "route_road_osm_route_01_022_169",
+      "objectType": "road",
+      "unityPosition": {
+        "x": 1326.785,
+        "y": 2.4,
+        "z": -1878.041
+      },
+      "lat": 35.6600974,
+      "lon": 139.7849871,
+      "currentName": "",
+      "reasonForQuery": "route_or_road_point_missing_cached_specific_road_name",
+      "priority": 4,
+      "sourceDataPath": "data_pipeline/processed/routes/real_chuo_osm_routes_sample.json",
+      "enabledForOnlineLookup": true
+    },
+    {
+      "id": "route_road_osm_route_01_022_85",
+      "objectType": "road",
+      "unityPosition": {
+        "x": 24.59,
+        "y": 2.4,
+        "z": -1132.369
+      },
+      "lat": 35.6668091,
+      "lon": 139.7705714,
+      "currentName": "",
+      "reasonForQuery": "route_or_road_point_missing_cached_specific_road_name",
+      "priority": 4,
+      "sourceDataPath": "data_pipeline/processed/routes/real_chuo_osm_routes_sample.json",
+      "enabledForOnlineLookup": true
+    },
+    {
+      "id": "route_road_osm_route_01_023_128",
+      "objectType": "road",
+      "unityPosition": {
+        "x": 327.69,
+        "y": 2.4,
+        "z": -2493.499
+      },
+      "lat": 35.6544786,
+      "lon": 139.7739514,
+      "currentName": "",
+      "reasonForQuery": "route_or_road_point_missing_cached_specific_road_name",
+      "priority": 4,
+      "sourceDataPath": "data_pipeline/processed/routes/real_chuo_osm_routes_sample.json",
+      "enabledForOnlineLookup": true
+    },
+    {
+      "id": "route_road_osm_route_01_023_64",
+      "objectType": "road",
+      "unityPosition": {
+        "x": -166.396,
+        "y": 2.4,
+        "z": -935.127
+      },
+      "lat": 35.6685903,
+      "lon": 139.7684553,
+      "currentName": "",
+      "reasonForQuery": "route_or_road_point_missing_cached_specific_road_name",
+      "priority": 4,
+      "sourceDataPath": "data_pipeline/processed/routes/real_chuo_osm_routes_sample.json",
+      "enabledForOnlineLookup": true
+    },
+    {
+      "id": "route_road_osm_route_01_024_27",
+      "objectType": "road",
+      "unityPosition": {
+        "x": -114.386,
+        "y": 2.4,
+        "z": -787.952
+      },
+      "lat": 35.6699268,
+      "lon": 139.7690274,
+      "currentName": "",
+      "reasonForQuery": "route_or_road_point_missing_cached_specific_road_name",
+      "priority": 4,
+      "sourceDataPath": "data_pipeline/processed/routes/real_chuo_osm_routes_sample.json",
+      "enabledForOnlineLookup": true
+    },
+    {
+      "id": "route_road_osm_route_01_024_54",
+      "objectType": "road",
+      "unityPosition": {
+        "x": 184.353,
+        "y": 2.4,
+        "z": -730.042
+      },
+      "lat": 35.6704633,
+      "lon": 139.7723298,
+      "currentName": "",
+      "reasonForQuery": "route_or_road_point_missing_cached_specific_road_name",
+      "priority": 4,
+      "sourceDataPath": "data_pipeline/processed/routes/real_chuo_osm_routes_sample.json",
+      "enabledForOnlineLookup": true
+    },
+    {
+      "id": "route_road_osm_route_01_025_121",
+      "objectType": "road",
+      "unityPosition": {
+        "x": 1283.225,
+        "y": 2.4,
+        "z": 569.88
+      },
+      "lat": 35.6822923,
+      "lon": 139.7844547,
+      "currentName": "",
+      "reasonForQuery": "route_or_road_point_missing_cached_specific_road_name",
+      "priority": 4,
+      "sourceDataPath": "data_pipeline/processed/routes/real_chuo_osm_routes_sample.json",
+      "enabledForOnlineLookup": true
+    },
+    {
+      "id": "route_road_osm_route_01_025_61",
+      "objectType": "road",
+      "unityPosition": {
+        "x": 273.413,
+        "y": 2.4,
+        "z": -253.858
+      },
+      "lat": 35.6747845,
+      "lon": 139.7733048,
+      "currentName": "",
+      "reasonForQuery": "route_or_road_point_missing_cached_specific_road_name",
+      "priority": 4,
+      "sourceDataPath": "data_pipeline/processed/routes/real_chuo_osm_routes_sample.json",
+      "enabledForOnlineLookup": true
+    },
+    {
+      "id": "route_road_osm_route_01_026_161",
+      "objectType": "road",
+      "unityPosition": {
+        "x": 1018.227,
+        "y": 2.4,
+        "z": -1679.025
+      },
+      "lat": 35.6618902,
+      "lon": 139.7815708,
+      "currentName": "",
+      "reasonForQuery": "route_or_road_point_missing_cached_specific_road_name",
+      "priority": 4,
+      "sourceDataPath": "data_pipeline/processed/routes/real_chuo_osm_routes_sample.json",
+      "enabledForOnlineLookup": true
+    },
+    {
+      "id": "route_road_osm_route_01_026_81",
+      "objectType": "road",
+      "unityPosition": {
+        "x": -40.067,
+        "y": 2.4,
+        "z": -1065.088
+      },
+      "lat": 35.6674167,
+      "lon": 139.769855,
+      "currentName": "",
+      "reasonForQuery": "route_or_road_point_missing_cached_specific_road_name",
+      "priority": 4,
+      "sourceDataPath": "data_pipeline/processed/routes/real_chuo_osm_routes_sample.json",
+      "enabledForOnlineLookup": true
+    },
+    {
+      "id": "route_road_osm_route_01_027_167",
+      "objectType": "road",
+      "unityPosition": {
+        "x": 372.65,
+        "y": 2.4,
+        "z": -2750.065
+      },
+      "lat": 35.6521539,
+      "lon": 139.7744539,
+      "currentName": "",
+      "reasonForQuery": "route_or_road_point_missing_cached_specific_road_name",
+      "priority": 4,
+      "sourceDataPath": "data_pipeline/processed/routes/real_chuo_osm_routes_sample.json",
+      "enabledForOnlineLookup": true
+    },
+    {
+      "id": "route_road_osm_route_01_027_84",
+      "objectType": "road",
+      "unityPosition": {
+        "x": 41.874,
+        "y": 2.4,
+        "z": -1183.823
+      },
+      "lat": 35.6663432,
+      "lon": 139.7707636,
+      "currentName": "",
+      "reasonForQuery": "route_or_road_point_missing_cached_specific_road_name",
+      "priority": 4,
+      "sourceDataPath": "data_pipeline/processed/routes/real_chuo_osm_routes_sample.json",
+      "enabledForOnlineLookup": true
+    },
+    {
+      "id": "route_road_osm_route_02_001_0",
+      "objectType": "road",
+      "unityPosition": {
+        "x": 450.345,
+        "y": 2.4,
+        "z": 590.976
+      },
+      "lat": 35.6824518,
+      "lon": 139.7752439,
+      "currentName": "",
+      "reasonForQuery": "route_or_road_point_missing_cached_specific_road_name",
+      "priority": 4,
+      "sourceDataPath": "data_pipeline/processed/routes/real_chuo_osm_routes_sample.json",
+      "enabledForOnlineLookup": true
+    },
+    {
+      "id": "route_road_osm_route_02_001_30",
+      "objectType": "road",
+      "unityPosition": {
+        "x": 146.337,
+        "y": 2.4,
+        "z": 264.723
+      },
+      "lat": 35.6794819,
+      "lon": 139.7718888,
+      "currentName": "",
+      "reasonForQuery": "route_or_road_point_missing_cached_specific_road_name",
+      "priority": 4,
+      "sourceDataPath": "data_pipeline/processed/routes/real_chuo_osm_routes_sample.json",
+      "enabledForOnlineLookup": true
+    },
+    {
+      "id": "route_road_osm_route_02_002_33",
+      "objectType": "road",
+      "unityPosition": {
+        "x": 335.442,
+        "y": 2.4,
+        "z": 129.823
+      },
+      "lat": 35.6782659,
+      "lon": 139.7739828,
+      "currentName": "",
+      "reasonForQuery": "route_or_road_point_missing_cached_specific_road_name",
+      "priority": 4,
+      "sourceDataPath": "data_pipeline/processed/routes/real_chuo_osm_routes_sample.json",
+      "enabledForOnlineLookup": true
+    },
+    {
+      "id": "route_road_osm_route_02_003_60",
+      "objectType": "road",
+      "unityPosition": {
+        "x": -250.477,
+        "y": 2.4,
+        "z": -210.959
+      },
+      "lat": 35.6751535,
+      "lon": 139.7675105,
+      "currentName": "",
+      "reasonForQuery": "route_or_road_point_missing_cached_specific_road_name",
+      "priority": 4,
+      "sourceDataPath": "data_pipeline/processed/routes/real_chuo_osm_routes_sample.json",
+      "enabledForOnlineLookup": true
+    },
+    {
+      "id": "route_road_osm_route_02_004_58",
+      "objectType": "road",
+      "unityPosition": {
+        "x": -119.884,
+        "y": 2.4,
+        "z": -488.585
+      },
+      "lat": 35.6726411,
+      "lon": 139.7689604,
+      "currentName": "",
+      "reasonForQuery": "route_or_road_point_missing_cached_specific_road_name",
+      "priority": 4,
+      "sourceDataPath": "data_pipeline/processed/routes/real_chuo_osm_routes_sample.json",
+      "enabledForOnlineLookup": true
+    },
+    {
+      "id": "route_road_osm_route_02_005_35",
+      "objectType": "road",
+      "unityPosition": {
+        "x": 675.379,
+        "y": 2.4,
+        "z": 51.524
+      },
+      "lat": 35.6775689,
+      "lon": 139.7777436,
+      "currentName": "",
+      "reasonForQuery": "route_or_road_point_missing_cached_specific_road_name",
+      "priority": 4,
+      "sourceDataPath": "data_pipeline/processed/routes/real_chuo_osm_routes_sample.json",
+      "enabledForOnlineLookup": true
+    },
+    {
+      "id": "route_road_osm_route_02_006_44",
+      "objectType": "road",
+      "unityPosition": {
+        "x": 726.614,
+        "y": 2.4,
+        "z": -55.832
+      },
+      "lat": 35.6765974,
+      "lon": 139.7783124,
+      "currentName": "",
+      "reasonForQuery": "route_or_road_point_missing_cached_specific_road_name",
+      "priority": 4,
+      "sourceDataPath": "data_pipeline/processed/routes/real_chuo_osm_routes_sample.json",
+      "enabledForOnlineLookup": true
+    },
+    {
+      "id": "route_road_osm_route_02_007_44",
+      "objectType": "road",
+      "unityPosition": {
+        "x": 51.409,
+        "y": 2.4,
+        "z": -206.693
+      },
+      "lat": 35.6752037,
+      "lon": 139.7708488,
+      "currentName": "",
+      "reasonForQuery": "route_or_road_point_missing_cached_specific_road_name",
+      "priority": 4,
+      "sourceDataPath": "data_pipeline/processed/routes/real_chuo_osm_routes_sample.json",
+      "enabledForOnlineLookup": true
+    },
+    {
+      "id": "route_road_osm_route_02_008_32",
+      "objectType": "road",
+      "unityPosition": {
+        "x": 378.472,
+        "y": 2.4,
+        "z": 131.704
+      },
+      "lat": 35.6782846,
+      "lon": 139.7744586,
+      "currentName": "",
+      "reasonForQuery": "route_or_road_point_missing_cached_specific_road_name",
+      "priority": 4,
+      "sourceDataPath": "data_pipeline/processed/routes/real_chuo_osm_routes_sample.json",
+      "enabledForOnlineLookup": true
+    },
+    {
+      "id": "route_road_osm_route_02_009_29",
+      "objectType": "road",
+      "unityPosition": {
+        "x": 714.288,
+        "y": 2.4,
+        "z": 252.738
+      },
+      "lat": 35.6793949,
+      "lon": 139.7781697,
+      "currentName": "",
+      "reasonForQuery": "route_or_road_point_missing_cached_specific_road_name",
+      "priority": 4,
+      "sourceDataPath": "data_pipeline/processed/routes/real_chuo_osm_routes_sample.json",
+      "enabledForOnlineLookup": true
+    },
+    {
+      "id": "route_road_osm_route_02_010_22",
+      "objectType": "road",
+      "unityPosition": {
+        "x": 114.075,
+        "y": 2.4,
+        "z": 869.832
+      },
+      "lat": 35.6849675,
+      "lon": 139.7715195,
+      "currentName": "",
+      "reasonForQuery": "route_or_road_point_missing_cached_specific_road_name",
+      "priority": 4,
+      "sourceDataPath": "data_pipeline/processed/routes/real_chuo_osm_routes_sample.json",
+      "enabledForOnlineLookup": true
+    },
+    {
+      "id": "route_road_osm_route_02_011_29",
+      "objectType": "road",
+      "unityPosition": {
+        "x": 569.293,
+        "y": 2.4,
+        "z": 1000.389
+      },
+      "lat": 35.6861687,
+      "lon": 139.7765508,
+      "currentName": "",
+      "reasonForQuery": "route_or_road_point_missing_cached_specific_road_name",
+      "priority": 4,
+      "sourceDataPath": "data_pipeline/processed/routes/real_chuo_osm_routes_sample.json",
+      "enabledForOnlineLookup": true
+    },
+    {
+      "id": "route_road_osm_route_02_012_22",
+      "objectType": "road",
+      "unityPosition": {
+        "x": 769.821,
+        "y": 2.4,
+        "z": 499.805
+      },
+      "lat": 35.6816373,
+      "lon": 139.7787787,
+      "currentName": "",
+      "reasonForQuery": "route_or_road_point_missing_cached_specific_road_name",
+      "priority": 4,
+      "sourceDataPath": "data_pipeline/processed/routes/real_chuo_osm_routes_sample.json",
+      "enabledForOnlineLookup": true
+    },
+    {
+      "id": "route_road_osm_route_02_013_29",
+      "objectType": "road",
+      "unityPosition": {
+        "x": 833.381,
+        "y": 2.4,
+        "z": 542.074
+      },
+      "lat": 35.682023,
+      "lon": 139.7794807,
+      "currentName": "",
+      "reasonForQuery": "route_or_road_point_missing_cached_specific_road_name",
+      "priority": 4,
+      "sourceDataPath": "data_pipeline/processed/routes/real_chuo_osm_routes_sample.json",
+      "enabledForOnlineLookup": true
+    },
+    {
+      "id": "route_road_osm_route_02_014_27",
+      "objectType": "road",
+      "unityPosition": {
+        "x": 610.235,
+        "y": 2.4,
+        "z": 858.171
+      },
+      "lat": 35.6848807,
+      "lon": 139.7770065,
+      "currentName": "",
+      "reasonForQuery": "route_or_road_point_missing_cached_specific_road_name",
+      "priority": 4,
+      "sourceDataPath": "data_pipeline/processed/routes/real_chuo_osm_routes_sample.json",
+      "enabledForOnlineLookup": true
+    },
+    {
+      "id": "route_road_osm_route_02_015_40",
+      "objectType": "road",
+      "unityPosition": {
+        "x": 910.156,
+        "y": 2.4,
+        "z": 1044.943
+      },
+      "lat": 35.6865857,
+      "lon": 139.7803193,
+      "currentName": "",
+      "reasonForQuery": "route_or_road_point_missing_cached_specific_road_name",
+      "priority": 4,
+      "sourceDataPath": "data_pipeline/processed/routes/real_chuo_osm_routes_sample.json",
+      "enabledForOnlineLookup": true
+    },
+    {
+      "id": "route_road_osm_route_02_016_12",
+      "objectType": "road",
+      "unityPosition": {
+        "x": 564.869,
+        "y": 2.4,
+        "z": 482.592
+      },
+      "lat": 35.6814734,
+      "lon": 139.7765126,
+      "currentName": "",
+      "reasonForQuery": "route_or_road_point_missing_cached_specific_road_name",
+      "priority": 4,
+      "sourceDataPath": "data_pipeline/processed/routes/real_chuo_osm_routes_sample.json",
+      "enabledForOnlineLookup": true
+    },
+    {
+      "id": "route_road_osm_route_02_017_46",
+      "objectType": "road",
+      "unityPosition": {
+        "x": 875.338,
+        "y": 2.4,
+        "z": 67.975
+      },
+      "lat": 35.6777257,
+      "lon": 139.7799545,
+      "currentName": "",
+      "reasonForQuery": "route_or_road_point_missing_cached_specific_road_name",
+      "priority": 4,
+      "sourceDataPath": "data_pipeline/processed/routes/real_chuo_osm_routes_sample.json",
+      "enabledForOnlineLookup": true
+    },
+    {
+      "id": "route_road_osm_route_02_018_59",
+      "objectType": "road",
+      "unityPosition": {
+        "x": 1024.138,
+        "y": 2.4,
+        "z": -164.38
+      },
+      "lat": 35.6756245,
+      "lon": 139.7816048,
+      "currentName": "",
+      "reasonForQuery": "route_or_road_point_missing_cached_specific_road_name",
+      "priority": 4,
+      "sourceDataPath": "data_pipeline/processed/routes/real_chuo_osm_routes_sample.json",
+      "enabledForOnlineLookup": true
+    },
+    {
+      "id": "route_road_osm_route_02_019_67",
+      "objectType": "road",
+      "unityPosition": {
+        "x": 957.14,
+        "y": 2.4,
+        "z": -487.395
+      },
+      "lat": 35.672693,
+      "lon": 139.7808706,
+      "currentName": "",
+      "reasonForQuery": "route_or_road_point_missing_cached_specific_road_name",
+      "priority": 4,
+      "sourceDataPath": "data_pipeline/processed/routes/real_chuo_osm_routes_sample.json",
+      "enabledForOnlineLookup": true
+    },
+    {
+      "id": "route_road_osm_route_02_020_70",
+      "objectType": "road",
+      "unityPosition": {
+        "x": -233.73,
+        "y": 2.4,
+        "z": -713.548
+      },
+      "lat": 35.6705969,
+      "lon": 139.7677061,
+      "currentName": "",
+      "reasonForQuery": "route_or_road_point_missing_cached_specific_road_name",
+      "priority": 4,
+      "sourceDataPath": "data_pipeline/processed/routes/real_chuo_osm_routes_sample.json",
+      "enabledForOnlineLookup": true
+    },
+    {
+      "id": "route_road_osm_route_02_021_69",
+      "objectType": "road",
+      "unityPosition": {
+        "x": 966.437,
+        "y": 2.4,
+        "z": -539.852
+      },
+      "lat": 35.6722177,
+      "lon": 139.7809745,
+      "currentName": "",
+      "reasonForQuery": "route_or_road_point_missing_cached_specific_road_name",
+      "priority": 4,
+      "sourceDataPath": "data_pipeline/processed/routes/real_chuo_osm_routes_sample.json",
+      "enabledForOnlineLookup": true
+    },
+    {
+      "id": "route_road_osm_route_02_022_66",
+      "objectType": "road",
+      "unityPosition": {
+        "x": 955.179,
+        "y": 2.4,
+        "z": -482.082
+      },
+      "lat": 35.6727411,
+      "lon": 139.7808488,
+      "currentName": "",
+      "reasonForQuery": "route_or_road_point_missing_cached_specific_road_name",
+      "priority": 4,
+      "sourceDataPath": "data_pipeline/processed/routes/real_chuo_osm_routes_sample.json",
+      "enabledForOnlineLookup": true
+    },
+    {
+      "id": "route_road_osm_route_02_023_82",
+      "objectType": "road",
+      "unityPosition": {
+        "x": -262.304,
+        "y": 2.4,
+        "z": -833.582
+      },
+      "lat": 35.6695074,
+      "lon": 139.7673926,
+      "currentName": "",
+      "reasonForQuery": "route_or_road_point_missing_cached_specific_road_name",
+      "priority": 4,
+      "sourceDataPath": "data_pipeline/processed/routes/real_chuo_osm_routes_sample.json",
+      "enabledForOnlineLookup": true
+    },
+    {
+      "id": "route_road_osm_route_02_024_43",
+      "objectType": "road",
+      "unityPosition": {
+        "x": 230.546,
+        "y": 2.4,
+        "z": -164.337
+      },
+      "lat": 35.6755946,
+      "lon": 139.7728289,
+      "currentName": "",
+      "reasonForQuery": "route_or_road_point_missing_cached_specific_road_name",
+      "priority": 4,
+      "sourceDataPath": "data_pipeline/processed/routes/real_chuo_osm_routes_sample.json",
+      "enabledForOnlineLookup": true
+    },
+    {
+      "id": "route_road_osm_route_02_025_29",
+      "objectType": "road",
+      "unityPosition": {
+        "x": 828.606,
+        "y": 2.4,
+        "z": 551.358
+      },
+      "lat": 35.682107,
+      "lon": 139.7794277,
+      "currentName": "",
+      "reasonForQuery": "route_or_road_point_missing_cached_specific_road_name",
+      "priority": 4,
+      "sourceDataPath": "data_pipeline/processed/routes/real_chuo_osm_routes_sample.json",
+      "enabledForOnlineLookup": true
+    }
+  ]
+}

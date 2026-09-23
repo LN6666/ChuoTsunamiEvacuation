@@ -1,0 +1,11 @@
+{
+  "enabled": true,
+  "additionalGroundRaiseMeters": 0.3,
+  "maxAdditionalRaiseMeters": 1.0,
+  "applyToGroundCover": true,
+  "applyToSupportColliders": true,
+  "resnapPlayer": true,
+  "resnapNpc": true,
+  "resnapTargets": true,
+  "resnapGreenFrames": true
+}

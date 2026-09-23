@@ -1,0 +1,12 @@
+{
+  "generateOnModeStartOnly": true,
+  "allowGlobalRefresh": false,
+  "globalRespawnIntervalSeconds": 0.0,
+  "individualStuckRecoveryEnabled": true,
+  "stuckRecoverySeconds": 5.0,
+  "minNpcLifetimeSeconds": 300.0,
+  "farNpcStaticProxyEnabled": true,
+  "farNpcDespawnEnabled": false,
+  "recycleOnlyWhenOutOfBoundsOrInvalid": true,
+  "collisionWithPlayerDoesNotGlobalPause": true
+}

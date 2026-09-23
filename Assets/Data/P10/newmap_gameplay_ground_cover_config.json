@@ -1,0 +1,18 @@
+{
+  "enabled": true,
+  "forceFixedCoverY": true,
+  "coverY": 0.0,
+  "tileSizeMeters": 320.0,
+  "maxTileCount": 600,
+  "thicknessMeters": 0.18,
+  "overlapMeters": 0.08,
+  "rendererEnabledInNormalMode": true,
+  "colliderEnabled": true,
+  "useImportedRoadMaterialIfAvailable": true,
+  "materialRed": 0.34,
+  "materialGreen": 0.35,
+  "materialBlue": 0.33,
+  "materialAlpha": 1.0,
+  "materialName": "P10_NewMap_RoadGroundCover",
+  "strategy": "visible_road_like_gameplay_ground_cover_not_gis_grade"
+}

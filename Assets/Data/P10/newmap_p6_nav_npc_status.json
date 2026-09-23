@@ -1,0 +1,8 @@
+﻿{
+    "generatedAt":  "2026-05-26T17:22:10+09:00",
+    "npcPrototype":  "NewMapNpcCrowdPrototype",
+    "npcCap":  8,
+    "roadAwareNavigation":  false,
+    "navigationBehavior":  "local spawn-zone wander proxy with congestion delay metrics; no road-geometry validation claim",
+    "finalStatus":  "completed_with_documented_runtime_proxy"
+}

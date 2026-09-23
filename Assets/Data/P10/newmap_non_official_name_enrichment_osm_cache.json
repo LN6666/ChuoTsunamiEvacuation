@@ -1,0 +1,297 @@
+{
+  "generatedAt": "2026-05-30T21:41:16+09:00",
+  "results": [
+    {
+      "provider": "online_osm_overpass",
+      "candidateId": "p8_plateau_highrise_candidate_027",
+      "accepted": true,
+      "resultCount": 8,
+      "normalizedCandidateCount": 7,
+      "name": "やまや",
+      "distanceMeters": 12.3,
+      "rawType": "amenity:restaurant",
+      "osmType": "node",
+      "osmId": 4664594590,
+      "sourceField": "name:ja/name/official_name"
+    },
+    {
+      "provider": "online_osm_overpass",
+      "candidateId": "p8_plateau_highrise_candidate_030",
+      "accepted": true,
+      "resultCount": 20,
+      "normalizedCandidateCount": 14,
+      "name": "茶ノ木神社",
+      "distanceMeters": 42.88,
+      "rawType": "building:yes",
+      "osmType": "way",
+      "osmId": 657580356,
+      "sourceField": "name:ja/name/official_name"
+    },
+    {
+      "provider": "online_osm_overpass",
+      "candidateId": "p8_plateau_highrise_candidate_031",
+      "accepted": true,
+      "resultCount": 4,
+      "normalizedCandidateCount": 3,
+      "name": "日本橋室町三井タワー [COREDO室町テラス]",
+      "distanceMeters": 2.57,
+      "rawType": "building:retail",
+      "osmType": "way",
+      "osmId": 449621789,
+      "sourceField": "name:ja/name/official_name"
+    },
+    {
+      "provider": "online_osm_overpass",
+      "candidateId": "p8_plateau_highrise_candidate_033",
+      "accepted": true,
+      "resultCount": 12,
+      "normalizedCandidateCount": 9,
+      "name": "武田グローバル本社",
+      "distanceMeters": 9.51,
+      "rawType": "building:yes",
+      "osmType": "way",
+      "osmId": 187748928,
+      "sourceField": "name:ja/name/official_name"
+    },
+    {
+      "provider": "online_osm_overpass",
+      "candidateId": "p8_plateau_highrise_candidate_034",
+      "accepted": true,
+      "resultCount": 25,
+      "normalizedCandidateCount": 20,
+      "name": "東京スクエアガーデン",
+      "distanceMeters": 22.99,
+      "rawType": "building:commercial",
+      "osmType": "way",
+      "osmId": 406737276,
+      "sourceField": "name:ja/name/official_name"
+    },
+    {
+      "provider": "online_osm_overpass",
+      "candidateId": "p8_plateau_highrise_candidate_039",
+      "accepted": true,
+      "resultCount": 25,
+      "normalizedCandidateCount": 20,
+      "name": "八重洲一丁目北地区第一種市街地再開発事業",
+      "distanceMeters": 11.95,
+      "rawType": "named_feature",
+      "osmType": "way",
+      "osmId": 1163853120,
+      "sourceField": "name:ja/name/official_name"
+    },
+    {
+      "provider": "online_osm_overpass",
+      "candidateId": "p8_plateau_highrise_candidate_040",
+      "accepted": true,
+      "resultCount": 15,
+      "normalizedCandidateCount": 14,
+      "name": "京橋トラストタワー",
+      "distanceMeters": 6.97,
+      "rawType": "building:yes",
+      "osmType": "way",
+      "osmId": 149144210,
+      "sourceField": "name:ja/name/official_name"
+    },
+    {
+      "provider": "online_osm_overpass",
+      "candidateId": "p8_plateau_highrise_candidate_041",
+      "accepted": true,
+      "resultCount": 4,
+      "normalizedCandidateCount": 4,
+      "name": "銀座松竹スクエア",
+      "distanceMeters": 11.89,
+      "rawType": "building:commercial",
+      "osmType": "way",
+      "osmId": 286434740,
+      "sourceField": "name:ja/name/official_name"
+    },
+    {
+      "candidateId": "p8_plateau_highrise_candidate_042",
+      "provider": "overpass",
+      "accepted": false,
+      "error": {
+        "candidateId": "p8_plateau_highrise_candidate_042",
+        "provider": "overpass",
+        "error": "HTTPError",
+        "message": "HTTP Error 429: Too Many Requests"
+      }
+    },
+    {
+      "provider": "online_osm_nominatim",
+      "candidateId": "p8_plateau_highrise_candidate_042",
+      "accepted": true,
+      "osmType": "node",
+      "osmId": 11454138449,
+      "class": "amenity",
+      "type": "cafe",
+      "rawName": "雪月花 カフェ京橋店",
+      "name": "雪月花 カフェ京橋店"
+    },
+    {
+      "provider": "online_osm_overpass",
+      "candidateId": "p8_plateau_highrise_candidate_043",
+      "accepted": true,
+      "resultCount": 25,
+      "normalizedCandidateCount": 11,
+      "name": "SBI新生銀行",
+      "distanceMeters": 12.86,
+      "rawType": "amenity:bank",
+      "osmType": "node",
+      "osmId": 4380328690,
+      "sourceField": "name:ja/name/official_name"
+    },
+    {
+      "provider": "online_osm_overpass",
+      "candidateId": "p8_plateau_highrise_candidate_044",
+      "accepted": true,
+      "resultCount": 25,
+      "normalizedCandidateCount": 17,
+      "name": "COREDO室町1 (室町東三井ビルディング)",
+      "distanceMeters": 2.26,
+      "rawType": "building:retail",
+      "osmType": "way",
+      "osmId": 181930209,
+      "sourceField": "name:ja/name/official_name"
+    },
+    {
+      "candidateId": "p8_plateau_highrise_candidate_045",
+      "provider": "overpass",
+      "accepted": false,
+      "error": {
+        "candidateId": "p8_plateau_highrise_candidate_045",
+        "provider": "overpass",
+        "error": "HTTPError",
+        "message": "HTTP Error 504: Gateway Timeout"
+      }
+    },
+    {
+      "provider": "online_osm_nominatim",
+      "candidateId": "p8_plateau_highrise_candidate_045",
+      "accepted": true,
+      "osmType": "way",
+      "osmId": 276139664,
+      "class": "highway",
+      "type": "tertiary",
+      "rawName": "明正通り",
+      "name": "明正通り"
+    },
+    {
+      "candidateId": "p8_plateau_highrise_candidate_076",
+      "provider": "overpass",
+      "accepted": false,
+      "error": {
+        "candidateId": "p8_plateau_highrise_candidate_076",
+        "provider": "overpass",
+        "error": "HTTPError",
+        "message": "HTTP Error 504: Gateway Timeout"
+      }
+    },
+    {
+      "provider": "online_osm_nominatim",
+      "candidateId": "p8_plateau_highrise_candidate_076",
+      "accepted": false,
+      "osmType": "node",
+      "osmId": 6184273345,
+      "class": "railway",
+      "type": "subway_entrance",
+      "rawName": "C5",
+      "rejectedReason": "no_normalized_japanese_main_name"
+    },
+    {
+      "provider": "online_osm_overpass",
+      "candidateId": "p5f_sample_humanitarian_weak_005",
+      "accepted": true,
+      "resultCount": 3,
+      "normalizedCandidateCount": 3,
+      "name": "入船三丁目",
+      "distanceMeters": 16.15,
+      "rawType": "named_feature",
+      "osmType": "relation",
+      "osmId": 16170548,
+      "sourceField": "name:ja/name/official_name"
+    },
+    {
+      "provider": "online_osm_overpass",
+      "candidateId": "p8_plateau_highrise_candidate_086",
+      "accepted": true,
+      "resultCount": 25,
+      "normalizedCandidateCount": 14,
+      "name": "Coredo室町3 (室町ちばぎん三井ビルディング)",
+      "distanceMeters": 12.96,
+      "rawType": "building:retail",
+      "osmType": "way",
+      "osmId": 629051415,
+      "sourceField": "name:ja/name/official_name"
+    },
+    {
+      "provider": "online_osm_overpass",
+      "candidateId": "p8_plateau_highrise_candidate_090",
+      "accepted": true,
+      "resultCount": 19,
+      "normalizedCandidateCount": 12,
+      "name": "伊藤園",
+      "distanceMeters": 34.42,
+      "rawType": "amenity:vending_machine",
+      "osmType": "node",
+      "osmId": 12178284852,
+      "sourceField": "name:ja/name/official_name"
+    },
+    {
+      "provider": "online_osm_overpass",
+      "candidateId": "p8_plateau_highrise_candidate_091",
+      "accepted": true,
+      "resultCount": 16,
+      "normalizedCandidateCount": 10,
+      "name": "眞帆ビル",
+      "distanceMeters": 18.66,
+      "rawType": "building:yes",
+      "osmType": "way",
+      "osmId": 297882492,
+      "sourceField": "name:ja/name/official_name"
+    },
+    {
+      "candidateId": "p8_plateau_highrise_candidate_095",
+      "provider": "overpass",
+      "accepted": false,
+      "error": {
+        "candidateId": "p8_plateau_highrise_candidate_095",
+        "provider": "overpass",
+        "error": "HTTPError",
+        "message": "HTTP Error 429: Too Many Requests"
+      }
+    },
+    {
+      "provider": "online_osm_nominatim",
+      "candidateId": "p8_plateau_highrise_candidate_095",
+      "accepted": true,
+      "osmType": "way",
+      "osmId": 181926037,
+      "class": "amenity",
+      "type": "stock_exchange",
+      "rawName": "東京証券取引所",
+      "name": "東京証券取引所"
+    },
+    {
+      "candidateId": "p8_plateau_highrise_candidate_098",
+      "provider": "overpass",
+      "accepted": false,
+      "error": {
+        "candidateId": "p8_plateau_highrise_candidate_098",
+        "provider": "overpass",
+        "error": "HTTPError",
+        "message": "HTTP Error 429: Too Many Requests"
+      }
+    },
+    {
+      "provider": "online_osm_nominatim",
+      "candidateId": "p8_plateau_highrise_candidate_098",
+      "accepted": true,
+      "osmType": "node",
+      "osmId": 5871089585,
+      "class": "historic",
+      "type": "memorial",
+      "rawName": "小原鐵五郎寿像",
+      "name": "小原鐵五郎寿像"
+    }
+  ]
+}

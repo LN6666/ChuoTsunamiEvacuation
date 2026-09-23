@@ -1,0 +1,323 @@
+{
+  "generatedAt": "2026-05-30T21:41:16+09:00",
+  "activeScene": "Assets/Scenes/Chuo_BaseMap.unity",
+  "cachePath": "Assets/Data/P10/newmap_name_cache.json",
+  "cacheEntriesAdded": 31,
+  "cacheEntriesUpdated": 0,
+  "runtimeResourceDisplayNamesUpdated": 31,
+  "activeTargetReportNamesUpdated": 31,
+  "nonOfficialWarningRequired": true,
+  "isOfficialShelter": false,
+  "details": [
+    {
+      "id": "p5f_sample_humanitarian_weak_005",
+      "action": "added",
+      "finalDisplayName": "入船三丁目",
+      "source": "online_osm",
+      "provider": "OpenStreetMap Overpass",
+      "confidence": 0.86,
+      "nonOfficialWarningRequired": true,
+      "isOfficialShelter": false
+    },
+    {
+      "id": "p8_plateau_highrise_candidate_027",
+      "action": "added",
+      "finalDisplayName": "やまや",
+      "source": "online_osm",
+      "provider": "OpenStreetMap Overpass",
+      "confidence": 0.86,
+      "nonOfficialWarningRequired": true,
+      "isOfficialShelter": false
+    },
+    {
+      "id": "p8_plateau_highrise_candidate_029",
+      "action": "added",
+      "finalDisplayName": "歌舞伎座ギャラリー",
+      "source": "local_osm_cache",
+      "provider": "OpenStreetMap Nominatim",
+      "confidence": 0.8,
+      "nonOfficialWarningRequired": true,
+      "isOfficialShelter": false
+    },
+    {
+      "id": "p8_plateau_highrise_candidate_030",
+      "action": "added",
+      "finalDisplayName": "茶ノ木神社",
+      "source": "online_osm",
+      "provider": "OpenStreetMap Overpass",
+      "confidence": 0.72,
+      "nonOfficialWarningRequired": true,
+      "isOfficialShelter": false
+    },
+    {
+      "id": "p8_plateau_highrise_candidate_031",
+      "action": "added",
+      "finalDisplayName": "日本橋室町三井タワー [COREDO室町テラス]",
+      "source": "online_osm",
+      "provider": "OpenStreetMap Overpass",
+      "confidence": 0.86,
+      "nonOfficialWarningRequired": true,
+      "isOfficialShelter": false
+    },
+    {
+      "id": "p8_plateau_highrise_candidate_032",
+      "action": "added",
+      "finalDisplayName": "ポケモンセンター",
+      "source": "local_osm_cache",
+      "provider": "OpenStreetMap Nominatim",
+      "confidence": 0.8,
+      "nonOfficialWarningRequired": true,
+      "isOfficialShelter": false
+    },
+    {
+      "id": "p8_plateau_highrise_candidate_033",
+      "action": "added",
+      "finalDisplayName": "武田グローバル本社",
+      "source": "online_osm",
+      "provider": "OpenStreetMap Overpass",
+      "confidence": 0.86,
+      "nonOfficialWarningRequired": true,
+      "isOfficialShelter": false
+    },
+    {
+      "id": "p8_plateau_highrise_candidate_034",
+      "action": "added",
+      "finalDisplayName": "東京スクエアガーデン",
+      "source": "online_osm",
+      "provider": "OpenStreetMap Overpass",
+      "confidence": 0.86,
+      "nonOfficialWarningRequired": true,
+      "isOfficialShelter": false
+    },
+    {
+      "id": "p8_plateau_highrise_candidate_036",
+      "action": "added",
+      "finalDisplayName": "ヴィノスやまざき",
+      "source": "local_osm_cache",
+      "provider": "OpenStreetMap Nominatim",
+      "confidence": 0.8,
+      "nonOfficialWarningRequired": true,
+      "isOfficialShelter": false
+    },
+    {
+      "id": "p8_plateau_highrise_candidate_039",
+      "action": "added",
+      "finalDisplayName": "八重洲一丁目北地区第一種市街地再開発事業",
+      "source": "online_osm",
+      "provider": "OpenStreetMap Overpass",
+      "confidence": 0.86,
+      "nonOfficialWarningRequired": true,
+      "isOfficialShelter": false
+    },
+    {
+      "id": "p8_plateau_highrise_candidate_040",
+      "action": "added",
+      "finalDisplayName": "京橋トラストタワー",
+      "source": "online_osm",
+      "provider": "OpenStreetMap Overpass",
+      "confidence": 0.86,
+      "nonOfficialWarningRequired": true,
+      "isOfficialShelter": false
+    },
+    {
+      "id": "p8_plateau_highrise_candidate_041",
+      "action": "added",
+      "finalDisplayName": "銀座松竹スクエア",
+      "source": "online_osm",
+      "provider": "OpenStreetMap Overpass",
+      "confidence": 0.86,
+      "nonOfficialWarningRequired": true,
+      "isOfficialShelter": false
+    },
+    {
+      "id": "p8_plateau_highrise_candidate_042",
+      "action": "added",
+      "finalDisplayName": "雪月花 カフェ京橋店",
+      "source": "online_osm",
+      "provider": "OpenStreetMap Nominatim",
+      "confidence": 0.78,
+      "nonOfficialWarningRequired": true,
+      "isOfficialShelter": false
+    },
+    {
+      "id": "p8_plateau_highrise_candidate_043",
+      "action": "added",
+      "finalDisplayName": "SBI新生銀行",
+      "source": "online_osm",
+      "provider": "OpenStreetMap Overpass",
+      "confidence": 0.86,
+      "nonOfficialWarningRequired": true,
+      "isOfficialShelter": false
+    },
+    {
+      "id": "p8_plateau_highrise_candidate_044",
+      "action": "added",
+      "finalDisplayName": "COREDO室町1 (室町東三井ビルディング)",
+      "source": "online_osm",
+      "provider": "OpenStreetMap Overpass",
+      "confidence": 0.86,
+      "nonOfficialWarningRequired": true,
+      "isOfficialShelter": false
+    },
+    {
+      "id": "p8_plateau_highrise_candidate_045",
+      "action": "added",
+      "finalDisplayName": "明正通り",
+      "source": "online_osm",
+      "provider": "OpenStreetMap Nominatim",
+      "confidence": 0.78,
+      "nonOfficialWarningRequired": true,
+      "isOfficialShelter": false
+    },
+    {
+      "id": "p8_plateau_highrise_candidate_060",
+      "action": "added",
+      "finalDisplayName": "信金中央金庫",
+      "source": "local_osm_cache",
+      "provider": "OpenStreetMap Nominatim",
+      "confidence": 0.8,
+      "nonOfficialWarningRequired": true,
+      "isOfficialShelter": false
+    },
+    {
+      "id": "p8_plateau_highrise_candidate_063",
+      "action": "added",
+      "finalDisplayName": "デリド湊店",
+      "source": "local_osm_cache",
+      "provider": "OpenStreetMap Nominatim",
+      "confidence": 0.8,
+      "nonOfficialWarningRequired": true,
+      "isOfficialShelter": false
+    },
+    {
+      "id": "p8_plateau_highrise_candidate_074",
+      "action": "added",
+      "finalDisplayName": "日本橋ダイヤビルディング",
+      "source": "local_osm_cache",
+      "provider": "OpenStreetMap Nominatim",
+      "confidence": 0.8,
+      "nonOfficialWarningRequired": true,
+      "isOfficialShelter": false
+    },
+    {
+      "id": "p8_plateau_highrise_candidate_083",
+      "action": "added",
+      "finalDisplayName": "マルエツプチ",
+      "source": "local_osm_cache",
+      "provider": "OpenStreetMap Nominatim",
+      "confidence": 0.8,
+      "nonOfficialWarningRequired": true,
+      "isOfficialShelter": false
+    },
+    {
+      "id": "p8_plateau_highrise_candidate_086",
+      "action": "added",
+      "finalDisplayName": "Coredo室町3 (室町ちばぎん三井ビルディング)",
+      "source": "online_osm",
+      "provider": "OpenStreetMap Overpass",
+      "confidence": 0.86,
+      "nonOfficialWarningRequired": true,
+      "isOfficialShelter": false
+    },
+    {
+      "id": "p8_plateau_highrise_candidate_090",
+      "action": "added",
+      "finalDisplayName": "伊藤園",
+      "source": "online_osm",
+      "provider": "OpenStreetMap Overpass",
+      "confidence": 0.72,
+      "nonOfficialWarningRequired": true,
+      "isOfficialShelter": false
+    },
+    {
+      "id": "p8_plateau_highrise_candidate_091",
+      "action": "added",
+      "finalDisplayName": "眞帆ビル",
+      "source": "online_osm",
+      "provider": "OpenStreetMap Overpass",
+      "confidence": 0.86,
+      "nonOfficialWarningRequired": true,
+      "isOfficialShelter": false
+    },
+    {
+      "id": "p8_plateau_highrise_candidate_094",
+      "action": "added",
+      "finalDisplayName": "オンワードパークビルディング",
+      "source": "local_osm_cache",
+      "provider": "OpenStreetMap Nominatim",
+      "confidence": 0.8,
+      "nonOfficialWarningRequired": true,
+      "isOfficialShelter": false
+    },
+    {
+      "id": "p8_plateau_highrise_candidate_095",
+      "action": "added",
+      "finalDisplayName": "東京証券取引所",
+      "source": "online_osm",
+      "provider": "OpenStreetMap Nominatim",
+      "confidence": 0.78,
+      "nonOfficialWarningRequired": true,
+      "isOfficialShelter": false
+    },
+    {
+      "id": "p8_plateau_highrise_candidate_096",
+      "action": "added",
+      "finalDisplayName": "王子ホール",
+      "source": "local_osm_cache",
+      "provider": "OpenStreetMap Nominatim",
+      "confidence": 0.8,
+      "nonOfficialWarningRequired": true,
+      "isOfficialShelter": false
+    },
+    {
+      "id": "p8_plateau_highrise_candidate_098",
+      "action": "added",
+      "finalDisplayName": "小原鐵五郎寿像",
+      "source": "online_osm",
+      "provider": "OpenStreetMap Nominatim",
+      "confidence": 0.78,
+      "nonOfficialWarningRequired": true,
+      "isOfficialShelter": false
+    },
+    {
+      "id": "p8_plateau_highrise_candidate_100",
+      "action": "added",
+      "finalDisplayName": "第一三共くすりミュージアム",
+      "source": "local_osm_cache",
+      "provider": "OpenStreetMap Nominatim",
+      "confidence": 0.8,
+      "nonOfficialWarningRequired": true,
+      "isOfficialShelter": false
+    },
+    {
+      "id": "p8_plateau_highrise_candidate_101",
+      "action": "added",
+      "finalDisplayName": "時事通信本社",
+      "source": "local_osm_cache",
+      "provider": "OpenStreetMap Nominatim",
+      "confidence": 0.8,
+      "nonOfficialWarningRequired": true,
+      "isOfficialShelter": false
+    },
+    {
+      "id": "p8_plateau_highrise_candidate_103",
+      "action": "added",
+      "finalDisplayName": "アロフト東京銀座",
+      "source": "local_osm_cache",
+      "provider": "OpenStreetMap Nominatim",
+      "confidence": 0.8,
+      "nonOfficialWarningRequired": true,
+      "isOfficialShelter": false
+    },
+    {
+      "id": "p8_plateau_highrise_candidate_104",
+      "action": "added",
+      "finalDisplayName": "ファミリーマート",
+      "source": "local_osm_cache",
+      "provider": "OpenStreetMap Nominatim",
+      "confidence": 0.8,
+      "nonOfficialWarningRequired": true,
+      "isOfficialShelter": false
+    }
+  ]
+}

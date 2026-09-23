@@ -1,0 +1,21 @@
+﻿{
+    "generatedAt":  "2026-05-29T16:00:00+09:00",
+    "leftMouseDragRotates":  "covered_by_existing_playmode_and_player_smoke",
+    "rightMouseDragRotates":  "covered_by_existing_playmode_and_player_smoke",
+    "mouseMovementAloneDoesNotRotate":  "covered_by_existing_playmode_and_player_smoke",
+    "spawnAvoidsBuildings":  "preserved",
+    "dayLightingAcceptable":  "not_reworked_preserved",
+    "nightLightingAcceptable":  "not_reworked_preserved",
+    "officialShelterSemanticsPreserved":  true,
+    "nonOfficialWarningSemanticsPreserved":  true,
+    "labelsNameCacheOfflineOnly":  true,
+    "tourismModePreserved":  true,
+    "evacuationModePreserved":  true,
+    "p2ToP10GameplaySmoke":  "covered_by_playmode_and_player_smoke",
+    "playerLogExpectedErrors":  0,
+    "playerLogExpectedWarnings":  0,
+    "playerLogErrors":  0,
+    "playerLogWarnings":  0,
+    "playerSmokeFinalStatus":  "completed_on_new_chuo_basemap",
+    "finalStatus":  "validated_by_preflight_editmode_playmode_player_smoke"
+}

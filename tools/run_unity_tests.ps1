@@ -215,6 +215,29 @@ function Copy-UnityGeneratedResultIfReady {
             continue
         }
 
+        $resultReady = $false
+        for ($attempt = 0; $attempt -lt 10; $attempt++) {
+            $unityResult.Refresh()
+            if ($unityResult.Length -gt 0) {
+                try {
+                    [xml]$candidateXml = Get-Content -Raw -LiteralPath $unityResultPath
+                    if ($candidateXml.DocumentElement) {
+                        $resultReady = $true
+                        break
+                    }
+                }
+                catch {
+                    $resultReady = $false
+                }
+            }
+
+            Start-Sleep -Milliseconds 500
+        }
+
+        if (-not $resultReady) {
+            continue
+        }
+
         try {
             Copy-Item -LiteralPath $unityResultPath -Destination $ResultsPath -Force
             Write-Host "Copied Unity-generated results from $unityResultPath to $ResultsPath"
@@ -266,11 +289,9 @@ function Wait-UnityProcess {
             }
         }
 
-        if ($TestPlatform -eq "PlayMode") {
-            if (Copy-UnityGeneratedResultIfReady -LogPath $LogPath -ResultsPath $ResultsPath -StartedAt $StartedAt) {
-                Close-LaunchedUnityProcess -Process $Process
-                return [pscustomobject]@{ ResultHarvested = $true }
-            }
+        if (Copy-UnityGeneratedResultIfReady -LogPath $LogPath -ResultsPath $ResultsPath -StartedAt $StartedAt) {
+            Close-LaunchedUnityProcess -Process $Process
+            return [pscustomobject]@{ ResultHarvested = $true }
         }
 
         if ((Get-Date) -ge $deadline) {

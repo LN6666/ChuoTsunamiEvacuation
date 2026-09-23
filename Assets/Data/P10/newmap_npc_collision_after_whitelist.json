@@ -1,0 +1,12 @@
+{
+  "generatedAt": "2026-05-30T00:00:00+09:00",
+  "activeScene": "Assets/Scenes/Chuo_BaseMap.unity",
+  "npcBodyCollisionMode": "soft_blocking_with_near_capsules",
+  "playerCannotPassStraightThroughNearNpc": true,
+  "playerCanMoveAroundNpc": true,
+  "npcLifecycleStableAfterContact": true,
+  "npcClampInsideCircularBoundary": true,
+  "npcGlobalRefreshAfterContactExpected": 0,
+  "runtimeCountersFromPlayerLog": "pending",
+  "finalStatus": "implemented_pending_runtime_validation"
+}

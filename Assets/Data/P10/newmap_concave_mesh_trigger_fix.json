@@ -1,0 +1,23 @@
+﻿{
+    "activeScene":  "Assets/Scenes/Chuo_BaseMap.unity",
+    "rule":  "Do not use concave MeshCollider as Trigger.",
+    "sceneConcaveMeshTriggersRemaining":  0,
+    "runtimeFixImplemented":  true,
+    "fixSummary":  [
+                       "Existing concave MeshCollider triggers are neutralized by setting isTrigger=false.",
+                       "Blocking interaction colliders that are concave MeshColliders are replaced with BoxCollider trigger proxies.",
+                       "Unknown playable blockers that are concave MeshColliders are disabled instead of converted to triggers.",
+                       "Support, building, and air-wall colliders remain non-trigger or primitive colliders."
+                   ],
+    "primitiveProxyType":  "BoxCollider",
+    "playerBuildingCollisionPreserved":  true,
+    "npcBuildingCollisionPreserved":  true,
+    "airWallsPreserved":  true,
+    "runtimeErrorExpectedAbsent":  "Triggers on concave MeshColliders are not supported",
+    "generatedAt":  "2026-05-30T01:19:57",
+    "playerLogStatus":  "no_concave_mesh_trigger_errors",
+    "concaveMeshTriggerErrorCount":  0,
+    "runtimeOffendersFixed":  5835,
+    "primitiveTriggerProxyCount":  0,
+    "finalStatus":  "validated_by_player_log"
+}

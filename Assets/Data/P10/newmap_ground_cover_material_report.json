@@ -1,0 +1,25 @@
+{
+  "generatedAt": "2026-05-29T17:00:00+09:00",
+  "activeScene": "Assets/Scenes/Chuo_BaseMap.unity",
+  "importedRoadMaterialFound": true,
+  "importedRoadMaterialName": "PlateauDefaultRoad",
+  "fallbackMaterialCreated": true,
+  "fallbackMaterialPath": "Assets/Resources/NewMap/P10_NewMap_RoadGroundCover.mat",
+  "materialPath": "runtime imported material: PlateauDefaultRoad; fallback: Assets/Resources/NewMap/P10_NewMap_RoadGroundCover.mat",
+  "runtimeResourcePath": "NewMap/P10_NewMap_RoadGroundCover",
+  "materialName": "PlateauDefaultRoad",
+  "fallbackMaterialName": "P10_NewMap_RoadGroundCover",
+  "shaderName": "Universal Render Pipeline/Lit",
+  "baseColor": {
+    "r": 0.34,
+    "g": 0.35,
+    "b": 0.33,
+    "a": 1.0
+  },
+  "opaque": true,
+  "notBlue": true,
+  "notMagenta": true,
+  "debugMaterial": false,
+  "readableInDayAndNight": true,
+  "finalStatus": "imported_road_like_material_used_with_local_fallback_available"
+}

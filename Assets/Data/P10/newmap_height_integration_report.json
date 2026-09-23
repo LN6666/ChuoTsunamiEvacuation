@@ -1,0 +1,17 @@
+{
+    "generatedAt": "2026-05-29T13:03:18+09:00",
+    "playerSpawnUsesAdaptiveSupportCell": true,
+    "randomSpawnRejectsOutsideBounds": true,
+    "randomSpawnRejectsBuildingOverlap": true,
+    "randomSpawnSnapsToLocalSupportHeight": true,
+    "npcSpawnUsesAdaptiveSupportCell": true,
+    "officialShelterMarkersUseLocalSupportHeight": true,
+    "nonOfficialCandidateMarkersUseLocalSupportHeight": true,
+    "greenFramesUseLocalSupportHeight": true,
+    "interactionZonesUseLocalSupportHeight": true,
+    "routeTargetMarkersUseLocalSupportHeight": true,
+    "noPlayerFallThroughExpected": true,
+    "spawnStillAvoidsBuildings": true,
+    "airWallsStillActive": true,
+    "status": "configured_for_runtime_validation"
+}

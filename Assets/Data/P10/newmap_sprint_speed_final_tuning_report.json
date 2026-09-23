@@ -1,0 +1,15 @@
+{
+  "generatedAt": "2026-05-30T08:00:00+09:00",
+  "configPath": "Assets/Data/P10/newmap_player_stamina_config.json",
+  "oldSprintSpeedMetersPerSecond": 6.75,
+  "newSprintSpeedMetersPerSecond": 5.7375,
+  "oldSprintSpeedMultiplierAdditional": 1.35,
+  "newSprintSpeedMultiplierAdditional": 1.1475,
+  "reductionPercent": 15.0,
+  "tourismSprintSpeedMetersPerSecond": 10.0,
+  "evacuationSprintSpeedMetersPerSecond": 5.7375,
+  "walkSpeedUnchanged": true,
+  "weatherNightMultipliersStillApplied": true,
+  "staminaDrainStillTiedToSprint": true,
+  "runtimeStatus": "validated_by_player_log"
+}

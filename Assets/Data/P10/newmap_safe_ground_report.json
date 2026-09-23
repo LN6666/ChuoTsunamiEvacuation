@@ -1,0 +1,16 @@
+﻿{
+    "generatedAt":  "2026-05-29T16:28:16",
+    "supportColliderCount":  1,
+    "supportRendererCount":  0,
+    "supportRendererHidden":  true,
+    "supportY":  0,
+    "playerSpawnY":  0.04,
+    "nearestBuildingDistance":  4.7,
+    "fallRecoveryCount":  0,
+    "airWallStatus":  "active_four_invisible_colliders",
+    "blueVisibleSupportCount":  0,
+    "adaptiveSupportGridDisabled":  true,
+    "reliefBasedSupportDisabled":  true,
+    "strategy":  "gameplay-safe support surface, not road/terrain accuracy",
+    "finalStatus":  "validated_by_player_smoke"
+}

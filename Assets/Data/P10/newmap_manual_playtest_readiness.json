@@ -1,0 +1,108 @@
+﻿{
+    "activeScene":  "Assets/Scenes/Chuo_BaseMap.unity",
+    "reason":  "Ground30/NPC2x validation passed preflight, EditMode, PlayMode, temporary player build, and Player.log parse. Remaining limitations are documented: building-floating outliers remain, far NPCs use static proxies, and the active 180-second sample has two stutter frames.",
+    "groundMicroRaise":  {
+                             "previousGroundY":  3.0,
+                             "additionalRaiseMeters":  0.3,
+                             "newGroundY":  3.3,
+                             "buildingsMoved":  false,
+                             "importedPlateauGeometryMoved":  false
+                         },
+    "buildingCollisionFinalRefinement":  {
+                                             "enabled":  true,
+                                             "defaultShrinkFactorXZ":  0.85,
+                                             "nearRoadShrinkFactorXZ":  0.75,
+                                             "maxProxySizeMeters":  60.0,
+                                             "targetClearanceMeters":  4.0,
+                                             "spawnClearanceMeters":  6.0,
+                                             "oldInflatedCollidersReenabled":  false,
+                                             "buildingBlockingPreserved":  true
+                                         },
+    "spawnFinalSafety":  {
+                             "enabled":  true,
+                             "maxSpawnAttempts":  500,
+                             "minDistanceFromBuildingMeters":  4.0,
+                             "finalOverlapCheck":  true,
+                             "fallbackSafeSpawnEnabled":  true,
+                             "repeatedSpawnInsideBuildingCount":  0
+                         },
+    "staminaSprintWarning":  {
+                                 "staminaReductionPercent":  73.0769,
+                                 "oldWarningDurationSeconds":  300.0,
+                                 "newWarningDurationSeconds":  180.0,
+                                 "oldFinalStamina":  13000,
+                                 "newFinalStamina":  3500,
+                                 "oldEvacuationSprintSpeedMetersPerSecond":  5.7375,
+                                 "newEvacuationSprintSpeedMetersPerSecond":  4.59,
+                                 "sprintReductionPercent":  20
+                             },
+    "preservedFixes":  {
+                           "blueGroundFallThroughFixed":  true,
+                           "playerNpcGrounded":  true,
+                           "npcAmountDistributionLifecyclePreserved":  true,
+                           "mouseLeftRightDragLookPreserved":  true,
+                           "dayNightLightingPreserved":  true,
+                           "officialNonOfficialWarningsPreserved":  true,
+                           "routeGuidanceNonBlocking":  true,
+                           "p2ToP10FlowPreserved":  true
+                       },
+    "validation":  {
+                       "preflight":  "passed",
+                       "editMode":  "passed",
+                       "playMode":  "passed",
+                       "tempPlayerBuild":  "passed",
+                       "deepSeekReview":  "PASS_no_A_level_blockers_deepseek_review_20260531_023810",
+                       "playerLog":  "passed"
+                   },
+    "boundary2_27kmValidation":  {
+                                     "preflight":  "passed",
+                                     "editMode":  "passed_126_of_126",
+                                     "playMode":  "passed_43_of_43"
+                                 },
+    "notGisGradeTerrainRouteOrFootprintClaim":  true,
+    "finalReleaseArchiveCreated":  false,
+    "p10EFGCreated":  false,
+    "nonOfficialNameEnrichment":  {
+                                      "unnamedCandidatesAudited":  true,
+                                      "coordinateBasedPreprocessingRun":  true,
+                                      "runtimeNetworkRequestsAllowed":  false,
+                                      "nonOfficialWarningPreserved":  true,
+                                      "isOfficialShelterPreservedFalse":  true,
+                                      "manualChecksAdded":  true
+                                  },
+    "circularBoundaryUpdate2_27km":  {
+                                         "enabled":  true,
+                                         "centerSource":  "original_map_center",
+                                         "radiusMeters":  2270.0,
+                                         "visibleInNormalMode":  false,
+                                         "debugVisible":  false,
+                                         "affectsPlayer":  true,
+                                         "affectsNpc":  true,
+                                         "manualChecksAdded":  true
+                                     },
+    "groundRaise30Npc2x":  {
+                               "oldGroundY":  3.3,
+                               "newGroundY":  4.29,
+                               "actualRaisePercent":  0.3,
+                               "npcRequested":  1600,
+                               "npcSpawned":  1600,
+                               "npcRadius":  2270,
+                               "playerLog":  "passed"
+                           },
+    "finalP10Tuning":  {
+                           "stamina":  3500,
+                           "oldEvacuationSprintSpeedMetersPerSecond":  5.7375,
+                           "newEvacuationSprintSpeedMetersPerSecond":  4.59,
+                           "sprintReductionPercent":  20,
+                           "tourismModeImpact":  "none_stamina_disabled_and_sprint_10_unchanged",
+                           "preflight":  "passed",
+                           "editMode":  "passed_127_of_127",
+                           "playMode":  "passed_43_of_43",
+                           "playerLog":  "passed_clean",
+                           "deepSeekReview":  "PASS_no_A_level_blockers_deepseek_review_20260531_023810",
+                           "tempExePath":  "D:/UnityProjects/ChuoTsunamiEvacuation-Builds/NewMapFinalP10TuningPre/ChuoTsunamiEvacuation_NewMapFinalP10TuningPre.exe"
+                       },
+    "generatedAt":  "2026-05-31T02:29:59",
+    "manualReadinessDecision":  "ready_with_documented_visual_or_npc_limitations",
+    "finalStatus":  "ready_with_documented_visual_or_npc_limitations"
+}

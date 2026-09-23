@@ -1,0 +1,17 @@
+{
+  "generatedAt": "2026-05-27T20:14:37+09:00",
+  "activeScene": "Assets/Scenes/Chuo_BaseMap.unity",
+  "finalStatus": "completed_on_new_chuo_basemap",
+  "startMenuVisible": true,
+  "modeSelectionVisible": true,
+  "languageSwitchVisible": true,
+  "rulesUiScrollable": true,
+  "pauseMenuOpens": true,
+  "quitAndForceQuitExist": true,
+  "resultPanelReadable": true,
+  "longWarningTextPolicy": "runtime text wraps and best-fit is enabled",
+  "nightOverlayDoesNotHideUi": true,
+  "nonOfficialWarningReadable": true,
+  "greenFrameMeaningClear": "rules UI and ResultPanel state that green frames are prototype guidance and not official approval",
+  "playerSmokePassed": true
+}

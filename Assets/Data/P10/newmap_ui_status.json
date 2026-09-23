@@ -1,0 +1,11 @@
+﻿{
+    "generatedAt":  "2026-05-26T17:22:10+09:00",
+    "startMenu":  true,
+    "englishJapanese":  true,
+    "rulesScrollable":  "runtime rules panel text area and docs",
+    "pauseMenu":  true,
+    "normalQuit":  "Quit to Menu",
+    "forceQuit":  "Force Quit button with explanation",
+    "overflowMitigation":  "Text uses wrap and best-fit",
+    "finalStatus":  "completed_with_documented_runtime_proxy"
+}

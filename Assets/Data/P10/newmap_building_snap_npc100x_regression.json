@@ -1,0 +1,14 @@
+﻿{
+    "generatedAt":  "2026-05-29T19:00:00+09:00",
+    "spawnAvoidsBuildings":  true,
+    "mouseDragLookPreserved":  true,
+    "lightingNotReworked":  true,
+    "officialNonOfficialWarningsPreserved":  true,
+    "blueGroundCoverRegression":  false,
+    "playerGroundingRegression":  false,
+    "npcGroundingRegression":  false,
+    "airWallsActive":  true,
+    "runtimeNetworkRequestsAllowed":  false,
+    "p2ToP10Smoke":  "passed",
+    "finalStatus":  "validated_by_player_smoke"
+}

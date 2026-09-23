@@ -1,0 +1,21 @@
+{
+  "tsunamiWarningDurationSeconds": 180.0,
+  "warningPhaseSeconds": 180.0,
+  "activeFrontDurationSeconds": 120.0,
+  "tsunamiStartSide": "south",
+  "curtainHeightMeters": 1000.0,
+  "minimumCurtainLengthMeters": 1500.0,
+  "curtainLengthMapDiagonalMultiplier": 1.5,
+  "curtainThicknessMeters": 12.0,
+  "curtainStartMarginMeters": 60.0,
+  "preWarningRandomMaxSeconds": 180.0,
+  "preWarningRandomSeed": 20260530,
+  "deterministicPreWarningSeedEnabled": false,
+  "preWarningTestOverrideSeconds": -1.0,
+  "enableShelterDirectLines": true,
+  "maxDisplayedShelterLines": 0,
+  "lineUpdateIntervalSeconds": 0.2,
+  "rankingAutoRefreshIntervalSeconds": 0.5,
+  "directLineHeightOffsetMeters": 0.35,
+  "directLineWidthMeters": 0.08
+}

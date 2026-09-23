@@ -1,0 +1,27 @@
+{
+  "generatedAt": "2026-05-27T20:14:37+09:00",
+  "activeScene": "Assets/Scenes/Chuo_BaseMap.unity",
+  "finalStatus": "completed_on_new_chuo_basemap",
+  "tourism": {
+    "tsunamiWarning": "disabled",
+    "lightCurtain": "disabled",
+    "hazardFailure": "disabled",
+    "crowdFailure": "disabled",
+    "collapseDebrisFailure": "disabled",
+    "stamina": "disabled",
+    "walkSpeedMetersPerSecond": 2.0,
+    "sprintSpeedMetersPerSecond": 10.0,
+    "playerSmokePassed": true
+  },
+  "evacuation": {
+    "twoStageTsunami": "enabled",
+    "stamina": "enabled",
+    "walkSpeedMetersPerSecond": 1.0,
+    "sprintSpeedMetersPerSecond": 5.0,
+    "weatherNightModifiers": "enabled",
+    "targetInteraction": "enabled",
+    "resultPanelSuccessFailure": "enabled",
+    "stage1PlayerSmokePassed": true,
+    "stage2PlayerSmokePassed": true
+  }
+}

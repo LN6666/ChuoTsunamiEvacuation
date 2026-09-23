@@ -1,0 +1,23 @@
+﻿{
+    "generatedAt":  "2026-05-30T08:00:00+09:00",
+    "activeScene":  "Assets/Scenes/Chuo_BaseMap.unity",
+    "configPath":  "Assets/Data/P10/newmap_spawn_final_safety_config.json",
+    "runtimeConfigPath":  "Assets/Data/P10/newmap_spawn_config.json",
+    "randomAttempts":  1,
+    "rejectedInsideBuilding":  0,
+    "rejectedTooCloseToBuilding":  0,
+    "rejectedNoGround":  0,
+    "rejectedOutsideBoundary":  0,
+    "finalOverlapChecks":  1,
+    "fallbackUsed":  false,
+    "acceptedSpawn":  true,
+    "nearestBuildingDistanceMeters":  9.14,
+    "groundY":  3.3,
+    "repeatedRandomSpawnSampleCount":  100,
+    "repeatedRandomSpawnInsideBuildingCount":  0,
+    "tourismModeSpawnValid":  true,
+    "evacuationModeSpawnValid":  true,
+    "fallbackSafeSpawnWorks":  true,
+    "playerLogClean":  true,
+    "runtimeStatus":  "validated_by_player_log"
+}

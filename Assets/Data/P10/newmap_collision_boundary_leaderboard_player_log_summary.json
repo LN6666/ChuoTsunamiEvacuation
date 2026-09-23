@@ -1,0 +1,97 @@
+﻿{
+    "generatedAt":  "2026-05-30T06:12:18",
+    "logPath":  "D:\\UnityProjects\\ChuoTsunamiEvacuation\\Logs\\newmap_collision_boundary_leaderboard_player.log",
+    "errorCount":  0,
+    "warningCount":  0,
+    "exceptionCount":  0,
+    "missingAssetOrConfigCount":  0,
+    "runtimeWebRequestCount":  0,
+    "boundaryDiagnostics":  {
+                                "enabled":  true,
+                                "centerX":  -2.14,
+                                "centerZ":  474.58,
+                                "radiusMeters":  3500,
+                                "playerClamp":  true,
+                                "npcClamp":  true,
+                                "diagnosticColliders":  0
+                            },
+    "collisionWhitelistDiagnostics":  {
+                                          "airWallColliders":  0,
+                                          "airWallVisibleRenderers":  0,
+                                          "boundaryAirWallsPreserved":  0,
+                                          "oldRectangularAirWallsDisabled":  0,
+                                          "unknownBlockersInsidePlayableArea":  0,
+                                          "routeVisualBlockers":  0,
+                                          "greenFrameVisualBlockers":  0,
+                                          "labelVisualBlockers":  0,
+                                          "hazardVisualBlockers":  0,
+                                          "sampledValidPathsPassable":  true,
+                                          "directLineColliderScenarioPassed":  true
+                                      },
+    "staminaDiagnostics":  {
+                               "expectedMaxStamina":  20000,
+                               "expectedEvacuationSprintSpeed":  6.75
+                           },
+    "scenarioResults":  {
+                            "collision_whitelist_visuals_nonblocking":  {
+                                                                            "present":  true,
+                                                                            "passed":  true,
+                                                                            "line":  "NewMap gameplay self-audit smoke: scenario=collision_whitelist_visuals_nonblocking result=pass detail=circularBoundary=True oldAirWalls=0 unknown=0 route=0 green=0 label=0 hazard=0"
+                                                                        },
+                            "circular_boundary_player_clamp":  {
+                                                                   "present":  true,
+                                                                   "passed":  true,
+                                                                   "line":  "NewMap gameplay self-audit smoke: scenario=circular_boundary_player_clamp result=pass detail=radius=3500.0 playerClamp=True clampedInside=True"
+                                                               },
+                            "circular_boundary_npc_clamp":  {
+                                                                "present":  true,
+                                                                "passed":  true,
+                                                                "line":  "NewMap gameplay self-audit smoke: scenario=circular_boundary_npc_clamp result=pass detail=npcClamp=True radius=3500.0"
+                                                            },
+                            "r_leaderboard_toggle_show_hide":  {
+                                                                   "present":  true,
+                                                                   "passed":  true,
+                                                                   "line":  "NewMap gameplay self-audit smoke: scenario=r_leaderboard_toggle_show_hide result=pass detail=shown=True hidden=True"
+                                                               },
+                            "shelter_direct_lines_created":  {
+                                                                 "present":  true,
+                                                                 "passed":  true,
+                                                                 "line":  "NewMap gameplay self-audit smoke: scenario=shelter_direct_lines_created result=pass detail=lines=95 rankableTargets=95 colliders=0"
+                                                             },
+                            "evacuation_pre_warning_wait":  {
+                                                                "present":  true,
+                                                                "passed":  true,
+                                                                "line":  "NewMap gameplay self-audit smoke: scenario=evacuation_pre_warning_wait result=pass detail=Evacuation starts in PRE_WARNING_WAIT duration=174.5s hazardInactive=True"
+                                                            },
+                            "tsunami_warning_300s_before_active":  {
+                                                                       "present":  true,
+                                                                       "passed":  true,
+                                                                       "line":  "NewMap gameplay self-audit smoke: scenario=tsunami_warning_300s_before_active result=pass detail=warningSeconds=300.0 inactiveBeforeEnd=True activeAfterEnd=True"
+                                                                   },
+                            "building_touch_e_entry":  {
+                                                           "present":  true,
+                                                           "passed":  true,
+                                                           "line":  "NewMap gameplay self-audit smoke: scenario=building_touch_e_entry result=pass detail=target=chuo_official_emergency_001 touchDetected=True finalReason=safe_floor_reached"
+                                                       },
+                            "tsunami_front_failure":  {
+                                                          "present":  true,
+                                                          "passed":  true,
+                                                          "line":  "NewMap gameplay self-audit smoke: scenario=tsunami_front_failure result=pass detail=reason=tsunami_front_contact"
+                                                      }
+                        },
+    "selfAuditCompleted":  true,
+    "selfAuditFailureCount":  0,
+    "firstErrors":  [
+
+                    ],
+    "firstWarnings":  [
+
+                      ],
+    "firstExceptions":  [
+
+                        ],
+    "firstMissing":  [
+
+                     ],
+    "finalStatus":  "completed_on_new_chuo_basemap"
+}

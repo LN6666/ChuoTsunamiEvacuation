@@ -1,0 +1,10 @@
+﻿{
+    "generatedAt":  "2026-05-26T23:38:37",
+    "activeScene":  "Assets/Scenes/Chuo_BaseMap.unity",
+    "buildPath":  "D:\\UnityProjects\\ChuoTsunamiEvacuation-Builds\\NewMapFinalPre\\ChuoTsunamiEvacuation_NewMapFinalPre.exe",
+    "buildExists":  true,
+    "unityExitCode":  0,
+    "logPath":  "D:\\UnityProjects\\ChuoTsunamiEvacuation\\Logs\\newmap_final_temp_build.log",
+    "finalStatus":  "completed_on_new_chuo_basemap",
+    "note":  "Temporary manual-test build only. This is not a final release package."
+}

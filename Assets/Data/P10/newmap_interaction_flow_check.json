@@ -1,0 +1,13 @@
+{
+  "generatedAt": "2026-05-27T20:14:37+09:00",
+  "activeScene": "Assets/Scenes/Chuo_BaseMap.unity",
+  "finalStatus": "completed_with_documented_runtime_proxy",
+  "testOnlyHelper": "TryInteractForDiagnostics and CompleteSafeFloorSequenceForDiagnostics simulate E interaction deterministically; runtime manual play still uses E near targets.",
+  "officialShelterInteraction": true,
+  "nonOfficialCandidateInteraction": true,
+  "entranceProxy": true,
+  "safeFloorProxy": true,
+  "verticalEvacuationProxyCompletes": true,
+  "resultPanelAppears": true,
+  "warningCorrect": true
+}

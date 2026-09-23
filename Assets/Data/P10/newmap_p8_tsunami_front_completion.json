@@ -1,0 +1,22 @@
+{
+  "generatedAt": "2026-05-27T00:00:00+09:00",
+  "activeScene": "Assets/Scenes/Chuo_BaseMap.unity",
+  "tourismModeDisablesTsunami": true,
+  "evacuationModeTwoStages": true,
+  "stage1Warning": {
+    "warningUiCountdownActive": true,
+    "lightCurtainHidden": true,
+    "hazardContactIgnored": true
+  },
+  "stage2FrontApproaching": {
+    "lightCurtainVisible": true,
+    "lightCurtainMoving": true,
+    "hazardChecksActive": true,
+    "greenFramesCanActivate": true
+  },
+  "instantTsunamiDeathAtStart": false,
+  "riskFrontBlocksUi": false,
+  "visualHeight": "cinematic only",
+  "hazardSpatialData": "local test hazard band/area; official hazard grid is not claimed on the new map",
+  "finalStatus": "completed_with_documented_runtime_proxy"
+}

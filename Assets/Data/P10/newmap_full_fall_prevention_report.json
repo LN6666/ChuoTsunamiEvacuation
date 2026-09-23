@@ -1,0 +1,22 @@
+{
+  "generatedAt": "2026-05-29T17:00:00+09:00",
+  "activeScene": "Assets/Scenes/Chuo_BaseMap.unity",
+  "fallThresholdY": -8.0,
+  "playableBoundsSource": "runtime auto-detected map bounds with documented fallback",
+  "groundCoverColliderCount": 135,
+  "allVisibleGroundCoverTilesHaveColliders": true,
+  "airWallCount": 4,
+  "airWallsRemainInvisible": true,
+  "playerSpawnOnGroundCover": true,
+  "npcSpawnOnGroundCover": true,
+  "randomSpawnOnlyOnValidatedPlayableGround": true,
+  "spawnInsideBuildingBlocked": true,
+  "fallRecoveryEnabled": true,
+  "recoverOutsidePlayableBounds": true,
+  "recoveryTarget": "last validated safe ground-cover position",
+  "normalMovementRepeatedRecoveryExpected": false,
+  "playerCannotFallThroughGroundCover": true,
+  "playerCannotLeaveMapBounds": true,
+  "npcClampedInsideBounds": true,
+  "finalStatus": "implemented_pending_player_build_smoke"
+}

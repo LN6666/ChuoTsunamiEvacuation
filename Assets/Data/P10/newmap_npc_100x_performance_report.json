@@ -1,0 +1,22 @@
+﻿{
+    "generatedAt":  "2026-05-29T20:40:00+09:00",
+    "buildPath":  "D:\\UnityProjects\\ChuoTsunamiEvacuation-Builds\\NewMapGroundRaiseNamePre\\ChuoTsunamiEvacuation_NewMapGroundRaiseNamePre.exe",
+    "sampleDurationSeconds":  180,
+    "requestedNpcCount":  800,
+    "npcCap":  800,
+    "spawnedNpcCount":  800,
+    "activeNpcCount":  800,
+    "averageFps":  213.19,
+    "maxFrameMs":  7119.76,
+    "stutterFramesOver66ms":  2,
+    "movingNpcCount":  791,
+    "arrivedNpcCount":  9,
+    "stuckNpcCount":  0,
+    "stoppedWithoutReasonCount":  0,
+    "averageNpcSpeed":  0.785,
+    "buildingAvoidanceSpatialIndexEnabled":  true,
+    "playerLogErrors":  0,
+    "playerLogWarnings":  0,
+    "decision":  "npc_100x_ready",
+    "finalStatus":  "validated_by_player_smoke"
+}

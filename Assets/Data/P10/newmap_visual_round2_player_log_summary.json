@@ -1,0 +1,41 @@
+﻿{
+    "generatedAt":  "2026-05-29T03:16:42",
+    "logPath":  "Logs/newmap_visual_round2_player.log",
+    "errorCount":  0,
+    "warningCount":  0,
+    "performanceSample":  {
+                              "elapsedSeconds":  180,
+                              "frameCount":  598443,
+                              "averageFps":  3324.68,
+                              "maxFrameMs":  12010.69,
+                              "stutterFramesOver66ms":  2,
+                              "requestedNpcCount":  160,
+                              "spawnedNpcCount":  160,
+                              "cappedNpcCount":  160,
+                              "activeNpcCount":  160
+                          },
+    "groundAlignmentSample":  {
+                                  "oldSupportSurfaceY":  0,
+                                  "supportSurfaceY":  1.97,
+                                  "visualGroundY":  1.97,
+                                  "sampledBuildingBaseY":  1.97,
+                                  "sampledMapMinY":  -8.52,
+                                  "visualGroundSamples":  12754,
+                                  "supportToVisualGroundDelta":  0,
+                                  "spawnGroundDelta":  0.04,
+                                  "activeTargetMaxHeightOffset":  3.27,
+                                  "activeTargetHeightOffsetViolations":  2
+                              },
+    "bootstrapLine":  "NewMap runtime bootstrap completed. renderers=18596 colliders=18596 groundSupportProxy=False collisionSupportProxy=True oldSupportSurfaceY=0.00 supportSurfaceY=1.97 visualGroundY=1.97 sampledBuildingBaseY=1.97 sampledMapMinY=-8.52 visualGroundSamples=12754 supportToVisualGroundDelta=0.00 spawnGroundDelta=0.04 activeTargetMaxHeightOffset=3.27 activeTargetHeightOffsetViolations=2 supportRendererVisible=False meshColliderShutdown=disabled_runtime_startup activeRuntimeTargets=97",
+    "npcDistributionLine":  "NewMap NPC distribution built. requestedNpcCount=160 spawnedNpcCount=160 cappedNpcCount=160 capReason=not_capped radiusMeters=1000 usedSectors=24 usedRings=5 invalidPlacementRetries=2",
+    "mouseDragLookSmokeLine":  "NewMap gameplay self-audit smoke: scenario=mouse_drag_look_requires_button result=pass detail=button=RightMouse requiresButton=True",
+    "nightLightingSmokeLine":  "NewMap gameplay self-audit smoke: scenario=night_lighting_dark_sky_readable_buildings result=pass detail=nightSky=0.042 readability=0.517 dayRestored=True",
+    "launchSmokePassed":  true,
+    "firstErrors":  [
+
+                    ],
+    "firstWarnings":  [
+
+                      ],
+    "finalStatus":  "completed_on_new_chuo_basemap"
+}

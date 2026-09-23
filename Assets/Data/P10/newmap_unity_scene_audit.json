@@ -1,0 +1,12 @@
+{
+    "scenePath": "Assets/Scenes/Chuo_BaseMap.unity",
+    "sceneName": "Chuo_BaseMap",
+    "generatedAtLocal": "2026-05-26T18:32:01+09:00",
+    "requiredRootCount": 13,
+    "missingRootCount": 0,
+    "rendererCount": 18596,
+    "colliderCount": 18596,
+    "cameraCount": 0,
+    "canvasCount": 0,
+    "note": "Editor audit after ensuring required NewMap roots. Runtime bootstrap creates player/camera/UI during Play Mode."
+}

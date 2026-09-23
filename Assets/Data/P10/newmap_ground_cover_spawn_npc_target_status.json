@@ -1,0 +1,16 @@
+{
+  "generatedAt": "2026-05-29T17:00:00+09:00",
+  "activeScene": "Assets/Scenes/Chuo_BaseMap.unity",
+  "playerSpawnUsesGroundCoverY": true,
+  "randomSpawnCandidatesUseGroundCoverY": true,
+  "spawnAvoidsBuildingBounds": true,
+  "npcDistributionUsesGroundCoverY": true,
+  "npcVisualFeetNearGroundCover": true,
+  "officialShelterTargetsUseGroundCoverY": true,
+  "nonOfficialCandidateTargetsUseGroundCoverY": true,
+  "greenFramesAlignToGroundCover": true,
+  "interactionZonesAlignToGroundCover": true,
+  "tourismModeCompatible": true,
+  "evacuationModeCrowdDelayBounded": true,
+  "finalStatus": "implemented_pending_player_build_smoke"
+}

@@ -1,0 +1,99 @@
+{
+  "generatedAt": "2026-05-27T20:14:37+09:00",
+  "activeScene": "Assets/Scenes/Chuo_BaseMap.unity",
+  "allowedStatuses": [
+    "completed_on_new_chuo_basemap",
+    "completed_with_documented_runtime_proxy",
+    "disabled_missing_from_new_map",
+    "blocked_needs_user_map_asset",
+    "failed"
+  ],
+  "activeTargetCount": 97,
+  "disabledTargetCount": 188,
+  "activeOfficialShelterCount": 15,
+  "activeNonOfficialHumanitarianCandidateCount": 78,
+  "activeLocalTrainingTargetCount": 4,
+  "entries": [
+    {
+      "phase": "P2",
+      "feature": "player/camera/movement/E/ResultPanel",
+      "finalStatus": "completed_with_documented_runtime_proxy",
+      "activeOnNewMap": true,
+      "targetUsed": "official shelters, recovered non-official candidates, local training targets",
+      "testEvidence": "PlayMode plus player-build self-audit smoke",
+      "disabledReason": "",
+      "blocker": "",
+      "nextAction": "manual playtest"
+    },
+    {
+      "phase": "P3/P4",
+      "feature": "official shelter gameplay flow",
+      "finalStatus": "completed_on_new_chuo_basemap",
+      "activeOnNewMap": true,
+      "targetUsed": "15 verified official shelter GML anchors",
+      "testEvidence": "official gameplay check and player smoke",
+      "disabledReason": "",
+      "blocker": "",
+      "nextAction": "manual inspect official markers"
+    },
+    {
+      "phase": "P5",
+      "feature": "route prototype guidance and no official route claim",
+      "finalStatus": "completed_with_documented_runtime_proxy",
+      "activeOnNewMap": true,
+      "targetUsed": "60 old route geometries report-only plus local runtime route proxy",
+      "testEvidence": "route gameplay check",
+      "disabledReason": "old route overlays are not spawned as official gameplay routes",
+      "blocker": "official route proof unavailable",
+      "nextAction": "manual use prototype route wording only"
+    },
+    {
+      "phase": "P6",
+      "feature": "NPC/crowd delay proxy",
+      "finalStatus": "completed_with_documented_runtime_proxy",
+      "activeOnNewMap": true,
+      "targetUsed": "newmap_proxy_crowd_delay",
+      "testEvidence": "player smoke crowd_delay_success_or_failure",
+      "disabledReason": "",
+      "blocker": "road-aware navigation unavailable",
+      "nextAction": "manual verify crowd delay"
+    },
+    {
+      "phase": "P8",
+      "feature": "two-stage tsunami/light curtain/hazard timing",
+      "finalStatus": "completed_with_documented_runtime_proxy",
+      "activeOnNewMap": true,
+      "targetUsed": "runtime hazard controller",
+      "testEvidence": "player smoke evacuation_stage1_warning and evacuation_stage2_front_and_green_frames",
+      "disabledReason": "",
+      "blocker": "",
+      "nextAction": "manual verify Stage 1/2"
+    },
+    {
+      "phase": "P9",
+      "feature": "outcome scenarios/reason codes",
+      "finalStatus": "completed_with_documented_runtime_proxy",
+      "activeOnNewMap": true,
+      "targetUsed": "official, non-official, local proxy, hazard proxy targets",
+      "testEvidence": "newmap_outcome_scenario_check.json",
+      "disabledReason": "",
+      "blocker": "",
+      "nextAction": "manual scenario checklist"
+    },
+    {
+      "phase": "P10",
+      "feature": "UI/modes/localization/weather/green frames/performance hooks",
+      "finalStatus": "completed_with_documented_runtime_proxy",
+      "activeOnNewMap": true,
+      "targetUsed": "97 active runtime targets",
+      "testEvidence": "UI/UX runtime check and player log parse",
+      "disabledReason": "",
+      "blocker": "startup spike remains above target",
+      "nextAction": "manual playtest with documented spike limitation"
+    }
+  ],
+  "activeNonOfficialTrainingTargetCount": 82,
+  "activeRecoveredNonOfficialHumanitarianCandidateCount": 78,
+  "playerBuildEvidence": true,
+  "gameplaySelfAuditMatrix": "Assets/Data/P10/newmap_gameplay_self_audit_matrix.json"
+}

@@ -1,0 +1,23 @@
+{
+  "generatedAt": "2026-05-27T00:00:00+09:00",
+  "activeScene": "Assets/Scenes/Chuo_BaseMap.unity",
+  "playerVisible": true,
+  "playerVisual": "runtime humanoid marker",
+  "cameraActive": true,
+  "startGameSpawnsNearPlayableTarget": true,
+  "movementWorks": true,
+  "tourismMovement": { "walk": 2.0, "sprint": 10.0, "stamina": "disabled" },
+  "evacuationMovement": { "walk": 1.0, "sprint": 5.0, "stamina": "enabled" },
+  "interactionKey": "E",
+  "resultPanelOpens": true,
+  "fallThroughPrevented": true,
+  "fallRecoveryCountNormalRoute": 0,
+  "groundCollisionSupport": "documented runtime collision support proxy with staged scene MeshCollider shutdown",
+  "testEvidence": [
+    "RuntimeBootstrapCreatesPlayerCameraAndPreventsFallThrough",
+    "RuntimePlayerSupportsSustainedMovementSimulation",
+    "RuntimeModesApplySpeedAndStaminaRules",
+    "RuntimeProxyInteractionsProduceExpectedResultCodes"
+  ],
+  "finalStatus": "completed_with_documented_runtime_proxy"
+}

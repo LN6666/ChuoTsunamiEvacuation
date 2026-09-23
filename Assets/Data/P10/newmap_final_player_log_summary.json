@@ -1,0 +1,20 @@
+﻿{
+    "generatedAt":  "2026-05-26T23:42:04",
+    "logPath":  "C:\\Users\\liangjn\\AppData\\LocalLow\\DefaultCompany\\ChuoTsunamiEvacuation\\Player.log",
+    "errorCount":  0,
+    "warningCount":  0,
+    "performanceSample":  {
+                              "elapsedSeconds":  30,
+                              "frameCount":  3756,
+                              "averageFps":  125.19,
+                              "maxFrameMs":  6120.26,
+                              "stutterFramesOver66ms":  2
+                          },
+    "firstErrors":  [
+
+                    ],
+    "firstWarnings":  [
+
+                      ],
+    "finalStatus":  "completed_on_new_chuo_basemap"
+}

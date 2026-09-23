@@ -1,0 +1,13 @@
+{
+    "generatedAt": "2026-05-29T13:03:18+09:00",
+    "sourceScenePath": "Assets/Scenes/Chuo_GroundRoad_Import_Source.unity",
+    "mainScenePath": "Assets/Scenes/Chuo_BaseMap.unity",
+    "copiedVisualObjectsCount": 0,
+    "samplingOnlyObjectsCount": 20,
+    "skippedObjectsCount": 0,
+    "reasonForMergeCopy": "sampling_only_adaptive_support_grid_no_visual_copy",
+    "chuoBaseMapModified": false,
+    "originalSourceScenePreserved": true,
+    "mainRendererCountObserved": 44115,
+    "note": "No supplemental visual objects were copied into Chuo_BaseMap; runtime uses generated sample/cache data."
+}

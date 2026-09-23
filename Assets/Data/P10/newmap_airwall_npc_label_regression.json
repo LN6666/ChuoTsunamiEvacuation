@@ -1,0 +1,20 @@
+﻿{
+    "activeScene":  "Assets/Scenes/Chuo_BaseMap.unity",
+    "blueGroundFixPreserved":  true,
+    "groundCoverFallThroughPreventionPreserved":  true,
+    "playerNpcGroundRaisePreserved":  true,
+    "spawnAvoidsBuildingsPreserved":  true,
+    "mouseLeftRightDragPreserved":  true,
+    "dayNightLightingUnchanged":  true,
+    "officialNonOfficialWarningSemanticsPreserved":  true,
+    "npc100xDistributionPreserved":  true,
+    "npcLifecyclePersistent":  true,
+    "nameCacheLoadedRuntimeOffline":  true,
+    "runtimeNetworkRequestsAllowed":  false,
+    "expandedBuildingRoadLabelsExpected":  true,
+    "generatedAt":  "2026-05-30T00:02:13",
+    "airWallsOnlyBoundaryOrInvalidZones":  true,
+    "playerLogClean":  true,
+    "p2ToP10SmokeStatus":  "passed",
+    "finalStatus":  "validated"
+}

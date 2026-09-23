@@ -1,0 +1,11 @@
+{
+    "generatedAt": "2026-05-29T13:03:18+09:00",
+    "activeScene": "Assets/Scenes/Chuo_BaseMap.unity",
+    "suspectCount": 0,
+    "normalModeVisibleSuspectCount": 0,
+    "supportGridRendererVisibleInNormalMode": false,
+    "largeBlueSupportPlaneVisible": false,
+    "debugGroundRootActiveByDefault": false,
+    "finalStatus": "blue_support_area_hidden_in_normal_mode",
+    "suspects": []
+}

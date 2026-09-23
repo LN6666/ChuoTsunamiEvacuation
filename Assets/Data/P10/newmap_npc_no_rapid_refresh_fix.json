@@ -1,0 +1,20 @@
+﻿{
+    "activeScene":  "Assets/Scenes/Chuo_BaseMap.unity",
+    "generateOnModeStartOnly":  true,
+    "allowGlobalRefresh":  false,
+    "globalRespawnIntervalSeconds":  0.0,
+    "minNpcLifetimeSeconds":  300.0,
+    "farNpcDespawnEnabled":  false,
+    "recycleOnlyWhenOutOfBoundsOrInvalid":  true,
+    "npcCreatedAtStartupExpected":  800,
+    "destroyedAfterStartupExpected":  0,
+    "instantiateAfterStartupExpected":  0,
+    "poolRecycleExpected":  0,
+    "visualRefreshCauseAddressed":  "near/far update reference now follows player transform instead of fixed spawn center",
+    "generatedAt":  "2026-05-30T01:19:57",
+    "globalRespawnCount":  0,
+    "destroyedDuringSmoke":  0,
+    "instantiateAfterStartup":  0,
+    "poolRecycleCount":  0,
+    "finalStatus":  "validated_no_rapid_refresh"
+}

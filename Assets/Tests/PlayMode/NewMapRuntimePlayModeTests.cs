@@ -1,0 +1,1537 @@
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
+using NUnit.Framework;
+using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityEngine.TestTools;
+
+public class NewMapRuntimePlayModeTests
+{
+    [SetUp]
+    public void SetUp()
+    {
+        NewMapRuntimeBootstrap.EnableLocalTrainingProxyTargetsForDiagnostics = true;
+    }
+
+    [TearDown]
+    public void TearDown()
+    {
+        NewMapRuntimeBootstrap.EnableLocalTrainingProxyTargetsForDiagnostics = false;
+
+        foreach (NewMapRuntimeBootstrap bootstrap in Object.FindObjectsOfType<NewMapRuntimeBootstrap>())
+        {
+            Object.DestroyImmediate(bootstrap.gameObject);
+        }
+
+        foreach (NewMapFullscreenModeController fullscreenController in Object.FindObjectsOfType<NewMapFullscreenModeController>())
+        {
+            Object.DestroyImmediate(fullscreenController.gameObject);
+        }
+
+        foreach (NewMapPlayerController player in Object.FindObjectsOfType<NewMapPlayerController>())
+        {
+            Object.DestroyImmediate(player.gameObject);
+        }
+
+        foreach (Canvas canvas in Object.FindObjectsOfType<Canvas>())
+        {
+            Object.DestroyImmediate(canvas.gameObject);
+        }
+
+        foreach (NewMapHazardController hazard in Object.FindObjectsOfType<NewMapHazardController>())
+        {
+            Object.DestroyImmediate(hazard.gameObject);
+        }
+
+        foreach (NewMapNpcCrowdPrototype crowd in Object.FindObjectsOfType<NewMapNpcCrowdPrototype>())
+        {
+            Object.DestroyImmediate(crowd.gameObject);
+        }
+
+        foreach (EventSystem eventSystem in Object.FindObjectsOfType<EventSystem>())
+        {
+            Object.DestroyImmediate(eventSystem.gameObject);
+        }
+
+        GameObject officialAnchorFixture = GameObject.Find("bldg_25d370de-2c35-457b-b756-3444a3d02eb3");
+        if (officialAnchorFixture != null)
+        {
+            Object.DestroyImmediate(officialAnchorFixture);
+        }
+
+        GameObject spawnOverlapFixture = GameObject.Find("bldg_spawn_overlap_rejection_fixture");
+        if (spawnOverlapFixture != null)
+        {
+            Object.DestroyImmediate(spawnOverlapFixture);
+        }
+
+        GameObject snapdownFixture = GameObject.Find("bldg_snapdown_fixture_root");
+        if (snapdownFixture != null)
+        {
+            Object.DestroyImmediate(snapdownFixture);
+        }
+
+        GameObject nonBuildingSnapdownFixture = GameObject.Find("road_snapdown_nonbuilding_fixture");
+        if (nonBuildingSnapdownFixture != null)
+        {
+            Object.DestroyImmediate(nonBuildingSnapdownFixture);
+        }
+
+        GameObject unexpectedWallFixture = GameObject.Find("UnexpectedStreetInvisibleWallFixture");
+        if (unexpectedWallFixture != null)
+        {
+            Object.DestroyImmediate(unexpectedWallFixture);
+        }
+
+        GameObject precisionFixture = GameObject.Find("bldg_precision_fixture_tight");
+        if (precisionFixture != null)
+        {
+            Object.DestroyImmediate(precisionFixture);
+        }
+
+        GameObject precisionClusterFixture = GameObject.Find("bldg_precision_fixture_cluster");
+        if (precisionClusterFixture != null)
+        {
+            Object.DestroyImmediate(precisionClusterFixture);
+        }
+
+        string[] runtimeRootNames =
+        {
+            "RuntimeSystemsRoot",
+            "PlayerSpawnRoot",
+            "ShelterMarkerRoot",
+            "CandidateMarkerRoot",
+            "HazardVisualRoot",
+            "NavigationRoot",
+            "CrowdRoot",
+            "CollapseDebrisRoot",
+            "GreenFrameRoot",
+            "UIAnchorRoot",
+            "DebugDiagnosticsRoot",
+            "GameplaySupportRoot",
+            "GameplayGroundCoverRoot",
+            "PlayableBoundsRoot",
+            "PerformanceMetricsRoot"
+        };
+
+        foreach (GameObject root in Object.FindObjectsOfType<GameObject>(true))
+        {
+            if (root != null && runtimeRootNames.Contains(root.name))
+            {
+                Object.DestroyImmediate(root);
+            }
+        }
+    }
+
+    [UnityTest]
+    public IEnumerator RuntimeBootstrapCreatesPlayerCameraAndPreventsFallThrough()
+    {
+        NewMapRuntimeBootstrap bootstrap = NewMapRuntimeBootstrap.CreateForCurrentScene();
+        Assert.NotNull(bootstrap);
+
+        NewMapPlayerController player = Object.FindObjectOfType<NewMapPlayerController>();
+        NewMapGameController controller = Object.FindObjectOfType<NewMapGameController>();
+        Assert.NotNull(player);
+        Assert.NotNull(controller);
+        Assert.IsTrue(player.HasActiveCamera);
+        Assert.IsFalse(player.ControlEnabled);
+        Assert.IsFalse(player.MouseLookEnabled);
+        Assert.IsFalse(player.WantsLockedCursor);
+        Assert.AreEqual(0, controller.RuntimeTargets.Count(target => target.IsOfficialShelter), "Official shelters must not be active without a verified scene GML anchor.");
+
+        controller.StartTourismMode();
+        float startY = player.transform.position.y;
+        yield return new WaitForSeconds(2f);
+        Assert.Greater(player.transform.position.y, startY - 8f, "Player should not fall endlessly through the map/support proxy.");
+        Assert.AreEqual(0, player.FallRecoveryCount, "Normal spawn grounding should not need fall recovery.");
+        Assert.IsTrue(bootstrap.LastRuntimeCollisionSupportProxyActive, "Final NewMap manual test uses the documented runtime collision support.");
+        Assert.IsTrue(bootstrap.LastRuntimeCollisionSupportColliderActive, "Gameplay ground cover/support must keep enabled colliders for movement/spawn support.");
+        Assert.IsFalse(bootstrap.LastRuntimeCollisionSupportRendererVisible, "Old support/debug proxy renderers must stay invisible.");
+        Assert.AreEqual(0, bootstrap.LastVisibleSupportRendererCount, "No blue/debug support renderer may remain visible in normal mode.");
+        Assert.IsFalse(bootstrap.LastAdaptiveSupportGridEnabled, "Failed relief-based adaptive support grid must be disabled by default.");
+        Assert.IsFalse(bootstrap.LastAdaptiveSupportGridActive, "Adaptive support grid must not be the rollback runtime collision support.");
+        Assert.AreEqual(0, bootstrap.LastAdaptiveSupportGridCellCount);
+        Assert.AreEqual(0, bootstrap.LastAdaptiveSupportGridColliderCount);
+        Assert.AreEqual(0, bootstrap.LastAdaptiveSupportGridVisibleRendererCount);
+        Assert.IsTrue(bootstrap.LastSafeGroundEnabled, "Ground cover must create the safe gameplay support surface.");
+        Assert.IsTrue(bootstrap.LastGameplayGroundCoverActive, "Visible road-like gameplay ground cover must be active.");
+        Assert.Greater(bootstrap.LastGameplayGroundCoverTileCount, 0);
+        Assert.AreEqual(bootstrap.LastGameplayGroundCoverTileCount, bootstrap.LastGameplayGroundCoverColliderCount);
+        Assert.AreEqual(bootstrap.LastGameplayGroundCoverTileCount, bootstrap.LastGameplayGroundCoverVisibleRendererCount);
+        Assert.AreEqual(bootstrap.LastGameplayGroundCoverColliderCount, bootstrap.LastSafeGroundColliderCount);
+        Assert.IsFalse(bootstrap.LastGameplayGroundCoverMaterialBlueLike);
+        Assert.IsFalse(bootstrap.LastGameplayGroundCoverMaterialMagentaLike);
+        Assert.AreEqual(1f, bootstrap.LastGameplayGroundCoverOpacity, 0.001f);
+        Assert.IsTrue(bootstrap.LastFallOutPreventionEnabled);
+        Assert.AreEqual(0, bootstrap.LastVisibleLargeBlueGroundRendererCount);
+        Assert.IsTrue(bootstrap.LastPlayableBoundsValid, "Playable bounds should be resolved for Chuo_BaseMap.");
+        Assert.IsTrue(bootstrap.LastCircularBoundaryEnabled, "The NewMap edge should be the 2.27km circular clamp.");
+        Assert.AreEqual(2270f, bootstrap.LastCircularBoundary.RadiusMeters, 0.001f);
+        Assert.IsTrue(bootstrap.LastCircularBoundaryPlayerClampEnabled);
+        Assert.IsTrue(bootstrap.LastCircularBoundaryNpcClampEnabled);
+        Assert.AreEqual(0, bootstrap.LastPlayableAirWallColliderCount, "Old rectangular air-wall colliders must not be created.");
+        Assert.AreEqual(0, bootstrap.LastPlayableAirWallVisibleRendererCount, "Circular boundary must be invisible in normal player mode.");
+        Assert.IsTrue(bootstrap.LastPlayableBounds.ContainsXZ(player.transform.position, 0f), "Player spawn must remain inside playable bounds.");
+        Assert.IsTrue(bootstrap.LastCircularBoundary.ContainsXZ(player.transform.position, 0f), "Player spawn must remain inside the circular boundary.");
+        Assert.IsTrue(player.CircularBoundaryClampEnabled);
+        Assert.LessOrEqual(Mathf.Abs(player.transform.position.y - bootstrap.LastGameplayGroundCoverY), 0.35f, "Player must stand on the visible gameplay ground cover.");
+        Assert.LessOrEqual(bootstrap.LastPlayerSpawnGroundDelta, 0.35f, "Player spawn should sit near the aligned support surface.");
+        Assert.IsFalse(bootstrap.LastMeshColliderDisableComplete, "Scene MeshCollider shutdown should not run at player startup because it caused the Pre2 spike.");
+        Assert.AreEqual(0, bootstrap.LastDisabledSceneMeshColliderCount, "Scene MeshColliders should remain untouched during player startup.");
+    }
+
+    [UnityTest]
+    public IEnumerator RuntimeBuildingCollisionUsesTightFootprintProxies()
+    {
+        GameObject tightFixture = GameObject.CreatePrimitive(PrimitiveType.Cube);
+        tightFixture.name = "bldg_precision_fixture_tight";
+        tightFixture.transform.position = new Vector3(36f, 2.5f, 36f);
+        tightFixture.transform.localScale = new Vector3(20f, 5f, 18f);
+        Collider tightCollider = tightFixture.GetComponent<Collider>();
+        if (tightCollider != null)
+        {
+            Object.DestroyImmediate(tightCollider);
+        }
+
+        GameObject clusterFixture = GameObject.CreatePrimitive(PrimitiveType.Cube);
+        clusterFixture.name = "bldg_precision_fixture_cluster";
+        clusterFixture.transform.position = new Vector3(90f, 2.5f, 36f);
+        clusterFixture.transform.localScale = new Vector3(120f, 5f, 18f);
+        Collider clusterCollider = clusterFixture.GetComponent<Collider>();
+        if (clusterCollider != null)
+        {
+            Object.DestroyImmediate(clusterCollider);
+        }
+
+        NewMapRuntimeBootstrap bootstrap = NewMapRuntimeBootstrap.CreateForCurrentScene();
+        yield return null;
+
+        NewMapPlayerController player = Object.FindObjectOfType<NewMapPlayerController>();
+        NewMapNpcCrowdPrototype crowd = Object.FindObjectOfType<NewMapNpcCrowdPrototype>();
+        Assert.NotNull(bootstrap);
+        Assert.NotNull(player);
+        Assert.NotNull(crowd);
+        Assert.IsTrue(bootstrap.LastBuildingPrecisionEnabled);
+        Assert.GreaterOrEqual(bootstrap.LastBuildingPrecisionCandidateCount, 2);
+        Assert.GreaterOrEqual(bootstrap.LastBuildingPrecisionInflatedBoundsFound, 1);
+        Assert.GreaterOrEqual(bootstrap.LastBuildingPrecisionInflatedBoundsSkipped, 1);
+        Assert.Greater(bootstrap.LastBuildingPrecisionTightProxyCount, 0);
+        Assert.LessOrEqual(bootstrap.LastBuildingPrecisionMaxWidth, 60.01f);
+        Assert.LessOrEqual(bootstrap.LastBuildingPrecisionMaxDepth, 60.01f);
+        Assert.AreEqual(5f, bootstrap.LastBuildingPrecisionColliderHeight, 0.01f);
+        Assert.IsTrue(bootstrap.LastBuildingFinalRefinementEnabled);
+        Assert.Greater(bootstrap.LastBuildingFinalRefinementProxiesScanned, 0);
+        Assert.Greater(bootstrap.LastBuildingFinalRefinementProxiesShrunk, 0);
+        Assert.AreEqual(0, bootstrap.LastBuildingPrecisionUnexpectedCorridorBlockers);
+        Assert.AreEqual(0, bootstrap.LastBuildingPrecisionActiveTargetApproachBlocked);
+        Assert.AreEqual(0, bootstrap.LastSpawnRejectedFinalOverlapCount);
+        Assert.IsTrue(player.BuildingCollisionEnabled);
+        Assert.AreEqual(bootstrap.LastBuildingBoundsCacheCount, player.BuildingCollisionBoundsCount);
+        Assert.AreEqual(bootstrap.LastBuildingBoundsCacheCount, crowd.BuildingAvoidanceBoundsCount);
+
+        Bounds[] bounds = player.GetBuildingCollisionBoundsForDiagnostics();
+        Bounds fixtureBounds = bounds
+            .Where(candidate => Vector2.Distance(new Vector2(candidate.center.x, candidate.center.z), new Vector2(36f, 36f)) < 2f)
+            .OrderBy(candidate => candidate.size.x * candidate.size.z)
+            .FirstOrDefault();
+        Assert.Greater(fixtureBounds.size.x, 1f, "Fixture building footprint proxy should be present.");
+        Assert.Less(fixtureBounds.size.x, 20f, "Fixture footprint should be shrunk from the visual bounds.");
+
+        NewMapGameController controller = Object.FindObjectOfType<NewMapGameController>();
+        Assert.NotNull(controller);
+        controller.StartTourismMode();
+        yield return null;
+
+        Vector3 previous = player.transform.position;
+        player.transform.position = new Vector3(fixtureBounds.center.x, previous.y, fixtureBounds.center.z);
+        player.MoveForDiagnostics(Vector3.zero, 0.05f, false);
+        Assert.IsFalse(player.IsInsideBuildingForDiagnostics(player.transform.position, 0.02f), "Player must be corrected out of a sampled tight building footprint.");
+
+        Vector3 roadLikePoint = new Vector3(fixtureBounds.max.x + 1.5f, player.transform.position.y, fixtureBounds.center.z);
+        player.transform.position = roadLikePoint;
+        player.MoveForDiagnostics(Vector3.forward, 0.1f, false);
+        Assert.IsFalse(player.IsInsideBuildingForDiagnostics(player.transform.position, 0.02f), "Player should remain passable just outside the tight footprint.");
+    }
+
+    [UnityTest]
+    public IEnumerator RuntimeMouseDragLookRequiresButtonAndRestoresAfterPause()
+    {
+        NewMapRuntimeBootstrap bootstrap = NewMapRuntimeBootstrap.CreateForCurrentScene();
+        NewMapPlayerController player = Object.FindObjectOfType<NewMapPlayerController>();
+        NewMapGameController controller = Object.FindObjectOfType<NewMapGameController>();
+        Assert.NotNull(player);
+        Assert.NotNull(controller);
+
+        controller.StartTourismMode();
+        yield return null;
+        Assert.IsTrue(player.ControlEnabled);
+        Assert.IsTrue(player.MouseLookEnabled);
+        Assert.IsFalse(player.WantsLockedCursor);
+        Assert.IsFalse(player.IsMouseLookDragging);
+        Assert.IsTrue(player.LookRequiresMouseButton);
+        CollectionAssert.AreEquivalent(new[] { "LeftMouse", "RightMouse" }, player.AllowedLookMouseButtonNames);
+        float yaw = player.CurrentYaw;
+        float pitch = player.CurrentPitch;
+        Assert.IsFalse(player.ApplyLookInputForDiagnostics(4f, -3f, false));
+        Assert.AreEqual(yaw, player.CurrentYaw, 0.001f);
+        Assert.AreEqual(pitch, player.CurrentPitch, 0.001f);
+        Assert.IsFalse(player.WantsLockedCursor);
+        Assert.AreEqual(CursorLockMode.None, Cursor.lockState);
+        Assert.IsTrue(Cursor.visible);
+        Assert.IsTrue(player.ApplyLookInputForDiagnostics(4f, -3f, "LeftMouse"));
+        Assert.AreNotEqual(yaw, player.CurrentYaw);
+        Assert.AreNotEqual(pitch, player.CurrentPitch);
+        Assert.IsTrue(player.IsMouseLookDragging);
+        Assert.IsTrue(player.WantsLockedCursor);
+        if (!Application.isBatchMode)
+        {
+            Assert.AreEqual(CursorLockMode.Locked, Cursor.lockState);
+            Assert.IsFalse(Cursor.visible);
+        }
+        Assert.GreaterOrEqual(player.CurrentPitch, player.MinPitch);
+        Assert.LessOrEqual(player.CurrentPitch, player.MaxPitch);
+        player.ReleaseLookDragForDiagnostics();
+        Assert.IsFalse(player.IsMouseLookDragging);
+        Assert.IsFalse(player.WantsLockedCursor);
+        Assert.AreEqual(CursorLockMode.None, Cursor.lockState);
+        Assert.IsTrue(Cursor.visible);
+        yaw = player.CurrentYaw;
+        pitch = player.CurrentPitch;
+        Assert.IsTrue(player.ApplyLookInputForDiagnostics(4f, -3f, "RightMouse"));
+        Assert.AreNotEqual(yaw, player.CurrentYaw);
+        Assert.AreNotEqual(pitch, player.CurrentPitch);
+        player.ReleaseLookDragForDiagnostics();
+
+        controller.SetPaused(true);
+        yield return null;
+        Assert.IsFalse(player.ControlEnabled);
+        Assert.IsFalse(player.MouseLookEnabled);
+        Assert.IsFalse(player.WantsLockedCursor);
+
+        controller.SetPaused(false);
+        yield return null;
+        Assert.IsTrue(player.ControlEnabled);
+        Assert.IsTrue(player.MouseLookEnabled);
+        Assert.IsFalse(player.WantsLockedCursor);
+
+        controller.ResetToStartMenu();
+        yield return null;
+        Assert.IsFalse(player.ControlEnabled);
+        Assert.IsFalse(player.MouseLookEnabled);
+        Assert.IsFalse(player.WantsLockedCursor);
+
+        controller.StartEvacuationMode();
+        yield return null;
+        Assert.IsTrue(player.ControlEnabled);
+        Assert.IsTrue(player.MouseLookEnabled);
+        Assert.IsFalse(player.WantsLockedCursor);
+        yaw = player.CurrentYaw;
+        Assert.IsTrue(player.ApplyLookInputForDiagnostics(3f, 0f, "LeftMouse"));
+        Assert.AreNotEqual(yaw, player.CurrentYaw);
+        yaw = player.CurrentYaw;
+        Assert.IsTrue(player.ApplyLookInputForDiagnostics(3f, 0f, "RightMouse"));
+        Assert.AreNotEqual(yaw, player.CurrentYaw);
+    }
+
+    [UnityTest]
+    public IEnumerator RuntimeFallOutPreventionRecoversPlayerToSafeGround()
+    {
+        NewMapRuntimeBootstrap bootstrap = NewMapRuntimeBootstrap.CreateForCurrentScene();
+        NewMapPlayerController player = Object.FindObjectOfType<NewMapPlayerController>();
+        NewMapGameController controller = Object.FindObjectOfType<NewMapGameController>();
+        Assert.NotNull(bootstrap);
+        Assert.NotNull(player);
+        Assert.NotNull(controller);
+
+        controller.StartTourismMode();
+        yield return null;
+        Vector3 safe = player.SafeRecoveryPosition;
+        player.transform.position = new Vector3(safe.x, player.FallRecoveryThresholdY - 20f, safe.z);
+        Assert.IsTrue(player.TryRecoverForDiagnostics());
+
+        Assert.AreEqual(1, player.FallRecoveryCount);
+        Assert.AreEqual("below_fall_threshold", player.LastFallRecoveryReason);
+        Assert.LessOrEqual(Mathf.Abs(player.transform.position.y - safe.y), 0.1f);
+        Assert.IsTrue(bootstrap.LastPlayableBounds.ContainsXZ(player.transform.position, 0f));
+    }
+
+    [UnityTest]
+    public IEnumerator RuntimeSpawnValidationRejectsBuildingOverlapAndUsesPlayableSupport()
+    {
+        GameObject building = GameObject.CreatePrimitive(PrimitiveType.Cube);
+        building.name = "bldg_spawn_overlap_rejection_fixture";
+        building.transform.position = new Vector3(0f, 1f, 0f);
+        building.transform.localScale = new Vector3(30f, 2f, 30f);
+
+        NewMapRuntimeBootstrap bootstrap = NewMapRuntimeBootstrap.CreateForCurrentScene();
+        NewMapPlayerController player = Object.FindObjectOfType<NewMapPlayerController>();
+        Assert.NotNull(bootstrap);
+        Assert.NotNull(player);
+
+        yield return null;
+
+        Assert.IsTrue(bootstrap.LastSpawnValidationPassed, "Spawn must pass the road/playable-ground validator before the player is created.");
+        Assert.AreEqual(1, bootstrap.LastSpawnAcceptedCount);
+        Assert.GreaterOrEqual(bootstrap.LastSpawnAttemptCount, 1);
+        Assert.AreEqual("random_playable_support", bootstrap.LastSpawnValidationSource, "Hotfix spawn should try randomized playable support before the old fixed map-center point.");
+        Assert.GreaterOrEqual(bootstrap.LastBuildingBoundsCacheCount, 1);
+        Assert.IsFalse(bootstrap.LastAdaptiveSupportGridActive, "Spawn validation must not use the failed adaptive relief grid in rollback mode.");
+        Assert.IsTrue(bootstrap.LastSafeGroundEnabled);
+        Assert.GreaterOrEqual(bootstrap.LastNearestBuildingDistance, NewMapSpawnConfig.Load().minDistanceFromBuildingMeters - 0.01f);
+        Assert.Greater(bootstrap.LastSpawnFinalOverlapCheckCount, 0);
+        Assert.AreEqual(0, bootstrap.LastSpawnRejectedFinalOverlapCount);
+        Assert.LessOrEqual(Mathf.Abs(player.transform.position.y - bootstrap.LastRuntimeGroundSurfaceY), 0.5f);
+        Bounds buildingBounds = building.GetComponent<Renderer>().bounds;
+        Assert.IsFalse(
+            player.transform.position.x >= buildingBounds.min.x &&
+            player.transform.position.x <= buildingBounds.max.x &&
+            player.transform.position.z >= buildingBounds.min.z &&
+            player.transform.position.z <= buildingBounds.max.z,
+            "Validated spawn may not overlap building renderer bounds in X/Z.");
+
+        Object.DestroyImmediate(building);
+    }
+
+    [UnityTest]
+    public IEnumerator RuntimeLightingModesAreExplicitAndReversible()
+    {
+        NewMapRuntimeBootstrap.CreateForCurrentScene();
+        NewMapGameController controller = Object.FindObjectOfType<NewMapGameController>();
+        NewMapLightingController lighting = Object.FindObjectOfType<NewMapLightingController>();
+        Assert.NotNull(controller);
+        Assert.NotNull(lighting);
+        Assert.IsTrue(lighting.ClearDayConfigured);
+        Assert.Greater(lighting.DirectionalLightIntensity, 1.0f);
+        float clearAmbient = lighting.AmbientSkyBrightness;
+        float clearSky = lighting.SkyBrightness;
+
+        controller.SetWeather(NewMapWeatherPreset.NightClear);
+        yield return null;
+        Assert.Less(lighting.DirectionalLightIntensity, 0.5f);
+        Assert.Less(lighting.AmbientSkyBrightness, clearAmbient);
+        Assert.Less(lighting.SkyBrightness, 0.12f);
+        Assert.Less(lighting.SkyBrightness, clearSky);
+        Assert.Greater(lighting.FillLightIntensity, 0.1f);
+        Assert.Greater(lighting.NightBuildingReadabilityScore, 0.35f);
+
+        controller.SetWeather(NewMapWeatherPreset.ClearDay);
+        yield return null;
+        Assert.Greater(lighting.DirectionalLightIntensity, 1.0f);
+        Assert.GreaterOrEqual(lighting.AmbientSkyBrightness, clearAmbient - 0.01f);
+        Assert.GreaterOrEqual(lighting.SkyBrightness, clearSky - 0.01f);
+    }
+
+    [UnityTest]
+    public IEnumerator RuntimeProductionModeHidesDebugLocalTrainingTargets()
+    {
+        NewMapRuntimeBootstrap.EnableLocalTrainingProxyTargetsForDiagnostics = false;
+        NewMapRuntimeBootstrap.CreateForCurrentScene();
+        NewMapGameController controller = Object.FindObjectOfType<NewMapGameController>();
+        Assert.NotNull(controller);
+
+        Assert.IsFalse(controller.RuntimeTargets.Any(target => target.Id.StartsWith("newmap_proxy_")), "Manual production mode must not show local training proxy targets.");
+        GameObject diagnosticsRoot = Object.FindObjectsOfType<GameObject>(true).FirstOrDefault(candidate => candidate.name == "DebugDiagnosticsRoot");
+        Assert.NotNull(diagnosticsRoot);
+        Assert.IsFalse(diagnosticsRoot.activeSelf, "DebugDiagnosticsRoot is inactive by default for manual/player mode.");
+        yield return null;
+    }
+
+    [UnityTest]
+    public IEnumerator RuntimePlayerSupportsSustainedMovementSimulation()
+    {
+        NewMapRuntimeBootstrap.CreateForCurrentScene();
+        NewMapPlayerController player = Object.FindObjectOfType<NewMapPlayerController>();
+        NewMapGameController controller = Object.FindObjectOfType<NewMapGameController>();
+        Assert.NotNull(player);
+        Assert.NotNull(controller);
+
+        controller.StartTourismMode();
+        Vector3 start = player.transform.position;
+        for (int i = 0; i < 600; i++)
+        {
+            Vector3 direction = i < 300 ? Vector3.forward : Vector3.right;
+            player.MoveForDiagnostics(direction, 0.1f, sprint: i % 2 == 0);
+            if (i % 60 == 0)
+            {
+                yield return null;
+            }
+        }
+        yield return null;
+
+        Assert.Greater(Vector3.Distance(start, player.transform.position), 10f);
+        Assert.AreEqual(0, player.FallRecoveryCount, "60-second diagnostic movement route should not trigger fall recovery.");
+        Assert.Greater(player.transform.position.y, start.y - 8f);
+    }
+
+    [UnityTest]
+    public IEnumerator RuntimeNpcDistributionUsesConfiguredWideDeterministicSpread()
+    {
+        NewMapRuntimeBootstrap.CreateForCurrentScene();
+        NewMapPlayerController player = Object.FindObjectOfType<NewMapPlayerController>();
+        NewMapGameController controller = Object.FindObjectOfType<NewMapGameController>();
+        NewMapNpcCrowdPrototype crowd = Object.FindObjectOfType<NewMapNpcCrowdPrototype>();
+        NewMapRuntimeBootstrap bootstrap = Object.FindObjectOfType<NewMapRuntimeBootstrap>();
+        Assert.NotNull(player);
+        Assert.NotNull(controller);
+        Assert.NotNull(crowd);
+        Assert.NotNull(bootstrap);
+
+        controller.StartTourismMode();
+        yield return null;
+
+        Assert.AreEqual(1600, crowd.RequestedNpcCount, "NPC requested count should be doubled from the previous 800 baseline.");
+        Assert.LessOrEqual(crowd.SpawnedNpcCount, 1600);
+        Assert.AreEqual(crowd.CappedNpcCount, crowd.SpawnedNpcCount);
+        Assert.AreEqual(1600, crowd.CappedNpcCount);
+        Assert.GreaterOrEqual(crowd.UsedSectorCount, 40);
+        Assert.GreaterOrEqual(crowd.UsedRingCount, 7);
+        Assert.GreaterOrEqual(crowd.DistributionCoveragePercent, 70f);
+        Assert.AreEqual(0, crowd.NpcOutsideBoundaryCount);
+        Assert.AreEqual(crowd.SpawnedNpcCount, crowd.NpcInsideBoundaryCount);
+        Assert.IsTrue(crowd.AvoidBuildingsEnabled);
+        Assert.IsTrue(crowd.UsePoolingEnabled);
+        Assert.IsTrue(crowd.FarNpcStaticProxyModeEnabled, "Doubled boundary-wide NPC count must use far static proxies for performance safety.");
+
+        Vector3[] positions = crowd.GetNpcPositionsForDiagnostics();
+        Assert.AreEqual(crowd.SpawnedNpcCount, positions.Length);
+        foreach (Vector3 position in positions)
+        {
+            Vector3 centerDelta = position - new Vector3(bootstrap.LastCircularBoundary.Center.x, position.y, bootstrap.LastCircularBoundary.Center.y);
+            centerDelta.y = 0f;
+            Vector3 playerDelta = position - player.transform.position;
+            playerDelta.y = 0f;
+            Assert.LessOrEqual(centerDelta.magnitude, 2270.5f);
+            Assert.GreaterOrEqual(playerDelta.magnitude, crowd.MinDistanceFromPlayerMeters - 0.5f);
+            Assert.GreaterOrEqual(position.y, bootstrap.LastRuntimeGroundSurfaceY - 0.75f);
+            Assert.LessOrEqual(position.y, bootstrap.LastRuntimeGroundSurfaceY + 1.5f);
+            Assert.IsTrue(bootstrap.LastCircularBoundary.ContainsXZ(position, 0f), "NPC positions must stay inside the 2.27km circular boundary.");
+        }
+
+        Vector3[] deterministicA = NewMapNpcCrowdPrototype.GenerateDistributionForDiagnostics(player.transform.position, NewMapNpcDistributionConfig.Default());
+        Vector3[] deterministicB = NewMapNpcCrowdPrototype.GenerateDistributionForDiagnostics(player.transform.position, NewMapNpcDistributionConfig.Default());
+        Assert.AreEqual(deterministicA.Length, deterministicB.Length);
+        for (int i = 0; i < deterministicA.Length; i += 17)
+        {
+            Assert.AreEqual(deterministicA[i].x, deterministicB[i].x, 0.001f);
+            Assert.AreEqual(deterministicA[i].z, deterministicB[i].z, 0.001f);
+        }
+
+        for (int i = 0; i < 20; i++)
+        {
+            yield return null;
+        }
+
+        Assert.AreEqual(0, crowd.StoppedWithoutReasonCount, "NPCs may be moving, arrived, queued, or recovering, but not silently stopped.");
+        Assert.GreaterOrEqual(crowd.MovingCount + crowd.ArrivedCount + crowd.QueuedCount + crowd.StuckCount + crowd.StaticProxyCount, 1);
+
+        controller.StartEvacuationMode();
+        controller.ForceStageForDiagnostics(NewMapTsunamiStage.FrontApproaching);
+        yield return null;
+        NewMapRuntimeTarget crowdTarget = controller.RuntimeTargets.First(target => target.Id == "newmap_proxy_crowd_delay");
+        float delay = crowd.GetDelayForTarget(crowdTarget);
+        Assert.GreaterOrEqual(delay, 0f);
+        Assert.LessOrEqual(delay, 8f);
+    }
+
+    [UnityTest]
+    public IEnumerator RuntimePlayerNpcSoftBlockingPreventsDirectOverlap()
+    {
+        NewMapRuntimeBootstrap.CreateForCurrentScene();
+        NewMapPlayerController player = Object.FindObjectOfType<NewMapPlayerController>();
+        NewMapGameController controller = Object.FindObjectOfType<NewMapGameController>();
+        NewMapNpcCrowdPrototype crowd = Object.FindObjectOfType<NewMapNpcCrowdPrototype>();
+        Assert.NotNull(player);
+        Assert.NotNull(controller);
+        Assert.NotNull(crowd);
+
+        controller.StartTourismMode();
+        yield return null;
+
+        Vector3[] positions = crowd.GetNpcPositionsForDiagnostics();
+        Assert.Greater(positions.Length, 0);
+        Vector3 npcPosition = SelectNpcPositionForPlayerCollision(positions, Object.FindObjectOfType<NewMapRuntimeBootstrap>(), player);
+        player.transform.position = new Vector3(npcPosition.x - 1.2f, npcPosition.y, npcPosition.z);
+        int previousBlockedCount = player.PlayerNpcCollisionBlockedCount;
+
+        player.MoveForDiagnostics(Vector3.right, 0.35f, sprint: false);
+        Vector3[] positionsAfterMove = crowd.GetNpcPositionsForDiagnostics();
+        yield return null;
+
+        Assert.IsTrue(player.PlayerNpcCollisionEnabled);
+        Assert.IsTrue(crowd.PlayerNpcSoftBlockingEnabled);
+        Assert.Greater(crowd.NpcBodyColliderCount, 0);
+        Assert.Greater(player.PlayerNpcCollisionBlockedCount, previousBlockedCount, "Player movement into an NPC body should be corrected by soft blocking.");
+        Vector2 correctedPlayerPosition = new Vector2(player.transform.position.x, player.transform.position.z);
+        float correctedDistance = positionsAfterMove
+            .Select(position => Vector2.Distance(correctedPlayerPosition, new Vector2(position.x, position.z)))
+            .DefaultIfEmpty(float.PositiveInfinity)
+            .Min();
+        Assert.GreaterOrEqual(correctedDistance, crowd.NearNpcCollisionRadiusMeters + 0.24f, "The player should remain outside the near NPC body radius instead of passing through.");
+    }
+
+    [UnityTest]
+    public IEnumerator RuntimeConcaveMeshColliderCleanupDoesNotCreateTriggerOffender()
+    {
+        Mesh mesh = new Mesh
+        {
+            name = "ConcaveTriggerCleanupFixtureMesh",
+            vertices = new[]
+            {
+                new Vector3(-2f, 0f, -2f),
+                new Vector3(2f, 0f, -2f),
+                new Vector3(2f, 0f, 2f),
+                new Vector3(-2f, 0f, 2f),
+                new Vector3(0f, 0.5f, 0f)
+            },
+            triangles = new[] { 0, 1, 4, 1, 2, 4, 2, 3, 4, 3, 0, 4 }
+        };
+        mesh.RecalculateBounds();
+
+        GameObject fixture = new GameObject("RuntimeConcaveFixtureWall");
+        fixture.transform.position = new Vector3(12f, 2.4f, 12f);
+        MeshCollider collider = fixture.AddComponent<MeshCollider>();
+        collider.sharedMesh = mesh;
+        collider.convex = false;
+        collider.isTrigger = false;
+
+        NewMapRuntimeBootstrap.CreateForCurrentScene();
+        yield return null;
+
+        Assert.IsFalse(collider.enabled && collider.isTrigger && !collider.convex, "Runtime cleanup must not leave a concave MeshCollider trigger.");
+        MeshCollider[] meshColliders = Object.FindObjectsOfType<MeshCollider>(true);
+        Assert.IsFalse(meshColliders.Any(item => item != null && item.enabled && item.isTrigger && !item.convex), "No active concave MeshCollider trigger should remain after bootstrap cleanup.");
+    }
+
+    [UnityTest]
+    public IEnumerator RuntimeNpcLifecycleContinuesAfterPlayerContact()
+    {
+        NewMapRuntimeBootstrap.CreateForCurrentScene();
+        NewMapPlayerController player = Object.FindObjectOfType<NewMapPlayerController>();
+        NewMapGameController controller = Object.FindObjectOfType<NewMapGameController>();
+        NewMapNpcCrowdPrototype crowd = Object.FindObjectOfType<NewMapNpcCrowdPrototype>();
+        Assert.NotNull(player);
+        Assert.NotNull(controller);
+        Assert.NotNull(crowd);
+
+        controller.StartTourismMode();
+        yield return null;
+
+        Vector3[] positions = crowd.GetNpcPositionsForDiagnostics();
+        Assert.Greater(positions.Length, 0);
+        Vector3 npcPosition = SelectNpcPositionForPlayerCollision(positions, Object.FindObjectOfType<NewMapRuntimeBootstrap>(), player);
+        int previousContactEvents = crowd.PlayerContactEventCount;
+        player.transform.position = new Vector3(npcPosition.x - 1.2f, npcPosition.y, npcPosition.z);
+        player.MoveForDiagnostics(Vector3.right, 0.35f, sprint: false);
+
+        for (int i = 0; i < 180; i++)
+        {
+            yield return null;
+        }
+
+        Assert.Greater(crowd.PlayerContactEventCount, previousContactEvents, "The contact path should be exercised during the test.");
+        Assert.AreEqual(0, crowd.GlobalRespawnCount, "Player-NPC contact must not trigger a global NPC respawn.");
+        Assert.AreEqual(0, crowd.InstantiateAfterStartupCount, "NPCs should not be recreated after startup during contact recovery.");
+        Assert.AreEqual(0, crowd.AllStopEventCount, "Player-NPC contact must not deadlock all NPC movement.");
+        Assert.AreEqual(0, crowd.StoppedWithoutReasonCount, "Stopped NPCs must have a valid state/reason.");
+        Assert.Greater(crowd.MovingCount + crowd.QueuedCount + crowd.ArrivedCount + crowd.StuckCount + crowd.StaticProxyCount, 0);
+        Assert.IsTrue(crowd.CollisionWithPlayerDoesNotGlobalPause);
+    }
+
+    [UnityTest]
+    public IEnumerator RuntimeGroundRaiseKeepsBuildingsFixedAndRaisesCover()
+    {
+        GameObject floatingBuilding = GameObject.CreatePrimitive(PrimitiveType.Cube);
+        floatingBuilding.name = "bldg_snapdown_fixture_root";
+        floatingBuilding.transform.position = new Vector3(45f, 3f, 45f);
+        floatingBuilding.transform.localScale = new Vector3(8f, 2f, 8f);
+
+        GameObject nonBuilding = GameObject.CreatePrimitive(PrimitiveType.Cube);
+        nonBuilding.name = "road_snapdown_nonbuilding_fixture";
+        nonBuilding.transform.position = new Vector3(70f, 3f, 45f);
+        nonBuilding.transform.localScale = new Vector3(8f, 2f, 8f);
+
+        NewMapRuntimeBootstrap bootstrap = NewMapRuntimeBootstrap.CreateForCurrentScene();
+        yield return null;
+
+        Assert.NotNull(bootstrap);
+        Assert.IsTrue(bootstrap.LastGroundCoverRaiseEnabled);
+        Assert.Greater(bootstrap.LastGroundCoverRaiseOffset, 0.1f);
+        Assert.Greater(bootstrap.LastGameplayGroundCoverY, bootstrap.LastGroundCoverRaiseOldY);
+        Assert.IsTrue(bootstrap.LastGroundMicroRaiseEnabled);
+        Assert.AreEqual(0.3f, bootstrap.LastGroundMicroRaiseAdditionalMeters, 0.01f);
+        Assert.AreEqual(bootstrap.LastGroundMicroRaisePreviousY + 0.3f, bootstrap.LastGroundMicroRaiseNewY, 0.02f);
+        Assert.IsTrue(bootstrap.LastGroundRaise30Enabled);
+        Assert.AreEqual("existing_raise_offset", bootstrap.LastGroundRaise30BaselineMode);
+        Assert.AreEqual(bootstrap.LastGroundMicroRaiseNewY, bootstrap.LastGroundRaise30OldGroundY, 0.02f);
+        Assert.AreEqual(0.30f, bootstrap.LastGroundRaise30ActualRaisePercent, 0.02f);
+        Assert.Greater(bootstrap.LastGroundRaise30ActualRaiseMeters, 0.5f);
+        Assert.AreEqual(bootstrap.LastGroundRaise30NewGroundY, bootstrap.LastGameplayGroundCoverY, 0.02f);
+        Assert.IsTrue(bootstrap.LastGroundMicroRaiseAppliedToSupportColliders);
+        Assert.IsFalse(bootstrap.LastBuildingSnapdownEnabled, "Ground raise pass keeps imported buildings fixed and disables runtime snapdown.");
+        Assert.AreEqual(0, bootstrap.LastBuildingSnapdownMovedCount);
+        Assert.AreEqual(3f, floatingBuilding.transform.position.y, 0.01f, "Buildings must remain fixed as visual reference in this pass.");
+        Assert.AreEqual(3f, nonBuilding.transform.position.y, 0.01f, "Road/ground-like non-building objects must not move.");
+    }
+
+    [UnityTest]
+    public IEnumerator RuntimeNameLabelsUseOfflineRealSourcesOnly()
+    {
+        NewMapRuntimeBootstrap.CreateForCurrentScene();
+        NewMapNameLabelController labels = Object.FindObjectOfType<NewMapNameLabelController>();
+        NewMapGameController controller = Object.FindObjectOfType<NewMapGameController>();
+        Assert.NotNull(labels);
+        Assert.NotNull(controller);
+
+        yield return null;
+
+        Assert.IsFalse(labels.RuntimeNetworkRequestsAllowed, "Runtime labels must not perform online geocoding/name lookup.");
+        Assert.IsFalse(labels.SceneWideMetadataScanPerformed, "Runtime labels should not full-scan the PLATEAU scene every frame.");
+        Assert.IsFalse(labels.IdOnlyLabelsVisibleInNormalMode, "ID-only labels stay debug-only.");
+        Assert.IsTrue(labels.NameCacheLoaded, "Runtime labels must load the generated local cache.");
+        Assert.GreaterOrEqual(labels.NameCacheRecordCount, 180);
+        Assert.GreaterOrEqual(labels.ReliableCacheLabelCount, 90);
+        Assert.GreaterOrEqual(labels.BuildingNameLabelCount, 30, "Expanded reliable cache-backed building names should be shown.");
+        Assert.GreaterOrEqual(labels.RoadNameLabelCount, 80, "Expanded reliable cache-backed road names should be shown.");
+        Assert.GreaterOrEqual(labels.NonOfficialCandidateLabelCount, 30, "Playable non-official candidates should have local/cache-backed display names where matched.");
+        Assert.GreaterOrEqual(labels.EnrichedNonOfficialCandidateLabelCount, 20, "Coordinate-enriched non-official candidate names should load from cache.");
+        Assert.AreEqual(0, labels.IdOnlyLabelCount, "ID-only labels must stay hidden in normal mode.");
+        Assert.AreEqual(0, labels.RuntimeWebRequestsObserved, "Runtime labels must not perform web requests.");
+        Assert.AreEqual(0, labels.LowConfidenceHiddenCount, "Low-confidence names should be omitted before runtime display.");
+        StringAssert.Contains("source_or_cached_names_available", labels.SourceNameAvailabilityStatus);
+        Assert.Greater(labels.NonOfficialCandidateLabelCount, 0, "Existing non-official candidate dataset names should be label sources.");
+        Assert.LessOrEqual(labels.ActiveLabelCount, NewMapNameLabelConfig.Default().maxVisibleLabels);
+        Assert.IsTrue(controller.RuntimeTargets.Any(target => target.NonOfficialWarningRequired), "Label test expects non-official warning targets to remain active.");
+    }
+
+    [UnityTest]
+    public IEnumerator RuntimeSafeGroundAlignsPlayerNpcsTargetsAndGuidance()
+    {
+        NewMapRuntimeBootstrap.CreateForCurrentScene();
+        NewMapPlayerController player = Object.FindObjectOfType<NewMapPlayerController>();
+        NewMapGameController controller = Object.FindObjectOfType<NewMapGameController>();
+        NewMapNpcCrowdPrototype crowd = Object.FindObjectOfType<NewMapNpcCrowdPrototype>();
+        NewMapRuntimeBootstrap bootstrap = Object.FindObjectOfType<NewMapRuntimeBootstrap>();
+        Assert.NotNull(player);
+        Assert.NotNull(controller);
+        Assert.NotNull(crowd);
+        Assert.NotNull(bootstrap);
+
+        Assert.IsFalse(bootstrap.LastAdaptiveSupportGridActive);
+        Assert.IsTrue(bootstrap.LastSafeGroundEnabled);
+        Assert.IsTrue(bootstrap.LastGameplayGroundCoverActive);
+        Assert.Greater(bootstrap.LastGameplayGroundCoverTileCount, 0);
+        Assert.AreEqual(bootstrap.LastGameplayGroundCoverTileCount, bootstrap.LastGameplayGroundCoverColliderCount);
+        Assert.AreEqual(bootstrap.LastGameplayGroundCoverTileCount, bootstrap.LastGameplayGroundCoverVisibleRendererCount);
+        Assert.AreEqual(bootstrap.LastGameplayGroundCoverColliderCount, bootstrap.LastSafeGroundColliderCount);
+        Assert.AreEqual(0, bootstrap.LastAdaptiveSupportGridVisibleRendererCount);
+        Assert.GreaterOrEqual(player.transform.position.y, bootstrap.LastRuntimeGroundSurfaceY - 0.75f);
+        Assert.LessOrEqual(player.transform.position.y, bootstrap.LastRuntimeGroundSurfaceY + 1.5f);
+        Assert.IsTrue(bootstrap.LastPlayableBounds.ContainsXZ(player.transform.position, 0f));
+
+        controller.StartEvacuationMode();
+        yield return null;
+        Vector3[] npcPositions = crowd.GetNpcPositionsForDiagnostics();
+        Assert.Greater(npcPositions.Length, 0);
+        foreach (Vector3 position in npcPositions.Take(20))
+        {
+            Assert.GreaterOrEqual(position.y, bootstrap.LastRuntimeGroundSurfaceY - 0.75f);
+            Assert.LessOrEqual(position.y, bootstrap.LastRuntimeGroundSurfaceY + 1.5f);
+            Assert.IsTrue(crowd.RuntimePlayableBounds.ContainsXZ(position, 0f));
+            Assert.IsTrue(bootstrap.LastCircularBoundary.ContainsXZ(position, 0f));
+        }
+
+        controller.ForceStageForDiagnostics(NewMapTsunamiStage.FrontApproaching);
+        yield return null;
+
+        int activeTargetChecks = 0;
+        int greenFrameChecks = 0;
+        foreach (NewMapRuntimeTarget target in controller.RuntimeTargets.Where(target => target != null && target.ActiveInGame))
+        {
+            Assert.NotNull(target.Anchor);
+            Assert.IsTrue(bootstrap.LastCircularBoundary.ContainsXZ(target.Anchor.position, 0f), "Active targets must remain inside the 2.27km playable boundary.");
+            Assert.GreaterOrEqual(target.Anchor.position.y, bootstrap.LastRuntimeGroundSurfaceY - 0.75f);
+            Assert.LessOrEqual(target.Anchor.position.y, bootstrap.LastRuntimeGroundSurfaceY + 1.5f);
+            activeTargetChecks++;
+
+            if (target.GreenFrame != null && target.GreenFrame.activeSelf)
+            {
+                Assert.LessOrEqual(Mathf.Abs(target.GreenFrame.transform.position.y - (target.Anchor.position.y + 0.06f)), 0.25f);
+                greenFrameChecks++;
+            }
+        }
+
+        Assert.Greater(activeTargetChecks, 0);
+        Assert.Greater(greenFrameChecks, 0, "Stage 2 should show green frames aligned to target/local support height.");
+        Assert.AreEqual(0, bootstrap.LastActiveTargetHeightOffsetViolations, "Active official/candidate target anchors must remain aligned to the gameplay ground cover.");
+        Assert.AreEqual(0, bootstrap.LastPlayableAirWallVisibleRendererCount);
+        Assert.AreEqual(0, bootstrap.LastPlayableAirWallColliderCount);
+        Assert.AreEqual(0, bootstrap.LastBoundaryAirWallsPreserved);
+        Assert.IsTrue(bootstrap.LastCircularBoundaryEnabled);
+        Assert.IsTrue(bootstrap.LastSampledValidPathsPassable);
+    }
+
+    [UnityTest]
+    public IEnumerator RuntimeModesApplySpeedAndStaminaRules()
+    {
+        NewMapRuntimeBootstrap.CreateForCurrentScene();
+        NewMapPlayerController player = Object.FindObjectOfType<NewMapPlayerController>();
+        NewMapGameController controller = Object.FindObjectOfType<NewMapGameController>();
+        Assert.NotNull(player);
+        Assert.NotNull(controller);
+
+        controller.SetWeather(NewMapWeatherPreset.ClearDay);
+        controller.StartTourismMode();
+        yield return null;
+        Assert.AreEqual(2.0f, player.WalkSpeedMetersPerSecond, 0.001f);
+        Assert.AreEqual(10.0f, player.SprintSpeedMetersPerSecond, 0.001f);
+        Assert.IsFalse(player.StaminaEnabled);
+
+        controller.StartEvacuationMode();
+        yield return null;
+        Assert.AreEqual(1.0f, player.WalkSpeedMetersPerSecond, 0.001f);
+        Assert.AreEqual(4.59f, player.SprintSpeedMetersPerSecond, 0.001f);
+        Assert.IsTrue(player.StaminaEnabled);
+        Assert.AreEqual(100f, player.BaselineMaxStamina, 0.001f);
+        Assert.AreEqual(35f, player.StaminaMultiplier, 0.001f);
+        Assert.AreEqual(0.918f, player.SprintSpeedMultiplierAdditional, 0.001f);
+        Assert.AreEqual(3500f, player.MaxStamina, 0.001f);
+        Assert.AreEqual(3500f, player.Stamina, 0.001f);
+
+        float staminaBeforeSprint = player.Stamina;
+        player.MoveForDiagnostics(Vector3.forward, 0.5f, sprint: true);
+        Assert.Less(player.Stamina, staminaBeforeSprint, "Evacuation sprint should still drain stamina after final P10 tuning.");
+        float staminaAfterDrain = player.Stamina;
+        player.MoveForDiagnostics(Vector3.zero, 0.5f, sprint: false);
+        Assert.Greater(player.Stamina, staminaAfterDrain, "Evacuation idle/non-sprint should still recover stamina after final P10 tuning.");
+
+        controller.SetWeather(NewMapWeatherPreset.NightRain);
+        yield return null;
+        Assert.AreEqual(0.65f, player.WalkSpeedMetersPerSecond, 0.001f);
+        Assert.AreEqual(2.9835f, player.SprintSpeedMetersPerSecond, 0.001f);
+    }
+
+    [UnityTest]
+    public IEnumerator RuntimeRandomizedSpawnUsesSessionSeedAndAvoidsMapCenterFirst()
+    {
+        NewMapRuntimeBootstrap bootstrap = NewMapRuntimeBootstrap.CreateForCurrentScene();
+        NewMapPlayerController player = Object.FindObjectOfType<NewMapPlayerController>();
+        NewMapGameController controller = Object.FindObjectOfType<NewMapGameController>();
+        Assert.NotNull(bootstrap);
+        Assert.NotNull(player);
+        Assert.NotNull(controller);
+
+        int initialSeed = bootstrap.LastSpawnRandomSeedUsed;
+        Vector3 initialSpawn = player.transform.position;
+        Assert.IsFalse(bootstrap.LastSpawnDeterministicSeedEnabled);
+        Assert.AreEqual("random_playable_support", bootstrap.LastSpawnValidationSource);
+
+        controller.ResetToStartMenu();
+        yield return null;
+
+        Assert.IsTrue(bootstrap.LastSpawnValidationPassed);
+        Assert.AreEqual(1, bootstrap.LastSpawnAcceptedCount);
+        Assert.AreNotEqual(initialSeed, bootstrap.LastSpawnRandomSeedUsed, "Normal play sessions should vary the spawn seed.");
+        Assert.Greater(Vector3.Distance(initialSpawn, player.transform.position), 0.1f, "Retry/mode start should choose a fresh randomized spawn.");
+        Assert.IsTrue(bootstrap.LastPlayableBounds.ContainsXZ(player.transform.position, 0f));
+        Assert.GreaterOrEqual(bootstrap.LastNearestBuildingDistance, NewMapSpawnConfig.Load().minDistanceFromBuildingMeters - 0.01f);
+        Assert.Greater(bootstrap.LastSpawnFinalOverlapCheckCount, 0);
+        Assert.AreEqual(0, bootstrap.LastSpawnRejectedFinalOverlapCount);
+
+        NewMapSpawnConfig deterministic = NewMapSpawnConfig.Default();
+        deterministic.deterministicSeedEnabled = true;
+        deterministic.spawnRandomSeed = 12345;
+        Assert.AreEqual(12345, deterministic.ResolveSeedForDiagnostics());
+        NewMapSpawnConfig session = NewMapSpawnConfig.Default();
+        session.deterministicSeedEnabled = false;
+        Assert.AreNotEqual(session.ResolveSeedForDiagnostics(), session.ResolveSeedForDiagnostics());
+    }
+
+    [UnityTest]
+    public IEnumerator RuntimeTsunamiWarningPrecedesCoastalHugeCurtain()
+    {
+        NewMapRuntimeBootstrap bootstrap = NewMapRuntimeBootstrap.CreateForCurrentScene();
+        NewMapGameController controller = Object.FindObjectOfType<NewMapGameController>();
+        NewMapHazardController hazard = Object.FindObjectOfType<NewMapHazardController>();
+        Assert.NotNull(bootstrap);
+        Assert.NotNull(controller);
+        Assert.NotNull(hazard);
+
+        controller.StartEvacuationMode();
+        yield return null;
+
+        bool initialPreWarningStage =
+            controller.Stage == NewMapTsunamiStage.PreWarningWait ||
+            (controller.Stage == NewMapTsunamiStage.Warning && controller.PreWarningRandomDurationSeconds <= 0.5f);
+        Assert.IsTrue(initialPreWarningStage, "Evacuation should begin in PRE_WARNING_WAIT unless the random wait is effectively immediate.");
+        Assert.AreEqual(180f, controller.PreWarningRandomMaxSeconds, 0.001f);
+        Assert.GreaterOrEqual(controller.PreWarningRandomDurationSeconds, 0f);
+        Assert.LessOrEqual(controller.PreWarningRandomDurationSeconds, 180f);
+        Assert.AreEqual(180f, controller.WarningPhaseSeconds, 0.001f);
+        if (controller.Stage == NewMapTsunamiStage.PreWarningWait)
+        {
+            Assert.AreEqual(-1f, controller.WarningStartedAtSeconds, 0.001f);
+        }
+        else
+        {
+            Assert.GreaterOrEqual(controller.WarningStartedAtSeconds, 0f);
+        }
+        Assert.IsFalse(hazard.RiskChecksActive);
+        Assert.IsFalse(hazard.Stage2VisualsBuiltForDiagnostics);
+        Assert.AreEqual("south", hazard.TsunamiStartSide);
+        Assert.AreEqual(Vector3.forward, hazard.TsunamiDirection);
+        Assert.GreaterOrEqual(hazard.CurtainHeightMeters, 1000f);
+        Assert.GreaterOrEqual(hazard.CurtainLengthMeters, Mathf.Sqrt(bootstrap.LastPlayableBounds.Width * bootstrap.LastPlayableBounds.Width + bootstrap.LastPlayableBounds.Depth * bootstrap.LastPlayableBounds.Depth) * 1.49f);
+        Assert.IsFalse(controller.TryApplyTsunamiFrontForDiagnostics(hazard.GetFloodedSideSamplePointForDiagnostics()), "Tsunami failure must be inactive during PRE_WARNING_WAIT.");
+
+        if (controller.PreWarningRandomDurationSeconds > 2f)
+        {
+            controller.AdvanceEvacuationTimeForDiagnostics(controller.PreWarningRandomDurationSeconds - 1f);
+            yield return null;
+            Assert.AreEqual(NewMapTsunamiStage.PreWarningWait, controller.Stage);
+            Assert.IsFalse(hazard.RiskChecksActive);
+            controller.AdvanceEvacuationTimeForDiagnostics(1.2f);
+        }
+        else
+        {
+            controller.AdvanceEvacuationTimeForDiagnostics(controller.PreWarningRandomDurationSeconds + 0.2f);
+        }
+        yield return null;
+        Assert.AreEqual(NewMapTsunamiStage.Warning, controller.Stage);
+        Assert.GreaterOrEqual(controller.WarningStartedAtSeconds, 0f);
+        Assert.IsFalse(hazard.RiskChecksActive);
+        Assert.IsFalse(controller.TryApplyTsunamiFrontForDiagnostics(hazard.GetFloodedSideSamplePointForDiagnostics()), "Tsunami failure must be inactive during WARNING.");
+
+        controller.AdvanceEvacuationTimeForDiagnostics(Mathf.Max(0f, controller.WarningPhaseSeconds - 1.0f));
+        yield return null;
+        Assert.AreEqual(NewMapTsunamiStage.Warning, controller.Stage, "Warning phase should not immediately fail or activate tsunami risk.");
+        Assert.IsFalse(hazard.RiskChecksActive);
+
+        controller.AdvanceEvacuationTimeForDiagnostics(2.0f);
+        yield return null;
+        Assert.AreEqual(NewMapTsunamiStage.FrontApproaching, controller.Stage);
+        Assert.IsTrue(hazard.RiskChecksActive);
+        Assert.IsTrue(hazard.LightCurtainVisibleForDiagnostics);
+        Assert.AreEqual(controller.WarningStartedAtSeconds + controller.WarningPhaseSeconds, controller.ActiveTsunamiStartedAtSeconds, 0.01f);
+    }
+
+    [UnityTest]
+    public IEnumerator RuntimeFailureShowsResultAndRetryCanReset()
+    {
+        NewMapRuntimeBootstrap.CreateForCurrentScene();
+        NewMapGameController controller = Object.FindObjectOfType<NewMapGameController>();
+        NewMapRuntimeUI ui = Object.FindObjectOfType<NewMapRuntimeUI>();
+        NewMapHazardController hazard = Object.FindObjectOfType<NewMapHazardController>();
+        Assert.NotNull(controller);
+        Assert.NotNull(ui);
+        Assert.NotNull(hazard);
+
+        controller.StartEvacuationMode();
+        controller.ForceStageForDiagnostics(NewMapTsunamiStage.FrontApproaching);
+        yield return null;
+        Assert.IsTrue(controller.TryApplyTsunamiFrontForDiagnostics(hazard.GetFloodedSideSamplePointForDiagnostics()));
+        yield return null;
+
+        Assert.IsTrue(ui.IsResultVisible);
+        Assert.AreEqual("tsunami_front_contact", ui.LastResultReason);
+        Assert.AreEqual("tsunami_front_contact", controller.LastFailureCode);
+        Assert.GreaterOrEqual(controller.LastFailureAtSeconds, 0f);
+        Assert.NotNull(GameObject.Find("ResultRetryButton"));
+
+        ui.ResetRequested?.Invoke();
+        yield return null;
+        Assert.IsTrue(ui.IsStartMenuVisible);
+        Assert.IsFalse(ui.IsResultVisible);
+        Assert.AreEqual(NewMapGameMode.None, controller.Mode);
+        Assert.AreEqual(NewMapTsunamiStage.Inactive, controller.Stage);
+    }
+
+    [UnityTest]
+    public IEnumerator RuntimeBuildingTouchEntryProxyUsesTriggerContact()
+    {
+        NewMapRuntimeBootstrap.CreateForCurrentScene();
+        NewMapGameController controller = Object.FindObjectOfType<NewMapGameController>();
+        NewMapRuntimeUI ui = Object.FindObjectOfType<NewMapRuntimeUI>();
+        NewMapRuntimeBootstrap bootstrap = Object.FindObjectOfType<NewMapRuntimeBootstrap>();
+        NewMapPlayerController player = Object.FindObjectOfType<NewMapPlayerController>();
+        Assert.NotNull(controller);
+        Assert.NotNull(ui);
+        Assert.NotNull(bootstrap);
+        Assert.NotNull(player);
+
+        NewMapRuntimeTarget target = controller.RuntimeTargets.First(candidate => candidate.Id == "newmap_proxy_safe_floor");
+        Assert.NotNull(target.EntryTrigger);
+        Assert.IsTrue(target.EntryTrigger.IsTriggerCollider, "Building entry proxy volumes must be triggers, not invisible physical air walls.");
+        Assert.Greater(bootstrap.LastBuildingEntryTriggerCount, 0);
+        Assert.AreEqual(0, bootstrap.LastBuildingEntryPhysicalBlockerCount);
+
+        controller.StartEvacuationMode();
+        controller.ForceStageForDiagnostics(NewMapTsunamiStage.FrontApproaching);
+        yield return null;
+
+        Assert.IsFalse(controller.TryInteractWithTouchedBuildingForDiagnostics(), "Pressing E away from a building-entry trigger should not enter.");
+        StringAssert.Contains("No enterable building nearby", ui.LastInteractionText);
+
+        Bounds triggerBounds = target.EntryTrigger.Bounds;
+        player.transform.position = new Vector3(triggerBounds.center.x, target.Anchor.position.y + 0.4f, triggerBounds.center.z);
+        Physics.SyncTransforms();
+        yield return null;
+        Assert.IsTrue(controller.RefreshTouchedBuildingForDiagnostics(), "Touch/overlap with a valid building-entry trigger should mark the building enterable.");
+        Assert.AreEqual(target, controller.CurrentEnterableBuilding);
+        StringAssert.Contains("Press E to enter building", ui.LastInteractionText);
+        Assert.IsTrue(controller.TryInteractWithTouchedBuildingForDiagnostics());
+        Assert.AreEqual("Entering shelter proxy", ui.LastResultReason);
+        Assert.IsTrue(controller.SafeFloorSequenceActive);
+
+        controller.StartEvacuationMode();
+        controller.ForceStageForDiagnostics(NewMapTsunamiStage.FrontApproaching);
+        yield return null;
+        NewMapRuntimeTarget blocked = controller.RuntimeTargets.First(candidate => candidate.Id == "newmap_proxy_blocked_entrance");
+        Bounds blockedBounds = blocked.EntryTrigger.Bounds;
+        player.transform.position = new Vector3(blockedBounds.center.x, blocked.Anchor.position.y + 0.4f, blockedBounds.center.z);
+        Physics.SyncTransforms();
+        yield return null;
+        Assert.IsTrue(controller.RefreshTouchedBuildingForDiagnostics());
+        Assert.IsTrue(controller.TryInteractWithTouchedBuildingForDiagnostics());
+        Assert.AreEqual("entrance_blocked", ui.LastResultReason);
+    }
+
+    [UnityTest]
+    public IEnumerator RuntimeUnexpectedAirwallCleanupConvertsPlayableUnknownBlocker()
+    {
+        GameObject blocker = new GameObject("UnexpectedStreetInvisibleWallFixture");
+        blocker.transform.position = Vector3.zero;
+        BoxCollider collider = blocker.AddComponent<BoxCollider>();
+        collider.size = new Vector3(6f, 4f, 1f);
+        collider.isTrigger = false;
+
+        NewMapRuntimeBootstrap bootstrap = NewMapRuntimeBootstrap.CreateForCurrentScene();
+        yield return null;
+
+        Assert.NotNull(bootstrap);
+        Assert.GreaterOrEqual(bootstrap.LastUnexpectedAirwallBlockersFound, 1);
+        Assert.IsTrue(collider.isTrigger, "Unknown playable-area blockers should be converted to triggers instead of remaining invisible walls.");
+        Assert.AreEqual(0, bootstrap.LastPlayableAirWallColliderCount);
+        Assert.AreEqual(0, bootstrap.LastBoundaryAirWallsPreserved);
+        Assert.IsTrue(bootstrap.LastCircularBoundaryEnabled);
+        Assert.IsNull(GameObject.Find("P10_BoundaryAirWall_North"));
+        Assert.IsNull(GameObject.Find("P10_BoundaryAirWall_South"));
+        Assert.IsNull(GameObject.Find("P10_BoundaryAirWall_East"));
+        Assert.IsNull(GameObject.Find("P10_BoundaryAirWall_West"));
+    }
+
+    [UnityTest]
+    public IEnumerator RuntimeCircularBoundaryClampsPlayerAndNpcsInsideTwoPointTwoSevenKm()
+    {
+        NewMapRuntimeBootstrap bootstrap = NewMapRuntimeBootstrap.CreateForCurrentScene();
+        NewMapPlayerController player = Object.FindObjectOfType<NewMapPlayerController>();
+        NewMapNpcCrowdPrototype crowd = Object.FindObjectOfType<NewMapNpcCrowdPrototype>();
+        Assert.NotNull(bootstrap);
+        Assert.NotNull(player);
+        Assert.NotNull(crowd);
+
+        Assert.IsTrue(bootstrap.LastCircularBoundaryEnabled);
+        Assert.AreEqual(2270f, bootstrap.LastCircularBoundary.RadiusMeters, 0.001f);
+        Assert.IsTrue(player.CircularBoundaryClampEnabled);
+        Assert.IsTrue(crowd.CircularBoundaryClampEnabled);
+
+        Vector3 outside = new Vector3(
+            bootstrap.LastCircularBoundary.Center.x + bootstrap.LastCircularBoundary.RadiusMeters + 125f,
+            player.transform.position.y,
+            bootstrap.LastCircularBoundary.Center.y);
+        player.transform.position = outside;
+        player.MoveForDiagnostics(Vector3.zero, 0f, false);
+        yield return null;
+
+        Assert.IsTrue(bootstrap.LastCircularBoundary.ContainsXZ(player.transform.position, 0f), "Player should be clamped back inside the circular boundary.");
+
+        foreach (Vector3 position in crowd.GetNpcPositionsForDiagnostics().Take(50))
+        {
+            Assert.IsTrue(bootstrap.LastCircularBoundary.ContainsXZ(position, 0f), "NPCs should spawn/remain inside the circular boundary.");
+        }
+    }
+
+    [UnityTest]
+    public IEnumerator RuntimeUiPauseRulesAndStageGuidanceWork()
+    {
+        NewMapRuntimeBootstrap.CreateForCurrentScene();
+        NewMapGameController controller = Object.FindObjectOfType<NewMapGameController>();
+        NewMapRuntimeUI ui = Object.FindObjectOfType<NewMapRuntimeUI>();
+        Assert.NotNull(controller);
+        Assert.NotNull(ui);
+        Assert.IsTrue(ui.IsStartMenuVisible);
+
+        ui.ToggleRules();
+        yield return null;
+        Assert.IsTrue(ui.IsRulesVisible);
+        Assert.IsTrue(ui.RulesPanelHasScrollRect);
+
+        controller.StartEvacuationMode();
+        yield return null;
+        Assert.IsFalse(controller.RuntimeTargets.Any(target => target.GreenFrame != null && target.GreenFrame.activeSelf));
+        Assert.IsFalse(controller.RuntimeTargets.Any(target => target.RouteGuide != null && target.RouteGuide.activeSelf));
+        NewMapHazardController hazard = Object.FindObjectOfType<NewMapHazardController>();
+        Assert.NotNull(hazard);
+        Assert.IsFalse(hazard.Stage2VisualsBuiltForDiagnostics, "PRE_WARNING_WAIT should not build the light curtain/debris visual set at startup.");
+
+        controller.SetPaused(true);
+        yield return null;
+        Assert.IsTrue(controller.IsPaused);
+        Assert.IsTrue(ui.IsPauseVisible);
+        ui.ResumeRequested?.Invoke();
+        yield return null;
+        Assert.IsFalse(controller.IsPaused);
+        Assert.IsFalse(ui.IsPauseVisible);
+
+        controller.ForceStageForDiagnostics(NewMapTsunamiStage.FrontApproaching);
+        yield return null;
+        Assert.IsTrue(controller.RuntimeTargets.Any(target => target.GreenFrame != null && target.GreenFrame.activeSelf));
+        Assert.IsTrue(controller.RuntimeTargets.Any(target => target.RouteGuide != null && target.RouteGuide.activeSelf));
+        Assert.IsTrue(hazard.Stage2VisualsBuiltForDiagnostics);
+        Assert.IsTrue(hazard.LightCurtainVisibleForDiagnostics);
+
+        controller.StartTourismMode();
+        yield return null;
+        Assert.IsFalse(controller.RuntimeTargets.Any(target => target.GreenFrame != null && target.GreenFrame.activeSelf));
+        Assert.IsFalse(controller.RuntimeTargets.Any(target => target.RouteGuide != null && target.RouteGuide.activeSelf));
+    }
+
+    [UnityTest]
+    public IEnumerator RuntimeProxyInteractionsProduceExpectedResultCodes()
+    {
+        NewMapRuntimeBootstrap.CreateForCurrentScene();
+        NewMapGameController controller = Object.FindObjectOfType<NewMapGameController>();
+        NewMapRuntimeUI ui = Object.FindObjectOfType<NewMapRuntimeUI>();
+        Assert.NotNull(controller);
+        Assert.NotNull(ui);
+
+        controller.StartTourismMode();
+        yield return null;
+        Assert.IsTrue(controller.TryInteractForDiagnostics("newmap_proxy_blocked_entrance"));
+        Assert.AreEqual("Tourism inspection", ui.LastResultReason);
+
+        controller.StartEvacuationMode();
+        controller.ForceStageForDiagnostics(NewMapTsunamiStage.FrontApproaching);
+        yield return null;
+        Assert.IsTrue(controller.TryInteractForDiagnostics("newmap_proxy_blocked_entrance"));
+        Assert.AreEqual("entrance_blocked", ui.LastResultReason);
+
+        controller.StartEvacuationMode();
+        controller.ForceStageForDiagnostics(NewMapTsunamiStage.FrontApproaching);
+        yield return null;
+        Assert.IsTrue(controller.TryInteractForDiagnostics("newmap_proxy_no_safe_floor"));
+        Assert.AreEqual("safe_floor_unavailable", ui.LastResultReason);
+
+        controller.StartEvacuationMode();
+        controller.ForceStageForDiagnostics(NewMapTsunamiStage.FrontApproaching);
+        yield return null;
+        Assert.IsTrue(controller.TryInteractForDiagnostics("newmap_proxy_safe_floor"));
+        Assert.AreEqual("Entering shelter proxy", ui.LastResultReason);
+        yield return new WaitForSeconds(14f);
+        Assert.AreEqual("safe_floor_reached", ui.LastResultReason);
+    }
+
+    [UnityTest]
+    public IEnumerator RuntimeRecoveredNonOfficialCandidatesRemainWarningOnly()
+    {
+        NewMapRuntimeBootstrap bootstrap = NewMapRuntimeBootstrap.CreateForCurrentScene();
+        NewMapGameController controller = Object.FindObjectOfType<NewMapGameController>();
+        NewMapRuntimeUI ui = Object.FindObjectOfType<NewMapRuntimeUI>();
+        Assert.NotNull(controller);
+        Assert.NotNull(ui);
+
+        NewMapRuntimeTarget recovered = controller.RuntimeTargets.FirstOrDefault(target => target.Id == "p8_plateau_highrise_candidate_002");
+        Assert.NotNull(recovered, "Recovered P8/P9 non-official candidate should be loaded from the runtime candidate cache.");
+        Assert.IsFalse(recovered.IsOfficialShelter);
+        Assert.IsTrue(recovered.NonOfficialWarningRequired);
+        Assert.IsFalse(recovered.SafeApprovedByDefault);
+        StringAssert.Contains("humanitarian_candidate", recovered.Category);
+        Assert.IsTrue(bootstrap.LastCircularBoundary.ContainsXZ(recovered.Anchor.position, 0f));
+        Assert.GreaterOrEqual(bootstrap.LastActiveTargetsOutsidePlayableBoundaryDisabledCount, 1, "Out-of-bound active target records must be disabled by the 2.27km playable filter.");
+        Assert.GreaterOrEqual(controller.RuntimeTargets.Count(target => !target.IsOfficialShelter), 42);
+
+        controller.StartEvacuationMode();
+        controller.ForceStageForDiagnostics(NewMapTsunamiStage.FrontApproaching);
+        yield return null;
+        Assert.NotNull(recovered.GreenFrame, "Recovered active candidate should lazily create a green frame at Stage 2.");
+        Assert.IsTrue(recovered.GreenFrame.activeSelf);
+
+        Assert.IsTrue(controller.TryInteractForDiagnostics(recovered.Id));
+        Assert.AreEqual("Entering shelter proxy", ui.LastResultReason);
+        StringAssert.Contains("Non-official humanitarian candidate", ui.LastResultDetail);
+        StringAssert.Contains("not a safety approval", ui.LastResultDetail);
+        StringAssert.Contains("No official evacuation route is claimed", ui.LastResultDetail);
+    }
+
+    [UnityTest]
+    public IEnumerator RuntimeGameplaySelfAuditFlowsAreReachable()
+    {
+        GameObject officialAnchor = GameObject.CreatePrimitive(PrimitiveType.Cube);
+        officialAnchor.name = "bldg_25d370de-2c35-457b-b756-3444a3d02eb3";
+        officialAnchor.transform.position = new Vector3(24f, 3f, 18f);
+        officialAnchor.transform.localScale = new Vector3(4f, 6f, 4f);
+
+        NewMapRuntimeBootstrap.CreateForCurrentScene();
+        NewMapGameController controller = Object.FindObjectOfType<NewMapGameController>();
+        NewMapRuntimeUI ui = Object.FindObjectOfType<NewMapRuntimeUI>();
+        NewMapPlayerController player = Object.FindObjectOfType<NewMapPlayerController>();
+        NewMapHazardController hazard = Object.FindObjectOfType<NewMapHazardController>();
+        NewMapNpcCrowdPrototype crowd = Object.FindObjectOfType<NewMapNpcCrowdPrototype>();
+        Assert.NotNull(controller);
+        Assert.NotNull(ui);
+        Assert.NotNull(player);
+        Assert.NotNull(hazard);
+        Assert.NotNull(crowd);
+        Assert.IsTrue(ui.IsStartMenuVisible);
+        Assert.IsTrue(player.HasActiveCamera);
+        Assert.NotNull(player.transform.Find("PlayerVisual"));
+        Assert.NotNull(GameObject.Find("TourismButton"));
+        Assert.NotNull(GameObject.Find("EvacuationButton"));
+        Assert.NotNull(GameObject.Find("EnglishButton"));
+        Assert.NotNull(GameObject.Find("JapaneseButton"));
+        Assert.NotNull(Object.FindObjectsOfType<Transform>(true).FirstOrDefault(transform => transform.name == "ForceQuitButton"));
+
+        NewMapRuntimeTarget officialTarget = controller.RuntimeTargets.FirstOrDefault(target => target.Id == "chuo_official_emergency_001");
+        NewMapRuntimeTarget nonOfficialTarget = controller.RuntimeTargets.FirstOrDefault(target => target.Id == "p8_plateau_highrise_candidate_002");
+        NewMapRuntimeTarget routeTarget = controller.RuntimeTargets.FirstOrDefault(target => target.Id == "newmap_proxy_safe_floor");
+        Assert.NotNull(officialTarget);
+        Assert.NotNull(nonOfficialTarget);
+        Assert.NotNull(routeTarget);
+        Assert.AreEqual(1, controller.RuntimeTargets.Count(target => target.IsOfficialShelter));
+        Assert.GreaterOrEqual(controller.RuntimeTargets.Count(target => !target.IsOfficialShelter), 42);
+
+        controller.StartTourismMode();
+        yield return null;
+        Assert.AreEqual(NewMapGameMode.Tourism, controller.Mode);
+        Assert.AreEqual(NewMapTsunamiStage.Inactive, controller.Stage);
+        Assert.IsFalse(player.StaminaEnabled);
+        Assert.IsFalse(hazard.RiskChecksActive);
+        Assert.AreEqual(0f, crowd.CurrentCongestionDelaySeconds, 0.001f);
+        Assert.IsTrue(controller.TryInteractForDiagnostics(nonOfficialTarget.Id));
+        Assert.AreEqual("Tourism inspection", ui.LastResultReason);
+        StringAssert.Contains("Non-official candidate", ui.LastResultDetail);
+        StringAssert.Contains("not a safety approval", ui.LastResultDetail);
+
+        controller.StartEvacuationMode();
+        yield return null;
+        Assert.IsTrue(
+            controller.Stage == NewMapTsunamiStage.PreWarningWait ||
+            (controller.Stage == NewMapTsunamiStage.Warning && controller.PreWarningRandomDurationSeconds <= 0.5f));
+        Assert.IsTrue(player.StaminaEnabled);
+        Assert.Greater(crowd.ActiveNpcCount, 0, "Evacuation Mode should lazily build visible NPC humanoids.");
+        Assert.IsFalse(hazard.LightCurtainVisibleForDiagnostics);
+        controller.ForceStageForDiagnostics(NewMapTsunamiStage.FrontApproaching);
+        yield return null;
+        Assert.IsTrue(hazard.RiskChecksActive);
+        Assert.IsTrue(hazard.LightCurtainVisibleForDiagnostics);
+        Assert.IsTrue(controller.RuntimeTargets.Any(target => target.GreenFrame != null && target.GreenFrame.activeSelf));
+
+        Assert.IsTrue(controller.TryInteractForDiagnostics(officialTarget.Id));
+        string officialEntryDetail = ui.LastResultDetail;
+        Assert.IsTrue(controller.CompleteSafeFloorSequenceForDiagnostics());
+        Assert.AreEqual("safe_floor_reached", ui.LastResultReason);
+        StringAssert.Contains("Official Chuo shelter anchor", officialEntryDetail);
+        StringAssert.Contains("no official route is claimed", officialEntryDetail);
+
+        controller.StartEvacuationMode();
+        controller.ForceStageForDiagnostics(NewMapTsunamiStage.FrontApproaching);
+        yield return null;
+        Assert.IsTrue(controller.TryInteractForDiagnostics(nonOfficialTarget.Id));
+        string nonOfficialEntryDetail = ui.LastResultDetail;
+        Assert.IsTrue(controller.CompleteSafeFloorSequenceForDiagnostics());
+        Assert.AreEqual("safe_floor_reached", ui.LastResultReason);
+        StringAssert.Contains("Non-official humanitarian candidate", nonOfficialEntryDetail);
+        StringAssert.Contains("not a safety approval", nonOfficialEntryDetail);
+
+        controller.StartEvacuationMode();
+        controller.ForceStageForDiagnostics(NewMapTsunamiStage.FrontApproaching);
+        yield return null;
+        Assert.IsTrue(controller.TryInteractForDiagnostics(routeTarget.Id));
+        StringAssert.Contains("estimated prototype guidance", ui.LastResultDetail);
+        StringAssert.Contains("not an official evacuation route", ui.LastResultDetail);
+
+        controller.StartEvacuationMode();
+        controller.ForceStageForDiagnostics(NewMapTsunamiStage.FrontApproaching);
+        yield return null;
+        Assert.IsTrue(controller.TryInteractForDiagnostics("newmap_proxy_blocked_entrance"));
+        Assert.AreEqual("entrance_blocked", ui.LastResultReason);
+
+        controller.StartEvacuationMode();
+        controller.ForceStageForDiagnostics(NewMapTsunamiStage.FrontApproaching);
+        yield return null;
+        Assert.IsTrue(controller.TryInteractForDiagnostics("newmap_proxy_no_safe_floor"));
+        Assert.AreEqual("safe_floor_unavailable", ui.LastResultReason);
+
+        controller.StartEvacuationMode();
+        controller.ForceStageForDiagnostics(NewMapTsunamiStage.FrontApproaching);
+        player.transform.position = hazard.DebrisCenterForDiagnostics;
+        Assert.IsTrue(controller.TryApplyDebrisExposureForDiagnostics(5f));
+        Assert.AreEqual("collapse_debris_exposure", ui.LastResultReason);
+
+        controller.StartEvacuationMode();
+        controller.ForceStageForDiagnostics(NewMapTsunamiStage.FrontApproaching);
+        yield return null;
+        Assert.IsTrue(controller.TryApplyTsunamiFrontForDiagnostics(hazard.GetFloodedSideSamplePointForDiagnostics()));
+        Assert.AreEqual("tsunami_front_contact", ui.LastResultReason);
+
+        Assert.IsFalse(controller.TryInteractForDiagnostics("disabled_out_of_new_map_candidate_probe"));
+    }
+
+    [UnityTest]
+    public IEnumerator RuntimeP9HardeningScenariosProduceRequiredOutcomes()
+    {
+        NewMapRuntimeBootstrap.CreateForCurrentScene();
+        NewMapGameController controller = Object.FindObjectOfType<NewMapGameController>();
+        NewMapRuntimeUI ui = Object.FindObjectOfType<NewMapRuntimeUI>();
+        NewMapPlayerController player = Object.FindObjectOfType<NewMapPlayerController>();
+        NewMapHazardController hazard = Object.FindObjectOfType<NewMapHazardController>();
+        Assert.NotNull(controller);
+        Assert.NotNull(ui);
+        Assert.NotNull(player);
+        Assert.NotNull(hazard);
+
+        controller.StartTourismMode();
+        yield return null;
+        Assert.AreEqual(NewMapTsunamiStage.Inactive, controller.Stage, "tourism_free_roam_no_failure keeps tsunami inactive.");
+        Assert.IsTrue(controller.TryInteractForDiagnostics("newmap_proxy_safe_floor"));
+        Assert.AreEqual("Tourism inspection", ui.LastResultReason);
+
+        controller.StartEvacuationMode();
+        yield return null;
+        Assert.IsTrue(
+            controller.Stage == NewMapTsunamiStage.PreWarningWait ||
+            (controller.Stage == NewMapTsunamiStage.Warning && controller.PreWarningRandomDurationSeconds <= 0.5f),
+            "warning_before_front starts with PRE_WARNING_WAIT unless the random wait is effectively immediate.");
+        Assert.IsFalse(controller.RuntimeTargets.Any(target => target.GreenFrame != null && target.GreenFrame.activeSelf));
+
+        controller.ForceStageForDiagnostics(NewMapTsunamiStage.FrontApproaching);
+        yield return null;
+        Assert.IsTrue(controller.RuntimeTargets.Any(target => target.GreenFrame != null && target.GreenFrame.activeSelf), "green_frame_after_front shows guidance only in Stage 2.");
+
+        controller.StartEvacuationMode();
+        controller.ForceStageForDiagnostics(NewMapTsunamiStage.FrontApproaching);
+        yield return null;
+        Assert.IsTrue(controller.TryInteractForDiagnostics("newmap_proxy_crowd_delay"), "crowd_delay_scenario uses the dedicated active target.");
+        StringAssert.Contains("Crowd delay:", ui.LastResultDetail);
+        StringAssert.DoesNotContain("Crowd delay: 0.0s", ui.LastResultDetail);
+
+        controller.StartEvacuationMode();
+        controller.ForceStageForDiagnostics(NewMapTsunamiStage.FrontApproaching);
+        yield return null;
+        Assert.IsTrue(controller.TryInteractForDiagnostics("newmap_proxy_blocked_entrance"));
+        Assert.AreEqual("entrance_blocked", ui.LastResultReason);
+
+        controller.StartEvacuationMode();
+        controller.ForceStageForDiagnostics(NewMapTsunamiStage.FrontApproaching);
+        yield return null;
+        Assert.IsTrue(controller.TryInteractForDiagnostics("newmap_proxy_no_safe_floor"));
+        Assert.AreEqual("safe_floor_unavailable", ui.LastResultReason);
+
+        controller.StartEvacuationMode();
+        controller.ForceStageForDiagnostics(NewMapTsunamiStage.FrontApproaching);
+        player.transform.position = hazard.DebrisCenterForDiagnostics;
+        Assert.IsTrue(controller.TryApplyDebrisExposureForDiagnostics(5f));
+        Assert.AreEqual("collapse_debris_exposure", ui.LastResultReason);
+
+        controller.StartTourismMode();
+        Assert.IsTrue(controller.TryInteractForDiagnostics("newmap_proxy_safe_floor"));
+        Assert.AreEqual("Tourism inspection", ui.LastResultReason);
+        player.transform.position = hazard.DebrisCenterForDiagnostics;
+        yield return new WaitForSeconds(1f);
+        Assert.AreEqual("Tourism inspection", ui.LastResultReason, "collapse_disabled_success keeps tourism mode free of debris failure.");
+
+        Assert.IsFalse(controller.RuntimeTargets.Any(target => target != null && !target.ActiveInGame), "disabled_targets_not_spawned keeps inactive records out of runtime targets.");
+    }
+
+    [UnityTest]
+    public IEnumerator RuntimeShelterDirectLinesRankAndRecolorDynamically()
+    {
+        GameObject officialAnchor = GameObject.CreatePrimitive(PrimitiveType.Cube);
+        officialAnchor.name = "bldg_25d370de-2c35-457b-b756-3444a3d02eb3";
+        officialAnchor.transform.position = new Vector3(24f, 3f, 18f);
+        officialAnchor.transform.localScale = new Vector3(4f, 6f, 4f);
+
+        NewMapRuntimeBootstrap.CreateForCurrentScene();
+        NewMapGameController controller = Object.FindObjectOfType<NewMapGameController>();
+        NewMapPlayerController player = Object.FindObjectOfType<NewMapPlayerController>();
+        Assert.NotNull(controller);
+        Assert.NotNull(player);
+
+        NewMapRuntimeTarget official = controller.RuntimeTargets.FirstOrDefault(target => target.IsOfficialShelter);
+        NewMapRuntimeTarget nonOfficial = controller.RuntimeTargets.FirstOrDefault(target =>
+            !target.IsOfficialShelter &&
+            target.ActiveInGame &&
+            target.SafeFloorAvailable &&
+            !target.EntranceBlocked);
+        Assert.NotNull(official);
+        Assert.NotNull(nonOfficial);
+
+        int expectedLineCount = controller.RuntimeTargets.Count(target =>
+            target.ActiveInGame &&
+            target.SafeFloorAvailable &&
+            !target.EntranceBlocked);
+
+        controller.StartEvacuationMode();
+        yield return null;
+
+        Assert.AreEqual(expectedLineCount, controller.ShelterDirectLineCount);
+        Assert.AreEqual(0, controller.CountShelterDirectLineCollidersForDiagnostics(), "Direct guidance lines must not add blocking colliders.");
+
+        player.transform.position = official.Anchor.position + Vector3.right * 0.25f;
+        controller.RefreshShelterDirectLinesForDiagnostics();
+        Assert.AreEqual(official.Id, controller.NearestShelterLineTargetId);
+        Assert.IsTrue(controller.TryGetShelterLineColorForDiagnostics(official.Id, out Color officialNearestColor));
+        AssertColorApproximately(NewMapShelterDirectLineController.NearestLineColor, officialNearestColor);
+        Assert.IsTrue(controller.TryGetShelterLineColorForDiagnostics(nonOfficial.Id, out Color nonOfficialFarColor));
+        AssertColorApproximately(NewMapShelterDirectLineController.NonOfficialLineColor, nonOfficialFarColor);
+
+        player.transform.position = nonOfficial.Anchor.position + Vector3.right * 0.25f;
+        controller.RefreshShelterDirectLinesForDiagnostics();
+        Assert.AreEqual(nonOfficial.Id, controller.NearestShelterLineTargetId);
+        Assert.IsTrue(controller.TryGetShelterLineColorForDiagnostics(nonOfficial.Id, out Color nonOfficialNearestColor));
+        AssertColorApproximately(NewMapShelterDirectLineController.NearestLineColor, nonOfficialNearestColor);
+        Assert.IsTrue(controller.TryGetShelterLineColorForDiagnostics(official.Id, out Color officialFarColor));
+        AssertColorApproximately(NewMapShelterDirectLineController.OfficialLineColor, officialFarColor);
+
+        NewMapShelterLineSnapshot[] ranking = controller.GetShelterRankingForDiagnostics();
+        Assert.AreEqual(nonOfficial.Id, ranking[0].TargetId);
+        for (int i = 1; i < ranking.Length; i++)
+        {
+            Assert.LessOrEqual(ranking[i - 1].DistanceMeters, ranking[i].DistanceMeters + 0.001f);
+        }
+    }
+
+    [UnityTest]
+    public IEnumerator RuntimeShelterRankingUiRefreshesMixedStraightLineDistances()
+    {
+        GameObject officialAnchor = GameObject.CreatePrimitive(PrimitiveType.Cube);
+        officialAnchor.name = "bldg_25d370de-2c35-457b-b756-3444a3d02eb3";
+        officialAnchor.transform.position = new Vector3(24f, 3f, 18f);
+        officialAnchor.transform.localScale = new Vector3(4f, 6f, 4f);
+
+        NewMapRuntimeBootstrap.CreateForCurrentScene();
+        NewMapGameController controller = Object.FindObjectOfType<NewMapGameController>();
+        NewMapRuntimeUI ui = Object.FindObjectOfType<NewMapRuntimeUI>();
+        NewMapPlayerController player = Object.FindObjectOfType<NewMapPlayerController>();
+        Assert.NotNull(controller);
+        Assert.NotNull(ui);
+        Assert.NotNull(player);
+
+        NewMapRuntimeTarget official = controller.RuntimeTargets.FirstOrDefault(target => target.IsOfficialShelter);
+        NewMapRuntimeTarget nonOfficial = controller.RuntimeTargets.FirstOrDefault(target =>
+            !target.IsOfficialShelter &&
+            target.ActiveInGame &&
+            target.SafeFloorAvailable &&
+            !target.EntranceBlocked);
+        Assert.NotNull(official);
+        Assert.NotNull(nonOfficial);
+
+        controller.StartEvacuationMode();
+        yield return null;
+        player.transform.position = nonOfficial.Anchor.position + Vector3.right * 0.25f;
+        Assert.IsTrue(controller.ToggleShelterRankingForDiagnostics(), "R-equivalent diagnostic toggle should show the ranking panel.");
+        Assert.IsTrue(ui.IsShelterRankingVisible);
+        StringAssert.Contains("Shelter distance ranking", ui.LastShelterRankingText);
+        StringAssert.Contains("R: show/hide", ui.LastShelterRankingText);
+        StringAssert.Contains("Nearest", ui.LastShelterRankingText);
+        StringAssert.Contains(nonOfficial.Id, ui.LastShelterRankingText);
+        StringAssert.Contains("Official", ui.LastShelterRankingText);
+        Assert.IsTrue(ui.LastShelterRankingText.Contains("Humanitarian") || ui.LastShelterRankingText.Contains("Proxy") || ui.LastShelterRankingText.Contains("Non-official"));
+        Assert.AreEqual(nonOfficial.Id, controller.GetShelterRankingForDiagnostics()[0].TargetId);
+        Assert.AreEqual(nonOfficial.Id, controller.NearestShelterLineTargetId);
+        Assert.IsFalse(controller.ToggleShelterRankingForDiagnostics(), "Second R-equivalent diagnostic toggle should hide the ranking panel.");
+        Assert.IsFalse(ui.IsShelterRankingVisible);
+        Assert.IsTrue(controller.ToggleShelterRankingForDiagnostics(), "Ranking panel should show again after being hidden.");
+        controller.SetPaused(true);
+        Assert.IsTrue(controller.ToggleShelterRankingForDiagnostics(), "R toggle should be ignored while pause UI is active.");
+        Assert.IsTrue(ui.IsShelterRankingVisible);
+        controller.SetPaused(false);
+
+        player.transform.position = official.Anchor.position + Vector3.right * 0.25f;
+        yield return new WaitForSeconds(0.7f);
+        Assert.AreEqual(official.Id, controller.GetShelterRankingForDiagnostics()[0].TargetId);
+        Assert.AreEqual(official.Id, controller.NearestShelterLineTargetId);
+        StringAssert.Contains(official.Id, ui.LastShelterRankingText);
+    }
+
+    [UnityTest]
+    public IEnumerator RuntimeOfficialShelterRequiresVerifiedGmlAnchor()
+    {
+        GameObject officialAnchor = GameObject.CreatePrimitive(PrimitiveType.Cube);
+        officialAnchor.name = "bldg_25d370de-2c35-457b-b756-3444a3d02eb3";
+        officialAnchor.transform.position = new Vector3(24f, 3f, 18f);
+        officialAnchor.transform.localScale = new Vector3(4f, 6f, 4f);
+
+        NewMapRuntimeBootstrap.CreateForCurrentScene();
+        NewMapGameController controller = Object.FindObjectOfType<NewMapGameController>();
+        NewMapRuntimeUI ui = Object.FindObjectOfType<NewMapRuntimeUI>();
+        Assert.NotNull(controller);
+        Assert.NotNull(ui);
+
+        NewMapRuntimeTarget officialTarget = controller.RuntimeTargets.FirstOrDefault(target => target.Id == "chuo_official_emergency_001");
+        Assert.NotNull(officialTarget);
+        Assert.IsTrue(officialTarget.IsOfficialShelter);
+        Assert.IsFalse(officialTarget.NonOfficialWarningRequired);
+        Assert.IsNull(officialTarget.RouteGuide, "Official shelter activation must not create an official-looking route line.");
+
+        controller.StartEvacuationMode();
+        controller.ForceStageForDiagnostics(NewMapTsunamiStage.FrontApproaching);
+        yield return null;
+
+        Assert.IsTrue(controller.TryInteractForDiagnostics("chuo_official_emergency_001"));
+        Assert.AreEqual("Entering official shelter anchor", ui.LastResultReason);
+        StringAssert.Contains("no official route is claimed", ui.LastResultDetail);
+    }
+
+    private static void AssertColorApproximately(Color expected, Color actual)
+    {
+        Assert.AreEqual(expected.r, actual.r, 0.01f);
+        Assert.AreEqual(expected.g, actual.g, 0.01f);
+        Assert.AreEqual(expected.b, actual.b, 0.01f);
+        Assert.AreEqual(expected.a, actual.a, 0.01f);
+    }
+
+    private static Vector3 SelectNpcPositionForPlayerCollision(IEnumerable<Vector3> positions, NewMapRuntimeBootstrap bootstrap, NewMapPlayerController player)
+    {
+        foreach (Vector3 position in positions)
+        {
+            Vector3 startPosition = new Vector3(position.x - 1.2f, player != null ? player.transform.position.y : position.y, position.z);
+            Vector3 intendedPosition = new Vector3(position.x + 0.2f, startPosition.y, position.z);
+            Vector3 expectedCorrectedPosition = new Vector3(position.x - 0.71f, startPosition.y, position.z);
+            if (player != null &&
+                (player.IsInsideBuildingForDiagnostics(position, 0.05f) ||
+                player.IsInsideBuildingForDiagnostics(startPosition, 0.05f) ||
+                player.IsInsideBuildingForDiagnostics(intendedPosition, 0.05f) ||
+                player.IsInsideBuildingForDiagnostics(expectedCorrectedPosition, 0.05f)))
+            {
+                continue;
+            }
+
+            if (bootstrap != null)
+            {
+                if (bootstrap.LastPlayableBoundsValid &&
+                    (!bootstrap.LastPlayableBounds.ContainsXZ(position, 5f) ||
+                    !bootstrap.LastPlayableBounds.ContainsXZ(startPosition, 5f) ||
+                    !bootstrap.LastPlayableBounds.ContainsXZ(intendedPosition, 5f) ||
+                    !bootstrap.LastPlayableBounds.ContainsXZ(expectedCorrectedPosition, 5f)))
+                {
+                    continue;
+                }
+
+                if (bootstrap.LastCircularBoundaryEnabled &&
+                    bootstrap.LastCircularBoundary.IsValid &&
+                    (!bootstrap.LastCircularBoundary.ContainsXZ(position, 5f) ||
+                    !bootstrap.LastCircularBoundary.ContainsXZ(startPosition, 5f) ||
+                    !bootstrap.LastCircularBoundary.ContainsXZ(intendedPosition, 5f) ||
+                    !bootstrap.LastCircularBoundary.ContainsXZ(expectedCorrectedPosition, 5f)))
+                {
+                    continue;
+                }
+            }
+
+            return position;
+        }
+
+        return positions.First();
+    }
+}

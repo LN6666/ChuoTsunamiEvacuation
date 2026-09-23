@@ -1,0 +1,22 @@
+{
+  "generatedAt": "2026-05-29T00:00:00+09:00",
+  "activeScene": "Assets/Scenes/Chuo_BaseMap.unity",
+  "clearDayLightingConfigExists": true,
+  "runtimeDirectionalLight": {
+    "name": "NewMap_ClearDay_DirectionalLight",
+    "clearDayIntensity": 1.25,
+    "rainyDayIntensity": 0.95,
+    "nightClearIntensity": 0.34,
+    "nightRainIntensity": 0.24
+  },
+  "ambientLighting": {
+    "mode": "Trilight",
+    "clearDayAmbientIntensity": 1.12,
+    "nightClearAmbientIntensity": 0.85,
+    "nightRainAmbientIntensity": 0.8
+  },
+  "rainNightReversible": true,
+  "markersUiReadableByConfiguration": true,
+  "missingMagentaShaderWarningsExpected": false,
+  "finalStatus": "runtime_config_and_tests_passed_manual_visual_confirmation_remaining"
+}

@@ -1,0 +1,9 @@
+﻿{
+    "generatedAt":  "2026-05-26T17:22:10+09:00",
+    "activeScene":  "Assets/Scenes/Chuo_BaseMap.unity",
+    "runtimeBehavior":  "NewMapRuntimeBootstrap computes renderer bounds, raycasts to scene colliders, and creates NewMap_RuntimeGroundSupport_DocumentedProxy only if raycast grounding fails.",
+    "playerVisual":  "lightweight humanoid cylinder/sphere/legs",
+    "camera":  "runtime Main Camera follows player",
+    "fallRecovery":  "enabled as safety using last valid ground",
+    "finalStatus":  "completed_with_documented_runtime_proxy"
+}

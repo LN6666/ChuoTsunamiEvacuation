@@ -1,0 +1,14 @@
+﻿{
+    "generatedAt":  "2026-05-27T20:09:12",
+    "activeScene":  "Assets/Scenes/Chuo_BaseMap.unity",
+    "buildPath":  "D:\\UnityProjects\\ChuoTsunamiEvacuation-Builds\\NewMapGameplaySelfAuditPre\\ChuoTsunamiEvacuation_NewMapGameplaySelfAuditPre.exe",
+    "buildExists":  true,
+    "unityExitCode":  0,
+    "logPath":  "D:\\UnityProjects\\ChuoTsunamiEvacuation\\Logs\\newmap_gameplay_self_audit_build.log",
+    "finalStatus":  "completed_on_new_chuo_basemap",
+    "note":  "Temporary gameplay self-audit build only. This is not a final release package.",
+    "launchSmoke":  "passed",
+    "playerLogSummary":  "completed",
+    "playerLogErrors":  0,
+    "playerLogWarnings":  0
+}

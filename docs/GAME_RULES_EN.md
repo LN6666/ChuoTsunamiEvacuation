@@ -1,31 +1,19 @@
-# Game Rules
+# Game Rules EN
 
-You are evacuating in Tokyo Chuo City after an earthquake and tsunami warning.
+The active baseline is the new `Chuo_BaseMap`.
 
-## Goal
+Tourism Mode is for exploration. Tsunami warning, light curtain, hazard failure, crowd failure, collapse/debris failure, and stamina drain are disabled.
 
-Reach a usable evacuation-related building before the tsunami risk front reaches you.
+Evacuation Mode stamina max is exactly `3500`. Evacuation sprint is reduced by 20% from the previous P10 build to `4.59 m/s`. Tourism Mode still has no stamina restriction and keeps its `10.0 m/s` sprint speed.
 
-## Important Markers
+Evacuation Mode uses a two-stage tsunami model. Stage 1 Warning shows warning information while the light curtain is hidden and risk contact is ignored. Stage 2 FrontApproaching shows the light curtain and enables hazard checks.
 
-Official shelters are official evacuation targets where data supports that status.
+Green frames are prototype guidance markers only. They do not mean official approval.
 
-Non-official humanitarian high-rise candidates are life-first vertical evacuation candidates. They are not official evacuation shelters and are not safe or approved by default. Use them only when official shelter access is unsafe or unavailable.
+Non-official candidates require warnings and are not safe-approved by default.
 
-Green ground frames appear after the tsunami starts. They mark evacuation-related building areas or candidate areas. A green frame does not mean official approval.
+Routes are estimated prototype guidance, not official evacuation routes.
 
-## Routes
+Targets missing from the new map are disabled and must not appear as active gameplay targets.
 
-Route guidance is estimated prototype guidance. P5 route lines are not official evacuation routes and are not fully road-geometry validated.
-
-## Hazards And Outcomes
-
-The tsunami is represented by a risk front, not a real fluid simulation. Crowd congestion, blocked entrances, safe-floor proxy status, weather, stamina, and collapse/debris exposure-event proxies may affect success or failure.
-
-Vertical evacuation uses an entrance/safe-floor proxy. The game does not include real indoor scenes, real staircases, or BIM/LOD4 indoor evacuation.
-
-## Movement
-
-Walking speed is configurable around 0.5 m/s. Holding Shift attempts a sprint around 2.5 m/s. Sprinting drains stamina. Exhausted stamina locks sprint temporarily, then recovers by milestones.
-
-Rain and night modes reduce movement speed. Night mode darkens the screen.
+The current circular playable boundary uses the latest approved `2270 m` radius around the original map center. The boundary is invisible in normal gameplay.

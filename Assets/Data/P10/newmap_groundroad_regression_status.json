@@ -1,0 +1,14 @@
+{
+    "generatedAt": "2026-05-29T13:03:18+09:00",
+    "leftMouseDragRotates": "covered_by_existing_playmode_test",
+    "rightMouseDragRotates": "covered_by_existing_playmode_test",
+    "mouseMovementAloneDoesNotRotate": "covered_by_existing_playmode_test",
+    "spawnAvoidsBuildings": "covered_by_existing_playmode_test",
+    "dayLightingAcceptable": "covered_by_existing_playmode_test",
+    "nightLightingAcceptable": "covered_by_existing_playmode_test",
+    "debugTestObjectsHidden": true,
+    "playerLogClean": "pending_player_log_parse",
+    "adaptiveGridConfigured": true,
+    "airWallsConfigured": true,
+    "status": "pending_unity_test_and_player_log_validation"
+}

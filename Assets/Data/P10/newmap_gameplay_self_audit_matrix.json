@@ -1,0 +1,956 @@
+{
+  "generatedAt": "2026-05-27T20:14:37+09:00",
+  "activeScene": "Assets/Scenes/Chuo_BaseMap.unity",
+  "allowedStatuses": [
+    "completed_on_new_chuo_basemap",
+    "completed_with_documented_runtime_proxy",
+    "disabled_missing_from_new_map",
+    "blocked_needs_user_map_asset",
+    "failed"
+  ],
+  "activeOfficialShelterCount": 15,
+  "activeNonOfficialTrainingTargetCount": 82,
+  "activeRecoveredNonOfficialHumanitarianCandidateCount": 78,
+  "disabledNonOfficialCandidateCount": 32,
+  "routeGeometryStatus": "validated_as_estimated_prototype_guidance",
+  "officialRouteClaimCount": 0,
+  "playerBuildEvidence": true,
+  "features": [
+    {
+      "featureId": "p2_player_spawn",
+      "phase": "P2",
+      "expectedBehavior": "Player spawns on Chuo_BaseMap support/collider ground.",
+      "currentImplementationFiles": [
+        "Assets/Scripts/NewMap/NewMapPlayerController.cs",
+        "Assets/Scripts/NewMap/NewMapRuntimeBootstrap.cs",
+        "Assets/Scripts/NewMap/NewMapGameController.cs",
+        "Assets/Tests/PlayMode/NewMapRuntimePlayModeTests.cs"
+      ],
+      "activeOnChuoBaseMap": true,
+      "runtimeReachable": true,
+      "testedBy": [
+        "RuntimeBootstrapCreatesPlayerCameraAndPreventsFallThrough",
+        "player smoke runtime_target_counts"
+      ],
+      "playerBuildEvidence": true,
+      "finalStatus": "completed_with_documented_runtime_proxy",
+      "blocker": "",
+      "fixApplied": "",
+      "remainingLimitation": "Ground support proxy remains documented when scene collider grounding is not reliable."
+    },
+    {
+      "featureId": "p2_player_visible",
+      "phase": "P2",
+      "expectedBehavior": "Player has a visible humanoid marker.",
+      "currentImplementationFiles": [
+        "Assets/Scripts/NewMap/NewMapVisualFactory.cs",
+        "Assets/Scripts/NewMap/NewMapPlayerController.cs"
+      ],
+      "activeOnChuoBaseMap": true,
+      "runtimeReachable": true,
+      "testedBy": [
+        "RuntimeGameplaySelfAuditFlowsAreReachable"
+      ],
+      "playerBuildEvidence": true,
+      "finalStatus": "completed_on_new_chuo_basemap",
+      "blocker": "",
+      "fixApplied": "",
+      "remainingLimitation": ""
+    },
+    {
+      "featureId": "p2_camera_visible",
+      "phase": "P2",
+      "expectedBehavior": "Main camera follows the player.",
+      "currentImplementationFiles": [
+        "Assets/Scripts/NewMap/NewMapPlayerController.cs"
+      ],
+      "activeOnChuoBaseMap": true,
+      "runtimeReachable": true,
+      "testedBy": [
+        "RuntimeBootstrapCreatesPlayerCameraAndPreventsFallThrough"
+      ],
+      "playerBuildEvidence": true,
+      "finalStatus": "completed_on_new_chuo_basemap",
+      "blocker": "",
+      "fixApplied": "",
+      "remainingLimitation": ""
+    },
+    {
+      "featureId": "p2_movement",
+      "phase": "P2",
+      "expectedBehavior": "Player movement works without falling through the map.",
+      "currentImplementationFiles": [
+        "Assets/Scripts/NewMap/NewMapPlayerController.cs"
+      ],
+      "activeOnChuoBaseMap": true,
+      "runtimeReachable": true,
+      "testedBy": [
+        "RuntimePlayerSupportsSustainedMovementSimulation"
+      ],
+      "playerBuildEvidence": true,
+      "finalStatus": "completed_with_documented_runtime_proxy",
+      "blocker": "",
+      "fixApplied": "",
+      "remainingLimitation": "Automated movement uses diagnostic movement helper; manual build uses WASD."
+    },
+    {
+      "featureId": "p2_sprint",
+      "phase": "P2",
+      "expectedBehavior": "Sprint speed works in both modes.",
+      "currentImplementationFiles": [
+        "Assets/Scripts/NewMap/NewMapPlayerController.cs"
+      ],
+      "activeOnChuoBaseMap": true,
+      "runtimeReachable": true,
+      "testedBy": [
+        "RuntimeModesApplySpeedAndStaminaRules"
+      ],
+      "playerBuildEvidence": true,
+      "finalStatus": "completed_on_new_chuo_basemap",
+      "blocker": "",
+      "fixApplied": "",
+      "remainingLimitation": ""
+    },
+    {
+      "featureId": "p2_stamina",
+      "phase": "P2",
+      "expectedBehavior": "Stamina is enabled only in Evacuation Mode.",
+      "currentImplementationFiles": [
+        "Assets/Scripts/NewMap/NewMapPlayerController.cs"
+      ],
+      "activeOnChuoBaseMap": true,
+      "runtimeReachable": true,
+      "testedBy": [
+        "RuntimeModesApplySpeedAndStaminaRules"
+      ],
+      "playerBuildEvidence": true,
+      "finalStatus": "completed_on_new_chuo_basemap",
+      "blocker": "",
+      "fixApplied": "",
+      "remainingLimitation": ""
+    },
+    {
+      "featureId": "p2_e_interaction",
+      "phase": "P2",
+      "expectedBehavior": "E/diagnostic interaction reaches active targets.",
+      "currentImplementationFiles": [
+        "Assets/Scripts/NewMap/NewMapRuntimeBootstrap.cs",
+        "Assets/Scripts/NewMap/NewMapGameController.cs",
+        "Assets/Tests/PlayMode/NewMapRuntimePlayModeTests.cs"
+      ],
+      "activeOnChuoBaseMap": true,
+      "runtimeReachable": true,
+      "testedBy": [
+        "RuntimeGameplaySelfAuditFlowsAreReachable",
+        "player smoke success_official_shelter",
+        "player smoke success_non_official_candidate_with_warning"
+      ],
+      "playerBuildEvidence": true,
+      "finalStatus": "completed_with_documented_runtime_proxy",
+      "blocker": "",
+      "fixApplied": "",
+      "remainingLimitation": "Automated player-build smoke uses deterministic diagnostic interaction; manual build still exposes E interaction."
+    },
+    {
+      "featureId": "p2_result_panel",
+      "phase": "P2",
+      "expectedBehavior": "ResultPanel shows success/failure reason codes and warnings.",
+      "currentImplementationFiles": [
+        "Assets/Scripts/NewMap/NewMapRuntimeUI.cs",
+        "Assets/Scripts/NewMap/NewMapGameController.cs"
+      ],
+      "activeOnChuoBaseMap": true,
+      "runtimeReachable": true,
+      "testedBy": [
+        "RuntimeGameplaySelfAuditFlowsAreReachable",
+        "player smoke ui_rules_pause_result_panel"
+      ],
+      "playerBuildEvidence": true,
+      "finalStatus": "completed_on_new_chuo_basemap",
+      "blocker": "",
+      "fixApplied": "",
+      "remainingLimitation": ""
+    },
+    {
+      "featureId": "p3p4_official_dataset_loading",
+      "phase": "P3/P4",
+      "expectedBehavior": "Verified official shelters load only from exact eligible PLATEAU GML anchors.",
+      "currentImplementationFiles": [
+        "Assets/Scripts/NewMap/NewMapRuntimeBootstrap.cs",
+        "Assets/Data/P10/newmap_official_shelter_anchor_final_check.json"
+      ],
+      "activeOnChuoBaseMap": true,
+      "runtimeReachable": true,
+      "testedBy": [
+        "official anchor reports",
+        "player smoke runtime_target_counts"
+      ],
+      "playerBuildEvidence": true,
+      "finalStatus": "completed_on_new_chuo_basemap",
+      "blocker": "",
+      "fixApplied": "",
+      "remainingLimitation": ""
+    },
+    {
+      "featureId": "p3p4_official_markers",
+      "phase": "P3/P4",
+      "expectedBehavior": "Official shelter markers are active and not labeled non-official.",
+      "currentImplementationFiles": [
+        "Assets/Scripts/NewMap/NewMapRuntimeBootstrap.cs"
+      ],
+      "activeOnChuoBaseMap": true,
+      "runtimeReachable": true,
+      "testedBy": [
+        "RuntimeOfficialShelterRequiresVerifiedGmlAnchor"
+      ],
+      "playerBuildEvidence": true,
+      "finalStatus": "completed_on_new_chuo_basemap",
+      "blocker": "",
+      "fixApplied": "",
+      "remainingLimitation": ""
+    },
+    {
+      "featureId": "p3p4_official_interaction",
+      "phase": "P3/P4",
+      "expectedBehavior": "At least one official shelter enters the evacuation flow.",
+      "currentImplementationFiles": [
+        "Assets/Scripts/NewMap/NewMapGameController.cs"
+      ],
+      "activeOnChuoBaseMap": true,
+      "runtimeReachable": true,
+      "testedBy": [
+        "RuntimeGameplaySelfAuditFlowsAreReachable",
+        "player smoke success_official_shelter"
+      ],
+      "playerBuildEvidence": true,
+      "finalStatus": "completed_with_documented_runtime_proxy",
+      "blocker": "",
+      "fixApplied": "",
+      "remainingLimitation": "Safe-floor timing is prototype gameplay, not official building safety certification."
+    },
+    {
+      "featureId": "p3p4_official_result_flow",
+      "phase": "P3/P4",
+      "expectedBehavior": "Official shelter result flow reaches safe_floor_reached without non-official warning.",
+      "currentImplementationFiles": [
+        "Assets/Scripts/NewMap/NewMapGameController.cs",
+        "Assets/Scripts/NewMap/NewMapRuntimeUI.cs"
+      ],
+      "activeOnChuoBaseMap": true,
+      "runtimeReachable": true,
+      "testedBy": [
+        "RuntimeGameplaySelfAuditFlowsAreReachable"
+      ],
+      "playerBuildEvidence": true,
+      "finalStatus": "completed_with_documented_runtime_proxy",
+      "blocker": "",
+      "fixApplied": "",
+      "remainingLimitation": ""
+    },
+    {
+      "featureId": "p5_route_guidance_display",
+      "phase": "P5",
+      "expectedBehavior": "At least one runtime route guide appears as prototype guidance.",
+      "currentImplementationFiles": [
+        "Assets/Scripts/NewMap/NewMapRuntimeBootstrap.cs"
+      ],
+      "activeOnChuoBaseMap": true,
+      "runtimeReachable": true,
+      "testedBy": [
+        "RuntimeUiPauseRulesAndStageGuidanceWork",
+        "player smoke route_proxy_wording"
+      ],
+      "playerBuildEvidence": true,
+      "finalStatus": "completed_with_documented_runtime_proxy",
+      "blocker": "",
+      "fixApplied": "",
+      "remainingLimitation": "Runtime route display is local target guidance; old route geometry is report evidence only."
+    },
+    {
+      "featureId": "p5_estimated_route_wording",
+      "phase": "P5",
+      "expectedBehavior": "Route wording says estimated prototype guidance and not official.",
+      "currentImplementationFiles": [
+        "Assets/Scripts/NewMap/NewMapGameController.cs",
+        "Assets/Scripts/NewMap/NewMapRuntimeUI.cs"
+      ],
+      "activeOnChuoBaseMap": true,
+      "runtimeReachable": true,
+      "testedBy": [
+        "RuntimeGameplaySelfAuditFlowsAreReachable",
+        "player smoke route_proxy_wording"
+      ],
+      "playerBuildEvidence": true,
+      "finalStatus": "completed_with_documented_runtime_proxy",
+      "blocker": "",
+      "fixApplied": "",
+      "remainingLimitation": ""
+    },
+    {
+      "featureId": "p5_route_target_selection",
+      "phase": "P5",
+      "expectedBehavior": "Route-guided active proxy target can be selected/interacted.",
+      "currentImplementationFiles": [
+        "Assets/Scripts/NewMap/NewMapRuntimeBootstrap.cs"
+      ],
+      "activeOnChuoBaseMap": true,
+      "runtimeReachable": true,
+      "testedBy": [
+        "RuntimeGameplaySelfAuditFlowsAreReachable"
+      ],
+      "playerBuildEvidence": true,
+      "finalStatus": "completed_with_documented_runtime_proxy",
+      "blocker": "",
+      "fixApplied": "",
+      "remainingLimitation": ""
+    },
+    {
+      "featureId": "p5_disabled_route_suppression",
+      "phase": "P5",
+      "expectedBehavior": "Disabled/out-of-map routes are not shown as gameplay routes.",
+      "currentImplementationFiles": [
+        "Assets/Data/P10/newmap_route_geometry_final_validation.json"
+      ],
+      "activeOnChuoBaseMap": true,
+      "runtimeReachable": true,
+      "testedBy": [
+        "preflight route validation",
+        "check_newmap_no_false_route_claims.ps1"
+      ],
+      "playerBuildEvidence": true,
+      "finalStatus": "completed_on_new_chuo_basemap",
+      "blocker": "",
+      "fixApplied": "",
+      "remainingLimitation": ""
+    },
+    {
+      "featureId": "p5_no_official_route_claim",
+      "phase": "P5",
+      "expectedBehavior": "Official route claim count remains zero.",
+      "currentImplementationFiles": [
+        "Assets/Data/P10/newmap_route_geometry_final_validation.json",
+        "Assets/Scripts/NewMap/NewMapGameController.cs"
+      ],
+      "activeOnChuoBaseMap": true,
+      "runtimeReachable": true,
+      "testedBy": [
+        "check_newmap_no_false_route_claims.ps1",
+        "player smoke route_proxy_wording"
+      ],
+      "playerBuildEvidence": true,
+      "finalStatus": "completed_on_new_chuo_basemap",
+      "blocker": "",
+      "fixApplied": "",
+      "remainingLimitation": ""
+    },
+    {
+      "featureId": "p6_npc_spawn",
+      "phase": "P6",
+      "expectedBehavior": "NPC humanoids spawn lazily when Evacuation Mode enables crowd behavior.",
+      "currentImplementationFiles": [
+        "Assets/Scripts/NewMap/NewMapNpcCrowdPrototype.cs"
+      ],
+      "activeOnChuoBaseMap": true,
+      "runtimeReachable": true,
+      "testedBy": [
+        "RuntimeGameplaySelfAuditFlowsAreReachable"
+      ],
+      "playerBuildEvidence": true,
+      "finalStatus": "completed_with_documented_runtime_proxy",
+      "blocker": "",
+      "fixApplied": "",
+      "remainingLimitation": "Road-aware navigation remains unavailable."
+    },
+    {
+      "featureId": "p6_npc_humanoid_appearance",
+      "phase": "P6",
+      "expectedBehavior": "NPCs use humanoid visual factory and distinct color from player.",
+      "currentImplementationFiles": [
+        "Assets/Scripts/NewMap/NewMapVisualFactory.cs",
+        "Assets/Scripts/NewMap/NewMapNpcCrowdPrototype.cs"
+      ],
+      "activeOnChuoBaseMap": true,
+      "runtimeReachable": true,
+      "testedBy": [
+        "RuntimeGameplaySelfAuditFlowsAreReachable"
+      ],
+      "playerBuildEvidence": true,
+      "finalStatus": "completed_with_documented_runtime_proxy",
+      "blocker": "",
+      "fixApplied": "",
+      "remainingLimitation": ""
+    },
+    {
+      "featureId": "p6_npc_proxy_movement",
+      "phase": "P6",
+      "expectedBehavior": "NPCs wander locally without pathing crash.",
+      "currentImplementationFiles": [
+        "Assets/Scripts/NewMap/NewMapNpcCrowdPrototype.cs"
+      ],
+      "activeOnChuoBaseMap": true,
+      "runtimeReachable": true,
+      "testedBy": [
+        "RuntimeP9HardeningScenariosProduceRequiredOutcomes"
+      ],
+      "playerBuildEvidence": true,
+      "finalStatus": "completed_with_documented_runtime_proxy",
+      "blocker": "",
+      "fixApplied": "",
+      "remainingLimitation": "This is local proxy movement, not full crowd simulation."
+    },
+    {
+      "featureId": "p6_crowd_delay",
+      "phase": "P6",
+      "expectedBehavior": "Crowd delay can affect safe-floor timing/reason details.",
+      "currentImplementationFiles": [
+        "Assets/Scripts/NewMap/NewMapNpcCrowdPrototype.cs",
+        "Assets/Scripts/NewMap/NewMapGameController.cs"
+      ],
+      "activeOnChuoBaseMap": true,
+      "runtimeReachable": true,
+      "testedBy": [
+        "player smoke crowd_delay_success_or_failure"
+      ],
+      "playerBuildEvidence": true,
+      "finalStatus": "completed_with_documented_runtime_proxy",
+      "blocker": "",
+      "fixApplied": "",
+      "remainingLimitation": ""
+    },
+    {
+      "featureId": "p6_crowd_metrics",
+      "phase": "P6",
+      "expectedBehavior": "HUD exposes NPC count and crowd delay metric.",
+      "currentImplementationFiles": [
+        "Assets/Scripts/NewMap/NewMapGameController.cs"
+      ],
+      "activeOnChuoBaseMap": true,
+      "runtimeReachable": true,
+      "testedBy": [
+        "RuntimeUiPauseRulesAndStageGuidanceWork"
+      ],
+      "playerBuildEvidence": true,
+      "finalStatus": "completed_with_documented_runtime_proxy",
+      "blocker": "",
+      "fixApplied": "",
+      "remainingLimitation": ""
+    },
+    {
+      "featureId": "p6_tourism_no_crowd_failure",
+      "phase": "P6",
+      "expectedBehavior": "Tourism Mode disables crowd failure/delay.",
+      "currentImplementationFiles": [
+        "Assets/Scripts/NewMap/NewMapGameController.cs"
+      ],
+      "activeOnChuoBaseMap": true,
+      "runtimeReachable": true,
+      "testedBy": [
+        "RuntimeP9HardeningScenariosProduceRequiredOutcomes",
+        "player smoke tourism_free_roam_no_failure"
+      ],
+      "playerBuildEvidence": true,
+      "finalStatus": "completed_on_new_chuo_basemap",
+      "blocker": "",
+      "fixApplied": "",
+      "remainingLimitation": ""
+    },
+    {
+      "featureId": "p8_two_stage_tsunami_warning",
+      "phase": "P8",
+      "expectedBehavior": "Evacuation starts in Stage 1 then moves to Stage 2.",
+      "currentImplementationFiles": [
+        "Assets/Scripts/NewMap/NewMapGameController.cs"
+      ],
+      "activeOnChuoBaseMap": true,
+      "runtimeReachable": true,
+      "testedBy": [
+        "RuntimeUiPauseRulesAndStageGuidanceWork",
+        "player smoke evacuation_stage1_warning"
+      ],
+      "playerBuildEvidence": true,
+      "finalStatus": "completed_with_documented_runtime_proxy",
+      "blocker": "",
+      "fixApplied": "",
+      "remainingLimitation": ""
+    },
+    {
+      "featureId": "p8_stage1_warning_ui",
+      "phase": "P8",
+      "expectedBehavior": "Stage 1 has UI/HUD state while light curtain stays hidden.",
+      "currentImplementationFiles": [
+        "Assets/Scripts/NewMap/NewMapRuntimeUI.cs",
+        "Assets/Scripts/NewMap/NewMapHazardController.cs"
+      ],
+      "activeOnChuoBaseMap": true,
+      "runtimeReachable": true,
+      "testedBy": [
+        "RuntimeGameplaySelfAuditFlowsAreReachable"
+      ],
+      "playerBuildEvidence": true,
+      "finalStatus": "completed_with_documented_runtime_proxy",
+      "blocker": "",
+      "fixApplied": "",
+      "remainingLimitation": ""
+    },
+    {
+      "featureId": "p8_stage2_light_curtain",
+      "phase": "P8",
+      "expectedBehavior": "Stage 2 shows light curtain/risk front.",
+      "currentImplementationFiles": [
+        "Assets/Scripts/NewMap/NewMapHazardController.cs"
+      ],
+      "activeOnChuoBaseMap": true,
+      "runtimeReachable": true,
+      "testedBy": [
+        "player smoke evacuation_stage2_front_and_green_frames"
+      ],
+      "playerBuildEvidence": true,
+      "finalStatus": "completed_with_documented_runtime_proxy",
+      "blocker": "",
+      "fixApplied": "",
+      "remainingLimitation": ""
+    },
+    {
+      "featureId": "p8_hazard_activation_timing",
+      "phase": "P8",
+      "expectedBehavior": "Hazard contact is ignored before Stage 2 and active in Stage 2.",
+      "currentImplementationFiles": [
+        "Assets/Scripts/NewMap/NewMapHazardController.cs"
+      ],
+      "activeOnChuoBaseMap": true,
+      "runtimeReachable": true,
+      "testedBy": [
+        "RuntimeGameplaySelfAuditFlowsAreReachable"
+      ],
+      "playerBuildEvidence": true,
+      "finalStatus": "completed_with_documented_runtime_proxy",
+      "blocker": "",
+      "fixApplied": "",
+      "remainingLimitation": ""
+    },
+    {
+      "featureId": "p8_no_instant_death",
+      "phase": "P8",
+      "expectedBehavior": "Starting Evacuation Mode does not instantly fail.",
+      "currentImplementationFiles": [
+        "Assets/Scripts/NewMap/NewMapGameController.cs"
+      ],
+      "activeOnChuoBaseMap": true,
+      "runtimeReachable": true,
+      "testedBy": [
+        "RuntimeP9HardeningScenariosProduceRequiredOutcomes"
+      ],
+      "playerBuildEvidence": true,
+      "finalStatus": "completed_on_new_chuo_basemap",
+      "blocker": "",
+      "fixApplied": "",
+      "remainingLimitation": ""
+    },
+    {
+      "featureId": "p8_tourism_disables_tsunami",
+      "phase": "P8",
+      "expectedBehavior": "Tourism Mode disables tsunami warning/front/failure.",
+      "currentImplementationFiles": [
+        "Assets/Scripts/NewMap/NewMapGameController.cs"
+      ],
+      "activeOnChuoBaseMap": true,
+      "runtimeReachable": true,
+      "testedBy": [
+        "player smoke tourism_free_roam_no_failure"
+      ],
+      "playerBuildEvidence": true,
+      "finalStatus": "completed_on_new_chuo_basemap",
+      "blocker": "",
+      "fixApplied": "",
+      "remainingLimitation": ""
+    },
+    {
+      "featureId": "p9_weighted_spawn",
+      "phase": "P9",
+      "expectedBehavior": "Spawn uses resolved map/support position; weighted old spawn sources are disabled on NewMap.",
+      "currentImplementationFiles": [
+        "Assets/Scripts/NewMap/NewMapRuntimeBootstrap.cs"
+      ],
+      "activeOnChuoBaseMap": true,
+      "runtimeReachable": true,
+      "testedBy": [
+        "RuntimeBootstrapCreatesPlayerCameraAndPreventsFallThrough"
+      ],
+      "playerBuildEvidence": true,
+      "finalStatus": "completed_with_documented_runtime_proxy",
+      "blocker": "",
+      "fixApplied": "",
+      "remainingLimitation": "Weighted GIS spawn selection is disabled_missing_from_new_map until user supplies verified NewMap spawn anchors."
+    },
+    {
+      "featureId": "p9_entrance_interaction",
+      "phase": "P9",
+      "expectedBehavior": "Entrance interaction reaches official/non-official/local targets.",
+      "currentImplementationFiles": [
+        "Assets/Scripts/NewMap/NewMapRuntimeBootstrap.cs",
+        "Assets/Scripts/NewMap/NewMapGameController.cs",
+        "Assets/Tests/PlayMode/NewMapRuntimePlayModeTests.cs"
+      ],
+      "activeOnChuoBaseMap": true,
+      "runtimeReachable": true,
+      "testedBy": [
+        "player smoke success_official_shelter",
+        "player smoke success_non_official_candidate_with_warning"
+      ],
+      "playerBuildEvidence": true,
+      "finalStatus": "completed_with_documented_runtime_proxy",
+      "blocker": "",
+      "fixApplied": "",
+      "remainingLimitation": ""
+    },
+    {
+      "featureId": "p9_safe_floor_vertical_proxy",
+      "phase": "P9",
+      "expectedBehavior": "Safe-floor/vertical evacuation proxy completes with safe_floor_reached.",
+      "currentImplementationFiles": [
+        "Assets/Scripts/NewMap/NewMapGameController.cs"
+      ],
+      "activeOnChuoBaseMap": true,
+      "runtimeReachable": true,
+      "testedBy": [
+        "RuntimeGameplaySelfAuditFlowsAreReachable"
+      ],
+      "playerBuildEvidence": true,
+      "finalStatus": "completed_with_documented_runtime_proxy",
+      "blocker": "",
+      "fixApplied": "",
+      "remainingLimitation": ""
+    },
+    {
+      "featureId": "p9_crowd_delay_outcome",
+      "phase": "P9",
+      "expectedBehavior": "Crowd delay outcome path is reachable.",
+      "currentImplementationFiles": [
+        "Assets/Scripts/NewMap/NewMapNpcCrowdPrototype.cs"
+      ],
+      "activeOnChuoBaseMap": true,
+      "runtimeReachable": true,
+      "testedBy": [
+        "player smoke crowd_delay_success_or_failure"
+      ],
+      "playerBuildEvidence": true,
+      "finalStatus": "completed_with_documented_runtime_proxy",
+      "blocker": "",
+      "fixApplied": "",
+      "remainingLimitation": ""
+    },
+    {
+      "featureId": "p9_entrance_blocked_failure",
+      "phase": "P9",
+      "expectedBehavior": "Blocked entrance returns entrance_blocked.",
+      "currentImplementationFiles": [
+        "Assets/Scripts/NewMap/NewMapRuntimeBootstrap.cs",
+        "Assets/Scripts/NewMap/NewMapGameController.cs"
+      ],
+      "activeOnChuoBaseMap": true,
+      "runtimeReachable": true,
+      "testedBy": [
+        "player smoke entrance_blocked_failure"
+      ],
+      "playerBuildEvidence": true,
+      "finalStatus": "completed_with_documented_runtime_proxy",
+      "blocker": "",
+      "fixApplied": "",
+      "remainingLimitation": ""
+    },
+    {
+      "featureId": "p9_safe_floor_unavailable_failure",
+      "phase": "P9",
+      "expectedBehavior": "No-safe-floor target returns safe_floor_unavailable.",
+      "currentImplementationFiles": [
+        "Assets/Scripts/NewMap/NewMapRuntimeBootstrap.cs",
+        "Assets/Scripts/NewMap/NewMapGameController.cs"
+      ],
+      "activeOnChuoBaseMap": true,
+      "runtimeReachable": true,
+      "testedBy": [
+        "player smoke safe_floor_unavailable_failure"
+      ],
+      "playerBuildEvidence": true,
+      "finalStatus": "completed_with_documented_runtime_proxy",
+      "blocker": "",
+      "fixApplied": "",
+      "remainingLimitation": ""
+    },
+    {
+      "featureId": "p9_collapse_debris_exposure",
+      "phase": "P9",
+      "expectedBehavior": "Collapse/debris exposure can fail during Stage 2.",
+      "currentImplementationFiles": [
+        "Assets/Scripts/NewMap/NewMapHazardController.cs"
+      ],
+      "activeOnChuoBaseMap": true,
+      "runtimeReachable": true,
+      "testedBy": [
+        "player smoke collapse_debris_exposure_failure"
+      ],
+      "playerBuildEvidence": true,
+      "finalStatus": "completed_with_documented_runtime_proxy",
+      "blocker": "",
+      "fixApplied": "",
+      "remainingLimitation": ""
+    },
+    {
+      "featureId": "p9_collapse_disabled_success",
+      "phase": "P9",
+      "expectedBehavior": "Tourism Mode ignores collapse/debris failure.",
+      "currentImplementationFiles": [
+        "Assets/Scripts/NewMap/NewMapGameController.cs"
+      ],
+      "activeOnChuoBaseMap": true,
+      "runtimeReachable": true,
+      "testedBy": [
+        "player smoke collapse_disabled_success"
+      ],
+      "playerBuildEvidence": true,
+      "finalStatus": "completed_on_new_chuo_basemap",
+      "blocker": "",
+      "fixApplied": "",
+      "remainingLimitation": ""
+    },
+    {
+      "featureId": "p9_tsunami_front_failure",
+      "phase": "P9",
+      "expectedBehavior": "Stage 2 risk front can fail the player.",
+      "currentImplementationFiles": [
+        "Assets/Scripts/NewMap/NewMapHazardController.cs",
+        "Assets/Scripts/NewMap/NewMapGameController.cs"
+      ],
+      "activeOnChuoBaseMap": true,
+      "runtimeReachable": true,
+      "testedBy": [
+        "player smoke tsunami_front_failure"
+      ],
+      "playerBuildEvidence": true,
+      "finalStatus": "completed_with_documented_runtime_proxy",
+      "blocker": "",
+      "fixApplied": "",
+      "remainingLimitation": ""
+    },
+    {
+      "featureId": "p9_reason_codes",
+      "phase": "P9",
+      "expectedBehavior": "ResultPanel reason codes cover success/failure scenarios.",
+      "currentImplementationFiles": [
+        "Assets/Scripts/NewMap/NewMapGameController.cs",
+        "Assets/Scripts/NewMap/NewMapRuntimeUI.cs"
+      ],
+      "activeOnChuoBaseMap": true,
+      "runtimeReachable": true,
+      "testedBy": [
+        "RuntimeP9HardeningScenariosProduceRequiredOutcomes",
+        "player smoke scenarios"
+      ],
+      "playerBuildEvidence": true,
+      "finalStatus": "completed_with_documented_runtime_proxy",
+      "blocker": "",
+      "fixApplied": "",
+      "remainingLimitation": ""
+    },
+    {
+      "featureId": "p10_start_menu",
+      "phase": "P10",
+      "expectedBehavior": "Start Menu is visible at bootstrap.",
+      "currentImplementationFiles": [
+        "Assets/Scripts/NewMap/NewMapRuntimeUI.cs"
+      ],
+      "activeOnChuoBaseMap": true,
+      "runtimeReachable": true,
+      "testedBy": [
+        "player smoke start_menu_visible"
+      ],
+      "playerBuildEvidence": true,
+      "finalStatus": "completed_on_new_chuo_basemap",
+      "blocker": "",
+      "fixApplied": "",
+      "remainingLimitation": ""
+    },
+    {
+      "featureId": "p10_mode_selection",
+      "phase": "P10",
+      "expectedBehavior": "Tourism and Evacuation mode buttons exist.",
+      "currentImplementationFiles": [
+        "Assets/Scripts/NewMap/NewMapRuntimeUI.cs"
+      ],
+      "activeOnChuoBaseMap": true,
+      "runtimeReachable": true,
+      "testedBy": [
+        "RuntimeGameplaySelfAuditFlowsAreReachable"
+      ],
+      "playerBuildEvidence": true,
+      "finalStatus": "completed_on_new_chuo_basemap",
+      "blocker": "",
+      "fixApplied": "",
+      "remainingLimitation": ""
+    },
+    {
+      "featureId": "p10_localization",
+      "phase": "P10",
+      "expectedBehavior": "English/Japanese toggle exists and refreshes static UI text.",
+      "currentImplementationFiles": [
+        "Assets/Scripts/NewMap/NewMapRuntimeUI.cs"
+      ],
+      "activeOnChuoBaseMap": true,
+      "runtimeReachable": true,
+      "testedBy": [
+        "RuntimeGameplaySelfAuditFlowsAreReachable"
+      ],
+      "playerBuildEvidence": true,
+      "finalStatus": "completed_on_new_chuo_basemap",
+      "blocker": "",
+      "fixApplied": "",
+      "remainingLimitation": ""
+    },
+    {
+      "featureId": "p10_scrollable_rules",
+      "phase": "P10",
+      "expectedBehavior": "Rules UI opens and has ScrollRect.",
+      "currentImplementationFiles": [
+        "Assets/Scripts/NewMap/NewMapRuntimeUI.cs"
+      ],
+      "activeOnChuoBaseMap": true,
+      "runtimeReachable": true,
+      "testedBy": [
+        "player smoke ui_rules_pause_result_panel"
+      ],
+      "playerBuildEvidence": true,
+      "finalStatus": "completed_on_new_chuo_basemap",
+      "blocker": "",
+      "fixApplied": "",
+      "remainingLimitation": ""
+    },
+    {
+      "featureId": "p10_pause_menu",
+      "phase": "P10",
+      "expectedBehavior": "Pause menu opens and resumes.",
+      "currentImplementationFiles": [
+        "Assets/Scripts/NewMap/NewMapRuntimeUI.cs"
+      ],
+      "activeOnChuoBaseMap": true,
+      "runtimeReachable": true,
+      "testedBy": [
+        "player smoke ui_rules_pause_result_panel"
+      ],
+      "playerBuildEvidence": true,
+      "finalStatus": "completed_on_new_chuo_basemap",
+      "blocker": "",
+      "fixApplied": "",
+      "remainingLimitation": ""
+    },
+    {
+      "featureId": "p10_quit_force_quit",
+      "phase": "P10",
+      "expectedBehavior": "Quit to Menu and Force Quit controls exist.",
+      "currentImplementationFiles": [
+        "Assets/Scripts/NewMap/NewMapRuntimeUI.cs"
+      ],
+      "activeOnChuoBaseMap": true,
+      "runtimeReachable": true,
+      "testedBy": [
+        "RuntimeGameplaySelfAuditFlowsAreReachable"
+      ],
+      "playerBuildEvidence": true,
+      "finalStatus": "completed_on_new_chuo_basemap",
+      "blocker": "",
+      "fixApplied": "",
+      "remainingLimitation": ""
+    },
+    {
+      "featureId": "p10_weather_night",
+      "phase": "P10",
+      "expectedBehavior": "Weather/night presets adjust movement speed.",
+      "currentImplementationFiles": [
+        "Assets/Scripts/NewMap/NewMapRuntimeTypes.cs",
+        "Assets/Scripts/NewMap/NewMapGameController.cs"
+      ],
+      "activeOnChuoBaseMap": true,
+      "runtimeReachable": true,
+      "testedBy": [
+        "RuntimeModesApplySpeedAndStaminaRules"
+      ],
+      "playerBuildEvidence": true,
+      "finalStatus": "completed_on_new_chuo_basemap",
+      "blocker": "",
+      "fixApplied": "",
+      "remainingLimitation": ""
+    },
+    {
+      "featureId": "p10_green_ground_frames",
+      "phase": "P10",
+      "expectedBehavior": "Green frames appear only for active targets in Stage 2.",
+      "currentImplementationFiles": [
+        "Assets/Scripts/NewMap/NewMapRuntimeBootstrap.cs"
+      ],
+      "activeOnChuoBaseMap": true,
+      "runtimeReachable": true,
+      "testedBy": [
+        "player smoke evacuation_stage2_front_and_green_frames"
+      ],
+      "playerBuildEvidence": true,
+      "finalStatus": "completed_with_documented_runtime_proxy",
+      "blocker": "",
+      "fixApplied": "",
+      "remainingLimitation": ""
+    },
+    {
+      "featureId": "p10_official_nonofficial_warnings",
+      "phase": "P10",
+      "expectedBehavior": "Official shelters do not use non-official warning; non-official targets do.",
+      "currentImplementationFiles": [
+        "Assets/Scripts/NewMap/NewMapRuntimeUI.cs",
+        "Assets/Scripts/NewMap/NewMapGameController.cs"
+      ],
+      "activeOnChuoBaseMap": true,
+      "runtimeReachable": true,
+      "testedBy": [
+        "RuntimeGameplaySelfAuditFlowsAreReachable"
+      ],
+      "playerBuildEvidence": true,
+      "finalStatus": "completed_on_new_chuo_basemap",
+      "blocker": "",
+      "fixApplied": "",
+      "remainingLimitation": ""
+    },
+    {
+      "featureId": "p10_player_npc_humanoids",
+      "phase": "P10",
+      "expectedBehavior": "Player and NPC humanoid visuals exist and use different colors.",
+      "currentImplementationFiles": [
+        "Assets/Scripts/NewMap/NewMapVisualFactory.cs"
+      ],
+      "activeOnChuoBaseMap": true,
+      "runtimeReachable": true,
+      "testedBy": [
+        "RuntimeGameplaySelfAuditFlowsAreReachable"
+      ],
+      "playerBuildEvidence": true,
+      "finalStatus": "completed_with_documented_runtime_proxy",
+      "blocker": "",
+      "fixApplied": "",
+      "remainingLimitation": ""
+    },
+    {
+      "featureId": "p10_performance_metrics_hooks",
+      "phase": "P10",
+      "expectedBehavior": "Performance probe logs average FPS, max frame, and stutter count.",
+      "currentImplementationFiles": [
+        "Assets/Scripts/NewMap/NewMapPerformanceProbe.cs"
+      ],
+      "activeOnChuoBaseMap": true,
+      "runtimeReachable": true,
+      "testedBy": [
+        "parse_newmap_gameplay_self_audit_player_log.ps1"
+      ],
+      "playerBuildEvidence": true,
+      "finalStatus": "completed_on_new_chuo_basemap",
+      "blocker": "",
+      "fixApplied": "",
+      "remainingLimitation": "Startup spike remains above 2000 ms unless player retest proves otherwise."
+    }
+  ]
+}

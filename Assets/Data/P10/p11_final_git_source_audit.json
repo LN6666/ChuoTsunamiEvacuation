@@ -1,0 +1,39 @@
+{
+  "generatedAt": "2026-05-31T02:45:00+09:00",
+  "workspace": "D:/UnityProjects/ChuoTsunamiEvacuation",
+  "branch": "phase5-qualification-routing-plateau",
+  "previousHead": "913d838ee0a72a7daaed4cccd216a0f9807c896d",
+  "p11SourceCommit": "36a69558c1163777a4883bb646ce2201059ffc4b",
+  "p11SourceCommitPushed": true,
+  "activeScene": "Assets/Scenes/Chuo_BaseMap.unity",
+  "includePolicy": [
+    "Assets/Scripts",
+    "Assets/Editor",
+    "Assets/Data required runtime JSON/configs/reports",
+    "Assets/Tests",
+    "tools",
+    "docs",
+    "codex_prompts",
+    "deepseek review prompts",
+    "small release manifests and reports"
+  ],
+  "excludePolicy": [
+    "Library",
+    "Temp",
+    "Logs",
+    "Build",
+    "Builds",
+    "release folders",
+    "EXE files",
+    "*_Data folders",
+    "release ZIP files",
+    "raw PLATEAU data",
+    "giant generated scene artifacts",
+    "Unity Test Framework InitTestScene files"
+  ],
+  "largeLocalFilesNotStaged": [
+    "Assets/Scenes/Chuo_BaseMap.unity",
+    "Assets/Scenes/Chuo_GroundRoad_Import_Source.unity"
+  ],
+  "finalStatus": "source_commit_pushed_release_artifacts_not_staged"
+}

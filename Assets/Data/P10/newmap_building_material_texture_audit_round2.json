@@ -1,0 +1,25 @@
+{
+  "generatedAt": "2026-05-29T00:00:00+09:00",
+  "activeScene": "Assets/Scenes/Chuo_BaseMap.unity",
+  "manualFeedbackAddressed": "building textures look photo-pasted and must be audited without false LOD2 claims",
+  "classification": "material_limitation_documented",
+  "lod2VisualQualityClaim": "not_claimed",
+  "currentImportDecision": "project decision history documents Buildings/LOD1 as the current base-map import",
+  "materialAudit": {
+    "generatedProductionMaterialsUseValidShaderFallback": true,
+    "magentaMissingShaderAllowed": false,
+    "importedPlateauMaterialsMutated": false,
+    "texturesRemoved": false,
+    "photoPastedLikelyCause": "PLATEAU appearance/projection texture behavior or imported texture projection, not fixed by gameplay code alone"
+  },
+  "round2Improvement": [
+    "clear day lighting preserved",
+    "night readability improved through sky/ambient/fill lighting rather than flattening building materials",
+    "no blanket conversion to gray/black fallback material"
+  ],
+  "outputClassifications": [
+    "material_valid_plateau_appearance",
+    "material_limitation_documented"
+  ],
+  "finalStatus": "audited_lighting_readability_improved_material_texture_limitation_documented"
+}

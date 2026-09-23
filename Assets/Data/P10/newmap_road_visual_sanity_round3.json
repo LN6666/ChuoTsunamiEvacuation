@@ -1,0 +1,12 @@
+{
+  "generatedAt": "2026-05-29T00:00:00+09:00",
+  "activeScene": "Assets/Scenes/Chuo_BaseMap.unity",
+  "preferredVisualSource": "imported PLATEAU/map geometry",
+  "supportPlaneVisualFallback": "not used",
+  "blueSupportPlaneVisible": false,
+  "neutralFallbackGroundCreated": false,
+  "playerSmokeRoadSampleY": 0.0,
+  "playerSmokeSupportToRoadDelta": 0.0,
+  "roadGeometryClaim": "not claiming full PLATEAU road semantic validation unless source geometry is detected",
+  "finalStatus": "support_visual_removed_no_new_visible_ground_plane_player_smoke_passed"
+}

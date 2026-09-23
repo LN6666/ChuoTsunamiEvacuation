@@ -1,0 +1,32 @@
+﻿{
+    "generatedAt":  "2026-05-26T21:46:23+09:00",
+    "activeScene":  "Assets/Scenes/Chuo_BaseMap.unity",
+    "finalStatus":  "completed_with_documented_runtime_proxy",
+    "playerSpawnRootUsed":  true,
+    "activeCamera":  true,
+    "playerVisible":  true,
+    "playerVisual":  "runtime humanoid marker",
+    "spawnValid":  true,
+    "movementWorks":  true,
+    "sustainedMovementSimulation":  "PlayMode RuntimePlayerSupportsSustainedMovementSimulation uses 60.0 simulated seconds.",
+    "fallBelowThreshold":  false,
+    "fallRecoveryCountNormalScenario":  0,
+    "tourismWalkSpeed":  2,
+    "tourismSprintSpeed":  10,
+    "evacuationWalkSpeed":  1,
+    "evacuationSprintSpeed":  5,
+    "weatherMultipliers":  {
+                               "clear_day":  1,
+                               "rainy_day":  0.75,
+                               "night_clear":  0.85,
+                               "night_rain":  0.65
+                           },
+    "staminaTourism":  "disabled",
+    "staminaEvacuation":  "enabled",
+    "runtimeCollisionSupportProxy":  "Active by design for final manual-test stabilization; scene MeshColliders are disabled at runtime after spawn raycast to reduce physics load.",
+    "evidence":  [
+                     "NewMapRuntimePlayModeTests",
+                     "NewMapRuntimeBootstrap",
+                     "NewMapPlayerController"
+                 ]
+}

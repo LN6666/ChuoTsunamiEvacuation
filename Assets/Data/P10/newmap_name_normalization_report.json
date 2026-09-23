@@ -1,0 +1,104 @@
+{
+  "generatedAt": "2026-05-30T00:39:45+09:00",
+  "activeScene": "Assets/Scenes/Chuo_BaseMap.unity",
+  "normalizationRulesApplied": true,
+  "japaneseKanjiMainNameOnly": true,
+  "fullAddressesHidden": true,
+  "postalAddressesHidden": true,
+  "gmlAndBuildingIdsHidden": true,
+  "coordinatesHiddenAsNames": true,
+  "machineTranslationUsed": false,
+  "fabricatedNamesAllowed": false,
+  "lowConfidenceHiddenInNormalMode": true,
+  "visibleIdOnlyLabelCount": 0,
+  "visibleAddressLikeLabelCount": 0,
+  "visibleLowConfidenceLabelCount": 0,
+  "onlineResultsRejected": 353,
+  "rejectedReasonsSample": [
+    {
+      "id": "building_p5f_sample_humanitarian_review_004",
+      "objectType": "building",
+      "reason": "online_result_wrong_object_type",
+      "rawName": "片山歯科",
+      "rawType": "amenity:dentist"
+    },
+    {
+      "id": "building_p5f_sample_humanitarian_weak_005",
+      "objectType": "building",
+      "reason": "no_clean_japanese_main_name",
+      "rawType": "highway:residential",
+      "displayName": "入船三丁目, 入船, 中央区, 東京都, 104-0044, 日本"
+    },
+    {
+      "id": "building_p5f_sample_not_recommended_007",
+      "objectType": "building",
+      "reason": "online_result_wrong_object_type",
+      "rawName": "築地市場駅A1",
+      "rawType": "railway:subway_entrance"
+    },
+    {
+      "id": "building_p5f_sample_unknown_006",
+      "objectType": "building",
+      "reason": "no_clean_japanese_main_name",
+      "rawType": "amenity:toilets",
+      "displayName": "隅田川テラス, 佃一丁目, 佃, 中央区, 東京都, 104-0052, 日本"
+    },
+    {
+      "id": "building_p8_plateau_highrise_candidate_027",
+      "objectType": "building",
+      "reason": "online_result_wrong_object_type",
+      "rawName": "やまや",
+      "rawType": "amenity:restaurant"
+    },
+    {
+      "id": "building_p8_plateau_highrise_candidate_028",
+      "objectType": "building",
+      "reason": "no_clean_japanese_main_name",
+      "rawType": "highway:unclassified",
+      "displayName": "勝どき一丁目, 勝どき, 中央区, 東京都, 104-0054, 日本"
+    },
+    {
+      "id": "building_p8_plateau_highrise_candidate_030",
+      "objectType": "building",
+      "reason": "no_clean_japanese_main_name",
+      "rawType": "highway:residential",
+      "displayName": "日本橋人形町一丁目, 日本橋人形町, 中央区, 東京都, 103-0014, 日本"
+    },
+    {
+      "id": "building_p8_plateau_highrise_candidate_031",
+      "objectType": "building",
+      "reason": "no_clean_japanese_main_name",
+      "rawType": "amenity:restaurant",
+      "displayName": "1, 日本橋室町三丁目, 日本橋室町, 中央区, 東京都, 103-0022, 日本"
+    },
+    {
+      "id": "building_p8_plateau_highrise_candidate_033",
+      "objectType": "building",
+      "reason": "no_clean_japanese_main_name",
+      "rawType": "office:company",
+      "displayName": "Takeda Pharmaceuticals Headquarters, 1, 日本橋本町二丁目, 日本橋本町, 中央区, 東京都, 103-0023, 日本"
+    },
+    {
+      "id": "building_p8_plateau_highrise_candidate_034",
+      "objectType": "building",
+      "reason": "no_clean_japanese_main_name",
+      "rawType": "amenity:restaurant",
+      "displayName": "1, 京橋三丁目, 京橋, 中央区, 東京都, 104-0031, 日本"
+    },
+    {
+      "id": "building_p8_plateau_highrise_candidate_035",
+      "objectType": "building",
+      "reason": "online_result_wrong_object_type",
+      "rawName": "三井のリパーク",
+      "rawType": "amenity:parking"
+    },
+    {
+      "id": "building_p8_plateau_highrise_candidate_037",
+      "objectType": "building",
+      "reason": "no_clean_japanese_main_name",
+      "rawType": "office:company",
+      "displayName": "海岸通り, 銀座八丁目, 銀座, 中央区, 東京都, 104-0061, 日本"
+    }
+  ],
+  "finalStatus": "passed"
+}

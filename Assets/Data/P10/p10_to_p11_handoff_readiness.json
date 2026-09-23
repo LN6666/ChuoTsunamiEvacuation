@@ -1,0 +1,23 @@
+﻿{
+    "activeScene":  "Assets/Scenes/Chuo_BaseMap.unity",
+    "finalTempExePath":  "D:/UnityProjects/ChuoTsunamiEvacuation-Builds/NewMapFinalP10TuningPre/ChuoTsunamiEvacuation_NewMapFinalP10TuningPre.exe",
+    "stamina":  3500.0,
+    "sprintSpeedReductionPercent":  20.0,
+    "newEvacuationSprintSpeedMetersPerSecond":  4.59,
+    "currentKnownLimitations":  [
+                                    "remaining building-floating outliers require manual visual review",
+                                    "routes remain estimated prototype guidance, not official evacuation routes",
+                                    "non-official candidates remain warning-only and are not official shelters",
+                                    "P11 will handle final release/package/archive/final RC review"
+                                ],
+    "p11Reminder":  "Do not create final release/package/archive until P11.",
+    "generatedAt":  "2026-05-31T02:29:59",
+    "latestCommitHash":  "913d838ee0a72a7daaed4cccd216a0f9807c896d",
+    "p10FinalTuningStatus":  "validated",
+    "manualTestReady":  true,
+    "readinessDecision":  "ready_for_p11_handoff_after_user_confirmation",
+    "playerLogResult":  "passed_clean",
+    "editModeResult":  "passed_127_of_127",
+    "playModeResult":  "passed_43_of_43",
+    "deepSeekVerdict":  "PASS_no_A_level_blockers_deepseek_review_20260531_023810"
+}

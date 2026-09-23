@@ -1,0 +1,10 @@
+{
+  "enabled": true,
+  "defaultShrinkFactorXZ": 0.85,
+  "nearRoadShrinkFactorXZ": 0.75,
+  "nearTargetClearanceMeters": 4.0,
+  "nearSpawnClearanceMeters": 6.0,
+  "maxProxySizeMeters": 60.0,
+  "splitOversizedProxies": true,
+  "disableProxyIfStillBlocksApproach": true
+}

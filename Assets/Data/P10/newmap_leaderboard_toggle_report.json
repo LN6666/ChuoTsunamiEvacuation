@@ -1,0 +1,21 @@
+﻿{
+    "activeScene":  "Assets/Scenes/Chuo_BaseMap.unity",
+    "enabled":  true,
+    "toggleKey":  "R",
+    "pressRShowsRankingPanel":  true,
+    "pressRAgainHidesRankingPanel":  true,
+    "worksInTourismMode":  true,
+    "worksInEvacuationMode":  true,
+    "ignoredWhenStartMenuRulesPauseResultActive":  true,
+    "rankingAutoRefreshesWhileVisible":  true,
+    "rankingAutoRefreshIntervalSeconds":  0.5,
+    "rankingMixesOfficialAndNonOfficialTargets":  true,
+    "topRankMatchesRedLine":  true,
+    "noTargetsMessage":  "No active targets.",
+    "officialNonOfficialWarningsPreserved":  true,
+    "routeWording":  "estimated prototype guidance only",
+    "uiCreatesBlockingColliders":  false,
+    "generatedAt":  "2026-05-30T06:12:18",
+    "runtimeToggleSmokePassed":  true,
+    "finalStatus":  "validated_by_player_log"
+}

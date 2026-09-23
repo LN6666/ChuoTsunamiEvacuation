@@ -1,0 +1,17 @@
+{
+  "generatedAt": "2026-05-27T03:13:20+09:00",
+  "activeScene": "Assets/Scenes/Chuo_BaseMap.unity",
+  "phase": "P5",
+  "finalStatus": "completed_with_documented_runtime_proxy",
+  "officialShelterAnchorRecovery": "completed_on_new_chuo_basemap",
+  "routeGeometryStatus": "blocked_transform_unknown",
+  "oldRouteRecords": 135,
+  "oldRouteValidatedOnNewMapCount": 0,
+  "oldRouteDisabledCount": 135,
+  "localProxyRouteGuideCount": 4,
+  "officialRouteClaimCount": 0,
+  "prototypeGuidanceWording": "estimated prototype guidance; not an official evacuation route; not GIS-validated",
+  "activeOfficialShelterCount": 15,
+  "activeTrainingTargetCount": 4,
+  "disabledReasonForOldRoutes": "No verified WGS84-to-Unity route transform exists for Chuo_BaseMap."
+}

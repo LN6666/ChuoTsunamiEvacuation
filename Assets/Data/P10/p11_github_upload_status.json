@@ -1,0 +1,21 @@
+{
+  "generatedAt": "2026-05-31T03:40:23+09:00",
+  "branch": "phase5-qualification-routing-plateau",
+  "commitMessage": "release(p11): prepare final playable package and documentation",
+  "sourceCommitHash": "36a69558c1163777a4883bb646ce2201059ffc4b",
+  "remote": "origin",
+  "repository": "https://github.com/LN6666/ChuoTsunamiEvacuation",
+  "gitPushStatus": "pushed",
+  "pushedAt": "2026-05-31T03:27:00+09:00",
+  "buildArtifactsCommitted": false,
+  "excludedArtifacts": [
+    "D:/UnityProjects/ChuoTsunamiEvacuation-Releases/ChuoTsunamiEvacuation_v1.0",
+    "D:/UnityProjects/ChuoTsunamiEvacuation-Releases/ChuoTsunamiEvacuation_v1.0.zip",
+    "Library",
+    "Temp",
+    "Logs",
+    "Assets/Scenes/Chuo_BaseMap.unity",
+    "Assets/Scenes/Chuo_GroundRoad_Import_Source.unity"
+  ],
+  "finalStatus": "source_commit_pushed_build_artifacts_excluded"
+}

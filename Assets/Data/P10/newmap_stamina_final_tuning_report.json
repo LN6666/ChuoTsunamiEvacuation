@@ -1,0 +1,16 @@
+{
+  "generatedAt": "2026-05-30T08:00:00+09:00",
+  "configPath": "Assets/Data/P10/newmap_player_stamina_config.json",
+  "oldBaselineStamina": 100.0,
+  "oldMultiplier": 200.0,
+  "oldFinalStamina": 20000.0,
+  "newBaselineStamina": 100.0,
+  "newMultiplier": 130.0,
+  "newFinalStamina": 13000.0,
+  "reductionPercent": 35.0,
+  "tourismModeStaminaDisabled": true,
+  "evacuationModeStaminaEnabled": true,
+  "staminaUiStillExpected": true,
+  "exhaustionRecoveryStillExpected": true,
+  "runtimeStatus": "validated_by_player_log"
+}

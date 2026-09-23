@@ -1,0 +1,18 @@
+{
+  "enabled": true,
+  "raisePercent": 0.3,
+  "baselineMode": "existing_raise_offset",
+  "nearZeroGroundYThresholdMeters": 1.0,
+  "absoluteGroundYThresholdMeters": 1.0,
+  "useExistingRaiseOffsetWhenNearZero": true,
+  "minFallbackDeltaMeters": 0.3,
+  "maxFallbackDeltaMeters": 2.0,
+  "fallbackDeltaMeters": 0.9,
+  "maxTotalRaiseOffsetMeters": 10.0,
+  "resnapPlayer": true,
+  "resnapNpc": true,
+  "resnapTargets": true,
+  "resnapGreenFrames": true,
+  "resnapRouteMarkers": true,
+  "resnapAirWallVerticalRange": true
+}

@@ -1,0 +1,33 @@
+{
+  "generatedAt": "2026-05-29T00:00:00+09:00",
+  "activeScene": "Assets/Scenes/Chuo_BaseMap.unity",
+  "manualFeedbackAddressed": "gameplay support/player ground must align with visible city surface and building bases",
+  "runtimeGroundReference": "renderer_bounds_low_percentile_building_base",
+  "oldSupportY": 0.0,
+  "newSupportY": 1.97,
+  "playerSpawnY": 2.01,
+  "sampledBuildingBaseY": 1.97,
+  "sampledMapMinY": -8.52,
+  "visualGroundSampleCount": 12754,
+  "finalSupportToVisualDifference": 0.0,
+  "activeTargetMaxHeightOffset": 3.27,
+  "activeTargetHeightOffsetViolations": 2,
+  "fallRecoveryCountInSmoke": 0,
+  "latestPlayerLogErrors": 0,
+  "latestPlayerLogWarnings": 0,
+  "playerSpawnOffsetAboveSupportMeters": 0.04,
+  "supportToVisualToleranceMeters": 0.35,
+  "buildingBaseSampling": {
+    "sample": "renderer.bounds.min.y",
+    "referencePercentile": 10,
+    "ignoredRendererTypes": [
+      "runtime NewMap visuals",
+      "UI/canvas renderers",
+      "line/trail renderers"
+    ]
+  },
+  "targetHeightAlignment": "recovered runtime candidate anchors are aligned to player/support height; official anchors use exact renderer base when GML object exists",
+  "fallRecoveryExpected": "safety_only_zero_repeated_recovery_expected",
+  "remainingLimitation": "A single flat gameplay support plane cannot perfectly match every elevated terrain/building base across the full Chuo map; player-spawn support is aligned to the sampled visual base, while 2 active target anchors remain more than 2.5m from the support height and need manual visual classification.",
+  "finalStatus": "player_log_validated_manual_visible_confirmation_remaining"
+}

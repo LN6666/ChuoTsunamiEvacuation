@@ -1,0 +1,23 @@
+﻿{
+    "activeScene":  "Assets/Scenes/Chuo_BaseMap.unity",
+    "configPath":  "Assets/Data/P10/newmap_building_collision_precision_config.json",
+    "collisionPolicy":  "only ground/support, tight building footprint proxies, NPC body/soft-blocking, and circular boundary block the player",
+    "implementation":  "runtime building avoidance bounds are derived per building-like renderer from projected mesh vertices where possible; bounds are shrunk on X/Z, capped at 80m by 80m, normalized to 5m player-relevant height, and split around active target interaction clearance zones",
+    "oldInflatedBoundsHandling":  "oversized cluster/root bounds are skipped instead of kept active beside new tight proxies",
+    "splitCollidersCreated":  0,
+    "notGisGradeFootprintAccuracyClaim":  true,
+    "generatedAt":  "2026-05-30T07:10:45",
+    "originalBuildingCollidersCount":  10788,
+    "inflatedCollidersFound":  101,
+    "collidersDisabledOrSkipped":  102,
+    "tightFootprintProxiesCreated":  10686,
+    "skippedBuildings":  101,
+    "activeTargetClearanceZones":  46,
+    "targetClearanceBoundsSplit":  226,
+    "targetClearanceBoundsRemoved":  12,
+    "averageShrinkRatio":  0.81,
+    "maxColliderSizeAfterFixMeters":  "71.53x5x71.01",
+    "sampledRoadOpenSpaceCollisionsBeforeAfter":  "sampled=516; unexpectedAfter=0; activeTargetApproachBlockedAfter=0",
+    "remainingSuspectedBlockers":  0,
+    "finalStatus":  "validated_by_player_log"
+}

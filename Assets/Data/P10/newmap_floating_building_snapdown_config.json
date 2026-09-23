@@ -1,0 +1,8 @@
+{
+  "enabled": true,
+  "floatingGapThresholdMeters": 0.5,
+  "maxSnapdownMeters": 8.0,
+  "useGameplayGroundCoverAsReference": true,
+  "preserveXZRotationScale": true,
+  "strategy": "runtime_visual_building_snapdown_to_gameplay_ground_cover_not_gis_grade"
+}

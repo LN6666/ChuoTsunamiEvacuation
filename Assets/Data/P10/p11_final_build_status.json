@@ -1,0 +1,21 @@
+﻿{
+    "generatedAt":  "2026-05-31T04:30:58",
+    "buildResult":  "passed",
+    "unityExitCode":  0,
+    "unityVersion":  "6000.4.6f1",
+    "buildPath":  "D:\\UnityProjects\\ChuoTsunamiEvacuation-Releases\\ChuoTsunamiEvacuation_v1.0",
+    "exePath":  "D:\\UnityProjects\\ChuoTsunamiEvacuation-Releases\\ChuoTsunamiEvacuation_v1.0\\ChuoTsunamiEvacuation.exe",
+    "dataFolder":  "D:\\UnityProjects\\ChuoTsunamiEvacuation-Releases\\ChuoTsunamiEvacuation_v1.0\\ChuoTsunamiEvacuation_Data",
+    "includedScenes":  [
+                           "Assets/Scenes/Chuo_BaseMap.unity"
+                       ],
+    "buildSizeBytes":  6640135262,
+    "warnings":  [
+
+                 ],
+    "errors":  [
+
+               ],
+    "folderComplete":  true,
+    "releaseDocsCopied":  true
+}

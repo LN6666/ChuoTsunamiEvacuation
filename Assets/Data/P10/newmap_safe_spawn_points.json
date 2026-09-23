@@ -1,0 +1,66 @@
+{
+  "activeScene": "Assets/Scenes/Chuo_BaseMap.unity",
+  "coordinateStatus": "playable_ground_proxy_verified",
+  "records": [
+    {
+      "id": "newmap_safe_spawn_01",
+      "position": {
+        "x": 0,
+        "y": 0,
+        "z": 420
+      },
+      "sourceReason": "Fallback playable-ground proxy point near the documented central NewMap runtime area. Building-overlap validation still runs before use.",
+      "roadPlayableGroundStatus": "playable_ground_proxy_verified",
+      "nearbyActiveTargets": "runtime official/candidate targets are height-aligned after spawn; no official road geometry claimed",
+      "modeCompatibility": "tourism_and_evacuation"
+    },
+    {
+      "id": "newmap_safe_spawn_02",
+      "position": {
+        "x": 120,
+        "y": 0,
+        "z": 420
+      },
+      "sourceReason": "Alternate playable-ground proxy point east of fallback for random-spawn retries.",
+      "roadPlayableGroundStatus": "playable_ground_proxy_verified",
+      "nearbyActiveTargets": "runtime target proximity not used as official road evidence",
+      "modeCompatibility": "tourism_and_evacuation"
+    },
+    {
+      "id": "newmap_safe_spawn_03",
+      "position": {
+        "x": -120,
+        "y": 0,
+        "z": 420
+      },
+      "sourceReason": "Alternate playable-ground proxy point west of fallback for random-spawn retries.",
+      "roadPlayableGroundStatus": "playable_ground_proxy_verified",
+      "nearbyActiveTargets": "runtime target proximity not used as official road evidence",
+      "modeCompatibility": "tourism_and_evacuation"
+    },
+    {
+      "id": "newmap_safe_spawn_04",
+      "position": {
+        "x": 0,
+        "y": 0,
+        "z": 620
+      },
+      "sourceReason": "Alternate playable-ground proxy point north of fallback for wider retries.",
+      "roadPlayableGroundStatus": "playable_ground_proxy_verified",
+      "nearbyActiveTargets": "runtime target proximity not used as official road evidence",
+      "modeCompatibility": "tourism_and_evacuation"
+    },
+    {
+      "id": "newmap_safe_spawn_05",
+      "position": {
+        "x": 180,
+        "y": 0,
+        "z": 620
+      },
+      "sourceReason": "Wider alternate playable-ground proxy point for building-overlap rejection fallback.",
+      "roadPlayableGroundStatus": "playable_ground_proxy_verified",
+      "nearbyActiveTargets": "runtime target proximity not used as official road evidence",
+      "modeCompatibility": "tourism_and_evacuation"
+    }
+  ]
+}

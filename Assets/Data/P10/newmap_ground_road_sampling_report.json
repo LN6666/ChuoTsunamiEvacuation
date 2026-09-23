@@ -1,0 +1,40 @@
+{
+    "generatedAt": "2026-05-29T13:03:18+09:00",
+    "sourceScenePath": "Assets/Scenes/Chuo_GroundRoad_Import_Source.unity",
+    "totalSamples": 2520,
+    "usableSupportSamples": 2520,
+    "roadSamples": 0,
+    "terrainSamples": 0,
+    "reliefSamples": 20,
+    "bridgeSamples": 0,
+    "waterSamples": 0,
+    "fallbackBuildingBaseSamples": 2500,
+    "rejectedSamples": 0,
+    "yMin": -2.200000047683716,
+    "yMax": 9.30000114440918,
+    "yAverage": 3.0949008464813234,
+    "spatialCoverage": {
+        "min": {
+            "x": -1449.09912109375,
+            "y": -8.850000381469727,
+            "z": -2567.148681640625
+        },
+        "max": {
+            "x": 1445.90087890625,
+            "y": 9.30000114440918,
+            "z": 2567.851318359375
+        },
+        "center": {
+            "x": -1.59912109375,
+            "y": 0.22500038146972657,
+            "z": 0.351318359375
+        },
+        "size": {
+            "x": 2895.0,
+            "y": 18.150001525878908,
+            "z": 5135.0
+        }
+    },
+    "sampleDensityPerSquareKm": 169.51632690429688,
+    "limitation": "Samples are renderer/collider-derived proxy heights. This is not GIS-grade terrain validation."
+}

@@ -1,0 +1,12 @@
+{
+  "reviewPrompt": "deepseek_review_prompt_newmap_building_collision_precision.md",
+  "requestedReview": true,
+  "attempted": true,
+  "attempts": 2,
+  "firstAttemptResult": "failed_api_connection_error",
+  "escalatedAttemptResult": "failed_api_connection_error",
+  "verdict": "unavailable_external_api_connection_error",
+  "localValidationStatus": "passed_preflight_editmode_playmode_build_smoke_player_log_parse",
+  "aLevelBlockersFromDeepSeek": "not_available_review_did_not_complete",
+  "note": "DeepSeek API disconnected without a response after retries. This is recorded as an external review outage, not a local validation failure."
+}

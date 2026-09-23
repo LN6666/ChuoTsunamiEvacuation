@@ -1,0 +1,14 @@
+{
+  "generatedAt": "2026-05-30T08:00:00+09:00",
+  "configPath": "Assets/Data/P10/newmap_tsunami_mode_hotfix_config.json",
+  "oldWarningDurationSeconds": 300.0,
+  "newWarningDurationSeconds": 180.0,
+  "preWarningWaitSettingPreserved": true,
+  "preWarningRandomMaxSeconds": 180.0,
+  "activeTsunamiTriggerLogicPreserved": true,
+  "hazardFailureInactiveBeforeActiveTsunami": true,
+  "directShelterGuidancePreserved": true,
+  "tourismModeDisablesTsunami": true,
+  "evacuationModeUsesThreeMinuteWarning": true,
+  "runtimeStatus": "validated_by_player_log"
+}

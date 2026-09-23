@@ -1,0 +1,29 @@
+{
+  "generatedAt": "2026-05-29T00:00:00+09:00",
+  "activeScene": "Assets/Scenes/Chuo_BaseMap.unity",
+  "manualFeedbackAddressed": "both left mouse drag and right mouse drag rotate the camera; mouse movement alone does not rotate",
+  "enabled": true,
+  "lookRequiresMouseButton": true,
+  "legacyLookMouseButton": "RightMouse",
+  "allowedButtons": [
+    "LeftMouse",
+    "RightMouse"
+  ],
+  "cursorVisibleWhenNotDragging": true,
+  "tourismModeSupported": true,
+  "evacuationModeSupported": true,
+  "pauseMenuResultCursorUse": "cursor_unlocked_visible_when_gameplay_control_disabled_or_not_dragging",
+  "diagnosticTests": [
+    "mouse movement without button does not rotate",
+    "left mouse drag rotates yaw and pitch",
+    "right mouse drag rotates yaw and pitch",
+    "pause disables drag look",
+    "resume restores drag-look availability",
+    "start menu/result states keep cursor usable"
+  ],
+  "editModeResult": "passed_114_114",
+  "playModeResult": "passed_27_27",
+  "playerSmoke": "passed_mouse_left_right_drag_look",
+  "deepSeekVerdict": "passed_no_A_level_blockers_newmap_spawn_mouse_fix",
+  "finalStatus": "validated_by_tests_and_player_smoke_physical_manual_confirmation_remaining"
+}

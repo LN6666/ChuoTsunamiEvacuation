@@ -1,0 +1,671 @@
+{
+  "generatedAt": "2026-05-30T21:41:16+09:00",
+  "activeScene": "Assets/Scenes/Chuo_BaseMap.unity",
+  "runtimeNetworkRequestsAllowed": false,
+  "queryCandidateCount": 32,
+  "queryCount": 32,
+  "enabledForOnlineLookupCount": 19,
+  "resolvedFromLocalOrSourceCount": 13,
+  "coordinateMissingCount": 0,
+  "maxQueriesPerRun": 120,
+  "items": [
+    {
+      "candidateId": "p8_plateau_highrise_candidate_027",
+      "currentDisplayName": "13102-bldg-10689",
+      "reasonForQuery": "id_only",
+      "lat": 35.67735082,
+      "lon": 139.76971937,
+      "unityPosition": {
+        "x": -59.36,
+        "y": 0.08,
+        "z": 25.913
+      },
+      "sourceCoordinateStatus": "epsg4326_from_recovery",
+      "nonOfficialWarningRequired": true,
+      "isOfficialShelter": false,
+      "activePlayable": true,
+      "onlineLookupEnabled": true,
+      "localResolutionStatus": "unresolved",
+      "timestamp": "2026-05-30T21:41:16+09:00",
+      "onlineResolutionStatus": "resolved_from_overpass",
+      "resolvedName": "やまや"
+    },
+    {
+      "candidateId": "p8_plateau_highrise_candidate_029",
+      "currentDisplayName": "13102-bldg-2255",
+      "reasonForQuery": "id_only",
+      "lat": 35.6696309,
+      "lon": 139.76797682,
+      "unityPosition": {
+        "x": -202.78,
+        "y": 0.08,
+        "z": -825.027
+      },
+      "sourceCoordinateStatus": "epsg4326_from_recovery",
+      "nonOfficialWarningRequired": true,
+      "isOfficialShelter": false,
+      "activePlayable": true,
+      "onlineLookupEnabled": false,
+      "localResolutionStatus": "resolved_from_project_or_local_osm_cache",
+      "timestamp": "2026-05-30T21:41:16+09:00",
+      "resolvedName": "歌舞伎座ギャラリー"
+    },
+    {
+      "candidateId": "p8_plateau_highrise_candidate_030",
+      "currentDisplayName": "13102-bldg-12573",
+      "reasonForQuery": "id_only",
+      "lat": 35.6836762,
+      "lon": 139.78323672,
+      "unityPosition": {
+        "x": 1168.343,
+        "y": 0.08,
+        "z": 725.078
+      },
+      "sourceCoordinateStatus": "epsg4326_from_recovery",
+      "nonOfficialWarningRequired": true,
+      "isOfficialShelter": false,
+      "activePlayable": true,
+      "onlineLookupEnabled": true,
+      "localResolutionStatus": "unresolved",
+      "timestamp": "2026-05-30T21:41:16+09:00",
+      "onlineResolutionStatus": "resolved_from_overpass",
+      "resolvedName": "茶ノ木神社"
+    },
+    {
+      "candidateId": "p8_plateau_highrise_candidate_031",
+      "currentDisplayName": "13102-bldg-6714",
+      "reasonForQuery": "id_only",
+      "lat": 35.68789842,
+      "lon": 139.77242145,
+      "unityPosition": {
+        "x": 201.729,
+        "y": 0.08,
+        "z": 1201.123
+      },
+      "sourceCoordinateStatus": "epsg4326_from_recovery",
+      "nonOfficialWarningRequired": true,
+      "isOfficialShelter": false,
+      "activePlayable": true,
+      "onlineLookupEnabled": true,
+      "localResolutionStatus": "unresolved",
+      "timestamp": "2026-05-30T21:41:16+09:00",
+      "onlineResolutionStatus": "resolved_from_overpass",
+      "resolvedName": "日本橋室町三井タワー [COREDO室町テラス]"
+    },
+    {
+      "candidateId": "p8_plateau_highrise_candidate_032",
+      "currentDisplayName": "13102-bldg-3863",
+      "reasonForQuery": "id_only",
+      "lat": 35.68047919,
+      "lon": 139.77441959,
+      "unityPosition": {
+        "x": 372.51,
+        "y": 0.08,
+        "z": 368.798
+      },
+      "sourceCoordinateStatus": "epsg4326_from_recovery",
+      "nonOfficialWarningRequired": true,
+      "isOfficialShelter": false,
+      "activePlayable": true,
+      "onlineLookupEnabled": false,
+      "localResolutionStatus": "resolved_from_project_or_local_osm_cache",
+      "timestamp": "2026-05-30T21:41:16+09:00",
+      "resolvedName": "ポケモンセンター"
+    },
+    {
+      "candidateId": "p8_plateau_highrise_candidate_033",
+      "currentDisplayName": "13102-bldg-3899",
+      "reasonForQuery": "id_only",
+      "lat": 35.68756826,
+      "lon": 139.77461746,
+      "unityPosition": {
+        "x": 383.434,
+        "y": 0.08,
+        "z": 1171.321
+      },
+      "sourceCoordinateStatus": "epsg4326_from_recovery",
+      "nonOfficialWarningRequired": true,
+      "isOfficialShelter": false,
+      "activePlayable": true,
+      "onlineLookupEnabled": true,
+      "localResolutionStatus": "unresolved",
+      "timestamp": "2026-05-30T21:41:16+09:00",
+      "onlineResolutionStatus": "resolved_from_overpass",
+      "resolvedName": "武田グローバル本社"
+    },
+    {
+      "candidateId": "p8_plateau_highrise_candidate_034",
+      "currentDisplayName": "13102-bldg-2335",
+      "reasonForQuery": "id_only",
+      "lat": 35.67594771,
+      "lon": 139.76898659,
+      "unityPosition": {
+        "x": -139.7,
+        "y": 0.08,
+        "z": -117.632
+      },
+      "sourceCoordinateStatus": "epsg4326_from_recovery",
+      "nonOfficialWarningRequired": true,
+      "isOfficialShelter": false,
+      "activePlayable": true,
+      "onlineLookupEnabled": true,
+      "localResolutionStatus": "unresolved",
+      "timestamp": "2026-05-30T21:41:16+09:00",
+      "onlineResolutionStatus": "resolved_from_overpass",
+      "resolvedName": "東京スクエアガーデン"
+    },
+    {
+      "candidateId": "p8_plateau_highrise_candidate_036",
+      "currentDisplayName": "13102-bldg-10502",
+      "reasonForQuery": "id_only",
+      "lat": 35.68677303,
+      "lon": 139.77481805,
+      "unityPosition": {
+        "x": 411.26,
+        "y": 0.08,
+        "z": 1087.709
+      },
+      "sourceCoordinateStatus": "epsg4326_from_recovery",
+      "nonOfficialWarningRequired": true,
+      "isOfficialShelter": false,
+      "activePlayable": true,
+      "onlineLookupEnabled": false,
+      "localResolutionStatus": "resolved_from_project_or_local_osm_cache",
+      "timestamp": "2026-05-30T21:41:16+09:00",
+      "resolvedName": "ヴィノスやまざき"
+    },
+    {
+      "candidateId": "p8_plateau_highrise_candidate_039",
+      "currentDisplayName": "13102-bldg-7305",
+      "reasonForQuery": "id_only",
+      "lat": 35.68365315,
+      "lon": 139.7718788,
+      "unityPosition": {
+        "x": 131.62,
+        "y": 0.08,
+        "z": 740.663
+      },
+      "sourceCoordinateStatus": "epsg4326_from_recovery",
+      "nonOfficialWarningRequired": true,
+      "isOfficialShelter": false,
+      "activePlayable": true,
+      "onlineLookupEnabled": true,
+      "localResolutionStatus": "unresolved",
+      "timestamp": "2026-05-30T21:41:16+09:00",
+      "onlineResolutionStatus": "resolved_from_overpass",
+      "resolvedName": "八重洲一丁目北地区第一種市街地再開発事業"
+    },
+    {
+      "candidateId": "p8_plateau_highrise_candidate_040",
+      "currentDisplayName": "13102-bldg-5817",
+      "reasonForQuery": "id_only",
+      "lat": 35.67784705,
+      "lon": 139.77002836,
+      "unityPosition": {
+        "x": -20.257,
+        "y": 0.08,
+        "z": 78.471
+      },
+      "sourceCoordinateStatus": "epsg4326_from_recovery",
+      "nonOfficialWarningRequired": true,
+      "isOfficialShelter": false,
+      "activePlayable": true,
+      "onlineLookupEnabled": true,
+      "localResolutionStatus": "unresolved",
+      "timestamp": "2026-05-30T21:41:16+09:00",
+      "onlineResolutionStatus": "resolved_from_overpass",
+      "resolvedName": "京橋トラストタワー"
+    },
+    {
+      "candidateId": "p8_plateau_highrise_candidate_041",
+      "currentDisplayName": "13102-bldg-3894",
+      "reasonForQuery": "id_only",
+      "lat": 35.6683441,
+      "lon": 139.76954689,
+      "unityPosition": {
+        "x": -78.335,
+        "y": 0.08,
+        "z": -979.007
+      },
+      "sourceCoordinateStatus": "epsg4326_from_recovery",
+      "nonOfficialWarningRequired": true,
+      "isOfficialShelter": false,
+      "activePlayable": true,
+      "onlineLookupEnabled": true,
+      "localResolutionStatus": "unresolved",
+      "timestamp": "2026-05-30T21:41:16+09:00",
+      "onlineResolutionStatus": "resolved_from_overpass",
+      "resolvedName": "銀座松竹スクエア"
+    },
+    {
+      "candidateId": "p8_plateau_highrise_candidate_042",
+      "currentDisplayName": "13102-bldg-10130",
+      "reasonForQuery": "id_only",
+      "lat": 35.67641435,
+      "lon": 139.77296379,
+      "unityPosition": {
+        "x": 245.985,
+        "y": 0.08,
+        "z": -70.237
+      },
+      "sourceCoordinateStatus": "epsg4326_from_recovery",
+      "nonOfficialWarningRequired": true,
+      "isOfficialShelter": false,
+      "activePlayable": true,
+      "onlineLookupEnabled": true,
+      "localResolutionStatus": "unresolved",
+      "timestamp": "2026-05-30T21:41:16+09:00",
+      "onlineResolutionStatus": "resolved_from_nominatim",
+      "resolvedName": "雪月花 カフェ京橋店"
+    },
+    {
+      "candidateId": "p8_plateau_highrise_candidate_043",
+      "currentDisplayName": "13102-bldg-4457",
+      "reasonForQuery": "id_only",
+      "lat": 35.68741906,
+      "lon": 139.77379663,
+      "unityPosition": {
+        "x": 327.287,
+        "y": 0.08,
+        "z": 1141.501
+      },
+      "sourceCoordinateStatus": "epsg4326_from_recovery",
+      "nonOfficialWarningRequired": true,
+      "isOfficialShelter": false,
+      "activePlayable": true,
+      "onlineLookupEnabled": true,
+      "localResolutionStatus": "unresolved",
+      "timestamp": "2026-05-30T21:41:16+09:00",
+      "onlineResolutionStatus": "resolved_from_overpass",
+      "resolvedName": "SBI新生銀行"
+    },
+    {
+      "candidateId": "p8_plateau_highrise_candidate_044",
+      "currentDisplayName": "13102-bldg-8892",
+      "reasonForQuery": "id_only",
+      "lat": 35.68669659,
+      "lon": 139.77418322,
+      "unityPosition": {
+        "x": 353.245,
+        "y": 0.08,
+        "z": 1065.868
+      },
+      "sourceCoordinateStatus": "epsg4326_from_recovery",
+      "nonOfficialWarningRequired": true,
+      "isOfficialShelter": false,
+      "activePlayable": true,
+      "onlineLookupEnabled": true,
+      "localResolutionStatus": "unresolved",
+      "timestamp": "2026-05-30T21:41:16+09:00",
+      "onlineResolutionStatus": "resolved_from_overpass",
+      "resolvedName": "COREDO室町1 (室町東三井ビルディング)"
+    },
+    {
+      "candidateId": "p8_plateau_highrise_candidate_045",
+      "currentDisplayName": "13102-bldg-11187",
+      "reasonForQuery": "id_only",
+      "lat": 35.6742822,
+      "lon": 139.78432281,
+      "unityPosition": {
+        "x": 1268.47,
+        "y": 0.08,
+        "z": -314.367
+      },
+      "sourceCoordinateStatus": "epsg4326_from_recovery",
+      "nonOfficialWarningRequired": true,
+      "isOfficialShelter": false,
+      "activePlayable": true,
+      "onlineLookupEnabled": true,
+      "localResolutionStatus": "unresolved",
+      "timestamp": "2026-05-30T21:41:16+09:00",
+      "onlineResolutionStatus": "resolved_from_nominatim",
+      "resolvedName": "明正通り"
+    },
+    {
+      "candidateId": "p8_plateau_highrise_candidate_060",
+      "currentDisplayName": "13102-bldg-2237",
+      "reasonForQuery": "id_only",
+      "lat": 35.68289942,
+      "lon": 139.77181559,
+      "unityPosition": {
+        "x": 139.26,
+        "y": 0.08,
+        "z": 639.433
+      },
+      "sourceCoordinateStatus": "epsg4326_from_recovery",
+      "nonOfficialWarningRequired": true,
+      "isOfficialShelter": false,
+      "activePlayable": true,
+      "onlineLookupEnabled": false,
+      "localResolutionStatus": "resolved_from_project_or_local_osm_cache",
+      "timestamp": "2026-05-30T21:41:16+09:00",
+      "resolvedName": "信金中央金庫"
+    },
+    {
+      "candidateId": "p8_plateau_highrise_candidate_063",
+      "currentDisplayName": "13102-bldg-5143",
+      "reasonForQuery": "id_only",
+      "lat": 35.67120825,
+      "lon": 139.78070967,
+      "unityPosition": {
+        "x": 938.065,
+        "y": 0.08,
+        "z": -649.572
+      },
+      "sourceCoordinateStatus": "epsg4326_from_recovery",
+      "nonOfficialWarningRequired": true,
+      "isOfficialShelter": false,
+      "activePlayable": true,
+      "onlineLookupEnabled": false,
+      "localResolutionStatus": "resolved_from_project_or_local_osm_cache",
+      "timestamp": "2026-05-30T21:41:16+09:00",
+      "resolvedName": "デリド湊店"
+    },
+    {
+      "candidateId": "p8_plateau_highrise_candidate_074",
+      "currentDisplayName": "13102-bldg-6110",
+      "reasonForQuery": "id_only",
+      "lat": 35.6838522,
+      "lon": 139.77790587,
+      "unityPosition": {
+        "x": 678.72,
+        "y": 0.08,
+        "z": 753.063
+      },
+      "sourceCoordinateStatus": "epsg4326_from_recovery",
+      "nonOfficialWarningRequired": true,
+      "isOfficialShelter": false,
+      "activePlayable": true,
+      "onlineLookupEnabled": false,
+      "localResolutionStatus": "resolved_from_project_or_local_osm_cache",
+      "timestamp": "2026-05-30T21:41:16+09:00",
+      "resolvedName": "日本橋ダイヤビルディング"
+    },
+    {
+      "candidateId": "p8_plateau_highrise_candidate_076",
+      "currentDisplayName": "13102-bldg-6383",
+      "reasonForQuery": "id_only",
+      "lat": 35.68217827,
+      "lon": 139.77547485,
+      "unityPosition": {
+        "x": 476.072,
+        "y": 0.08,
+        "z": 567.291
+      },
+      "sourceCoordinateStatus": "epsg4326_from_recovery",
+      "nonOfficialWarningRequired": true,
+      "isOfficialShelter": false,
+      "activePlayable": true,
+      "onlineLookupEnabled": true,
+      "localResolutionStatus": "unresolved",
+      "timestamp": "2026-05-30T21:41:16+09:00",
+      "onlineResolutionStatus": "unresolved_after_online_lookup"
+    },
+    {
+      "candidateId": "p5f_sample_humanitarian_weak_005",
+      "currentDisplayName": "Sample Mid-Rise Commercial Building",
+      "reasonForQuery": "generic_sample_name",
+      "lat": 35.6704,
+      "lon": 139.7764,
+      "unityPosition": {
+        "x": 554.88,
+        "y": 2.18,
+        "z": -740.292
+      },
+      "sourceCoordinateStatus": "epsg4326_from_recovery",
+      "nonOfficialWarningRequired": true,
+      "isOfficialShelter": false,
+      "activePlayable": true,
+      "onlineLookupEnabled": true,
+      "localResolutionStatus": "unresolved",
+      "timestamp": "2026-05-30T21:41:16+09:00",
+      "onlineResolutionStatus": "resolved_from_overpass",
+      "resolvedName": "入船三丁目"
+    },
+    {
+      "candidateId": "p8_plateau_highrise_candidate_083",
+      "currentDisplayName": "13102-bldg-9544",
+      "reasonForQuery": "id_only",
+      "lat": 35.68730969,
+      "lon": 139.77604959,
+      "unityPosition": {
+        "x": 526.465,
+        "y": 0.08,
+        "z": 1134.543
+      },
+      "sourceCoordinateStatus": "epsg4326_from_recovery",
+      "nonOfficialWarningRequired": true,
+      "isOfficialShelter": false,
+      "activePlayable": true,
+      "onlineLookupEnabled": false,
+      "localResolutionStatus": "resolved_from_project_or_local_osm_cache",
+      "timestamp": "2026-05-30T21:41:16+09:00",
+      "resolvedName": "マルエツプチ"
+    },
+    {
+      "candidateId": "p8_plateau_highrise_candidate_086",
+      "currentDisplayName": "13102-bldg-5857",
+      "reasonForQuery": "id_only",
+      "lat": 35.68621988,
+      "lon": 139.77434989,
+      "unityPosition": {
+        "x": 375.15,
+        "y": 0.08,
+        "z": 1004.508
+      },
+      "sourceCoordinateStatus": "epsg4326_from_recovery",
+      "nonOfficialWarningRequired": true,
+      "isOfficialShelter": false,
+      "activePlayable": true,
+      "onlineLookupEnabled": true,
+      "localResolutionStatus": "unresolved",
+      "timestamp": "2026-05-30T21:41:16+09:00",
+      "onlineResolutionStatus": "resolved_from_overpass",
+      "resolvedName": "Coredo室町3 (室町ちばぎん三井ビルディング)"
+    },
+    {
+      "candidateId": "p8_plateau_highrise_candidate_090",
+      "currentDisplayName": "13102-bldg-1894",
+      "reasonForQuery": "id_only",
+      "lat": 35.68131858,
+      "lon": 139.77828475,
+      "unityPosition": {
+        "x": 722.29,
+        "y": 0.08,
+        "z": 469.431
+      },
+      "sourceCoordinateStatus": "epsg4326_from_recovery",
+      "nonOfficialWarningRequired": true,
+      "isOfficialShelter": false,
+      "activePlayable": true,
+      "onlineLookupEnabled": true,
+      "localResolutionStatus": "unresolved",
+      "timestamp": "2026-05-30T21:41:16+09:00",
+      "onlineResolutionStatus": "resolved_from_overpass",
+      "resolvedName": "伊藤園"
+    },
+    {
+      "candidateId": "p8_plateau_highrise_candidate_091",
+      "currentDisplayName": "13102-bldg-8361",
+      "reasonForQuery": "id_only",
+      "lat": 35.67090786,
+      "lon": 139.76882936,
+      "unityPosition": {
+        "x": -172.555,
+        "y": 0.08,
+        "z": -759.755
+      },
+      "sourceCoordinateStatus": "epsg4326_from_recovery",
+      "nonOfficialWarningRequired": true,
+      "isOfficialShelter": false,
+      "activePlayable": true,
+      "onlineLookupEnabled": true,
+      "localResolutionStatus": "unresolved",
+      "timestamp": "2026-05-30T21:41:16+09:00",
+      "onlineResolutionStatus": "resolved_from_overpass",
+      "resolvedName": "眞帆ビル"
+    },
+    {
+      "candidateId": "p8_plateau_highrise_candidate_094",
+      "currentDisplayName": "13102-bldg-4936",
+      "reasonForQuery": "id_only",
+      "lat": 35.67949898,
+      "lon": 139.77385859,
+      "unityPosition": {
+        "x": 322.295,
+        "y": 0.08,
+        "z": 263.248
+      },
+      "sourceCoordinateStatus": "epsg4326_from_recovery",
+      "nonOfficialWarningRequired": true,
+      "isOfficialShelter": false,
+      "activePlayable": true,
+      "onlineLookupEnabled": false,
+      "localResolutionStatus": "resolved_from_project_or_local_osm_cache",
+      "timestamp": "2026-05-30T21:41:16+09:00",
+      "resolvedName": "オンワードパークビルディング"
+    },
+    {
+      "candidateId": "p8_plateau_highrise_candidate_095",
+      "currentDisplayName": "13102-bldg-10170",
+      "reasonForQuery": "id_only",
+      "lat": 35.68264804,
+      "lon": 139.77902042,
+      "unityPosition": {
+        "x": 767.235,
+        "y": 0.08,
+        "z": 617.789
+      },
+      "sourceCoordinateStatus": "epsg4326_from_recovery",
+      "nonOfficialWarningRequired": true,
+      "isOfficialShelter": false,
+      "activePlayable": true,
+      "onlineLookupEnabled": true,
+      "localResolutionStatus": "unresolved",
+      "timestamp": "2026-05-30T21:41:16+09:00",
+      "onlineResolutionStatus": "resolved_from_nominatim",
+      "resolvedName": "東京証券取引所"
+    },
+    {
+      "candidateId": "p8_plateau_highrise_candidate_096",
+      "currentDisplayName": "13102-bldg-6474",
+      "reasonForQuery": "id_only",
+      "lat": 35.6711719,
+      "lon": 139.76640532,
+      "unityPosition": {
+        "x": -346.415,
+        "y": 0.08,
+        "z": -644.762
+      },
+      "sourceCoordinateStatus": "epsg4326_from_recovery",
+      "nonOfficialWarningRequired": true,
+      "isOfficialShelter": false,
+      "activePlayable": true,
+      "onlineLookupEnabled": false,
+      "localResolutionStatus": "resolved_from_project_or_local_osm_cache",
+      "timestamp": "2026-05-30T21:41:16+09:00",
+      "resolvedName": "王子ホール"
+    },
+    {
+      "candidateId": "p8_plateau_highrise_candidate_098",
+      "currentDisplayName": "13102-bldg-970",
+      "reasonForQuery": "id_only",
+      "lat": 35.67528935,
+      "lon": 139.77117181,
+      "unityPosition": {
+        "x": 81.575,
+        "y": 0.08,
+        "z": -203.947
+      },
+      "sourceCoordinateStatus": "epsg4326_from_recovery",
+      "nonOfficialWarningRequired": true,
+      "isOfficialShelter": false,
+      "activePlayable": true,
+      "onlineLookupEnabled": true,
+      "localResolutionStatus": "unresolved",
+      "timestamp": "2026-05-30T21:41:16+09:00",
+      "onlineResolutionStatus": "resolved_from_nominatim",
+      "resolvedName": "小原鐵五郎寿像"
+    },
+    {
+      "candidateId": "p8_plateau_highrise_candidate_100",
+      "currentDisplayName": "13102-bldg-4953",
+      "reasonForQuery": "id_only",
+      "lat": 35.68853775,
+      "lon": 139.77558078,
+      "unityPosition": {
+        "x": 481.571,
+        "y": 0.08,
+        "z": 1266.73
+      },
+      "sourceCoordinateStatus": "epsg4326_from_recovery",
+      "nonOfficialWarningRequired": true,
+      "isOfficialShelter": false,
+      "activePlayable": true,
+      "onlineLookupEnabled": false,
+      "localResolutionStatus": "resolved_from_project_or_local_osm_cache",
+      "timestamp": "2026-05-30T21:41:16+09:00",
+      "resolvedName": "第一三共くすりミュージアム"
+    },
+    {
+      "candidateId": "p8_plateau_highrise_candidate_101",
+      "currentDisplayName": "13102-bldg-1560",
+      "reasonForQuery": "id_only",
+      "lat": 35.66814735,
+      "lon": 139.76742462,
+      "unityPosition": {
+        "x": -270.065,
+        "y": -0.15,
+        "z": -998.462
+      },
+      "sourceCoordinateStatus": "epsg4326_from_recovery",
+      "nonOfficialWarningRequired": true,
+      "isOfficialShelter": false,
+      "activePlayable": true,
+      "onlineLookupEnabled": false,
+      "localResolutionStatus": "resolved_from_project_or_local_osm_cache",
+      "timestamp": "2026-05-30T21:41:16+09:00",
+      "resolvedName": "時事通信本社"
+    },
+    {
+      "candidateId": "p8_plateau_highrise_candidate_103",
+      "currentDisplayName": "13102-bldg-8752",
+      "reasonForQuery": "id_only",
+      "lat": 35.66886939,
+      "lon": 139.76574201,
+      "unityPosition": {
+        "x": -421.208,
+        "y": 0.08,
+        "z": -909.725
+      },
+      "sourceCoordinateStatus": "epsg4326_from_recovery",
+      "nonOfficialWarningRequired": true,
+      "isOfficialShelter": false,
+      "activePlayable": true,
+      "onlineLookupEnabled": false,
+      "localResolutionStatus": "resolved_from_project_or_local_osm_cache",
+      "timestamp": "2026-05-30T21:41:16+09:00",
+      "resolvedName": "アロフト東京銀座"
+    },
+    {
+      "candidateId": "p8_plateau_highrise_candidate_104",
+      "currentDisplayName": "13102-bldg-6154",
+      "reasonForQuery": "id_only",
+      "lat": 35.67544968,
+      "lon": 139.77083959,
+      "unityPosition": {
+        "x": 48.665,
+        "y": 0.08,
+        "z": -175.547
+      },
+      "sourceCoordinateStatus": "epsg4326_from_recovery",
+      "nonOfficialWarningRequired": true,
+      "isOfficialShelter": false,
+      "activePlayable": true,
+      "onlineLookupEnabled": false,
+      "localResolutionStatus": "resolved_from_project_or_local_osm_cache",
+      "timestamp": "2026-05-30T21:41:16+09:00",
+      "resolvedName": "ファミリーマート"
+    }
+  ]
+}

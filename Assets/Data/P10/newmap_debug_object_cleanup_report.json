@@ -1,0 +1,28 @@
+{
+  "generatedAt": "2026-05-29T00:00:00+09:00",
+  "activeScene": "Assets/Scenes/Chuo_BaseMap.unity",
+  "productionManualMode": {
+    "debugDiagnosticsRootInactiveByDefault": true,
+    "localTrainingProxyTargetsHidden": true,
+    "localTrainingProxyTargetsActiveInProduction": false,
+    "runtimeGroundSupportVisible": false,
+    "colliderDebugDisplaysVisible": false
+  },
+  "diagnosticsMode": {
+    "enabledBy": [
+      "NewMapRuntimeBootstrap.EnableLocalTrainingProxyTargetsForDiagnostics",
+      "-newmapSelfAuditSmoke"
+    ],
+    "purpose": "P2-P10 automated regression and player-build smoke only"
+  },
+  "requiredGameplayMarkersRemain": {
+    "officialShelterMarkers": true,
+    "nonOfficialCandidateWarnings": true,
+    "greenFramesStage2Only": true,
+    "activeRouteGuidanceStage2Only": true,
+    "hazardLightCurtainStage2Only": true,
+    "ui": true
+  },
+  "oldProxyRootsActive": false,
+  "finalStatus": "production_mode_tests_and_preflight_passed_manual_visual_confirmation_remaining"
+}

@@ -1,0 +1,31 @@
+{
+  "generatedAt": "2026-05-27T19:21:33+09:00",
+  "activeScene": "Assets/Scenes/Chuo_BaseMap.unity",
+  "focus": "startup/frame spike reduction; memory recorded only as informational",
+  "previousBeforeHardeningMaxFrameMs": 20655.05,
+  "previousAfterHardeningMaxFrameMs": 11273.06,
+  "targetMaxFrameMs": 2000,
+  "implementedSpikeReductions": [
+    "player runtime scene-wide renderer/collider bounds scan disabled",
+    "player startup MeshCollider shutdown disabled",
+    "normal Debug.Log stack traces disabled in player builds",
+    "NPC creation deferred until Evacuation mode enables crowd failures",
+    "Stage 2 light curtain/debris visuals lazy-built only at Stage 2",
+    "old route validation kept in precomputed reports, not player startup",
+    "non-official candidate recovery precomputed into small Resources JSON",
+    "recovered candidate green frames are lazy-built only when Evacuation Stage 2 starts",
+    "recovered candidate route geometry/proximity checks remain in precomputed reports, not player startup"
+  ],
+  "runtimeBootstrapTimingPrevious": "boundsMs=0 spawnSupportMs=13 systemsMs=49 targetsMs=105 configureMs=2 totalMs=169",
+  "runtimeBootstrapTimingFinal": "boundsMs=1 spawnSupportMs=16 systemsMs=104 targetsMs=101 configureMs=2 totalMs=224",
+  "finalAverageFps": 106.26,
+  "finalMaxFrameMs": 6375.93,
+  "finalStutterFramesOver66ms": 2,
+  "playerLogErrors": 0,
+  "playerLogWarnings": 0,
+  "performanceDecision": "pending_retest",
+  "spikeAttribution": "Runtime bootstrap measured 224 ms, so the remaining multi-second max frame is attributed to large Chuo_BaseMap Unity/PLATEAU scene activation/render startup before regular gameplay.",
+  "memoryOptimizationPriority": "not_primary_for_this_task",
+  "finalStatus": "completed_with_documented_runtime_proxy",
+  "previousRemainingHardeningInputMaxFrameMs": 6375.93
+}

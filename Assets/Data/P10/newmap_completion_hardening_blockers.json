@@ -1,0 +1,45 @@
+{
+  "generatedAt": "2026-05-27T00:00:00+09:00",
+  "workspace": "D:\\UnityProjects\\ChuoTsunamiEvacuation",
+  "activeScene": "Assets/Scenes/Chuo_BaseMap.unity",
+  "aLevelBlockers": [],
+  "bLevelBlockers": [
+    {
+      "id": "B_MEMORY_PRIVATE_HIGH",
+      "category": "memory too high",
+      "evidence": "Hardening temp player sample reported max private memory 21950038016 bytes and max working set 7523536896 bytes.",
+      "currentAction": "Document high-memory manual-test hardware requirement; ordinary-PC readiness is not claimed."
+    },
+    {
+      "id": "B_FRAME_SPIKE_OVER_2S",
+      "category": "frame spike > 2s",
+      "evidence": "Hardening Player.log performance sample reported maxFrameMs 20655.05 with 2 stutter frames over 66 ms.",
+      "currentAction": "Document startup spike limitation; reducing this further likely requires map asset optimization rather than another runtime wiring fix."
+    },
+    {
+      "id": "B_NO_ACTIVE_OFFICIAL_TARGET",
+      "category": "no official active target",
+      "evidence": "No official shelter record has a verified Chuo_BaseMap object anchor or coordinate transform.",
+      "currentAction": "Keep official records disabled until a verified new-map anchor exists."
+    },
+    {
+      "id": "B_LOCAL_NON_OFFICIAL_TRAINING_ONLY",
+      "category": "only local non-official training targets",
+      "evidence": "Active target count is 4, all non-official local runtime training targets.",
+      "currentAction": "Use for mechanics playtest only; do not claim official shelter or route activation."
+    },
+    {
+      "id": "B_ROUTE_GUIDANCE_LOCAL_PROTOTYPE",
+      "category": "route guidance is local/prototype",
+      "evidence": "P5 OSM route geometry remains disabled because no verified Unity/PLATEAU transform exists.",
+      "currentAction": "Show only local estimated prototype route guides for active training targets."
+    },
+    {
+      "id": "B_MANUAL_PLAYTEST_NOT_DONE_AFTER_HARDENING",
+      "category": "manual playtest not done",
+      "evidence": "Automated hardening validation completed; human manual playtest has not been performed in this task.",
+      "currentAction": "Run manual playtest on the high-memory cloud desktop with the hardening temp player."
+    }
+  ],
+  "finalStatus": "completed_with_documented_runtime_proxy"
+}

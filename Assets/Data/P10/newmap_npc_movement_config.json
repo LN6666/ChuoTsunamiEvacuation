@@ -1,0 +1,14 @@
+{
+  "continuousMovementEnabled": true,
+  "wanderInTourismMode": true,
+  "evacuationTargetSeekingEnabled": true,
+  "stuckDetectionSeconds": 5.0,
+  "repathIntervalSeconds": 3.0,
+  "maxIdleWithoutReasonSeconds": 4.0,
+  "farNpcUpdateThrottle": true,
+  "farNpcStaticProxyMode": true,
+  "reactivateFarNpcNearPlayer": true,
+  "stuckRecoveryEnabled": true,
+  "buildingAvoidanceEnabled": true,
+  "boundsClampEnabled": true
+}

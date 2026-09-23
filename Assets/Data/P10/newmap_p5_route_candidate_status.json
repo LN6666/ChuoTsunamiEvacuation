@@ -1,0 +1,12 @@
+﻿{
+    "generatedAt":  "2026-05-26T17:22:10+09:00",
+    "qualifiedSheltersLoadFrom":  "Assets/Data/real_chuo_integrated_route_qualification.json",
+    "routesLoadFrom":  "Assets/Data/real_chuo_osm_routes_sample.json",
+    "activeQualifiedTargetCount":  0,
+    "disabledQualifiedTargetCount":  31,
+    "activeRouteCount":  0,
+    "disabledRouteCount":  135,
+    "officialRouteClaim":  false,
+    "status":  "disabled_missing_from_new_map",
+    "reason":  "No verified new-map target anchors or WGS84-to-Unity route transform."
+}
