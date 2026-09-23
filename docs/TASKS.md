@@ -8,7 +8,217 @@ The first playable prototype has been Unity-tested, DeepSeek V4 Pro max-thinking
 
 Current branch focus:
 
-P6-E Final Closeout is the final documentation, validation, and review stage inside P6. P6-0, P6-A, P6-B, P6-C, P6-D, and P6-E are complete. Phase 5 remains the stable baseline: default `sourceMode = test`, `real_qualified` opt-in, humanitarian candidate flags default false, OSM routes estimated only, route rendering fail-closed until WGS84 to Unity/PLATEAU transform validation exists, and no navigation/crowd reference is an official evacuation guidance source.
+P7-0 begins the PBL7 high-detail city foundation. P7-0 is docs/tools/prompts only: reference review, LOD strategy, asset inventory protocol, benchmark protocol, automation guard scripts, two-Codex workflow planning, and DeepSeek review preparation. P7-0 must not modify Unity scenes, ProjectSettings, Packages, PLATEAU imports, gameplay scripts, or Assets/Data. Phase 5 and Phase 6 remain the stable behavior baseline: default `sourceMode = test`, `real_qualified` opt-in, humanitarian candidate flags default false, OSM routes estimated only, route rendering fail-closed until WGS84 to Unity/PLATEAU transform validation exists, navigation display-only, and NPCs non-blocking.
+
+## Phase 7: High-Detail Chuo Asset Loading, LOD, Streaming, and Windows EXE Optimization
+
+Status: P7-D manual high-detail import validation is complete as a user-approved practical baseline. The actual `P7_HighDetail_Chuo` scene contains renderable PLATEAU objects and is the practical local baseline for P8/P9/P10, while average LOD3 is not achieved, category coverage is incomplete, P2-P6 runtime smoke remains a follow-up, and Windows EXE profiling is prepared but not complete. P7 has exactly five stages: P7-0, P7-A, P7-B, P7-C, and P7-D. Do not create P7-E, P7-F, or P7-G.
+
+Planned tasks:
+
+- P7-0: Scope Freeze + Reference Review + Automation Foundation. Create docs/tools/prompts only; run `tools/p7/run_p7_preflight.ps1`; prepare DeepSeek review. In progress.
+- P7-A: Chuo Asset Inventory + LOD / Area Selection. Command-line scanner and report scripts inventory local asset/source folders without importing assets; reports record file counts, extensions, likely PLATEAU categories, candidate LOD path/name indicators, large files, and benchmark candidate categories. Implemented in current P7-A work; pending review.
+- P7-B: Small-Area High-Detail Benchmark + Underground / Bridge / Road Feasibility. Wave 1 is docs/tools/prompts only: command-line feasibility, candidate-area selection, benchmark harness design, rollback/test planning, and review prep. Wave 2-A is approved only for an isolated benchmark scene skeleton and metrics harness under `P7Benchmark` paths; it does not import real assets. Wave 2-B is approved only for read-only LOD3 candidate metadata dry-run inspection. Wave 2-C is approved only for full `53393690` candidate import under `Assets/P7Benchmark/Imported/53393690/`; it does not approve full PLATEAU import, production scene integration, `Assets/PLATEAU` changes, or `Chuo_BaseMap.unity` changes.
+- P7-C: Streaming / Chunk Loading + Visual Quality + Performance Optimization. Implement only approved P7Benchmark sandbox chunk/loading/visual/performance work after benchmark evidence and a confirmed Markdown plan. Implemented and validated.
+- P7-D: Windows EXE Profiling + P7 Final Closeout. Manual PLATEAU import was validated and user-approved as the practical local baseline: renderable buildings/roads/bridges/one underground object exist, actual LOD is LOD0-LOD2, average LOD3 is false, several target categories are missing, and EXE profiling remains prepared/not run pending a Windows build profiling pass.
+
+### P7-A Automation / Performance Prep (Codex B)
+
+Status: Implemented.
+
+Tasks:
+
+- Add command-line benchmark record skeleton creation under `docs/p7_benchmark_records/`.
+- Add Markdown benchmark record required-field validation.
+- Add benchmark preflight orchestration on top of the base P7 preflight.
+- Document benchmark automation, performance log schema, and Windows x64 EXE profiling readiness.
+- Preserve docs/tools/prompts-only scope and avoid Unity tests unless Unity files change.
+
+Automation requirement:
+
+- Run `powershell -ExecutionPolicy Bypass -File tools/p7/run_p7_preflight.ps1` before P7-0 review/commit.
+- P7-A/P7-B/P7-C/P7-D must run automated Unity tests whenever Unity code/assets/scenes are changed.
+- P7-0 intentionally does not run Unity tests because it is docs/tools/prompts only.
+
+DeepSeek review requirement:
+
+- Use `deepseek_review_prompt_p70.md` for P7-0.
+- DeepSeek must confirm P7-0 is docs/tools/prompts only, protected paths are untouched, no dependencies or gameplay changes were added, automation scripts exist and run, P7/P8/P9/P10 boundaries are clear, and P7 has only five stages.
+
+### P7-B Small-Area Feasibility (Codex A)
+
+Status: Implemented for review.
+
+Tasks:
+
+- Create conservative P7-B feasibility reports for small-area selection, LOD3 candidate interpretation, underground/bridge/road feasibility, and benchmark-area decision.
+- Add read-only candidate selection helper under `tools/p7/`.
+- Add P7-B orchestration script that runs candidate selection and P7 preflight.
+- Keep final Unity benchmark area selection pending until human review and a confirmed Markdown import/benchmark plan.
+
+Scope notes:
+
+- P7-B Codex A does not import assets, modify Unity scenes, modify gameplay scripts, modify `Assets/Data`, modify `ProjectSettings`, modify `Packages`, or modify imported PLATEAU assets.
+- Preferred planning candidate is `53393690` for LOD3 path/name feasibility.
+- Fallback candidates are `53393672` and `53394611`.
+- LOD3 and LOD4 findings remain path/name/file-metadata inference only, not geometry-quality verified.
+- LOD4 path/name hits are `0`; LOD4 is not assumed available from the current inventory.
+- Unity tests are intentionally not run for this Codex A feasibility package because no Unity code, assets, scenes, or gameplay-facing configuration are changed.
+
+DeepSeek review requirement:
+
+- Use `deepseek_review_prompt_p7b_area.md` for P7-B Codex A.
+- DeepSeek must confirm protected paths are untouched, helper scripts are read-only, P7-B stays pre-import feasibility only, LOD claims are marked unverified, and the benchmark-area decision is conservative.
+
+### P7-B Benchmark Harness Prep (Codex B)
+
+Status: Implemented in Wave 1 as docs/prompts only.
+
+Tasks:
+
+- Create the P7-B small-area benchmark harness design.
+- Create the future Unity change proposal with explicit approval gate.
+- Create the Wave 2 test plan and rollback plan.
+- Add P7-B benchmark risks to the review backlog.
+- Add a P7-B decision log entry confirming Wave 1 does not mutate Unity.
+- Update benchmark protocol and automation notes for the gated P7-B harness workflow.
+- Create the DeepSeek review prompt for P7-B harness prep.
+
+Scope:
+
+- P7-B Wave 1 must not modify Unity scenes, scripts, assets, `Assets/Data`, PLATEAU imports, `ProjectSettings`, or `Packages`.
+- P7-B Wave 2 must receive explicit approval before creating benchmark scenes, scripts, imported assets, or generated Unity artifacts.
+- `Chuo_BaseMap.unity` remains protected.
+- The isolated benchmark scene is only a future proposal, not a Wave 1 Unity change.
+- Rollback plan, test plan, benchmark harness design, and Unity change proposal are preserved for review before any Wave 2 approval.
+
+Validation:
+
+- Run `powershell -ExecutionPolicy Bypass -File tools/p7/run_p7_preflight.ps1`.
+- Unity tests are intentionally not run for Wave 1 because no Unity code, asset, scene, or gameplay-facing data changes are made.
+
+### P7-B Wave 2-A Benchmark Scene Skeleton
+
+Status: Implemented pending validation.
+
+Tasks:
+
+- Add isolated benchmark marker and metrics recorder under `Assets/Scripts/P7Benchmark/`.
+- Add editor scene builder under `Assets/Editor/P7Benchmark/`.
+- Create isolated skeleton scene at `Assets/Scenes/P7Benchmark/P7_Benchmark_Skeleton.unity`.
+- Add focused EditMode and PlayMode tests under `Assets/Tests/*/P7Benchmark/`.
+- Add Wave 2-A scene creation and preflight scripts under `tools/p7/`.
+- Document the scene skeleton, metrics harness, validation results, known limitations, and DeepSeek review prompt.
+
+Scope:
+
+- Wave 2-A does not import real PLATEAU assets.
+- Wave 2-A does not modify `Chuo_BaseMap.unity`, existing Unity scenes, existing gameplay scripts, `Assets/Data`, `Assets/PLATEAU`, `ProjectSettings`, or `Packages`.
+- Metrics are prototype benchmark metrics, not a Unity Profiler replacement.
+- LOD3 candidate import is deferred to Wave 2-B or a later explicitly approved task.
+- LOD4 is not assumed available.
+- Windows EXE profiling remains later P7 work, not completed here.
+
+Validation:
+
+- Run `powershell -ExecutionPolicy Bypass -File tools/p7/run_p7b_wave2a_preflight.ps1`.
+- Run `powershell -ExecutionPolicy Bypass -File tools/run_unity_tests.ps1 -Mode EditMode -LaunchMode Gui`.
+- Run `powershell -ExecutionPolicy Bypass -File tools/run_unity_tests.ps1 -Mode PlayMode -LaunchMode Gui`.
+
+### P7-B Wave 2-B LOD3 Candidate Dry Run
+
+Status: Implemented with local preflight recorded.
+
+Tasks:
+
+- Add read-only command-line inspection for preferred planning candidate `53393690`.
+- Inspect fallback planning candidates `53393672` and `53394611`.
+- Summarize file/path metadata, file sizes, extensions, likely LOD path/name indicators, category hints, and conservative import-footprint estimates.
+- Add Wave 2-B preflight that runs inspection, P7 scope guard, allowlist checks, and protected-path checks.
+- Document dry-run findings, import decision, visual feasibility gate, validation results, known limitations, and DeepSeek review prompt.
+
+Scope:
+
+- Wave 2-B does not import real PLATEAU assets.
+- Wave 2-B does not copy candidate assets into Unity.
+- Wave 2-B does not modify Unity scenes, existing gameplay scripts, `Assets/Data`, `Assets/PLATEAU`, `ProjectSettings`, or `Packages`.
+- `Chuo_BaseMap.unity` remains untouched.
+- Candidate `53393690` is a planning candidate only.
+- Fallback candidates are `53393672` and `53394611`.
+- LOD3 is not visually or geometry-quality verified.
+- LOD4 path/name hits remain `0`; LOD4 is not assumed available.
+- P8 hazard work and P9 crowd/interior-shelter work are excluded.
+- Any real LOD3 import requires a separate explicit human approval gate.
+
+Validation:
+
+- Run `powershell -ExecutionPolicy Bypass -File tools/p7/run_p7b_wave2b_preflight.ps1`.
+- Unity tests are intentionally skipped if no Unity files are changed.
+- Use `deepseek_review_prompt_p7b_wave2b.md` for DeepSeek review.
+
+### P7-B Wave 2-C 53393690 Sandbox Import
+
+Status: Implemented pending validation.
+
+Tasks:
+
+- Import the full approved candidate `53393690` package into `Assets/P7Benchmark/Imported/53393690/`.
+- Preserve source directory structure under the P7Benchmark sandbox target.
+- Add strict Wave 2-C scope guard and preflight checks.
+- Keep `53393672` and `53394611` as documentation-only fallback references.
+- Document import log, visual feasibility, test results, known limitations, performance notes, and DeepSeek review prompt.
+
+Scope:
+
+- Wave 2-C imports only candidate `53393690`.
+- Wave 2-C does not import full Chuo.
+- Wave 2-C does not modify `Chuo_BaseMap.unity`, production scenes, existing gameplay scripts, `Assets/Data`, `Assets/PLATEAU`, `ProjectSettings`, or `Packages`.
+- Wave 2-C uses a narrow Git LFS rule for `Assets/P7Benchmark/Imported/53393690/**` because the approved candidate contains individual files above standard GitHub blob limits.
+- LOD3 visual and geometry quality remain unverified.
+- LOD4 remains unavailable based on current path/name evidence.
+- P8/P9 systems are excluded.
+- Any production integration requires later explicit approval.
+
+Validation:
+
+- Run `powershell -ExecutionPolicy Bypass -File tools/p7/run_p7b_wave2c_preflight.ps1`.
+- Run `powershell -ExecutionPolicy Bypass -File tools/run_unity_tests.ps1 -Mode EditMode -LaunchMode Gui`.
+- Run `powershell -ExecutionPolicy Bypass -File tools/run_unity_tests.ps1 -Mode PlayMode -LaunchMode Gui`.
+- Use `deepseek_review_prompt_p7b_wave2c.md` for DeepSeek review.
+
+### P7-C Streaming / Chunk Loading + Visual Quality + Performance Optimization
+
+Status: Implemented and validated.
+
+Tasks:
+
+- Add strict P7-C mode to the P7 scope guard.
+- Inspect `Assets/P7Benchmark/Imported/53393690/` for file counts, bytes, extensions, logical groups, and renderable asset evidence.
+- Add a metadata-driven P7Benchmark chunk registry for candidate `53393690`.
+- Add a P7Benchmark chunk controller that can enable or disable logical placeholder chunk roots.
+- Extend the P7Benchmark metrics recorder with active chunk count, chunk binding count, imported file/byte summary, and chunk state summary.
+- Update only `Assets/Scenes/P7Benchmark/P7_Benchmark_Skeleton.unity` with P7-C metadata and placeholder chunk groups.
+- Document visual-quality, draw-call, batching, texture/material memory, mesh memory, LOD, culling, collision, and P7-D Windows EXE profiling handoff risks.
+- Add focused EditMode and PlayMode tests under `Assets/Tests/*/P7Benchmark/`.
+
+Scope:
+
+- P7-C is benchmark sandbox optimization only.
+- Candidate `53393690` remains confined to `Assets/P7Benchmark/Imported/53393690/`.
+- Raw CityGML remains unconverted if no renderable Unity mesh/model/prefab assets are detected.
+- P7-C does not modify `Chuo_BaseMap.unity`, production scenes, existing gameplay scripts, `Assets/Data`, `Assets/PLATEAU`, `ProjectSettings`, or `Packages`.
+- P7-C does not add dependencies.
+- P7-C must not implement P8 hazard, inundation, flood, light curtain, or risk-front systems.
+- P7-C must not implement P9 crowd, real spawn, indoor evacuation, congestion, indoor shelter gameplay, or failure systems.
+- Metrics are approximate benchmark telemetry, not a Unity Profiler replacement.
+- P7-D remains Windows EXE profiling and final P7 closeout.
+
+Validation:
+
+- Run `powershell -ExecutionPolicy Bypass -File tools/p7/run_p7c_preflight.ps1`.
+- Run `powershell -ExecutionPolicy Bypass -File tools/run_unity_tests.ps1 -Mode EditMode -LaunchMode Gui`.
+- Run `powershell -ExecutionPolicy Bypass -File tools/run_unity_tests.ps1 -Mode PlayMode -LaunchMode Gui`.
+- Use `deepseek_review_prompt_p7c.md` for DeepSeek review.
 
 ## Phase 6: Navigation Guidance and NPC Evacuation Prototype
 
@@ -750,3 +960,31 @@ Completed:
 
 Next:
 - P5-C Unity read-only integration of qualified buildings, route lines, confidence, warnings, and decision feedback
+
+## Phase P7-C - High-Detail Chuo Scene Readiness Continuation
+
+Status: In progress in local continuation commit.
+
+Current P7-C continuation tasks:
+
+- Preserve local P7-C benchmark chunk/loading foundation commit `627e131`.
+- Create `Assets/Scenes/P7HighDetail/P7_HighDetail_Chuo.unity` as the high-detail Chuo scene shell and P7-D profiling target.
+- Keep `Chuo_BaseMap.unity`, production scenes, existing gameplay scripts, `Assets/Data`, `Assets/PLATEAU`, `ProjectSettings`, and `Packages` untouched.
+- Document PLATEAU SDK target import settings and manual checklist.
+- Document target versus actual LOD coverage without claiming average LOD3 until renderable evidence exists.
+- Validate bridge, road, underground, P2-P6 compatibility, and P7-D profiling readiness through docs and read-only tools.
+- Confirm P7 remains five stages: P7-0, P7-A, P7-B, P7-C, P7-D.
+- Defer final Windows EXE profiling and baseline confirmation to P7-D.
+
+## Phase P7-D - Final High-Detail Import / Profiling Closeout
+
+Status: Complete as practical high-detail baseline closeout.
+
+P7-D inspected the manual PLATEAU SDK import result and confirmed that the current `P7_HighDetail_Chuo` scene is the user-approved practical local baseline for P8/P9/P10. The original average LOD3 target is not achieved by evidence, several category layers are missing or partial, and Windows EXE profiling remains a follow-up before release packaging.
+
+Current decision:
+
+- `Assets/Scenes/P7HighDetail/P7_HighDetail_Chuo.unity` is the accepted practical baseline for P8/P9/P10.
+- `Assets/Scenes/Chuo_BaseMap.unity` remains the legacy fallback policy and must remain untouched if restored locally.
+- Lower-than-original-target LOD/category coverage is a documented limitation, not a blocker.
+- Start P8 from `P7_HighDetail_Chuo` and use data-layer/proxy/rule-based approaches where detailed layers are missing.

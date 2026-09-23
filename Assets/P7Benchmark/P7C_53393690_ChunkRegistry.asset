@@ -1,0 +1,101 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0aa976a1dff1751479e15d69c7afee5f, type: 3}
+  m_Name: P7C_53393690_ChunkRegistry
+  m_EditorClassIdentifier: ChuoTsunamiEvacuation.Runtime::P7BenchmarkChunkRegistry
+  candidateId: 53393690
+  importRootRelativePath: Assets/P7Benchmark/Imported/53393690
+  chunks:
+  - chunkId: 53393690_bldg
+    candidateId: 53393690
+    displayName: 53393690 bldg
+    category: bldg
+    sourceRelativePath: Assets/P7Benchmark/Imported/53393690/udx/bldg
+    sourceFileCount: 5181
+    sourceBytes: 272392412
+    cityGmlFileCount: 1
+    textureFileCount: 5180
+    renderableAssetCount: 0
+    placeholderOnly: 1
+    initiallyEnabled: 1
+    notes: Raw CityGML/texture source; no renderable Unity mesh/model/prefab detected
+      by extension scan.
+  - chunkId: 53393690_brid
+    candidateId: 53393690
+    displayName: 53393690 brid
+    category: brid
+    sourceRelativePath: Assets/P7Benchmark/Imported/53393690/udx/brid
+    sourceFileCount: 43
+    sourceBytes: 16122211
+    cityGmlFileCount: 1
+    textureFileCount: 42
+    renderableAssetCount: 0
+    placeholderOnly: 1
+    initiallyEnabled: 1
+    notes: Raw CityGML/texture source; no renderable Unity mesh/model/prefab detected
+      by extension scan.
+  - chunkId: 53393690_fld
+    candidateId: 53393690
+    displayName: 53393690 fld
+    category: fld
+    sourceRelativePath: Assets/P7Benchmark/Imported/53393690/udx/fld
+    sourceFileCount: 1
+    sourceBytes: 17335453
+    cityGmlFileCount: 1
+    textureFileCount: 0
+    renderableAssetCount: 0
+    placeholderOnly: 1
+    initiallyEnabled: 1
+    notes: Raw CityGML/texture source; no renderable Unity mesh/model/prefab detected
+      by extension scan.
+  - chunkId: 53393690_frn
+    candidateId: 53393690
+    displayName: 53393690 frn
+    category: frn
+    sourceRelativePath: Assets/P7Benchmark/Imported/53393690/udx/frn
+    sourceFileCount: 616
+    sourceBytes: 269508019
+    cityGmlFileCount: 1
+    textureFileCount: 615
+    renderableAssetCount: 0
+    placeholderOnly: 1
+    initiallyEnabled: 1
+    notes: Raw CityGML/texture source; no renderable Unity mesh/model/prefab detected
+      by extension scan.
+  - chunkId: 53393690_tran
+    candidateId: 53393690
+    displayName: 53393690 tran
+    category: tran
+    sourceRelativePath: Assets/P7Benchmark/Imported/53393690/udx/tran
+    sourceFileCount: 1
+    sourceBytes: 46558793
+    cityGmlFileCount: 1
+    textureFileCount: 0
+    renderableAssetCount: 0
+    placeholderOnly: 1
+    initiallyEnabled: 1
+    notes: Raw CityGML/texture source; no renderable Unity mesh/model/prefab detected
+      by extension scan.
+  - chunkId: 53393690_veg
+    candidateId: 53393690
+    displayName: 53393690 veg
+    category: veg
+    sourceRelativePath: Assets/P7Benchmark/Imported/53393690/udx/veg
+    sourceFileCount: 1
+    sourceBytes: 12865355
+    cityGmlFileCount: 1
+    textureFileCount: 0
+    renderableAssetCount: 0
+    placeholderOnly: 1
+    initiallyEnabled: 1
+    notes: Raw CityGML/texture source; no renderable Unity mesh/model/prefab detected
+      by extension scan.

@@ -14,6 +14,329 @@ This file only records actionable review items that should guide Codex fixes.
 
 ---
 
+## P7-C Streaming / Chunk Loading + Visual Quality + Performance
+
+Source report:
+
+DeepSeek review saved locally as `review_reports/deepseek_review_20260523_032116.md`.
+
+Context:
+
+P7-C is approved only for P7Benchmark sandbox chunk/loading, visual-quality review, and approximate performance telemetry. It does not approve production scene integration, full Chuo import, `ProjectSettings` changes, `Packages` changes, `Assets/PLATEAU` changes, `Assets/Data` changes, or P8/P9 systems.
+
+Findings to preserve:
+
+- Candidate `53393690` remains under `Assets/P7Benchmark/Imported/53393690/`.
+- Imported non-meta file count: `5,843`.
+- Imported bytes: `634,782,243`.
+- Imported size: `605.38 MB`.
+- Extension summary: `6` `.gml` files and `5,837` `.jpg` files.
+- Renderable Unity/model/prefab assets detected by extension scan: `0`.
+- Chunk registry groups: `bldg`, `brid`, `fld`, `frn`, `tran`, and `veg`.
+- CityGML remains raw/unconverted until a separate conversion workflow is approved and implemented.
+- Metrics are approximate telemetry and do not replace Unity Profiler evidence.
+
+Overall verdict:
+
+CONDITIONAL PASS - no A-level blockers.
+
+### P7-C Risks And Follow-Ups
+
+| ID | Priority | Status | Target | Issue | Required Review |
+|---|---|---|---|---|---|
+| P7C-R01 | High | Open | CityGML conversion | Raw CityGML is not verified as renderable Unity mesh content. | Confirm docs and code use metadata placeholders and avoid visual-production claims. |
+| P7C-R02 | High | Open | Protected paths | P7-C must not modify `Chuo_BaseMap.unity`, production scenes, existing gameplay scripts, `ProjectSettings`, `Packages`, `Assets/PLATEAU`, or `Assets/Data`. | Confirm preflight and git status enforce protected path cleanliness. |
+| P7C-R03 | Medium | Confirmed follow-up | Full production streaming | Metadata chunk toggling is not full Chuo streaming or async loading. | Full production streaming remains deferred. |
+| P7C-R04 | Medium | Confirmed follow-up | Windows EXE profiling | Editor and approximate telemetry are not final performance evidence. | P7-D remains Windows EXE profiling and closeout. |
+| P7C-R05 | Medium | Open | Visual quality claims | Visual quality remains limited to placeholder evidence until conversion and screenshots/profiler checks exist. | Confirm docs do not overclaim visual readiness. |
+| P7C-R06 | Medium | Open | Unity Profiler | Approximate FPS summaries cannot diagnose CPU/GPU/memory bottlenecks authoritatively. | Confirm Unity Profiler, Frame Debugger, and Memory Profiler remain required for final diagnosis. |
+| P7C-R07 | Low | Confirmed follow-up | Editor builder rebuild hygiene | Repeated P7-C scene builder runs may accumulate unused embedded placeholder materials in the scene over time. | Clean up or reuse generated materials if the builder becomes a frequent workflow. |
+
+Decision:
+
+DeepSeek conditional PASS after P7-C preflight, Unity GUI EditMode tests, and Unity GUI PlayMode tests passed. B-level follow-ups remain documented for P7-D and future production streaming work.
+
+---
+
+## P7-B Wave 2-C 53393690 Sandbox Import
+
+Source report:
+
+Pending DeepSeek review using `deepseek_review_prompt_p7b_wave2c.md`.
+
+Context:
+
+P7-B Wave 2-C is approved only for importing the full candidate package `53393690` into `Assets/P7Benchmark/Imported/53393690/`. It does not approve full Chuo import, production scene integration, `Assets/PLATEAU` changes, `Assets/Data` changes, `Chuo_BaseMap.unity` changes, `ProjectSettings` or `Packages` changes, fallback candidate import, or P8/P9 systems.
+
+Findings to preserve:
+
+- Candidate `53393690` imported file count: `5,843`.
+- Candidate `53393690` imported bytes: `634,782,243`.
+- Candidate `53393690` imported size: `605.38 MB`.
+- Import target: `Assets/P7Benchmark/Imported/53393690/`.
+- Fallback candidates `53393672` and `53394611` remain documentation-only references.
+- LOD3 visual and geometry quality remain unverified.
+- LOD4 path/name hits remain `0`; LOD4 is not assumed available.
+
+Overall verdict:
+
+Pending review.
+
+### P7-B Wave 2-C Risks
+
+| ID | Priority | Status | Target | Issue | Required Review |
+|---|---|---|---|---|---|
+| P7B-W2C-R01 | High | Open | Sandbox import path | Imported files must remain only under `Assets/P7Benchmark/Imported/53393690/`. | Confirm preflight catches any file outside the approved sandbox target. |
+| P7B-W2C-R02 | High | Open | Git storage | The package contains files over normal GitHub blob limits. | Confirm the narrow Git LFS rule covers only the sandbox import path and does not change Unity dependencies. |
+| P7B-W2C-R03 | High | Open | Visual claims | Raw CityGML source is not automatically renderable Unity geometry. | Confirm docs do not claim visual quality, geometry quality, or production readiness. |
+| P7B-W2C-R04 | High | Open | Protected paths | Unity import refresh could create unwanted `ProjectSettings` or `Packages` churn. | Confirm such churn is absent or reverted before commit. |
+| P7B-W2C-R05 | Medium | Open | Future conversion | A later CityGML conversion/import workflow may require separate tooling and approval. | Confirm production integration remains gated. |
+
+Decision:
+
+Pending DeepSeek review after Wave 2-C preflight and Unity GUI tests pass.
+
+---
+
+## P7-B Wave 2-B LOD3 Candidate Dry Run
+
+Source report:
+
+Pending DeepSeek review using `deepseek_review_prompt_p7b_wave2b.md`.
+
+Context:
+
+P7-B Wave 2-B is approved only for read-only LOD3 candidate metadata dry-run inspection. It does not import real PLATEAU assets, does not copy external data into Unity, does not modify `Chuo_BaseMap.unity`, and does not integrate with production scenes or gameplay.
+
+Findings to preserve:
+
+- Preferred planning candidate: `53393690`.
+- Fallback planning candidates: `53393672` and `53394611`.
+- `53393690` remains a planning candidate only, not a real import approval.
+- LOD3 is not visually or geometry-quality verified.
+- LOD4 path/name hits remain `0`; LOD4 is not assumed available.
+- Future real import requires a separate explicit human approval gate.
+
+Overall verdict:
+
+Pending review.
+
+### P7-B Wave 2-B Risks
+
+| ID | Priority | Status | Target | Issue | Required Review |
+|---|---|---|---|---|---|
+| P7B-W2B-R01 | Medium | Open | Candidate discovery | Candidate file discovery may be incomplete or too broad because it relies on same-mesh-code path/name metadata only. | Confirm docs label discovery as metadata-only and do not treat it as a complete source manifest. |
+| P7B-W2B-R02 | High | Open | LOD3 quality | Path/name metadata may not reflect geometry quality or usable Unity output. | Confirm no doc claims visual verification, geometry quality, material correctness, or gameplay suitability. |
+| P7B-W2B-R03 | High | Open | Import size | Candidate import size may still be too heavy even for a small-area experiment. | Confirm `53393690` is not treated as small and future import requires narrowing plus approval. |
+| P7B-W2B-R04 | Medium | Open | Visual verification | Real visual verification is deferred. | Confirm no screenshots, scene integration, or visual-quality claims are introduced. |
+| P7B-W2B-R05 | High | Open | Future approval gate | Wave 2-C or any future import step needs separate approval. | Confirm this package does not approve full PLATEAU import, production scene integration, or real asset import. |
+
+Decision:
+
+Pending DeepSeek review after Wave 2-B preflight passes.
+
+---
+
+## P7-B Wave 2-A Benchmark Skeleton And Metrics Harness
+
+Source report:
+
+Pending DeepSeek review using `deepseek_review_prompt_p7b_wave2a.md`.
+
+Context:
+
+P7-B Wave 2-A is approved only for an isolated benchmark scene skeleton and prototype metrics harness under `P7Benchmark` paths. It does not import real PLATEAU assets, does not modify `Chuo_BaseMap.unity`, and does not change gameplay rules.
+
+Overall verdict:
+
+Pending review.
+
+### P7-B Wave 2-A Risks
+
+| ID | Priority | Status | Target | Issue | Required Review |
+|---|---|---|---|---|---|
+| P7B-W2A-R01 | Medium | Open | Metrics harness | Metrics recorder FPS and approximate 1 percent low values are sample-based and are not a replacement for Unity Profiler. | Confirm docs and code do not treat recorder output as final profiler evidence. |
+| P7B-W2A-R02 | Medium | Open | Benchmark scene skeleton | The skeleton scene has no real PLATEAU geometry yet. | Confirm scene docs and object names make this clear and no visual-quality claims are made. |
+| P7B-W2A-R03 | High | Open | Future LOD3 import | Wave 2-B needs explicit approval before importing LOD3 candidate data or copying real assets. | Confirm tasks, docs, and review prompt preserve the approval gate. |
+| P7B-W2A-R04 | Medium | Open | Unity scene creation | Unity scene creation may need GUI or batchmode validation depending on local Unity environment behavior. | Confirm preflight and test results record success or explain failures. |
+| P7B-W2A-R05 | High | Open | Project settings churn | Unity launches may create ProjectSettings or Packages line-ending/serialization churn. | Confirm any such churn is reverted unless explicitly approved. |
+
+Decision:
+
+Pending DeepSeek review after Wave 2-A preflight and GUI Unity tests pass or failures are documented.
+
+---
+
+## P7-B Area Feasibility And Candidate Selection
+
+Source report:
+
+Pending DeepSeek review using `deepseek_review_prompt_p7b_area.md`.
+
+Context:
+
+P7-B Codex A creates command-line-first feasibility reports and read-only selector tooling for small-area benchmark candidate selection. It does not import assets, modify Unity scenes, modify Unity scripts, modify `Assets/Data`, modify `ProjectSettings`, modify `Packages`, or modify imported PLATEAU assets.
+
+Area feasibility findings to preserve:
+
+- Preferred planning candidate: `53393690` for LOD3 path/name feasibility.
+- Fallback candidates: `53393672` for compact bridge/road feasibility and `53394611` for underground feasibility.
+- LOD4 path/name hits: `0`.
+- Findings are path/name/file-metadata based only, not geometry-quality verified.
+
+Overall verdict:
+
+Pending review.
+
+### P7-B Feasibility Risks
+
+| ID | Priority | Status | Target | Issue | Required Review |
+|---|---|---|---|---|---|
+| P7B-AREA-R01 | High | Open | LOD3 candidate selection | LOD3 path/name signals may not equal usable geometry or acceptable Unity import output. | Confirm reports label LOD3 findings as unverified path/name/file-metadata inference only. |
+| P7B-AREA-R02 | High | Open | LOD4 availability | LOD4 was not found by current path/name scan and must not be assumed available. | Confirm no report or task entry claims LOD4 exists. |
+| P7B-AREA-R03 | High | Open | Underground / bridge / road feasibility | Underground, bridge, road, and riverfront feasibility remains unverified until Unity and geometry inspection. | Confirm docs do not claim visual correctness, walkability, route validity, entrance validity, or gameplay suitability. |
+| P7B-AREA-R04 | Medium | Open | External PLATEAU source | External PLATEAU source is only enumerated; it must not be modified or committed. | Confirm helper scripts use read-only file metadata commands and do not write into `D:\PLATEAU_DATA\Chuo_2025_CityGML`. |
+| P7B-AREA-R05 | Medium | Open | Benchmark decision | The preferred candidate is a planning candidate, not an approved Unity import. | Confirm final benchmark area selection remains pending until human review and a Markdown import/benchmark plan. |
+
+Decision:
+
+Pending DeepSeek review after P7-B area feasibility script and P7 preflight pass.
+
+---
+
+## P7-B Benchmark Harness Prep
+
+Source report:
+
+Pending DeepSeek review using `deepseek_review_prompt_p7b_harness.md`.
+
+Context:
+
+P7-B Wave 1 prepares the small-area high-detail benchmark harness design, future Unity change proposal, test plan, rollback plan, task entry, decision entry, and review prompt. It is docs/prompts only and does not mutate Unity scenes, scripts, assets, data, packages, project settings, or imported PLATEAU assets.
+
+Harness prep findings to preserve:
+
+- The isolated benchmark scene is only a future proposal.
+- No `Chuo_BaseMap.unity` change is made or approved.
+- No Unity mutation occurs in Wave 1.
+- Wave 2 needs explicit approval before any Unity scene, script, asset, import, package, data, or `ProjectSettings` change.
+- The rollback plan, test plan, benchmark harness design, and Unity change proposal are preserved.
+
+Overall verdict:
+
+Pending review.
+
+### P7-B Harness Risks
+
+| ID | Priority | Status | Target | Issue | Required Review |
+|---|---|---|---|---|---|
+| P7B-HARNESS-R01 | Medium | Open | Future benchmark scene | Benchmark scene creation may require Unity Editor interaction and cannot be proven by docs-only Wave 1. | Confirm Wave 2 requires explicit approval, Unity tests when Unity files change, and P7 preflight. |
+| P7B-HARNESS-R02 | High | Open | Future asset import | Asset import may be heavier than expected even for a small selected cluster. | Confirm the design requires small path-cluster scope, rollback criteria, and no broad Chuo import. |
+| P7B-HARNESS-R03 | Medium | Open | LOD3/LOD4 visual quality | LOD3/LOD4 visual quality is not yet verified by imported geometry or screenshots. | Confirm no visual-quality claims are made before Wave 2 benchmark evidence. |
+| P7B-HARNESS-R04 | Medium | Open | Editor vs Windows x64 | EXE benchmark may differ from Editor benchmark. | Confirm Editor and optional Windows EXE metrics are recorded separately, with P7-D retaining final EXE profiling responsibility. |
+
+Decision:
+
+Pending DeepSeek review after P7-B Wave 1 preflight.
+
+---
+
+## P7-A Benchmark And Performance Automation Prep
+
+Source report:
+
+Pending DeepSeek review using `deepseek_review_prompt_p7a_perf.md`.
+
+Context:
+
+P7-A Codex B adds docs/tools/prompts only for benchmark record skeletons, Markdown performance-log validation, benchmark preflight orchestration, warning-summary traceability, Windows EXE profiling readiness, and P7-B/C/D performance preparation.
+
+Overall verdict:
+
+Pending review.
+
+### P7-A Performance-Prep Risks
+
+| ID | Priority | Status | Target | Issue | Required Review |
+|---|---|---|---|---|---|
+| P7A-PERF-R01 | Medium | Open | Benchmark records | Metrics may remain placeholders until a Unity benchmark scene or measurement process exists. | Confirm placeholders cannot support pass/fail decisions without measured evidence. |
+| P7A-PERF-R02 | Medium | Open | Windows EXE profiling | EXE profiling depends on a later build stage and cannot be completed by docs/tools-only P7-A prep. | Confirm P7-D remains the mandatory EXE profiling closeout stage. |
+| P7A-PERF-R03 | High | Open | Scope guard warning filtering | Warning filtering must not weaken protected-path strictness or hide real unsafe changes. | Confirm protected paths and large-file failures remain strict, and unsafe ordinary-file keyword warnings still appear. |
+
+Decision:
+
+Pending DeepSeek review after benchmark preflight passes.
+
+---
+
+## P7-0 Reference Review And Automation Foundation
+
+Source report:
+
+Pending DeepSeek review using `deepseek_review_prompt_p70.md`.
+
+Context:
+
+P7-0 creates documentation, scope guards, status/preflight tooling, reference review, LOD strategy, benchmark protocol, two-Codex workflow, and review prompt records for the PBL7 high-detail Chuo city foundation. P7-0 is docs/tools/prompts only and must not change Unity gameplay, scenes, assets, ProjectSettings, Packages, PLATEAU imports, or Assets/Data.
+
+Overall verdict:
+
+Pending review.
+
+### P7 Risks To Review
+
+| ID | Priority | Status | Target | Issue | Required Review |
+|---|---|---|---|---|---|
+| P70-R01 | High | Open | Asset strategy / future P7-A | High LOD asset size may make broad Chuo import impractical. | Confirm P7-A inventory and P7-B benchmark are required before full import. |
+| P70-R02 | High | Open | Full Chuo import planning | Full Chuo import can create oversized scenes/assets and unstable Editor performance. | Confirm P7-0 blocks full import until benchmark evidence exists. |
+| P70-R03 | High | Open | Dependencies / `Packages/` | Streaming or profiling candidates could require package additions. | Confirm all optional dependencies remain reference-only unless approved. |
+| P70-R04 | High | Open | `ProjectSettings/` | Render pipeline, quality, occlusion, batching, or player settings could affect the whole project. | Confirm ProjectSettings remain untouched in P7-0 and future changes need decisions. |
+| P70-R05 | High | Open | Windows EXE performance | Editor performance may not match Windows x64 EXE behavior. | Confirm P7 benchmark protocol separates Editor and Windows EXE metrics. |
+| P70-R06 | Medium | Open | LOD strategy | LOD popping may harm presentation quality. | Confirm P7 requires visual checks and benchmark records before LOD rollout. |
+| P70-R07 | Medium | Open | Collision strategy | High-detail visual geometry can create excessive collision overhead. | Confirm default policy avoids broad MeshCollider use and separates gameplay collision. |
+| P70-R08 | Medium | Open | Materials/textures | Texture/material explosion can increase memory, draw calls, and build size. | Confirm material and texture counts are required benchmark metrics. |
+| P70-R09 | Medium | Open | Underground/bridge data | Underground, bridge, and road data availability may be uncertain in local PLATEAU data. | Confirm P7-A inventory records category and LOD availability before promises. |
+| P70-R10 | High | Open | Phase boundaries | P8/P9 scope creep could add hazard, light curtain, inundation depth, or indoor evacuation work to P7. | Confirm boundaries docs and guard warnings are clear. |
+| P70-R11 | Medium | Open | Automation workflow | Manual-only process risks missed protected-path or large-file changes. | Confirm preflight and status report scripts work and are documented. |
+| P70-R12 | Medium | Open | Two-Codex workflow | Parallel Codex work can cause merge conflicts in shared docs or protected files. | Confirm file ownership and integration rules are documented. |
+
+Decision:
+
+Pending DeepSeek review after P7-0 preflight.
+
+---
+
+## P7-A Asset Inventory And LOD / Area Selection
+
+Source report:
+
+Pending DeepSeek review using `deepseek_review_prompt_p7a_asset.md`.
+
+Context:
+
+P7-A adds command-line-first asset inventory scripts and Markdown reports. The scanner is read-only, runs without Unity, records file metadata, and labels LOD/category findings as path/name-based inference only.
+
+Overall verdict:
+
+Pending review.
+
+### P7-A Risks To Review
+
+| ID | Priority | Status | Target | Issue | Required Review |
+|---|---|---|---|---|---|
+| P7A-R01 | High | Open | `tools/p7/scan_p7_assets.ps1` | Scanner must remain read-only and must not import, move, delete, or rewrite Unity or PLATEAU assets. | Confirm scanner uses file metadata reads only. |
+| P7A-R02 | High | Open | Reports | LOD findings are path/name-based and may miss actual CityGML content details. | Confirm reports clearly say geometry quality and actual LOD contents are unverified. |
+| P7A-R03 | High | Open | Git diff / protected paths | P7-A must not change scenes, gameplay scripts, `Assets/Data`, `Packages`, `ProjectSettings`, or existing PLATEAU imports. | Confirm protected paths are untouched after inventory and preflight. |
+| P7A-R04 | Medium | Open | Benchmark candidates | Candidate folders/categories are not final benchmark selections. | Confirm docs defer final area choice to P7-B planning and human review. |
+| P7A-R05 | Medium | Open | External PLATEAU source scan | Large local source files can make broad import risky. | Confirm large-file summary is used to narrow future benchmark area size. |
+| P7A-R06 | Medium | Open | `tools/p7/run_p7_asset_inventory.ps1` | Orchestration must fail non-zero if scan, report writing, or P7 preflight fails. | Confirm exit-code handling is strict enough for command-line use. |
+
+Decision:
+
+Pending DeepSeek review after P7-A inventory and preflight pass.
+
+---
+
 ## P6-E Final Closeout Review
 
 Source report:
@@ -711,4 +1034,28 @@ Reason:
 - Unity Play testing confirmed the first playable loop works.
 - The remaining issues are maintainability or future cleanup items.
 - The prototype should be committed now as a stable milestone.
+
+---
+
+### P7-C Continuation Backlog
+
+| ID | Priority | Status | Target | Issue | Required Follow-Up |
+|---|---|---|---|---|---|
+| P7C-B01 | Medium | Deferred to P7-D/import step | `Assets/Scenes/P7HighDetail/P7_HighDetail_Chuo.unity` | High-detail scene shell exists before actual PLATEAU assets are verified as renderable. | Complete or validate PLATEAU SDK import before final Windows EXE profiling. |
+| P7C-B02 | Medium | Deferred | PLATEAU import workflow | Bridge, road, underground, water, terrain, vegetation, city furniture, disaster risk, land use, and urban planning decision layers remain target settings until scene evidence exists. | Run SDK import checklist and read-only LOD readiness validator. |
+| P7C-B03 | Medium | Deferred to P7-D | Profiling | Unity Profiler, Memory Profiler, Frame Debugger, and Windows EXE evidence are still required for authoritative diagnosis. | Capture P7-D profiler evidence against the populated high-detail scene. |
+| P7C-B04 | Medium | Deferred to P7-D | P2-P6 compatibility | Compatibility is prepared through markers/docs/tools, but full runtime smoke testing needs actual high-detail assets. | Run player, camera, GameManager, shelter, result panel, P5 loader, P6 guidance, and P6 NPC smoke checks. |
+| P7C-B05 | Medium | Deferred to P10/release | Asset persistence | Large city assets and final EXE packages should not be blindly committed to normal Git history. | Archive final assets and EXE to cloud drive/release package or approved LFS strategy before VM deletion. |
+
+---
+
+### P7-D Practical Baseline Follow-Ups
+
+| ID | Priority | Status | Target | Issue | Required Follow-Up |
+|---|---|---|---|---|---|
+| P7D-B01 | Medium | Deferred to P8/P9 | LOD coverage | Manual import produced LOD0-LOD2 only; average LOD3 is false. This is an accepted limitation, not a P8/P9 blocker. | Revisit PLATEAU SDK settings/source availability only if P8/P9 require LOD3 geometry. |
+| P7D-B02 | Medium | Deferred to P8 | Missing categories | Water, relief/terrain, disaster risk, land use, urban planning, vegetation, and city furniture are missing from converted scene evidence. This is an accepted limitation. | Use data-layer/proxy/rule-based substitutes or targeted follow-up import before hazard/terrain-dependent final claims. |
+| P7D-B03 | Medium | Deferred to P8 first task | Windows EXE profiling | Renderable scene exists, but Windows EXE profiling was prepared/not run. P8 may start; P10 release still needs profiling. | Run Windows x64 profiling before adding expensive P8/P9 systems and before final release packaging. |
+| P7D-B04 | Medium | Deferred to P8/P9 | P2-P6 runtime smoke | Source compatibility is accepted for handoff; populated-scene runtime smoke is pending. | Smoke player, camera, shelter, result panel, P5 loaders, P6 guidance, and P6 NPC staging on `P7_HighDetail_Chuo`. |
+| P7D-B05 | Medium | Deferred to release/archive | Asset archive | The imported scene is 22.55 GB and local-only unless archived outside normal Git. | Archive required assets and final EXE to cloud drive before VM deletion. |
 
