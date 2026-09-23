@@ -1,0 +1,22 @@
+{
+  "schemaVersion": "p9b.weighted_spawn_config.v1",
+  "scenarioPresetId": "p9b_new_map_runtime_prototype",
+  "deterministicSeed": 9402,
+  "spawnCountCap": 24,
+  "spawnCategory": "civilian_runtime_proxy",
+  "excludeAlreadyFloodedZones": true,
+  "rejectUnsafeZeroPositions": true,
+  "allowZeroPositionInDebug": false,
+  "blockedZoneWeightMultiplier": 0.0,
+  "alreadyFloodedZoneWeightMultiplier": 0.0,
+  "weightFactors": {
+    "baseWeight": 1.0,
+    "coastalWaterfrontBias": 2.5,
+    "lowElevationBias": 2.0,
+    "riverCanalAdjacentBias": 1.8,
+    "highInundationExposureBias": 3.0,
+    "undergroundMetroEntranceBias": 1.5,
+    "officeCommercialDenseBias": 1.4
+  },
+  "notes": "P9-B deterministic weighted spawn prototype. Probability is biased toward waterfront, low-elevation, river/canal, high-inundation, underground/metro, and dense activity zones. It is not uncontrolled random placement and has no player success/failure effect."
+}

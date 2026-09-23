@@ -11,6 +11,8 @@ Expected P9-B work:
 - temporary-scene and new-map smoke coverage,
 - no final failure unless separately approved.
 
+P9-B implementation should consume the P8-E handoff package when present, including semantic binding v1, 110 non-official humanitarian high-rise candidate marker records, P2-P6 adaptation matrix, route/candidate geometry handoff, and risk-front progression configuration. It should remain runtime/proxy-only and leave final failure, congestion, and life-first selectable target decisions to P9-C.
+
 ## P9-C
 
 P9-C will implement final failure/congestion/vertical evacuation proxy gameplay after P8-D/E handoff fields are available.

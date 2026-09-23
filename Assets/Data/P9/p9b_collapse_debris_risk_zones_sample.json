@@ -1,0 +1,52 @@
+{
+  "schemaVersion": "p9b.collapse_debris_risk_zones.sample.v1",
+  "sourceMode": "rule_based",
+  "notes": "P9-B collapse/debris proxy zones are visual/data markers only. They expose deterministic exposure hooks for later P9-C but cannot kill the player or mutate outcomes.",
+  "zones": [
+    {
+      "zoneId": "p9b_collapse_proxy_tower_edge_001",
+      "displayName": "Tower-edge debris proxy 001",
+      "position": { "x": 30.0, "y": 0.0, "z": 40.0 },
+      "radiusMeters": 6.0,
+      "riskLevel": 3,
+      "exposureProbability": 0.25,
+      "deterministicSeed": 9601,
+      "hazardSourceMode": "p8_proxy",
+      "warningOnly": true,
+      "affectsGameplaySuccessFailure": false,
+      "canKillPlayer": false,
+      "noPhysicsCollapse": true,
+      "notes": "Marker-only collapse/debris proxy. Future failure logic belongs to P9-C."
+    },
+    {
+      "zoneId": "p9b_collapse_proxy_low_floor_warning_002",
+      "displayName": "Low-floor/debris proxy 002",
+      "position": { "x": -20.0, "y": 0.0, "z": 30.0 },
+      "radiusMeters": 5.0,
+      "riskLevel": 2,
+      "exposureProbability": 0.15,
+      "deterministicSeed": 9602,
+      "hazardSourceMode": "p8_proxy",
+      "warningOnly": true,
+      "affectsGameplaySuccessFailure": false,
+      "canKillPlayer": false,
+      "noPhysicsCollapse": true,
+      "notes": "Visual/status hook only."
+    },
+    {
+      "zoneId": "p9b_collapse_proxy_manual_review_003",
+      "displayName": "Manual-review debris proxy 003",
+      "position": { "x": 5.0, "y": 0.0, "z": -30.0 },
+      "radiusMeters": 4.0,
+      "riskLevel": 1,
+      "exposureProbability": 0.05,
+      "deterministicSeed": 9603,
+      "hazardSourceMode": "manual_sample",
+      "warningOnly": true,
+      "affectsGameplaySuccessFailure": false,
+      "canKillPlayer": false,
+      "noPhysicsCollapse": true,
+      "notes": "Manual-review proxy only."
+    }
+  ]
+}

@@ -21,6 +21,10 @@ Scope:
 
 - Integrate P9 scaffold with the new-map baseline after the P8 handoff is stable enough.
 - Prototype spawn/crowd runtime behavior without changing final success/failure rules unless explicitly approved.
+- Consume P8-E semantic binding, humanitarian candidate marker, P2-P6 adaptation, route/candidate geometry, and risk-front handoff data where available.
+- Prepare runtime marker/proxy support for weighted spawn, entrance/safe-floor, humanitarian high-rise candidates, collapse/debris zones, and estimated route guidance without mutating the high-detail scene.
+- Keep humanitarian candidates non-official and warning-required.
+- Keep P5 routes as estimated prototype guidance, not official evacuation routes.
 
 ## P9-C
 

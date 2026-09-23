@@ -5,11 +5,15 @@ public static class P9RuntimePolicy
 {
     public const bool AffectsGameplaySuccessFailure = false;
     public const bool CanCausePlayerFailureInP9A = false;
+    public const bool CanCausePlayerFailureInP9B = false;
     public const bool ImplementsFinalFailureGameplay = false;
     public const bool ImplementsIndoorSceneGameplay = false;
     public const bool RequiresChuoBaseMap = false;
     public const bool RequiresP7HighDetailScene = false;
     public const bool RequiresP8DEFinalHandoff = false;
+    public const bool ClaimsOfficialRoutes = false;
+    public const bool ClaimsOfficialHumanitarianCandidateShelters = false;
+    public const bool P9BRuntimePrototypeOnly = true;
 }
 
 public enum P9VerticalEvacuationStatus

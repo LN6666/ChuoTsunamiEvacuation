@@ -1,0 +1,59 @@
+{
+  "schemaVersion": "p9b.entrance_marker_assignments.sample.v1",
+  "sourceMode": "rule_based",
+  "notes": "P9-B entrance/safe-floor proxy assignments. External markers only; no real indoor scene and no final outcome mutation.",
+  "proxies": [
+    {
+      "proxyId": "p9b_proxy_official_shelter_runtime_sample",
+      "relatedShelterId": "p5_official_proxy_sample",
+      "relatedCandidateId": "",
+      "entrancePosition": { "x": 24.0, "y": 0.0, "z": 18.0 },
+      "safeFloorLabel": "3F+ proxy",
+      "verticalEvacuationStatus": "available",
+      "isOfficialShelter": true,
+      "humanitarianCandidateFlag": false,
+      "nonOfficialWarningRequired": false,
+      "interactionMode": "entrance_marker",
+      "notes": "Official shelter-compatible proxy marker. P9-B does not alter final success/failure."
+    },
+    {
+      "proxyId": "p9b_proxy_humanitarian_candidate_001",
+      "relatedShelterId": "",
+      "relatedCandidateId": "p8_plateau_highrise_candidate_001",
+      "entrancePosition": { "x": -12.0, "y": 0.0, "z": 22.0 },
+      "safeFloorLabel": "upper-floor proxy only",
+      "verticalEvacuationStatus": "warning",
+      "isOfficialShelter": false,
+      "humanitarianCandidateFlag": true,
+      "nonOfficialWarningRequired": true,
+      "interactionMode": "safe_floor_status",
+      "notes": "Non-official humanitarian candidate proxy. Warning required and not selectable as final target in P9-B."
+    },
+    {
+      "proxyId": "p9b_proxy_humanitarian_unknown_status",
+      "relatedShelterId": "",
+      "relatedCandidateId": "p8_plateau_highrise_candidate_085",
+      "entrancePosition": { "x": -28.0, "y": 0.0, "z": 34.0 },
+      "safeFloorLabel": "unknown safe-floor proxy",
+      "verticalEvacuationStatus": "unknown",
+      "isOfficialShelter": false,
+      "humanitarianCandidateFlag": true,
+      "nonOfficialWarningRequired": true,
+      "interactionMode": "safe_floor_status",
+      "notes": "ID-only non-official humanitarian candidate marker."
+    },
+    {
+      "proxyId": "p9b_proxy_entrance_blocked_visual_only",
+      "relatedShelterId": "",
+      "relatedCandidateId": "p8_plateau_highrise_candidate_028",
+      "entrancePosition": { "x": 36.0, "y": 0.0, "z": -8.0 },
+      "safeFloorLabel": "blocked proxy visual only",
+      "verticalEvacuationStatus": "blocked_proxy",
+      "isOfficialShelter": false,
+      "humanitarianCandidateFlag": true,
+      "nonOfficialWarningRequired": true,
+      "interactionMode": "entrance_marker",
+      "notes": "Blocked proxy state for future P9-C. P9-B marker only; no player outcome mutation."
+    }
+  ]
+}
