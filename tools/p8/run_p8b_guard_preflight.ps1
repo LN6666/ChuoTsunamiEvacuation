@@ -68,14 +68,20 @@ function Test-PathStartsWith {
 function Test-AllowedP8BPath {
     param([string]$Path)
 
-    if ($Path -like "docs/P8B_*.md") { return $true }
-    if ($Path -like "docs/P8C_*.md") { return $true }
+    if ($Path -like "docs/P8*.md") { return $true }
+    if ($Path -eq "docs/TASKS.md") { return $true }
+    if ($Path -eq "docs/REVIEW_BACKLOG.md") { return $true }
     if ($Path -like "tools/p8/*p8b*.ps1") { return $true }
     if ($Path -like "tools/p8/*p8b*.py") { return $true }
     if ($Path -like "tools/p8/*p8c*.ps1") { return $true }
+    if ($Path -like "tools/p8/*p8d*.ps1") { return $true }
+    if ($Path -like "tools/p8/*p8e*.ps1") { return $true }
+    if ($Path -eq "tools/p8/run_p8_final_preflight.ps1") { return $true }
+    if ($Path -like "tools/p8/*humanitarian_candidate_audit*.ps1") { return $true }
     if ($Path -eq "tools/p8/validate_p8_hazard_json.ps1") { return $true }
     if ($Path -eq "tools/p8/inspect_p8a_scene_compatibility.ps1") { return $true }
     if ($Path -eq "tools/p8/run_p8a_preflight.ps1") { return $true }
+    if ($Path -eq "tools/p8/run_p8a_compat_preflight.ps1") { return $true }
     if (Test-PathStartsWith $Path "Assets/Scripts/P8/") { return $true }
     if (Test-PathStartsWith $Path "Assets/Tests/EditMode/P8/") { return $true }
     if (Test-PathStartsWith $Path "Assets/Tests/PlayMode/P8/") { return $true }
@@ -88,6 +94,8 @@ function Test-AllowedP8BPath {
     if ($Path -eq "deepseek_review_prompt_p8b_spatial_extraction_gate.md") { return $true }
     if ($Path -eq "codex_prompts/p8c_infrastructure_hazard_interaction.md") { return $true }
     if ($Path -eq "deepseek_review_prompt_p8c.md") { return $true }
+    if ($Path -like "codex_prompts/p8*.md") { return $true }
+    if ($Path -like "deepseek_review_prompt_p8*.md") { return $true }
     return $false
 }
 
@@ -182,13 +190,13 @@ function Assert-P8StageCount {
     $stageText = Get-Content -LiteralPath (Join-Path $repoRoot "docs\P8_STAGE_PLAN.md")
     $stages = @(
         $stageText |
-            Where-Object { $_ -match "^##\s+(P8-[A-D])\s*$" } |
+            Where-Object { $_ -match "^##\s+(P8-[A-E])\s*$" } |
             ForEach-Object { $Matches[1] }
     )
 
-    $expected = @("P8-A", "P8-B", "P8-C", "P8-D")
-    if ($stages.Count -ne 4) {
-        throw "P8_STAGE_PLAN must define exactly four P8 stage headings; found $($stages.Count)."
+    $expected = @("P8-A", "P8-B", "P8-C", "P8-D", "P8-E")
+    if ($stages.Count -ne 5) {
+        throw "P8_STAGE_PLAN must define exactly five P8 stage headings; found $($stages.Count)."
     }
 
     foreach ($stage in $expected) {

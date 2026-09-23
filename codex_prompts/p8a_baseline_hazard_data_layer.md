@@ -30,12 +30,13 @@ P8-A must not implement the dynamic light curtain, hazard interaction, collapse 
 
 ## P8 Stage Count
 
-P8 has exactly four stages:
+P8 has exactly five stages:
 
 - P8-A: Baseline handoff + P2-P6 compatibility gate + hazard data layer.
-- P8-B: Dynamic tsunami light curtain / risk front visualization.
-- P8-C: Road/building/bridge/underground hazard interaction.
-- P8-D: Infrastructure hazard interaction + lightweight collapse proxy + closeout.
+- P8-B: Official/evidence tsunami hazard layer v1 + dynamic risk front.
+- P8-C: P2-P6 new-map smoke/proxy adaptation + infrastructure hazard states.
+- P8-D: Infrastructure damage/blockage/lightweight collapse proxy.
+- P8-E: Final P8 closeout and pre-P9 handoff verification.
 
 No extra P8 stages are allowed.
 

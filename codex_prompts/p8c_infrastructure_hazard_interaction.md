@@ -32,6 +32,8 @@ Required infrastructure categories:
 - open_space
 - shelter_proxy
 - navigation_target_proxy
+- humanitarian_candidate_proxy
+- highrise_candidate_marker
 
 Required states:
 
@@ -58,7 +60,8 @@ Required exclusions:
 - `visualHeightMeters` must remain cinematic only
 - no full real-time fluid simulation
 - no official route/hazard claims beyond evidence
-- no P8-E/F/G stages
+- exactly five P8 stages: P8-A through P8-E only
+- no P8-0/F/G stages
 
 Required validation:
 

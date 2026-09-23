@@ -36,7 +36,11 @@ public class P8SceneCompatibilityPlayModeTests
     {
         yield return null;
 
-        Assert.IsTrue(P8SceneCompatibilityReport.HasExactlyFourP8Stages());
+        Assert.IsTrue(P8SceneCompatibilityReport.HasExactlyFiveP8Stages());
+        Assert.IsTrue(P8SceneCompatibilityReport.IsP8StageAllowed("P8-E"));
+        Assert.IsFalse(P8SceneCompatibilityReport.IsP8StageAllowed("P8-0"));
+        Assert.IsTrue(P8SceneCompatibilityReport.IsForbiddenP8Stage("P8-F"));
+        Assert.IsFalse(P8SceneCompatibilityReport.IsP8StageAllowed("P8-Z"));
         Assert.IsFalse(P8SceneCompatibilityReport.ImplementsP8BRiskFrontVisualization);
         Assert.IsFalse(P8SceneCompatibilityReport.ImplementsP8CHazardInteractions);
         Assert.IsFalse(P8SceneCompatibilityReport.ImplementsP8DCollapseProxy);

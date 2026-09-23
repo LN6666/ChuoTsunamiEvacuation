@@ -26,6 +26,24 @@ P10-A validation:
 - Run `powershell -ExecutionPolicy Bypass -File tools/p10/run_p10a_preflight.ps1`.
 - Run Unity GUI EditMode and PlayMode tests.
 - Run DeepSeek with `deepseek_review_prompt_p10a.md`.
+## Phase 8: Tsunami Hazard, Risk Front, and Infrastructure Foundation
+
+Status: P8-B/C consolidation gate is in progress on `p8-tsunami-hazard-risk-front-foundation`. P8 now has exactly five stages: P8-A, P8-B, P8-C, P8-D, and P8-E. Do not create P8-0, P8-F, or P8-G.
+
+Stage allocation:
+
+- P8-A: baseline handoff, P2-P6 compatibility gate, and hazard data foundation.
+- P8-B: official/evidence tsunami hazard layer v1 plus dynamic risk-front / cinematic light curtain.
+- P8-C: P2-P6 new-map smoke/proxy adaptation and hazard/risk-front-driven infrastructure hazard states.
+- P8-D: future infrastructure damage, blockage, and lightweight collapse proxy only.
+- P8-E: final P8 closeout, humanitarian candidate persistent visibility/handoff, and pre-P9 verification.
+
+Current gate:
+
+- P8-B Problem 1 is consolidated using Tokyo Metropolitan Government tsunami damage-estimation spatial CSVs clipped to Chuo, not generic flood proxy data.
+- P8-C Problem 2 and Problem 3 are consolidated at smoke/proxy level.
+- Humanitarian/high-rise candidate source data currently found is the controlled P5-F/P5-GH sample; it must remain non-official and requires user review before P8-D.
+- P9 should focus on final real gameplay landing, not repairing missing P8 hazard/front/infrastructure foundation work.
 
 ## Phase 7: High-Detail Chuo Asset Loading, LOD, Streaming, and Windows EXE Optimization
 

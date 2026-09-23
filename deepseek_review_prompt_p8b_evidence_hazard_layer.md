@@ -24,7 +24,7 @@ Give a final verdict: blocked, safe to commit, or safe to commit with B/C follow
 
 ## Must Check
 
-- P8 has exactly four stages: P8-A, P8-B, P8-C, and P8-D.
+- P8 has exactly five stages: P8-A, P8-B, P8-C, P8-D, and P8-E.
 - Tokyo Metropolitan Government tsunami damage estimation is prioritized as the primary Chuo evidence candidate.
 - Chuo standalone tsunami-map absence is not mistaken for evidence absence.
 - Required source registry entries exist:

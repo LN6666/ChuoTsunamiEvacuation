@@ -35,13 +35,14 @@ Harden the P8-B dynamic risk front implementation before/alongside visual implem
 - P8-C handoff readiness.
 
 P8 stage count:
-P8 has exactly four stages:
+P8 has exactly five stages:
 - P8-A
 - P8-B
 - P8-C
 - P8-D
+- P8-E
 
-Do not create P8-0, P8-E, P8-F, P8-G.
+Do not create P8-0, P8-F, P8-G.
 
 Strict scope:
 - Do not modify P7_HighDetail_Chuo.

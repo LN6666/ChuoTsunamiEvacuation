@@ -24,7 +24,7 @@ Give a final verdict: blocked, safe to commit, or safe to commit with B/C follow
 
 ## Must Check
 
-- P8 has exactly four stages: P8-A, P8-B, P8-C, and P8-D.
+- P8 has exactly five stages: P8-A, P8-B, P8-C, P8-D, and P8-E.
 - P8BGuard integration remains complete and guard outputs are preserved.
 - The risk front is hazard-layer-driven v1, not purely sample animation.
 - `arrivalTimeSeconds`, `inundationBoundary`, `inundationDepthMeters`, and `hazardIntensity` drive behavior where data is available.

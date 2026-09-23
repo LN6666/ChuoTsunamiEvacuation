@@ -61,6 +61,8 @@ public class P8InfrastructureHazardInteractionConfig
     public string openSpaceInteractionMode = string.Empty;
     public string shelterProxyInteractionMode = string.Empty;
     public string navigationTargetProxyInteractionMode = string.Empty;
+    public string humanitarianCandidateProxyInteractionMode = string.Empty;
+    public string highriseCandidateMarkerInteractionMode = string.Empty;
     public string p8cInteractionDriver = string.Empty;
     public string p8cRuntimeAdaptationMode = string.Empty;
     public bool collapseProxyEnabledInP8A;

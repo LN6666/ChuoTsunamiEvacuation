@@ -15,17 +15,44 @@ public static class P8SceneCompatibilityReport
 
     public static string[] GetP8Stages()
     {
-        return new[] { "P8-A", "P8-B", "P8-C", "P8-D" };
+        return new[] { "P8-A", "P8-B", "P8-C", "P8-D", "P8-E" };
     }
 
-    public static bool HasExactlyFourP8Stages()
+    public static bool HasExactlyFiveP8Stages()
     {
         string[] stages = GetP8Stages();
-        return stages.Length == 4 &&
+        return stages.Length == 5 &&
                stages[0] == "P8-A" &&
                stages[1] == "P8-B" &&
                stages[2] == "P8-C" &&
-               stages[3] == "P8-D";
+               stages[3] == "P8-D" &&
+               stages[4] == "P8-E";
+    }
+
+    public static bool IsForbiddenP8Stage(string stage)
+    {
+        return string.Equals(stage, "P8-0", StringComparison.OrdinalIgnoreCase) ||
+               string.Equals(stage, "P8-F", StringComparison.OrdinalIgnoreCase) ||
+               string.Equals(stage, "P8-G", StringComparison.OrdinalIgnoreCase);
+    }
+
+    public static bool IsP8StageAllowed(string stage)
+    {
+        if (string.IsNullOrWhiteSpace(stage))
+        {
+            return false;
+        }
+
+        string[] allowedStages = GetP8Stages();
+        for (int i = 0; i < allowedStages.Length; i++)
+        {
+            if (string.Equals(allowedStages[i], stage, StringComparison.OrdinalIgnoreCase))
+            {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     public static bool IsHighDetailBaselinePath(string scenePath)

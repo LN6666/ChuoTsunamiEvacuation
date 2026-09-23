@@ -17,7 +17,7 @@ Review only the changed files. Prioritize A-level blockers: compile risk, runtim
 
 ## Required Semantics Checks
 
-- Confirm P8 still has exactly four stages: P8-A, P8-B, P8-C, and P8-D.
+- Confirm P8 still has exactly five stages: P8-A, P8-B, P8-C, P8-D, and P8-E.
 - Confirm evidence source categories include official tsunami/inundation maps, Tokyo/Chuo hazard maps, Cabinet Office / MLIT / local government data, academic tsunami simulation papers, PLATEAU / CityGML category sources, OSM or route context with attribution handling, and manual sample data.
 - Confirm no official values are falsely claimed.
 - Confirm manual sample data is clearly marked as non-authoritative.

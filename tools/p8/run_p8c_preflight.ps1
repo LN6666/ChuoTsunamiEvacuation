@@ -104,10 +104,10 @@ function Assert-P8StageCount {
             ForEach-Object { $Matches[1] }
     )
 
-    $expected = @("P8-A", "P8-B", "P8-C", "P8-D")
+    $expected = @("P8-A", "P8-B", "P8-C", "P8-D", "P8-E")
     $unexpected = @($stages | Where-Object { $expected -notcontains $_ })
-    if ($stages.Count -ne 4 -or $unexpected.Count -gt 0) {
-        throw "P8 must have exactly four stages: P8-A, P8-B, P8-C, P8-D. Found: $($stages -join ', ')"
+    if ($stages.Count -ne 5 -or $unexpected.Count -gt 0) {
+        throw "P8 must have exactly five stages: P8-A, P8-B, P8-C, P8-D, P8-E. Found: $($stages -join ', ')"
     }
 }
 
@@ -115,11 +115,11 @@ function Assert-NoExtraP8Stages {
     $files = @(
         Get-GitLines @("-C", $repoRoot, "ls-files") |
             ForEach-Object { Normalize-RepoPath $_ } |
-            Where-Object { $_ -match "(^|[\\/_.-])p8[-_]?[efg]($|[\\/_.-])" }
+            Where-Object { $_ -match "(^|[\\/_.-])p8[-_]?(0|f|g)($|[\\/_.-])" }
     )
 
     if ($files.Count -gt 0) {
-        throw "Unexpected P8-E/F/G artifact path detected: $($files -join '; ')"
+        throw "Unexpected P8-0/F/G artifact path detected: $($files -join '; ')"
     }
 }
 
@@ -149,21 +149,33 @@ function Test-AllowedP8CPath {
     param([string]$Path)
 
     if ($Path -eq $baselineScene) { return $true }
-    if ($Path -like "docs/P8C_*.md") { return $true }
+    if ($Path -like "docs/P8*.md") { return $true }
+    if ($Path -eq "docs/TASKS.md") { return $true }
+    if ($Path -eq "docs/REVIEW_BACKLOG.md") { return $true }
     if ($Path -eq "docs/P8_STAGE_PLAN.md") { return $true }
+    if ($Path -like "tools/p8/*p8bc*.ps1") { return $true }
     if ($Path -like "tools/p8/*p8c*.ps1") { return $true }
+    if ($Path -like "tools/p8/*p8d*.ps1") { return $true }
+    if ($Path -like "tools/p8/*p8e*.ps1") { return $true }
+    if ($Path -eq "tools/p8/run_p8_final_preflight.ps1") { return $true }
     if ($Path -eq "tools/p8/inspect_p8a_scene_compatibility.ps1") { return $true }
     if ($Path -eq "tools/p8/run_p8a_preflight.ps1") { return $true }
+    if ($Path -eq "tools/p8/run_p8a_compat_preflight.ps1") { return $true }
+    if ($Path -eq "tools/p8/run_p8b_evidence_preflight.ps1") { return $true }
     if ($Path -eq "tools/p8/run_p8b_guard_preflight.ps1") { return $true }
     if ($Path -eq "tools/p8/run_p8b_riskfront_preflight.ps1") { return $true }
     if ($Path -eq "tools/p8/run_p8b_front_v1_preflight.ps1") { return $true }
     if ($Path -eq "tools/p8/run_p8b_evidence_spatial_gate.ps1") { return $true }
+    if ($Path -eq "tools/p8/build_p8_humanitarian_candidate_audit.py") { return $true }
+    if ($Path -eq "tools/p8/run_p8_humanitarian_candidate_audit_preflight.ps1") { return $true }
     if (Test-PathStartsWith $Path "Assets/Scripts/P8/") { return $true }
     if (Test-PathStartsWith $Path "Assets/Tests/EditMode/P8/") { return $true }
     if (Test-PathStartsWith $Path "Assets/Tests/PlayMode/P8/") { return $true }
     if (Test-PathStartsWith $Path "Assets/Data/P8/") { return $true }
     if ($Path -eq "codex_prompts/p8c_infrastructure_hazard_interaction.md") { return $true }
     if ($Path -eq "deepseek_review_prompt_p8c.md") { return $true }
+    if ($Path -like "codex_prompts/p8*.md") { return $true }
+    if ($Path -like "deepseek_review_prompt_p8*.md") { return $true }
     return $false
 }
 
@@ -249,7 +261,9 @@ function Assert-CodeAndDataRules {
         "Waterfront",
         "OpenSpace",
         "ShelterProxy",
-        "NavigationTargetProxy"
+        "NavigationTargetProxy",
+        "HumanitarianCandidateProxy",
+        "HighriseCandidateMarker"
     )
 
     Assert-FileContains "Assets/Scripts/P8/P8InfrastructureHazardState.cs" @(

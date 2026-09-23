@@ -7,8 +7,8 @@ Review the dynamic tsunami risk front / cinematic light curtain visualization im
 
 Project stage rules:
 
-- P8 has exactly four stages: P8-A, P8-B, P8-C, and P8-D.
-- Do not allow P8-0, P8-E, P8-F, or P8-G.
+- P8 has exactly five stages: P8-A, P8-B, P8-C, P8-D, and P8-E.
+- Do not allow P8-0, P8-F, or P8-G.
 - P8-B may implement dynamic visual risk-front / cinematic light curtain rendering.
 - P8-B must not implement P8-C infrastructure hazard interaction.
 - P8-B must not implement P8-D collapse proxy behavior.
@@ -24,7 +24,7 @@ Protected paths:
 
 Review checks:
 
-1. Confirm P8 has exactly four stages.
+1. Confirm P8 has exactly five stages.
 2. Confirm no P8-C/P8-D/P9/P10 implementation was added.
 3. Confirm `Chuo_BaseMap.unity` is untouched.
 4. Confirm ProjectSettings/Packages are clean.

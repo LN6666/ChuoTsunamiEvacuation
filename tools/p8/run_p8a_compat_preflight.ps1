@@ -64,7 +64,7 @@ function Assert-ProtectedDirtyState {
 
 function Assert-CompatibilityDocs {
     Assert-FileContains "docs/P8A_SCENE_COMPATIBILITY_GATE.md" @(
-        "P8 has exactly four stages",
+        "P8 has exactly five stages",
         "P7_HighDetail_Chuo.unity",
         "Chuo_BaseMap.unity",
         "does not change gameplay success/failure rules"
@@ -95,13 +95,13 @@ function Assert-PromptTraceability {
     Assert-FileContains "codex_prompts/p8a_scene_compatibility_gate.md" @(
         "P8-A Scene Compatibility Gate for P2-P6 on P7_HighDetail_Chuo",
         "Do not reset, checkout, or overwrite",
-        "P8 has exactly four stages"
+        "P8 has exactly five stages"
     )
 
     Assert-FileContains "deepseek_review_prompt_p8a_compat.md" @(
         "P7_HighDetail",
         "Chuo_BaseMap",
-        "P8 still has exactly four stages",
+        "P8 still has exactly five stages",
         "A-Level Blockers"
     )
 }

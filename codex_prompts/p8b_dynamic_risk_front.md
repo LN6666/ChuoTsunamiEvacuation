@@ -18,8 +18,8 @@ Critical constraints:
 - Do not reset, checkout, overwrite, delete, clean, or stage the high-detail scene unless explicitly instructed.
 - Do not modify `Chuo_BaseMap.unity`.
 - Do not modify ProjectSettings, Packages, PLATEAU assets, or data outside `Assets/Data/P8`.
-- P8 has exactly four stages: P8-A, P8-B, P8-C, P8-D.
-- Do not create P8-0, P8-E, P8-F, or P8-G.
+- P8 has exactly five stages: P8-A, P8-B, P8-C, P8-D, P8-E.
+- Do not create P8-0, P8-F, or P8-G.
 - Do not implement P8-C, P8-D, P9, or P10 systems.
 - Do not change P2-P6 gameplay success/failure rules.
 - Do not make official tsunami route/hazard claims.

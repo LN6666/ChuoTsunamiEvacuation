@@ -18,11 +18,31 @@ public class P8SceneCompatibilityGateTests
     public void CompatibilityReportDefinesHighDetailBaselineWithoutLoadingBaseMap()
     {
         Assert.AreEqual("P8-A", P8SceneCompatibilityReport.Stage);
-        Assert.IsTrue(P8SceneCompatibilityReport.HasExactlyFourP8Stages());
+        Assert.IsTrue(P8SceneCompatibilityReport.HasExactlyFiveP8Stages());
         Assert.IsTrue(P8SceneCompatibilityReport.IsHighDetailBaselinePath(P8SceneCompatibilityReport.BaselineScenePath));
         Assert.IsFalse(P8SceneCompatibilityReport.UsesChuoBaseMapAsBaseline);
         Assert.IsFalse(P8SceneCompatibilityReport.BaselineScenePath.Contains("Chuo_BaseMap"));
         Assert.AreEqual("Assets/Scenes/Chuo_BaseMap.unity", P8SceneCompatibilityReport.GetLegacyFallbackScenePath());
+    }
+
+    [Test]
+    public void P8StageCountAllowsP8EAndForbidsP80P8FAndP8G()
+    {
+        CollectionAssert.AreEqual(
+            new[] { "P8-A", "P8-B", "P8-C", "P8-D", "P8-E" },
+            P8SceneCompatibilityReport.GetP8Stages());
+        Assert.IsTrue(P8SceneCompatibilityReport.IsP8StageAllowed("P8-A"));
+        Assert.IsTrue(P8SceneCompatibilityReport.IsP8StageAllowed("P8-B"));
+        Assert.IsTrue(P8SceneCompatibilityReport.IsP8StageAllowed("P8-C"));
+        Assert.IsTrue(P8SceneCompatibilityReport.IsP8StageAllowed("P8-D"));
+        Assert.IsTrue(P8SceneCompatibilityReport.IsP8StageAllowed("P8-E"));
+        Assert.IsFalse(P8SceneCompatibilityReport.IsP8StageAllowed("P8-0"));
+        Assert.IsFalse(P8SceneCompatibilityReport.IsP8StageAllowed("P8-F"));
+        Assert.IsFalse(P8SceneCompatibilityReport.IsP8StageAllowed("P8-G"));
+        Assert.IsFalse(P8SceneCompatibilityReport.IsP8StageAllowed("P8-Z"));
+        Assert.IsTrue(P8SceneCompatibilityReport.IsForbiddenP8Stage("P8-0"));
+        Assert.IsTrue(P8SceneCompatibilityReport.IsForbiddenP8Stage("P8-F"));
+        Assert.IsTrue(P8SceneCompatibilityReport.IsForbiddenP8Stage("P8-G"));
     }
 
     [Test]
