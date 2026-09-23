@@ -1,0 +1,135 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "chuo-tsunami-evacuation-p9-spawn-point-schema",
+  "title": "P9 Spawn Point Schema",
+  "type": "object",
+  "required": [
+    "schemaVersion",
+    "sourceMode",
+    "spawnPoints"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "type": "string"
+    },
+    "sourceMode": {
+      "enum": [
+        "test",
+        "rule_based",
+        "manual_sample",
+        "p8_handoff"
+      ]
+    },
+    "notes": {
+      "type": "string"
+    },
+    "spawnPoints": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "spawnPointId",
+          "spawnType",
+          "position",
+          "coordinates",
+          "sourceMode",
+          "capacity",
+          "weight",
+          "activeScenarioIds",
+          "deterministicSeed"
+        ],
+        "properties": {
+          "spawnPointId": {
+            "type": "string",
+            "minLength": 1
+          },
+          "spawnType": {
+            "enum": [
+              "player_start",
+              "resident_origin",
+              "office_worker_origin",
+              "station_exit",
+              "underground_exit",
+              "waterfront_origin",
+              "test_origin"
+            ]
+          },
+          "position": {
+            "type": "object",
+            "required": [
+              "x",
+              "y",
+              "z"
+            ],
+            "properties": {
+              "x": {
+                "type": "number"
+              },
+              "y": {
+                "type": "number"
+              },
+              "z": {
+                "type": "number"
+              }
+            },
+            "additionalProperties": false
+          },
+          "coordinates": {
+            "type": "object",
+            "required": [
+              "coordinateSystem"
+            ],
+            "properties": {
+              "coordinateSystem": {
+                "type": "string"
+              },
+              "latitude": {
+                "type": "number"
+              },
+              "longitude": {
+                "type": "number"
+              },
+              "sourceId": {
+                "type": "string"
+              },
+              "areaName": {
+                "type": "string"
+              }
+            },
+            "additionalProperties": false
+          },
+          "sourceMode": {
+            "enum": [
+              "test",
+              "rule_based",
+              "manual_sample",
+              "p8_handoff"
+            ]
+          },
+          "capacity": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "weight": {
+            "type": "number",
+            "minimum": 0
+          },
+          "activeScenarioIds": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "notes": {
+            "type": "string"
+          },
+          "deterministicSeed": {
+            "type": "integer"
+          }
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "additionalProperties": false
+}
