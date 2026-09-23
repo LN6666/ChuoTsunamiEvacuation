@@ -46,6 +46,11 @@ P9 Final Integration + Handoff to P10.
 Scope:
 
 - Stabilize P9 integration, documentation, test coverage, and P10 handoff.
+- Integrate P9-A/B/C into one final scene-safe gameplay validation flow.
+- Add coordinate-based proxy anchoring for candidates, shelters, entrances, route proxies, hazard lookup, and spawn relation where data is available.
+- Document anchoring as coordinate/proxy/nearest-match unless exact PLATEAU Unity object identity is proven.
+- Keep non-official humanitarian candidates warning-required.
+- Keep P5 routes as estimated prototype guidance.
 - Do not implement P10 release packaging in P9.
 
 No additional P9 stages are part of the approved P9 plan.
