@@ -8,6 +8,8 @@ This project is for educational and prototype demonstration use only. It is not 
 - Green frames do not mean official approval or safety certification.
 - Safe-floor, vertical evacuation, crowd, collapse, and debris systems are gameplay proxy systems unless a target is explicitly verified by source data.
 - The gameplay ground cover/support is a gameplay representation, not GIS-grade terrain.
+- The completed build retains numerous localized invisible collision barriers ("invisible walls") that can obstruct movement over small areas. These are known unresolved bugs.
+- The game package is larger than intended. The published v1.0 ZIP is approximately 2.05 GB compressed and needs additional disk space to extract; project completion does not mean the package-size issue has been resolved.
 - Some building visual alignment, material appearance, and labels may remain incomplete.
 - Cached/enriched building labels may be incomplete or imperfect.
 - Runtime does not perform web name lookup. Online name matching is preprocessing-only.
