@@ -1,5 +1,7 @@
 # Chuo Tsunami Evacuation
 
+**English** · [日本語](README.ja.md)
+
 **A tsunami evacuation mini-game prepared for the Chuo University 2026 Open Campus laboratory visit.**
 
 Explore Tokyo's Chuo City in a Unity-based 3D environment, compare shelter choices, and try an evacuation under time pressure. This research and educational demo gives laboratory visitors a hands-on introduction to evacuation decisions, urban risk visualization, and the effect of congestion on reaching shelter.
@@ -115,6 +117,8 @@ These are demonstration and comparison cases, not official disaster-planning sce
 
 **[P11 Final v1.0 — Windows x64](https://github.com/LN6666/ChuoTsunamiEvacuation/releases/tag/p11-final-v1.0)** is available as a portable ZIP (approximately **2.05 GB** compressed).
 
+**Known issues in the completed build:** numerous localized invisible collision barriers (“invisible walls”) remain and can obstruct movement. The game package is also larger than intended; allow for a large download and additional disk space when extracting it. Completion of the project does not mean these issues have been resolved.
+
 1. Download `ChuoTsunamiEvacuation_v1.0.zip` from the release page.
 2. Extract the entire archive to a local folder.
 3. Keep the executable, `ChuoTsunamiEvacuation_Data/`, and bundled runtime files together.
@@ -153,6 +157,8 @@ This is a research-oriented educational prototype, **not an official disaster pr
 - Tsunami visualization and hazard behavior are simplified proxies rather than physical disaster predictions.
 - Shelter entry, safe-floor timing, routes, ground surfaces, and NPC behavior are prototype representations. Candidate buildings are not official shelters.
 - Detailed 3D exteriors do not establish GIS-grade road, terrain, entrance, or indoor accuracy. Labels and visual alignment may be incomplete.
+- Numerous localized invisible walls remain in the city scene and can block movement over small areas.
+- The game package is oversized (approximately 2.05 GB compressed), increasing download and storage requirements.
 
 Read the [known limitations](docs/KNOWN_LIMITATIONS.md) before using the build for a presentation or evaluation.
 
